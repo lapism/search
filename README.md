@@ -13,10 +13,11 @@ Big thank you !
 	}
 ```
 **Check Sample App on Google Play**
-<a href="https://play.google.com/store/apps/details?id=com.ocman.searchviewapp">
+```<a href="https://play.google.com/store/apps/details?id=com.ocman.searchviewapp">
   <img alt="Get it on Google Play"
        src="https://github.com/lapism/SearchView/blob/master/images/google_play.png" />
 </a>
+```
 
 ![Screenshot 1]
 (https://github.com/lapism/SearchView/blob/master/images/image_1.png)    ![Screenshot 2]
