@@ -1,10 +1,6 @@
 # SearchView
 
-Implementation of Persistent SearchView in Google Material Design.
-https://www.google.com/design/spec/patterns/search.html
-
-Library based on Krishnakapil original version. 
-BIG Thank you !
+Implementation of Persistent SearchView in Google Material Design. https://www.google.com/design/spec/patterns/search.html. Library based on Krishnakapil original version. Big thank you !
 
 # Usage
 **Add the dependencies to your gradle file:**
@@ -13,7 +9,7 @@ BIG Thank you !
     	compile 'will be very very soon :-)'
 	}
 ```
-
+**Check Sample App on Google Play**
 <a href="https://play.google.com/store/apps/details?id=com.ocman.searchviewapp">
   <img alt="Get it on Google Play"
        src="https://github.com/lapism/SearchView/blob/master/images/google_play.png" />
