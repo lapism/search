@@ -25,7 +25,7 @@ Big thank you !
 (https://github.com/lapism/SearchView/blob/master/images/image_3.png)    ![Screenshot 4]
 (https://github.com/lapism/SearchView/blob/master/images/image_4.png)    
 
-Add SearchView to your layout file
+**Add SearchView to your layout file:**
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -59,7 +59,7 @@ Add SearchView to your layout file
 </RelativeLayout>
 ```
 
-#Styling SearchViewWidget
+**#Styling SearchViewWidget:**
 ```
   app:search_style="color"
   app:search_style="classic"
