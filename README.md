@@ -1,6 +1,9 @@
 # SearchView
 
-Implementation of Persistent SearchView in Google Material Design. https://www.google.com/design/spec/patterns/search.html. Library based on Krishnakapil original version. Big thank you !
+Implementation of Persistent SearchView in Google Material Design. 
+https://www.google.com/design/spec/patterns/search.html. 
+Library based on Krishnakapil original version. 
+Big thank you !
 
 # Usage
 **Add the dependencies to your gradle file:**
