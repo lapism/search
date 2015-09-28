@@ -11,66 +11,15 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
 
-public class AnimationUtil {
+public class SearchViewAnimation {
 
-    public static final int ANIMATION_DURATION_SHORT = 150;
+    public static final int ANIMATION_DURATION_SHORT = 200;
     public static final int ANIMATION_DURATION_MEDIUM = 400;
-    public static final int ANIMATION_DURATION_LONG = 800;
 
     public interface AnimationListener {
         boolean onAnimationStart(View view);
-
         boolean onAnimationEnd(View view);
-
         boolean onAnimationCancel(View view);
-    }
-
-    public static void crossFadeViews(View showView, View hideView) {
-        crossFadeViews(showView, hideView, ANIMATION_DURATION_SHORT);
-    }
-
-    public static void crossFadeViews(View showView, final View hideView, int duration) {
-        fadeInView(showView, duration);
-        fadeOutView(hideView, duration);
-    }
-
-    public static void fadeInView(View view) {
-        fadeInView(view, ANIMATION_DURATION_SHORT);
-    }
-
-    public static void fadeInView(View view, int duration) {
-        fadeInView(view, duration, null);
-    }
-
-    public static void fadeInView(View view, int duration, final AnimationListener listener) {
-        view.setVisibility(View.VISIBLE);
-        view.setAlpha(0f);
-        ViewPropertyAnimatorListener vpListener = null;
-
-        if (listener != null) {
-            vpListener = new ViewPropertyAnimatorListener() {
-                @Override
-                public void onAnimationStart(View view) {
-                    if (!listener.onAnimationStart(view)) {
-                        view.setDrawingCacheEnabled(true);
-                    }
-                }
-
-                @Override
-                public void onAnimationEnd(View view) {
-                    if (!listener.onAnimationEnd(view)) {
-                        view.setDrawingCacheEnabled(false);
-                    }
-                }
-
-                @Override
-                public void onAnimationCancel(View view) {
-                    if (!listener.onAnimationCancel(view)) {
-                    }
-                }
-            };
-        }
-        ViewCompat.animate(view).alpha(1f).setDuration(duration).setListener(vpListener);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -145,12 +94,35 @@ public class AnimationUtil {
         anim.start();
     }
 
-    public static void fadeOutView(View view) {
-        fadeOutView(view, ANIMATION_DURATION_SHORT);
-    }
+    public static void fadeInView(View view, int duration, final AnimationListener listener) {
+        view.setVisibility(View.VISIBLE);
+        view.setAlpha(0f);
+        ViewPropertyAnimatorListener vpListener = null;
 
-    public static void fadeOutView(View view, int duration) {
-        fadeOutView(view, duration, null);
+        if (listener != null) {
+            vpListener = new ViewPropertyAnimatorListener() {
+                @Override
+                public void onAnimationStart(View view) {
+                    if (!listener.onAnimationStart(view)) {
+                        view.setDrawingCacheEnabled(true);
+                    }
+                }
+
+                @Override
+                public void onAnimationEnd(View view) {
+                    if (!listener.onAnimationEnd(view)) {
+                        view.setDrawingCacheEnabled(false);
+                    }
+                }
+
+                @Override
+                public void onAnimationCancel(View view) {
+                    /*if (!listener.onAnimationCancel(view)) {
+                    }*/
+                }
+            };
+        }
+        ViewCompat.animate(view).alpha(1f).setDuration(duration).setListener(vpListener);
     }
 
     public static void fadeOutView(View view, int duration, final AnimationListener listener) {
@@ -173,8 +145,8 @@ public class AnimationUtil {
 
             @Override
             public void onAnimationCancel(View view) {
-                if (listener == null || !listener.onAnimationCancel(view)) {
-                }
+                /*if (listener == null || !listener.onAnimationCancel(view)) {
+                }*/
             }
         });
     }

@@ -4,7 +4,7 @@ ext {
     bintrayRepo = 'maven'
     bintrayName = 'searchview'
     publishedGroupId = 'com.lapism'
-    libraryName = 'searchview'
+    libraryName = 'SearchView'
     artifact = 'searchview'
     libraryDescription = 'SearchView library'
     siteUrl = 'https://github.com/lapism/SearchView'

@@ -20,10 +20,10 @@ import com.lapism.searchview.SearchView;
 import java.util.ArrayList;
 import java.util.List;
 
-
+//gradlew bintrayUpload
 public class MainActivity extends AppCompatActivity {
 
-    private SearchView searchView;
+    private SearchView mSearchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
-        searchView = (SearchView) findViewById(R.id.search_view_widget);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mSearchView = (SearchView) findViewById(R.id.search_view);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        searchView.setOnSearchViewListener(new SearchView.SearchViewListener() {
+        mSearchView.setOnSearchViewListener(new SearchView.SearchViewListener() {
 
             @Override
             public void onSearchViewShown() {
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        searchView.setAdapter(mSearchViewAdapter);
+        mSearchView.setAdapter(mSearchViewAdapter);
     }
 
     @Override
@@ -90,14 +90,14 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         MenuItem item = menu.findItem(R.id.action_search);
-        searchView.setMenuItem(item);
+        mSearchView.setMenuItem(item);
         return true;
     }
 
     @Override
     public void onBackPressed() {
-        if (searchView.isSearchOpen()) {
-            searchView.closeSearch();
+        if (mSearchView.isSearchOpen()) {
+            mSearchView.closeSearch();
         } else {
             super.onBackPressed();
         }
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             if (matches != null && matches.size() > 0) {
                 String searchWrd = matches.get(0);
                 if (!TextUtils.isEmpty(searchWrd)) {
-                    searchView.setQuery(searchWrd, false);
+                    mSearchView.setQuery(searchWrd, false);
                 }
             }
             return;

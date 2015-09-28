@@ -25,5 +25,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:+'
     compile 'com.android.support:appcompat-v7:+'
+    compile 'com.melnykov:floatingactionbutton:+'
     compile project(':library')
 }

@@ -79,7 +79,7 @@ public class SearchView extends RelativeLayout implements Filter.FilterListener 
     }
 
     private void initiateView() {
-        LayoutInflater.from(mContext).inflate((R.layout.search_view_widget), this, true);
+        LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
 
         mSearchLayout = findViewById(R.id.search_layout);
         mCardView = (CardView) mSearchLayout.findViewById(R.id.cardView);
@@ -474,7 +474,7 @@ public class SearchView extends RelativeLayout implements Filter.FilterListener 
     }
 
     private void setVisibleWithAnimation() {
-        AnimationUtil.AnimationListener animationListener = new AnimationUtil.AnimationListener() {
+        SearchViewAnimation.AnimationListener animationListener = new SearchViewAnimation.AnimationListener() {
 
             @Override
             public boolean onAnimationStart(View view) {
@@ -497,14 +497,14 @@ public class SearchView extends RelativeLayout implements Filter.FilterListener 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mSearchLayout.setVisibility(View.VISIBLE);
-            AnimationUtil.revealIn(mCardView, AnimationUtil.ANIMATION_DURATION_MEDIUM, animationListener);
+            SearchViewAnimation.revealIn(mCardView, SearchViewAnimation.ANIMATION_DURATION_SHORT, animationListener);
         } else {
-            AnimationUtil.fadeInView(mSearchLayout, AnimationUtil.ANIMATION_DURATION_MEDIUM, animationListener);
+            SearchViewAnimation.fadeInView(mSearchLayout, SearchViewAnimation.ANIMATION_DURATION_SHORT, animationListener);
         }
     }
 
     private void setVisibleWithAnimationReverse() {
-        AnimationUtil.AnimationListener animationListener = new AnimationUtil.AnimationListener() {
+        SearchViewAnimation.AnimationListener animationListener = new SearchViewAnimation.AnimationListener() {
 
             @Override
             public boolean onAnimationStart(View view) {
@@ -527,9 +527,9 @@ public class SearchView extends RelativeLayout implements Filter.FilterListener 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mSearchLayout.setVisibility(View.GONE);
-            AnimationUtil.revealOut(mCardView, AnimationUtil.ANIMATION_DURATION_MEDIUM, animationListener);
+            SearchViewAnimation.revealOut(mCardView, SearchViewAnimation.ANIMATION_DURATION_MEDIUM, animationListener);
         } else {
-            AnimationUtil.fadeOutView(mSearchLayout, AnimationUtil.ANIMATION_DURATION_MEDIUM, animationListener);
+            SearchViewAnimation.fadeOutView(mSearchLayout, SearchViewAnimation.ANIMATION_DURATION_MEDIUM, animationListener);
         }
     }
 
