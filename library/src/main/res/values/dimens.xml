@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="toolbar_padding">16dp</dimen>
+    <dimen name="persistent_height">48dp</dimen>
+    <dimen name="persistent_margin">4dp</dimen>
+    <dimen name="persistent_padding">12dp</dimen>
+    <dimen name="persistent_icon">24dp</dimen>
+    <dimen name="persistent_layout_margin">28dp</dimen>
+    <dimen name="persistent_item_margin">32dp</dimen>
+    <dimen name="text_small">14sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+
+</resources>

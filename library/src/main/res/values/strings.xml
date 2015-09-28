@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SearchLibrary</string>
+    <string name="search_hint">Search</string>
+    <string name="content_desc">Content Description</string>
+
+</resources>

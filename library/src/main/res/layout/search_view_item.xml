@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/search_layout_item"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/actionBarSize"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:gravity="start|center_vertical"
+    android:orientation="horizontal"
+    android:paddingEnd="@dimen/persistent_padding"
+    android:paddingLeft="@dimen/persistent_padding"
+    android:paddingRight="@dimen/persistent_padding"
+    android:paddingStart="@dimen/persistent_padding">
+
+    <ImageView
+        android:tint="@color/search_light_icon"
+        android:id="@+id/imageView_result"
+        android:layout_width="@dimen/persistent_icon"
+        android:layout_height="@dimen/persistent_icon"
+        android:layout_marginEnd="@dimen/persistent_item_margin"
+        android:layout_marginRight="@dimen/persistent_item_margin"
+        android:contentDescription="@string/content_desc" />
+
+    <TextView
+        android:textColor="@color/search_light_text"
+        android:layout_marginRight="@dimen/persistent_icon"
+        android:layout_marginEnd="@dimen/persistent_icon"
+        android:id="@+id/textView_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:gravity="start|center_vertical"
+        android:singleLine="true"
+        android:textSize="@dimen/text_small" />
+
+</LinearLayout>

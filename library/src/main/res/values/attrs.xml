@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SearchView">
+        <attr name="search_style" format="enum">
+            <enum name="classic" value="0" />
+            <enum name="color" value="1" />
+        </attr>
+        <attr name="search_theme" format="enum">
+            <enum name="light" value="0" />
+            <enum name="dark" value="1" />
+        </attr>
+        <attr name="search_divider" format="boolean" />
+    </declare-styleable>
+
+</resources>

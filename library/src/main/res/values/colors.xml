@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Light Theme -->
+    <color name="search_light_background">#ffffffff</color>
+    <color name="search_light_icon">#ff616161</color>
+    <color name="search_light_text">#de000000</color>
+    <color name="search_light_text_hint">#8a000000</color>
+    <color name="search_light_separator">#ffe0e0e0</color>
+
+    <!-- Dark Theme -->
+    <color name="search_dark_background">#ff303030</color>
+    <color name="search_dark_icon">#ffffffff</color>
+    <color name="search_dark_text">#ffffffff</color>
+    <color name="search_dark_text_hint">#b3ffffff</color>
+    <color name="search_dark_separator">#ff616161</color>
+
+    <!-- Others -->
+    <color name="search_shadow">#80000000</color>
+    <color name="search_card_view_dark_background">#FF202020</color>
+    <color name="search_card_view_light_background">#FFFAFAFA</color>
+
+</resources>
