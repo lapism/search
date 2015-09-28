@@ -10,7 +10,7 @@ BIG Thank you !
 **Add the dependencies to your gradle file:**
 ```javascript
 	dependencies {
-    	compile 'will be very soon'
+    	compile 'will be very very soon :-)'
 	}
 ```
 
@@ -35,6 +35,26 @@ Add SearchView to your layout file
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <com.lapism.searchview.SearchView
+        android:id="@+id/search_view_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:search_style="classic"
+        app:search_theme="light"
+        app:search_divider="false" />
 
 </RelativeLayout>
 ```
