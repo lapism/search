@@ -9,7 +9,7 @@ ext {
     libraryDescription = 'SearchView library'
     siteUrl = 'https://github.com/lapism/SearchView'
     gitUrl = 'https://github.com/lapism/SearchView.git'
-    libraryVersion = '1.0.1'
+    libraryVersion = '1.0.2'
     developerId = 'lapism'
     developerName = 'Martin Lapiš'
     developerEmail = 'lapis.martin@gmail.com'
@@ -26,7 +26,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0.1"
+        versionName "1.0.2"
     }
     buildTypes {
         release {
