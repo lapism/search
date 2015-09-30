@@ -2,4 +2,12 @@
 
     <string name="app_name">SearchView Widget</string>
 
+    <string name="light_classic">Light Classic</string>
+    <string name="light_color">Light Color</string>
+    <string name="dark_classic">Dark Classic</string>
+    <string name="dark_color">Dark Color</string>
+
+    <string name="git_source">GitHub Source</string>
+    <string name="cont_desc">Content Description</string>
+
 </resources>

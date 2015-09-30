@@ -22,9 +22,9 @@ public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.Re
     private List<SearchViewItem> mSearchList = new ArrayList<>();
     private List<SearchViewItem> typeAheadData = new ArrayList<>();
     private Context mContext;
-    private boolean theme;
+    private int theme;
 
-    public SearchViewAdapter(Context mContext, List<SearchViewItem> mSearchList, List<SearchViewItem> typeAheadData, boolean theme) {
+    public SearchViewAdapter(Context mContext, List<SearchViewItem> mSearchList, List<SearchViewItem> typeAheadData, int theme) {
         this.mContext = mContext;
         this.mSearchList = mSearchList;
         this.typeAheadData = typeAheadData;
@@ -44,13 +44,11 @@ public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.Re
                 FilterResults filterResults = new FilterResults();
                 if (!TextUtils.isEmpty(constraint)) {
                     List<SearchViewItem> searchData = new ArrayList<>();
-
                     for (SearchViewItem str : typeAheadData) {
                         if (str.get_text().toLowerCase().contains(constraint.toString().toLowerCase())) {
                             searchData.add(str);
                         }
                     }
-
                     filterResults.values = searchData;
                     filterResults.count = searchData.size();
                 }
@@ -60,7 +58,13 @@ public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.Re
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 if (results.values != null) {
-                    mSearchList = (ArrayList<SearchViewItem>) results.values;
+                    mSearchList.clear();
+                    List<?> result = (List<?>) results.values;
+                    for (Object object : result) {
+                        if (object instanceof SearchViewItem) {
+                            mSearchList.add((SearchViewItem) object);
+                        }
+                    }
                     notifyDataSetChanged();
                 }
             }
@@ -79,11 +83,12 @@ public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.Re
         SearchViewItem item = mSearchList.get(position);
         viewHolder.icon.setImageResource(item.get_icon());
         viewHolder.text.setText(item.get_text());
-        if (theme) {
+        if (theme == 0) {
             //viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
             viewHolder.icon.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
             viewHolder.text.setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
-        } else {
+        }
+        if (theme == 1) {
             //viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
             viewHolder.icon.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
             viewHolder.text.setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
@@ -95,7 +100,6 @@ public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.Re
         return mSearchList.size();
     }
 
-
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
@@ -103,6 +107,7 @@ public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.Re
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
         this.mItemClickListener = mItemClickListener;
     }
+
 
     public class ResultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -125,3 +130,17 @@ public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.Re
     }
 
 }
+
+/*
+    public void setItems(Object var){
+        List<SearchViewItem> result = new ArrayList<>();
+        if (var instanceof List){
+            for(int i = 0; i < ((List<?>)var).size(); i++){
+                Object item = ((List<?>) var).get(i);
+                if(item instanceof SearchViewItem){
+                    result.add((SearchViewItem) item);
+                }
+            }
+        }
+        this.list = result;
+    }*/

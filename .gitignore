@@ -40,7 +40,6 @@ pom.xml.*
 #Ant
 build.xml
 ant.properties
-local.properties
 proguard.cfg
 proguard-project.txt
 
@@ -49,5 +48,4 @@ proguard-project.txt
 Thumbs.db
 tmp
 *.tgz
-*.lock
 *.lck

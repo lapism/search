@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -14,16 +13,49 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <com.lapism.searchview.SearchView
-        android:id="@+id/search_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:search_style="classic"
-        app:search_theme="light"
-        app:search_divider="false" />
+    <ImageView
+        android:src="@drawable/logo"
+        android:contentDescription="@string/cont_desc"
+        android:layout_marginTop="12dp"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/button_width"
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal" />
 
-</RelativeLayout>
+    <Button
+        android:layout_marginTop="6dp"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="wrap_content"
+        android:text="@string/light_classic"
+        android:id="@+id/button_light_classic"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="@dimen/button_width"
+        android:layout_height="wrap_content"
+        android:text="@string/light_color"
+        android:id="@+id/button_light_color"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="@dimen/button_width"
+        android:layout_height="wrap_content"
+        android:text="@string/dark_classic"
+        android:id="@+id/button_dark_classic"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="@dimen/button_width"
+        android:layout_height="wrap_content"
+        android:text="@string/dark_color"
+        android:id="@+id/button_dark_color"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="@dimen/button_width"
+        android:layout_height="wrap_content"
+        android:text="@string/git_source"
+        android:id="@+id/button_git_source"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>

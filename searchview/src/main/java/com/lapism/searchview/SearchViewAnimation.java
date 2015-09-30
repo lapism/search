@@ -14,26 +14,28 @@ import android.view.animation.DecelerateInterpolator;
 public class SearchViewAnimation {
 
     public static final int ANIMATION_DURATION_SHORT = 200;
-    public static final int ANIMATION_DURATION_MEDIUM = 400;
+    public static final int ANIMATION_DURATION_LONG = 800;
 
     public interface AnimationListener {
         boolean onAnimationStart(View view);
+
         boolean onAnimationEnd(View view);
+
         boolean onAnimationCancel(View view);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void revealIn(final View view, int animationDuration, final AnimationListener listener) {
 
-        int cx = (view.getRight());
-        int cy = (view.getTop() + view.getBottom()) / 2;
-        int finalRadius = Math.max(view.getWidth(), view.getHeight());
-
-        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, finalRadius);
+        int cx = view.getRight();
+        int cy = view.getTop();
+        float startRadius = 0;
+        float endRadius = Math.max(view.getWidth(), view.getHeight());
+        // float endRadius = (float) Math.hypot(view.getWidth(), view.getHeight());
+        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, startRadius, endRadius);
         view.setVisibility(View.VISIBLE);
-
+        anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(animationDuration);
-        anim.setInterpolator(new DecelerateInterpolator());
         anim.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
@@ -61,15 +63,14 @@ public class SearchViewAnimation {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void revealOut(final View view, int animationDuration, final AnimationListener listener) {
 
-        int cx = (view.getLeft() + view.getRight()) / 2;
-        int cy = (view.getTop() + view.getBottom()) / 2;
-        int finalRadius = Math.max(view.getWidth(), view.getHeight());
-
-        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, finalRadius, 0);
-        view.setVisibility(View.GONE);
-
-        anim.setDuration(animationDuration);
+        int cx = view.getRight();
+        int cy = view.getTop();
+        float startRadius = 0;
+        float endRadius = Math.max(view.getWidth(), view.getHeight());
+        // float endRadius = (float) Math.hypot(view.getWidth(), view.getHeight());
+        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, endRadius, startRadius);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
+        anim.setDuration(animationDuration);
         anim.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
@@ -79,6 +80,7 @@ public class SearchViewAnimation {
             @Override
             public void onAnimationEnd(Animator animation) {
                 listener.onAnimationEnd(view);
+                view.setVisibility(View.GONE);
             }
 
             @Override

@@ -513,9 +513,6 @@ public class SearchView extends RelativeLayout implements Filter.FilterListener 
 
             @Override
             public boolean onAnimationEnd(View view) {
-                if (mSearchViewListener != null) {
-                    mSearchViewListener.onSearchViewClosed();
-                }
                 return false;
             }
 
@@ -527,9 +524,9 @@ public class SearchView extends RelativeLayout implements Filter.FilterListener 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mSearchLayout.setVisibility(View.GONE);
-            SearchViewAnimation.revealOut(mCardView, SearchViewAnimation.ANIMATION_DURATION_MEDIUM, animationListener);
+            SearchViewAnimation.revealOut(mCardView, SearchViewAnimation.ANIMATION_DURATION_LONG, animationListener);
         } else {
-            SearchViewAnimation.fadeOutView(mSearchLayout, SearchViewAnimation.ANIMATION_DURATION_MEDIUM, animationListener);
+            SearchViewAnimation.fadeOutView(mSearchLayout, SearchViewAnimation.ANIMATION_DURATION_LONG, animationListener);
         }
     }
 
