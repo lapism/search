@@ -46,6 +46,15 @@ Big thank you !
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@drawable/shadow"
+        android:clickable="false"
+        android:layout_below="@+id/toolbar"
+        android:layout_toRightOf="@+id/search_view"
+        android:layout_toEndOf="@+id/search_view" />
+
     <com.lapism.searchview.SearchView
         android:id="@+id/search_view"
         android:layout_width="wrap_content"
@@ -53,22 +62,20 @@ Big thank you !
         android:visibility="visible"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:search_style="classic"
-        app:search_theme="light"
-        app:search_divider="false" />
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>
 ```
 
 **#Styling SearchView:**
 ```
-  app:search_style="color"
-  app:search_style="classic"
-  
-  app:search_theme="dark"
-  app:search_theme="light"
-  
-  app:search_divider="true"
-  app:search_divider="false"
+       app:search_style="color"
+       app:search_style="classic"
+
+       app:search_theme="dark"
+       app:search_theme="light"
+
+       app:search_divider="true"
+       app:search_divider="false"
+
 ```
