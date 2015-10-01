@@ -14,6 +14,15 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@drawable/shadow"
+        android:clickable="false"
+        android:layout_below="@+id/toolbar"
+        android:layout_toRightOf="@+id/search_view"
+        android:layout_toEndOf="@+id/search_view" />
+
     <com.lapism.searchview.SearchView
         android:id="@+id/search_view"
         android:layout_width="wrap_content"

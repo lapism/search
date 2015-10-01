@@ -57,16 +57,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.button_git_source:
-                final String appPackageName = getPackageName();
-                String url = "";
-                try {
-                    this.getPackageManager().getPackageInfo("com.android.vending", 0);
-                    url = "market://details?id=" + appPackageName;
-                } catch (final Exception e) {
-                    url = "https://play.google.com/store/apps/details?id=" + appPackageName;
-                }
-                final Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                String url = "https://github.com/lapism/SearchView";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
                 startActivity(i);
                 break;
             default:

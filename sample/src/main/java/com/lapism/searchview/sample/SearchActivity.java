@@ -3,6 +3,7 @@ package com.lapism.searchview.sample;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -43,11 +44,18 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        //Intent intent = getIntent();
-        //String id = intent.getStringExtra("id");
-
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle(theme == 0 ? "Classic" : "Color");
+        mToolbar.setSubtitle(style == 0 ? "Light" : "Dark");
         setSupportActionBar(mToolbar);
+        //toolbar.inflateMenu(R.menu.menu_settings);
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         mSearchView = (SearchView) findViewById(R.id.search_view);
         mSearchView.setStyle(style);
@@ -96,7 +104,6 @@ public class SearchActivity extends AppCompatActivity {
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(getApplicationContext(), text, duration);
                 toast.show();
-
             }
         });
         mSearchView.setAdapter(mSearchViewAdapter);
@@ -169,6 +176,15 @@ public class SearchActivity extends AppCompatActivity {
      protected void onDestroy();
  }
 
-*
-*
-* */
+           navigateUpToFromChild(BtChatActivity.this,
+          IntentCompat.makeMainActivity(new ComponentName(BtChatActivity.this,
+          BtChatListActivity.class)));
+
+        Intent intent = getIntent();
+        String id = intent.getStringExtra("id");
+
+        Snackbar snackbar = Snackbar.make(view, "Here's a Snackbar",
+                Snackbar.LENGTH_LONG);
+        View snackBarView = snackbar.getView();
+        snackBarView.setBackgroundColor(colorId);
+        snackbar.show();*/

@@ -28,12 +28,12 @@ public class SearchViewAnimation {
     public static void revealIn(final View view, int animationDuration, final AnimationListener listener) {
 
         int cx = view.getRight();
-        int cy = view.getTop();
-        float startRadius = 0;
-        float endRadius = Math.max(view.getWidth(), view.getHeight());
-        // float endRadius = (float) Math.hypot(view.getWidth(), view.getHeight());
-        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, startRadius, endRadius);
-        view.setVisibility(View.VISIBLE);
+        int cy = view.getBottom();
+
+        int initialRadius = 0;
+        int finalRadius = Math.max(view.getWidth(), view.getHeight());
+
+        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, initialRadius, finalRadius);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(animationDuration);
         anim.addListener(new Animator.AnimatorListener() {
@@ -57,6 +57,7 @@ public class SearchViewAnimation {
 
             }
         });
+        view.setVisibility(View.VISIBLE);
         anim.start();
     }
 
@@ -64,11 +65,12 @@ public class SearchViewAnimation {
     public static void revealOut(final View view, int animationDuration, final AnimationListener listener) {
 
         int cx = view.getRight();
-        int cy = view.getTop();
-        float startRadius = 0;
-        float endRadius = Math.max(view.getWidth(), view.getHeight());
-        // float endRadius = (float) Math.hypot(view.getWidth(), view.getHeight());
-        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, endRadius, startRadius);
+        int cy = view.getBottom();
+
+        int initialRadius = view.getWidth();
+        int finalRadius = 0;
+
+        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, initialRadius, finalRadius);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(animationDuration);
         anim.addListener(new Animator.AnimatorListener() {
@@ -80,7 +82,7 @@ public class SearchViewAnimation {
             @Override
             public void onAnimationEnd(Animator animation) {
                 listener.onAnimationEnd(view);
-                view.setVisibility(View.GONE);
+                view.setVisibility(View.GONE); //INVISIBLE
             }
 
             @Override

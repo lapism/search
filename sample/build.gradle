@@ -9,11 +9,12 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
-        versionName "1.1"
+        versionName "1.1.1"
     }
     buildTypes {
         release {
             minifyEnabled false
+            // shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

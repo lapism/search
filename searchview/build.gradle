@@ -18,7 +18,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
-        versionName "1.1"
+        versionName "1.1.1"
     }
     buildTypes {
         release {
@@ -37,12 +37,13 @@ dependencies {
 }
 
 // build first
-// $ ./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=false
+// gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=false
+
 publish {
     userOrg = 'lapism'
     groupId = 'com.lapism'
     artifactId = 'searchview'
-    publishVersion = '1.1'
+    publishVersion = '1.1.1'
     desc = 'SearchView Library'
     website = 'https://github.com/lapism/SearchView'
 }

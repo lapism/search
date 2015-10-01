@@ -13,17 +13,23 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@drawable/shadow"
+        android:clickable="false" />
+
     <ImageView
         android:src="@drawable/logo"
         android:contentDescription="@string/cont_desc"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:layout_width="@dimen/button_width"
         android:layout_height="@dimen/button_width"
         android:id="@+id/imageView"
         android:layout_gravity="center_horizontal" />
 
     <Button
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
         android:layout_width="@dimen/button_width"
         android:layout_height="wrap_content"
         android:text="@string/light_classic"

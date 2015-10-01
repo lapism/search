@@ -15,9 +15,12 @@
     <color name="search_dark_text_hint">#b3ffffff</color>
     <color name="search_dark_separator">#ff616161</color>
 
-    <!-- Others -->
-    <color name="search_shadow">#80000000</color>
-    <color name="search_card_view_dark_background">#FF202020</color>
-    <color name="search_card_view_light_background">#FFFAFAFA</color>
+    <!-- Shadows -->
+    <color name="search_shadow_layout">#80000000</color>
+    <color name="search_shadow_toolbar">#42000000</color>
+
+    <!-- CardView -->
+    <color name="search_card_view_dark_background">#ff202020</color>
+    <color name="search_card_view_light_background">#fffafafa</color>
 
 </resources>
