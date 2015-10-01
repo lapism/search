@@ -67,7 +67,7 @@ Big thank you !
 </RelativeLayout>
 ```
 
-**#Styling SearchView:**
+**Styling SearchView:**
 ```
        app:search_style="color"
        app:search_style="classic"
