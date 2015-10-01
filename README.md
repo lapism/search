@@ -77,5 +77,4 @@ Big thank you !
 
        app:search_divider="true"
        app:search_divider="false"
-
 ```
