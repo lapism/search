@@ -9,7 +9,7 @@ Big thank you !
 **Add the dependencies to your gradle file:**
 ```javascript
 	dependencies {
-    	compile 'will be very very soon :-)'
+    		compile 'com.lapism:searchview:1.1'
 	}
 ```
 
