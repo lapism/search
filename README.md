@@ -1,6 +1,6 @@
 # SearchView
 
-Version: 1.1.1 
+Version: 1.1.2 
 
 Implementation of Persistent SearchView in Google Material Design. 
 https://www.google.com/design/spec/patterns/search.html. 
