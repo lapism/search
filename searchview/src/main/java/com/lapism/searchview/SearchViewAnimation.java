@@ -19,7 +19,7 @@ public class SearchViewAnimation {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void revealIn(final View view, int duration) {
 
-        int cx = view.getWidth() - dpToPx(16);
+        int cx = view.getWidth() - dpToPx(24);
         int cy = view.getHeight() / 2;
 
         int initialRadius = 0;
@@ -35,7 +35,7 @@ public class SearchViewAnimation {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void revealOut(final View view, int duration) {
 
-        int cx = view.getWidth() - dpToPx(16);
+        int cx = view.getWidth() - dpToPx(24);
         int cy = view.getHeight() / 2;
 
         int initialRadius = view.getWidth();
