@@ -1,31 +1,20 @@
 package com.lapism.searchview;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.view.View;
 import android.view.ViewAnimationUtils;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 
 
 public class SearchViewAnimation {
 
-    public static final int ANIMATION_DURATION_SHORT = 200;
-    public static final int ANIMATION_DURATION_LONG = 800;
-
-    public interface AnimationListener {
-        boolean onAnimationStart(View view);
-
-        boolean onAnimationEnd(View view);
-
-        boolean onAnimationCancel(View view);
-    }
+    public static final int ANIMATION_DURATION = 250;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public static void revealIn(final View view, int animationDuration, final AnimationListener listener) {
+    public static void revealIn(final View view, int duration) {
 
         int cx = view.getRight();
         int cy = view.getBottom();
@@ -34,35 +23,14 @@ public class SearchViewAnimation {
         int finalRadius = Math.max(view.getWidth(), view.getHeight());
 
         Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, initialRadius, finalRadius);
-        anim.setInterpolator(new AccelerateDecelerateInterpolator());
-        anim.setDuration(animationDuration);
-        anim.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                listener.onAnimationStart(view);
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                listener.onAnimationEnd(view);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                listener.onAnimationCancel(view);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
+        //anim.setInterpolator(new AccelerateDecelerateInterpolator());
+        anim.setDuration(duration);
         view.setVisibility(View.VISIBLE);
         anim.start();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public static void revealOut(final View view, int animationDuration, final AnimationListener listener) {
+    public static void revealOut(final View view, int duration) {
 
         int cx = view.getRight();
         int cy = view.getBottom();
@@ -71,88 +39,27 @@ public class SearchViewAnimation {
         int finalRadius = 0;
 
         Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, initialRadius, finalRadius);
-        anim.setInterpolator(new AccelerateDecelerateInterpolator());
-        anim.setDuration(animationDuration);
-        anim.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                listener.onAnimationStart(view);
-            }
+        //anim.setInterpolator(new AccelerateDecelerateInterpolator());
+        anim.setDuration(duration);
+        anim.addListener(new AnimatorListenerAdapter() {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                listener.onAnimationEnd(view);
-                view.setVisibility(View.GONE); //INVISIBLE
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                listener.onAnimationCancel(view);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
+                super.onAnimationEnd(animation);
+                view.setVisibility(View.GONE);
             }
         });
         anim.start();
     }
 
-    public static void fadeInView(View view, int duration, final AnimationListener listener) {
+    public static void fadeIn(final View view, int duration) {
         view.setVisibility(View.VISIBLE);
         view.setAlpha(0f);
-        ViewPropertyAnimatorListener vpListener = null;
-
-        if (listener != null) {
-            vpListener = new ViewPropertyAnimatorListener() {
-                @Override
-                public void onAnimationStart(View view) {
-                    if (!listener.onAnimationStart(view)) {
-                        view.setDrawingCacheEnabled(true);
-                    }
-                }
-
-                @Override
-                public void onAnimationEnd(View view) {
-                    if (!listener.onAnimationEnd(view)) {
-                        view.setDrawingCacheEnabled(false);
-                    }
-                }
-
-                @Override
-                public void onAnimationCancel(View view) {
-                    /*if (!listener.onAnimationCancel(view)) {
-                    }*/
-                }
-            };
-        }
-        ViewCompat.animate(view).alpha(1f).setDuration(duration).setListener(vpListener);
+        ViewCompat.animate(view).alpha(1f).setDuration(duration);
     }
 
-    public static void fadeOutView(View view, int duration, final AnimationListener listener) {
-        ViewCompat.animate(view).alpha(0f).setDuration(duration).setListener(new ViewPropertyAnimatorListener() {
-            @Override
-            public void onAnimationStart(View view) {
-                if (listener == null || !listener.onAnimationStart(view)) {
-                    view.setDrawingCacheEnabled(true);
-                }
-            }
-
-            @Override
-            public void onAnimationEnd(View view) {
-                if (listener == null || !listener.onAnimationEnd(view)) {
-                    view.setVisibility(View.GONE);
-                    //view.setAlpha(1f);
-                    view.setDrawingCacheEnabled(false);
-                }
-            }
-
-            @Override
-            public void onAnimationCancel(View view) {
-                /*if (listener == null || !listener.onAnimationCancel(view)) {
-                }*/
-            }
-        });
+    public static void fadeOut(final View view, int duration) {
+        ViewCompat.animate(view).alpha(0f).setDuration(duration);
     }
 
 }

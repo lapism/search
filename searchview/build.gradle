@@ -18,7 +18,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
-        versionName "1.1.1"
+        versionName "1.1.2"
     }
     buildTypes {
         release {
@@ -43,7 +43,7 @@ publish {
     userOrg = 'lapism'
     groupId = 'com.lapism'
     artifactId = 'searchview'
-    publishVersion = '1.1.1'
+    publishVersion = '1.1.2'
     desc = 'SearchView Library'
     website = 'https://github.com/lapism/SearchView'
 }

@@ -339,7 +339,7 @@ public class SearchView extends RelativeLayout implements Filter.FilterListener 
         menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                showSearch();
+                showSearch();// first show bug
                 return true;
             }
         });
@@ -355,8 +355,8 @@ public class SearchView extends RelativeLayout implements Filter.FilterListener 
         }
         mSearchEditText.setText(null);
         mSearchEditText.requestFocus();
-        setVisibleWithAnimation();
         mIsSearchOpen = true;
+        setVisibleWithAnimationIn();
     }
 
     public void closeSearch() {
@@ -366,16 +366,12 @@ public class SearchView extends RelativeLayout implements Filter.FilterListener 
         mSearchEditText.setText(null);
         dismissSuggestions();
         clearFocus();
-        setVisibleWithAnimationReverse();
         mIsSearchOpen = false;
+        setVisibleWithAnimationOut();
     }
 
     public void setOnQueryTextListener(OnQueryTextListener listener) {
         mOnQueryChangeListener = listener;
-    }
-
-    public void setOnSearchViewListener(SearchViewListener listener) {
-        mSearchViewListener = listener;
     }
 
     @Override
@@ -467,67 +463,24 @@ public class SearchView extends RelativeLayout implements Filter.FilterListener 
     }
 
     public interface SearchViewListener {
-
-        void onSearchViewShown();
-
-        void onSearchViewClosed();
     }
 
-    private void setVisibleWithAnimation() {
-        SearchViewAnimation.AnimationListener animationListener = new SearchViewAnimation.AnimationListener() {
-
-            @Override
-            public boolean onAnimationStart(View view) {
-                return false;
-            }
-
-            @Override
-            public boolean onAnimationEnd(View view) {
-                if (mSearchViewListener != null) {
-                    mSearchViewListener.onSearchViewShown();
-                }
-                return false;
-            }
-
-            @Override
-            public boolean onAnimationCancel(View view) {
-                return false;
-            }
-        };
-
+    private void setVisibleWithAnimationIn() {
+        mSearchLayout.setVisibility(View.VISIBLE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mSearchLayout.setVisibility(View.VISIBLE);
-            SearchViewAnimation.revealIn(mCardView, SearchViewAnimation.ANIMATION_DURATION_SHORT, animationListener);
+            SearchViewAnimation.revealIn(mCardView, SearchViewAnimation.ANIMATION_DURATION);
         } else {
-            SearchViewAnimation.fadeInView(mSearchLayout, SearchViewAnimation.ANIMATION_DURATION_SHORT, animationListener);
+            SearchViewAnimation.fadeIn(mCardView, SearchViewAnimation.ANIMATION_DURATION);
         }
     }
 
-    private void setVisibleWithAnimationReverse() {
-        SearchViewAnimation.AnimationListener animationListener = new SearchViewAnimation.AnimationListener() {
-
-            @Override
-            public boolean onAnimationStart(View view) {
-                return false;
-            }
-
-            @Override
-            public boolean onAnimationEnd(View view) {
-                return false;
-            }
-
-            @Override
-            public boolean onAnimationCancel(View view) {
-                return false;
-            }
-        };
-
+    private void setVisibleWithAnimationOut() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mSearchLayout.setVisibility(View.GONE);
-            SearchViewAnimation.revealOut(mCardView, SearchViewAnimation.ANIMATION_DURATION_LONG, animationListener);
+            SearchViewAnimation.revealOut(mCardView, SearchViewAnimation.ANIMATION_DURATION);
         } else {
-            SearchViewAnimation.fadeOutView(mSearchLayout, SearchViewAnimation.ANIMATION_DURATION_LONG, animationListener);
+            SearchViewAnimation.fadeOut(mCardView, SearchViewAnimation.ANIMATION_DURATION);
         }
+        mSearchLayout.setVisibility(View.GONE);
     }
 
 }

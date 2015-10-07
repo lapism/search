@@ -45,10 +45,10 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle(theme == 0 ? "Classic" : "Color");
-        mToolbar.setSubtitle(style == 0 ? "Light" : "Dark");
+        mToolbar.setTitle(theme == 0 ? "Light" : "Dark");
+        mToolbar.setSubtitle(style == 0 ? "Classic" : "Color");
         setSupportActionBar(mToolbar);
-        //toolbar.inflateMenu(R.menu.menu_settings);
+        // mToolbar.inflateMenu(R.menu.menu_settings);
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,17 +73,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        mSearchView.setOnSearchViewListener(new SearchView.SearchViewListener() {
-
-            @Override
-            public void onSearchViewShown() {
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-            }
-        });
-
         List<SearchViewItem> mSuggestionsList = new ArrayList<>();
         mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "Wi-Fi"));
         mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "Bluetooth"));
@@ -100,7 +89,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 TextView mText = (TextView) view.findViewById(R.id.textView_result);
-                CharSequence text = "Hello toast!";
+                CharSequence text = "Item!";
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(getApplicationContext(), text, duration);
                 toast.show();
