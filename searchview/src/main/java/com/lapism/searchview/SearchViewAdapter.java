@@ -130,17 +130,3 @@ public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.Re
     }
 
 }
-
-/*
-    public void setItems(Object var){
-        List<SearchViewItem> result = new ArrayList<>();
-        if (var instanceof List){
-            for(int i = 0; i < ((List<?>)var).size(); i++){
-                Object item = ((List<?>) var).get(i);
-                if(item instanceof SearchViewItem){
-                    result.add((SearchViewItem) item);
-                }
-            }
-        }
-        this.list = result;
-    }*/

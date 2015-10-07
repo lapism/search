@@ -270,7 +270,6 @@ public class SearchView extends RelativeLayout implements Filter.FilterListener 
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
             if (mOnQueryChangeListener == null || !mOnQueryChangeListener.onQueryTextSubmit(query.toString())) {
                 closeSearch();
-                mSearchEditText.setText(null);
             }
         }
     }
@@ -356,6 +355,10 @@ public class SearchView extends RelativeLayout implements Filter.FilterListener 
         mSearchEditText.setText(null);
         mSearchEditText.requestFocus();
         mIsSearchOpen = true;
+        mSearchLayout.setVisibility(View.VISIBLE);
+        if (mSearchViewListener != null) {
+            mSearchViewListener.onSearchViewShown();
+        }
         setVisibleWithAnimationIn();
     }
 
@@ -368,10 +371,15 @@ public class SearchView extends RelativeLayout implements Filter.FilterListener 
         clearFocus();
         mIsSearchOpen = false;
         setVisibleWithAnimationOut();
-    }
-
-    public void setOnQueryTextListener(OnQueryTextListener listener) {
-        mOnQueryChangeListener = listener;
+        mSearchLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSearchLayout.setVisibility(View.GONE);
+                if (mSearchViewListener != null) {
+                    mSearchViewListener.onSearchViewClosed();
+                }
+            }
+        }, SearchViewAnimation.ANIMATION_DURATION);
     }
 
     @Override
@@ -463,10 +471,20 @@ public class SearchView extends RelativeLayout implements Filter.FilterListener 
     }
 
     public interface SearchViewListener {
+        void onSearchViewShown();
+
+        void onSearchViewClosed();
+    }
+
+    public void setOnQueryTextListener(OnQueryTextListener listener) {
+        mOnQueryChangeListener = listener;
+    }
+
+    public void setOnSearchViewListener(SearchViewListener listener) {
+        mSearchViewListener = listener;
     }
 
     private void setVisibleWithAnimationIn() {
-        mSearchLayout.setVisibility(View.VISIBLE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             SearchViewAnimation.revealIn(mCardView, SearchViewAnimation.ANIMATION_DURATION);
         } else {
@@ -480,7 +498,6 @@ public class SearchView extends RelativeLayout implements Filter.FilterListener 
         } else {
             SearchViewAnimation.fadeOut(mCardView, SearchViewAnimation.ANIMATION_DURATION);
         }
-        mSearchLayout.setVisibility(View.GONE);
     }
 
 }

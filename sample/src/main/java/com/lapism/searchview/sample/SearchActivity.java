@@ -72,6 +72,14 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
+        mSearchView.setOnSearchViewListener(new SearchView.SearchViewListener() {
+
+            @Override
+            public void onSearchViewShown() {}
+
+            @Override
+            public void onSearchViewClosed() {}
+        });
 
         List<SearchViewItem> mSuggestionsList = new ArrayList<>();
         mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "Wi-Fi"));
@@ -147,33 +155,3 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 }
-
-/*
-*  public class Activity extends ApplicationContext {
-     protected void onCreate(Bundle savedInstanceState);
-
-     protected void onStart();
-
-     protected void onRestart();
-
-     protected void onResume();
-
-     protected void onPause();
-
-     protected void onStop();
-
-     protected void onDestroy();
- }
-
-           navigateUpToFromChild(BtChatActivity.this,
-          IntentCompat.makeMainActivity(new ComponentName(BtChatActivity.this,
-          BtChatListActivity.class)));
-
-        Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
-
-        Snackbar snackbar = Snackbar.make(view, "Here's a Snackbar",
-                Snackbar.LENGTH_LONG);
-        View snackBarView = snackbar.getView();
-        snackBarView.setBackgroundColor(colorId);
-        snackbar.show();*/

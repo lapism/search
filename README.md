@@ -1,7 +1,5 @@
 # SearchView
 
-Version: 1.1.1 
-
 Implementation of Persistent SearchView in Google Material Design. 
 https://www.google.com/design/spec/patterns/search.html. 
 Library based on Krishnakapil original version. 
@@ -11,7 +9,7 @@ Big thank you !
 **Add the dependencies to your gradle file:**
 ```javascript
 	dependencies {
-    		compile 'com.lapism:searchview:+'
+    		compile 'com.lapism:searchview:1.1.3'
 	}
 ```
 
