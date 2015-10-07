@@ -1,10 +1,5 @@
 # SearchView
 
-<<<<<<< HEAD
-=======
-Version: 1.1.2 
-
->>>>>>> origin/master
 Implementation of Persistent SearchView in Google Material Design. 
 https://www.google.com/design/spec/patterns/search.html. 
 Library based on Krishnakapil original version. 
