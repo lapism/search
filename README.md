@@ -13,7 +13,7 @@ Big thank you !
 	}
 ```
 
-<a href="https://play.google.com/store/apps/details?id=com.ocman.searchviewapp">
+<a href="https://play.google.com/store/apps/details?id=com.lapism.searchview.sample">
   <img alt="Get it on Google Play"
        src="https://github.com/lapism/SearchView/blob/master/images/google_play.png" />
 </a>
