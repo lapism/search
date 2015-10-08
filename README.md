@@ -5,6 +5,12 @@ https://www.google.com/design/spec/patterns/search.html.
 Library based on Krishnakapil original version. 
 Big thank you !
 
+**Sample app:**
+<a href="https://play.google.com/store/apps/details?id=com.lapism.searchview.sample">
+  <img alt="Get it on Google Play"
+       src="https://github.com/lapism/SearchView/blob/master/images/google_play.png" />
+</a>
+
 # Usage
 **Add the dependencies to your gradle file:**
 ```javascript
@@ -12,12 +18,6 @@ Big thank you !
     		compile 'com.lapism:searchview:1.1.3'
 	}
 ```
-
-<a href="https://play.google.com/store/apps/details?id=com.lapism.searchview.sample">
-  <img alt="Get it on Google Play"
-       src="https://github.com/lapism/SearchView/blob/master/images/google_play.png" />
-</a>
-
 
 ![Screenshot 1]
 (https://github.com/lapism/SearchView/blob/master/images/image_1.png)    ![Screenshot 2]
