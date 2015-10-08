@@ -26,14 +26,14 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Filter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
 
-public class SearchView extends RelativeLayout implements Filter.FilterListener {
+public class SearchView extends FrameLayout implements Filter.FilterListener {
 
     public static final int REQUEST_VOICE = 9999;
 
@@ -79,9 +79,9 @@ public class SearchView extends RelativeLayout implements Filter.FilterListener 
     }
 
     private void initiateView() {
-        LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
+        mSearchLayout = LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
+        mSearchLayout.setVisibility(GONE);
 
-        mSearchLayout = findViewById(R.id.search_layout);
         mCardView = (CardView) mSearchLayout.findViewById(R.id.cardView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
