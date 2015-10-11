@@ -3,7 +3,6 @@ package com.lapism.searchview.sample;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -82,14 +81,14 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         List<SearchViewItem> mSuggestionsList = new ArrayList<>();
-        mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "Wi-Fi"));
-        mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "Bluetooth"));
-        mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "GPS"));
-        mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "Ad-Hoc"));
-        mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "Google"));
-        mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "Android"));
-        mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "Piconet"));
-        mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "Scatternet"));
+        mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "Wi-Fi"));
+        mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "Bluetooth"));
+        mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "GPS"));
+        mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "Ad-Hoc"));
+        mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "Google"));
+        mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "Android"));
+        mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "Piconet"));
+        mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "Scatternet"));
 
         List<SearchViewItem> mResultsList = new ArrayList<>();
         SearchViewAdapter mSearchViewAdapter = new SearchViewAdapter(this, mResultsList, mSuggestionsList, theme);

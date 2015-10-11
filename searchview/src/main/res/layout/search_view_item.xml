@@ -19,7 +19,7 @@
         android:layout_height="@dimen/persistent_icon"
         android:layout_marginEnd="@dimen/persistent_item_margin"
         android:layout_marginRight="@dimen/persistent_item_margin"
-        android:contentDescription="@string/content_desc" />
+        android:contentDescription="@string/search_cont_desc" />
 
     <TextView
         android:textColor="@color/search_light_text"

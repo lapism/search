@@ -129,14 +129,14 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
 
     public void setStyle(int style) {
         if (style == STYLE_CLASSIC) {
-            mBackImageView.setImageResource(R.drawable.ic_arrow_back_black_24dp);
-            mVoiceImageView.setImageResource(R.drawable.ic_mic_black_24dp);
-            mEmptyImageView.setImageResource(R.drawable.ic_clear_black_24dp);
+            mBackImageView.setImageResource(R.drawable.search_ic_arrow_back_black_24dp);
+            mVoiceImageView.setImageResource(R.drawable.search_ic_mic_black_24dp);
+            mEmptyImageView.setImageResource(R.drawable.search_ic_clear_black_24dp);
         }
         if (style == STYLE_COLOR) {
-            mBackImageView.setImageResource(R.drawable.ic_arrow_back_color_24dp);
-            mVoiceImageView.setImageResource(R.drawable.ic_mic_color_24dp);
-            mEmptyImageView.setImageResource(R.drawable.ic_clear_color_24dp);
+            mBackImageView.setImageResource(R.drawable.search_ic_arrow_back_color_24dp);
+            mVoiceImageView.setImageResource(R.drawable.search_ic_mic_color_24dp);
+            mEmptyImageView.setImageResource(R.drawable.search_ic_clear_color_24dp);
         }
         mStyle = style;
     }

@@ -5,6 +5,9 @@ https://www.google.com/design/spec/patterns/search.html.
 Library based on Krishnakapil original version. 
 Big thank you !
 
+Big change in version 1.1.4 !!!
+Content inside .res folder from library is now invisible for using.
+
 <a href="https://play.google.com/store/apps/details?id=com.lapism.searchview.sample">
   <img alt="Get it on Google Play"
        src="https://github.com/lapism/SearchView/blob/master/images/google_play.png" />
@@ -14,7 +17,7 @@ Big thank you !
 **Add the dependencies to your gradle file:**
 ```javascript
 	dependencies {
-    		compile 'com.lapism:searchview:1.1.3'
+    		compile 'com.lapism:searchview:1.1.4'
 	}
 ```
 

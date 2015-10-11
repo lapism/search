@@ -36,7 +36,7 @@
                     android:layout_height="@dimen/persistent_icon"
                     android:layout_marginEnd="@dimen/persistent_layout_margin"
                     android:layout_marginRight="@dimen/persistent_layout_margin"
-                    android:contentDescription="@string/content_desc" />
+                    android:contentDescription="@string/search_cont_desc" />
 
                 <EditText
                     android:id="@+id/editText_input"
@@ -59,13 +59,13 @@
                         android:id="@+id/imageView_mic"
                         android:layout_width="@dimen/persistent_icon"
                         android:layout_height="@dimen/persistent_icon"
-                        android:contentDescription="@string/content_desc" />
+                        android:contentDescription="@string/search_cont_desc" />
 
                     <ImageView
                         android:id="@+id/imageView_clear"
                         android:layout_width="@dimen/persistent_icon"
                         android:layout_height="@dimen/persistent_icon"
-                        android:contentDescription="@string/content_desc"
+                        android:contentDescription="@string/search_cont_desc"
                         android:visibility="gone" />
 
                 </FrameLayout>
