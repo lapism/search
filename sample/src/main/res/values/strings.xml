@@ -1,6 +1,7 @@
 <resources>
 
-    <string name="app_name">SearchView Widget</string>
+    <string name="app_name">SearchView Sample</string>
+    <string name="version">Version: 1.2</string>
     <string name="light_classic">Light Classic</string>
     <string name="light_color">Light Color</string>
     <string name="dark_classic">Dark Classic</string>

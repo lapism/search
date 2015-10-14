@@ -4,20 +4,18 @@
         <item name="colorPrimary">#ff00acc1</item>
         <item name="colorPrimaryDark">#ff0097a7</item>
         <item name="colorAccent">#ffd81b60</item>
-
-        <item name="colorButtonNormal">#00acc1</item>
-        <item name="android:textColor">#ffffffff</item>
-        <item name="colorControlHighlight">#0097a7</item>
     </style>
 
     <style name="AppThemeDark" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">#ff00acc1</item>
         <item name="colorPrimaryDark">#ff0097a7</item>
         <item name="colorAccent">#ffd81b60</item>
+    </style>
 
+    <style name="AppTheme">
+        <item name="colorControlHighlight">#ffd81b60</item>
         <item name="colorButtonNormal">#00acc1</item>
         <item name="android:textColor">#ffffffff</item>
-        <item name="colorControlHighlight">#0097a7</item>
     </style>
 
 </resources>

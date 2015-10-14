@@ -1,8 +1,10 @@
 package com.lapism.searchview.sample;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -43,13 +45,18 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        //View shadowView = findViewById(R.id.view_shadow);
+        //shadowView.setVisibility(View.VISIBLE);
+
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle(theme == 0 ? "Light" : "Dark");
         mToolbar.setSubtitle(style == 0 ? "Classic" : "Color");
         setSupportActionBar(mToolbar);
+        // mToolbar.setElevation(4);
         // mToolbar.inflateMenu(R.menu.menu_settings);
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 finish();
@@ -63,6 +70,8 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
+             // Snackbar.make(findViewById(R.id.container), "Query: " + query, Snackbar.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                 return false;
             }
 
@@ -71,13 +80,16 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
+
         mSearchView.setOnSearchViewListener(new SearchView.SearchViewListener() {
 
             @Override
-            public void onSearchViewShown() {}
+            public void onSearchViewShown() {
+            }
 
             @Override
-            public void onSearchViewClosed() {}
+            public void onSearchViewClosed() {
+            }
         });
 
         List<SearchViewItem> mSuggestionsList = new ArrayList<>();
@@ -96,10 +108,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 TextView mText = (TextView) view.findViewById(R.id.textView_result);
-                CharSequence text = "Item!";
-                int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(getApplicationContext(), text, duration);
-                toast.show();
+                Toast.makeText(getApplicationContext(), mText.getText(), Toast.LENGTH_SHORT).show();
             }
         });
         mSearchView.setAdapter(mSearchViewAdapter);
@@ -116,9 +125,10 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (mSearchView.isSearchOpen()) {
+        if(mSearchView.isSearchOpen()) {
             mSearchView.closeSearch();
-        } else {
+        }
+        else {
             super.onBackPressed();
         }
     }

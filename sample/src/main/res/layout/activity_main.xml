@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@drawable/shadow"
-        android:clickable="false" />
+    <include layout="@layout/toolbar_shadow" />
 
     <ImageView
         android:src="@drawable/logo"
@@ -28,39 +15,70 @@
         android:id="@+id/imageView"
         android:layout_gravity="center_horizontal" />
 
-    <Button
+    <TextView
         android:layout_marginTop="8dp"
         android:layout_width="@dimen/button_width"
         android:layout_height="wrap_content"
-        android:text="@string/light_classic"
-        android:id="@+id/button_light_classic"
+        android:gravity="center"
+        android:text="@string/version"
+        android:id="@+id/textView"
         android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:layout_width="@dimen/button_width"
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/light_color"
-        android:id="@+id/button_light_color"
-        android:layout_gravity="center_horizontal" />
+        android:gravity="center">
 
-    <Button
-        android:layout_width="@dimen/button_width"
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="wrap_content"
+            android:text="@string/light_classic"
+            android:id="@+id/button_light_classic" />
+
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="wrap_content"
+            android:text="@string/light_color"
+            android:id="@+id/button_light_color" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/dark_classic"
-        android:id="@+id/button_dark_classic"
-        android:layout_gravity="center_horizontal" />
+        android:gravity="center">
+
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="wrap_content"
+            android:text="@string/dark_classic"
+            android:id="@+id/button_dark_classic" />
+
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="wrap_content"
+            android:text="@string/dark_color"
+            android:id="@+id/button_dark_color" />
+
+    </LinearLayout>
 
     <Button
-        android:layout_width="@dimen/button_width"
-        android:layout_height="wrap_content"
-        android:text="@string/dark_color"
-        android:id="@+id/button_dark_color"
-        android:layout_gravity="center_horizontal" />
-
-    <Button
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_marginTop="8dp"
         android:layout_width="@dimen/button_width"
         android:layout_height="wrap_content"
         android:text="@string/git_source"
+        android:textColor="?colorPrimaryDark"
         android:id="@+id/button_git_source"
         android:layout_gravity="center_horizontal" />
 

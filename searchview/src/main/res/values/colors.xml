@@ -18,6 +18,7 @@
     <!-- Shadows -->
     <color name="search_shadow_layout">#80000000</color>
     <color name="search_shadow_toolbar">#42000000</color>
+    <color name="search_shadow_toolbar_2">#40000000</color>
 
     <!-- CardView -->
     <color name="search_card_view_dark_background">#ff202020</color>

@@ -13,7 +13,12 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/persistent_margin">
+        android:layout_marginTop="@dimen/search_margin_top"
+        android:layout_marginLeft="@dimen/search_margin_left"
+        android:layout_marginStart="@dimen/search_margin_left"
+        android:layout_marginRight="@dimen/search_margin_right"
+        android:layout_marginEnd="@dimen/search_margin_right"
+        android:layout_marginBottom="@dimen/search_margin_bottom">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,20 +27,20 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/persistent_height"
+                android:layout_height="@dimen/search_height"
                 android:gravity="start|center_vertical"
                 android:orientation="horizontal"
-                android:paddingEnd="@dimen/persistent_padding"
-                android:paddingLeft="@dimen/persistent_padding"
-                android:paddingRight="@dimen/persistent_padding"
-                android:paddingStart="@dimen/persistent_padding">
+                android:paddingEnd="@dimen/search_padding"
+                android:paddingLeft="@dimen/search_padding"
+                android:paddingRight="@dimen/search_padding"
+                android:paddingStart="@dimen/search_padding">
 
                 <ImageView
                     android:id="@+id/imageView_arrow_back"
-                    android:layout_width="@dimen/persistent_icon"
-                    android:layout_height="@dimen/persistent_icon"
-                    android:layout_marginEnd="@dimen/persistent_layout_margin"
-                    android:layout_marginRight="@dimen/persistent_layout_margin"
+                    android:layout_width="@dimen/search_icon"
+                    android:layout_height="@dimen/search_icon"
+                    android:layout_marginEnd="@dimen/search_edit_text_margin"
+                    android:layout_marginRight="@dimen/search_edit_text_margin"
                     android:contentDescription="@string/search_cont_desc" />
 
                 <EditText
@@ -47,9 +52,10 @@
                     android:gravity="start|center_vertical"
                     android:hint="@string/search_hint"
                     android:inputType="text"
-                    android:imeOptions="actionSearch"
+                    android:imeOptions="actionSearch|flagNoFullscreen"
                     android:singleLine="true"
-                    android:textSize="@dimen/text_medium" />
+                    android:textSize="@dimen/search_text_medium" />
+                <!-- android:imeOptions="actionSearch|flagNoExtractUi"-->
 
                 <FrameLayout
                     android:layout_width="wrap_content"
@@ -57,14 +63,14 @@
 
                     <ImageView
                         android:id="@+id/imageView_mic"
-                        android:layout_width="@dimen/persistent_icon"
-                        android:layout_height="@dimen/persistent_icon"
+                        android:layout_width="@dimen/search_icon"
+                        android:layout_height="@dimen/search_icon"
                         android:contentDescription="@string/search_cont_desc" />
 
                     <ImageView
                         android:id="@+id/imageView_clear"
-                        android:layout_width="@dimen/persistent_icon"
-                        android:layout_height="@dimen/persistent_icon"
+                        android:layout_width="@dimen/search_icon"
+                        android:layout_height="@dimen/search_icon"
                         android:contentDescription="@string/search_cont_desc"
                         android:visibility="gone" />
 

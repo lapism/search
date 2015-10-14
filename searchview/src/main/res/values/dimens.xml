@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="toolbar_height">56dp</dimen>
-    <dimen name="toolbar_padding">16dp</dimen>
-    <dimen name="persistent_height">48dp</dimen>
-    <dimen name="persistent_margin">4dp</dimen>
-    <dimen name="persistent_padding">12dp</dimen>
-    <dimen name="persistent_icon">24dp</dimen>
-    <dimen name="persistent_layout_margin">28dp</dimen>
-    <dimen name="persistent_item_margin">32dp</dimen>
-    <dimen name="text_small">14sp</dimen>
-    <dimen name="text_medium">16sp</dimen>
+    <dimen name="search_margin_top">1dp</dimen>
+    <dimen name="search_margin_left">2dp</dimen>
+    <dimen name="search_margin_right">2dp</dimen>
+    <dimen name="search_margin_bottom">3dp</dimen>
+    <dimen name="search_height">46dp</dimen>
+
+    <dimen name="search_padding">12dp</dimen>
+
+    <dimen name="search_icon">24dp</dimen>
+    <dimen name="search_edit_text_margin">28dp</dimen>
+    <dimen name="search_text_view_margin">32dp</dimen>
+
+    <dimen name="search_text_small">14sp</dimen>
+    <dimen name="search_text_medium">16sp</dimen>
+
+    <dimen name="search_toolbar_height">56dp</dimen>
+    <dimen name="search_toolbar_padding">16dp</dimen>
 
 </resources>

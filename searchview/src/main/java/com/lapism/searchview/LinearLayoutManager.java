@@ -83,7 +83,6 @@ public class LinearLayoutManager extends android.support.v7.widget.LinearLayoutM
         final int unspecified = makeUnspecifiedSpec();
 
         if (exactWidth && exactHeight) {
-            // in case of exact calculations for both dimensions let's use default "onMeasure" implementation
             super.onMeasure(recycler, state, widthSpec, heightSpec);
             return;
         }
@@ -95,23 +94,15 @@ public class LinearLayoutManager extends android.support.v7.widget.LinearLayoutM
         int width = 0;
         int height = 0;
 
-        // it's possible to get scrap views in recycler which are bound to old (invalid) adapter entities. This
-        // happens because their invalidation happens after "onMeasure" method. As a workaround let's clear the
-        // recycler now (it should not cause any performance issues while scrolling as "onMeasure" is never
-        // called whiles scrolling)
         recycler.clear();
 
         final int stateItemCount = state.getItemCount();
         final int adapterItemCount = getItemCount();
-        // adapter always contains actual data while state might contain old data (f.e. data before the animation is
-        // done). As we want to measure the view with actual data we must use data from the adapter and not from  the
-        // state
+
         for (int i = 0; i < adapterItemCount; i++) {
             if (vertical) {
                 if (!hasChildSize) {
                     if (i < stateItemCount) {
-                        // we should not exceed state count, otherwise we'll get IndexOutOfBoundsException. For such items
-                        // we will use previously calculated dimensions
                         measureChild(recycler, i, widthSize, unspecified, childDimensions);
                     } else {
                         logMeasureWarning(i);
@@ -127,8 +118,6 @@ public class LinearLayoutManager extends android.support.v7.widget.LinearLayoutM
             } else {
                 if (!hasChildSize) {
                     if (i < stateItemCount) {
-                        // we should not exceed state count, otherwise we'll get IndexOutOfBoundsException. For such items
-                        // we will use previously calculated dimensions
                         measureChild(recycler, i, unspecified, heightSize, childDimensions);
                     } else {
                         logMeasureWarning(i);
@@ -181,7 +170,6 @@ public class LinearLayoutManager extends android.support.v7.widget.LinearLayoutM
 
     private void initChildDimensions(int width, int height, boolean vertical) {
         if (childDimensions[CHILD_WIDTH] != 0 || childDimensions[CHILD_HEIGHT] != 0) {
-            // already initialized, skipping
             return;
         }
         if (vertical) {
@@ -195,8 +183,6 @@ public class LinearLayoutManager extends android.support.v7.widget.LinearLayoutM
 
     @Override
     public void setOrientation(int orientation) {
-        // might be called before the constructor of this class is called
-        //noinspection ConstantConditions
         if (childDimensions != null) {
             if (getOrientation() != orientation) {
                 childDimensions[CHILD_WIDTH] = 0;
@@ -238,9 +224,7 @@ public class LinearLayoutManager extends android.support.v7.widget.LinearLayoutM
         final int hMargin = p.leftMargin + p.rightMargin;
         final int vMargin = p.topMargin + p.bottomMargin;
 
-        // we must make insets dirty in order calculateItemDecorationsForChild to work
         makeInsetsDirty(p);
-        // this method should be called before any getXxxDecorationXxx() methods
         calculateItemDecorationsForChild(child, tmpRect);
 
         final int hDecoration = getRightDecorationWidth(child) + getLeftDecorationWidth(child);
@@ -254,7 +238,6 @@ public class LinearLayoutManager extends android.support.v7.widget.LinearLayoutM
         dimensions[CHILD_WIDTH] = getDecoratedMeasuredWidth(child) + p.leftMargin + p.rightMargin;
         dimensions[CHILD_HEIGHT] = getDecoratedMeasuredHeight(child) + p.bottomMargin + p.topMargin;
 
-        // as view is recycled let's not keep old measured values
         makeInsetsDirty(p);
         recycler.recycleView(child);
     }
