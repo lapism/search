@@ -42,6 +42,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
     public static final int THEME_LIGHT = 0;
     public static final int THEME_DARK = 1;
 
+    private final Context mContext;
     private boolean mIsSearchOpen = false;
     private boolean mClearingFocus;
     private View mTintView;
@@ -57,10 +58,9 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
     private SearchViewListener mSearchViewListener;
     private SearchViewAdapter mAdapter;
     private SavedState mSavedState;
-    private final Context mContext;
+
     private CardView mCardView;
     private int mStyle = 0;
-
 
     public SearchView(Context context) {
         this(context, null);
@@ -79,15 +79,16 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
 
     private void initView() {
         LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
-        setVisibility(GONE);
+        setVisibility(View.INVISIBLE);
 
         mCardView = (CardView) findViewById(R.id.cardView);
+        mCardView.setVisibility(View.INVISIBLE);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         mSuggestionsRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mSuggestionsRecyclerView.setLayoutManager(layoutManager);
         mSuggestionsRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mSuggestionsRecyclerView.setVisibility(GONE);
+        mSuggestionsRecyclerView.setVisibility(View.GONE);
 
         mSearchEditText = (EditText) findViewById(R.id.editText_input);
         mBackImageView = (ImageView) findViewById(R.id.imageView_arrow_back);
@@ -101,7 +102,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         mVoiceImageView.setOnClickListener(mOnClickListener);
         mEmptyImageView.setOnClickListener(mOnClickListener);
         mTintView.setOnClickListener(mOnClickListener);
-        mSeparatorView.setVisibility(GONE);
+        mSeparatorView.setVisibility(View.GONE);
 
         showVoice(true);
         initSearchView();
@@ -161,14 +162,14 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
             }
         });
 
-        mCardView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+       /* mCardView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
 
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 v.removeOnLayoutChangeListener(this);
                 showSearch();
             }
-        });
+        });*/
     }
 
     private void startFilter(CharSequence s) {
@@ -210,10 +211,10 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         mUserQuery = text;
         boolean hasText = !TextUtils.isEmpty(text);
         if (hasText) {
-            mEmptyImageView.setVisibility(VISIBLE);
+            mEmptyImageView.setVisibility(View.VISIBLE);
             showVoice(false);
         } else {
-            mEmptyImageView.setVisibility(GONE);
+            mEmptyImageView.setVisibility(View.GONE);
             showVoice(true);
         }
 
@@ -240,16 +241,16 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
     }
 
     private void showSuggestions() {
-        if (mAdapter != null && mAdapter.getItemCount() > 0 && mSuggestionsRecyclerView.getVisibility() == GONE) {
-            mSuggestionsRecyclerView.setVisibility(VISIBLE);
-            mSeparatorView.setVisibility(VISIBLE);
+        if (mAdapter != null && mAdapter.getItemCount() > 0 && mSuggestionsRecyclerView.getVisibility() == View.GONE) {
+            mSuggestionsRecyclerView.setVisibility(View.VISIBLE);
+            mSeparatorView.setVisibility(View.VISIBLE);
         }
     }
 
     private void hideSuggestions() {
-        if (mSuggestionsRecyclerView.getVisibility() == VISIBLE) {
-            mSuggestionsRecyclerView.setVisibility(GONE);
-            mSeparatorView.setVisibility(GONE);
+        if (mSuggestionsRecyclerView.getVisibility() == View.VISIBLE) {
+            mSuggestionsRecyclerView.setVisibility(View.GONE);
+            mSeparatorView.setVisibility(View.GONE);
         }
     }
 
@@ -297,11 +298,11 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         showSuggestions();
         mIsSearchOpen = true;
 
-        setVisibility(View.VISIBLE);
+
         if (mSearchViewListener != null) {
             mSearchViewListener.onSearchViewShown();
         }
-
+        setVisibility(View.VISIBLE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             SearchViewAnimation.revealInAnimation(mCardView, SearchViewAnimation.ANIMATION_DURATION);
         } else {
@@ -340,9 +341,9 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
 
     public void showVoice(boolean show) {
         if (show && isVoiceAvailable()) {
-            mVoiceImageView.setVisibility(VISIBLE);
+            mVoiceImageView.setVisibility(View.VISIBLE);
         } else {
-            mVoiceImageView.setVisibility(GONE);
+            mVoiceImageView.setVisibility(View.GONE);
         }
     }
 

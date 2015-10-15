@@ -1,85 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <include layout="@layout/toolbar_shadow" />
 
-    <ImageView
-        android:src="@drawable/logo"
-        android:contentDescription="@string/cont_desc"
-        android:layout_marginTop="16dp"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="@dimen/button_width"
-        android:id="@+id/imageView"
-        android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:layout_marginTop="8dp"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/version"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal" />
-
-    <LinearLayout
-        style="?android:attr/buttonBarStyle"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal">
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="@dimen/button_width"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/light_classic"
-            android:id="@+id/button_light_classic" />
+            android:orientation="vertical">
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="wrap_content"
-            android:text="@string/light_color"
-            android:id="@+id/button_light_color" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_width"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/cont_desc"
+                android:src="@drawable/logo" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="@string/version" />
 
-    <LinearLayout
-        style="?android:attr/buttonBarStyle"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
+            <LinearLayout
+                style="?android:attr/buttonBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="wrap_content"
-            android:text="@string/dark_classic"
-            android:id="@+id/button_dark_classic" />
+                <Button
+                    android:id="@+id/button_light_classic"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="@dimen/button_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/light_classic" />
 
-        <Button
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="wrap_content"
-            android:text="@string/dark_color"
-            android:id="@+id/button_dark_color" />
+                <Button
+                    android:id="@+id/button_light_color"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="@dimen/button_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/light_color" />
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <Button
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_marginTop="8dp"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="wrap_content"
-        android:text="@string/git_source"
-        android:textColor="?colorPrimaryDark"
-        android:id="@+id/button_git_source"
-        android:layout_gravity="center_horizontal" />
+            <LinearLayout
+                style="?android:attr/buttonBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button_dark_classic"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="@dimen/button_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dark_classic" />
+
+                <Button
+                    android:id="@+id/button_dark_color"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="@dimen/button_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dark_color" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_git_source"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:text="@string/git_source"
+                android:textColor="?colorPrimaryDark" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

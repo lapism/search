@@ -2,7 +2,6 @@
 
 Implementation of Persistent SearchView in Google Material Design. 
 https://www.google.com/design/spec/patterns/search.html. 
-Content inside .res folder from library is invisible for using !!!
 
 <a href="https://play.google.com/store/apps/details?id=com.lapism.searchview.sample">
   <img alt="Get it on Google Play"
@@ -13,7 +12,7 @@ Content inside .res folder from library is invisible for using !!!
 **Add the dependencies to your gradle file:**
 ```javascript
 	dependencies {
-    		compile 'com.lapism:searchview:1.2'
+    		compile 'com.lapism:searchview:1.2.1'
 	}
 ```
 

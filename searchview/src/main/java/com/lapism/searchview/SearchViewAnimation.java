@@ -22,9 +22,10 @@ public class SearchViewAnimation {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void revealInAnimation(final View view, int duration) {
 
+        view.setVisibility(View.INVISIBLE);
+        //int cx2 = view.getWidth() - (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics());
         int cx = view.getWidth() - dpToPx(24);
         int cy = view.getHeight() / 2;
-        //int cx2 = view.getWidth() - (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics());
 
         int initialRadius = 0;
         int finalRadius = Math.max(view.getWidth(), view.getHeight());
@@ -32,8 +33,17 @@ public class SearchViewAnimation {
         Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, initialRadius, finalRadius);
         anim.setInterpolator(new DecelerateInterpolator());
         anim.setDuration(duration);
-        view.setVisibility(View.VISIBLE);
+        anim.addListener(new AnimatorListenerAdapter() {
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                // view.setVisibility(View.VISIBLE);
+            }
+        });
+        // view.setVisibility(View.VISIBLE);
         anim.start();
+        view.setVisibility(View.VISIBLE);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
