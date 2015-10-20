@@ -1,6 +1,7 @@
 # SearchView
 
-Implementation of Persistent SearchView in Google Material Design. 
+Persistent SearchView Library in Material Design. 
+Now it supports layout like section My apps in Google Play Store.
 https://www.google.com/design/spec/patterns/search.html. 
 
 <a href="https://play.google.com/store/apps/details?id=com.lapism.searchview.sample">
