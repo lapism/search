@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -25,12 +27,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button mDarkClassic = (Button) findViewById(R.id.button_dark_classic);
         Button mDarkColor = (Button) findViewById(R.id.button_dark_color);
         Button mGitSource = (Button) findViewById(R.id.button_git_source);
+        FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.fab_main);
 
         mLightClassic.setOnClickListener(this);
         mLightColor.setOnClickListener(this);
         mDarkClassic.setOnClickListener(this);
         mDarkColor.setOnClickListener(this);
         mGitSource.setOnClickListener(this);
+        mFab.setOnClickListener(this);
     }
 
     @Override
@@ -62,6 +66,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
+                break;
+            case R.id.fab_main:
+                Toast.makeText(this, "Click", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;

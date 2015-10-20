@@ -1,10 +1,8 @@
 package com.lapism.searchview.sample;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -70,7 +68,7 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-             // Snackbar.make(findViewById(R.id.container), "Query: " + query, Snackbar.LENGTH_LONG).show();
+                // Snackbar.make(findViewById(R.id.container), "Query: " + query, Snackbar.LENGTH_LONG).show();
                 Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -92,6 +90,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        List<SearchViewItem> mResultsList = new ArrayList<>();
         List<SearchViewItem> mSuggestionsList = new ArrayList<>();
         mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "Wi-Fi"));
         mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "Bluetooth"));
@@ -102,7 +101,6 @@ public class SearchActivity extends AppCompatActivity {
         mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "Piconet"));
         mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "Scatternet"));
 
-        List<SearchViewItem> mResultsList = new ArrayList<>();
         SearchViewAdapter mSearchViewAdapter = new SearchViewAdapter(this, mResultsList, mSuggestionsList, theme);
         mSearchViewAdapter.setOnItemClickListener(new SearchViewAdapter.OnItemClickListener() {
             @Override
@@ -118,25 +116,37 @@ public class SearchActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
-        MenuItem item = menu.findItem(R.id.action_search);
-        mSearchView.setMenuItem(item);
+        // DEPRECATED, use onOptionsItemSelected(MenuItem item)
+        // MenuItem item = menu.findItem(R.id.action_search);
+        // mSearchView.setMenuItem(item);
         return true;
     }
 
     @Override
-    public void onBackPressed() {
-        if(mSearchView.isSearchOpen()) {
-            mSearchView.closeSearch();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search: {
+                mSearchView.showSearch();
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        else {
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mSearchView.isSearchOpen()) {
+            mSearchView.closeSearch();
+        } else {
             super.onBackPressed();
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SearchView.REQUEST_VOICE && resultCode == RESULT_OK) {
-            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+        if (requestCode == SearchView.SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
+            List<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             if (matches != null && matches.size() > 0) {
                 String searchWrd = matches.get(0);
                 if (!TextUtils.isEmpty(searchWrd)) {
@@ -146,11 +156,6 @@ public class SearchActivity extends AppCompatActivity {
             return;
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        return true;
     }
 
 }

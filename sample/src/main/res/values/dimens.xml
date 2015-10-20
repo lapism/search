@@ -5,8 +5,8 @@
     <dimen name="toolbar_height">56dp</dimen>
 
     <integer name="dbVersion">1</integer>
-    <item name="msg_timeout" type="id"/>
-    <item name="menu_exit" type="id"/>
+    <item name="msg_timeout" type="id" />
+    <item name="menu_exit" type="id" />
     <item name="abc_search_dropdown_item_icons_2line2" type="layout">@layout/search_view</item>
 
 </resources>

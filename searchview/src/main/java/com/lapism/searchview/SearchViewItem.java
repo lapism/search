@@ -15,16 +15,8 @@ public class SearchViewItem {
         return this.icon;
     }
 
-    public void set_icon(int icon) {
-        this.icon = icon;
-    }
-
     public String get_text() {
         return this.text;
-    }
-
-    public void set_text(String text) {
-        this.text = text;
     }
 
 }

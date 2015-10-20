@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 
-public class DividerItemDecoration extends RecyclerView.ItemDecoration {
+public class SearchViewDivider extends RecyclerView.ItemDecoration {
 
     private Drawable divider;
     private int dividerHeight;
@@ -19,8 +19,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     private boolean first = false;
     private boolean last = false;
 
-    @SuppressWarnings("UnusedDeclaration")
-    public DividerItemDecoration(Context context, AttributeSet attrs) {
+    public SearchViewDivider(Context context, AttributeSet attrs) {
         final TypedArray a = context.obtainStyledAttributes(attrs, new int[]{android.R.attr.listDivider});
         setDivider(a.getDrawable(0));
         a.recycle();
@@ -30,27 +29,6 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         this.divider = divider;
         this.dividerHeight = divider == null ? 0 : divider.getIntrinsicHeight();
         this.dividerWidth = divider == null ? 0 : divider.getIntrinsicWidth();
-    }
-
-    @SuppressWarnings("UnusedDeclaration")
-    public DividerItemDecoration(Context context, AttributeSet attrs, boolean showFirstDivider,
-                                 boolean showLastDivider) {
-        this(context, attrs);
-        first = showFirstDivider;
-        last = showLastDivider;
-    }
-
-    @SuppressWarnings("UnusedDeclaration")
-    public DividerItemDecoration(Drawable divider) {
-        setDivider(divider);
-    }
-
-    @SuppressWarnings("UnusedDeclaration")
-    public DividerItemDecoration(Drawable divider, boolean showFirstDivider,
-                                 boolean showLastDivider) {
-        this(divider);
-        first = showFirstDivider;
-        last = showLastDivider;
     }
 
     @Override
@@ -147,7 +125,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         if (lm instanceof LinearLayoutManager) {
             return ((LinearLayoutManager) lm).getOrientation();
         } else {
-            throw new IllegalStateException("DividerItemDecoration can only be used with a LinearLayoutManager");
+            throw new IllegalStateException("SearchViewDivider can only be used with a SearchLinearLayoutManager");
         }
     }
 

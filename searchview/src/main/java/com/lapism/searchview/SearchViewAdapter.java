@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.ResultViewHolder> implements Filterable {
@@ -45,7 +46,7 @@ public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.Re
                 if (!TextUtils.isEmpty(constraint)) {
                     List<SearchViewItem> searchData = new ArrayList<>();
                     for (SearchViewItem str : typeAheadData) {
-                        if (str.get_text().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                        if (str.get_text().toLowerCase(Locale.getDefault()).contains(constraint.toString().toLowerCase())) {
                             searchData.add(str);
                         }
                     }

@@ -11,9 +11,9 @@ https://www.google.com/design/spec/patterns/search.html.
 # Usage
 **Add the dependencies to your gradle file:**
 ```javascript
-	dependencies {
-    		compile 'com.lapism:searchview:1.2.1'
-	}
+dependencies {
+        compile 'com.lapism:searchview:1.3.0'
+        }
 ```
 
 ![Screenshot 1]
@@ -22,24 +22,72 @@ https://www.google.com/design/spec/patterns/search.html.
 (https://github.com/lapism/SearchView/blob/master/images/image_3.png)    ![Screenshot 4]
 (https://github.com/lapism/SearchView/blob/master/images/image_4.png)    
 
-**Add SearchView to your layout file:**
+**In code:**
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search: {
+                mSearchView.showSearch();
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+**In xml with layout like Google Play:**
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".SearchActivity">
 
-        <include layout="@layout/toolbar_shadow" />
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <com.lapism.searchview.SearchView
-            android:id="@+id/search_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-</FrameLayout>
+            <include layout="@layout/toolbar" />
+
+            <!-- Tabs here instead of View -->
+            <View
+                android:background="?attr/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="48dp" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/cont_desc"
+                android:src="@drawable/logo" />
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <com.lapism.searchview.SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- NavigationView here -->
+
+</android.support.v4.widget.DrawerLayout>
 ```
 
 **Styling SearchView:**
@@ -53,6 +101,4 @@ app:search_theme="light"
 app:search_divider="true"
 app:search_divider="false"
 ```
-
-Library is based on Krishnakapil original version. Big thank you !
 
