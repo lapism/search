@@ -7,6 +7,7 @@ https://www.google.com/design/spec/patterns/search.html.
 Material colors in the project:
 https://gist.github.com/lapism/3b417142300d9dbde3b4
 
+Sample application on Google Play Store:
 <a href="https://play.google.com/store/apps/details?id=com.lapism.searchview.sample">
   <img alt="Get it on Google Play"
        src="https://github.com/lapism/SearchView/blob/master/images/google_play.png" />
