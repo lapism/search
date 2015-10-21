@@ -4,7 +4,7 @@ Persistent SearchView Library in Material Design.
 Now it supports layout like section My apps in Google Play Store.
 https://www.google.com/design/spec/patterns/search.html. 
 
-Material Colors in project:
+Material colors in the project:
 https://gist.github.com/lapism/3b417142300d9dbde3b4
 
 <a href="https://play.google.com/store/apps/details?id=com.lapism.searchview.sample">
