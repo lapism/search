@@ -61,7 +61,7 @@ dependencies {
 
             <include layout="@layout/toolbar" />
 
-            <!-- Tabs here instead of View -->
+            <!-- TabLayout here instead of View -->
             <View
                 android:background="?attr/colorPrimary"
                 android:layout_width="match_parent"
