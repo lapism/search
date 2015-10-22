@@ -19,6 +19,7 @@ public class SearchViewDivider extends RecyclerView.ItemDecoration {
     private boolean first = false;
     private boolean last = false;
 
+    @SuppressWarnings("UnusedDeclaration")
     public SearchViewDivider(Context context, AttributeSet attrs) {
         final TypedArray a = context.obtainStyledAttributes(attrs, new int[]{android.R.attr.listDivider});
         setDivider(a.getDrawable(0));
@@ -29,6 +30,27 @@ public class SearchViewDivider extends RecyclerView.ItemDecoration {
         this.divider = divider;
         this.dividerHeight = divider == null ? 0 : divider.getIntrinsicHeight();
         this.dividerWidth = divider == null ? 0 : divider.getIntrinsicWidth();
+    }
+
+    @SuppressWarnings("UnusedDeclaration")
+    public SearchViewDivider(Context context, AttributeSet attrs, boolean showFirstDivider,
+                             boolean showLastDivider) {
+        this(context, attrs);
+        first = showFirstDivider;
+        last = showLastDivider;
+    }
+
+    @SuppressWarnings("UnusedDeclaration")
+    public SearchViewDivider(Drawable divider) {
+        setDivider(divider);
+    }
+
+    @SuppressWarnings("UnusedDeclaration")
+    public SearchViewDivider(Drawable divider, boolean showFirstDivider,
+                             boolean showLastDivider) {
+        this(divider);
+        first = showFirstDivider;
+        last = showLastDivider;
     }
 
     @Override
@@ -125,7 +147,7 @@ public class SearchViewDivider extends RecyclerView.ItemDecoration {
         if (lm instanceof LinearLayoutManager) {
             return ((LinearLayoutManager) lm).getOrientation();
         } else {
-            throw new IllegalStateException("SearchViewDivider can only be used with a SearchLinearLayoutManager");
+            throw new IllegalStateException("DividerItemDecoration can only be used with a LinearLayoutManager");
         }
     }
 

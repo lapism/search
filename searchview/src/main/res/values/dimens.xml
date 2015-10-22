@@ -8,15 +8,17 @@
     <dimen name="search_height">46dp</dimen>
 
     <dimen name="search_padding">12dp</dimen>
+    <dimen name="reveal">24dp</dimen>
+
+    <dimen name="search_toolbar_height">56dp</dimen>
+    <dimen name="search_toolbar_padding">16dp</dimen>
 
     <dimen name="search_icon">24dp</dimen>
     <dimen name="search_edit_text_margin">28dp</dimen>
     <dimen name="search_text_view_margin">32dp</dimen>
+    <dimen name="search_item_height">56dp</dimen>
 
     <dimen name="search_text_small">14sp</dimen>
     <dimen name="search_text_medium">16sp</dimen>
-
-    <dimen name="search_toolbar_height">56dp</dimen>
-    <dimen name="search_toolbar_padding">16dp</dimen>
 
 </resources>

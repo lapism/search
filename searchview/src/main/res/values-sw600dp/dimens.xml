@@ -8,6 +8,7 @@
     <dimen name="search_height">46dp</dimen>
 
     <dimen name="search_padding">16dp</dimen>
+    <dimen name="reveal">28dp</dimen>
 
     <dimen name="search_toolbar_height">64dp</dimen>
     <dimen name="search_toolbar_padding">24dp</dimen>

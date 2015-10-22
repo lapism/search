@@ -13,8 +13,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lapism.searchview.SearchViewAdapter;
-import com.lapism.searchview.SearchViewItem;
+import com.lapism.searchview.SearchAdapter;
+import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
 
 import java.util.ArrayList;
@@ -90,26 +90,26 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        List<SearchViewItem> mResultsList = new ArrayList<>();
-        List<SearchViewItem> mSuggestionsList = new ArrayList<>();
-        mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "Wi-Fi"));
-        mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "Bluetooth"));
-        mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "GPS"));
-        mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "Ad-Hoc"));
-        mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "Google"));
-        mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "Android"));
-        mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "Piconet"));
-        mSuggestionsList.add(new SearchViewItem(R.drawable.search_ic_search_black_24dp, "Scatternet"));
+        List<SearchItem> mResultsList = new ArrayList<>();
+        List<SearchItem> mSuggestionsList = new ArrayList<>();
+        mSuggestionsList.add(new SearchItem(R.drawable.search_ic_search_black_24dp, "Wi-Fi"));
+        mSuggestionsList.add(new SearchItem(R.drawable.search_ic_search_black_24dp, "Bluetooth"));
+        mSuggestionsList.add(new SearchItem(R.drawable.search_ic_search_black_24dp, "GPS"));
+        mSuggestionsList.add(new SearchItem(R.drawable.search_ic_search_black_24dp, "Ad-Hoc"));
+        mSuggestionsList.add(new SearchItem(R.drawable.search_ic_search_black_24dp, "Google"));
+        mSuggestionsList.add(new SearchItem(R.drawable.search_ic_search_black_24dp, "Android"));
+        mSuggestionsList.add(new SearchItem(R.drawable.search_ic_search_black_24dp, "Piconet"));
+        mSuggestionsList.add(new SearchItem(R.drawable.search_ic_search_black_24dp, "Scatternet"));
 
-        SearchViewAdapter mSearchViewAdapter = new SearchViewAdapter(this, mResultsList, mSuggestionsList, theme);
-        mSearchViewAdapter.setOnItemClickListener(new SearchViewAdapter.OnItemClickListener() {
+        SearchAdapter mSearchAdapter = new SearchAdapter(this, mResultsList, mSuggestionsList, theme);
+        mSearchAdapter.setOnItemClickListener(new SearchAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 TextView mText = (TextView) view.findViewById(R.id.textView_result);
                 Toast.makeText(getApplicationContext(), mText.getText(), Toast.LENGTH_SHORT).show();
             }
         });
-        mSearchView.setAdapter(mSearchViewAdapter);
+        mSearchView.setAdapter(mSearchAdapter);
     }
 
     @Override

@@ -1,12 +1,12 @@
 package com.lapism.searchview;
 
 
-public class SearchViewItem {
+public class SearchItem {
 
     private int icon;
     private String text;
 
-    public SearchViewItem(int icon, String text) {
+    public SearchItem(int icon, String text) {
         this.icon = icon;
         this.text = text;
     }

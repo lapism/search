@@ -13,7 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 
 
-public class SearchViewAnimator {
+public class SearchAnimator {
 
     public static final int ANIMATION_DURATION = 350;
 
@@ -84,6 +84,16 @@ public class SearchViewAnimator {
 
     public static int dpToPx(final float dp) {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+    }
+
+    private static int getDp(final float dp) {
+        //int dp = (int) (getResources().getDimension(R.dimen.test)
+        //getResources().getDisplayMetrics().density) 48dp
+        //int valueInPixels = (int) getResources().getDimension(R.dimen.test)  96px
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+        //setTextSize( TypedValue.COMPLEX_UNIT_PX, getDimensionPixelSize( R.dimen.tag_text_size ) );
+        //tagButton.setTextSize(c.getResources().getDimensionPixelSize(R.dimen.tag_text_size));
+        //textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_medium))
     }
 
 }

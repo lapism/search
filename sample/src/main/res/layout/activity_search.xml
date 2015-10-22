@@ -17,11 +17,13 @@
 
             <include layout="@layout/toolbar" />
 
-            <!-- Tabs here instead of View -->
+            <!-- TabLayout here instead of View -->
             <View
-                android:background="?attr/colorPrimary"
+                android:background="?attr/colorPrimaryDark"
                 android:layout_width="match_parent"
                 android:layout_height="48dp" />
+
+            <include layout="@layout/view_shadow" />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -43,7 +45,7 @@
     <com.lapism.searchview.SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 
     <!-- NavigationView here -->
 

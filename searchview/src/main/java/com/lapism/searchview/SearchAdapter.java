@@ -17,15 +17,15 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.ResultViewHolder> implements Filterable {
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
     public OnItemClickListener mItemClickListener;
-    private List<SearchViewItem> mSearchList = new ArrayList<>();
-    private List<SearchViewItem> typeAheadData = new ArrayList<>();
+    private List<SearchItem> mSearchList = new ArrayList<>();
+    private List<SearchItem> typeAheadData = new ArrayList<>();
     private Context mContext;
     private int theme;
 
-    public SearchViewAdapter(Context mContext, List<SearchViewItem> mSearchList, List<SearchViewItem> typeAheadData, int theme) {
+    public SearchAdapter(Context mContext, List<SearchItem> mSearchList, List<SearchItem> typeAheadData, int theme) {
         this.mContext = mContext;
         this.mSearchList = mSearchList;
         this.typeAheadData = typeAheadData;
@@ -44,8 +44,8 @@ public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.Re
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
                 if (!TextUtils.isEmpty(constraint)) {
-                    List<SearchViewItem> searchData = new ArrayList<>();
-                    for (SearchViewItem str : typeAheadData) {
+                    List<SearchItem> searchData = new ArrayList<>();
+                    for (SearchItem str : typeAheadData) {
                         if (str.get_text().toLowerCase(Locale.getDefault()).contains(constraint.toString().toLowerCase())) {
                             searchData.add(str);
                         }
@@ -62,8 +62,8 @@ public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.Re
                     mSearchList.clear();
                     List<?> result = (List<?>) results.values;
                     for (Object object : result) {
-                        if (object instanceof SearchViewItem) {
-                            mSearchList.add((SearchViewItem) object);
+                        if (object instanceof SearchItem) {
+                            mSearchList.add((SearchItem) object);
                         }
                     }
                     notifyDataSetChanged();
@@ -81,7 +81,7 @@ public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.Re
 
     @Override
     public void onBindViewHolder(ResultViewHolder viewHolder, int position) {
-        SearchViewItem item = mSearchList.get(position);
+        SearchItem item = mSearchList.get(position);
         viewHolder.icon.setImageResource(item.get_icon());
         viewHolder.text.setText(item.get_text());
         if (theme == 0) {

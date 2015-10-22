@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/search_layout_item"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/actionBarSize"
+    android:layout_height="@dimen/search_item_height"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:gravity="start|center_vertical"

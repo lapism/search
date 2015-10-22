@@ -1,21 +1,67 @@
 package com.lapism.searchview;
 
 import android.content.Context;
+import android.graphics.Rect;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import java.lang.reflect.Field;
 
 
 public class SearchLinearLayoutManager extends android.support.v7.widget.LinearLayoutManager {
 
+    private static boolean canMakeInsetsDirty = true;
+    private static Field insetsDirtyField = null;
+
     private static final int CHILD_WIDTH = 0;
     private static final int CHILD_HEIGHT = 1;
     private static final int DEFAULT_CHILD_SIZE = 112;
-    //SearchViewAnimator.dpToPx(2*56);
 
     private final int[] childDimensions = new int[2];
+    private final RecyclerView view;
 
+    private int childSize = DEFAULT_CHILD_SIZE;
+    private boolean hasChildSize = false;
+    private int overScrollMode = ViewCompat.OVER_SCROLL_ALWAYS;
+    private final Rect tmpRect = new Rect();
+
+    @SuppressWarnings("UnusedDeclaration")
+    public SearchLinearLayoutManager(Context context) {
+        super(context);
+        this.view = null;
+    }
+
+    @SuppressWarnings("UnusedDeclaration")
     public SearchLinearLayoutManager(Context context, int orientation, boolean reverseLayout) {
         super(context, orientation, reverseLayout);
+        this.view = null;
+    }
+
+    @SuppressWarnings("UnusedDeclaration")
+    public SearchLinearLayoutManager(RecyclerView view) {
+        super(view.getContext());
+        this.view = view;
+        this.overScrollMode = ViewCompat.getOverScrollMode(view);
+    }
+
+    @SuppressWarnings("UnusedDeclaration")
+    public SearchLinearLayoutManager(RecyclerView view, int orientation, boolean reverseLayout) {
+        super(view.getContext(), orientation, reverseLayout);
+        this.view = view;
+        this.overScrollMode = ViewCompat.getOverScrollMode(view);
+    }
+
+    public void setOverScrollMode(int overScrollMode) {
+        if (overScrollMode < ViewCompat.OVER_SCROLL_ALWAYS || overScrollMode > ViewCompat.OVER_SCROLL_NEVER)
+            throw new IllegalArgumentException("Unknown overscroll mode: " + overScrollMode);
+        if (this.view == null) throw new IllegalStateException("view == null");
+        this.overScrollMode = overScrollMode;
+        ViewCompat.setOverScrollMode(view, overScrollMode);
+    }
+
+    public static int makeUnspecifiedSpec() {
+        return View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
     }
 
     @Override
@@ -32,6 +78,8 @@ public class SearchLinearLayoutManager extends android.support.v7.widget.LinearL
         final boolean exactWidth = widthMode == View.MeasureSpec.EXACTLY;
         final boolean exactHeight = heightMode == View.MeasureSpec.EXACTLY;
 
+        final int unspecified = makeUnspecifiedSpec();
+
         if (exactWidth && exactHeight) {
             super.onMeasure(recycler, state, widthSpec, heightSpec);
             return;
@@ -46,10 +94,15 @@ public class SearchLinearLayoutManager extends android.support.v7.widget.LinearL
 
         recycler.clear();
 
+        final int stateItemCount = state.getItemCount();
         final int adapterItemCount = getItemCount();
-
         for (int i = 0; i < adapterItemCount; i++) {
             if (vertical) {
+                if (!hasChildSize) {
+                    if (i < stateItemCount) {
+                        measureChild(recycler, i, widthSize, unspecified, childDimensions);
+                    }
+                }
                 height += childDimensions[CHILD_HEIGHT];
                 if (i == 0) {
                     width = childDimensions[CHILD_WIDTH];
@@ -58,6 +111,11 @@ public class SearchLinearLayoutManager extends android.support.v7.widget.LinearL
                     break;
                 }
             } else {
+                if (!hasChildSize) {
+                    if (i < stateItemCount) {
+                        measureChild(recycler, i, unspecified, heightSize, childDimensions);
+                    }
+                }
                 width += childDimensions[CHILD_WIDTH];
                 if (i == 0) {
                     height = childDimensions[CHILD_HEIGHT];
@@ -87,6 +145,13 @@ public class SearchLinearLayoutManager extends android.support.v7.widget.LinearL
         }
 
         setMeasuredDimension(width, height);
+
+        if (view != null && overScrollMode == ViewCompat.OVER_SCROLL_IF_CONTENT_SCROLLS) {
+            final boolean fit = (vertical && (!hasHeightSize || height < heightSize))
+                    || (!vertical && (!hasWidthSize || width < widthSize));
+
+            ViewCompat.setOverScrollMode(view, fit ? ViewCompat.OVER_SCROLL_NEVER : ViewCompat.OVER_SCROLL_ALWAYS);
+        }
     }
 
     private void initChildDimensions(int width, int height, boolean vertical) {
@@ -95,9 +160,9 @@ public class SearchLinearLayoutManager extends android.support.v7.widget.LinearL
         }
         if (vertical) {
             childDimensions[CHILD_WIDTH] = width;
-            childDimensions[CHILD_HEIGHT] = DEFAULT_CHILD_SIZE;
+            childDimensions[CHILD_HEIGHT] = childSize;
         } else {
-            childDimensions[CHILD_WIDTH] = DEFAULT_CHILD_SIZE;
+            childDimensions[CHILD_WIDTH] = childSize;
             childDimensions[CHILD_HEIGHT] = height;
         }
     }
@@ -111,6 +176,76 @@ public class SearchLinearLayoutManager extends android.support.v7.widget.LinearL
             }
         }
         super.setOrientation(orientation);
+    }
+
+    public void clearChildSize() {
+        hasChildSize = false;
+        setChildSize(DEFAULT_CHILD_SIZE);
+    }
+
+    public void setChildSize(int childSize) {
+        hasChildSize = true;
+        if (this.childSize != childSize) {
+            this.childSize = childSize;
+            requestLayout();
+        }
+    }
+
+    private void measureChild(RecyclerView.Recycler recycler, int position, int widthSize, int heightSize, int[] dimensions) {
+        final View child;
+        try {
+            child = recycler.getViewForPosition(position);
+        } catch (IndexOutOfBoundsException e) {
+            return;
+        }
+
+        final RecyclerView.LayoutParams p = (RecyclerView.LayoutParams) child.getLayoutParams();
+
+        final int hPadding = getPaddingLeft() + getPaddingRight();
+        final int vPadding = getPaddingTop() + getPaddingBottom();
+
+        final int hMargin = p.leftMargin + p.rightMargin;
+        final int vMargin = p.topMargin + p.bottomMargin;
+
+        makeInsetsDirty(p);
+        calculateItemDecorationsForChild(child, tmpRect);
+
+        final int hDecoration = getRightDecorationWidth(child) + getLeftDecorationWidth(child);
+        final int vDecoration = getTopDecorationHeight(child) + getBottomDecorationHeight(child);
+
+        final int childWidthSpec = getChildMeasureSpec(widthSize, hPadding + hMargin + hDecoration, p.width, canScrollHorizontally());
+        final int childHeightSpec = getChildMeasureSpec(heightSize, vPadding + vMargin + vDecoration, p.height, canScrollVertically());
+
+        child.measure(childWidthSpec, childHeightSpec);
+
+        dimensions[CHILD_WIDTH] = getDecoratedMeasuredWidth(child) + p.leftMargin + p.rightMargin;
+        dimensions[CHILD_HEIGHT] = getDecoratedMeasuredHeight(child) + p.bottomMargin + p.topMargin;
+
+        makeInsetsDirty(p);
+        recycler.recycleView(child);
+    }
+
+    private static void makeInsetsDirty(RecyclerView.LayoutParams p) {
+        if (!canMakeInsetsDirty) {
+            return;
+        }
+        try {
+            if (insetsDirtyField == null) {
+                insetsDirtyField = RecyclerView.LayoutParams.class.getDeclaredField("mInsetsDirty");
+                insetsDirtyField.setAccessible(true);
+            }
+            try {
+                insetsDirtyField.set(p, true);
+            } catch (IllegalAccessException e) {
+                onMakeInsertDirtyFailed();
+            }
+        } catch (NoSuchFieldException e) {
+            onMakeInsertDirtyFailed();
+        }
+    }
+
+    private static void onMakeInsertDirtyFailed() {
+        canMakeInsetsDirty = false;
     }
 
 }
