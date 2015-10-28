@@ -48,7 +48,7 @@ dependencies {
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
         
-    You can find examples of layouts in Sample project !!!     
+    You can find examples of layouts in the Sample project !!!     
 ```
 
 **Styling SearchView:**
