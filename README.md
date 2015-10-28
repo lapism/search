@@ -43,12 +43,12 @@ dependencies {
 
 **In xml (Check the Sample project!):**
 ```xml
-    <com.lapism.searchview.SearchView
-        android:id="@+id/search_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+  <com.lapism.searchview.SearchView
+      android:id="@+id/search_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
         
-    You can find examples of layouts in the Sample project !!!     
+  You can find examples of layouts in the Sample project !!!     
 ```
 
 **Styling SearchView:**
