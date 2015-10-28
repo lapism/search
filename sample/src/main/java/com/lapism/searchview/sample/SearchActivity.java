@@ -41,8 +41,8 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-
+        setContentView(R.layout.activity_search_classic);
+        // setContentView(R.layout.activity_search_design);
         //View shadowView = findViewById(R.id.view_shadow);
         //shadowView.setVisibility(View.VISIBLE);
 
@@ -64,6 +64,7 @@ public class SearchActivity extends AppCompatActivity {
         mSearchView = (SearchView) findViewById(R.id.search_view);
         mSearchView.setStyle(style);
         mSearchView.setTheme(theme);
+        mSearchView.setVoiceSearch(true);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override

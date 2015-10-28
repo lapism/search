@@ -7,18 +7,20 @@
     <color name="search_light_text">#de000000</color>
     <color name="search_light_text_hint">#8a000000</color>
     <color name="search_light_separator">#ffe0e0e0</color>
+    <color name="search_light_text_choose">#38000000</color>
 
     <!-- Dark Theme -->
     <color name="search_dark_background">#ff303030</color>
     <color name="search_dark_icon">#ffffffff</color>
     <color name="search_dark_text">#ffffffff</color>
     <color name="search_dark_text_hint">#b3ffffff</color>
-    <color name="search_dark_separator">#ff616161</color>
+    <color name="search_dark_separator">#ff424242</color>
+    <color name="search_dark_text_choose">#62ffffff</color>
 
     <!-- Shadows -->
     <color name="search_shadow_layout">#80000000</color>
-    <color name="search_shadow_toolbar">#42000000</color>
-    <color name="search_shadow_toolbar_2">#40000000</color>
+    <color name="search_shadow_40">#40000000</color>
+    <color name="search_shadow_42">#42000000</color>
 
     <!-- CardView -->
     <color name="search_card_view_dark_background">#ff202020</color>

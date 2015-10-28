@@ -3,6 +3,6 @@
     android:shape="rectangle">
     <gradient
         android:startColor="@android:color/transparent"
-        android:endColor="@color/search_shadow_toolbar"
+        android:endColor="@color/search_shadow_42"
         android:angle="90" />
 </shape>

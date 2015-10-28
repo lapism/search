@@ -4,9 +4,9 @@ package com.lapism.searchview;
 public class SearchItem {
 
     private int icon;
-    private String text;
+    private CharSequence text;
 
-    public SearchItem(int icon, String text) {
+    public SearchItem(int icon, CharSequence text) {
         this.icon = icon;
         this.text = text;
     }
@@ -15,7 +15,7 @@ public class SearchItem {
         return this.icon;
     }
 
-    public String get_text() {
+    public CharSequence get_text() {
         return this.text;
     }
 

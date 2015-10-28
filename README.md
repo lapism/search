@@ -17,7 +17,7 @@ Sample application on:
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-        compile 'com.lapism:searchview:1.3.1'
+        compile 'com.lapism:searchview:1.3.2'
         }
 ```
 
@@ -27,7 +27,7 @@ dependencies {
 (https://github.com/lapism/SearchView/blob/master/images/image_3.png)    ![Screenshot 4]
 (https://github.com/lapism/SearchView/blob/master/images/image_4.png)    
 
-**In code:**
+**In code (Check the Sample project!):**
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -41,58 +41,14 @@ dependencies {
         }
     }
 
-**In xml with layout like Google Play:**
+**In xml (Check the Sample project!):**
 ```xml
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".SearchActivity">
-
-    <android.support.design.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <include layout="@layout/toolbar" />
-
-            <!-- TabLayout here instead of View -->
-            <View
-                android:background="?attr/colorPrimary"
-                android:layout_width="match_parent"
-                android:layout_height="48dp" />
-
-        </android.support.design.widget.AppBarLayout>
-
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/cont_desc"
-                android:src="@drawable/logo" />
-
-        </android.support.v4.widget.NestedScrollView>
-
-    </android.support.design.widget.CoordinatorLayout>
-
     <com.lapism.searchview.SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <!-- NavigationView here -->
-
-</android.support.v4.widget.DrawerLayout>
+        android:layout_height="match_parent" />
+        
+    You can find examples of layouts in Sample project !!!     
 ```
 
 **Styling SearchView:**

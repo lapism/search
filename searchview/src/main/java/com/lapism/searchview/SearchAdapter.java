@@ -3,7 +3,9 @@ package com.lapism.searchview;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     private List<SearchItem> mSearchList = new ArrayList<>();
     private List<SearchItem> typeAheadData = new ArrayList<>();
     private Context mContext;
+    private int index = 0;
     private int theme;
 
     public SearchAdapter(Context mContext, List<SearchItem> mSearchList, List<SearchItem> typeAheadData, int theme) {
@@ -46,7 +49,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                 if (!TextUtils.isEmpty(constraint)) {
                     List<SearchItem> searchData = new ArrayList<>();
                     for (SearchItem str : typeAheadData) {
-                        if (str.get_text().toLowerCase(Locale.getDefault()).contains(constraint.toString().toLowerCase())) {
+                        if (str.get_text().toString().toLowerCase(Locale.getDefault()).contains(constraint.toString().toLowerCase())
+                                && str.get_text().toString().toLowerCase(Locale.getDefault()).startsWith(constraint.toString().toLowerCase())) {
+                            index = constraint.length();
                             searchData.add(str);
                         }
                     }
@@ -81,18 +86,28 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     @Override
     public void onBindViewHolder(ResultViewHolder viewHolder, int position) {
+
         SearchItem item = mSearchList.get(position);
         viewHolder.icon.setImageResource(item.get_icon());
-        viewHolder.text.setText(item.get_text());
+
         if (theme == 0) {
+            //String mystring = getResources().getString(R.string.mystring);
             //viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
             viewHolder.icon.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
             viewHolder.text.setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
+
+            viewHolder.text.setText(item.get_text(), TextView.BufferType.SPANNABLE);
+            Spannable s = (Spannable) viewHolder.text.getText();
+            s.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.search_light_text_choose)), 0, index, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         if (theme == 1) {
             //viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
             viewHolder.icon.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
             viewHolder.text.setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
+
+            viewHolder.text.setText(item.get_text(), TextView.BufferType.SPANNABLE);
+            Spannable s = (Spannable) viewHolder.text.getText();
+            s.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.search_dark_text_choose)), 0, index, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
     }
 

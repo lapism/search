@@ -23,8 +23,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp" />
 
-            <include layout="@layout/view_shadow" />
-
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.NestedScrollView
