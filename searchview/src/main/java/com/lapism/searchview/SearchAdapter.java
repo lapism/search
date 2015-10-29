@@ -98,7 +98,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
             viewHolder.text.setText(item.get_text(), TextView.BufferType.SPANNABLE);
             Spannable s = (Spannable) viewHolder.text.getText();
-            s.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.search_light_text_choose)), 0, index, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            s.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.search_light_text_highlight)), 0, index, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         if (theme == 1) {
             //viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
@@ -107,7 +107,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
             viewHolder.text.setText(item.get_text(), TextView.BufferType.SPANNABLE);
             Spannable s = (Spannable) viewHolder.text.getText();
-            s.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.search_dark_text_choose)), 0, index, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            s.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.search_dark_text_highlight)), 0, index, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
     }
 
