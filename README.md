@@ -22,15 +22,12 @@ dependencies {
 ```
 
 ![Screenshot 1]
-(./images/image_1.png)    
-![Screenshot 2]
-(./images/image_2.png)    
-![Screenshot 3]
-(./images/image_3.png)    
-![Screenshot 4]
-(./images/image_4.png)   
+(https://github.com/lapism/SearchView/blob/master/images/image_1.png)    ![Screenshot 2]
+(https://github.com/lapism/SearchView/blob/master/images/image_2.png)    ![Screenshot 3]
+(https://github.com/lapism/SearchView/blob/master/images/image_3.png)    ![Screenshot 4]
+(https://github.com/lapism/SearchView/blob/master/images/image_4.png) 
 ![Screenshot 5]
-(./images/image_5.png)  
+(./images/image_5.png) 
 
 **In code (Check the Sample project!):**
 
