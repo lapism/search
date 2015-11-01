@@ -26,7 +26,8 @@ dependencies {
 (https://github.com/lapism/SearchView/blob/master/images/image_2.png)    ![Screenshot 3]
 (https://github.com/lapism/SearchView/blob/master/images/image_3.png)    ![Screenshot 4]
 (https://github.com/lapism/SearchView/blob/master/images/image_4.png) 
-
+![Screenshot 5]
+(./images/image_5.png) 
 
 **In code (Check the Sample project!):**
 
