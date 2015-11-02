@@ -41,8 +41,8 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_classic);
-        // setContentView(R.layout.activity_search_design);
+        // setContentView(R.layout.activity_search_classic);
+        setContentView(R.layout.activity_search_design);
         //View shadowView = findViewById(R.id.view_shadow);
         //shadowView.setVisibility(View.VISIBLE);
 
@@ -69,7 +69,7 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // Snackbar.make(findViewById(R.id.container), "Query: " + query, Snackbar.LENGTH_LONG).show();
+                // Snackbar.make(getApplicationContext(), "Query: " + query, Snackbar.LENGTH_LONG).show();
                 Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                 return false;
             }

@@ -24,8 +24,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public OnItemClickListener mItemClickListener;
     private List<SearchItem> mSearchList = new ArrayList<>();
     private List<SearchItem> typeAheadData = new ArrayList<>();
-    private Context mContext;
     private List<Integer> startList = new ArrayList<>();
+    private Context mContext;
     private int keyLength = 0;
     private int theme;
 

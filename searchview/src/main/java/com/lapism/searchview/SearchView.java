@@ -222,6 +222,13 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         mOldQueryText = newText.toString();
     }
 
+    private void showVoice(boolean show) {
+        if (show && isVoiceAvailable() && allowVoiceSearch) {
+            mVoiceImageView.setVisibility(View.VISIBLE);
+        } else {
+            mVoiceImageView.setVisibility(View.GONE);
+        }
+    }
 
     /* Need update ********************************************************************************/
     private void initSearchView() {
@@ -279,14 +286,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         }
     }*/
     /* Need update ********************************************************************************/
-
-    public void showVoice(boolean show) {
-        if (show && isVoiceAvailable() && allowVoiceSearch) {
-            mVoiceImageView.setVisibility(View.VISIBLE);
-        } else {
-            mVoiceImageView.setVisibility(View.GONE);
-        }
-    }
 
     public void setVoiceSearch(boolean voiceSearch) {
         allowVoiceSearch = voiceSearch;
@@ -438,11 +437,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
     public boolean requestFocus(int direction, Rect previouslyFocusedRect) {
         return !mClearingFocus && isFocusable() && mSearchEditText.requestFocus(direction, previouslyFocusedRect);
     }
-
-   /* @Override
-    public boolean requestFocus(int direction, Rect previouslyFocusedRect) {
-        return isFocusable() && mSearchEditText.requestFocus(direction, previouslyFocusedRect);
-    }*/
 
     @Override
     public void clearFocus() {
