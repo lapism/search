@@ -25,7 +25,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     private List<SearchItem> mSearchList = new ArrayList<>();
     private List<SearchItem> typeAheadData = new ArrayList<>();
     private Context mContext;
-    private int index = 0;
+    private List<Integer> startList = new ArrayList<>();
+    private int keyLength = 0;
     private int theme;
 
     public SearchAdapter(Context mContext, List<SearchItem> mSearchList, List<SearchItem> typeAheadData, int theme) {
@@ -48,11 +49,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                 FilterResults filterResults = new FilterResults();
                 if (!TextUtils.isEmpty(constraint)) {
                     List<SearchItem> searchData = new ArrayList<>();
+
+                    startList.clear();
+                    String key = constraint.toString().toLowerCase(Locale.getDefault());
+
                     for (SearchItem str : typeAheadData) {
-                        if (str.get_text().toString().toLowerCase(Locale.getDefault()).contains(constraint.toString().toLowerCase())
-                                && str.get_text().toString().toLowerCase(Locale.getDefault()).startsWith(constraint.toString().toLowerCase())) {
-                            index = constraint.length();
+                        String string = str.get_text().toString().toLowerCase(Locale.getDefault());
+                        if (string.contains(key)) {
                             searchData.add(str);
+                            startList.add(string.indexOf(key));
+                            keyLength = key.length();
                         }
                     }
                     filterResults.values = searchData;
@@ -88,26 +94,26 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public void onBindViewHolder(ResultViewHolder viewHolder, int position) {
 
         SearchItem item = mSearchList.get(position);
+        int start = startList.get(position);
+        int end = start + keyLength;
+
         viewHolder.icon.setImageResource(item.get_icon());
 
         if (theme == 0) {
-            //String mystring = getResources().getString(R.string.mystring);
-            //viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
             viewHolder.icon.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
             viewHolder.text.setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
 
             viewHolder.text.setText(item.get_text(), TextView.BufferType.SPANNABLE);
             Spannable s = (Spannable) viewHolder.text.getText();
-            s.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.search_light_text_highlight)), 0, index, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            s.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.search_light_text_highlight)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         if (theme == 1) {
-            //viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
             viewHolder.icon.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
             viewHolder.text.setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
 
             viewHolder.text.setText(item.get_text(), TextView.BufferType.SPANNABLE);
             Spannable s = (Spannable) viewHolder.text.getText();
-            s.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.search_dark_text_highlight)), 0, index, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            s.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.search_dark_text_highlight)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
     }
 
