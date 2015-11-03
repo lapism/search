@@ -43,8 +43,6 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // setContentView(R.layout.activity_search_classic);
         setContentView(R.layout.activity_search_design);
-        //View shadowView = findViewById(R.id.view_shadow);
-        //shadowView.setVisibility(View.VISIBLE);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle(theme == 0 ? "Light" : "Dark");
