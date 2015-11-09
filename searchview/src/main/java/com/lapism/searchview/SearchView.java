@@ -165,7 +165,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         CharSequence query = mSearchEditText.getText();
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
             if (mOnQueryChangeListener == null || !mOnQueryChangeListener.onQueryTextSubmit(query.toString())) {
-                closeSearch();
                 mSearchEditText.setText(null);
             }
         }
@@ -181,7 +180,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         @Override
         public void onClick(View v) {
             if (v == mBackImageView) {
-                closeSearch();
+                closeSearch(true);
             } else if (v == mVoiceImageView) {
                 onVoiceClicked();
             } else if (v == mEmptyImageView) {
@@ -189,7 +188,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
             } else if (v == mSearchEditText) {
                 showSuggestions();
             } else if (v == mTintView) {
-                closeSearch();
+                closeSearch(true);
             }
         }
     };
@@ -271,20 +270,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         });
     }
 
-    /*private void setUpLayoutTransition() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            LinearLayout searchRoot = (LinearLayout) findViewById(R.id.search_layout_item);
-            LayoutTransition layoutTransition = new LayoutTransition();
-            layoutTransition.setDuration(SearchAnimator.ANIMATION_DURATION);
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
-                // layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
-                layoutTransition.enableTransitionType(LayoutTransition.CHANGE_DISAPPEARING);
-                layoutTransition.setStartDelay(LayoutTransition.CHANGING, 0);
-            }
-            layoutTransition.setStartDelay(LayoutTransition.CHANGE_DISAPPEARING, 0);
-            mCardView.setLayoutTransition(layoutTransition);
-        }
-    }*/
     /* Need update ********************************************************************************/
 
     public void setVoiceSearch(boolean voiceSearch) {
@@ -360,11 +345,13 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
 
     public interface OnQueryTextListener {
         boolean onQueryTextSubmit(String query);
+
         boolean onQueryTextChange(String newText);
     }
 
     public interface SearchViewListener {
         void onSearchViewShown();
+
         void onSearchViewClosed();
     }
 
@@ -376,7 +363,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         mSearchViewListener = listener;
     }
 
-    public void showSearch() {
+    public void showSearch(boolean animate) {
         if (isSearchOpen()) {
             return;
         }
@@ -384,19 +371,20 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         mSearchEditText.requestFocus();
 
         setVisibility(View.VISIBLE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            revealInAnimation();
-        } else {
-            SearchAnimator.fadeInAnimation(mCardView, SearchAnimator.ANIMATION_DURATION);
+        if (animate) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                revealInAnimation();
+            } else {
+                SearchAnimator.fadeInAnimation(mCardView, SearchAnimator.ANIMATION_DURATION);
+            }
         }
         if (mSearchViewListener != null) {
             mSearchViewListener.onSearchViewShown();
         }
-
         mIsSearchOpen = true;
     }
 
-    public void closeSearch() {
+    public void closeSearch(boolean animate) {
         if (!isSearchOpen()) {
             return;
         }
@@ -404,21 +392,27 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         mSearchEditText.clearFocus();
         clearFocus();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            SearchAnimator.revealOutAnimation(mContext, mCardView, SearchAnimator.ANIMATION_DURATION);
-        } else {
-            SearchAnimator.fadeOutAnimation(mCardView, SearchAnimator.ANIMATION_DURATION);
-        }
-        postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                setVisibility(View.GONE);
-                if (mSearchViewListener != null) {
-                    mSearchViewListener.onSearchViewClosed();
-                }
+        if (animate) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                SearchAnimator.revealOutAnimation(mContext, mCardView, SearchAnimator.ANIMATION_DURATION);
+            } else {
+                SearchAnimator.fadeOutAnimation(mCardView, SearchAnimator.ANIMATION_DURATION);
             }
-        }, SearchAnimator.ANIMATION_DURATION);
-
+            postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    setVisibility(View.GONE);
+                    if (mSearchViewListener != null) {
+                        mSearchViewListener.onSearchViewClosed();
+                    }
+                }
+            }, SearchAnimator.ANIMATION_DURATION);
+        } else {
+            setVisibility(View.GONE);
+            if (mSearchViewListener != null) {
+                mSearchViewListener.onSearchViewClosed();
+            }
+        }
         mIsSearchOpen = false;
     }
 
@@ -473,7 +467,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         }
         mSavedState = (SavedState) state;
         if (mSavedState.isSearchOpen) {
-            showSearch();
+            showSearch(true);
             setQuery(mSavedState.query, false);
         }
         super.onRestoreInstanceState(mSavedState.getSuperState());
@@ -533,10 +527,24 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                showSearch();
+                showSearch(true);
                 return true;
             }
         });
     }
 
+        /*private void setUpLayoutTransition() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            LinearLayout searchRoot = (LinearLayout) findViewById(R.id.search_layout_item);
+            LayoutTransition layoutTransition = new LayoutTransition();
+            layoutTransition.setDuration(SearchAnimator.ANIMATION_DURATION);
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+                // layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
+                layoutTransition.enableTransitionType(LayoutTransition.CHANGE_DISAPPEARING);
+                layoutTransition.setStartDelay(LayoutTransition.CHANGING, 0);
+            }
+            layoutTransition.setStartDelay(LayoutTransition.CHANGE_DISAPPEARING, 0);
+            mCardView.setLayoutTransition(layoutTransition);
+        }
+    }*/
 }

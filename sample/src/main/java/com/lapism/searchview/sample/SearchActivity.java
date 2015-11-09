@@ -68,6 +68,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // Snackbar.make(getApplicationContext(), "Query: " + query, Snackbar.LENGTH_LONG).show();
+                mSearchView.closeSearch(false);
                 Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -104,6 +105,7 @@ public class SearchActivity extends AppCompatActivity {
         mSearchAdapter.setOnItemClickListener(new SearchAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                mSearchView.closeSearch(false);
                 TextView mText = (TextView) view.findViewById(R.id.textView_result);
                 Toast.makeText(getApplicationContext(), mText.getText(), Toast.LENGTH_SHORT).show();
             }
@@ -125,7 +127,7 @@ public class SearchActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search: {
-                mSearchView.showSearch();
+                mSearchView.showSearch(true);
                 return true;
             }
             default:
@@ -136,7 +138,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (mSearchView.isSearchOpen()) {
-            mSearchView.closeSearch();
+            mSearchView.closeSearch(true);
         } else {
             super.onBackPressed();
         }

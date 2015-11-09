@@ -6,31 +6,31 @@
     android:fitsSystemWindows="true"
     tools:context=".SearchActivity">
 
-        <LinearLayout
-            android:orientation="vertical"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/toolbar" />
+
+        <!-- TabLayout here instead of View -->
+        <View
+            android:background="?attr/colorPrimaryDark"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="48dp" />
 
-            <include layout="@layout/toolbar" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <!-- TabLayout here instead of View -->
-            <View
-                android:background="?attr/colorPrimaryDark"
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="48dp" />
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/cont_desc"
+                android:src="@drawable/logo" />
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/cont_desc"
-                    android:src="@drawable/logo" />
-
-            </ScrollView>
-        </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
     <com.lapism.searchview.SearchView
         android:id="@+id/search_view"
