@@ -47,7 +47,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
     private boolean mIsSearchOpen = false;
     private boolean mClearingFocus;
     private boolean allowVoiceSearch;
-    private Context mContext;
+    private final Context mContext;
     private RecyclerView mSuggestionsRecyclerView;
     private CardView mCardView;
     private EditText mSearchEditText;
@@ -73,6 +73,14 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
 
     public SearchView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        mContext = context;
+        initView();
+        initStyle(attrs, defStyleAttr);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public SearchView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
         mContext = context;
         initView();
         initStyle(attrs, defStyleAttr);
@@ -547,4 +555,5 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
             mCardView.setLayoutTransition(layoutTransition);
         }
     }*/
+
 }

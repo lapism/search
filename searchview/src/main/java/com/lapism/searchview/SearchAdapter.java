@@ -21,13 +21,13 @@ import java.util.Locale;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
-    public OnItemClickListener mItemClickListener;
+    private OnItemClickListener mItemClickListener;
     private List<SearchItem> mSearchList = new ArrayList<>();
     private List<SearchItem> typeAheadData = new ArrayList<>();
-    private List<Integer> startList = new ArrayList<>();
-    private Context mContext;
+    private final List<Integer> startList = new ArrayList<>();
+    private final Context mContext;
     private int keyLength = 0;
-    private int theme;
+    private final int theme;
 
     public SearchAdapter(Context mContext, List<SearchItem> mSearchList, List<SearchItem> typeAheadData, int theme) {
         this.mContext = mContext;
@@ -133,8 +133,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     public class ResultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public ImageView icon;
-        public TextView text;
+        public final ImageView icon;
+        public final TextView text;
 
         public ResultViewHolder(View view) {
             super(view);

@@ -3,8 +3,8 @@ package com.lapism.searchview;
 
 public class SearchItem {
 
-    private int icon;
-    private CharSequence text;
+    private final int icon;
+    private final CharSequence text;
 
     public SearchItem(int icon, CharSequence text) {
         this.icon = icon;

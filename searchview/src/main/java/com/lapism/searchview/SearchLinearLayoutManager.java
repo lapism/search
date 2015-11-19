@@ -60,7 +60,7 @@ public class SearchLinearLayoutManager extends android.support.v7.widget.LinearL
         ViewCompat.setOverScrollMode(view, overScrollMode);
     }
 
-    public static int makeUnspecifiedSpec() {
+    private int makeUnspecifiedSpec() {
         return View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
     }
 
