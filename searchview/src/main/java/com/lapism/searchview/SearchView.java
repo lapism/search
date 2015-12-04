@@ -43,6 +43,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
     public static final int THEME_DARK = 1;
 
     public static final int SPEECH_REQUEST_CODE = 0;
+
     private int mStyle = 0;
     private boolean mIsSearchOpen = false;
     private boolean mClearingFocus;

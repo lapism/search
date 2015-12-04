@@ -16,11 +16,14 @@ public class SearchAnimator {
 
     public static final int ANIMATION_DURATION = 360;
 
+    private static int view_cy = 0;
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void revealInAnimation(final Context mContext, final View view, final int duration) {
 
         int cx = view.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.reveal);
         int cy = view.getHeight() / 2;
+        view_cy = cy;
 
         if (cx != 0 && cy != 0) {
             float initialRadius = 0.0f;
@@ -38,7 +41,7 @@ public class SearchAnimator {
     public static void revealOutAnimation(final Context mContext, final View view, final int duration) {
 
         int cx = view.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.reveal);
-        int cy = view.getHeight() / 2;
+        int cy = view_cy;
 
         if (cx != 0 && cy != 0) {
             float initialRadius = view.getWidth();

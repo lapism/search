@@ -4,6 +4,7 @@
     <!-- Light Theme -->
     <color name="search_light_background">#ffffffff</color>
     <color name="search_light_icon">#ff616161</color>
+    <color name="search_light_icon2">#ff757575</color>
     <color name="search_light_text">#de000000</color>
     <color name="search_light_text_hint">#8a000000</color>
     <color name="search_light_separator">#ffe0e0e0</color>
