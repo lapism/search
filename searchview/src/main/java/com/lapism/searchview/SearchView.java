@@ -403,7 +403,8 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
 
         if (animate) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                SearchAnimator.revealOutAnimation(mContext, mCardView, SearchAnimator.ANIMATION_DURATION);
+                final int endCy = mSearchEditText.getHeight() / 2;
+                SearchAnimator.revealOutAnimation(mContext, mCardView, endCy, SearchAnimator.ANIMATION_DURATION);
             } else {
                 SearchAnimator.fadeOutAnimation(mCardView, SearchAnimator.ANIMATION_DURATION);
             }
@@ -525,7 +526,8 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
                 @Override
                 public void onGlobalLayout() {
                     mCardView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    SearchAnimator.revealInAnimation(mContext, mCardView, SearchAnimator.ANIMATION_DURATION);
+                    final int startCy = mSearchEditText.getHeight() / 2;
+                    SearchAnimator.revealInAnimation(mContext, mCardView, startCy, SearchAnimator.ANIMATION_DURATION);
                 }
             });
         }
