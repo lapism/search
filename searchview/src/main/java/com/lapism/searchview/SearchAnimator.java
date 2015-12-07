@@ -16,38 +16,35 @@ public class SearchAnimator {
 
     public static final int ANIMATION_DURATION = 360;
 
-    private static int view_cy = 0;
-
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public static void revealInAnimation(final Context mContext, final View view, final int duration) {
+    public static void revealInAnimation(final Context mContext, final View animatedView, final int startCy, final int duration) {
 
-        int cx = view.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.reveal);
-        int cy = view.getHeight() / 2;
-        view_cy = cy;
+        int cx = animatedView.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.reveal);
+        int cy = -1 == startCy ? animatedView.getHeight() / 2 : startCy;
 
         if (cx != 0 && cy != 0) {
             float initialRadius = 0.0f;
-            float finalRadius = Math.max(view.getWidth(), view.getHeight());
+            float finalRadius = Math.max(animatedView.getWidth(), animatedView.getHeight());
 
-            Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, initialRadius, finalRadius);
+            Animator anim = ViewAnimationUtils.createCircularReveal(animatedView, cx, cy, initialRadius, finalRadius);
             anim.setInterpolator(new AccelerateDecelerateInterpolator());
             anim.setDuration(duration);
-            view.setVisibility(View.VISIBLE);
+            animatedView.setVisibility(View.VISIBLE);
             anim.start();
         }
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public static void revealOutAnimation(final Context mContext, final View view, final int duration) {
+    public static void revealOutAnimation(final Context mContext, final View animatedView, final int endCy, final int duration) {
 
-        int cx = view.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.reveal);
-        int cy = view_cy;
+        int cx = animatedView.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.reveal);
+        int cy = -1 == endCy ? animatedView.getHeight() / 2 : endCy;
 
         if (cx != 0 && cy != 0) {
-            float initialRadius = view.getWidth();
+            float initialRadius = animatedView.getWidth();
             float finalRadius = 0.0f;
 
-            Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, initialRadius, finalRadius);
+            Animator anim = ViewAnimationUtils.createCircularReveal(animatedView, cx, cy, initialRadius, finalRadius);
             anim.setInterpolator(new AccelerateDecelerateInterpolator());
             anim.setDuration(duration);
             anim.addListener(new AnimatorListenerAdapter() {
@@ -55,7 +52,7 @@ public class SearchAnimator {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
-                    view.setVisibility(View.GONE);
+                    animatedView.setVisibility(View.GONE);
                 }
             });
             anim.start();
