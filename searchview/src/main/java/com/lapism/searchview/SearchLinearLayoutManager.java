@@ -3,13 +3,14 @@ package com.lapism.searchview;
 import android.content.Context;
 import android.graphics.Rect;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import java.lang.reflect.Field;
 
 
-public class SearchLinearLayoutManager extends android.support.v7.widget.LinearLayoutManager {
+public class SearchLinearLayoutManager extends LinearLayoutManager {
 
     private static boolean canMakeInsetsDirty = true;
     private static Field insetsDirtyField = null;

@@ -21,4 +21,34 @@
     <!-- Shadow -->
     <color name="search_shadow_layout">#80000000</color>
 
+    <!-- 12% black in LIGHT THEME -->
+    <color name="nnf_light_separator_color">#1e000000</color>
+    <!-- 12% white in BLACK THEME -->
+    <color name="nnf_dark_separator_color">#1effffff</color>
+
+    <color name="error_view_text">#656565</color>
+    <color name="error_view_text_dark">#CC000000</color>
+    <color name="error_view_text_light">#858585</color>
+
+    <!-- Light Theme -->
+    <color name="error_view_light_icon">#ff616161</color>
+    <color name="error_view_light_text">#de000000</color>
+    <color name="error_view_light_text_hint">#8a000000</color>
+    <color name="error_view_light_separator">#ffe0e0e0</color>
+    <color name="error_view_light_text_highlight">#61000000</color>
+
+    <!-- Dark Theme -->
+    <color name="error_view_dark_icon">#ffffffff</color>
+    <color name="error_view_dark_text">#ffffffff</color>
+    <color name="error_view_dark_text_hint">#b3ffffff</color>
+    <color name="error_view_dark_separator">#ff424242</color>
+    <color name="error_view_dark_text_highlight">#61ffffff</color>
+
+    <color name="hint_light">#38000000</color>
+    <color name="hint_dark">#30ffffff</color>
+    <color name="hint_dark2">#70ffffff</color>
+
+    <color name="card_view_dark_background">#ff202020</color>
+    <color name="card_view_light_background">#fffafafa</color>
+
 </resources>
