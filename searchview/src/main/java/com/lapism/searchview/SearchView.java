@@ -89,7 +89,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
 
     private void initView() {
         LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
-        setVisibility(View.INVISIBLE);
+        setVisibility(View.GONE);
 
         SearchLinearLayoutManager layoutManager = new SearchLinearLayoutManager(mContext, SearchLinearLayoutManager.VERTICAL, false);
         layoutManager.clearChildSize();
@@ -386,6 +386,8 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
             } else {
                 SearchAnimator.fadeInAnimation(mCardView, SearchAnimator.ANIMATION_DURATION);
             }
+        } else {
+            mCardView.setVisibility(VISIBLE);
         }
         if (mSearchViewListener != null) {
             mSearchViewListener.onSearchViewShown();
