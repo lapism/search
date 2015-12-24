@@ -50,6 +50,7 @@
                     android:layout_gravity="start|center_vertical"
                     android:layout_weight="1"
                     android:gravity="start|center_vertical"
+                    android:padding="@dimen/edit_text_spacing"
                     android:hint="@string/search_hint"
                     android:inputType="text"
                     android:imeOptions="actionSearch|flagNoFullscreen"
