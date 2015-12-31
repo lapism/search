@@ -1,7 +1,8 @@
 # SearchView
 NEXT BIG VERSION IN DEVELOPMENT !
+
 Persistent SearchView Library in Material Design. 
-Now it supports layout like section My apps in Google Play Store.
+It supports layout like section My apps in Google Play Store.
 https://www.google.com/design/spec/patterns/search.html. 
 
 Material colors in the project:
