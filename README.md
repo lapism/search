@@ -1,5 +1,5 @@
 # SearchView
-NEXT BIG VERSION IN DEVELOPMENT !
+NEXT BIG VERSION IN DEVELOPMENT. But it will not be any time soon :-P.
 
 Persistent SearchView Library in Material Design. 
 It supports layout like section My apps in Google Play Store.
