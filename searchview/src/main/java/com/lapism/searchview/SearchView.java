@@ -20,6 +20,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -140,6 +141,9 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
             }
             if (attr.hasValue(R.styleable.SearchView_search_divider)) {
                 setDivider(attr.getBoolean(R.styleable.SearchView_search_divider, false));
+            }
+            if (attr.hasValue(R.styleable.SearchView_search_text_size)) {
+                setTextSize(attr.getDimensionPixelSize(R.styleable.SearchView_search_text_size, 0));
             }
             attr.recycle();
         }
@@ -340,6 +344,10 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         if (divider) {
             mSuggestionsRecyclerView.addItemDecoration(new SearchViewDivider(mContext, null));
         }
+    }
+
+    public void setTextSize(int size) {
+        mSearchEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
     }
 
     public boolean isSearchOpen() {

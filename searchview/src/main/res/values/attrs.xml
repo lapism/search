@@ -11,6 +11,7 @@
             <enum name="dark" value="1" />
         </attr>
         <attr name="search_divider" format="boolean" />
+        <attr name="search_text_size" format="dimension" />
     </declare-styleable>
 
 </resources>
