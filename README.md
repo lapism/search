@@ -63,5 +63,7 @@ app:search_theme="light"
 
 app:search_divider="true"
 app:search_divider="false"
+
+app:search_text_size="@dimen/search_text_medium"
 ```
 
