@@ -2,8 +2,8 @@
 
 **Note: Version 1.6 is not compatible with 1.5. And Toolbar version is not done yet.**
 
-Persistent SearchView Library in Material Design. 
-Now it supports layout like section My apps in Google Play Store.
+Persistent SearchView Library with history in Material Design. 
+It supports layout like section My apps in Google Play Store.
 https://www.google.com/design/spec/patterns/search.html. 
 
 Material colors in the project:
