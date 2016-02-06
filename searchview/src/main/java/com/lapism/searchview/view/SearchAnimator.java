@@ -1,4 +1,4 @@
-package com.lapism.searchview;
+package com.lapism.searchview.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -11,15 +11,15 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
+import com.lapism.searchview.R;
 
-public class SearchAnimator {
 
-    public static final int ANIMATION_DURATION = 360;
+class SearchAnimator {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public static void revealInAnimation(final Context mContext, final View animatedView, final int startCy, final int duration) {
+    public static void revealInAnimation(final Context mContext, final View animatedView, final int startCy, int duration) {
 
-        int cx = animatedView.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.reveal);
+        int cx = animatedView.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.search_reveal);
         int cy = -1 == startCy ? animatedView.getHeight() / 2 : startCy;
 
         if (cx != 0 && cy != 0) {
@@ -35,10 +35,10 @@ public class SearchAnimator {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public static void revealOutAnimation(final Context mContext, final View animatedView, final int endCy, final int duration) {
+    public static void revealOutAnimation(final Context mContext, final View animatedView, final int endCy, int duration) {
 
-        int cx = animatedView.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.reveal);
-        int cy = -1 == endCy ? animatedView.getHeight() / 2 : endCy;
+        int cx = animatedView.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.search_reveal);
+        int cy = endCy == -1 ? animatedView.getHeight() / 2 : endCy;
 
         if (cx != 0 && cy != 0) {
             float initialRadius = animatedView.getWidth();

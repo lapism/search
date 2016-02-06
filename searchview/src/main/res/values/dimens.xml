@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="search_text_spacing">6dp</dimen>
+
     <dimen name="search_margin_top">1dp</dimen>
     <dimen name="search_margin_left">2dp</dimen>
     <dimen name="search_margin_right">2dp</dimen>
@@ -8,18 +10,26 @@
     <dimen name="search_height">46dp</dimen>
 
     <dimen name="search_padding">12dp</dimen>
-    <dimen name="reveal">24dp</dimen>
+    <dimen name="search_reveal">24dp</dimen>
 
-    <dimen name="search_toolbar_height">56dp</dimen>
-    <dimen name="search_toolbar_padding">16dp</dimen>
+    <!-- SearchView2 -->
+    <dimen name="search2_margin_top">5dp</dimen>
+    <dimen name="search2_margin_left">6dp</dimen>
+    <dimen name="search2_margin_right">6dp</dimen>
+    <dimen name="search2_text_margin_view">28dp</dimen>
 
     <dimen name="search_icon">24dp</dimen>
-    <dimen name="search_edit_text_margin">32dp</dimen>
-    <dimen name="search_text_view_margin">32dp</dimen>
+    <dimen name="search_text_margin_view">32dp</dimen>
+    <dimen name="search_text_margin">32dp</dimen>
     <dimen name="search_item_height">56dp</dimen>
-
     <dimen name="search_text_small">14sp</dimen>
     <dimen name="search_text_medium">16sp</dimen>
-    <dimen name="edit_text_spacing">6dp</dimen>
+
+    <dimen name="search_arrow_thickness">2dp</dimen>
+    <dimen name="search_arrow_arrowHeadLength">8dp</dimen>
+    <dimen name="search_arrow_arrowShaftLength">16dp</dimen>
+    <dimen name="search_arrow_barLength">18dp</dimen>
+    <dimen name="search_arrow_gapBetweenBars">3dp</dimen>
+    <dimen name="search_arrow_drawableSize">24dp</dimen>
 
 </resources>

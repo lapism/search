@@ -13,9 +13,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lapism.searchview.SearchAdapter;
-import com.lapism.searchview.SearchItem;
-import com.lapism.searchview.SearchView;
+import com.lapism.searchview.adapter.SearchAdapter;
+import com.lapism.searchview.adapter.SearchItem;
+import com.lapism.searchview.history.SearchHistoryTable;
+import com.lapism.searchview.view.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +24,12 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
+    private SearchHistoryTable db;
+    private List<SearchItem> mSuggestionsList;
     private SearchView mSearchView;
-    private int theme = 0;
-    private int style = 0;
+    private int version = SearchView.VERSION_TOOLBAR;
+    private int theme = SearchView.THEME_LIGHT;
+    private int style = SearchView.STYLE_CLASSIC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,22 +38,29 @@ public class SearchActivity extends AppCompatActivity {
         if (extras != null) {
             style = extras.getInt("style");
             theme = extras.getInt("theme");
-            if (theme == 0)
+
+            if (theme == SearchView.THEME_LIGHT) {
                 setTheme(R.style.AppThemeLight);
-            if (theme == 1)
+                super.onCreate(savedInstanceState);
+                setContentView(R.layout.activity_search_design);
+                version = SearchView.VERSION_MENU_ITEM;
+            }
+
+            if (theme == SearchView.THEME_DARK) {
                 setTheme(R.style.AppThemeDark);
+                super.onCreate(savedInstanceState);
+                setContentView(R.layout.activity_search_design);
+                version = SearchView.VERSION_MENU_ITEM;
+            }
+        } else {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_search_classic);
         }
 
-        super.onCreate(savedInstanceState);
-        // setContentView(R.layout.activity_search_classic);
-        setContentView(R.layout.activity_search_design);
-
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle(theme == 0 ? "Light" : "Dark");
-        mToolbar.setSubtitle(style == 0 ? "Classic" : "Color");
+        mToolbar.setTitle(theme == SearchView.THEME_LIGHT ? "Light" : "Dark");
+        mToolbar.setSubtitle(style == SearchView.STYLE_CLASSIC ? "Classic" : "Color");  // TODO
         setSupportActionBar(mToolbar);
-        // mToolbar.setElevation(4);
-        // mToolbar.inflateMenu(R.menu.menu_settings);
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
 
@@ -59,16 +70,24 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        db = new SearchHistoryTable(this);
+        mSuggestionsList = new ArrayList<>();
+
         mSearchView = (SearchView) findViewById(R.id.search_view);
+        mSearchView.setVersion(version);
         mSearchView.setStyle(style);
         mSearchView.setTheme(theme);
-        mSearchView.setVoiceSearch(true);
+        mSearchView.setDivider(false);
+        mSearchView.setHint("Search");
+        mSearchView.setHintSize(getResources().getDimension(R.dimen.search_text_medium));
+        mSearchView.setVoice(true);
+        mSearchView.setVoiceText("Voice");
+        mSearchView.setAnimationDuration(360);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // Snackbar.make(getApplicationContext(), "Query: " + query, Snackbar.LENGTH_LONG).show();
-                mSearchView.closeSearch(false);
+                mSearchView.closeSearchView(false);
+                db.addItem(new SearchItem(query));
                 Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -78,9 +97,7 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
-
         mSearchView.setOnSearchViewListener(new SearchView.SearchViewListener() {
-
             @Override
             public void onSearchViewShown() {
             }
@@ -91,25 +108,18 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         List<SearchItem> mResultsList = new ArrayList<>();
-        List<SearchItem> mSuggestionsList = new ArrayList<>();
-        mSuggestionsList.add(new SearchItem(R.drawable.search_ic_search_black_24dp, "Wi-Fi"));
-        mSuggestionsList.add(new SearchItem(R.drawable.search_ic_search_black_24dp, "Bluetooth"));
-        mSuggestionsList.add(new SearchItem(R.drawable.search_ic_search_black_24dp, "GPS"));
-        mSuggestionsList.add(new SearchItem(R.drawable.search_ic_search_black_24dp, "Ad-Hoc"));
-        mSuggestionsList.add(new SearchItem(R.drawable.search_ic_search_black_24dp, "Google"));
-        mSuggestionsList.add(new SearchItem(R.drawable.search_ic_search_black_24dp, "Android"));
-        mSuggestionsList.add(new SearchItem(R.drawable.search_ic_search_black_24dp, "Piconet"));
-        mSuggestionsList.add(new SearchItem(R.drawable.search_ic_search_black_24dp, "Scatternet"));
-
         SearchAdapter mSearchAdapter = new SearchAdapter(this, mResultsList, mSuggestionsList, theme);
         mSearchAdapter.setOnItemClickListener(new SearchAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                mSearchView.closeSearch(false);
-                TextView mText = (TextView) view.findViewById(R.id.textView_result);
-                Toast.makeText(getApplicationContext(), mText.getText(), Toast.LENGTH_SHORT).show();
+                mSearchView.closeSearchView(false);
+                TextView textView = (TextView) view.findViewById(R.id.textView_item_text);
+                CharSequence text = textView.getText();
+                db.addItem(new SearchItem(text));
+                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
             }
         });
+
         mSearchView.setAdapter(mSearchAdapter);
     }
 
@@ -117,9 +127,6 @@ public class SearchActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
-        // DEPRECATED, use onOptionsItemSelected(MenuItem item)
-        // MenuItem item = menu.findItem(R.id.action_search);
-        // mSearchView.setMenuItem(item);
         return true;
     }
 
@@ -127,7 +134,7 @@ public class SearchActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search: {
-                mSearchView.showSearch(true);
+                showSearchView();
                 return true;
             }
             default:
@@ -137,8 +144,8 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (mSearchView.isSearchOpen()) {
-            mSearchView.closeSearch(true);
+        if (mSearchView.isSearchOpen() && mSearchView.isSearchOpen()) {
+            mSearchView.closeSearchView(true);
         } else {
             super.onBackPressed();
         }
@@ -147,16 +154,23 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SearchView.SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
-            List<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            if (matches != null && matches.size() > 0) {
-                String searchWrd = matches.get(0);
+            List<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (results != null && results.size() > 0) {
+                String searchWrd = results.get(0);
                 if (!TextUtils.isEmpty(searchWrd)) {
-                    mSearchView.setQuery(searchWrd, false);
+                    mSearchView.setQuery(searchWrd);
                 }
             }
-            return;
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void showSearchView() {
+        mSuggestionsList.clear();
+        mSuggestionsList.add(new SearchItem("Google"));
+        mSuggestionsList.add(new SearchItem("Android"));
+        mSuggestionsList.addAll(db.getAllItems());
+        mSearchView.openSearchView(true);
     }
 
 }

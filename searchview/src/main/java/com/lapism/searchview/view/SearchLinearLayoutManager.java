@@ -1,4 +1,4 @@
-package com.lapism.searchview;
+package com.lapism.searchview.view;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -10,55 +10,46 @@ import android.view.View;
 import java.lang.reflect.Field;
 
 
-public class SearchLinearLayoutManager extends LinearLayoutManager {
-
-    private static boolean canMakeInsetsDirty = true;
-    private static Field insetsDirtyField = null;
+class SearchLinearLayoutManager extends LinearLayoutManager {
 
     private static final int CHILD_WIDTH = 0;
     private static final int CHILD_HEIGHT = 1;
     private static final int DEFAULT_CHILD_SIZE = 112;
-
+    private static boolean canMakeInsetsDirty = true;
+    private static Field insetsDirtyField = null;
     private final int[] childDimensions = new int[2];
     private final RecyclerView view;
-
+    private final Rect tmpRect = new Rect();
     private int childSize = DEFAULT_CHILD_SIZE;
     private boolean hasChildSize = false;
-    private int overScrollMode = ViewCompat.OVER_SCROLL_ALWAYS;
-    private final Rect tmpRect = new Rect();
+    // private int overScrollMode = ViewCompat.OVER_SCROLL_ALWAYS;
 
-    @SuppressWarnings("UnusedDeclaration")
     public SearchLinearLayoutManager(Context context) {
-        super(context);
+        super(context, LinearLayoutManager.VERTICAL, false);
         this.view = null;
     }
 
-    @SuppressWarnings("UnusedDeclaration")
-    public SearchLinearLayoutManager(Context context, int orientation, boolean reverseLayout) {
-        super(context, orientation, reverseLayout);
-        this.view = null;
+    private static void makeInsetsDirty(RecyclerView.LayoutParams p) {
+        if (!canMakeInsetsDirty) {
+            return;
+        }
+        try {
+            if (insetsDirtyField == null) {
+                insetsDirtyField = RecyclerView.LayoutParams.class.getDeclaredField("mInsetsDirty");
+                insetsDirtyField.setAccessible(true);
+            }
+            try {
+                insetsDirtyField.set(p, true);
+            } catch (IllegalAccessException e) {
+                onMakeInsertDirtyFailed();
+            }
+        } catch (NoSuchFieldException e) {
+            onMakeInsertDirtyFailed();
+        }
     }
 
-    @SuppressWarnings("UnusedDeclaration")
-    public SearchLinearLayoutManager(RecyclerView view) {
-        super(view.getContext());
-        this.view = view;
-        this.overScrollMode = ViewCompat.getOverScrollMode(view);
-    }
-
-    @SuppressWarnings("UnusedDeclaration")
-    public SearchLinearLayoutManager(RecyclerView view, int orientation, boolean reverseLayout) {
-        super(view.getContext(), orientation, reverseLayout);
-        this.view = view;
-        this.overScrollMode = ViewCompat.getOverScrollMode(view);
-    }
-
-    public void setOverScrollMode(int overScrollMode) {
-        if (overScrollMode < ViewCompat.OVER_SCROLL_ALWAYS || overScrollMode > ViewCompat.OVER_SCROLL_NEVER)
-            throw new IllegalArgumentException("Unknown overscroll mode: " + overScrollMode);
-        if (this.view == null) throw new IllegalStateException("view == null");
-        this.overScrollMode = overScrollMode;
-        ViewCompat.setOverScrollMode(view, overScrollMode);
+    private static void onMakeInsertDirtyFailed() {
+        canMakeInsetsDirty = false;
     }
 
     private int makeUnspecifiedSpec() {
@@ -147,7 +138,7 @@ public class SearchLinearLayoutManager extends LinearLayoutManager {
 
         setMeasuredDimension(width, height);
 
-        if (view != null && overScrollMode == ViewCompat.OVER_SCROLL_IF_CONTENT_SCROLLS) {
+        if (view != null) {
             final boolean fit = (vertical && (!hasHeightSize || height < heightSize))
                     || (!vertical && (!hasWidthSize || width < widthSize));
 
@@ -224,29 +215,6 @@ public class SearchLinearLayoutManager extends LinearLayoutManager {
 
         makeInsetsDirty(p);
         recycler.recycleView(child);
-    }
-
-    private static void makeInsetsDirty(RecyclerView.LayoutParams p) {
-        if (!canMakeInsetsDirty) {
-            return;
-        }
-        try {
-            if (insetsDirtyField == null) {
-                insetsDirtyField = RecyclerView.LayoutParams.class.getDeclaredField("mInsetsDirty");
-                insetsDirtyField.setAccessible(true);
-            }
-            try {
-                insetsDirtyField.set(p, true);
-            } catch (IllegalAccessException e) {
-                onMakeInsertDirtyFailed();
-            }
-        } catch (NoSuchFieldException e) {
-            onMakeInsertDirtyFailed();
-        }
-    }
-
-    private static void onMakeInsertDirtyFailed() {
-        canMakeInsetsDirty = false;
     }
 
 }

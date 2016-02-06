@@ -19,15 +19,15 @@
 
             <!-- TabLayout here instead of View -->
             <View
-                android:background="?attr/colorPrimaryDark"
                 android:layout_width="match_parent"
-                android:layout_height="48dp" />
+                android:layout_height="48dp"
+                android:background="?attr/colorPrimary" />
 
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <ImageView
@@ -40,7 +40,7 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <com.lapism.searchview.SearchView
+    <com.lapism.searchview.view.SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -48,14 +48,3 @@
     <!-- NavigationView here -->
 
 </android.support.v4.widget.DrawerLayout>
-
-    <!--
-       app:search_style="color"
-       app:search_style="classic"
-
-       app:search_theme="dark"
-       app:search_theme="light"
-
-       app:search_divider="true"
-       app:search_divider="false"
-     -->

@@ -1,0 +1,59 @@
+    <attr name="drawerArrowStyle" format="reference" />
+    <!--
+   <style name="SearchDrawerArrowToggle" parent="SearchDrawerArrowToggle.Base">
+    </style>
+
+    <item name="drawerArrowStyle">@style/Widget.AppCompat.DrawerArrowToggle</item>-->
+
+        <style name="SearchDrawerArrowToggle2">
+            <item name="search_color">@android:color/black</item>
+            <item name="search_spinBars">true</item>
+            <item name="search_thickness">2dp</item>
+            <item name="search_arrowHeadLength">8dp</item>
+            <item name="search_arrowShaftLength">16dp</item>
+            <item name="search_barLength">18dp</item>
+            <item name="search_gapBetweenBars">3dp</item>
+            <item name="search_drawableSize">24dp</item>
+        </style>
+
+        <declare-styleable name="SearchDrawerArrowToggle">
+            <attr name="search_color" format="color"/>
+            <attr name="search_spinBars" format="boolean"/>
+            <attr name="search_thickness" format="dimension"/>
+            <attr name="search_arrowHeadLength" format="dimension"/>
+            <attr name="search_arrowShaftLength" format="dimension"/>
+            <attr name="search_barLength" format="dimension"/>
+            <attr name="search_gapBetweenBars" format="dimension"/>
+            <attr name="search_drawableSize" format="dimension"/>
+        </declare-styleable>
+
+                final TypedArray a = context.getTheme().obtainStyledAttributes(null, R.styleable.SearchDrawerArrowToggle, R.attr.drawerArrowStyle, R.style.SearchDrawerArrowToggle2);
+        setColor(a.getColor(R.styleable.SearchDrawerArrowToggle_search_color, 0));        a.recycle();
+
+        package com.lapism.searchview.arrow;
+
+
+        interface DrawerToggle {
+
+            void setPosition(float position);
+
+        }
+        implements DrawerToggle
+
+
+
+        /*@FloatRange(from = 0.0, to = 1.0)
+    public float getProgress() {
+        return mProgress;
+    }*/
+
+//@IntDef({ARROW_DIRECTION_LEFT, ARROW_DIRECTION_RIGHT, ARROW_DIRECTION_START, ARROW_DIRECTION_END})
+//@Retention(RetentionPolicy.SOURCE)
+
+//public @interface ArrowDirection {}
+
+
+save to database
+ persistent main search
+ hide show after search
+ back pressed

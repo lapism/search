@@ -19,58 +19,43 @@
 
             <!-- TabLayout here instead of View -->
             <View
-                android:background="?attr/colorPrimaryDark"
                 android:layout_width="match_parent"
-                android:layout_height="48dp" />
+                android:layout_height="48dp"
+                android:background="?attr/colorPrimaryDark" />
 
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_marginTop="8dp"
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:layout_width="@dimen/button_width"
+                    android:layout_height="@dimen/button_width"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/cont_desc"
+                    android:src="@drawable/logo" />
+
+                <TextView
+                    android:layout_width="@dimen/button_width"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="@dimen/button_width"
-                        android:layout_height="@dimen/button_width"
-                        android:contentDescription="@string/cont_desc"
-                        android:src="@drawable/logo" />
-
-                    <TextView
-                        android:layout_width="@dimen/button_width"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:gravity="center"
-                        android:text="@string/version" />
-
-                    <Button
-                        android:id="@+id/button_git_source"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="@dimen/button_width"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="@string/git_source"
-                        android:textColor="?colorPrimaryDark" />
-
-                </LinearLayout>
+                    android:layout_margin="8dp"
+                    android:gravity="center"
+                    android:text="@string/version" />
 
                 <LinearLayout
                     style="?android:attr/buttonBarStyle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/button_light_classic"
@@ -86,6 +71,15 @@
                         android:layout_height="wrap_content"
                         android:text="@string/light_color" />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
                     <Button
                         android:id="@+id/button_dark_classic"
                         style="?android:attr/buttonBarButtonStyle"
@@ -99,18 +93,28 @@
                         android:layout_width="@dimen/button_width"
                         android:layout_height="wrap_content"
                         android:text="@string/dark_color" />
+
                 </LinearLayout>
+
+                <Button
+                    android:id="@+id/button_delete"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="@dimen/button_width"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/delete"
+                    android:textColor="?colorPrimaryDark" />
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_main"
+            android:id="@+id/fab_git_hub_source"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_add_white_24dp"
+            android:src="@drawable/ic_git_hub_source_white_24dp"
             android:tint="@android:color/white" />
 
     </android.support.design.widget.CoordinatorLayout>

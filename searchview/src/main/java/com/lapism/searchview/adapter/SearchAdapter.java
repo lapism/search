@@ -1,4 +1,4 @@
-package com.lapism.searchview;
+package com.lapism.searchview.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -14,6 +14,9 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lapism.searchview.R;
+import com.lapism.searchview.view.SearchView;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -21,19 +24,19 @@ import java.util.Locale;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
-    private OnItemClickListener mItemClickListener;
-    private List<SearchItem> mSearchList = new ArrayList<>();
-    private List<SearchItem> typeAheadData = new ArrayList<>();
-    private final List<Integer> startList = new ArrayList<>();
+    private final List<Integer> mStartList = new ArrayList<>();
     private final Context mContext;
-    private int keyLength = 0;
-    private final int theme;
+    private final int mTheme;
+    private List<SearchItem> mSearchList = new ArrayList<>();
+    private List<SearchItem> mDataList = new ArrayList<>();
+    private OnItemClickListener mItemClickListener;
+    private int mKeyLength = 0;
 
-    public SearchAdapter(Context mContext, List<SearchItem> mSearchList, List<SearchItem> typeAheadData, int theme) {
-        this.mContext = mContext;
-        this.mSearchList = mSearchList;
-        this.typeAheadData = typeAheadData;
-        this.theme = theme;
+    public SearchAdapter(Context context, List<SearchItem> searchList, List<SearchItem> dataList, int theme) {
+        this.mContext = context;
+        this.mSearchList = searchList;
+        this.mDataList = dataList;
+        this.mTheme = theme;
     }
 
     @Override
@@ -50,15 +53,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                 if (!TextUtils.isEmpty(constraint)) {
                     List<SearchItem> searchData = new ArrayList<>();
 
-                    startList.clear();
+                    mStartList.clear();
                     String key = constraint.toString().toLowerCase(Locale.getDefault());
 
-                    for (SearchItem str : typeAheadData) {
+                    for (SearchItem str : mDataList) {
                         String string = str.get_text().toString().toLowerCase(Locale.getDefault());
                         if (string.contains(key)) {
                             searchData.add(str);
-                            startList.add(string.indexOf(key));
-                            keyLength = key.length();
+                            mStartList.add(string.indexOf(key));
+                            mKeyLength = key.length();
                         }
                     }
                     filterResults.values = searchData;
@@ -92,23 +95,22 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     @Override
     public void onBindViewHolder(ResultViewHolder viewHolder, int position) {
-
         SearchItem item = mSearchList.get(position);
-        int start = startList.get(position);
-        int end = start + keyLength;
+        int start = mStartList.get(position);
+        int end = start + mKeyLength;
 
-        viewHolder.icon.setImageResource(item.get_icon());
+        viewHolder.icon_left.setImageResource(item.get_icon());
 
-        if (theme == 0) {
-            viewHolder.icon.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
+        if (mTheme == SearchView.THEME_LIGHT) {
+            viewHolder.icon_left.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
             viewHolder.text.setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
 
             viewHolder.text.setText(item.get_text(), TextView.BufferType.SPANNABLE);
             Spannable s = (Spannable) viewHolder.text.getText();
             s.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.search_light_text_highlight)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        if (theme == 1) {
-            viewHolder.icon.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+        if (mTheme == SearchView.THEME_DARK) {
+            viewHolder.icon_left.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
             viewHolder.text.setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
 
             viewHolder.text.setText(item.get_text(), TextView.BufferType.SPANNABLE);
@@ -122,31 +124,30 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         return mSearchList.size();
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
-    }
-
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
         this.mItemClickListener = mItemClickListener;
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
 
     public class ResultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public final ImageView icon;
+        public final ImageView icon_left;
         public final TextView text;
 
         public ResultViewHolder(View view) {
             super(view);
-            icon = (ImageView) view.findViewById(R.id.imageView_result);
-            text = (TextView) view.findViewById(R.id.textView_result);
+            icon_left = (ImageView) view.findViewById(R.id.imageView_item_icon_left);
+            text = (TextView) view.findViewById(R.id.textView_item_text);
             view.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             if (mItemClickListener != null) {
-                mItemClickListener.onItemClick(v, getLayoutPosition()); //getAdapterPosition()
+                mItemClickListener.onItemClick(v, getLayoutPosition()); // getAdapterPosition()
             }
         }
     }

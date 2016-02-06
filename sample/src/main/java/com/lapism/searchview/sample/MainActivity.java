@@ -10,6 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.lapism.searchview.history.SearchHistoryDeleteAll;
+import com.lapism.searchview.view.SearchView;
+
+// import android.support.v7.app.ActionBarDrawerToggle;
+// import android.support.v7.widget.SearchView;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -21,18 +27,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
+        Button mDelete = (Button) findViewById(R.id.button_delete);
         Button mLightClassic = (Button) findViewById(R.id.button_light_classic);
         Button mLightColor = (Button) findViewById(R.id.button_light_color);
         Button mDarkClassic = (Button) findViewById(R.id.button_dark_classic);
         Button mDarkColor = (Button) findViewById(R.id.button_dark_color);
-        Button mGitSource = (Button) findViewById(R.id.button_git_source);
-        FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.fab_main);
+        FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.fab_git_hub_source);
 
+        mDelete.setOnClickListener(this);
         mLightClassic.setOnClickListener(this);
         mLightColor.setOnClickListener(this);
         mDarkClassic.setOnClickListener(this);
         mDarkColor.setOnClickListener(this);
-        mGitSource.setOnClickListener(this);
         mFab.setOnClickListener(this);
     }
 
@@ -40,34 +46,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         Intent intent = new Intent(this, SearchActivity.class);
         switch (view.getId()) {
+            case R.id.button_delete:
+                Toast.makeText(this, "Search history deleted", Toast.LENGTH_SHORT).show();
+                new SearchHistoryDeleteAll(this).execute();
+                break;
             case R.id.button_light_classic:
-                intent.putExtra("style", 0);
-                intent.putExtra("theme", 0);
+                intent.putExtra("style", SearchView.STYLE_CLASSIC);
+                intent.putExtra("theme", SearchView.THEME_LIGHT);
                 startActivity(intent);
                 break;
             case R.id.button_light_color:
-                intent.putExtra("style", 1);
-                intent.putExtra("theme", 0);
+                intent.putExtra("style", SearchView.STYLE_COLOR);
+                intent.putExtra("theme", SearchView.THEME_LIGHT);
                 startActivity(intent);
                 break;
             case R.id.button_dark_classic:
-                intent.putExtra("style", 0);
-                intent.putExtra("theme", 1);
+                intent.putExtra("style", SearchView.STYLE_CLASSIC);
+                intent.putExtra("theme", SearchView.THEME_DARK);
                 startActivity(intent);
                 break;
             case R.id.button_dark_color:
-                intent.putExtra("style", 1);
-                intent.putExtra("theme", 1);
+                intent.putExtra("style", SearchView.STYLE_COLOR);
+                intent.putExtra("theme", SearchView.THEME_DARK);
                 startActivity(intent);
                 break;
-            case R.id.button_git_source:
+            case R.id.fab_git_hub_source:
                 String url = "https://github.com/lapism/SearchView";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
-                break;
-            case R.id.fab_main:
-                Toast.makeText(this, "Click", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;

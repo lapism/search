@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.novoda:bintray-release:0.3.4'
+        classpath 'com.novoda:bintray-release:0.3.5'
     }
 }
 
@@ -22,7 +22,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
-        versionName "1.3.9"
+        versionName "1.6"
     }
     buildTypes {
         release {
@@ -36,9 +36,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:+'
-    compile 'com.android.support:cardview-v7:+'
-    compile 'com.android.support:recyclerview-v7:+'
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:cardview-v7:23.1.1'
+    compile 'com.android.support:recyclerview-v7:23.1.1'
 }
 
 // build first
@@ -47,7 +47,7 @@ publish {
     userOrg = 'lapism'
     groupId = 'com.lapism'
     artifactId = 'searchview'
-    publishVersion = '1.3.9'
+    publishVersion = '1.6'
     desc = 'SearchView Library'
     website = 'https://github.com/lapism/SearchView'
 }

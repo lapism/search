@@ -10,10 +10,11 @@
         <item name="colorPrimary">#ff00acc1</item>
         <item name="colorPrimaryDark">#ff0097a7</item>
         <item name="colorAccent">#ffd81b60</item>
-    </style>
 
-    <style name="AppTheme">
+        <item name="colorControlNormal">#00acc1</item>
         <item name="colorControlHighlight">#ffd81b60</item>
+        <item name="colorControlActivated">#ffd81b60</item>
+
         <item name="colorButtonNormal">#00acc1</item>
         <item name="android:textColor">#ffffffff</item>
     </style>

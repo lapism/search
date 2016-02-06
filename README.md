@@ -1,5 +1,7 @@
 # SearchView
 
+**Note: Version 1.6 is not compatible with 1.5. And Toolbar version is not done yet.**
+
 Persistent SearchView Library in Material Design. 
 Now it supports layout like section My apps in Google Play Store.
 https://www.google.com/design/spec/patterns/search.html. 
@@ -17,15 +19,12 @@ Sample application on:
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-        compile 'com.lapism:searchview:1.3.9'
+        compile 'com.lapism:searchview:1.6'
         }
 ```
 
 ![Screenshot 1]
-(https://github.com/lapism/SearchView/blob/master/images/image_1.png)    ![Screenshot 2]
-(https://github.com/lapism/SearchView/blob/master/images/image_2.png)    ![Screenshot 3]
-(https://github.com/lapism/SearchView/blob/master/images/image_3.png)    ![Screenshot 4]
-(https://github.com/lapism/SearchView/blob/master/images/image_4.png) 
+(https://github.com/lapism/SearchView/blob/master/images/image_1.png)
 
 **In code (Check the Sample project!):**
 
@@ -53,13 +52,15 @@ You can find examples of layouts in the Sample project !!!
 
 **Styling SearchView:**
 ```
-app:search_style="color"
-app:search_style="classic"
+app:search_version = "toolbar / menu_item"
+app:search_style = "classic / color"
+app:search_version = "light / dark"
+app:search_divider = "true / false"
+app:search_hint = "Hint text"
+app:search_hint_size = "16sp"
+app:search_voice = "true / false"
+app:search_voice_text = "Voice text"
+app:search_animation_duration = "360"
 
-app:search_theme="dark"
-app:search_theme="light"
-
-app:search_divider="true"
-app:search_divider="false"
 ```
 

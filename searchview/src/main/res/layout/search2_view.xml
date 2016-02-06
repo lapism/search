@@ -13,12 +13,11 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/search_margin_bottom"
-        android:layout_marginEnd="@dimen/search_margin_right"
-        android:layout_marginLeft="@dimen/search_margin_left"
-        android:layout_marginRight="@dimen/search_margin_right"
-        android:layout_marginStart="@dimen/search_margin_left"
-        android:layout_marginTop="@dimen/search_margin_top">
+        android:layout_marginEnd="@dimen/search2_margin_right"
+        android:layout_marginLeft="@dimen/search2_margin_left"
+        android:layout_marginRight="@dimen/search2_margin_right"
+        android:layout_marginStart="@dimen/search2_margin_left"
+        android:layout_marginTop="@dimen/search2_margin_top">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,9 +46,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center_vertical"
                     android:layout_marginEnd="@dimen/search_text_margin"
-                    android:layout_marginLeft="@dimen/search_text_margin_view"
+                    android:layout_marginLeft="@dimen/search2_text_margin_view"
                     android:layout_marginRight="@dimen/search_text_margin"
-                    android:layout_marginStart="@dimen/search_text_margin_view"
+                    android:layout_marginStart="@dimen/search2_text_margin_view"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:gravity="start|center_vertical"
@@ -58,7 +57,7 @@
                     android:paddingBottom="@dimen/search_text_spacing"
                     android:paddingTop="@dimen/search_text_spacing"
                     android:singleLine="true" />
-                <!-- android:hint="@string/search_hint" android:imeOptions="actionSearch|flagNoExtractUi"-->
+                <!-- android:hint="Search" android:imeOptions="actionSearch|flagNoExtractUi"-->
 
                 <FrameLayout
                     android:layout_width="wrap_content"

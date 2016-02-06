@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--suppress XmlUnboundNsPrefix -->
 <resources>
-    <public type="drawable" name="fake"/>
+
+    <public name="actionBarDivider" type="attr" />
+    <public name="support_simple_spinner_dropdown_item" type="layout" />
+    <public name="TextAppearance.AppCompat" type="style" />
+
 </resources>

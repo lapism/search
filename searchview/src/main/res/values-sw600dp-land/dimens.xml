@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SearchView2 -->
+    <dimen name="search2_margin_top">13dp</dimen>
+    <dimen name="search2_margin_left">62dp</dimen>
+    <dimen name="search2_margin_right">62dp</dimen>
+
+</resources>
