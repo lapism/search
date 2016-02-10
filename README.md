@@ -53,10 +53,12 @@ You can find examples of layouts in the Sample project !!!
 
 **Styling SearchView:**
 ```
-app:search_version = "toolbar / menu_item"
+1.5
 app:search_style = "classic / color"
 app:search_version = "light / dark"
 app:search_divider = "true / false"
+1.6
+app:search_version = "toolbar / menu_item"
 app:search_hint = "Hint text"
 app:search_hint_size = "16sp"
 app:search_voice = "true / false"
