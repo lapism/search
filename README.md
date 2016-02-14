@@ -33,7 +33,7 @@ dependencies {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search: {
-                mSearchView.showSearch();
+                mSearchView.showSearch(true / false); // for animation
                 return true;
             }
             default:
