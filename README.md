@@ -1,6 +1,7 @@
 # SearchView
 
-**Note: Version 2.0 is not compatible with 1.5 ! (2.0 is not uploaded yet cause Novoda plug-in defect) **
+**Note: Version 2.0 is not compatible with 1.5 ! **
+**2.0 is not uploaded yet cause Novoda plug-in defect.**
 **Also check CheckableImageView in version 2.0 of the library.**
 
 Persistent SearchView Library with history in Material Design. 
