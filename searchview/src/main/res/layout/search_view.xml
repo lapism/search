@@ -52,10 +52,10 @@
                     android:gravity="start|center_vertical"
                     android:imeOptions="actionSearch|flagNoFullscreen"
                     android:inputType="textNoSuggestions"
-                    android:textSize="@dimen/search_text_medium"
                     android:paddingBottom="@dimen/search_text_spacing"
                     android:paddingTop="@dimen/search_text_spacing"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textSize="@dimen/search_text_medium" />
                 <!-- android:hint="Search" android:imeOptions="actionSearch|flagNoExtractUi"-->
 
                 <FrameLayout

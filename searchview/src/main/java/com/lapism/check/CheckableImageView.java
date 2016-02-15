@@ -22,7 +22,6 @@ import com.lapism.searchview.R;
 // AppCompatImageView
 public class CheckableImageView extends ImageView implements Checkable {
 
-    // TODO add ripple effect
     /*private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
     private static final int[] PRESSED_STATE_SET = {android.R.attr.state_pressed};*/
     public static final int TYPE_TEXT = 0;

@@ -34,7 +34,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lapism.arrow.ArrowDrawable;
 import com.lapism.searchview.R;
@@ -388,10 +387,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         ANIMATION_DURATION = animation_duration;
     }
 
-    // mSearchEditText.setHint(getResources().getString(R.string.search_hint));
-    // mSearchEditText.setHint("Search");
     // ---------------------------------------------------------------------------------------------
-
     private boolean isVoiceAvailable() {
         PackageManager pm = getContext().getPackageManager();
         List<ResolveInfo> activities = pm.queryIntentActivities(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
@@ -528,10 +524,8 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
 
     public void clearFocusedItem() {
         mEditText.clearFocus();
-        Toast.makeText(mContext, "TEST", Toast.LENGTH_SHORT).show();
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.focus);
         linearLayout.requestFocus();
-        linearLayout.requestFocusFromTouch();
     }
 
     @Override
