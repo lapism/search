@@ -119,7 +119,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
 
     private void initView() {
         LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
-        // LayoutInflater.from(mContext).inflate((R.layout.search_view_menu_item), this, true);
 
         SearchLinearLayoutManager layoutManager = new SearchLinearLayoutManager(mContext);
         layoutManager.clearChildSize();
@@ -264,13 +263,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         );
 
         if (mVersion == SearchCodes.VERSION_TOOLBAR) {
-            /*
-            android:layout_marginEnd="@dimen/search_toolbar_margin_right"
-            android:layout_marginLeft="@dimen/search_toolbar_margin_left"
-            android:layout_marginRight="@dimen/search_toolbar_margin_right"
-            android:layout_marginStart="@dimen/search_toolbar_margin_left"
-            android:layout_marginTop="@dimen/search_toolbar_margin_top"
-            */
+
             int top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
             int leftStart = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_left);
             int rightEnd = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_right);
@@ -281,14 +274,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
 
         if (mVersion == SearchCodes.VERSION_MENU_ITEM) {
             setVisibility(View.GONE);
-            /*
-            android:layout_marginTop="@dimen/search_menu_item_margin_top"
-            android:layout_marginEnd="@dimen/search_menu_item_margin_right"
-            android:layout_marginLeft="@dimen/search_menu_item_margin_left"
-            android:layout_marginRight="@dimen/search_menu_item_margin_right"
-            android:layout_marginStart="@dimen/search_menu_item_margin_left"
-            android:layout_marginBottom="@dimen/search_menu_item_margin_bottom"
-             */
+
             int top = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_top);
             int leftStart = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_left);
             int rightEnd = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_right);

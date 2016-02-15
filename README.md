@@ -1,7 +1,7 @@
 # SearchView
 
-**Note: Version 2.0 is not compatible with 1.5 !**
-**Also check CheckableImageView in version 2.0 of the library.**
+**Note: Version 2+ is not compatible with 1.5 !**
+**Also check CheckableImageView in this library.**
 
 Persistent SearchView Library with history in Material Design. 
 It supports layout like section My apps in Google Play Store.
@@ -21,7 +21,7 @@ Sample application on:
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-        compile 'com.lapism:searchview:1.5' (2.0 is not uploaded yet) 
+        compile 'com.lapism:searchview:2.0.1'
         }
 ```
 

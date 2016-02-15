@@ -31,6 +31,7 @@ public class ToolbarActivity extends BaseActivity implements View.OnClickListene
     private int mVersion = SearchCodes.VERSION_TOOLBAR;
     private int mStyle = SearchCodes.STYLE_TOOLBAR_CLASSIC;
     private int mTheme = SearchCodes.THEME_LIGHT;
+    private CheckableImageView mCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,15 @@ public class ToolbarActivity extends BaseActivity implements View.OnClickListene
         Button mClassic = (Button) findViewById(R.id.button_classic);
         Button mColor = (Button) findViewById(R.id.button_color);
         final FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.fab_git_hub_source);
-        CheckableImageView mCheck = (CheckableImageView) findViewById(R.id.checkableImageView);
+        mCheck = (CheckableImageView) findViewById(R.id.checkableImageView);
+        mCheck.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                mCheck.setChecked(true);
+                return true; // false
+            }
+        });
+
         // TODO ADD MENU ITEM CLICK LISTENER
 
         mDelete.setOnClickListener(this);
@@ -97,17 +106,6 @@ public class ToolbarActivity extends BaseActivity implements View.OnClickListene
                 return false;
             }
         });
-        mSearchView.setOnSearchViewListener(new SearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-                mFab.hide();
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-                mFab.show();
-            }
-        });
 
         List<SearchItem> mResultsList = new ArrayList<>();
         SearchAdapter mSearchAdapter = new SearchAdapter(this, mResultsList, mSuggestionsList, mTheme);
@@ -123,7 +121,7 @@ public class ToolbarActivity extends BaseActivity implements View.OnClickListene
 
         mSearchView.setAdapter(mSearchAdapter);
 
-        showSearchView();
+        showSearchView(); // TODO FIX
     }
 
     @Override
@@ -155,7 +153,6 @@ public class ToolbarActivity extends BaseActivity implements View.OnClickListene
         mSuggestionsList.addAll(mHistoryDatabase.getAllItems());
         mSuggestionsList.add(new SearchItem("Google"));
         mSuggestionsList.add(new SearchItem("Android"));
-        // mSearchView.openSearchView(true);
     }
 
     @Override
@@ -199,6 +196,7 @@ public class ToolbarActivity extends BaseActivity implements View.OnClickListene
                 startActivity(i);
                 break;
             case R.id.checkableImageView:
+                mCheck.setChecked(false);
                 Snackbar.make(view, "Search history deleted", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 mHistoryDatabase.clearDatabase();
                 break;
