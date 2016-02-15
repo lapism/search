@@ -21,7 +21,7 @@ Sample application on:
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-        compile 'com.lapism:searchview:1.5' (2.0 is not uploaded yet) 
+        compile 'com.lapism:searchview:1.5' (2.0 is not uploaded yet cause Novoda plug-in defect) 
         }
 ```
 
