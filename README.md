@@ -74,4 +74,3 @@ app:search_voice = "true / false"
 app:search_voice_text = "Voice text"
 app:search_animation_duration = "360"
 ```
-
