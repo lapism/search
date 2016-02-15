@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lapism.searchview.R;
-import com.lapism.searchview.view.SearchView;
+import com.lapism.searchview.view.SearchCodes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +89,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     @Override
     public ResultViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         final LayoutInflater mInflater = LayoutInflater.from(parent.getContext());
-        final View sView = mInflater.inflate(R.layout.search_view_item, parent, false);
+        final View sView = mInflater.inflate(R.layout.search_item, parent, false);
         return new ResultViewHolder(sView);
     }
 
@@ -101,7 +101,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
         viewHolder.icon_left.setImageResource(item.get_icon());
 
-        if (mTheme == SearchView.THEME_LIGHT) {
+        if (mTheme == SearchCodes.THEME_LIGHT) {
             viewHolder.icon_left.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
             viewHolder.text.setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
 
@@ -109,7 +109,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             Spannable s = (Spannable) viewHolder.text.getText();
             s.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.search_light_text_highlight)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        if (mTheme == SearchView.THEME_DARK) {
+        if (mTheme == SearchCodes.THEME_DARK) {
             viewHolder.icon_left.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
             viewHolder.text.setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
 

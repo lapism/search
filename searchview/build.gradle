@@ -21,8 +21,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.6"
+        versionCode 2
+        versionName "2.0"
     }
     buildTypes {
         release {
@@ -47,7 +47,7 @@ publish {
     userOrg = 'lapism'
     groupId = 'com.lapism'
     artifactId = 'searchview'
-    publishVersion = '1.6'
+    publishVersion = '2.0'
     desc = 'SearchView Library'
     website = 'https://github.com/lapism/SearchView'
 }

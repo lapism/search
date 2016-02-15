@@ -77,12 +77,10 @@ public class SearchHistoryTable {
         return list;
     }
 
-    /* public void clearDatabase(Context context) {
-        SearchHistoryDatabaseHelper helper = new DBHelper(context);
-        SQLiteDatabase database = helper.getWritableDatabase();
-        database.delete(DATABASE_TABLE, null, null); //erases everything in the table.
-        database.close();
-    }*/
+    public void clearDatabase() {
+        db = dbHelper.getWritableDatabase();
+        db.delete(SearchHistoryDatabaseHelper.SEARCH_HISTORY_TABLE, null, null);
+        db.close();
+    }
 
-    // TODO CheckIsDataAlreadyInDBorNot
 }

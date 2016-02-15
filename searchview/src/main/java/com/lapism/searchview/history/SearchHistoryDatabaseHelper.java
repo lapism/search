@@ -47,14 +47,4 @@ class SearchHistoryDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + SearchHistoryDatabaseHelper.SEARCH_HISTORY_TABLE);
     }
 
-    public void deleteAllTables(SQLiteDatabase db) {
-        deleteTable(db);
-    }
-
-    private void deleteTable(SQLiteDatabase db) {
-        db.delete(SearchHistoryDatabaseHelper.SEARCH_HISTORY_TABLE, null, null);
-    }
-
-    // TODO, check if item is already in database
-
 }

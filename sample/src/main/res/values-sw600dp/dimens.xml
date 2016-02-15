@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="button_width">144dp</dimen>
     <dimen name="toolbar_height">64dp</dimen>
+    <dimen name="fab_margin">24dp</dimen>
+    <dimen name="activity_horizontal_margin">64dp</dimen>
 
 </resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/search_view_item"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/search_item_height"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:gravity="start|center_vertical"
+    android:orientation="horizontal"
+    android:paddingEnd="@dimen/search_key_line"
+    android:paddingLeft="@dimen/search_key_line"
+    android:paddingRight="@dimen/search_key_line"
+    android:paddingStart="@dimen/search_key_line">
+
+    <ImageView
+        android:id="@+id/imageView_item_icon_left"
+        android:layout_width="@dimen/search_icon"
+        android:layout_height="@dimen/search_icon"
+        android:contentDescription="@string/search_cont_desc" />
+
+    <TextView
+        android:id="@+id/textView_item_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginEnd="@dimen/search_item_margin_text"
+        android:layout_marginLeft="@dimen/search_item_margin_text"
+        android:layout_marginRight="@dimen/search_item_margin_text"
+        android:layout_marginStart="@dimen/search_item_margin_text"
+        android:layout_weight="1"
+        android:gravity="start|center_vertical"
+        android:singleLine="true"
+        android:textSize="@dimen/search_text_small" />
+
+    <ImageView
+        android:id="@+id/imageView_item_icon_right"
+        android:layout_width="@dimen/search_icon"
+        android:layout_height="@dimen/search_icon"
+        android:contentDescription="@string/search_cont_desc" />
+
+</LinearLayout>

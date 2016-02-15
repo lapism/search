@@ -2,8 +2,8 @@
 <resources>
 
     <!-- Light Theme -->
-    <color name="search_light_background">#ffffffff</color>
-    <color name="search_light_icon">#ff757575</color>
+    <color name="search_light_background">#fffafafa</color>
+    <color name="search_light_icon">#ff616161</color>
     <color name="search_light_text">#ff212121</color>
     <color name="search_light_text_hint">#8a000000</color>
     <color name="search_light_text_highlight">#61000000</color>

@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="search_margin_top">5dp</dimen>
-    <dimen name="search_margin_left">6dp</dimen>
-    <dimen name="search_margin_right">6dp</dimen>
-    <dimen name="search_margin_bottom">7dp</dimen>
-    <dimen name="search_height">46dp</dimen>
-
-    <dimen name="search_padding">16dp</dimen>
-    <dimen name="search_reveal">28dp</dimen>
-
-    <!-- SearchView2 -->
-    <dimen name="search2_margin_top">13dp</dimen>
-    <dimen name="search2_margin_left">22dp</dimen>
-    <dimen name="search2_margin_right">22dp</dimen>
+    <dimen name="search_key_line">24dp</dimen>
 
 </resources>

@@ -15,12 +15,13 @@ import com.lapism.searchview.R;
 
 
 class SearchAnimator {
-
+    // TODO FOCUS ,PERMISSION, FIX EDIT TEXT PROPERTIES
+    // TODO fix out animation
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void revealInAnimation(final Context mContext, final View animatedView, final int startCy, int duration) {
 
-        int cx = animatedView.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.search_reveal);
-        int cy = -1 == startCy ? animatedView.getHeight() / 2 : startCy;
+        int cx = animatedView.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.search_key_line);
+        int cy = startCy == -1 ? animatedView.getHeight() / 2 : startCy;
 
         if (cx != 0 && cy != 0) {
             float initialRadius = 0.0f;
@@ -37,7 +38,7 @@ class SearchAnimator {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void revealOutAnimation(final Context mContext, final View animatedView, final int endCy, int duration) {
 
-        int cx = animatedView.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.search_reveal);
+        int cx = animatedView.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.search_key_line);
         int cy = endCy == -1 ? animatedView.getHeight() / 2 : endCy;
 
         if (cx != 0 && cy != 0) {
