@@ -1,6 +1,6 @@
 # SearchView
 
-**Note: Version 2+ is not compatible with 1.5 !**
+**Note: Version 2.x is not compatible with 1.5 !**
 **Also check CheckableImageView in this library.**
 
 Persistent SearchView Library with history in Material Design. 
