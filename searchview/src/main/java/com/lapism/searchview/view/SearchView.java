@@ -67,7 +67,8 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
     private ImageView mVoiceImageView;
     private ImageView mEmptyImageView;
     private View mBackground;
-    private final OnClickListener mOnClickListener = new OnClickListener() {
+	private View mSearchViewBorder;
+	private final OnClickListener mOnClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
             if (v == mBackImageView) {
@@ -96,7 +97,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         }
     };
 
-    public SearchView(Context context) {
+	public SearchView(Context context) {
         this(context, null);
     }
 
@@ -142,6 +143,8 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         mBackground = findViewById(R.id.view_transparent);
         mBackground.setOnClickListener(mOnClickListener);
         mBackground.setVisibility(View.GONE);
+
+	    mSearchViewBorder = findViewById(R.id.view_border_holder);
 
         mViewDivider = findViewById(R.id.view_separator);
         mViewDivider.setVisibility(View.GONE);
@@ -248,11 +251,15 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
             if (attr.hasValue(R.styleable.SearchView_search_animation_duration)) {
                 setAnimationDuration(attr.getInt(R.styleable.SearchView_search_animation_duration, ANIMATION_DURATION));
             }
+	        if (attr.hasValue(R.styleable.SearchView_search_border_background_color)) {
+		        setSearchViewBorderColor(attr.getColor(R.styleable.SearchView_search_border_background_color, 0));
+	        }
+
             attr.recycle();
         }
     }
 
-    // Parameters ----------------------------------------------------------------------------------
+	// Parameters ----------------------------------------------------------------------------------
     public void setVersion(int version) {
         mVersion = version;
 
@@ -386,6 +393,10 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
     public void setAnimationDuration(int animation_duration) {
         ANIMATION_DURATION = animation_duration;
     }
+
+	private void setSearchViewBorderColor(int color) {
+		mSearchViewBorder.setBackgroundColor(color);
+	}
 
     // ---------------------------------------------------------------------------------------------
     private boolean isVoiceAvailable() {
