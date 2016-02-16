@@ -22,23 +22,23 @@
         <attr name="search_voice" format="boolean" />
         <attr name="search_voice_text" format="string" />
         <attr name="search_animation_duration" format="integer" />
-        <attr name="search_border_background_color" format="color" />
+        <attr name="search_shadow_color" format="color" />
     </declare-styleable>
 
     <!-- Check -->
     <declare-styleable name="CheckableImageView">
-        <attr name="checked" format="boolean" />
-        <attr name="type" format="enum">
+        <attr name="check_checked" format="boolean" />
+        <attr name="check_type" format="enum">
             <enum name="text" value="0" />
             <enum name="image" value="1" />
         </attr>
-        <attr name="text" format="string" />
-        <attr name="text_size" format="dimension" />
-        <attr name="text_color" format="color" />
-        <attr name="image_checked" format="integer" />
-        <attr name="image_unchecked" format="integer" />
-        <attr name="background_color_checked" format="color" />
-        <attr name="background_color_unchecked" format="color" />
+        <attr name="check_text" format="string" />
+        <attr name="check_text_size" format="dimension" />
+        <attr name="check_text_color" format="color" />
+        <attr name="check_image_checked" format="integer" />
+        <attr name="check_image_unchecked" format="integer" />
+        <attr name="check_background_color_checked" format="color" />
+        <attr name="check_background_color_unchecked" format="color" />
     </declare-styleable>
 
 </resources>

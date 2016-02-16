@@ -44,14 +44,18 @@ import java.util.List;
 
 public class SearchView extends FrameLayout implements Filter.FilterListener {
 
-    public static final int SPEECH_REQUEST_CODE = 0;
+    public static final int SPEECH_REQUEST_CODE = 1234;
     private final Context mContext;
     private int mVersion = SearchCodes.VERSION_TOOLBAR;
     private int mStyle = SearchCodes.STYLE_TOOLBAR_CLASSIC;
     private int ANIMATION_DURATION = 360;
     private boolean mIsSearchOpen = false;
     private String VOICE_SEARCH_TEXT = "Speak now";
-    private View mViewDivider;
+    private View mDivider;
+    private View mShadow;
+    private Activity mActivity = null;
+    private Fragment mFragment = null;
+    private android.support.v4.app.Fragment mSupportFragment = null;
     private SearchAdapter mSearchAdapter;
     private OnQueryTextListener mOnQueryChangeListener;
     private SearchViewListener mSearchViewListener;
@@ -65,9 +69,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
     private ImageView mBackImageView;
     private ImageView mVoiceImageView;
     private ImageView mEmptyImageView;
-    private View mBackground;
-	private View mSearchViewBorder;
-	private final OnClickListener mOnClickListener = new OnClickListener() {
+    private final OnClickListener mOnClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
             if (v == mBackImageView) {
@@ -84,7 +86,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
                 mEditText.setText(null);
             } else if (v == mEditText) {
                 showSuggestions();
-            } else if (v == mBackground) {
+            } else if (v == mShadow) {
                 if (mVersion == SearchCodes.VERSION_TOOLBAR) {
                     clearFocusedItem();
                 }
@@ -96,7 +98,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         }
     };
 
-	public SearchView(Context context) {
+    public SearchView(Context context) {
         this(context, null);
     }
 
@@ -139,14 +141,12 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         mEmptyImageView.setOnClickListener(mOnClickListener);
         mEmptyImageView.setVisibility(View.GONE);
 
-        mBackground = findViewById(R.id.view_transparent);
-        mBackground.setOnClickListener(mOnClickListener);
-        mBackground.setVisibility(View.GONE);
+        mShadow = findViewById(R.id.view_shadow);
+        mShadow.setOnClickListener(mOnClickListener);
+        mShadow.setVisibility(View.GONE);
 
-	    mSearchViewBorder = findViewById(R.id.view_border_holder);
-
-        mViewDivider = findViewById(R.id.view_separator);
-        mViewDivider.setVisibility(View.GONE);
+        mDivider = findViewById(R.id.view_divider);
+        mDivider.setVisibility(View.GONE);
 
         mCardView = (CardView) findViewById(R.id.cardView);
 
@@ -201,7 +201,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
                 if (hasFocus) {
                     showKeyboard();
                     showSuggestions();
-                    mBackground.setVisibility(View.VISIBLE);
+                    mShadow.setVisibility(View.VISIBLE);
                     if (mSearchArrow != null) {
                         mSearchArrow.setVerticalMirror(false);
                         mSearchArrow.animate(ArrowDrawable.STATE_ARROW);
@@ -209,7 +209,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
                 } else {
                     hideKeyboard();
                     hideSuggestions();
-                    mBackground.setVisibility(View.GONE);
+                    mShadow.setVisibility(View.GONE);
                     if (mSearchArrow != null) {
                         mSearchArrow.setVerticalMirror(true);
                         mSearchArrow.animate(ArrowDrawable.STATE_HAMBURGER);
@@ -249,15 +249,14 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
             if (attr.hasValue(R.styleable.SearchView_search_animation_duration)) {
                 setAnimationDuration(attr.getInt(R.styleable.SearchView_search_animation_duration, ANIMATION_DURATION));
             }
-	        if (attr.hasValue(R.styleable.SearchView_search_border_background_color)) {
-		        setSearchViewBorderColor(attr.getColor(R.styleable.SearchView_search_border_background_color, 0));
-	        }
-
+            if (attr.hasValue(R.styleable.SearchView_search_shadow_color)) {
+                setShadowColor(attr.getColor(R.styleable.SearchView_search_shadow_color, 0));
+            }
             attr.recycle();
         }
     }
 
-	// Parameters ----------------------------------------------------------------------------------
+    // Parameters ----------------------------------------------------------------------------------
     public void setVersion(int version) {
         mVersion = version;
 
@@ -380,6 +379,21 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         }
     }
 
+    public void setVoice(boolean voice, Activity context) {
+        mActivity = context;
+        setVoice(voice);
+    }
+
+    public void setVoice(boolean voice, Fragment context) {
+        mFragment = context;
+        setVoice(voice);
+    }
+
+    public void setVoice(boolean voice, android.support.v4.app.Fragment context) {
+        mSupportFragment = context;
+        setVoice(voice);
+    }
+
     public void setVoiceText(String voice_text) {
         VOICE_SEARCH_TEXT = voice_text;
     }
@@ -388,9 +402,9 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         ANIMATION_DURATION = animation_duration;
     }
 
-	private void setSearchViewBorderColor(int color) {
-		mSearchViewBorder.setBackgroundColor(color);
-	}
+    public void setShadowColor(int color) {
+        mShadow.setBackgroundColor(color);
+    }
 
     // ---------------------------------------------------------------------------------------------
     private boolean isVoiceAvailable() {
@@ -404,14 +418,17 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, VOICE_SEARCH_TEXT);
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
-        if (mContext instanceof Activity) {
-            ((Activity) mContext).startActivityForResult(intent, SPEECH_REQUEST_CODE);
-        }
-        if (mContext instanceof Fragment) {
-            ((Fragment) mContext).startActivityForResult(intent, SPEECH_REQUEST_CODE);
-        }
-        if (mContext instanceof android.support.v4.app.Fragment) {
-            ((android.support.v4.app.Fragment) mContext).startActivityForResult(intent, SPEECH_REQUEST_CODE);
+
+        if (mActivity != null) {
+            mActivity.startActivityForResult(intent, SPEECH_REQUEST_CODE);
+        } else if (mFragment != null) {
+            mFragment.startActivityForResult(intent, SPEECH_REQUEST_CODE);
+        } else if (mSupportFragment != null) {
+            mSupportFragment.startActivityForResult(intent, SPEECH_REQUEST_CODE);
+        } else {
+            if (mContext instanceof Activity) {
+                ((Activity) mContext).startActivityForResult(intent, SPEECH_REQUEST_CODE);
+            }
         }
     }
 
@@ -422,14 +439,14 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
             mRecyclerView.startAnimation(anim);*/
 
             mRecyclerView.setVisibility(View.VISIBLE);
-            mViewDivider.setVisibility(View.VISIBLE);
+            mDivider.setVisibility(View.VISIBLE);
         }
     }
 
     private void hideSuggestions() {
         if (mRecyclerView.getVisibility() == View.VISIBLE) {
             mRecyclerView.setVisibility(View.GONE);
-            mViewDivider.setVisibility(View.GONE);
+            mDivider.setVisibility(View.GONE);
         }
     }
 

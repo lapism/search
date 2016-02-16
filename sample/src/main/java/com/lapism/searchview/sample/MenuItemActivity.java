@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -85,6 +86,7 @@ public class MenuItemActivity extends BaseActivity {
         mSearchView.setVoice(true);
         mSearchView.setVoiceText("Voice");
         mSearchView.setAnimationDuration(360);
+        mSearchView.setShadowColor(ContextCompat.getColor(this, R.color.search_shadow_layout));
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -180,7 +182,7 @@ public class MenuItemActivity extends BaseActivity {
     }
 
     private void animate() {
-        ValueAnimator anim = ValueAnimator.ofFloat(0, 1);
+        ValueAnimator anim = ValueAnimator.ofFloat(0.0f, 1.0f);
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {

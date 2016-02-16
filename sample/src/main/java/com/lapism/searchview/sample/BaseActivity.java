@@ -22,27 +22,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     DrawerLayout mDrawer;
     ActionBarDrawerToggle mDrawerToggle;
 
-    @Override
-    public void setContentView(int layoutResID) {
-        super.setContentView(layoutResID);
-        getToolbar();
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        setup();
-    }
-
-   @Override
-    public void onBackPressed() {
-        if (mDrawer != null && mDrawer.isDrawerOpen(GravityCompat.START)) {
-            mDrawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
     Toolbar getToolbar() {
         if (mToolbar == null) {
             mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -84,6 +63,27 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
         if (checkedMenuItem > -1) {
             navigationView.getMenu().getItem(checkedMenuItem).setChecked(true);
+        }
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+        getToolbar();
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        setup();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawer != null && mDrawer.isDrawerOpen(GravityCompat.START)) {
+            mDrawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
     }
 

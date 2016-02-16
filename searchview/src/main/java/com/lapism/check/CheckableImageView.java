@@ -67,32 +67,32 @@ public class CheckableImageView extends ImageView implements Checkable {
     private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         TypedArray attr = mContext.obtainStyledAttributes(attrs, R.styleable.CheckableImageView, defStyleAttr, defStyleRes);
         if (attr != null) {
-            if (attr.hasValue(R.styleable.CheckableImageView_checked)) {
-                setChecked(attr.getBoolean(R.styleable.CheckableImageView_checked, false));
+            if (attr.hasValue(R.styleable.CheckableImageView_check_checked)) {
+                setChecked(attr.getBoolean(R.styleable.CheckableImageView_check_checked, false));
             }
-            if (attr.hasValue(R.styleable.CheckableImageView_type)) {
-                setType(attr.getInt(R.styleable.CheckableImageView_type, TYPE_TEXT));
+            if (attr.hasValue(R.styleable.CheckableImageView_check_type)) {
+                setType(attr.getInt(R.styleable.CheckableImageView_check_type, TYPE_TEXT));
             }
-            if (attr.hasValue(R.styleable.CheckableImageView_text)) {
-                setText(attr.getString(R.styleable.CheckableImageView_text));
+            if (attr.hasValue(R.styleable.CheckableImageView_check_text)) {
+                setText(attr.getString(R.styleable.CheckableImageView_check_text));
             }
-            if (attr.hasValue(R.styleable.CheckableImageView_text_size)) {
-                setTextSize(attr.getDimensionPixelSize(R.styleable.CheckableImageView_text_size, mContext.getResources().getDimensionPixelSize(R.dimen.check_text)));
+            if (attr.hasValue(R.styleable.CheckableImageView_check_text_size)) {
+                setTextSize(attr.getDimensionPixelSize(R.styleable.CheckableImageView_check_text_size, mContext.getResources().getDimensionPixelSize(R.dimen.check_text)));
             }
-            if (attr.hasValue(R.styleable.CheckableImageView_text_color)) {
-                setTextColor(attr.getColor(R.styleable.CheckableImageView_text_color, ContextCompat.getColor(mContext, android.R.color.white)));
+            if (attr.hasValue(R.styleable.CheckableImageView_check_text_color)) {
+                setTextColor(attr.getColor(R.styleable.CheckableImageView_check_text_color, ContextCompat.getColor(mContext, android.R.color.white)));
             }
-            if (attr.hasValue(R.styleable.CheckableImageView_image_checked)) {
-                setImageChecked(attr.getResourceId(R.styleable.CheckableImageView_image_checked, android.R.drawable.ic_menu_gallery));
+            if (attr.hasValue(R.styleable.CheckableImageView_check_image_checked)) {
+                setImageChecked(attr.getResourceId(R.styleable.CheckableImageView_check_image_checked, android.R.drawable.ic_menu_gallery));
             }
-            if (attr.hasValue(R.styleable.CheckableImageView_image_unchecked)) {
-                setImageUnchecked(attr.getResourceId(R.styleable.CheckableImageView_image_unchecked, android.R.drawable.ic_dialog_map));
+            if (attr.hasValue(R.styleable.CheckableImageView_check_image_unchecked)) {
+                setImageUnchecked(attr.getResourceId(R.styleable.CheckableImageView_check_image_unchecked, android.R.drawable.ic_dialog_map));
             }
-            if (attr.hasValue(R.styleable.CheckableImageView_background_color_checked)) {
-                setBackgroundColorChecked(attr.getColor(R.styleable.CheckableImageView_background_color_checked, ContextCompat.getColor(mContext, android.R.color.holo_orange_dark)));
+            if (attr.hasValue(R.styleable.CheckableImageView_check_background_color_checked)) {
+                setBackgroundColorChecked(attr.getColor(R.styleable.CheckableImageView_check_background_color_checked, ContextCompat.getColor(mContext, android.R.color.holo_orange_dark)));
             }
-            if (attr.hasValue(R.styleable.CheckableImageView_background_color_unchecked)) {
-                setBackgroundColorUnchecked(attr.getColor(R.styleable.CheckableImageView_background_color_unchecked, ContextCompat.getColor(mContext, android.R.color.holo_orange_light)));
+            if (attr.hasValue(R.styleable.CheckableImageView_check_background_color_unchecked)) {
+                setBackgroundColorUnchecked(attr.getColor(R.styleable.CheckableImageView_check_background_color_unchecked, ContextCompat.getColor(mContext, android.R.color.holo_orange_light)));
             }
             attr.recycle();
         }

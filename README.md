@@ -68,4 +68,5 @@ app:search_hint_size = "16sp"
 app:search_voice = "true / false"
 app:search_voice_text = "Voice text"
 app:search_animation_duration = "360"
+app:search_shadow_color = "#80000000"
 ```

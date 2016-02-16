@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -93,6 +94,7 @@ public class ToolbarActivity extends BaseActivity implements View.OnClickListene
         mSearchView.setVoice(true);
         mSearchView.setVoiceText("Voice");
         mSearchView.setAnimationDuration(360);
+        mSearchView.setShadowColor(ContextCompat.getColor(this, R.color.search_shadow_layout));
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -157,9 +159,7 @@ public class ToolbarActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-
         Intent intent;
-
         switch (view.getId()) {
             case R.id.button_delete:
                 Snackbar.make(view, "Search history deleted", Snackbar.LENGTH_LONG).setAction("Action", null).show();
