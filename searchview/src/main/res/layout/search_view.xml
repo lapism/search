@@ -3,6 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <FrameLayout
+        android:id="@+id/view_border_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
+
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/search_toolbar_margin_top"
+            android:layout_marginLeft="@dimen/search_toolbar_margin_left"
+            android:layout_marginRight="@dimen/search_toolbar_margin_right"
+            android:layout_marginTop="@dimen/search_toolbar_margin_top"
+            android:minHeight="@dimen/search_height"/>
+
+    </FrameLayout>
+
     <View
         android:id="@+id/view_transparent"
         android:layout_width="match_parent"
