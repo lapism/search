@@ -22,6 +22,7 @@
         <attr name="search_voice" format="boolean" />
         <attr name="search_voice_text" format="string" />
         <attr name="search_animation_duration" format="integer" />
+        <attr name="search_border_background_color" format="color" />
     </declare-styleable>
 
     <!-- Check -->
