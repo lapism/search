@@ -34,9 +34,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         setup();
     }
 
-    @Override
+   @Override
     public void onBackPressed() {
-        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+        if (mDrawer != null && mDrawer.isDrawerOpen(GravityCompat.START)) {
             mDrawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();

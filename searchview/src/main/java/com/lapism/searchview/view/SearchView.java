@@ -2,12 +2,12 @@ package com.lapism.searchview.view;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.TypedArray;
-import android.graphics.Rect;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -48,11 +48,10 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
     private final Context mContext;
     private int mVersion = SearchCodes.VERSION_TOOLBAR;
     private int mStyle = SearchCodes.STYLE_TOOLBAR_CLASSIC;
-    private String VOICE_SEARCH_TEXT = "Speak now";
     private int ANIMATION_DURATION = 360;
-    private View mViewDivider;
     private boolean mIsSearchOpen = false;
-    private boolean mClearingFocus;
+    private String VOICE_SEARCH_TEXT = "Speak now";
+    private View mViewDivider;
     private SearchAdapter mSearchAdapter;
     private OnQueryTextListener mOnQueryChangeListener;
     private SearchViewListener mSearchViewListener;
@@ -112,9 +111,9 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private SearchView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        mContext = context; // getContext
+        mContext = context; // getContext()
         initView();
-        initStyle(attrs, defStyleAttr, defStyleRes);
+        initStyle(attrs, defStyleAttr, defStyleRes);// check KitKat
     }
 
     private void initView() {
@@ -128,7 +127,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        // mRecyclerView.setVisibility(View.GONE);
+        mRecyclerView.setVisibility(View.GONE);
 
         mBackImageView = (ImageView) findViewById(R.id.imageView_arrow_back);
         mBackImageView.setOnClickListener(mOnClickListener);
@@ -150,7 +149,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         mViewDivider.setVisibility(View.GONE);
 
         mCardView = (CardView) findViewById(R.id.cardView);
-        // mCardView.setVisibility(View.INVISIBLE);
 
         mEditText = (EditText) findViewById(R.id.editText_input);
         //  mEditText.clearFocus();
@@ -182,7 +180,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         mEditText.setOnKeyListener(new OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == 66) {
-                    hideKeyboard(v);
+                    hideKeyboard();
                     return true;
                 }
                 return false;
@@ -269,23 +267,19 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         );
 
         if (mVersion == SearchCodes.VERSION_TOOLBAR) {
-
             int top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
             int leftStart = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_left);
             int rightEnd = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_right);
             int bottom = 0;
-
             params.setMargins(leftStart, top, rightEnd, bottom);
         }
 
         if (mVersion == SearchCodes.VERSION_MENU_ITEM) {
             setVisibility(View.GONE);
-
             int top = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_top);
             int leftStart = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_left);
             int rightEnd = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_right);
             int bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_bottom);
-
             params.setMargins(leftStart, top, rightEnd, bottom);
         }
 
@@ -413,6 +407,12 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         if (mContext instanceof Activity) {
             ((Activity) mContext).startActivityForResult(intent, SPEECH_REQUEST_CODE);
         }
+        if (mContext instanceof Fragment) {
+            ((Fragment) mContext).startActivityForResult(intent, SPEECH_REQUEST_CODE);
+        }
+        if (mContext instanceof android.support.v4.app.Fragment) {
+            ((android.support.v4.app.Fragment) mContext).startActivityForResult(intent, SPEECH_REQUEST_CODE);
+        }
     }
 
     private void showSuggestions() {
@@ -446,12 +446,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         if (mSearchAdapter != null) {
             (mSearchAdapter).getFilter().filter(s, this);
         }
-    }
-
-    private void hideKeyboard(View view) {
-        InputMethodManager manager = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (manager != null)
-            manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     private void showKeyboard() {
@@ -499,6 +493,12 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         mSearchViewListener = listener;
     }
 
+    public void clearFocusedItem() {
+        mEditText.clearFocus();
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.focus);
+        linearLayout.requestFocus();
+    }
+
     public void setQuery(CharSequence query) {
         mEditText.setText(query);
         if (query != null) {
@@ -509,59 +509,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
             onSubmitQuery();
         }
     }
-
-    @Override
-    public void onFilterComplete(int count) {
-        if (count > 0) {
-            showSuggestions();
-        } else {
-            hideSuggestions();
-        }
-    }
-
-    @Override
-    public void onRestoreInstanceState(Parcelable state) {
-        if (!(state instanceof SavedState)) {
-            super.onRestoreInstanceState(state);
-            return;
-        }
-        mSavedState = (SavedState) state;
-        if (mSavedState.isSearchOpen) {
-            show(true);
-            setQuery(mSavedState.query);
-        }
-        super.onRestoreInstanceState(mSavedState.getSuperState());
-    }
-
-    public void clearFocusedItem() {
-        mEditText.clearFocus();
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.focus);
-        linearLayout.requestFocus();
-    }
-
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.KEYCODE_BACK && getVisibility() == View.VISIBLE) {
-            clearFocusedItem();
-            hideKeyboard();
-            return true;
-        }
-        return super.dispatchKeyEvent(e);
-    }
-
-    /*@Override
-    public boolean requestFocus(int direction, Rect previouslyFocusedRect) {
-        return !mClearingFocus && isFocusable() && mSearchEditText.requestFocus(direction, previouslyFocusedRect);
-    }
-
-    @Override
-    public void clearFocus() {
-        mClearingFocus = true;
-        hideKeyboard();
-        super.clearFocus();
-        mSearchEditText.clearFocus();
-        mClearingFocus = false;
-    }*/
 
     public void show(boolean animate) {
         setVisibility(View.VISIBLE);
@@ -627,17 +574,43 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
     }
 
     @Override
-    public boolean requestFocus(int direction, Rect previouslyFocusedRect) {
-        return !mClearingFocus && isFocusable() && mEditText.requestFocus(direction, previouslyFocusedRect);
+    public void onFilterComplete(int count) {
+        if (count > 0) {
+            showSuggestions();
+        } else {
+            hideSuggestions();
+        }
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        if (!(state instanceof SavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+        mSavedState = (SavedState) state;
+        if (mSavedState.isSearchOpen) {
+            show(true);
+            setQuery(mSavedState.query);
+        }
+        super.onRestoreInstanceState(mSavedState.getSuperState());
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.KEYCODE_BACK && getVisibility() == View.VISIBLE) {
+            clearFocusedItem();
+            hideKeyboard();
+            return true;
+        }
+        return super.dispatchKeyEvent(e);
     }
 
     @Override
     public void clearFocus() {
-        mClearingFocus = true;
         hideKeyboard();
         super.clearFocus();
         mEditText.clearFocus();
-        mClearingFocus = false;
     }
 
     @Override
@@ -648,11 +621,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         mSavedState.isSearchOpen = this.mIsSearchOpen;
         return mSavedState;
     }
-
-//    private int dpToPx(int dp) {
-//        final float scale = mContext.getResources().getDisplayMetrics().density;
-//        return (int) (dp * scale + 0.5f);
-//    }
 
     public interface OnQueryTextListener {
         boolean onQueryTextSubmit(String query);

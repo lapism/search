@@ -11,4 +11,8 @@ public class SearchCodes {
     public static final int THEME_LIGHT = 5;
     public static final int THEME_DARK = 6;
 
+//    private int dpToPx(int dp) {
+//    final float scale = mContext.getResources().getDisplayMetrics().density;
+//    return (int) (dp * scale + 0.5f);
+//    }
 }

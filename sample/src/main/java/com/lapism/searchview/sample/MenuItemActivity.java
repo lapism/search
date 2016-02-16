@@ -129,12 +129,12 @@ public class MenuItemActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (mSearchView.isSearchOpen() && mSearchView.isSearchOpen()) {
-            mSearchView.clearFocusedItem();
+        mSearchView.hide(true);
+        mSearchView.clearFocusedItem();
+        if (mSearchView.isSearchOpen()) {
             mSearchView.hide(true);
-        } else {
-            super.onBackPressed();
         }
+        super.onBackPressed();
     }
 
     @Override
@@ -169,10 +169,11 @@ public class MenuItemActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_search: {
+            case R.id.action_search:
                 showSearchView();
                 return true;
-            }
+            case android.R.id.home:
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
