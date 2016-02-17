@@ -15,7 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewCompat;
-import android.view.animation.DecelerateInterpolator;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.lapism.searchview.R;
 // import android.support.v7.graphics.drawable.ArrowDrawable;
@@ -164,7 +164,7 @@ public class ArrowDrawable extends Drawable {
         } else {
             anim = ObjectAnimator.ofFloat(this, "progress", state, STATE_ARROW);
         }
-        anim.setInterpolator(new DecelerateInterpolator());
+        anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(anim.getDuration()); // 300 drawer ? 0 : 1anim.getDuration()
         anim.start();
     }

@@ -2,7 +2,6 @@
 <resources>
 
     <dimen name="toolbar_height">64dp</dimen>
-    <dimen name="fab_margin">24dp</dimen>
-    <dimen name="activity_horizontal_margin">64dp</dimen>
+    <dimen name="key_line">24dp</dimen>
 
 </resources>

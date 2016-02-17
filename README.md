@@ -21,7 +21,7 @@ Sample application on:
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-        compile 'com.lapism:searchview:2.0.2'
+        compile 'com.lapism:searchview:2.0.3'
         }
 ```
 
