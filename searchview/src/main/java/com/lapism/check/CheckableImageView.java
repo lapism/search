@@ -51,7 +51,12 @@ public class CheckableImageView extends ImageView implements Checkable {
     }
 
     public CheckableImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
+        super(context, attrs, defStyleAttr);
+        mContext = context;
+        mTextBounds = new Rect();
+        setClickable(true);
+        initEverything();
+        init(attrs, defStyleAttr, 0);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -199,56 +204,52 @@ public class CheckableImageView extends ImageView implements Checkable {
         // drawableStateChanged
         // refreshDrawableState();
         // postInvalidate();
+        if (mChecked) {
+            canvas.drawCircle(
+                    canvas.getWidth() / 2f,
+                    canvas.getHeight() / 2f,
+                    Math.min(canvas.getWidth(), canvas.getHeight()) / 2f,
+                    mPaintBackgroundChecked);
 
-        if (getDrawable() == null) {
+            canvas.drawBitmap(
+                    mImageChecked,
+                    (canvas.getWidth() - mImageChecked.getWidth()) / 2f,
+                    (canvas.getHeight() - mImageChecked.getHeight()) / 2f,
+                    mPaintImageChecked);
 
-            if (mChecked) {
-                canvas.drawCircle(
+        } else {
+            canvas.drawCircle(
+                    canvas.getWidth() / 2f,
+                    canvas.getHeight() / 2f,
+                    Math.min(canvas.getWidth(), canvas.getHeight()) / 2f,
+                    mPaintBackgroundUnchecked);
+
+            if (mType == TYPE_TEXT) {
+                mPaintText.getTextBounds(String.valueOf(mLetter), 0, 1, mTextBounds);
+
+                canvas.drawText(
+                        String.valueOf(mLetter),
                         canvas.getWidth() / 2f,
-                        canvas.getHeight() / 2f,
-                        Math.min(canvas.getWidth(), canvas.getHeight()) / 2f,
-                        mPaintBackgroundChecked);
-
-                canvas.drawBitmap(
-                        mImageChecked,
-                        (canvas.getWidth() - mImageChecked.getWidth()) / 2f,
-                        (canvas.getHeight() - mImageChecked.getHeight()) / 2f,
-                        mPaintImageChecked);
-
-            } else {
-                canvas.drawCircle(
-                        canvas.getWidth() / 2f,
-                        canvas.getHeight() / 2f,
-                        Math.min(canvas.getWidth(), canvas.getHeight()) / 2f,
-                        mPaintBackgroundUnchecked);
-
-                if (mType == TYPE_TEXT) {
-                    mPaintText.getTextBounds(String.valueOf(mLetter), 0, 1, mTextBounds);
-
-                    canvas.drawText(
-                            String.valueOf(mLetter),
-                            canvas.getWidth() / 2f,
-                            canvas.getHeight() / 2f + mTextBounds.height() / 2f - 1,
-                            mPaintText);
-                }
-
-                if (mType == TYPE_IMAGE) {
-                    canvas.drawBitmap(
-                            mImageUnchecked,
-                            (canvas.getWidth() - mImageUnchecked.getWidth()) / 2f,
-                            (canvas.getHeight() - mImageUnchecked.getHeight()) / 2f,
-                            mPaintImageUnchecked);
-                }
-
-                if (mPressed) {
-                    canvas.drawCircle(
-                            canvas.getWidth() / 2f,
-                            canvas.getHeight() / 2f,
-                            Math.min(canvas.getWidth(), canvas.getHeight()) / 2f,
-                            mPaintBackgroundPressed);
-                }
-
+                        canvas.getHeight() / 2f + mTextBounds.height() / 2f - 1,
+                        mPaintText);
             }
+
+            if (mType == TYPE_IMAGE) {
+                canvas.drawBitmap(
+                        mImageUnchecked,
+                        (canvas.getWidth() - mImageUnchecked.getWidth()) / 2f,
+                        (canvas.getHeight() - mImageUnchecked.getHeight()) / 2f,
+                        mPaintImageUnchecked);
+            }
+
+            if (mPressed) {
+                canvas.drawCircle(
+                        canvas.getWidth() / 2f,
+                        canvas.getHeight() / 2f,
+                        Math.min(canvas.getWidth(), canvas.getHeight()) / 2f,
+                        mPaintBackgroundPressed);
+            }
+
         }
     }
 

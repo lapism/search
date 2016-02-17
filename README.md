@@ -21,7 +21,7 @@ Sample application on:
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-        compile 'com.lapism:searchview:2.0.1'
+        compile 'com.lapism:searchview:2.0.2'
         }
 ```
 
@@ -49,7 +49,7 @@ dependencies {
 
 **In xml (Check the Sample project!):**
 ```xml
-<com.lapism.searchview.SearchView
+<com.lapism.searchview.view.SearchView
     android:id="@+id/search_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
@@ -60,7 +60,7 @@ Examples of layouts in the Sample project!
 **Styling SearchView:**
 ```
 app:search_version = "toolbar / menu_item"
-app:search_style = "classic / color"
+app:search_style = "toolbar_classic / menu_item_classic / menu_item_color"
 app:search_theme = "light / dark"
 app:search_divider = "true / false"
 app:search_hint = "Hint text"

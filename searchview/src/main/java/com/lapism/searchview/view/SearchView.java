@@ -107,11 +107,14 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
     }
 
     public SearchView(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
+        super(context, attrs, defStyleAttr);
+        mContext = context; // getContext()
+        initView();
+        initStyle(attrs, defStyleAttr, 0);// check KitKat
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private SearchView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public SearchView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         mContext = context; // getContext()
         initView();
