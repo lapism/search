@@ -160,7 +160,7 @@ public class ArrowDrawable extends Drawable {
     public void animate(float state) {
         ObjectAnimator anim;
         if (state == STATE_ARROW) {
-            anim = ObjectAnimator.ofFloat(this, "progress", state, STATE_HAMBURGER); // "rotation"
+            anim = ObjectAnimator.ofFloat(this, "progress", state, STATE_HAMBURGER); /// add property
         } else {
             anim = ObjectAnimator.ofFloat(this, "progress", state, STATE_ARROW);
         }
