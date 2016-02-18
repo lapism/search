@@ -87,7 +87,7 @@
                 android:gravity="start|center_vertical" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/recyclerView_result"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

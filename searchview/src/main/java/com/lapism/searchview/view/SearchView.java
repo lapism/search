@@ -128,7 +128,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         layoutManager.clearChildSize();
         layoutManager.setChildSize(getResources().getDimensionPixelSize(R.dimen.search_item_height)); // 57dp
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_result);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -418,7 +418,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
 
     private void onVoiceClicked() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);// LANGUAGE_MODEL_FREE_FORM
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, VOICE_SEARCH_TEXT);
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
 
