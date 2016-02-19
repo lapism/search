@@ -2,16 +2,14 @@
 
 Persistent SearchView Library like Play Store. For examples check sample project.
 
-Features:
-Material Design
-Toolbar / Menu item version
-History
-Styling
+Features: Material Design, Toolbar / Menu item version, History, Styling.
 
 Google Material Design Pattern:
 https://www.google.com/design/spec/patterns/search.html
+
 Version history here:
 https://bintray.com/lapism/maven/searchview/view
+
 Material colors in the project:
 https://gist.github.com/lapism/3b417142300d9dbde3b4
 
@@ -80,7 +78,7 @@ app:search_animation_duration = "360"
 app:search_shadow_color = "#80000000"
 ```
 
-**Styling CheckableImageView**
+**Styling CheckableImageView:**
 ```
 app:check_checked = "true / false"
 app:check_type = "text / image"
