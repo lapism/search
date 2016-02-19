@@ -20,8 +20,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     Toolbar mToolbar;
     int checkedMenuItem = 0;
-    DrawerLayout mDrawer = null;
     ActionBarDrawerToggle mDrawerToggle;
+    DrawerLayout mDrawer = null;
     SearchView mSearchView = null;
 
     Toolbar getToolbar() {
@@ -58,7 +58,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 invalidateOptionsMenu();
-
             }
         };
         mDrawer.setDrawerListener(mDrawerToggle);
@@ -121,17 +120,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     @Override
     public void onBackPressed() {
-        mSearchView.hide(true);
-
-
-      /*  if (mSearchView != null && mSearchView.isSearchOpen()) {
-
+        if (mSearchView != null && mSearchView.isSearchOpen()) {
+            mSearchView.hide(true);
         } else if (mDrawer != null && mDrawer.isDrawerOpen(GravityCompat.START)) {
             mDrawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-        }*/
+        }
     }
-
 
 }
