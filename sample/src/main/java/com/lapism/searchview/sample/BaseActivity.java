@@ -13,14 +13,16 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.lapism.searchview.view.SearchCodes;
+import com.lapism.searchview.view.SearchView;
 
 
 public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     Toolbar mToolbar;
     int checkedMenuItem = 0;
-    DrawerLayout mDrawer;
+    DrawerLayout mDrawer = null;
     ActionBarDrawerToggle mDrawerToggle;
+    SearchView mSearchView = null;
 
     Toolbar getToolbar() {
         if (mToolbar == null) {
@@ -47,12 +49,16 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 invalidateOptionsMenu();
+                if (mSearchView != null && mSearchView.isSearchOpen()) {
+                    mSearchView.hide(true);
+                }
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 invalidateOptionsMenu();
+
             }
         };
         mDrawer.setDrawerListener(mDrawerToggle);
@@ -76,15 +82,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         setup();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mDrawer != null && mDrawer.isDrawerOpen(GravityCompat.START)) {
-            mDrawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
     }
 
     @Override
@@ -121,5 +118,20 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     public boolean onOptionsItemSelected(MenuItem item) {
         return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed() {
+        mSearchView.hide(true);
+
+
+      /*  if (mSearchView != null && mSearchView.isSearchOpen()) {
+
+        } else if (mDrawer != null && mDrawer.isDrawerOpen(GravityCompat.START)) {
+            mDrawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }*/
+    }
+
 
 }

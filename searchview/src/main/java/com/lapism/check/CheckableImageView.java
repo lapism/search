@@ -88,10 +88,10 @@ public class CheckableImageView extends ImageView implements Checkable {
                 setTextColor(attr.getColor(R.styleable.CheckableImageView_check_text_color, ContextCompat.getColor(mContext, android.R.color.white)));
             }
             if (attr.hasValue(R.styleable.CheckableImageView_check_image_checked)) {
-                setImageChecked(attr.getResourceId(R.styleable.CheckableImageView_check_image_checked, android.R.drawable.ic_menu_gallery));
+                setImageChecked(attr.getResourceId(R.styleable.CheckableImageView_check_image_checked, R.drawable.ic_check_white_36dp));
             }
             if (attr.hasValue(R.styleable.CheckableImageView_check_image_unchecked)) {
-                setImageUnchecked(attr.getResourceId(R.styleable.CheckableImageView_check_image_unchecked, android.R.drawable.ic_dialog_map));
+                setImageUnchecked(attr.getResourceId(R.styleable.CheckableImageView_check_image_unchecked, R.drawable.ic_person_white_36dp));
             }
             if (attr.hasValue(R.styleable.CheckableImageView_check_background_color_checked)) {
                 setBackgroundColorChecked(attr.getColor(R.styleable.CheckableImageView_check_background_color_checked, ContextCompat.getColor(mContext, android.R.color.holo_orange_dark)));

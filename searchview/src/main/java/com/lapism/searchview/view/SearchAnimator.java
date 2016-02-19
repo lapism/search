@@ -15,8 +15,7 @@ import com.lapism.searchview.R;
 
 
 class SearchAnimator {
-    // TODO FOCUS ,PERMISSION, FIX EDIT TEXT PROPERTIES
-    // TODO fix out animation
+    // TODO PERMISSION, FIX EDIT TEXT PROPERTIES, fix out animation
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void revealInAnimation(final Context mContext, final View animatedView, final int startCy, int duration) {
 

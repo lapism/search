@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ToolbarActivity"
-    tools:openDrawer="start">
+    tools:context=".ToolbarActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -59,7 +58,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_toolbar"
-        app:menu="@menu/activity_toolbar_drawer" />
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_items" />
 
 </android.support.v4.widget.DrawerLayout>

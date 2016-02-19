@@ -1,12 +1,17 @@
-# SearchView
+# SearchView & CheckableImageView
 
-**Note: Version 2.x is not compatible with 1.5 !**
-**Also check CheckableImageView in this library.**
+Persistent SearchView Library like Play Store. For examples check sample project.
 
-Persistent SearchView Library with history in Material Design. 
-It supports layout like section My apps in Google Play Store.
-https://www.google.com/design/spec/patterns/search.html. 
+Features:
+Material Design
+Toolbar / Menu item version
+History
+Styling
 
+Google Material Design Pattern:
+https://www.google.com/design/spec/patterns/search.html
+Version history here:
+https://bintray.com/lapism/maven/searchview/view
 Material colors in the project:
 https://gist.github.com/lapism/3b417142300d9dbde3b4
 
@@ -21,7 +26,7 @@ Sample application on:
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-        compile 'com.lapism:searchview:2.0.3'
+        compile 'com.lapism:searchview:2.0.4'
         }
 ```
 
@@ -33,8 +38,8 @@ dependencies {
 (https://github.com/lapism/SearchView/blob/master/images/image_5.png)![Screenshot 6]
 (https://github.com/lapism/SearchView/blob/master/images/image_6.png)
 
-**In code (Check the Sample project!):**
-
+**Code:**
+```java
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -46,15 +51,19 @@ dependencies {
                 return super.onOptionsItemSelected(item);
         }
     }
+```
 
-**In xml (Check the Sample project!):**
+**XML:**
 ```xml
 <com.lapism.searchview.view.SearchView
     android:id="@+id/search_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
         
-Examples of layouts in the Sample project!     
+<com.lapism.check.CheckableImageView
+    android:id="@+id/checkableImageView"
+    android:layout_width="@dimen/fab"
+    android:layout_height="@dimen/fab" />
 ```
 
 **Styling SearchView:**
@@ -69,4 +78,17 @@ app:search_voice = "true / false"
 app:search_voice_text = "Voice text"
 app:search_animation_duration = "360"
 app:search_shadow_color = "#80000000"
+```
+
+**Styling CheckableImageView**
+```
+app:check_checked = "true / false"
+app:check_type = "text / image"
+app:check_text = "T"
+app:check_text_size = "37sp"
+app:check_text_color = "@android:color/white"
+app:check_image_checked = "@drawable/image"
+app:check_image_unchecked = "@drawable/image"
+app:check_background_color_checked = "@android:color/holo_orange_dark"
+app:check_background_color_unchecked = "@android:color/holo_orange_dark"
 ```

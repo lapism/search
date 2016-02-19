@@ -28,7 +28,6 @@ public class ToolbarActivity extends BaseActivity implements View.OnClickListene
 
     private SearchHistoryTable mHistoryDatabase;
     private List<SearchItem> mSuggestionsList;
-    private SearchView mSearchView;
     private int mVersion = SearchCodes.VERSION_TOOLBAR;
     private int mStyle = SearchCodes.STYLE_TOOLBAR_CLASSIC;
     private int mTheme = SearchCodes.THEME_LIGHT;
@@ -87,7 +86,7 @@ public class ToolbarActivity extends BaseActivity implements View.OnClickListene
         mSearchView.setStyle(mStyle);
         mSearchView.setTheme(mTheme);
         // -----------------------------------------------------------------------------------------
-        mSearchView.setDivider(false);
+        mSearchView.setDivider(true);
         mSearchView.setHint("Search");
         mSearchView.setHint(R.string.search);
         mSearchView.setHintSize(getResources().getDimension(R.dimen.search_text_medium));
@@ -124,16 +123,6 @@ public class ToolbarActivity extends BaseActivity implements View.OnClickListene
         mSearchView.setAdapter(mSearchAdapter);
 
         showSearchView(); // TODO FIX
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mSearchView.isSearchOpen() && mSearchView.isSearchOpen()) {
-            mSearchView.clearFocusedItem();
-            mSearchView.hide(true);
-        } else {
-            super.onBackPressed();
-        }
     }
 
     @Override

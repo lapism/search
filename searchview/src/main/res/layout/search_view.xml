@@ -20,7 +20,6 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/focus"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/search_height"
                 android:focusable="true"
@@ -55,7 +54,11 @@
                     android:paddingBottom="@dimen/search_text_spacing"
                     android:paddingTop="@dimen/search_text_spacing"
                     android:singleLine="true"
-                    android:textSize="@dimen/search_text_medium" />
+                    android:textSize="@dimen/search_text_medium">
+
+                    <requestFocus />
+
+                </EditText>
                 <!-- android:hint="Search" android:imeOptions="actionSearch|flagNoExtractUi"-->
 
                 <FrameLayout

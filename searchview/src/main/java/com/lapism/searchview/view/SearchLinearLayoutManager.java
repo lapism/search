@@ -9,18 +9,18 @@ import android.view.View;
 
 import java.lang.reflect.Field;
 
-
+// TODO clean code
 class SearchLinearLayoutManager extends LinearLayoutManager {
 
     private static final int CHILD_WIDTH = 0;
     private static final int CHILD_HEIGHT = 1;
-    private static final int DEFAULT_CHILD_SIZE = 112;
+
     private static boolean canMakeInsetsDirty = true;
     private static Field insetsDirtyField = null;
     private final int[] childDimensions = new int[2];
     private final RecyclerView view;
     private final Rect tmpRect = new Rect();
-    private int childSize = DEFAULT_CHILD_SIZE;
+    private int childSize = 112;
     private boolean hasChildSize = false;
     // private int overScrollMode = ViewCompat.OVER_SCROLL_ALWAYS;
 
@@ -60,29 +60,23 @@ class SearchLinearLayoutManager extends LinearLayoutManager {
     public void onMeasure(RecyclerView.Recycler recycler, RecyclerView.State state, int widthSpec, int heightSpec) {
         final int widthMode = View.MeasureSpec.getMode(widthSpec);
         final int heightMode = View.MeasureSpec.getMode(heightSpec);
-
         final int widthSize = View.MeasureSpec.getSize(widthSpec);
         final int heightSize = View.MeasureSpec.getSize(heightSpec);
-
         final boolean hasWidthSize = widthMode != View.MeasureSpec.UNSPECIFIED;
         final boolean hasHeightSize = heightMode != View.MeasureSpec.UNSPECIFIED;
-
         final boolean exactWidth = widthMode == View.MeasureSpec.EXACTLY;
         final boolean exactHeight = heightMode == View.MeasureSpec.EXACTLY;
-
         final int unspecified = makeUnspecifiedSpec();
+        final boolean vertical = getOrientation() == VERTICAL;
+        int width = 0;
+        int height = 0;
 
         if (exactWidth && exactHeight) {
             super.onMeasure(recycler, state, widthSpec, heightSpec);
             return;
         }
 
-        final boolean vertical = getOrientation() == VERTICAL;
-
         initChildDimensions(widthSize, heightSize, vertical);
-
-        int width = 0;
-        int height = 0;
 
         recycler.clear();
 
@@ -168,11 +162,6 @@ class SearchLinearLayoutManager extends LinearLayoutManager {
             }
         }
         super.setOrientation(orientation);
-    }
-
-    public void clearChildSize() {
-        hasChildSize = false;
-        setChildSize(DEFAULT_CHILD_SIZE);
     }
 
     public void setChildSize(int childSize) {

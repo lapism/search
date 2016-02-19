@@ -9,12 +9,6 @@
         android:icon="@drawable/ic_search_white_24dp"
         android:orderInCategory="1"
         android:title="@string/search"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/app_name"
-        app:showAsAction="never" />
-
-</menu><!-- always -->
+</menu>

@@ -12,7 +12,8 @@
 
         <activity
             android:name=".ToolbarActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:launchMode="standard">
             <intent-filter tools:ignore="GoogleAppIndexingWarning">
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +24,10 @@
 
         <activity
             android:name=".MenuItemActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:parentActivityName=".ToolbarActivity"
+            tools:ignore="UnusedAttribute"
+            tools:targetApi="jelly_bean" />
 
     </application>
 

@@ -24,7 +24,6 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
@@ -32,7 +31,6 @@ import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lapism.arrow.ArrowDrawable;
@@ -42,7 +40,7 @@ import com.lapism.searchview.adapter.SearchAdapter;
 import java.util.List;
 
 
-public class SearchView extends FrameLayout implements Filter.FilterListener {
+public class SearchView extends FrameLayout implements Filter.FilterListener, View.OnClickListener {
 
     public static final int SPEECH_REQUEST_CODE = 1234;
     private final Context mContext;
@@ -69,34 +67,8 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
     private ImageView mBackImageView;
     private ImageView mVoiceImageView;
     private ImageView mEmptyImageView;
-    private final OnClickListener mOnClickListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (v == mBackImageView) {
-                if (mVersion == SearchCodes.VERSION_TOOLBAR) {
-                    clearFocusedItem();
-                }
-                if (mVersion == SearchCodes.VERSION_MENU_ITEM) {
-                    hide(true);
-                    clearFocusedItem();
-                }
-            } else if (v == mVoiceImageView) {
-                onVoiceClicked();
-            } else if (v == mEmptyImageView) {
-                mEditText.setText(null);
-            } else if (v == mEditText) {
-                showSuggestions();
-            } else if (v == mShadow) {
-                if (mVersion == SearchCodes.VERSION_TOOLBAR) {
-                    clearFocusedItem();
-                }
-                if (mVersion == SearchCodes.VERSION_MENU_ITEM) {
-                    hide(true);
-                    clearFocusedItem();
-                }
-            }
-        }
-    };
+    private SearchLinearLayoutManager mSearchLinearLayoutManager;
+    // private final OnClickListener mOnClickListener = new OnClickListener() {
 
     public SearchView(Context context) {
         this(context, null);
@@ -110,42 +82,41 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         super(context, attrs, defStyleAttr);
         mContext = context; // getContext()
         initView();
-        initStyle(attrs, defStyleAttr, 0);// check KitKat
+        initStyle(attrs, defStyleAttr, 0);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public SearchView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        mContext = context; // getContext()
+        mContext = context;
         initView();
-        initStyle(attrs, defStyleAttr, defStyleRes);// check KitKat
+        initStyle(attrs, defStyleAttr, defStyleRes);
     }
 
     private void initView() {
         LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
 
-        SearchLinearLayoutManager layoutManager = new SearchLinearLayoutManager(mContext);
-        layoutManager.clearChildSize();
-        layoutManager.setChildSize(getResources().getDimensionPixelSize(R.dimen.search_item_height)); // 57dp
+        mSearchLinearLayoutManager = new SearchLinearLayoutManager(mContext);
+        mSearchLinearLayoutManager.setChildSize(getResources().getDimensionPixelSize(R.dimen.search_item_height));
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_result);
-        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(mSearchLinearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setVisibility(View.GONE);
 
         mBackImageView = (ImageView) findViewById(R.id.imageView_arrow_back);
-        mBackImageView.setOnClickListener(mOnClickListener);
+        mBackImageView.setOnClickListener(this);
 
         mVoiceImageView = (ImageView) findViewById(R.id.imageView_mic);
-        mVoiceImageView.setOnClickListener(mOnClickListener);
+        mVoiceImageView.setOnClickListener(this);
 
         mEmptyImageView = (ImageView) findViewById(R.id.imageView_clear);
-        mEmptyImageView.setOnClickListener(mOnClickListener);
+        mEmptyImageView.setOnClickListener(this);
         mEmptyImageView.setVisibility(View.GONE);
 
         mShadow = findViewById(R.id.view_shadow);
-        mShadow.setOnClickListener(mOnClickListener);
+        mShadow.setOnClickListener(this);
         mShadow.setVisibility(View.GONE);
 
         mDivider = findViewById(R.id.view_divider);
@@ -154,9 +125,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         mCardView = (CardView) findViewById(R.id.cardView);
 
         mEditText = (EditText) findViewById(R.id.editText_input);
-        //  mEditText.clearFocus();
-
-        mEditText.setOnClickListener(mOnClickListener);
         mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -178,24 +146,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-            }
-        });
-        mEditText.setOnKeyListener(new OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == 66) {
-                    hideKeyboard();
-                    return true;
-                }
-                return false;
-            }
-        });
-        mEditText.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                // should call View#performClick when a click is detected
-                v.setFocusable(true);
-                v.setFocusableInTouchMode(true);
-                return false;
             }
         });
         mEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
@@ -269,19 +219,24 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         );
 
         if (mVersion == SearchCodes.VERSION_TOOLBAR) {
+            mEditText.clearFocus();
+
             int top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
             int leftStart = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_left);
             int rightEnd = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_right);
             int bottom = 0;
+
             params.setMargins(leftStart, top, rightEnd, bottom);
         }
 
         if (mVersion == SearchCodes.VERSION_MENU_ITEM) {
             setVisibility(View.GONE);
+
             int top = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_top);
             int leftStart = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_left);
             int rightEnd = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_right);
             int bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_bottom);
+
             params.setMargins(leftStart, top, rightEnd, bottom);
         }
 
@@ -356,8 +311,12 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
 
     public void setDivider(boolean divider) {
         if (divider) {
+            mSearchLinearLayoutManager.setChildSize(getResources().getDimensionPixelSize(R.dimen.search_item_height_divider));
+            mRecyclerView.setLayoutManager(mSearchLinearLayoutManager);
             mRecyclerView.addItemDecoration(new SearchDivider(mContext));
         } else {
+            mSearchLinearLayoutManager.setChildSize(getResources().getDimensionPixelSize(R.dimen.search_item_height));
+            mRecyclerView.setLayoutManager(mSearchLinearLayoutManager);
             mRecyclerView.removeItemDecoration(new SearchDivider(mContext));
         }
     }
@@ -470,6 +429,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
 
     private void showKeyboard() {
         InputMethodManager imm = (InputMethodManager) mEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        //mEditText.requestFocus();
         imm.showSoftInput(mEditText, 0);
     }
 
@@ -513,12 +473,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
         mSearchViewListener = listener;
     }
 
-    public void clearFocusedItem() {
-        mEditText.clearFocus();
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.focus);
-        linearLayout.requestFocus();
-    }
-
     public void setQuery(CharSequence query) {
         mEditText.setText(query);
         if (query != null) {
@@ -531,54 +485,57 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
     }
 
     public void show(boolean animate) {
-        setVisibility(View.VISIBLE);
+        if (mVersion == SearchCodes.VERSION_MENU_ITEM) {
+            setVisibility(View.VISIBLE);
 
-        mEditText.setText(null);
-        mEditText.requestFocus();
+            mEditText.requestFocus();
+            mEditText.setText(null);
 
-        if (animate) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                revealInAnimation();
+            if (animate) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    revealInAnimation();
+                } else {
+                    SearchAnimator.fadeInAnimation(mCardView, ANIMATION_DURATION);
+                }
             } else {
-                SearchAnimator.fadeInAnimation(mCardView, ANIMATION_DURATION);
+                mCardView.setVisibility(View.VISIBLE);
             }
-        } else {
-            mCardView.setVisibility(View.VISIBLE);
+            if (mSearchViewListener != null) {
+                mSearchViewListener.onSearchViewShown();
+            }
+            mIsSearchOpen = true;
         }
-        if (mSearchViewListener != null) {
-            mSearchViewListener.onSearchViewShown();
-        }
-        mIsSearchOpen = true;
     }
 
     public void hide(boolean animate) {
-        mEditText.setText(null);
-        mEditText.clearFocus();
-        clearFocus();
+        if (mVersion == SearchCodes.VERSION_MENU_ITEM) {
+            mEditText.clearFocus();
+            mEditText.setText(null);
 
-        if (animate) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                final int endCy = mCardView.getHeight() / 2;
-                SearchAnimator.revealOutAnimation(mContext, mCardView, endCy, ANIMATION_DURATION);
-            } else {
-                SearchAnimator.fadeOutAnimation(mCardView, ANIMATION_DURATION);
-            }
-            postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    setVisibility(View.GONE);
-                    if (mSearchViewListener != null) {
-                        mSearchViewListener.onSearchViewClosed();
-                    }
+            if (animate) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    final int endCy = mCardView.getHeight() / 2;
+                    SearchAnimator.revealOutAnimation(mContext, mCardView, endCy, ANIMATION_DURATION);
+                } else {
+                    SearchAnimator.fadeOutAnimation(mCardView, ANIMATION_DURATION);
                 }
-            }, ANIMATION_DURATION);
-        } else {
-            setVisibility(View.GONE);
-            if (mSearchViewListener != null) {
-                mSearchViewListener.onSearchViewClosed();
+                postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setVisibility(View.GONE);
+                        if (mSearchViewListener != null) {
+                            mSearchViewListener.onSearchViewClosed();
+                        }
+                    }
+                }, ANIMATION_DURATION);
+            } else {
+                setVisibility(View.GONE);
+                if (mSearchViewListener != null) {
+                    mSearchViewListener.onSearchViewClosed();
+                }
             }
+            mIsSearchOpen = false;
         }
-        mIsSearchOpen = false;
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -603,6 +560,24 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
     }
 
     @Override
+    public void onClick(View v) {
+        if (v == mBackImageView || v == mShadow) {
+            if (mVersion == SearchCodes.VERSION_MENU_ITEM) {
+                hide(true);
+            }
+            mEditText.clearFocus();
+        }
+
+        if (v == mVoiceImageView) {
+            onVoiceClicked();
+        }
+
+        if (v == mEmptyImageView) {
+            mEditText.setText(null);
+        }
+    }
+
+    @Override
     public void onRestoreInstanceState(Parcelable state) {
         if (!(state instanceof SavedState)) {
             super.onRestoreInstanceState(state);
@@ -617,21 +592,20 @@ public class SearchView extends FrameLayout implements Filter.FilterListener {
     }
 
     @Override
-    public boolean dispatchKeyEvent(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.KEYCODE_BACK && getVisibility() == View.VISIBLE) {
-            clearFocusedItem();
-            hideKeyboard();
+    public boolean onKeyPreIme(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+            mEditText.clearFocus();
             return true;
-        }
-        return super.dispatchKeyEvent(e);
+        } else
+            return super.dispatchKeyEvent(event);
     }
 
-    @Override
-    public void clearFocus() {
-        hideKeyboard();
-        super.clearFocus();
-        mEditText.clearFocus();
-    }
+    //  dispatchKeyShortcutEvent onKeyShortcut
+    //   InputMethodManager mgr = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+    //  mgr.hideSoftInputFromWindow(this.getWindowToken(), 0);
+    // InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+    // imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+    //    //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)‌​;
 
     @Override
     public Parcelable onSaveInstanceState() {

@@ -28,7 +28,6 @@ public class MenuItemActivity extends BaseActivity {
 
     private SearchHistoryTable mHistoryDatabase;
     private List<SearchItem> mSuggestionsList;
-    private SearchView mSearchView;
     private int mVersion = SearchCodes.VERSION_MENU_ITEM;
     private int mStyle = SearchCodes.STYLE_MENU_ITEM_CLASSIC;
     private int mTheme = SearchCodes.THEME_LIGHT;
@@ -127,16 +126,6 @@ public class MenuItemActivity extends BaseActivity {
         });
 
         mSearchView.setAdapter(mSearchAdapter);
-    }
-
-    @Override
-    public void onBackPressed() {
-        mSearchView.hide(true);
-        mSearchView.clearFocusedItem();
-        if (mSearchView.isSearchOpen()) {
-            mSearchView.hide(true);
-        }
-        super.onBackPressed();
     }
 
     @Override
