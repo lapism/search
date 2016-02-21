@@ -48,6 +48,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
     private int mStyle = SearchCodes.STYLE_TOOLBAR_CLASSIC;
     private int ANIMATION_DURATION = 360;
     private boolean mIsSearchOpen = false;
+    private boolean mIsSearchArrowHamburgerState = true;
     private String VOICE_SEARCH_TEXT = "Speak now";
     private View mDivider;
     private View mShadow;
@@ -57,6 +58,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
     private SearchAdapter mSearchAdapter;
     private OnQueryTextListener mOnQueryChangeListener;
     private SearchViewListener mSearchViewListener;
+    private SearchMenuListener mSearchMenuListener;
     private CharSequence mOldQueryText;
     private CharSequence mUserQuery;
     private SavedState mSavedState;
@@ -158,6 +160,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
                     if (mSearchArrow != null) {
                         mSearchArrow.setVerticalMirror(false);
                         mSearchArrow.animate(ArrowDrawable.STATE_ARROW);
+                        mIsSearchArrowHamburgerState = false;
                     }
                 } else {
                     hideKeyboard();
@@ -166,6 +169,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
                     if (mSearchArrow != null) {
                         mSearchArrow.setVerticalMirror(true);
                         mSearchArrow.animate(ArrowDrawable.STATE_HAMBURGER);
+                        mIsSearchArrowHamburgerState = true;
                     }
                 }
             }
@@ -473,6 +477,10 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         mSearchViewListener = listener;
     }
 
+    public void setOnSearchMenuListener(SearchMenuListener listener) {
+        mSearchMenuListener = listener;
+    }
+
     public void setQuery(CharSequence query) {
         mEditText.setText(query);
         if (query != null) {
@@ -564,7 +572,10 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         if (v == mBackImageView || v == mShadow) {
             if (mVersion == SearchCodes.VERSION_MENU_ITEM) {
                 hide(true);
+            } else if (mVersion == SearchCodes.VERSION_TOOLBAR && mIsSearchArrowHamburgerState) {
+                mSearchMenuListener.onMenuClick();
             }
+
             mEditText.clearFocus();
         }
 
@@ -626,6 +637,10 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         void onSearchViewShown();
 
         void onSearchViewClosed();
+    }
+
+    public interface SearchMenuListener {
+        void onMenuClick();
     }
 
     private static class SavedState extends BaseSavedState {

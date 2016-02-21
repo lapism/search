@@ -7,6 +7,7 @@ import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -105,6 +106,13 @@ public class ToolbarActivity extends BaseActivity implements View.OnClickListene
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
+            }
+        });
+
+        mSearchView.setOnSearchMenuListener(new SearchView.SearchMenuListener() {
+            @Override
+            public void onMenuClick() {
+                mDrawer.openDrawer(GravityCompat.START);
             }
         });
 
