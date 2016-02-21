@@ -1,6 +1,7 @@
 package com.lapism.arrow;
 
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
@@ -16,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewCompat;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 
 import com.lapism.searchview.R;
 // import android.support.v7.graphics.drawable.ArrowDrawable;
@@ -166,6 +168,19 @@ public class ArrowDrawable extends Drawable {
         }
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(anim.getDuration()); // 300 drawer ? 0 : 1anim.getDuration()
+        anim.start();
+    }
+
+    private void animate() {
+        ValueAnimator anim = ValueAnimator.ofFloat(0.0f, 1.0f);
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                // float slideOffset = (Float) valueAnimator.getAnimatedValue();
+            }
+        });
+        anim.setInterpolator(new DecelerateInterpolator());
+        anim.setDuration(300);
         anim.start();
     }
 

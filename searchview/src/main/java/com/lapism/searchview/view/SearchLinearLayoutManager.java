@@ -9,8 +9,16 @@ import android.view.View;
 
 import java.lang.reflect.Field;
 
-// TODO clean code
-// TODO PERMISSION, FIX EDIT TEXT PROPERTIES, fix out animation
+// TODO
+// clean code this
+// Voice PERMISSION
+// FIX EDIT TEXT PROPERTIES
+// fix out animation
+// CoordinatorLayout.Behavior
+// database inside SearchView
+// animace out, krizek, animace otevirani, zavirani toho okna, dabazi dovnitr
+// zadne suggestions
+
 class SearchLinearLayoutManager extends LinearLayoutManager {
 
     private static final int CHILD_WIDTH = 0;

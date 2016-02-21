@@ -1,12 +1,10 @@
 package com.lapism.searchview.sample;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -20,7 +18,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     Toolbar mToolbar;
     int checkedMenuItem = 0;
-    ActionBarDrawerToggle mDrawerToggle;
     DrawerLayout mDrawer = null;
     SearchView mSearchView = null;
 
@@ -28,7 +25,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         if (mToolbar == null) {
             mToolbar = (Toolbar) findViewById(R.id.toolbar);
             if (mToolbar != null) {
+                setTitle(null);
                 setSupportActionBar(mToolbar);
+                mToolbar.setTitle(null);
+                mToolbar.setSubtitle(null);
             }
         }
         return mToolbar;
@@ -44,7 +44,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         });*/
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+        mDrawer.setDrawerListener(new DrawerLayout.SimpleDrawerListener() { // mDrawer.setDrawerListener(new DrawerLayout.DrawerListener()
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+            }
+
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -59,9 +64,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                 super.onDrawerClosed(drawerView);
                 invalidateOptionsMenu();
             }
-        };
-        mDrawer.setDrawerListener(mDrawerToggle);
-        mDrawerToggle.syncState();
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                super.onDrawerStateChanged(newState);
+            }
+        });
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -103,19 +111,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             startActivity(intent);
         }
 
-        mDrawer.closeDrawer(GravityCompat.START);
+        mDrawer.closeDrawer(GravityCompat.START); // mDrawer.closeDrawers();
         return true;
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     @Override

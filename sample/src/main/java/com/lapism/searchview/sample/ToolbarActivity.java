@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -60,8 +61,17 @@ public class ToolbarActivity extends BaseActivity implements View.OnClickListene
         Button mDelete = (Button) findViewById(R.id.button_delete);
         Button mClassic = (Button) findViewById(R.id.button_classic);
         Button mColor = (Button) findViewById(R.id.button_color);
+
         final FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.fab_git_hub_source);
+
+        mDelete.setOnClickListener(this);
+        mClassic.setOnClickListener(this);
+        mColor.setOnClickListener(this);
+        mFab.setOnClickListener(this);
+
+        // CheckableView ---------------------------------------------------------------------------
         mCheck = (CheckableView) findViewById(R.id.checkableImageView);
+        mCheck.setOnClickListener(this);
         mCheck.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -69,18 +79,13 @@ public class ToolbarActivity extends BaseActivity implements View.OnClickListene
                 return true; // false
             }
         });
-
-        mDelete.setOnClickListener(this);
-        mClassic.setOnClickListener(this);
-        mColor.setOnClickListener(this);
-        mFab.setOnClickListener(this);
-        mCheck.setOnClickListener(this);
+        // -----------------------------------------------------------------------------------------
 
         mHistoryDatabase = new SearchHistoryTable(this);
         mSuggestionsList = new ArrayList<>();
 
+        // SearchView basic attributes  ------------------------------------------------------------
         mSearchView = (SearchView) findViewById(R.id.searchView);
-        // important -------------------------------------------------------------------------------
         mSearchView.setVersion(mVersion);
         mSearchView.setStyle(mStyle);
         mSearchView.setTheme(mTheme);
@@ -91,7 +96,7 @@ public class ToolbarActivity extends BaseActivity implements View.OnClickListene
         mSearchView.setHintSize(getResources().getDimension(R.dimen.search_text_medium));
         mSearchView.setVoice(true);
         mSearchView.setVoiceText("Voice");
-        mSearchView.setAnimationDuration(360);
+        mSearchView.setAnimationDuration(300);
         mSearchView.setShadowColor(ContextCompat.getColor(this, R.color.search_shadow_layout));
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -106,7 +111,6 @@ public class ToolbarActivity extends BaseActivity implements View.OnClickListene
                 return false;
             }
         });
-
         mSearchView.setOnSearchMenuListener(new SearchView.SearchMenuListener() {
             @Override
             public void onMenuClick() {
@@ -128,7 +132,7 @@ public class ToolbarActivity extends BaseActivity implements View.OnClickListene
 
         mSearchView.setAdapter(mSearchAdapter);
 
-        showSearchView();
+        showSearchView();  // TODO RELOAD
     }
 
     @Override
@@ -198,6 +202,16 @@ public class ToolbarActivity extends BaseActivity implements View.OnClickListene
             default:
                 break;
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawer.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
