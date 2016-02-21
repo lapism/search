@@ -70,7 +70,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
     private ImageView mVoiceImageView;
     private ImageView mEmptyImageView;
     private SearchLinearLayoutManager mSearchLinearLayoutManager;
-    // private final OnClickListener mOnClickListener = new OnClickListener() {
 
     public SearchView(Context context) {
         this(context, null);
@@ -285,7 +284,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
                     mEmptyImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
                 }
             }
-
             mRecyclerView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
             mCardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
             mEditText.setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
@@ -305,7 +303,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
                     mEmptyImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
                 }
             }
-
             mRecyclerView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
             mCardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
             mEditText.setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
@@ -373,6 +370,16 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
     }
 
     // ---------------------------------------------------------------------------------------------
+    private void showKeyboard() {
+        InputMethodManager imm = (InputMethodManager) mEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, 0);
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) mEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
+    }
+
     private boolean isVoiceAvailable() {
         PackageManager pm = getContext().getPackageManager();
         List<ResolveInfo> activities = pm.queryIntentActivities(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
@@ -429,17 +436,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         if (mSearchAdapter != null) {
             (mSearchAdapter).getFilter().filter(s, this);
         }
-    }
-
-    private void showKeyboard() {
-        InputMethodManager imm = (InputMethodManager) mEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        //mEditText.requestFocus();
-        imm.showSoftInput(mEditText, 0);
-    }
-
-    private void hideKeyboard() {
-        InputMethodManager imm = (InputMethodManager) mEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
     }
 
     private void onTextChanged(CharSequence newText) {
@@ -601,17 +597,8 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         }
         super.onRestoreInstanceState(mSavedState.getSuperState());
     }
-
-    @Override
-    public boolean onKeyPreIme(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-            mEditText.clearFocus();
-            return true;
-        } else
-            return super.dispatchKeyEvent(event);
-    }
-
-    //  dispatchKeyShortcutEvent onKeyShortcut
+    // private int overScrollMode = ViewCompat.OVER_SCROLL_ALWAYS;
+    // private final OnClickListener mOnClickListener = new OnClickListener() {
     //   InputMethodManager mgr = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
     //  mgr.hideSoftInputFromWindow(this.getWindowToken(), 0);
     // InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);

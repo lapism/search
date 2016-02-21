@@ -1,4 +1,4 @@
-# SearchView & CheckableImageView
+# SearchView & CheckableView
 
 Persistent SearchView Library like Play Store. For examples check sample project.
 
@@ -54,12 +54,12 @@ dependencies {
 **XML:**
 ```xml
 <com.lapism.searchview.view.SearchView
-    android:id="@+id/search_view"
+    android:id="@+id/searchView"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
         
-<com.lapism.check.CheckableImageView
-    android:id="@+id/checkableImageView"
+<com.lapism.check.CheckableView
+    android:id="@+id/checkableView"
     android:layout_width="@dimen/fab"
     android:layout_height="@dimen/fab" />
 ```
@@ -78,7 +78,7 @@ app:search_animation_duration = "360"
 app:search_shadow_color = "#80000000"
 ```
 
-**Styling CheckableImageView:**
+**Styling CheckableView:**
 ```
 app:check_checked = "true / false"
 app:check_type = "text / image"

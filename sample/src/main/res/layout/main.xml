@@ -41,7 +41,7 @@
             android:text="@string/delete"
             android:textColor="?colorPrimaryDark" />
 
-        <com.lapism.check.CheckableImageView
+        <com.lapism.check.CheckableView
             android:id="@+id/checkableImageView"
             android:layout_width="@dimen/fab"
             android:layout_height="@dimen/fab"
