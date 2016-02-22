@@ -1,16 +1,15 @@
 package com.lapism.searchview.sample;
 
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,24 +55,22 @@ public class MenuItemActivity extends BaseActivity {
         setContentView(R.layout.activity_menu_item);
 
         mToolbar = getToolbar();
+        setTitle(mTheme == SearchCodes.THEME_LIGHT ? "Light" : "Dark");
         mToolbar.setTitle(mTheme == SearchCodes.THEME_LIGHT ? "Light" : "Dark");
         mToolbar.setSubtitle(mStyle == SearchCodes.STYLE_MENU_ITEM_CLASSIC ? "Classic" : "Color");
-        setSupportActionBar(mToolbar);
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-                //NavUtils.navigateUpTo();
-                //DatabaseUtils
             }
         });
 
         mHistoryDatabase = new SearchHistoryTable(this);
         mSuggestionsList = new ArrayList<>();
 
+        // SearchView basic attributes  ------------------------------------------------------------
         mSearchView = (SearchView) findViewById(R.id.searchView);
-        // important -------------------------------------------------------------------------------
         mSearchView.setVersion(mVersion);
         mSearchView.setStyle(mStyle);
         mSearchView.setTheme(mTheme);
@@ -84,7 +81,7 @@ public class MenuItemActivity extends BaseActivity {
         mSearchView.setHintSize(getResources().getDimension(R.dimen.search_text_medium));
         mSearchView.setVoice(true);
         mSearchView.setVoiceText("Voice");
-        mSearchView.setAnimationDuration(360);
+        mSearchView.setAnimationDuration(300);
         mSearchView.setShadowColor(ContextCompat.getColor(this, R.color.search_shadow_layout));
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -164,30 +161,13 @@ public class MenuItemActivity extends BaseActivity {
                 showSearchView();
                 return true;
             case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                // NavUtils.navigateUpTo();
+                // DatabaseUtils ...
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void animate() {
-        ValueAnimator anim = ValueAnimator.ofFloat(0.0f, 1.0f);
-        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float slideOffset = (Float) valueAnimator.getAnimatedValue();
-                mDrawerToggle.onDrawerSlide(mDrawer, slideOffset);
-            }
-        });
-        anim.setInterpolator(new DecelerateInterpolator());
-        anim.setDuration(300);
-        anim.start();
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        animate();
     }
 
 }

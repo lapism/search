@@ -100,7 +100,7 @@ class SearchDivider extends RecyclerView.ItemDecoration {
         if (lm instanceof LinearLayoutManager) {
             return ((LinearLayoutManager) lm).getOrientation();
         } else {
-            throw new IllegalStateException("DividerItemDecoration can only be used with a LinearLayoutManager");
+            throw new IllegalStateException("Can only be used with a LinearLayoutManager");
         }
     }
 

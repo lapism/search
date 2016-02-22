@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">SearchView Sample</string>
-    <string name="version">Version: 2.0.4</string>
+    <string name="version">Version: 2.1</string>
     <string name="color">Color</string>
     <string name="classic">Classic</string>
     <string name="light">Light</string>
@@ -9,7 +9,5 @@
     <string name="delete">Delete search history</string>
     <string name="cont_desc">Content Description</string>
     <string name="search">Search</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
 
 </resources>

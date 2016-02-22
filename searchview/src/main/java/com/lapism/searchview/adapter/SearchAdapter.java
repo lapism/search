@@ -97,7 +97,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public void onBindViewHolder(ResultViewHolder viewHolder, int position) {
         SearchItem item = mSearchList.get(position);
 
-        int start = mStartList.get(position);  // TODO - CANT BE NULL
+        int start = mStartList.get(position);
         int end = start + mKeyLength;
 
         viewHolder.icon_left.setImageResource(item.get_icon());

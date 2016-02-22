@@ -9,12 +9,20 @@ import android.view.View;
 
 import java.lang.reflect.Field;
 
-// TODO clean code
+// TODO
+// clean code this
+// Voice PERMISSION
+// FIX EDIT TEXT PROPERTIES
+// fix out animation
+// CoordinatorLayout.Behavior
+// database inside SearchView
+// animace out, krizek, animace otevirani, zavirani toho okna, dabazi dovnitr
+// zadne suggestions
+
 class SearchLinearLayoutManager extends LinearLayoutManager {
 
     private static final int CHILD_WIDTH = 0;
     private static final int CHILD_HEIGHT = 1;
-
     private static boolean canMakeInsetsDirty = true;
     private static Field insetsDirtyField = null;
     private final int[] childDimensions = new int[2];
@@ -22,7 +30,6 @@ class SearchLinearLayoutManager extends LinearLayoutManager {
     private final Rect tmpRect = new Rect();
     private int childSize = 112;
     private boolean hasChildSize = false;
-    // private int overScrollMode = ViewCompat.OVER_SCROLL_ALWAYS;
 
     public SearchLinearLayoutManager(Context context) {
         super(context, LinearLayoutManager.VERTICAL, false);
