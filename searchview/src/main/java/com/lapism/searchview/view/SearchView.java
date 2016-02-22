@@ -154,9 +154,9 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    shitIn();
+                    in();
                 } else {
-                    shitOut();
+                    out();
                 }
             }
         });
@@ -461,7 +461,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         }
     }
 
-    private void shitIn() {
+    private void in() {
         showKeyboard();
         showSuggestions();
         mShadow.setVisibility(View.VISIBLE);
@@ -472,7 +472,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         }
     }
 
-    private void shitOut() {
+    private void out() {
         hideKeyboard();
         hideSuggestions();
         mShadow.setVisibility(View.GONE);

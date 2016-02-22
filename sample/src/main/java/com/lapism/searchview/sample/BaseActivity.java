@@ -117,10 +117,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     @Override
     public void onBackPressed() {
-        if (mSearchView != null && mSearchView.isSearchOpen()) {
-            mSearchView.hide(true);
-        } else if (mDrawer != null && mDrawer.isDrawerOpen(GravityCompat.START)) {
+        if (mDrawer != null && mDrawer.isDrawerOpen(GravityCompat.START)) {
             mDrawer.closeDrawer(GravityCompat.START);
+        } else if (mSearchView != null && mSearchView.isSearchOpen()) {
+            mSearchView.hide(true);
         } else {
             super.onBackPressed();
         }
