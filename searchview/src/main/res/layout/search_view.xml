@@ -54,7 +54,8 @@
                     android:paddingBottom="@dimen/search_text_spacing"
                     android:paddingTop="@dimen/search_text_spacing"
                     android:singleLine="true"
-                    android:textSize="@dimen/search_text_medium">
+                    android:textSize="@dimen/search_text_medium"
+                    android:windowSoftInputMode="stateAlwaysHidden">
 
                     <requestFocus />
 

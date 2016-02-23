@@ -361,8 +361,11 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
     // public --------------------------------------------------------------------------------------
     public void show(boolean animate) {
         setVisibility(View.VISIBLE);
+
         mEditText.requestFocus();
         mEditText.setText(null);
+
+        mIsSearchOpen = true;
 
         if (mVersion == SearchCodes.VERSION_MENU_ITEM) {
             if (animate) {
@@ -377,13 +380,14 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
             if (mSearchViewListener != null) {
                 mSearchViewListener.onSearchViewShown();
             }
-            mIsSearchOpen = true;
         }
     }
 
     public void hide(boolean animate) {
         mEditText.clearFocus();
         mEditText.setText(null);
+
+        mIsSearchOpen = false;
 
         if (mVersion == SearchCodes.VERSION_MENU_ITEM) {
             if (animate) {
@@ -407,7 +411,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
                     mSearchViewListener.onSearchViewClosed();
                 }
             }
-            mIsSearchOpen = false;
         }
     }
 
@@ -472,7 +475,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         }
     }
 
-    private void out() {
+    public void out() {
         hideKeyboard();
         hideSuggestions();
         mShadow.setVisibility(View.GONE);
@@ -573,22 +576,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         mSearchMenuListener = listener;
     }
 
-    public interface OnQueryTextListener {
-        boolean onQueryTextSubmit(String query);
-
-        boolean onQueryTextChange(String newText);
-    }
-
-    public interface SearchViewListener {
-        void onSearchViewShown();
-
-        void onSearchViewClosed();
-    }
-
-    public interface SearchMenuListener {
-        void onMenuClick();
-    }
-
     // implements ----------------------------------------------------------------------------------
     @Override
     public void onFilterComplete(int text) {
@@ -602,6 +589,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
     @Override
     public void onClick(View v) {
         if (v == mBackImageView || v == mShadow) {
+
             if (mVersion == SearchCodes.VERSION_TOOLBAR) {
                 if (mIsSearchArrowHamburgerState == ArrowDrawable.STATE_HAMBURGER) {
                     mSearchMenuListener.onMenuClick();
@@ -609,6 +597,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
                     hide(false);
                 }
             }
+
             if (mVersion == SearchCodes.VERSION_MENU_ITEM) {
                 hide(true);
             }
@@ -625,6 +614,15 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
 
     // ---------------------------------------------------------------------------------------------
     @Override
+    public Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        mSavedState = new SavedState(superState);
+        mSavedState.query = mUserQuery != null ? mUserQuery.toString() : null;
+        mSavedState.isSearchOpen = mIsSearchOpen;
+        return mSavedState;
+    }
+
+    @Override
     public void onRestoreInstanceState(Parcelable state) {
         if (!(state instanceof SavedState)) {
             super.onRestoreInstanceState(state);
@@ -638,13 +636,20 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         super.onRestoreInstanceState(mSavedState.getSuperState());
     }
 
-    @Override
-    public Parcelable onSaveInstanceState() {
-        Parcelable superState = super.onSaveInstanceState();
-        mSavedState = new SavedState(superState);
-        mSavedState.query = mUserQuery != null ? mUserQuery.toString() : null;
-        mSavedState.isSearchOpen = mIsSearchOpen;
-        return mSavedState;
+    public interface OnQueryTextListener {
+        boolean onQueryTextSubmit(String query);
+
+        boolean onQueryTextChange(String newText);
+    }
+
+    public interface SearchViewListener {
+        void onSearchViewShown();
+
+        void onSearchViewClosed();
+    }
+
+    public interface SearchMenuListener {
+        void onMenuClick();
     }
 
     // class ---------------------------------------------------------------------------------------

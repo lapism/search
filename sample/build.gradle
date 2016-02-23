@@ -8,8 +8,8 @@ android {
         applicationId 'com.lapism.searchview.sample'
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 24
-        versionName "2.1"
+        versionCode 25
+        versionName "2.1.1"
     }
     buildTypes {
         release {
