@@ -49,6 +49,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
     private int ANIMATION_DURATION = 360;
     private boolean mVoice = true;
     private boolean mIsSearchOpen = false;
+    private boolean mIsSubmitQuery = false;
     private float mIsSearchArrowHamburgerState = ArrowDrawable.STATE_HAMBURGER;
     private String VOICE_SEARCH_TEXT = "Speak now";
     private View mDivider;
@@ -472,7 +473,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         }
     }
 
-    private void shitOut() {
+    public void shitOut() {
         hideKeyboard();
         hideSuggestions();
         mShadow.setVisibility(View.GONE);
@@ -525,11 +526,16 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
                 mEditText.setText(null);
             }
         }
+        //FIXME: 2/22/2016 workaround.
+        mIsSubmitQuery = true;
     }
 
     private void startFilter(CharSequence s) {
         if (mSearchAdapter != null) {
             (mSearchAdapter).getFilter().filter(s, this);
+
+            //FIXME: 2/22/2016 workaround.
+            mIsSubmitQuery = false;
         }
     }
 
@@ -592,7 +598,8 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
     // implements ----------------------------------------------------------------------------------
     @Override
     public void onFilterComplete(int text) {
-        if (text > 0) {
+        //FIXME: 2/22/2016 workaround.
+        if (text > 0 && !mIsSubmitQuery) {
             showSuggestions();
         } else {
             hideSuggestions();
