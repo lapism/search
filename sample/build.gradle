@@ -8,8 +8,8 @@ android {
         applicationId 'com.lapism.searchview.sample'
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 25
-        versionName "2.1.1"
+        versionCode 26
+        versionName "2.2"
     }
     buildTypes {
         release {
@@ -28,6 +28,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile project(':searchview')
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'com.android.support:design:23.2.0'
 }

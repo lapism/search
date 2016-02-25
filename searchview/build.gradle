@@ -22,7 +22,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 2
-        versionName "2.1.1"
+        versionName "2.2"
     }
     buildTypes {
         release {
@@ -37,15 +37,15 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:cardview-v7:23.1.1'
-    compile 'com.android.support:recyclerview-v7:23.1.1'
+    compile 'com.android.support:cardview-v7:23.2.0'
+    compile 'com.android.support:recyclerview-v7:23.2.0'
 }
 
 publish {
     userOrg = 'lapism'
     groupId = 'com.lapism'
     artifactId = 'searchview'
-    publishVersion = '2.1.1'
+    publishVersion = '2.2'
     desc = 'SearchView Library'
     website = 'https://github.com/lapism/SearchView'
 }

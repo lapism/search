@@ -16,6 +16,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -39,6 +40,15 @@ import com.lapism.searchview.adapter.SearchAdapter;
 
 import java.util.List;
 
+// TODO
+// clean code this
+// Voice PERMISSION
+// FIX EDIT TEXT PROPERTIES
+// fix out animation
+// CoordinatorLayout.Behavior
+// database inside SearchView
+// animace out, krizek, animace otevirani, zavirani toho okna, dabazi dovnitr
+// zadne suggestions
 
 public class SearchView extends FrameLayout implements Filter.FilterListener, View.OnClickListener {
 
@@ -65,7 +75,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
     private ImageView mBackImageView;
     private ImageView mVoiceImageView;
     private ImageView mEmptyImageView;
-    private SearchLinearLayoutManager mSearchLinearLayoutManager;
     private OnQueryTextListener mOnQueryChangeListener;
     private SearchViewListener mSearchViewListener;
     private SearchMenuListener mSearchMenuListener;
@@ -99,11 +108,8 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
     private void initView() {
         LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
 
-        mSearchLinearLayoutManager = new SearchLinearLayoutManager(mContext);
-        mSearchLinearLayoutManager.setChildSize(getResources().getDimensionPixelSize(R.dimen.search_item_height));
-
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_result);
-        mRecyclerView.setLayoutManager(mSearchLinearLayoutManager);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -300,12 +306,8 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
 
     public void setDivider(boolean divider) {
         if (divider) {
-            mSearchLinearLayoutManager.setChildSize(getResources().getDimensionPixelSize(R.dimen.search_item_height_divider));
-            mRecyclerView.setLayoutManager(mSearchLinearLayoutManager);
             mRecyclerView.addItemDecoration(new SearchDivider(mContext));
         } else {
-            mSearchLinearLayoutManager.setChildSize(getResources().getDimensionPixelSize(R.dimen.search_item_height));
-            mRecyclerView.setLayoutManager(mSearchLinearLayoutManager);
             mRecyclerView.removeItemDecoration(new SearchDivider(mContext));
         }
     }
@@ -451,9 +453,8 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         if (mSearchAdapter != null && mSearchAdapter.getItemCount() > 0 && mRecyclerView.getVisibility() == View.GONE) {
             mDivider.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.VISIBLE);
-            /* Animation anim = AnimationUtils.loadAnimation(mContext, R.anim.anim_down);
-            anim.setDuration(ANIMATION_DURATION);
-            mRecyclerView.startAnimation(anim);*/ // TODO like Play Store animation
+            mRecyclerView.setAlpha(0.0f);
+            mRecyclerView.animate().alpha(1.0f);
         }
     }
 
@@ -622,6 +623,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         return mSavedState;
     }
 
+    // TODO http://onegullibull.com/WP-OneGulliBull/?p=252
     @Override
     public void onRestoreInstanceState(Parcelable state) {
         if (!(state instanceof SavedState)) {
@@ -654,7 +656,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
 
     // class ---------------------------------------------------------------------------------------
     private static class SavedState extends View.BaseSavedState {
-
+        // TODO EDIT TEXT FOCUS ON ROTATION
         public static final Creator<SavedState> CREATOR =
                 new Creator<SavedState>() {
                     @Override
