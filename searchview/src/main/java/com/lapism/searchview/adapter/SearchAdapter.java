@@ -31,6 +31,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     private List<SearchItem> mDataList = new ArrayList<>();
     private OnItemClickListener mItemClickListener;
     private int mKeyLength = 0;
+    private boolean itemClick = false;
 
     public SearchAdapter(Context context, List<SearchItem> searchList, List<SearchItem> dataList, int theme) {
         this.mContext = context;
@@ -46,6 +47,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     @Override
     public Filter getFilter() {
+        // set false for resetting the property.
+        itemClick = false;
+
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
@@ -163,8 +167,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         public void onClick(View v) {
             if (mItemClickListener != null) {
                 mItemClickListener.onItemClick(v, getLayoutPosition()); // getAdapterPosition()
+                itemClick = true;
             }
         }
     }
 
+    public boolean isItemClick() {
+        return itemClick;
+    }
 }
