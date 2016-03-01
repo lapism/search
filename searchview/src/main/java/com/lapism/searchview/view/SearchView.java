@@ -16,6 +16,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -39,6 +40,15 @@ import com.lapism.searchview.adapter.SearchAdapter;
 
 import java.util.List;
 
+// TODO
+// clean code this
+// Voice PERMISSION
+// FIX EDIT TEXT PROPERTIES
+// fix out animation
+// CoordinatorLayout.Behavior
+// database inside SearchView
+// animace out, krizek, animace otevirani, zavirani toho okna, dabazi dovnitr
+// zadne suggestions
 
 public class SearchView extends FrameLayout implements Filter.FilterListener, View.OnClickListener {
 
@@ -49,7 +59,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
     private int ANIMATION_DURATION = 360;
     private boolean mVoice = true;
     private boolean mIsSearchOpen = false;
-    private boolean mIsSubmitQuery = false;
     private float mIsSearchArrowHamburgerState = ArrowDrawable.STATE_HAMBURGER;
     private String VOICE_SEARCH_TEXT = "Speak now";
     private View mDivider;
@@ -66,7 +75,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
     private ImageView mBackImageView;
     private ImageView mVoiceImageView;
     private ImageView mEmptyImageView;
-    private SearchLinearLayoutManager mSearchLinearLayoutManager;
     private OnQueryTextListener mOnQueryChangeListener;
     private SearchViewListener mSearchViewListener;
     private SearchMenuListener mSearchMenuListener;
@@ -100,11 +108,8 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
     private void initView() {
         LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
 
-        mSearchLinearLayoutManager = new SearchLinearLayoutManager(mContext);
-        mSearchLinearLayoutManager.setChildSize(getResources().getDimensionPixelSize(R.dimen.search_item_height));
-
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_result);
-        mRecyclerView.setLayoutManager(mSearchLinearLayoutManager);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -155,9 +160,9 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    shitIn();
+                    in();
                 } else {
-                    shitOut();
+                    out();
                 }
             }
         });
@@ -301,12 +306,8 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
 
     public void setDivider(boolean divider) {
         if (divider) {
-            mSearchLinearLayoutManager.setChildSize(getResources().getDimensionPixelSize(R.dimen.search_item_height_divider));
-            mRecyclerView.setLayoutManager(mSearchLinearLayoutManager);
             mRecyclerView.addItemDecoration(new SearchDivider(mContext));
         } else {
-            mSearchLinearLayoutManager.setChildSize(getResources().getDimensionPixelSize(R.dimen.search_item_height));
-            mRecyclerView.setLayoutManager(mSearchLinearLayoutManager);
             mRecyclerView.removeItemDecoration(new SearchDivider(mContext));
         }
     }
@@ -362,8 +363,11 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
     // public --------------------------------------------------------------------------------------
     public void show(boolean animate) {
         setVisibility(View.VISIBLE);
+
         mEditText.requestFocus();
         mEditText.setText(null);
+
+        mIsSearchOpen = true;
 
         if (mVersion == SearchCodes.VERSION_MENU_ITEM) {
             if (animate) {
@@ -378,13 +382,14 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
             if (mSearchViewListener != null) {
                 mSearchViewListener.onSearchViewShown();
             }
-            mIsSearchOpen = true;
         }
     }
 
     public void hide(boolean animate) {
         mEditText.clearFocus();
         mEditText.setText(null);
+
+        mIsSearchOpen = false;
 
         if (mVersion == SearchCodes.VERSION_MENU_ITEM) {
             if (animate) {
@@ -408,7 +413,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
                     mSearchViewListener.onSearchViewClosed();
                 }
             }
-            mIsSearchOpen = false;
         }
     }
 
@@ -449,9 +453,8 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         if (mSearchAdapter != null && mSearchAdapter.getItemCount() > 0 && mRecyclerView.getVisibility() == View.GONE) {
             mDivider.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.VISIBLE);
-            /* Animation anim = AnimationUtils.loadAnimation(mContext, R.anim.anim_down);
-            anim.setDuration(ANIMATION_DURATION);
-            mRecyclerView.startAnimation(anim);*/ // TODO like Play Store animation
+            mRecyclerView.setAlpha(0.0f);
+            mRecyclerView.animate().alpha(1.0f);
         }
     }
 
@@ -462,7 +465,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         }
     }
 
-    private void shitIn() {
+    private void in() {
         showKeyboard();
         showSuggestions();
         mShadow.setVisibility(View.VISIBLE);
@@ -473,7 +476,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         }
     }
 
-    public void shitOut() {
+    public void out() {
         hideKeyboard();
         hideSuggestions();
         mShadow.setVisibility(View.GONE);
@@ -526,16 +529,11 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
                 mEditText.setText(null);
             }
         }
-        //FIXME: 2/22/2016 workaround.
-        mIsSubmitQuery = true;
     }
 
     private void startFilter(CharSequence s) {
         if (mSearchAdapter != null) {
             (mSearchAdapter).getFilter().filter(s, this);
-
-            //FIXME: 2/22/2016 workaround.
-            mIsSubmitQuery = false;
         }
     }
 
@@ -579,27 +577,10 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         mSearchMenuListener = listener;
     }
 
-    public interface OnQueryTextListener {
-        boolean onQueryTextSubmit(String query);
-
-        boolean onQueryTextChange(String newText);
-    }
-
-    public interface SearchViewListener {
-        void onSearchViewShown();
-
-        void onSearchViewClosed();
-    }
-
-    public interface SearchMenuListener {
-        void onMenuClick();
-    }
-
     // implements ----------------------------------------------------------------------------------
     @Override
     public void onFilterComplete(int text) {
-        //FIXME: 2/22/2016 workaround.
-        if (text > 0 && !mIsSubmitQuery) {
+        if (text > 0) {
             showSuggestions();
         } else {
             hideSuggestions();
@@ -609,6 +590,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
     @Override
     public void onClick(View v) {
         if (v == mBackImageView || v == mShadow) {
+
             if (mVersion == SearchCodes.VERSION_TOOLBAR) {
                 if (mIsSearchArrowHamburgerState == ArrowDrawable.STATE_HAMBURGER) {
                     mSearchMenuListener.onMenuClick();
@@ -616,6 +598,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
                     hide(false);
                 }
             }
+
             if (mVersion == SearchCodes.VERSION_MENU_ITEM) {
                 hide(true);
             }
@@ -632,6 +615,16 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
 
     // ---------------------------------------------------------------------------------------------
     @Override
+    public Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        mSavedState = new SavedState(superState);
+        mSavedState.query = mUserQuery != null ? mUserQuery.toString() : null;
+        mSavedState.isSearchOpen = mIsSearchOpen;
+        return mSavedState;
+    }
+
+    // TODO http://onegullibull.com/WP-OneGulliBull/?p=252
+    @Override
     public void onRestoreInstanceState(Parcelable state) {
         if (!(state instanceof SavedState)) {
             super.onRestoreInstanceState(state);
@@ -645,18 +638,25 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         super.onRestoreInstanceState(mSavedState.getSuperState());
     }
 
-    @Override
-    public Parcelable onSaveInstanceState() {
-        Parcelable superState = super.onSaveInstanceState();
-        mSavedState = new SavedState(superState);
-        mSavedState.query = mUserQuery != null ? mUserQuery.toString() : null;
-        mSavedState.isSearchOpen = mIsSearchOpen;
-        return mSavedState;
+    public interface OnQueryTextListener {
+        boolean onQueryTextSubmit(String query);
+
+        boolean onQueryTextChange(String newText);
+    }
+
+    public interface SearchViewListener {
+        void onSearchViewShown();
+
+        void onSearchViewClosed();
+    }
+
+    public interface SearchMenuListener {
+        void onMenuClick();
     }
 
     // class ---------------------------------------------------------------------------------------
     private static class SavedState extends View.BaseSavedState {
-
+        // TODO EDIT TEXT FOCUS ON ROTATION
         public static final Creator<SavedState> CREATOR =
                 new Creator<SavedState>() {
                     @Override
