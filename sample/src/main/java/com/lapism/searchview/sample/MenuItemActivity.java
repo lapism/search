@@ -163,7 +163,7 @@ public class MenuItemActivity extends BaseActivity {
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 // NavUtils.navigateUpTo();
-                // DatabaseUtils ...
+                // DatabaseUtils ... finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

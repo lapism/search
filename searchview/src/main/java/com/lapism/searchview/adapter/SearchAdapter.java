@@ -90,6 +90,20 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public ResultViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         final LayoutInflater mInflater = LayoutInflater.from(parent.getContext());
         final View sView = mInflater.inflate(R.layout.search_item, parent, false);
+
+       /* if (mAnimate) {
+           int count = 0;
+            private boolean mAnimate = true;
+
+            Animation anim = AnimationUtils.loadAnimation(mContext, R.anim.anim_down);
+            anim.setDuration(300);
+            sView.startAnimation(anim);
+            if (count == getItemCount()) {
+                mAnimate = false;
+            }
+            count++;
+        }*/
+
         return new ResultViewHolder(sView);
     }
 

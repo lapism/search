@@ -16,8 +16,8 @@ import com.lapism.searchview.view.SearchView;
 
 public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    Toolbar mToolbar;
     int checkedMenuItem = 0;
+    Toolbar mToolbar = null;
     DrawerLayout mDrawer = null;
     SearchView mSearchView = null;
 
@@ -42,14 +42,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                 Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });*/
-
+        //DrawerArrowDrawable
         mDrawer = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mDrawer.setDrawerListener(new DrawerLayout.SimpleDrawerListener() { // mDrawer.setDrawerListener(new DrawerLayout.DrawerListener()
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                super.onDrawerSlide(drawerView, slideOffset);
-            }
-
+        // mDrawer.setDrawerListener(new DrawerLayout.DrawerListener());
+        mDrawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -63,11 +59,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 invalidateOptionsMenu();
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-                super.onDrawerStateChanged(newState);
             }
         });
 
@@ -94,7 +85,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (id == R.id.nav_light) {
             Intent intent = new Intent(this, ToolbarActivity.class);
             intent.putExtra("version", SearchCodes.VERSION_TOOLBAR);
@@ -117,10 +108,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     @Override
     public void onBackPressed() {
-        if (mSearchView != null && mSearchView.isSearchOpen()) {
-            mSearchView.hide(true);
-        } else if (mDrawer != null && mDrawer.isDrawerOpen(GravityCompat.START)) {
+        if (mDrawer != null && mDrawer.isDrawerOpen(GravityCompat.START)) {
             mDrawer.closeDrawer(GravityCompat.START);
+        } else if (mSearchView != null && mSearchView.isSearchOpen()) {
+            mSearchView.hide(true);
         } else {
             super.onBackPressed();
         }
