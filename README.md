@@ -1,5 +1,9 @@
 # SearchView & CheckableView
 
+NEXT VERSION WILL HAVE A LOT OF CHANGES, SO BE PREPARED FOR IT :).
+
+--------------------------------------------------------------------------------
+
 Persistent SearchView Library like Play Store. For examples check sample project.
 
 Features: Material Design, Toolbar / Menu item version, History, Styling.
