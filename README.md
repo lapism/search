@@ -2,6 +2,7 @@
 
 NEXT VERSION WILL HAVE A LOT OF CHANGES, SO BE PREPARED FOR IT :).
 
+Because I have done firstly this library as a private project, I would like to know if someone of you use my library in your application. If yes, please send me a name of your app and link to Play Store and I will promote your library in Readme. Thanks
 --------------------------------------------------------------------------------
 
 Persistent SearchView Library like Play Store. For examples check sample project.
