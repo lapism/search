@@ -1,24 +1,19 @@
 # SearchView & CheckableView
 
 NEXT VERSION WILL HAVE A LOT OF CHANGES, SO BE PREPARED FOR IT :).
-
 Because I have done firstly this library as a private project, 
 I would like to know if someone of you use my library in your application. 
 If yes, please send me a name of your app and link to Play Store and I will promote your library in Readme. Thanks
 
+
 Persistent SearchView Library like Play Store. For examples check sample project.
-
 Features: Material Design, Toolbar / Menu item version, History, Styling.
-
 Google Material Design Pattern:
 https://www.google.com/design/spec/patterns/search.html
-
 Version history here:
 https://bintray.com/lapism/maven/searchview/view
-
 Material colors in the project:
 https://gist.github.com/lapism/3b417142300d9dbde3b4
-
 Sample application on:
 
 <a href="https://play.google.com/store/apps/details?id=com.lapism.searchview.sample">
