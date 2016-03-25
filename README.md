@@ -1,4 +1,4 @@
-# SearchView & CheckableView
+# SearchView
 
 Next version 3.0 will be released in April or May 2016 with changes and fixes.
 
@@ -9,8 +9,6 @@ I would like to know if someone of you use my library in your application.
 If yes, please send me a name of your app and link to Play Store and I will promote your app in Readme.
 
 ------------------------------------------------------------------------------------------------------------------------------
-
-
 
 Persistent SearchView Library like Play Store. For examples check sample project.
 
@@ -69,11 +67,6 @@ dependencies {
     android:id="@+id/searchView"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
-        
-<com.lapism.check.CheckableView
-    android:id="@+id/checkableView"
-    android:layout_width="@dimen/fab"
-    android:layout_height="@dimen/fab" />
 ```
 
 **Styling SearchView:**
@@ -88,17 +81,4 @@ app:search_voice = "true / false"
 app:search_voice_text = "Voice text"
 app:search_animation_duration = "360"
 app:search_shadow_color = "#80000000"
-```
-
-**Styling CheckableView:**
-```
-app:check_checked = "true / false"
-app:check_type = "text / image"
-app:check_text = "T"
-app:check_text_size = "37sp"
-app:check_text_color = "@android:color/white"
-app:check_image_checked = "@drawable/image"
-app:check_image_unchecked = "@drawable/image"
-app:check_background_color_checked = "@android:color/holo_orange_dark"
-app:check_background_color_unchecked = "@android:color/holo_orange_dark"
 ```
