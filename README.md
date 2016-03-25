@@ -1,6 +1,8 @@
 # SearchView & CheckableView
 
-NEXT VERSION WILL HAVE A LOT OF CHANGES, SO BE PREPARED FOR IT :).
+Next version 3.0 will be released in April or May 2016 with changes and fixes.
+
+------------------------------------------------------------------------------------------------------------------------------
 
 Because I have done firstly this library as a private project, 
 I would like to know if someone of you use my library in your application. 
