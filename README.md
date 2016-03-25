@@ -10,7 +10,9 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 
 ------------------------------------------------------------------------------------------------------------------------------
 
-Persistent SearchView Library like Play Store. For examples check sample project.
+Persistent SearchView Library like Play Store. 
+
+Check sample project very thoroughly !!!
 
 Features: Material Design, Toolbar / Menu item version, History, Styling.
 
