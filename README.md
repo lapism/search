@@ -1,6 +1,16 @@
 # SearchView & CheckableView
 
-Persistent SearchView Library like Play Store. For examples check sample project.
+Next version 3.0 will be released in April or May 2016 with changes and fixes.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Because I have done firstly this library as a private project, 
+I would like to know if someone of you use my library in your application. 
+If yes, please send me a name of your app and link to Play Store and I will promote your app in Readme.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Persistent SearchView Library like Play Store.
 
 Features: Material Design, Toolbar / Menu item version, History, Styling.
 
@@ -13,6 +23,9 @@ https://bintray.com/lapism/maven/searchview/view
 Material colors in the project:
 https://gist.github.com/lapism/3b417142300d9dbde3b4
 
+Buy me a beer:
+https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2W9YDH84RKA4W
+
 Sample application on:
 
 <a href="https://play.google.com/store/apps/details?id=com.lapism.searchview.sample">
@@ -24,7 +37,7 @@ Sample application on:
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-        compile 'com.lapism:searchview:2.2'
+        compile 'com.lapism:searchview:3.0'
         }
 ```
 
@@ -38,17 +51,7 @@ dependencies {
 
 **Code:**
 ```java
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_search: {
-                mSearchView.show(true/false); // animate, ONLY FOR MENU ITEM
-                return true;
-            }
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+Please, check a sample project !
 ```
 
 **XML:**
@@ -57,36 +60,34 @@ dependencies {
     android:id="@+id/searchView"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
-        
-<com.lapism.check.CheckableView
-    android:id="@+id/checkableView"
-    android:layout_width="@dimen/fab"
-    android:layout_height="@dimen/fab" />
 ```
 
 **Styling SearchView:**
-```
-app:search_version = "toolbar / menu_item"
-app:search_style = "toolbar_classic / menu_item_classic / menu_item_color"
-app:search_theme = "light / dark"
-app:search_divider = "true / false"
-app:search_hint = "Hint text"
-app:search_hint_size = "16sp"
-app:search_voice = "true / false"
-app:search_voice_text = "Voice text"
-app:search_animation_duration = "360"
-app:search_shadow_color = "#80000000"
-```
-
-**Styling CheckableView:**
-```
-app:check_checked = "true / false"
-app:check_type = "text / image"
-app:check_text = "T"
-app:check_text_size = "37sp"
-app:check_text_color = "@android:color/white"
-app:check_image_checked = "@drawable/image"
-app:check_image_unchecked = "@drawable/image"
-app:check_background_color_checked = "@android:color/holo_orange_dark"
-app:check_background_color_unchecked = "@android:color/holo_orange_dark"
+```xml
+        <attr name="search_version" format="enum">
+            <enum name="toolbar" value="1000" />
+            <enum name="menu_item" value="1001" />
+        </attr>
+        <attr name="search_version_margins" format="enum">
+            <enum name="toolbar_small" value="2000" />
+            <enum name="toolbar_big" value="2001" />
+            <enum name="menu_item" value="2002" />
+        </attr>
+        <attr name="search_theme" format="enum">
+            <enum name="light" value="3000" />
+            <enum name="dark" value="3001" />
+        </attr>
+        <attr name="search_theme_background_color" format="color" />
+        <attr name="search_text" format="string" />
+        <attr name="search_text_color" format="color" />
+        <attr name="search_text_size" format="dimension" />
+        <attr name="search_hint" format="string" />
+        <attr name="search_hint_color" format="color" />
+        <attr name="search_divider" format="boolean" />
+        <attr name="search_voice" format="boolean" />
+        <attr name="search_voice_text" format="string" />
+        <attr name="search_animation_duration" format="integer" />
+        <attr name="search_shadow" format="boolean" />
+        <attr name="search_shadow_color" format="boolean" />
+        <attr name="search_elevation" format="dimension" />
 ```

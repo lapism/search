@@ -4,9 +4,9 @@
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="key_line">16dp</dimen>
 
+    <dimen name="key_line_16">16dp</dimen>
+    <dimen name="nav_header_height">192dp</dimen>
     <dimen name="button_width">144dp</dimen>
-    <dimen name="margin">16dp</dimen>
-    <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab">56dp</dimen>
 
 </resources>

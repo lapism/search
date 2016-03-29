@@ -1,13 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">SearchView Sample</string>
-    <string name="version">Version: 2.2</string>
-    <string name="color">Color</string>
-    <string name="classic">Classic</string>
-    <string name="light">Light</string>
-    <string name="dark">Dark</string>
+    <string name="version">Version: 3.0</string>
+
+    <string name="light_toolbar">Light Toolbar</string>
+    <string name="light_menu_item">Light Menu item</string>
+
+    <string name="dark_toolbar">Dark Toolbar</string>
+    <string name="dark_menu_item">Dark Menu item</string>
+
+    <string name="custom_toolbar">Custom Toolbar</string>
+    <string name="custom_menu_item">Custom Menu item</string>
+
     <string name="delete">Delete search history</string>
     <string name="cont_desc">Content Description</string>
     <string name="search">Search</string>
+    <string name="search_1">Search 1</string>
+    <string name="search_2">Search 2</string>
+    <string name="about">About</string>
+    <string name="cheese_ipsum">DONATE</string>
 
 </resources>

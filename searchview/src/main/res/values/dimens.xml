@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="reveal">24dp</dimen>
-
-    <dimen name="search_key_line">16dp</dimen>
-    <dimen name="search_text_spacing">6dp</dimen>
+    <dimen name="search_menu_item_margin">4dp</dimen>
+    <dimen name="search_reveal">24dp</dimen>
 
     <!-- Searchview -->
+    <dimen name="search_height">48dp</dimen>
+    <dimen name="search_key_line">16dp</dimen>
     <dimen name="search_divider">1dp</dimen>
-
     <dimen name="search_view_margin_text">24dp</dimen>
     <dimen name="search_item_margin_text">24dp</dimen>
-
     <dimen name="search_item_height">56dp</dimen>
     <dimen name="search_item_height_divider">57dp</dimen>
     <dimen name="search_icon">24dp</dimen>
-
     <dimen name="search_text_small">14sp</dimen>
     <dimen name="search_text_medium">16sp</dimen>
 
@@ -26,8 +23,5 @@
     <dimen name="arrow_barLength">18dp</dimen>
     <dimen name="arrow_gapBetweenBars">3dp</dimen>
     <dimen name="arrow_drawableSize">24dp</dimen>
-
-    <!-- Check -->
-    <dimen name="check_text">37sp</dimen>
 
 </resources>

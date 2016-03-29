@@ -1,52 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="?android:attr/buttonBarStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
 
-    <ImageView
+    <Button
+        android:id="@+id/button_classic"
+        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="@dimen/button_width"
-        android:layout_height="@dimen/button_width"
-        android:layout_margin="8dp"
-        android:contentDescription="@string/cont_desc"
-        android:src="@drawable/logo" />
-
-    <LinearLayout
-        style="?android:attr/buttonBarStyle"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:text="@string/cheese_ipsum" />
 
-        <Button
-            android:id="@+id/button_classic"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="wrap_content"
-            android:text="@string/classic" />
-
-        <Button
-            android:id="@+id/button_color"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="wrap_content"
-            android:text="@string/color" />
-
-        <Button
-            android:id="@+id/button_delete"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="wrap_content"
-            android:text="@string/delete"
-            android:textColor="?colorPrimaryDark" />
-
-        <com.lapism.check.CheckableView
-            android:id="@+id/checkableImageView"
-            android:layout_width="@dimen/fab"
-            android:layout_height="@dimen/fab"
-            android:layout_margin="8dp" />
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/button_delete"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="wrap_content"
+        android:text="@string/delete"
+        android:textColor="?colorPrimaryDark" />
 
 </LinearLayout>

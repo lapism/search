@@ -1,32 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Launch Screen -->
+    <style name="AppThemeLightLauncher" parent="AppThemeLightBase">
+        <item name="colorPrimaryDark">#60000000</item>
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+    </style>
 
     <style name="AppThemeDarkBase" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent300</item>
+        <item name="colorAccent">@color/colorAccentDark</item>
     </style>
 
     <style name="AppThemeLightBase" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent600</item>
-        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
-    </style>
-
-
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
-    </style>
-
-    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="spinBars">true</item>
-        <item name="color">@android:color/white</item>
+        <item name="colorAccent">@color/colorAccentLight</item>
     </style>
 
 
     <style name="AppThemeLight" parent="AppThemeLightBase" />
 
     <style name="AppThemeDark" parent="AppThemeDarkBase" />
+
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
@@ -45,5 +42,34 @@
         <item name="colorButtonNormal">#00acc1</item>
         <item name="android:textColor">#ffffffff</item>
     </style>
+
+    <style name="Widget.CardContent" parent="android:Widget">
+        <item name="android:padding">16dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="Base.Theme.DesignDemoLight" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccentLight</item>
+    </style>
+
+    <style name="Theme.DesignDemoLight" parent="Base.Theme.DesignDemoLight" />
+
+    <!-- <style name="Base.Theme.DesignDemoDark" parent="Theme.AppCompat.NoActionBar">
+         <item name="colorPrimary">#2196f3</item>
+         <item name="colorPrimaryDark">#1976d2</item>
+         <item name="colorAccent">#ff4081</item>
+     </style>
+
+     <style name="Theme.DesignDemoDark" parent="Base.Theme.DesignDemoDark" />
+
+         <style name="Theme.DesignDemoDark" parent="Base.Theme.DesignDemoDark">
+         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+         <item name="android:statusBarColor">@android:color/transparent</item>
+     </style>
+    <!-         <item name="android:windowBackground">#ff4081</item> -->
+    -->
+
 
 </resources>

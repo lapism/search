@@ -19,8 +19,8 @@ class SearchAnimator {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void revealInAnimation(final Context mContext, final View view, int duration) {
 
-        int cx = view.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.reveal);
-        int cy = view.getHeight() / 2;
+        int cx = view.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.search_reveal);
+        int cy = mContext.getResources().getDimensionPixelSize(R.dimen.search_height) / 2;
 
         if (cx != 0 && cy != 0) {
             float finalRadius = (float) Math.hypot(cx, cy);
@@ -36,8 +36,8 @@ class SearchAnimator {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void revealOutAnimation(final Context mContext, final View view, int duration) {
 
-        int cx = view.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.reveal);
-        int cy = view.getHeight() / 2;
+        int cx = view.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.search_reveal);
+        int cy = mContext.getResources().getDimensionPixelSize(R.dimen.search_height) / 2;
 
         if (cx != 0 && cy != 0) {
             float initialRadius = (float) Math.hypot(cx, cy);
@@ -56,7 +56,6 @@ class SearchAnimator {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     public static void fadeInAnimation(final View view, int duration) {
 
         Animation anim = new AlphaAnimation(0.0f, 1.0f);
@@ -67,7 +66,6 @@ class SearchAnimator {
         view.setVisibility(View.VISIBLE);
     }
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     public static void fadeOutAnimation(final View view, int duration) {
 
         Animation anim = new AlphaAnimation(1.0f, 0.0f);

@@ -1,28 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/group_toolbar"
+        android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_light"
+            android:id="@+id/nav_light_toolbar"
             android:icon="@drawable/ic_menu_search"
-            android:title="@string/light" />
+            android:title="@string/light_toolbar" />
         <item
-            android:id="@+id/nav_dark"
+            android:id="@+id/nav_dark_toolbar"
             android:icon="@drawable/ic_menu_search"
-            android:title="@string/dark" />
+            android:title="@string/dark_toolbar" />
     </group>
 
-    <item android:title="@string/search">
+    <group
+        android:id="@+id/group_about"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_light_menu_item"
+            android:icon="@drawable/ic_menu_search"
+            android:title="@string/light_menu_item" />
+        <item
+            android:id="@+id/nav_dark_menu_item"
+            android:icon="@drawable/ic_menu_search"
+            android:title="@string/dark_menu_item" />
+    </group>
+
+    <item android:title="@string/about">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_about"
                 android:icon="@drawable/ic_menu_search"
-                android:title="@string/light" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_search"
-                android:title="@string/dark" />
+                android:title="@string/about" />
         </menu>
     </item>
+
 
 </menu>

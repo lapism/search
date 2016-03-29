@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="search_cont_desc">Content Description</string>
+    <string name="search_content_description">Content Description</string>
 
 </resources>

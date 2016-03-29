@@ -29,8 +29,7 @@ class SearchDivider extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-                               RecyclerView.State state) {
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         if (divider == null) {
             super.getItemOffsets(outRect, view, parent, state);
             return;
@@ -100,7 +99,7 @@ class SearchDivider extends RecyclerView.ItemDecoration {
         if (lm instanceof LinearLayoutManager) {
             return ((LinearLayoutManager) lm).getOrientation();
         } else {
-            throw new IllegalStateException("Can only be used with a LinearLayoutManager");
+            throw new IllegalStateException("Use only with a LinearLayoutManager!");
         }
     }
 

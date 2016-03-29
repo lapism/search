@@ -15,10 +15,7 @@
     <color name="search_dark_text_hint">#b3ffffff</color>
     <color name="search_dark_text_highlight">#61ffffff</color>
 
-    <!-- Shadow -->
-    <color name="search_shadow_layout">#80000000</color>
-
-    <!-- Arrow @android:color/black -->
-    <color name="search_arrow_color">#ff000000</color>
+    <!-- Shadow CHECK -->
+    <color name="search_shadow_layout">#50000000</color>
 
 </resources>

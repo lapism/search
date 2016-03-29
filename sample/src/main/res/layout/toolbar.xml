@@ -9,7 +9,13 @@
     app:layout_scrollFlags="scroll|enterAlways|snap"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <!-- android:layout_height="?attr/actionBarSize" android:background="?attr/colorPrimary" -->
+    <!--
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    android:elevation="4dp"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    -->
 
 
 

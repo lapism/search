@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lapism.searchview.R;
-import com.lapism.searchview.view.SearchCodes;
+import com.lapism.searchview.view.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,17 +26,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     private final List<Integer> mStartList = new ArrayList<>();
     private final Context mContext;
-    private final int mTheme;
     private List<SearchItem> mSearchList = new ArrayList<>();
     private List<SearchItem> mDataList = new ArrayList<>();
     private OnItemClickListener mItemClickListener;
     private int mKeyLength = 0;
 
-    public SearchAdapter(Context context, List<SearchItem> searchList, List<SearchItem> dataList, int theme) {
+    public SearchAdapter(Context context, List<SearchItem> searchList, List<SearchItem> dataList) {
         this.mContext = context;
         this.mSearchList = searchList;
         this.mDataList = dataList;
-        this.mTheme = theme;
     }
 
     @Override
@@ -90,20 +88,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public ResultViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         final LayoutInflater mInflater = LayoutInflater.from(parent.getContext());
         final View sView = mInflater.inflate(R.layout.search_item, parent, false);
-
-       /* if (mAnimate) {
-           int count = 0;
-            private boolean mAnimate = true;
-
-            Animation anim = AnimationUtils.loadAnimation(mContext, R.anim.anim_down);
-            anim.setDuration(300);
-            sView.startAnimation(anim);
-            if (count == getItemCount()) {
-                mAnimate = false;
-            }
-            count++;
-        }*/
-
         return new ResultViewHolder(sView);
     }
 
@@ -111,12 +95,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public void onBindViewHolder(ResultViewHolder viewHolder, int position) {
         SearchItem item = mSearchList.get(position);
 
-        int start = mStartList.get(position);
-        int end = start + mKeyLength;
+        int start = 0;
+        int end = 0;
+
+        if (mStartList.size() > 0) {
+            start = mStartList.get(position);
+            end = start + mKeyLength;
+        }
 
         viewHolder.icon_left.setImageResource(item.get_icon());
 
-        if (mTheme == SearchCodes.THEME_LIGHT) {
+        int theme = SearchView.getTheme();
+
+        if (theme == SearchView.THEME_LIGHT) {
             viewHolder.icon_left.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
             viewHolder.text.setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
 
@@ -124,7 +115,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             Spannable s = (Spannable) viewHolder.text.getText();
             s.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.search_light_text_highlight)), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        if (mTheme == SearchCodes.THEME_DARK) {
+        if (theme == SearchView.THEME_DARK) {
             viewHolder.icon_left.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
             viewHolder.text.setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
 

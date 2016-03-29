@@ -35,7 +35,7 @@
                     android:id="@+id/imageView_arrow_back"
                     android:layout_width="@dimen/search_icon"
                     android:layout_height="@dimen/search_icon"
-                    android:contentDescription="@string/search_cont_desc" />
+                    android:contentDescription="@string/search_content_description" />
 
                 <EditText
                     android:id="@+id/editText_input"
@@ -48,19 +48,17 @@
                     android:layout_marginStart="@dimen/search_view_margin_text"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
+                    android:ems="10"
                     android:gravity="start|center_vertical"
-                    android:imeOptions="actionSearch|flagNoFullscreen"
+                    android:imeOptions="actionSearch|flagNoExtractUi"
                     android:inputType="textNoSuggestions"
-                    android:paddingBottom="@dimen/search_text_spacing"
-                    android:paddingTop="@dimen/search_text_spacing"
                     android:singleLine="true"
                     android:textSize="@dimen/search_text_medium"
                     android:windowSoftInputMode="stateAlwaysHidden">
 
                     <requestFocus />
-
                 </EditText>
-                <!-- android:hint="Search" android:imeOptions="actionSearch|flagNoExtractUi"-->
+                <!-- android:hint="Search" android:imeOptions="actionSearch|flagNoFullscreen"-->
 
                 <FrameLayout
                     android:layout_width="wrap_content"
@@ -70,13 +68,13 @@
                         android:id="@+id/imageView_mic"
                         android:layout_width="@dimen/search_icon"
                         android:layout_height="@dimen/search_icon"
-                        android:contentDescription="@string/search_cont_desc" />
+                        android:contentDescription="@string/search_content_description" />
 
                     <ImageView
                         android:id="@+id/imageView_clear"
                         android:layout_width="@dimen/search_icon"
                         android:layout_height="@dimen/search_icon"
-                        android:contentDescription="@string/search_cont_desc"
+                        android:contentDescription="@string/search_content_description"
                         android:visibility="gone" />
 
                 </FrameLayout>

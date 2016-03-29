@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="search_toolbar_margin_top">16dp</dimen>
+    <dimen name="search_toolbar_margin_small_left_right">88dp</dimen>
+    <dimen name="search_toolbar_margin_big_left_right">344dp</dimen>
+
+</resources>

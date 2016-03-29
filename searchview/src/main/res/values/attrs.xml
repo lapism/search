@@ -1,44 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Searchview -->
     <declare-styleable name="SearchView">
         <attr name="search_version" format="enum">
-            <enum name="toolbar" value="0" />
-            <enum name="menu_item" value="1" />
+            <enum name="toolbar" value="1000" />
+            <enum name="menu_item" value="1001" />
         </attr>
-        <attr name="search_style" format="enum">
-            <enum name="toolbar_classic" value="2" />
-            <enum name="menu_item_classic" value="3" />
-            <enum name="menu_item_color" value="4" />
+        <attr name="search_version_margins" format="enum">
+            <enum name="toolbar_small" value="2000" />
+            <enum name="toolbar_big" value="2001" />
+            <enum name="menu_item" value="2002" />
         </attr>
         <attr name="search_theme" format="enum">
-            <enum name="light" value="5" />
-            <enum name="dark" value="6" />
+            <enum name="light" value="3000" />
+            <enum name="dark" value="3001" />
         </attr>
-        <attr name="search_divider" format="boolean" />
+        <attr name="search_theme_background_color" format="color" />
+        <attr name="search_text" format="string" />
+        <attr name="search_text_color" format="color" />
+        <attr name="search_text_size" format="dimension" />
         <attr name="search_hint" format="string" />
-        <attr name="search_hint_size" format="dimension" />
+        <attr name="search_hint_color" format="color" />
+        <attr name="search_divider" format="boolean" />
         <attr name="search_voice" format="boolean" />
         <attr name="search_voice_text" format="string" />
         <attr name="search_animation_duration" format="integer" />
-        <attr name="search_shadow_color" format="color" />
-    </declare-styleable>
-
-    <!-- Check -->
-    <declare-styleable name="CheckableView">
-        <attr name="check_checked" format="boolean" />
-        <attr name="check_type" format="enum">
-            <enum name="text" value="0" />
-            <enum name="image" value="1" />
-        </attr>
-        <attr name="check_text" format="string" />
-        <attr name="check_text_size" format="dimension" />
-        <attr name="check_text_color" format="color" />
-        <attr name="check_image_checked" format="integer" />
-        <attr name="check_image_unchecked" format="integer" />
-        <attr name="check_background_color_checked" format="color" />
-        <attr name="check_background_color_unchecked" format="color" />
+        <attr name="search_shadow" format="boolean" />
+        <attr name="search_shadow_color" format="boolean" />
+        <attr name="search_elevation" format="dimension" />
     </declare-styleable>
 
 </resources>
