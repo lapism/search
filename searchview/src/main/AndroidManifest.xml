@@ -2,7 +2,8 @@
     package="com.lapism.searchview">
 
     <application
+        android:allowBackup="true"
         android:fullBackupContent="true"
-        android:allowBackup="true" />
+        android:supportsRtl="true" />
 
 </manifest>

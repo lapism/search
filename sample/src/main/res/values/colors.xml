@@ -3,16 +3,7 @@
 
     <color name="colorPrimary">#ff00acc1</color>
     <color name="colorPrimaryDark">#ff0097a7</color>
-
     <color name="colorAccentDark">#fff06292</color>
     <color name="colorAccentLight">#ffd81b60</color>
-
-    <color name="shadow40">#40000000</color>
-    <color name="shadow42">#42000000</color>
-
-    <color name="dark_background">#FF424242</color>
-    <color name="light_background">#FFFFFFFF</color>
-    <color name="shadow_end_color">#03000000</color>
-    <color name="shadow_start_color">#37000000</color>
 
 </resources>

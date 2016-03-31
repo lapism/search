@@ -8,7 +8,7 @@
  RELOAD
  v textaku androin n
 
-
+backpress bug
 
  BACKPRESS kontrola vsude
  VSUDE KEYINE 600DP

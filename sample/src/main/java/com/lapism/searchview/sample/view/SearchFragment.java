@@ -1,4 +1,4 @@
-package com.lapism.searchview.sample.base;
+package com.lapism.searchview.sample.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lapism.searchview.sample.R;
+import com.lapism.searchview.sample.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;

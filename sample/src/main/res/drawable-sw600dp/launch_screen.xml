@@ -10,6 +10,6 @@
     <item android:bottom="96dp">
         <bitmap
             android:gravity="bottom|center_horizontal"
-            android:src="@drawable/searchview_dark20_color_60" />
+            android:src="@drawable/searchview_dark20_color_184x60" />
     </item>
 </layer-list>

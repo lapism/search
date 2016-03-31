@@ -25,6 +25,8 @@ import com.lapism.searchview.sample.activity.AboutActivity;
 import com.lapism.searchview.sample.activity.MenuItemActivity;
 import com.lapism.searchview.sample.activity.ResultActivity;
 import com.lapism.searchview.sample.activity.ToolbarActivity;
+import com.lapism.searchview.sample.view.Adapter;
+import com.lapism.searchview.sample.view.SearchFragment;
 import com.lapism.searchview.view.SearchView;
 
 import java.util.ArrayList;
@@ -203,7 +205,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     mSearchView.hide(false);
-                    sexy(query, 0);
+                    data(query, 0);
                     return true;
                 }
 
@@ -223,7 +225,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                     mSearchView.hide(false);
                     TextView textView = (TextView) view.findViewById(R.id.textView_item_text);
                     String query = textView.getText().toString();
-                    sexy(query, position);
+                    data(query, position);
                 }
             });
             mSearchView.setAdapter(mSearchAdapter);
@@ -291,7 +293,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     //  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-    private void sexy(String text, int position) {
+    private void data(String text, int position) {
         mHistoryDatabase.addItem(new SearchItem(text));
 
         Intent intent = new Intent(getApplicationContext(), ResultActivity.class); // LightToolbarActivity.this

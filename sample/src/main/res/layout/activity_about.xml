@@ -16,7 +16,7 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="256dp"
+            android:layout_height="@dimen/nav_header_height"
             android:fitsSystemWindows="true"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -166,3 +166,5 @@
         app:menu="@menu/nav_items" />
 
 </android.support.v4.widget.DrawerLayout>
+
+    <!-- 256dp -->

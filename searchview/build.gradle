@@ -12,7 +12,7 @@ buildscript {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "24.0.0 rc2"
 
     sourceSets {
         main.res.srcDirs 'res', 'res-public'
@@ -45,7 +45,7 @@ publish {
     userOrg = 'lapism'
     groupId = 'com.lapism'
     artifactId = 'searchview'
-    publishVersion = '3.0'
+    publishVersion = '0.1.1'
     desc = 'SearchView Library'
     website = 'https://github.com/lapism/SearchView'
 }

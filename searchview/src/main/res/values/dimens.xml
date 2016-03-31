@@ -11,7 +11,6 @@
     <dimen name="search_view_margin_text">24dp</dimen>
     <dimen name="search_item_margin_text">24dp</dimen>
     <dimen name="search_item_height">56dp</dimen>
-    <dimen name="search_item_height_divider">57dp</dimen>
     <dimen name="search_icon">24dp</dimen>
     <dimen name="search_text_small">14sp</dimen>
     <dimen name="search_text_medium">16sp</dimen>

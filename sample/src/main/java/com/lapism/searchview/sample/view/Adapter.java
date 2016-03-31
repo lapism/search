@@ -1,4 +1,4 @@
-package com.lapism.searchview.sample.base;
+package com.lapism.searchview.sample.view;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-class Adapter extends FragmentPagerAdapter {
+public class Adapter extends FragmentPagerAdapter {
 
     private final List<Fragment> mFragments = new ArrayList<>();
     private final List<String> mFragmentTitles = new ArrayList<>();
