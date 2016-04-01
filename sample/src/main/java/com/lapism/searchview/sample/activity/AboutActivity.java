@@ -2,6 +2,7 @@ package com.lapism.searchview.sample.activity;
 
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.lapism.searchview.sample.R;
@@ -20,7 +21,9 @@ public class AboutActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
+        final Toolbar toolbar = getToolbar();
+        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
+        // or set Protected toolbar, jelikoz se to vola u setContentView, tak  s tim neco udelat
 
         // TODO DONATE
     }

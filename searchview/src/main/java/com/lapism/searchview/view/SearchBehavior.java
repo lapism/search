@@ -13,7 +13,7 @@ backpress bug
  BACKPRESS kontrola vsude
  VSUDE KEYINE 600DP
  NASTAVIT VSUDE 16DP
- fit system z cheesesqueare
+
  kod knihovny vzcisitit
  databazipouzit
  */

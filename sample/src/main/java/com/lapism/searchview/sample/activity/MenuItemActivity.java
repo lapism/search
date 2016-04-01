@@ -75,7 +75,7 @@ public class MenuItemActivity extends BaseActivity {
                 mSearchView.show(true);
                 return true;
             case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
+                mDrawerLayout.openDrawer(GravityCompat.START); // finish()
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

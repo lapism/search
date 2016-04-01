@@ -110,42 +110,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         return mTheme;
     }
 
-    public void setTheme(int theme) {
-        mTheme = theme;
-
-        if (theme == THEME_LIGHT) {
-            if (mVersion == VERSION_TOOLBAR) {
-                mSearchArrow.setColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
-            }
-            if (mVersion == VERSION_MENU_ITEM) {
-                mBackImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
-            }
-            mVoiceImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
-            mEmptyImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
-
-            // mRecyclerView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
-            mCardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
-            mEditText.setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
-            mEditText.setHintTextColor(ContextCompat.getColor(mContext, R.color.search_light_text_hint));
-        }
-
-        if (theme == THEME_DARK) {
-            if (mVersion == VERSION_TOOLBAR) {
-                mSearchArrow.setColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
-            }
-            if (mVersion == VERSION_MENU_ITEM) {
-                mBackImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
-            }
-            mVoiceImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
-            mEmptyImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
-
-            // mRecyclerView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
-            mCardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
-            mEditText.setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
-            mEditText.setHintTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text_hint));
-        }
-    }
-
     // init ----------------------------------------------------------------------------------------
     private void initView() {
         LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
@@ -324,6 +288,53 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         mCardView.setLayoutParams(params);
     }
 
+    public void setTheme(int theme) {
+        mTheme = theme;
+
+        if (theme == THEME_LIGHT) {
+            if (mVersion == VERSION_TOOLBAR) {
+                mSearchArrow.setColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
+            }
+            if (mVersion == VERSION_MENU_ITEM) {
+                mBackImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
+            }
+            mVoiceImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
+            mEmptyImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
+
+            // mRecyclerView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
+            mCardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
+            mEditText.setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
+            mEditText.setHintTextColor(ContextCompat.getColor(mContext, R.color.search_light_text_hint));
+        }
+
+        if (theme == THEME_DARK) {
+            if (mVersion == VERSION_TOOLBAR) {
+                mSearchArrow.setColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+            }
+            if (mVersion == VERSION_MENU_ITEM) {
+                mBackImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+            }
+            mVoiceImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+            mEmptyImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+
+            // mRecyclerView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
+            mCardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
+            mEditText.setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
+            mEditText.setHintTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text_hint));
+        }
+    }
+    // TODO
+    public void setThemeTint(@ColorInt int color) {
+        if (mVersion == VERSION_TOOLBAR) {
+            mSearchArrow.setColor(color);
+        }
+        if (mVersion == VERSION_MENU_ITEM) {
+            mBackImageView.setColorFilter(color);
+        }
+        mVoiceImageView.setColorFilter(color);
+        mEmptyImageView.setColorFilter(color);
+    }
+
     public void setThemeBackgroundColor(@ColorInt int color) {
         mCardView.setCardBackgroundColor(color);
     }
@@ -418,17 +429,6 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
     }
 
     /* future release ------------------------------------------------------------------------------
-    private void setThemeTint(int color) {
-        if (mVersion == VERSION_TOOLBAR) {
-            mSearchArrow.setColor(color);
-        }
-        if (mVersion == VERSION_MENU_ITEM) {
-            mBackImageView.setColorFilter(color);
-        }
-        mVoiceImageView.setColorFilter(color);
-        mEmptyImageView.setColorFilter(color);
-    }
-
     // @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setHeight(int height) {
         // float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics());
