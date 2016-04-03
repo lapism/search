@@ -91,4 +91,5 @@ app:search_shadow_color = "#80000000"
 ```
 
 **Apps using this library:**
+
 [Service Notes](https://play.google.com/store/apps/details?id=notes.service.com.servicenotes)
