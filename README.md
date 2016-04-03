@@ -89,3 +89,6 @@ app:search_voice_text = "Voice text"
 app:search_animation_duration = "360"
 app:search_shadow_color = "#80000000"
 ```
+
+**Apps using this library:**
+[Service Notes](https://play.google.com/store/apps/details?id=notes.service.com.servicenotes)
