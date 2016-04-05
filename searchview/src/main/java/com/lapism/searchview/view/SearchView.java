@@ -526,7 +526,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
         CharSequence query = mEditText.getText();
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
             if (mOnQueryChangeListener == null || !mOnQueryChangeListener.onQueryTextSubmit(query.toString())) {
-                mEditText.setText(null);
+                mEditText.setText(query);
             }
         }
     }
