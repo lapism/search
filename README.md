@@ -15,8 +15,8 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 
 **Apps using this library:**
 
-[Service Notes](https://play.google.com/store/apps/details?id=notes.service.com.servicenotes)
-[Service Notes](https://play.google.com/store/apps/details?id=com.iac.bcreader)
+[Service Notes](https://play.google.com/store/apps/details?id=notes.service.com.servicenotes)/n
+[Business Card Reader](https://play.google.com/store/apps/details?id=com.iac.bcreader)
 
 ------------------------------------------------------------------------------------------------------------------------------
 
