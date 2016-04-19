@@ -20,22 +20,16 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 
 ------------------------------------------------------------------------------------------------------------------------------
 
-Persistent SearchView Library like Play Store. 
-
-Check sample project very thoroughly !!!
-
-Features: Material Design, Toolbar / Menu item version, History, Styling.
-
-Google Material Design Pattern:
-https://www.google.com/design/spec/patterns/search.html
-
-Version history here:
-https://bintray.com/lapism/maven/searchview/view
-
-Material colors in the project:
-https://gist.github.com/lapism/3b417142300d9dbde3b4
-
-Sample application on:
+Persistent SearchView Library like Play Store.  
+Check sample project very thoroughly !!!  
+Features: Material Design, Toolbar / Menu item version, History, Styling.  
+Google Material Design Pattern:  
+https://www.google.com/design/spec/patterns/search.html  
+Version history here:  
+https://bintray.com/lapism/maven/searchview/view  
+Material colors in the project:  
+https://gist.github.com/lapism/3b417142300d9dbde3b4  
+Sample application on:  
 
 <a href="https://play.google.com/store/apps/details?id=com.lapism.searchview.sample">
   <img alt="Get it on Google Play"
