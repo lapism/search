@@ -3,7 +3,7 @@
 Next version 3.0 will be released in April or May 2016 with changes and fixes.
 
 If you want to be prepared for next release then test version 
-# 0.1.6
+# 0.1.7
 is uploaded to jCenter. 
 It has some new features, but be aware that version has a lot of changes and still has bugs !!! Otherwise use version 2.2 (below this text).
 
