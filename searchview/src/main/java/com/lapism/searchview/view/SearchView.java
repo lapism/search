@@ -580,7 +580,7 @@ public class SearchView extends FrameLayout implements Filter.FilterListener, Vi
     // implements ----------------------------------------------------------------------------------
     @Override
     public void onFilterComplete(int text) {
-        if (text > 0) {
+        if (text > 0 && !mSearchAdapter.isItemClick()) {
             showSuggestions();
         } else {
             hideSuggestions();
