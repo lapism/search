@@ -39,6 +39,18 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         this.mTheme = theme;
     }
 
+    public List<Integer> getStartList() {
+        return mStartList;
+    }
+
+    public List<SearchItem> getSearchList() {
+        return mSearchList;
+    }
+
+    public List<SearchItem> getDataList() {
+        return mDataList;
+    }
+
     @Override
     public int getItemViewType(int position) {
         return position;
