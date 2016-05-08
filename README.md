@@ -13,7 +13,7 @@ Because I have done firstly this library as a private project,
 I would like to know if someone of you use my library in your application. 
 If yes, please send me a name of your app and link to Play Store and I will promote your app in Readme.
 
-**Apps using this library:**
+**Apps with this library:**
 
 [Service Notes](https://play.google.com/store/apps/details?id=notes.service.com.servicenotes)  
 [Business Card Reader](https://play.google.com/store/apps/details?id=com.iac.bcreader) <br />
