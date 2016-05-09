@@ -99,4 +99,8 @@ dependencies {
         <attr name="search_shadow" format="boolean" />
         <attr name="search_shadow_color" format="boolean" />
         <attr name="search_elevation" format="dimension" />
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> origin/master
