@@ -19,7 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
+// TODO file:///E:/Android/SearchView/sample/build/outputs/lint-results-debug.html
+// TODO file:///E:/Android/SearchView/searchview/build/outputs/lint-results-debug.html
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
     private final SearchHistoryTable mHistoryDatabase;
@@ -32,7 +33,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public SearchAdapter(Context context, List<SearchItem> suggestionsList) {
         mSuggestionsList = suggestionsList;
         mHistoryDatabase = new SearchHistoryTable(context);
-        mResultList = mHistoryDatabase.getAllItems();
+        // mResultList = mHistoryDatabase.getAllItems();
     }
 
     @Override
@@ -48,12 +49,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                 FilterResults filterResults = new FilterResults();
 
                 if (!TextUtils.isEmpty(constraint)) {
+                    key = constraint.toString().toLowerCase(Locale.getDefault());
+
                     List<SearchItem> results = new ArrayList<>();
                     List<SearchItem> history = new ArrayList<>();
                     history.addAll(mHistoryDatabase.getAllItems());
                     history.addAll(mSuggestionsList);
-
-                    key = constraint.toString().toLowerCase(Locale.getDefault());
 
                     for (SearchItem str : history) {
                         String string = str.get_text().toString().toLowerCase(Locale.getDefault());

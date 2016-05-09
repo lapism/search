@@ -198,7 +198,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mUserQuery = s;
-                startFilter(s);
+                if (mSearchAdapter != null) {
+                    (mSearchAdapter).getFilter().filter(s);
+                }
                 SearchView.this.onTextChanged(s);
             }
 
@@ -498,12 +500,12 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
     }
 
     private void showSuggestions() {
-        if (mSearchAdapter != null && mSearchAdapter.getItemCount() > 0 && mRecyclerView.getVisibility() == View.GONE) {
+        if (mSearchAdapter != null && mRecyclerView.getVisibility() == View.GONE) {
             mDividerView.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.VISIBLE);
             fadeIn(mRecyclerView, mAnimationDuration);
-           /* mRecyclerView.setAlpha(0.0f);
-            mRecyclerView.animate().alpha(1.0f);*/
+            // mRecyclerView.setAlpha(0.0f);
+            // mRecyclerView.animate().alpha(1.0f);
         }
     }
 
@@ -521,12 +523,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
             if (mOnQueryChangeListener == null || !mOnQueryChangeListener.onQueryTextSubmit(query.toString())) {
                 mEditText.setText(query);
             }
-        }
-    }
-
-    private void startFilter(CharSequence s) {
-        if (mSearchAdapter != null) {
-            (mSearchAdapter).getFilter().filter(s);
         }
     }
 
@@ -801,7 +797,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
             float initialRadius = (float) Math.hypot(cx, cy);
 
             Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, initialRadius, 0.0f);
-            anim.setInterpolator(new AccelerateDecelerateInterpolator());
+            anim.setInterpolator(new AccelerateDecelerateInterpolator()); // todo
             anim.setDuration(duration);
             anim.addListener(new AnimatorListenerAdapter() {
                 @Override

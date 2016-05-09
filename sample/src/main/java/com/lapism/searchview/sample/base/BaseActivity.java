@@ -249,7 +249,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             });
 
             List<SearchItem> suggestionsList = new ArrayList<>();
-            suggestionsList.add(new SearchItem("Blue"));
+            suggestionsList.add(new SearchItem("search1"));
+            suggestionsList.add(new SearchItem("search2"));
+            suggestionsList.add(new SearchItem("search3"));
 
             SearchAdapter searchAdapter = new SearchAdapter(this, suggestionsList);
             searchAdapter.setOnItemClickListener(new SearchAdapter.OnItemClickListener() {
