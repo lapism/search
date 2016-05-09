@@ -3,11 +3,12 @@ package com.lapism.searchview.sample.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.v4.view.GravityCompat;
 import android.text.TextUtils;
 
+import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
 import com.lapism.searchview.sample.base.BaseActivity;
-import com.lapism.searchview.view.SearchView;
 
 import java.util.List;
 
@@ -21,16 +22,27 @@ public class ResultActivity extends BaseActivity {
 
         // -----------------------------------------------------------------------------------------
         setSearchView();
-        mSearchView.setOnSearchMenuListener(new SearchView.SearchMenuListener() {
+        //mSearchView.setArrow(); // TODO ARROW / HAMBURGER / BEHAVIOR / SingleTask / adapter bug, icon
+        mSearchView.setText(R.string.search);
+        mSearchView.setOnMenuClickListener(new SearchView.OnMenuClickListener() {
             @Override
             public void onMenuClick() {
                 finish();
             }
         });
-        mSearchView.setText("TEXT");
         // -----------------------------------------------------------------------------------------
 
         customSearchView();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            finish();
+            // NAVUTILS
+        }
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.lapism.searchview.view;
+package com.lapism.searchview;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -18,25 +18,21 @@ import android.support.v4.view.ViewCompat;
 import android.util.Property;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-import com.lapism.searchview.R;
 
-/*
- Simplified version from: android.support.v7.graphics.drawable.DrawerArrowDrawable
-*/
-public class ArrowDrawable extends Drawable {
+public class SearchArrowDrawable extends Drawable {
 
     public static final float STATE_ARROW = 0.0f;
     public static final float STATE_HAMBURGER = 1.0f;
 
-    private static final float ARROW_HEAD_ANGLE = (float) Math.toRadians(45.0);// d,D
-    private static final Property<ArrowDrawable, Float> PROGRESS = new Property<ArrowDrawable, Float>(Float.class, "progress") {
+    private static final float ARROW_HEAD_ANGLE = (float) Math.toRadians(45.0);
+    private static final Property<SearchArrowDrawable, Float> PROGRESS = new Property<SearchArrowDrawable, Float>(Float.class, "progress") {
         @Override
-        public void set(ArrowDrawable object, Float value) {
+        public void set(SearchArrowDrawable object, Float value) {
             object.setProgress(value);
         }
 
         @Override
-        public Float get(ArrowDrawable object) {
+        public Float get(SearchArrowDrawable object) {
             return object.getProgress();
         }
     };
@@ -52,15 +48,15 @@ public class ArrowDrawable extends Drawable {
     private float mProgress;
     private boolean mVerticalMirror = false;
 
-    public ArrowDrawable(Context context) {
+    public SearchArrowDrawable(Context context) {
         float mBarThickness = context.getResources().getDimension(R.dimen.arrow_thickness);
 
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.MITER);
         mPaint.setStrokeCap(Paint.Cap.BUTT);
         mPaint.setAntiAlias(true);
-        mPaint.setColor(ContextCompat.getColor(context, android.R.color.black));
         mPaint.setStrokeWidth(mBarThickness);
+        mPaint.setColor(ContextCompat.getColor(context, R.color.search_light_icon));
 
         mMaxCutForBarSize = (float) (mBarThickness / 2 * Math.cos(ARROW_HEAD_ANGLE));
         mSpin = true;
@@ -124,13 +120,6 @@ public class ArrowDrawable extends Drawable {
         }
     }
 
-    public void setColor(@ColorInt int color) {
-        if (color != mPaint.getColor()) {
-            mPaint.setColor(color);
-            invalidateSelf();
-        }
-    }
-
     public void setVerticalMirror(boolean verticalMirror) {
         if (mVerticalMirror != verticalMirror) {
             mVerticalMirror = verticalMirror;
@@ -142,6 +131,13 @@ public class ArrowDrawable extends Drawable {
     public void setAlpha(int alpha) {
         if (alpha != mPaint.getAlpha()) {
             mPaint.setAlpha(alpha);
+            invalidateSelf();
+        }
+    }
+
+    public void setColor(@ColorInt int color) {
+        if (color != mPaint.getColor()) {
+            mPaint.setColor(color);
             invalidateSelf();
         }
     }
@@ -167,7 +163,7 @@ public class ArrowDrawable extends Drawable {
         return mSize;
     }
 
-    public void animate(float state) {
+    public void animate(float state, int duration) {
         ObjectAnimator anim;
         if (state == STATE_ARROW) {
             anim = ObjectAnimator.ofFloat(this, PROGRESS, state, STATE_HAMBURGER);
@@ -175,22 +171,8 @@ public class ArrowDrawable extends Drawable {
             anim = ObjectAnimator.ofFloat(this, PROGRESS, state, STATE_ARROW);
         }
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
-        anim.setDuration(anim.getDuration()); // 300
+        anim.setDuration(duration);
         anim.start();
     }
-
-    // 300 drawer ? 0 : 1anim.getDuration()
-//    private void animate() {
-//        ValueAnimator anim = ValueAnimator.ofFloat(STATE_ARROW, STATE_HAMBURGER);
-//        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-//                // float slideOffset = (Float) valueAnimator.getAnimatedValue();
-//            }
-//        });
-//        anim.setInterpolator(new DecelerateInterpolator());
-//        anim.setDuration(300);
-//        anim.start();
-//    }
 
 }

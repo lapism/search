@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Launch Screen -->
-    <style name="AppThemeLightLauncher" parent="AppThemeLightBase">
+    <style name="AppThemeLauncher" parent="AppThemeLightBase">
         <item name="colorPrimaryDark">#60000000</item>
         <item name="android:windowBackground">@drawable/launch_screen</item>
     </style>
@@ -18,7 +18,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccentLight</item>
     </style>
-
 
     <style name="AppThemeLight" parent="AppThemeLightBase" />
 
@@ -54,7 +53,6 @@
         <item name="colorAccent">@color/colorAccentLight</item>
     </style>
 
-    <style name="Theme.DesignDemoLight" parent="Base.Theme.DesignDemoLight" />
 
     <!-- <style name="Base.Theme.DesignDemoDark" parent="Theme.AppCompat.NoActionBar">
          <item name="colorPrimary">#2196f3</item>

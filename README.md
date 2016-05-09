@@ -1,6 +1,6 @@
-# SearchView & CheckableView
+# SearchView
 
-Next version 3.0 will be released in April or May 2016 with changes and fixes.
+Next version 3.0 is released.
 
 ------------------------------------------------------------------------------------------------------------------------------
 
@@ -8,29 +8,27 @@ Because I have done firstly this library as a private project,
 I would like to know if someone of you use my library in your application. 
 If yes, please send me a name of your app and link to Play Store and I will promote your app in Readme.
 
+**Apps using this library:**
+
+[Service Notes](https://play.google.com/store/apps/details?id=notes.service.com.servicenotes)  
+[Business Card Reader](https://play.google.com/store/apps/details?id=com.iac.bcreader) <br />
+
 ------------------------------------------------------------------------------------------------------------------------------
 
-Persistent SearchView Library like Play Store.
-
-Features: Material Design, Toolbar / Menu item version, History, Styling.
-
-Google Material Design Pattern:
-https://www.google.com/design/spec/patterns/search.html
-
-Version history here:
-https://bintray.com/lapism/maven/searchview/view
-
-Material colors in the project:
-https://gist.github.com/lapism/3b417142300d9dbde3b4
-
-Buy me a beer:
-https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2W9YDH84RKA4W
-
-Sample application on:
+Persistent SearchView Library like Play Store.  
+Check sample project very thoroughly !!!  
+Features: Material Design, Toolbar / Menu item version, History, Styling.  
+Google Material Design Pattern:  
+https://www.google.com/design/spec/patterns/search.html  
+Version history here:  
+https://bintray.com/lapism/maven/searchview/view  
+Material colors in the project:  
+https://gist.github.com/lapism/3b417142300d9dbde3b4  
+Sample application on:  
 
 <a href="https://play.google.com/store/apps/details?id=com.lapism.searchview.sample">
   <img alt="Get it on Google Play"
-       src="https://github.com/lapism/SearchView/blob/master/images/google_play.png" />
+       src="https://github.com/lapism/SearchView/blob/master/images/google-play-badge.png" />
 </a>
 
 # Usage
@@ -51,7 +49,17 @@ dependencies {
 
 **Code:**
 ```java
-Please, check a sample project !
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search: {
+                mSearchView.show(true/false); // animate, ONLY FOR MENU ITEM
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 ```
 
 **XML:**
@@ -77,7 +85,8 @@ Please, check a sample project !
             <enum name="light" value="3000" />
             <enum name="dark" value="3001" />
         </attr>
-        <attr name="search_theme_background_color" format="color" />
+        <attr name="search_icon_color" format="color" />
+        <attr name="search_background_color" format="color" />
         <attr name="search_text" format="string" />
         <attr name="search_text_color" format="color" />
         <attr name="search_text_size" format="dimension" />

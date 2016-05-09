@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/fab"
-    android:gravity="center_vertical"
-    android:paddingEnd="@dimen/key_line_16"
-    android:paddingLeft="@dimen/key_line"
-    android:paddingRight="@dimen/key_line_16"
-    android:paddingStart="@dimen/key_line">
+    android:layout_height="88dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginEnd="@dimen/key_line_16"
+    android:layout_marginLeft="@dimen/key_line"
+    android:layout_marginRight="@dimen/key_line_16"
+    android:layout_marginStart="@dimen/key_line"
+    android:layout_marginTop="8dp"
+    android:clickable="true"
+    android:drawSelectorOnTop="true"
+    android:foreground="?attr/selectableItemBackgroundBorderless">
 
-    <View
-        android:layout_width="@dimen/fab"
-        android:layout_height="@dimen/fab" />
-
-    <TextView
-        android:id="@android:id/text1"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
 
-</LinearLayout>
+        <View
+            android:layout_width="@dimen/fab"
+            android:layout_height="@dimen/fab" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceListItem" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

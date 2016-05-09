@@ -11,9 +11,8 @@
     <string name="dark_menu_item">Dark Menu item</string>
 
     <string name="search">Search</string>
-    <string name="search_1">Search 1</string>
-    <string name="search_2">Search 2</string>
+    <string name="installed">Installed</string>
+    <string name="all">All</string>
     <string name="about">About</string>
-    <string name="cheese_ipsum">DONATE</string>
 
 </resources>

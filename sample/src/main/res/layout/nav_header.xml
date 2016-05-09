@@ -38,9 +38,3 @@
         android:text="@string/version" />
 
 </LinearLayout>
-
-    <!--
-       android:background="?attr/colorPrimaryDark"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark"
-      -->

@@ -9,9 +9,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
 import com.lapism.searchview.sample.base.BaseActivity;
-import com.lapism.searchview.view.SearchView;
 
 import java.util.List;
 
@@ -28,28 +28,15 @@ public class MenuItemActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_item);
 
-        mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
+        if (mToolbar != null) {
+            mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
+        }
 
         setViewPager();
 
-        //------------------------------------------------------------------------------------------
+        // -----------------------------------------------------------------------------------------
         setSearchView();
-        mSearchView.setOnSearchViewListener(new SearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-                if (mFab != null) {
-                    mFab.hide();
-                }
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-                if (mFab != null) {
-                    mFab.show();
-                }
-            }
-        });
-        //------------------------------------------------------------------------------------------
+        // -----------------------------------------------------------------------------------------
 
         customSearchView();
     }
@@ -72,7 +59,7 @@ public class MenuItemActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                mSearchView.show(true);
+                mSearchView.open(true);
                 return true;
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START); // finish()

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group
-        android:id="@+id/group_toolbar"
-        android:checkableBehavior="single">
+    <!-- android:id="@+id/group_toolbar" -->
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_light_toolbar"
             android:icon="@drawable/ic_menu_search"
@@ -14,9 +13,8 @@
             android:title="@string/dark_toolbar" />
     </group>
 
-    <group
-        android:id="@+id/group_about"
-        android:checkableBehavior="single">
+    <!-- android:id="@+id/group_menu_item" -->
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_light_menu_item"
             android:icon="@drawable/ic_menu_search"

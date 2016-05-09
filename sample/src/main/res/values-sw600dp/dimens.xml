@@ -3,5 +3,6 @@
 
     <dimen name="toolbar_height">64dp</dimen>
     <dimen name="key_line">24dp</dimen>
+    <dimen name="key_line_tab">148dp</dimen>
 
 </resources>

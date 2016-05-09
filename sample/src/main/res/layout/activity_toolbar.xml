@@ -17,17 +17,28 @@
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <include layout="@layout/toolbar" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:minHeight="64dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/toolbar_height"
+                android:layout_height="wrap_content"
                 app:tabIndicatorColor="@android:color/white" />
 
         </android.support.design.widget.AppBarLayout>
 
-        <!-- android.support.v4.widget.NestedScrollView -->
+        <!--
+        app:layout_behavior="@string/fab_behavior"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        android.support.v4.widget.NestedScrollView -->
+
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
@@ -40,12 +51,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/key_line"
-            android:src="@drawable/ic_delete_white_24dp"
-            android:tint="@android:color/white" />
+            android:src="@drawable/ic_delete_white_24dp" />
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <com.lapism.searchview.view.SearchView
+    <com.lapism.searchview.SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="search_shadow_layout">#50000000</color>
+
     <!-- Light Theme -->
     <color name="search_light_background">#fffafafa</color>
-    <color name="search_light_icon">#ff737373</color>
-    <color name="search_light_text">#ff202020</color>
-    <color name="search_light_text_hint">#8a000000</color>
-    <color name="search_light_text_highlight">#61000000</color>
+    <color name="search_light_background2">@android:color/transparent</color>
+    <color name="search_light_icon">#8a000000</color>
+    <color name="search_light_text">#de000000</color>
+    <color name="search_light_hint">#80000000</color>
+    <color name="search_light_text_highlight">#62000000</color>
 
     <!-- Dark Theme -->
     <color name="search_dark_background">#ff303030</color>
-    <color name="search_dark_icon">#ffc1c1c1</color>
+    <color name="search_dark_icon">#b3ffffff</color>
     <color name="search_dark_text">#ffffffff</color>
-    <color name="search_dark_text_hint">#b3ffffff</color>
-    <color name="search_dark_text_highlight">#61ffffff</color>
-
-    <!-- Shadow -->
-    <color name="search_shadow_layout">#50000000</color>
+    <color name="search_dark_hint">#80ffffff</color>
+    <color name="search_dark_text_highlight">#62ffffff</color>
 
 </resources>

@@ -1,12 +1,10 @@
-package com.lapism.searchview.history;
+package com.lapism.searchview;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.lapism.searchview.R;
-import com.lapism.searchview.adapter.SearchItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,29 +12,32 @@ import java.util.List;
 
 public class SearchHistoryTable {
 
-    private final SearchHistoryDatabaseHelper dbHelper;
+    private final SearchHistoryDatabase dbHelper;
     private SQLiteDatabase db;
 
     public SearchHistoryTable(Context mContext) {
-        dbHelper = new SearchHistoryDatabaseHelper(mContext);
+        dbHelper = new SearchHistoryDatabase(mContext);
     }
 
-    /*public void open() throws SQLException {onResume onPause
+    // TODO FOR onResume AND onPause
+    @SuppressWarnings("unused")
+    public void open() throws SQLException {
         db = dbHelper.getWritableDatabase();
     }
 
+    @SuppressWarnings("unused")
     public void close() {
         dbHelper.close();
-    }*/
+    }
 
     public void addItem(SearchItem item) {
         if (!checkText(item.get_text().toString())) {
             db = dbHelper.getWritableDatabase();
 
             ContentValues values = new ContentValues();
-            values.put(SearchHistoryDatabaseHelper.SEARCH_HISTORY_COLUMN_TEXT, item.get_text().toString());
+            values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TEXT, item.get_text().toString());
 
-            db.insert(SearchHistoryDatabaseHelper.SEARCH_HISTORY_TABLE, null, values);
+            db.insert(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, values);
             db.close();
         }
     }
@@ -44,7 +45,7 @@ public class SearchHistoryTable {
     private boolean checkText(String text) {
         db = dbHelper.getReadableDatabase();
 
-        String query = "SELECT * FROM " + SearchHistoryDatabaseHelper.SEARCH_HISTORY_TABLE + " WHERE " + SearchHistoryDatabaseHelper.SEARCH_HISTORY_COLUMN_TEXT + " =?";
+        String query = "SELECT * FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE + " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TEXT + " =?";
         Cursor cursor = db.rawQuery(query, new String[]{text});
 
         boolean hasObject = false;
@@ -60,7 +61,11 @@ public class SearchHistoryTable {
 
     public List<SearchItem> getAllItems() {
         List<SearchItem> list = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + SearchHistoryDatabaseHelper.SEARCH_HISTORY_TABLE;
+
+        String selectQuery =
+                "SELECT * FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE +
+                        " ORDER BY " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID +
+                        " DESC LIMIT 2";
 
         db = dbHelper.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -68,7 +73,7 @@ public class SearchHistoryTable {
             do {
                 SearchItem item = new SearchItem();
                 item.set_icon(R.drawable.search_ic_history_black_24dp);
-                item.set_text(cursor.getString(0));
+                item.set_text(cursor.getString(1));
                 list.add(item);
             } while (cursor.moveToNext());
         }
@@ -79,7 +84,7 @@ public class SearchHistoryTable {
 
     public void clearDatabase() {
         db = dbHelper.getWritableDatabase();
-        db.delete(SearchHistoryDatabaseHelper.SEARCH_HISTORY_TABLE, null, null);
+        db.delete(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, null);
         db.close();
     }
 

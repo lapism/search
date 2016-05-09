@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Adapter extends FragmentPagerAdapter {
+public class FragmentAdapter extends FragmentPagerAdapter {
 
     private final List<Fragment> mFragments = new ArrayList<>();
     private final List<String> mFragmentTitles = new ArrayList<>();
 
-    public Adapter(FragmentManager fm) {
+    public FragmentAdapter(FragmentManager fm) {
         super(fm);
     }
 

@@ -3,6 +3,7 @@
 
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="key_line">16dp</dimen>
+    <dimen name="key_line_tab">60dp</dimen>
 
     <dimen name="key_line_16">16dp</dimen>
     <dimen name="nav_header_height">192dp</dimen>

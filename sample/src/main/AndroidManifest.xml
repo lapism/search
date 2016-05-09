@@ -14,7 +14,7 @@
             android:name=".activity.ToolbarActivity"
             android:label="@string/app_name"
             android:launchMode="standard"
-            android:theme="@style/AppThemeLightLauncher">
+            android:theme="@style/AppThemeLauncher">
             <intent-filter tools:ignore="GoogleAppIndexingWarning">
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />

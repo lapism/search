@@ -1,10 +1,8 @@
-package com.lapism.searchview.adapter;
+package com.lapism.searchview;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
-
-import com.lapism.searchview.R;
 
 
 public class SearchItem implements Parcelable {
@@ -28,7 +26,7 @@ public class SearchItem implements Parcelable {
         this(text, R.drawable.search_ic_search_black_24dp);
     }
 
-    @SuppressWarnings("WeakerAccess") // @SuppressWarnings("UnusedDeclaration")
+    @SuppressWarnings("WeakerAccess")
     public SearchItem(CharSequence text, int icon) {
         this.icon = icon;
         this.text = text;

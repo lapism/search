@@ -1,4 +1,4 @@
-package com.lapism.searchview.view;
+package com.lapism.searchview;
 
 import android.content.Context;
 import android.content.res.TypedArray;

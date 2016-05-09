@@ -15,7 +15,6 @@
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
             app:elevation="0dp">
 
         </android.support.design.widget.AppBarLayout>
@@ -36,7 +35,7 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <com.lapism.searchview.view.SearchView
+    <com.lapism.searchview.SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

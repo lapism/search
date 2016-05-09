@@ -15,7 +15,8 @@
             <enum name="light" value="3000" />
             <enum name="dark" value="3001" />
         </attr>
-        <attr name="search_theme_background_color" format="color" />
+        <attr name="search_icon_color" format="color" />
+        <attr name="search_background_color" format="color" />
         <attr name="search_text" format="string" />
         <attr name="search_text_color" format="color" />
         <attr name="search_text_size" format="dimension" />

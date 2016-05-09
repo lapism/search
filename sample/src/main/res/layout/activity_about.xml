@@ -21,7 +21,6 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
@@ -32,7 +31,6 @@
                 app:title="@string/app_name">
 
                 <ImageView
-                    android:id="@+id/backdrop"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/app_name"
@@ -65,7 +63,12 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/key_line">
+                    android:layout_marginBottom="@dimen/key_line_16"
+                    android:layout_marginEnd="@dimen/key_line"
+                    android:layout_marginLeft="@dimen/key_line"
+                    android:layout_marginRight="@dimen/key_line"
+                    android:layout_marginStart="@dimen/key_line"
+                    android:layout_marginTop="@dimen/key_line_16">
 
                     <LinearLayout
                         style="@style/Widget.CardContent"
@@ -81,7 +84,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/cheese_ipsum" />
+                            android:text="@string/version" />
 
                     </LinearLayout>
 
@@ -90,9 +93,11 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/key_line"
+                    android:layout_marginBottom="@dimen/key_line_16"
+                    android:layout_marginEnd="@dimen/key_line"
                     android:layout_marginLeft="@dimen/key_line"
-                    android:layout_marginRight="@dimen/key_line">
+                    android:layout_marginRight="@dimen/key_line"
+                    android:layout_marginStart="@dimen/key_line">
 
                     <LinearLayout
                         style="@style/Widget.CardContent"
@@ -108,7 +113,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/cheese_ipsum" />
+                            android:text="@string/version" />
 
                     </LinearLayout>
 
@@ -117,9 +122,11 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/key_line"
+                    android:layout_marginBottom="@dimen/key_line_16"
+                    android:layout_marginEnd="@dimen/key_line"
                     android:layout_marginLeft="@dimen/key_line"
-                    android:layout_marginRight="@dimen/key_line">
+                    android:layout_marginRight="@dimen/key_line"
+                    android:layout_marginStart="@dimen/key_line">
 
                     <LinearLayout
                         style="@style/Widget.CardContent"
@@ -135,7 +142,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/cheese_ipsum" />
+                            android:text="@string/version" />
 
                     </LinearLayout>
 
@@ -166,5 +173,3 @@
         app:menu="@menu/nav_items" />
 
 </android.support.v4.widget.DrawerLayout>
-
-    <!-- 256dp -->

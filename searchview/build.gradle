@@ -12,7 +12,7 @@ buildscript {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "24.0.0 rc2"
+    buildToolsVersion "24.0.0 rc3"
 
     sourceSets {
         main.res.srcDirs 'res', 'res-public'
@@ -21,7 +21,7 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 2
+        versionCode 3
         versionName "3.0"
     }
     buildTypes {
@@ -37,18 +37,22 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:cardview-v7:23.2.1'
-    compile 'com.android.support:recyclerview-v7:23.2.1'
+
+    compile 'com.android.support:recyclerview-v7:23.3.0'
+    compile 'com.android.support:cardview-v7:23.3.0'
 }
 
 publish {
     userOrg = 'lapism'
     groupId = 'com.lapism'
     artifactId = 'searchview'
-    publishVersion = '0.1.1'
+    publishVersion = '3.0'
     desc = 'SearchView Library'
     website = 'https://github.com/lapism/SearchView'
 }
 
-// build first +
+// build first
 // gradlew clean build bintrayUpload -PbintrayUser=lapism -PbintrayKey=BINTRAY_KEY -PdryRun=false
+
+// gradlew wrapper --gradle-version=2.13
+// JDK 8u92

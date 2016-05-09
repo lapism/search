@@ -49,4 +49,3 @@ Thumbs.db
 tmp
 *.tgz
 *.lck
-searchview/src/main/java/com/lapism/searchview/SearchItem.java
