@@ -859,7 +859,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
+                // TODO
             }
 
             @Override

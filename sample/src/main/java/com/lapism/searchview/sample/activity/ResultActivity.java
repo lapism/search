@@ -22,7 +22,7 @@ public class ResultActivity extends BaseActivity {
 
         // -----------------------------------------------------------------------------------------
         setSearchView();
-        //mSearchView.setArrow(); // TODO ARROW / HAMBURGER / BEHAVIOR / SingleTask / adapter bug, icon
+        //mSearchView.setArrow(); // TODO ARROW / HAMBURGER / BEHAVIOR / SingleTask / adapter bug, icon, both in same time
         mSearchView.setText(R.string.search);
         mSearchView.setOnMenuClickListener(new SearchView.OnMenuClickListener() {
             @Override

@@ -103,20 +103,22 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         viewHolder.icon_left.setImageResource(item.get_icon());
         viewHolder.icon_left.setColorFilter(SearchView.getIconColor(), PorterDuff.Mode.SRC_IN);
         viewHolder.text.setTextColor(SearchView.getTextColor());
-        viewHolder.text.setText(item.get_text(), TextView.BufferType.SPANNABLE);
 
-        String string = viewHolder.text.getText().toString();
-        SpannableString s = new SpannableString(viewHolder.text.getText());
+        String string = item.get_text().toString();
 
         //if (string.toLowerCase(Locale.getDefault()).contains(key)) {
         if (string.contains(key)) {
+            SpannableString s = new SpannableString(string);
             s.setSpan(new ForegroundColorSpan(SearchView.getTextHighlightColor()), string.indexOf(key), string.indexOf(key) + key.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
-            key = " ";
         } else {
+            viewHolder.text.setText(item.get_text());
+        }
+
+        /*else {        key = " ";
             s.removeSpan(new ForegroundColorSpan(SearchView.getTextColor()));
             viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
-        }
+        }*/
     }
 
     @Override
