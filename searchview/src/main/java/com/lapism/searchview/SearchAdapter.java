@@ -64,6 +64,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
                     filterResults.values = results;
                     filterResults.count = results.size();
+                } else {
+                    key = " ";
                 }
 
                 return filterResults;
@@ -104,9 +106,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         viewHolder.icon_left.setColorFilter(SearchView.getIconColor(), PorterDuff.Mode.SRC_IN);
         viewHolder.text.setTextColor(SearchView.getTextColor());
 
-        String string = item.get_text().toString();
+        String string = item.get_text().toString().toLowerCase(Locale.getDefault());
 
-        //if (string.toLowerCase(Locale.getDefault()).contains(key)) {
         if (string.contains(key)) {
             SpannableString s = new SpannableString(string);
             s.setSpan(new ForegroundColorSpan(SearchView.getTextHighlightColor()), string.indexOf(key), string.indexOf(key) + key.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -115,7 +116,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             viewHolder.text.setText(item.get_text());
         }
 
-        /*else {        key = " ";
+        /*else {   TODO voice click result E/RecyclerView: No adapter attached; skipping layout
             s.removeSpan(new ForegroundColorSpan(SearchView.getTextColor()));
             viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
         }*/

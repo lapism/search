@@ -78,7 +78,6 @@ public class SearchHistoryTable {
             } while (cursor.moveToNext());
         }
         cursor.close();
-        db.close();
         return list;
     }
 

@@ -121,7 +121,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         return mIconColor;
     }
 
-    @SuppressWarnings("WeakerAccess")
     public void setIconColor(@ColorInt int color) {
         mIconColor = color;
         ColorFilter colorFilter = new PorterDuffColorFilter(mIconColor, PorterDuff.Mode.SRC_IN);
@@ -141,7 +140,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         return mTextColor;
     }
 
-    @SuppressWarnings("WeakerAccess")
     public void setTextColor(@ColorInt int color) {
         mTextColor = color;
         mEditText.setTextColor(mTextColor);
@@ -151,7 +149,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         return mTextHighlightColor;
     }
 
-    @SuppressWarnings("WeakerAccess")
     public void setTextHighlightColor(@ColorInt int color) {
         mTextHighlightColor = color;
     }
@@ -163,10 +160,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         mCardView = (CardView) findViewById(R.id.cardView);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_result);
-        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setVisibility(View.GONE);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setVisibility(View.GONE);//TODO INVISIBLE
 
         mDividerView = findViewById(R.id.view_divider);
         mDividerView.setVisibility(View.GONE);
@@ -365,7 +362,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         mEditText.setText(text);
     }
 
-    @SuppressWarnings("SameParameterValue")
     public void setText(@StringRes int text) {
         mEditText.setText(text);
     }
@@ -378,12 +374,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         mEditText.setHint(hint);
     }
 
-    @SuppressWarnings("SameParameterValue")
     public void setHint(@StringRes int hint) {
         mEditText.setHint(hint);
     }
 
-    @SuppressWarnings("WeakerAccess")
     public void setHintColor(@ColorInt int color) { // @ColorRes
         mEditText.setHintTextColor(color);
     }
@@ -413,7 +407,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         mAnimationDuration = animationDuration;
     }
 
-    @SuppressWarnings("WeakerAccess")
     public void setShadow(boolean shadow) {
         if (shadow) {
             mShadowView.setVisibility(View.VISIBLE);
@@ -452,10 +445,12 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
 
     // ---------------------------------------------------------------------------------------------
     public void setQuery(CharSequence query) {
-        mEditText.setText(query);
         if (query != null) {
+            mEditText.setText(query);
             mEditText.setSelection(mEditText.length());
             mUserQuery = query;
+        } else {
+            mEditText.getText().clear();
         }
         if (!TextUtils.isEmpty(query)) {
             onSubmitQuery();
@@ -562,7 +557,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         mOldQueryText = newText.toString();
     }
 
-    @SuppressWarnings("SameParameterValue")
     public void open(boolean animate) {
         if (mVersion == VERSION_MENU_ITEM) {
             setVisibility(View.VISIBLE);
@@ -600,11 +594,12 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
                     fadeClose(mCardView, mAnimationDuration);
                 }
             } else {
-                mCardView.setVisibility(View.GONE);
                 if (mEditText.length() > 0) {
                     mEditText.getText().clear();
                 }
                 mEditText.clearFocus();
+                mCardView.setVisibility(View.GONE);
+                setVisibility(View.GONE);
                 if (mOnOpenCloseListener != null) {
                     mOnOpenCloseListener.onClose();
                 }
@@ -651,7 +646,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         }
     }
 
-    @SuppressWarnings("SameParameterValue")
     private void setArrow(boolean animate) {
         if (mSearchArrow != null && mVersion == VERSION_TOOLBAR) {
             if (animate) {
@@ -664,7 +658,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         }
     }
 
-    @SuppressWarnings("SameParameterValue")
     private void setHamburger(boolean animate) {
         if (mSearchArrow != null && mVersion == VERSION_TOOLBAR) {
             if (animate) {
@@ -901,10 +894,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
     }
 
     public interface OnQueryTextListener {
-        @SuppressWarnings({"UnusedParameters", "UnusedReturnValue", "SameReturnValue"})
         boolean onQueryTextChange(String newText);
 
-        @SuppressWarnings("SameReturnValue")
         boolean onQueryTextSubmit(String query);
     }
 
