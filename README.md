@@ -25,7 +25,6 @@ https://bintray.com/lapism/maven/searchview/view
 Material colors in the project:  
 https://gist.github.com/lapism/3b417142300d9dbde3b4  
 Sample application on:  
-
 <a href="https://play.google.com/store/apps/details?id=com.lapism.searchview.sample">
   <img alt="Get it on Google Play"
        src="https://github.com/lapism/SearchView/blob/master/images/google-play-badge.png" />
@@ -99,8 +98,4 @@ dependencies {
         <attr name="search_shadow" format="boolean" />
         <attr name="search_shadow_color" format="boolean" />
         <attr name="search_elevation" format="dimension" />
-<<<<<<< HEAD
 ```
-=======
-```
->>>>>>> origin/master
