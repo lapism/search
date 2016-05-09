@@ -1,11 +1,6 @@
 # SearchView
 
-Next version 3.0 will be released in May/June 2016 with changes and fixes.
-
-If you want to be prepared for next release then test version 
-# 0.3
-is uploaded to jCenter. 
-It has some new features, but be aware that version has a lot of changes and still has bugs !!! Otherwise use version 2.2 (below this text).
+Next version 3.0 is released.
 
 ------------------------------------------------------------------------------------------------------------------------------
 
@@ -13,7 +8,7 @@ Because I have done firstly this library as a private project,
 I would like to know if someone of you use my library in your application. 
 If yes, please send me a name of your app and link to Play Store and I will promote your app in Readme.
 
-**Apps with this library:**
+**Apps using this library:**
 
 [Service Notes](https://play.google.com/store/apps/details?id=notes.service.com.servicenotes)  
 [Business Card Reader](https://play.google.com/store/apps/details?id=com.iac.bcreader) <br />
@@ -33,14 +28,14 @@ Sample application on:
 
 <a href="https://play.google.com/store/apps/details?id=com.lapism.searchview.sample">
   <img alt="Get it on Google Play"
-       src="https://github.com/lapism/SearchView/blob/master/images/google_play.png" />
+       src="https://github.com/lapism/SearchView/blob/master/images/google-play-badge.png" />
 </a>
 
 # Usage
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-        compile 'com.lapism:searchview:2.2'
+        compile 'com.lapism:searchview:3.0'
         }
 ```
 
@@ -76,15 +71,32 @@ dependencies {
 ```
 
 **Styling SearchView:**
-```
-app:search_version = "toolbar / menu_item"
-app:search_style = "toolbar_classic / menu_item_classic / menu_item_color"
-app:search_theme = "light / dark"
-app:search_divider = "true / false"
-app:search_hint = "Hint text"
-app:search_hint_size = "16sp"
-app:search_voice = "true / false"
-app:search_voice_text = "Voice text"
-app:search_animation_duration = "360"
-app:search_shadow_color = "#80000000"
+```xml
+        <attr name="search_version" format="enum">
+            <enum name="toolbar" value="1000" />
+            <enum name="menu_item" value="1001" />
+        </attr>
+        <attr name="search_version_margins" format="enum">
+            <enum name="toolbar_small" value="2000" />
+            <enum name="toolbar_big" value="2001" />
+            <enum name="menu_item" value="2002" />
+        </attr>
+        <attr name="search_theme" format="enum">
+            <enum name="light" value="3000" />
+            <enum name="dark" value="3001" />
+        </attr>
+        <attr name="search_icon_color" format="color" />
+        <attr name="search_background_color" format="color" />
+        <attr name="search_text" format="string" />
+        <attr name="search_text_color" format="color" />
+        <attr name="search_text_size" format="dimension" />
+        <attr name="search_hint" format="string" />
+        <attr name="search_hint_color" format="color" />
+        <attr name="search_divider" format="boolean" />
+        <attr name="search_voice" format="boolean" />
+        <attr name="search_voice_text" format="string" />
+        <attr name="search_animation_duration" format="integer" />
+        <attr name="search_shadow" format="boolean" />
+        <attr name="search_shadow_color" format="boolean" />
+        <attr name="search_elevation" format="dimension" />
 ```
