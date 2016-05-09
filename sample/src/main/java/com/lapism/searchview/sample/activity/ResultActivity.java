@@ -41,7 +41,7 @@ public class ResultActivity extends BaseActivity {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
             finish();
-            // NAVUTILS
+            // NAV UTILS
         }
     }
 
