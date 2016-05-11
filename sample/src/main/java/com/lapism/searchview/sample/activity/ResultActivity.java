@@ -22,7 +22,8 @@ public class ResultActivity extends BaseActivity {
 
         // -----------------------------------------------------------------------------------------
         setSearchView();
-        // mSearchView.setArrow(); // TODO ARROW / HAMBURGER / BEHAVIOR / SingleTask / icon, CLOSE KEY AND VIEW BOTH SAME TIME
+        // mSearchView.setShadow(false);
+        // mSearchView.setArrow();
         mSearchView.setText(R.string.search);
         mSearchView.setOnMenuClickListener(new SearchView.OnMenuClickListener() {
             @Override

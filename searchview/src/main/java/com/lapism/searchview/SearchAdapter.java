@@ -19,8 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+// TODO ARROW / HAMBURGER / BEHAVIOR / SingleTask / icon, CLOSE KEY AND VIEW BOTH SAME TIME
 // TODO file:///E:/Android/SearchView/sample/build/outputs/lint-results-debug.html
 // TODO file:///E:/Android/SearchView/searchview/build/outputs/lint-results-debug.html
+// TODO voice click result
+// TODO E/RecyclerView: No adapter attached; skipping layout
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
     private final SearchHistoryTable mHistoryDatabase;
@@ -117,7 +120,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             viewHolder.text.setText(item.get_text());
         }
 
-        /*else {   TODO voice click result E/RecyclerView: No adapter attached; skipping layout
+        /*else {
             s.removeSpan(new ForegroundColorSpan(SearchView.getTextColor()));
             viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
         }*/

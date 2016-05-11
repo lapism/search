@@ -163,7 +163,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setVisibility(View.GONE);//TODO INVISIBLE
+        mRecyclerView.setVisibility(View.GONE); // TODO INVISIBLE
 
         mDividerView = findViewById(R.id.view_divider);
         mDividerView.setVisibility(View.GONE);
@@ -797,7 +797,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
             float initialRadius = (float) Math.hypot(cx, cy);
 
             Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, initialRadius, 0.0f);
-            anim.setInterpolator(new AccelerateDecelerateInterpolator()); // todo
+            anim.setInterpolator(new AccelerateDecelerateInterpolator());
             anim.setDuration(duration);
             anim.addListener(new AnimatorListenerAdapter() {
                 @Override
@@ -848,7 +848,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                // TODO
+                // TODO same as REVEAL
             }
 
             @Override
