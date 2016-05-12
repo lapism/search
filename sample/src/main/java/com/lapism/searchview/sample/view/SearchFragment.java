@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +39,7 @@ public class SearchFragment extends Fragment {
 
     public static class SimpleStringRecyclerViewAdapter extends RecyclerView.Adapter<SimpleStringRecyclerViewAdapter.ViewHolder> {
 
-        private final TypedValue mTypedValue = new TypedValue();
+        // private final TypedValue mTypedValue = new TypedValue();
         private final List<String> mValues;
 
         public SimpleStringRecyclerViewAdapter(Context context, List<String> items) {

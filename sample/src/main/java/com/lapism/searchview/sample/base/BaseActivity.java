@@ -41,9 +41,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     protected SearchView mSearchView = null;
     protected DrawerLayout mDrawerLayout = null;
-    protected FloatingActionButton mFab = null;
     protected Toolbar mToolbar = null;
 
+    private FloatingActionButton mFab = null;
     private SearchHistoryTable mHistoryDatabase;
 
     // ---------------------------------------------------------------------------------------------

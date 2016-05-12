@@ -424,7 +424,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
 
     @Override
     public void setElevation(float elevation) {
+        mCardView.setMaxCardElevation(elevation);
         mCardView.setCardElevation(elevation);
+        invalidate();
     }
 
     @SuppressWarnings("unused")
