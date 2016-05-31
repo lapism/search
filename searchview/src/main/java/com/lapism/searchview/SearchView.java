@@ -669,13 +669,17 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
     }
 
     private void showKeyboard() {
-        InputMethodManager imm = (InputMethodManager) mEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(mEditText, 0);
+        if (!isInEditMode()) {
+            InputMethodManager imm = (InputMethodManager) mEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(mEditText, 0);
+        }
     }
 
     private void hideKeyboard() {
-        InputMethodManager imm = (InputMethodManager) mEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
+        if (!isInEditMode()) {
+            InputMethodManager imm = (InputMethodManager) mEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
