@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-// TODO ARROW / HAMBURGER / BEHAVIOR / SingleTask / icon, CLOSE KEY AND VIEW BOTH SAME TIME
+// TODO ARROW / HAMBURGER / BEHAVIOR / SingleTask / icon, CLOSE KEY AND VIEW BOTH SAME TIME, DIVIDER A ARROW RUSIT
 // TODO file:///E:/Android/SearchView/sample/build/outputs/lint-results-debug.html
 // TODO file:///E:/Android/SearchView/searchview/build/outputs/lint-results-debug.html
 // TODO voice click result
@@ -36,8 +36,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public SearchAdapter(Context context, List<SearchItem> suggestionsList) {
         mSuggestionsList = suggestionsList;
         mHistoryDatabase = new SearchHistoryTable(context);
-        // mResultList = mHistoryDatabase.getAllItems();
     }
+
+    // set get list
 
     @Override
     public int getItemViewType(int position) {
@@ -56,7 +57,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
                     List<SearchItem> results = new ArrayList<>();
                     List<SearchItem> history = new ArrayList<>();
-                    history.addAll(mHistoryDatabase.getAllItems());
+                    if (!mHistoryDatabase.getAllItems().isEmpty()) {
+                        history.addAll(mHistoryDatabase.getAllItems());
+                    }
                     history.addAll(mSuggestionsList);
 
                     for (SearchItem str : history) {
@@ -66,8 +69,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                         }
                     }
 
-                    filterResults.values = results;
-                    filterResults.count = results.size();
+                    if (results.size() > 0) {
+                        filterResults.values = results;
+                        filterResults.count = results.size();
+                    }
                 } else {
                     key = " ";
                 }
@@ -77,17 +82,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
+                mResultList.clear();
+
                 if (results.values != null) {
-                    mResultList.clear();
-                    List<?> result = (List<?>) results.values;
+                    List<?> result = (ArrayList<?>) results.values;
                     for (Object object : result) {
                         if (object instanceof SearchItem) {
                             mResultList.add((SearchItem) object);
                         }
                     }
                 } else {
-                    mResultList.clear();
-                    mResultList = mHistoryDatabase.getAllItems();
+                    if (!mHistoryDatabase.getAllItems().isEmpty()) {
+                        mResultList = mHistoryDatabase.getAllItems();
+                    }
                 }
 
                 notifyDataSetChanged();

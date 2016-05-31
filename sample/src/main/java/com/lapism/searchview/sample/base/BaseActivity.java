@@ -263,7 +263,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                     getData(query, position);
                 }
             });
-
             mSearchView.setAdapter(searchAdapter);
         }
     }

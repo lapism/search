@@ -59,6 +59,7 @@
                     <requestFocus />
                 </EditText>
                 <!--
+                                android:background="?android:attr/listDivider"
                  app:cardUseCompatPadding="true"
                  android:hint="Search"
                  android:imeOptions="actionSearch|flagNoFullscreen"
@@ -88,7 +89,7 @@
                 android:id="@+id/view_divider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/search_divider"
-                android:background="?android:attr/listDivider"
+                android:background="@android:color/holo_red_dark"
                 android:gravity="start|center_vertical" />
 
             <android.support.v7.widget.RecyclerView

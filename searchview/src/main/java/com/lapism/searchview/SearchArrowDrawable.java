@@ -56,7 +56,7 @@ public class SearchArrowDrawable extends Drawable {
         mPaint.setStrokeCap(Paint.Cap.BUTT);
         mPaint.setAntiAlias(true);
         mPaint.setStrokeWidth(mBarThickness);
-        mPaint.setColor(ContextCompat.getColor(context, R.color.search_light_icon));
+        mPaint.setColor(ContextCompat.getColor(context, android.R.color.black));
 
         mMaxCutForBarSize = (float) (mBarThickness / 2 * Math.cos(ARROW_HEAD_ANGLE));
         mSpin = true;
