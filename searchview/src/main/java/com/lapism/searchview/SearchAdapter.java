@@ -33,12 +33,22 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     private OnItemClickListener mItemClickListener;
 
+    public SearchAdapter(Context context) {// getcontext
+        mHistoryDatabase = new SearchHistoryTable(context);
+    }
+
     public SearchAdapter(Context context, List<SearchItem> suggestionsList) {
         mSuggestionsList = suggestionsList;
         mHistoryDatabase = new SearchHistoryTable(context);
     }
 
-    // set get list
+    public void setSuggestionsList(List<SearchItem> suggestionsList) {
+        mSuggestionsList = suggestionsList;
+    }
+
+    public List<SearchItem> getSuggestionsList() {
+        return mSuggestionsList;
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -126,11 +136,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         } else {
             viewHolder.text.setText(item.get_text());
         }
-
-        /*else {
-            s.removeSpan(new ForegroundColorSpan(SearchView.getTextColor()));
-            viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
-        }*/
     }
 
     @Override
@@ -167,3 +172,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     }
 
 }
+
+        /*else {
+            s.removeSpan(new ForegroundColorSpan(SearchView.getTextColor()));
+            viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
+        }*/
