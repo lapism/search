@@ -29,7 +29,7 @@
         android:layout_marginStart="@dimen/search_item_margin_text"
         android:layout_weight="1"
         android:gravity="start|center_vertical"
-        android:singleLine="true"
+        android:maxLines="1"
         android:textSize="@dimen/search_text_small" />
 
     <ImageView

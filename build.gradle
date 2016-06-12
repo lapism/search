@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.android.tools.build:gradle:2.2.0-alpha3'
     }
 }
 
@@ -19,3 +19,6 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+// Java SE Development Kit 8u92
+// gradlew wrapper --gradle-version=2.14-rc-6

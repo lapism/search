@@ -26,6 +26,7 @@ public class SearchItem implements Parcelable {
         this(R.drawable.search_ic_search_black_24dp, text);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public SearchItem(int icon, CharSequence text) {
         this.icon = icon;
         this.text = text;

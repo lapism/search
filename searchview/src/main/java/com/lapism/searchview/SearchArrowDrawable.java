@@ -18,11 +18,11 @@ import android.support.v4.view.ViewCompat;
 import android.util.Property;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
+// from AppCompat
+class SearchArrowDrawable extends Drawable {
 
-public class SearchArrowDrawable extends Drawable {
-
-    public static final float STATE_ARROW = 0.0f;
-    public static final float STATE_HAMBURGER = 1.0f;
+    static final float STATE_ARROW = 0.0f;
+    static final float STATE_HAMBURGER = 1.0f;
 
     private static final float ARROW_HEAD_ANGLE = (float) Math.toRadians(45.0);
     private static final Property<SearchArrowDrawable, Float> PROGRESS = new Property<SearchArrowDrawable, Float>(Float.class, "progress") {
@@ -48,7 +48,7 @@ public class SearchArrowDrawable extends Drawable {
     private float mProgress;
     private boolean mVerticalMirror = false;
 
-    public SearchArrowDrawable(Context context) {
+    SearchArrowDrawable(Context context) {
         float mBarThickness = context.getResources().getDimension(R.dimen.arrow_thickness);
 
         mPaint.setStyle(Paint.Style.STROKE);
@@ -135,6 +135,7 @@ public class SearchArrowDrawable extends Drawable {
         }
     }
 
+    @SuppressWarnings("unused")
     public void setColor(@ColorInt int color) {
         if (color != mPaint.getColor()) {
             mPaint.setColor(color);

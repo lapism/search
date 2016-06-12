@@ -25,7 +25,6 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingTop="@dimen/key_line_16"
-        android:singleLine="true"
         android:text="@string/app_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -34,7 +33,6 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        android:singleLine="true"
         android:text="@string/version" />
 
 </LinearLayout>

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-// TODO ARROW / HAMBURGER / BEHAVIOR / SingleTask / icon, CLOSE KEY AND VIEW BOTH SAME TIME, DIVIDER A ARROW RUSIT
+// TODO ARROW / HAMBURGER / BEHAVIOR / SingleTask / icon, DIVIDER A ARROW CANCEL
 // TODO file:///E:/Android/SearchView/sample/build/outputs/lint-results-debug.html
 // TODO file:///E:/Android/SearchView/searchview/build/outputs/lint-results-debug.html
 // TODO voice click result
@@ -33,7 +33,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     private OnItemClickListener mItemClickListener;
 
-    public SearchAdapter(Context context) {// getcontext
+    @SuppressWarnings("unused")
+    public SearchAdapter(Context context) {// getContext();
         mHistoryDatabase = new SearchHistoryTable(context);
     }
 
@@ -42,12 +43,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         mHistoryDatabase = new SearchHistoryTable(context);
     }
 
-    public void setSuggestionsList(List<SearchItem> suggestionsList) {
-        mSuggestionsList = suggestionsList;
-    }
-
+    @SuppressWarnings("unused")
     public List<SearchItem> getSuggestionsList() {
         return mSuggestionsList;
+    }
+
+    @SuppressWarnings("unused")
+    public void setSuggestionsList(List<SearchItem> suggestionsList) {
+        mSuggestionsList = suggestionsList;
     }
 
     @Override
@@ -173,7 +176,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
 }
 
-        /*else {
+/*else {
             s.removeSpan(new ForegroundColorSpan(SearchView.getTextColor()));
             viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
-        }*/
+}*/

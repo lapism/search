@@ -48,6 +48,7 @@ public class ToolbarActivity extends BaseActivity {
         customSearchView();
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void perm(String permission, int permission_request) {
         if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
             if (!ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
@@ -67,6 +68,7 @@ public class ToolbarActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case 0:
+                //noinspection StatementWithEmptyBody
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 } else {
                 }

@@ -2,6 +2,5 @@
 <resources>
 
     <string name="search_content_description">Content Description</string>
-    <string name="search_view_behavior">Behavior</string>
 
 </resources>

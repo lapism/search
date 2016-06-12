@@ -1,6 +1,5 @@
 package com.lapism.searchview.sample.view;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,7 +32,7 @@ public class SearchFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_page, container, false);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        recyclerView.setAdapter(new SimpleStringRecyclerViewAdapter(getActivity(), list));
+        recyclerView.setAdapter(new SimpleStringRecyclerViewAdapter(list)); // getActivity();
         return recyclerView;
     }
 
@@ -42,7 +41,7 @@ public class SearchFragment extends Fragment {
         // private final TypedValue mTypedValue = new TypedValue();
         private final List<String> mValues;
 
-        public SimpleStringRecyclerViewAdapter(Context context, List<String> items) {
+        public SimpleStringRecyclerViewAdapter(List<String> items) {
             // context.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
             // mBackground = mTypedValue.resourceId;
             mValues = items;

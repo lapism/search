@@ -6,6 +6,6 @@
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:supportsRtl="true" />
+        android:supportsRtl="false" />
 
 </manifest>

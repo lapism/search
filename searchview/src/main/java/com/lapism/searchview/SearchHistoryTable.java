@@ -87,6 +87,7 @@ public class SearchHistoryTable {
         db.close();
     }
 
+    @SuppressWarnings("unused")
     public int getItemsCount() {
         db = dbHelper.getReadableDatabase();
         String countQuery = "SELECT * FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE;

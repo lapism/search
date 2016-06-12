@@ -153,28 +153,30 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     private void setDrawer() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() { // new DrawerLayout.DrawerListener();
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                invalidateOptionsMenu();
-                if (mSearchView != null && mSearchView.isSearchOpen()) {
-                    mSearchView.close(true);
+        if (mDrawerLayout != null) {
+            mDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() { // new DrawerLayout.DrawerListener();
+                @Override
+                public void onDrawerOpened(View drawerView) {
+                    super.onDrawerOpened(drawerView);
+                    invalidateOptionsMenu();
+                    if (mSearchView != null && mSearchView.isSearchOpen()) {
+                        mSearchView.close(true);
+                    }
+                    if (mFab != null) {
+                        mFab.hide();
+                    }
                 }
-                if (mFab != null) {
-                    mFab.hide();
-                }
-            }
 
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-                invalidateOptionsMenu();
-                if (mFab != null) {
-                    mFab.show();
+                @Override
+                public void onDrawerClosed(View drawerView) {
+                    super.onDrawerClosed(drawerView);
+                    invalidateOptionsMenu();
+                    if (mFab != null) {
+                        mFab.show();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     private void setNavigationView() {

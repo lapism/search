@@ -37,8 +37,8 @@
                     android:layout_height="@dimen/search_icon"
                     android:contentDescription="@string/search_content_description" />
 
-                <EditText
-                    android:id="@+id/editText_input"
+                <com.lapism.searchview.SearchEditText
+                    android:id="@+id/searchEditText_input"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center_vertical"
@@ -52,14 +52,15 @@
                     android:gravity="start|center_vertical"
                     android:imeOptions="actionSearch|flagNoExtractUi"
                     android:inputType="textNoSuggestions"
-                    android:singleLine="true"
+                    android:maxLines="1"
                     android:textSize="@dimen/search_text_medium"
                     android:windowSoftInputMode="stateAlwaysHidden">
 
                     <requestFocus />
-                </EditText>
+                </com.lapism.searchview.SearchEditText>
                 <!--
-                                android:background="?android:attr/listDivider"
+                 android:background="?android:attr/listDivider"
+
                  app:cardUseCompatPadding="true"
                  android:hint="Search"
                  android:imeOptions="actionSearch|flagNoFullscreen"
