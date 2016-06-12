@@ -18,14 +18,14 @@ class SearchAnimator {
     private final SearchView mSearchView;
     private final SearchView.OnOpenCloseListener mOnOpenCloseListener;
 
-    public SearchAnimator(Context context, SearchEditText editText, SearchView searchView, SearchView.OnOpenCloseListener listener) {
+    SearchAnimator(Context context, SearchEditText editText, SearchView searchView, SearchView.OnOpenCloseListener listener) {
         mContext = context;
         mEditText = editText;
         mSearchView = searchView;
         mOnOpenCloseListener = listener;
     }
 
-    public static void fadeIn(View view, int duration) {
+    static void fadeIn(View view, int duration) {
         Animation anim = new AlphaAnimation(0.0f, 1.0f);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(duration);
@@ -34,7 +34,7 @@ class SearchAnimator {
         view.setVisibility(View.VISIBLE);
     }
 
-    public static void fadeOut(View view, int duration) {
+    static void fadeOut(View view, int duration) {
         Animation anim = new AlphaAnimation(1.0f, 0.0f);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(duration);
@@ -44,7 +44,7 @@ class SearchAnimator {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public void revealOpen(View view, int duration) {
+    void revealOpen(View view, int duration) {
 
         int cx = view.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.search_reveal);
         int cy = mContext.getResources().getDimensionPixelSize(R.dimen.search_height) / 2;
@@ -88,7 +88,7 @@ class SearchAnimator {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public void revealClose(final View view, int duration) {
+    void revealClose(final View view, int duration) {
 
         int cx = view.getWidth() - mContext.getResources().getDimensionPixelSize(R.dimen.search_reveal);
         int cy = mContext.getResources().getDimensionPixelSize(R.dimen.search_height) / 2;
@@ -131,7 +131,7 @@ class SearchAnimator {
         }
     }
 
-    public void fadeOpen(View view, int duration) {
+    void fadeOpen(View view, int duration) {
         Animation anim = new AlphaAnimation(0.0f, 1.0f);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(duration);
@@ -160,7 +160,7 @@ class SearchAnimator {
         view.setVisibility(View.VISIBLE);
     }
 
-    public void fadeClose(final View view, int duration) {
+    void fadeClose(final View view, int duration) {
         Animation anim = new AlphaAnimation(1.0f, 0.0f);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(duration);

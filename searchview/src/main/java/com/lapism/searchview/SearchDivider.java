@@ -16,7 +16,7 @@ class SearchDivider extends RecyclerView.ItemDecoration {
     private int dividerHeight;
     private int dividerWidth;
 
-    public SearchDivider(Context context) {
+    SearchDivider(Context context) {
         final TypedArray a = context.obtainStyledAttributes(null, new int[]{android.R.attr.listDivider});
         setDivider(a.getDrawable(0));
         a.recycle();

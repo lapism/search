@@ -19,7 +19,7 @@ public class SearchItem implements Parcelable {
     private int icon;
     private CharSequence text;
 
-    public SearchItem() {
+    SearchItem() {
     }
 
     public SearchItem(CharSequence text) {
@@ -37,19 +37,19 @@ public class SearchItem implements Parcelable {
         this.text = in.readParcelable(CharSequence.class.getClassLoader());
     }
 
-    public int get_icon() {
+    int get_icon() {
         return this.icon;
     }
 
-    public void set_icon(int icon) {
+    void set_icon(int icon) {
         this.icon = icon;
     }
 
-    public CharSequence get_text() {
+    CharSequence get_text() {
         return this.text;
     }
 
-    public void set_text(CharSequence text) {
+    void set_text(CharSequence text) {
         this.text = text;
     }
 

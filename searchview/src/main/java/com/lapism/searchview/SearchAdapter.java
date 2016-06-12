@@ -154,12 +154,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         void onItemClick(View view, int position);
     }
 
-    public class ResultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ResultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public final ImageView icon_left;
-        public final TextView text;
+        final ImageView icon_left;
+        final TextView text;
 
-        public ResultViewHolder(View view) {
+        ResultViewHolder(View view) {
             super(view);
             icon_left = (ImageView) view.findViewById(R.id.imageView_item_icon_left);
             text = (TextView) view.findViewById(R.id.textView_item_text);

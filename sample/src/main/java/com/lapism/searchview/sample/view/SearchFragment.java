@@ -36,12 +36,12 @@ public class SearchFragment extends Fragment {
         return recyclerView;
     }
 
-    public static class SimpleStringRecyclerViewAdapter extends RecyclerView.Adapter<SimpleStringRecyclerViewAdapter.ViewHolder> {
+    static class SimpleStringRecyclerViewAdapter extends RecyclerView.Adapter<SimpleStringRecyclerViewAdapter.ViewHolder> {
 
         // private final TypedValue mTypedValue = new TypedValue();
         private final List<String> mValues;
 
-        public SimpleStringRecyclerViewAdapter(List<String> items) {
+        SimpleStringRecyclerViewAdapter(List<String> items) {
             // context.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
             // mBackground = mTypedValue.resourceId;
             mValues = items;
@@ -63,11 +63,11 @@ public class SearchFragment extends Fragment {
             return mValues.size();
         }
 
-        public static class ViewHolder extends RecyclerView.ViewHolder {
+        static class ViewHolder extends RecyclerView.ViewHolder {
 
-            public final TextView mTextView;
+            final TextView mTextView;
 
-            public ViewHolder(View view) {
+            ViewHolder(View view) {
                 super(view);
                 mTextView = (TextView) view.findViewById(R.id.text);
             }

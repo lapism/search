@@ -113,7 +113,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
     }
 
     // ---------------------------------------------------------------------------------------------
-    public static int getIconColor() {
+    static int getIconColor() {
         return mIconColor;
     }
 
@@ -140,7 +140,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         mEditText.setTextColor(mTextColor);
     }
 
-    public static int getTextHighlightColor() {
+    static int getTextHighlightColor() {
         return mTextHighlightColor;
     }
 

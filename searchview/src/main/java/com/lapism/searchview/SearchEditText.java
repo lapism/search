@@ -22,7 +22,7 @@ public class SearchEditText extends AppCompatEditText {
         super(context, attrs, defStyleAttr);
     }
 
-    public void setSearchView(SearchView searchView) {
+    void setSearchView(SearchView searchView) {
         mSearchView = searchView;
     }
 

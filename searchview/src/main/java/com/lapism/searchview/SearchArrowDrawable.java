@@ -113,14 +113,14 @@ class SearchArrowDrawable extends Drawable {
         return mProgress;
     }
 
-    public void setProgress(@FloatRange(from = STATE_ARROW, to = STATE_HAMBURGER) float progress) {
+    void setProgress(@FloatRange(from = STATE_ARROW, to = STATE_HAMBURGER) float progress) {
         if (mProgress != progress) {
             mProgress = progress;
             invalidateSelf();
         }
     }
 
-    public void setVerticalMirror(boolean verticalMirror) {
+    void setVerticalMirror(boolean verticalMirror) {
         if (mVerticalMirror != verticalMirror) {
             mVerticalMirror = verticalMirror;
             invalidateSelf();
@@ -164,7 +164,7 @@ class SearchArrowDrawable extends Drawable {
         return mSize;
     }
 
-    public void animate(float state, int duration) {
+    void animate(float state, int duration) {
         ObjectAnimator anim;
         if (state == STATE_ARROW) {
             anim = ObjectAnimator.ofFloat(this, PROGRESS, state, STATE_HAMBURGER);
