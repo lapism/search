@@ -3,7 +3,7 @@
 
     <color name="search_shadow_layout">#50000000</color>
 
-    <!-- Light Theme @android:color/transparent -->
+    <!-- Light Theme -->
     <color name="search_light_background">#fffafafa</color>
     <color name="search_light_icon">#8a000000</color>
     <color name="search_light_text">#de000000</color>
