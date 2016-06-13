@@ -19,10 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-// TODO ARROW / HAMBURGER / BEHAVIOR / SingleTask / icon, DIVIDER A ARROW CANCEL
 // TODO file:///E:/Android/SearchView/sample/build/outputs/lint-results-debug.html
 // TODO file:///E:/Android/SearchView/searchview/build/outputs/lint-results-debug.html
+// adapter bug divider, onOpen, onClose nefunguje, LTR, IKONKA
 // TODO voice click result
+// TODO ARROW / HAMBURGER / BEHAVIOR / SingleTask / icon, DIVIDER A ARROW CANCEL
 // TODO E/RecyclerView: No adapter attached; skipping layout
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
