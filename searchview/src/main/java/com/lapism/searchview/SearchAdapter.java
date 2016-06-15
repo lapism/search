@@ -21,18 +21,23 @@ import java.util.Locale;
 
 // TODO file:///E:/Android/SearchView/sample/build/outputs/lint-results-debug.html
 // TODO file:///E:/Android/SearchView/searchview/build/outputs/lint-results-debug.html
-// adapter bug divider, onOpen, onClose nefunguje, LTR, IKONKA
 // TODO voice click result
-// TODO ARROW / HAMBURGER / BEHAVIOR / SingleTask / icon, DIVIDER A ARROW CANCEL
-// TODO E/RecyclerView: No adapter attached; skipping layout
+// TODO ARROW / HAMBURGER / BEHAVIOR / SingleTask / DIVIDER BUG
+// TODO E/RecyclerView: No adapter attached; skipping layout when search
+// W/IInputConnectionWrapper: getTextBeforeCursor on inactive InputConnection
+    /*
+    I'm using your SearchView library (thanks btw)
+    and it seems to have a problem on filters with no results.
+    When i type texts that don't have a match in the history, all of it is displayed as suggestions.
+    */
+@SuppressWarnings("WeakerAccess")
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
-    private final SearchHistoryTable mHistoryDatabase;
-    private String key = " ";
-    private List<SearchItem> mResultList = new ArrayList<>();
-    private List<SearchItem> mSuggestionsList = new ArrayList<>();
-
-    private OnItemClickListener mItemClickListener;
+    protected final SearchHistoryTable mHistoryDatabase;
+    protected String key = " ";
+    protected List<SearchItem> mResultList = new ArrayList<>();
+    protected List<SearchItem> mSuggestionsList = new ArrayList<>();
+    protected OnItemClickListener mItemClickListener;
 
     @SuppressWarnings("unused")
     public SearchAdapter(Context context) {// getContext();

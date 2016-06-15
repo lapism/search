@@ -34,13 +34,13 @@
                 <ImageView
                     android:id="@+id/imageView_arrow_back"
                     android:layout_width="@dimen/search_icon"
-                    android:layout_height="@dimen/search_icon"
+                    android:layout_height="match_parent"
                     android:contentDescription="@string/search_content_description" />
 
                 <com.lapism.searchview.SearchEditText
                     android:id="@+id/searchEditText_input"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="start|center_vertical"
                     android:layout_marginEnd="@dimen/search_view_margin_text"
                     android:layout_marginLeft="@dimen/search_view_margin_text"
@@ -73,13 +73,13 @@
                     <ImageView
                         android:id="@+id/imageView_mic"
                         android:layout_width="@dimen/search_icon"
-                        android:layout_height="@dimen/search_icon"
+                        android:layout_height="match_parent"
                         android:contentDescription="@string/search_content_description" />
 
                     <ImageView
                         android:id="@+id/imageView_clear"
                         android:layout_width="@dimen/search_icon"
-                        android:layout_height="@dimen/search_icon"
+                        android:layout_height="match_parent"
                         android:contentDescription="@string/search_content_description" />
 
                 </FrameLayout>

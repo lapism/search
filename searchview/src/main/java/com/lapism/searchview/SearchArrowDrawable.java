@@ -11,20 +11,29 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
-import android.support.annotation.Nullable;
+import android.support.annotation.IntDef;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewCompat;
 import android.util.Property;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 // from AppCompat
 class SearchArrowDrawable extends Drawable {
+
+    @SuppressWarnings("WeakerAccess")
+    static final int ARROW_DIRECTION_LEFT = 0;
+    @SuppressWarnings("WeakerAccess")
+    static final int ARROW_DIRECTION_RIGHT = 1;
+    static final int ARROW_DIRECTION_START = 2;
+    static final int ARROW_DIRECTION_END = 3;
 
     static final float STATE_ARROW = 0.0f;
     static final float STATE_HAMBURGER = 1.0f;
 
-    private static final float ARROW_HEAD_ANGLE = (float) Math.toRadians(45.0);
     private static final Property<SearchArrowDrawable, Float> PROGRESS = new Property<SearchArrowDrawable, Float>(Float.class, "progress") {
         @Override
         public void set(SearchArrowDrawable object, Float value) {
@@ -36,55 +45,182 @@ class SearchArrowDrawable extends Drawable {
             return object.getProgress();
         }
     };
-    private final Paint mPaint = new Paint();
+    private static final float ARROW_HEAD_ANGLE = (float) Math.toRadians(45);
+    private final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Path mPath = new Path();
-    private final float mBarGap;
     private final int mSize;
-    private final float mBarLength;
-    private final float mArrowShaftLength;
-    private final float mArrowHeadLength;
-    private final float mMaxCutForBarSize;
-    private final boolean mSpin;
-    private float mProgress;
+    private float mArrowHeadLength;
+    private float mBarLength;
+    private float mArrowShaftLength;
+    private float mBarGap;
+    private boolean mSpin;
     private boolean mVerticalMirror = false;
+    private float mProgress;
+    private float mMaxCutForBarSize;
+    private int mDirection = ARROW_DIRECTION_START;
 
     SearchArrowDrawable(Context context) {
-        float mBarThickness = context.getResources().getDimension(R.dimen.arrow_thickness);
-
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.MITER);
         mPaint.setStrokeCap(Paint.Cap.BUTT);
         mPaint.setAntiAlias(true);
-        mPaint.setStrokeWidth(mBarThickness);
-        mPaint.setColor(ContextCompat.getColor(context, android.R.color.black));
-
-        mMaxCutForBarSize = (float) (mBarThickness / 2 * Math.cos(ARROW_HEAD_ANGLE));
-        mSpin = true;
-        mBarGap = Math.round(context.getResources().getDimension(R.dimen.arrow_gapBetweenBars));
-        mSize = context.getResources().getDimensionPixelSize(R.dimen.arrow_drawableSize);
-        mBarLength = Math.round(context.getResources().getDimension(R.dimen.arrow_barLength));
-        mArrowHeadLength = Math.round(context.getResources().getDimension(R.dimen.arrow_arrowHeadLength));
-        mArrowShaftLength = context.getResources().getDimension(R.dimen.arrow_arrowShaftLength);
+        setColor(ContextCompat.getColor(context, android.R.color.black));
+        setBarThickness(context.getResources().getDimension(com.lapism.searchview.R.dimen.arrow_thickness));
+        setSpinEnabled(true);
+        setGapSize(Math.round(context.getResources().getDimension(com.lapism.searchview.R.dimen.arrow_gapBetweenBars)));
+        mSize = context.getResources().getDimensionPixelSize(com.lapism.searchview.R.dimen.arrow_drawableSize);
+        mBarLength = Math.round(context.getResources().getDimension(com.lapism.searchview.R.dimen.arrow_barLength));
+        mArrowHeadLength = Math.round(context.getResources().getDimension(com.lapism.searchview.R.dimen.arrow_arrowHeadLength));
+        mArrowShaftLength = context.getResources().getDimension(com.lapism.searchview.R.dimen.arrow_arrowShaftLength);
     }
 
-    private static float match(float a, float b, float t) {
+    private static float lerp(float a, float b, float t) {
         return a + (b - a) * t;
+    }
+
+    @SuppressWarnings("unused")
+    public float getArrowHeadLength() {
+        return mArrowHeadLength;
+    }
+
+    @SuppressWarnings("unused")
+    public void setArrowHeadLength(float length) {
+        if (mArrowHeadLength != length) {
+            mArrowHeadLength = length;
+            invalidateSelf();
+        }
+    }
+
+    @SuppressWarnings("unused")
+    public float getArrowShaftLength() {
+        return mArrowShaftLength;
+    }
+
+    @SuppressWarnings("unused")
+    public void setArrowShaftLength(float length) {
+        if (mArrowShaftLength != length) {
+            mArrowShaftLength = length;
+            invalidateSelf();
+        }
+    }
+
+    @SuppressWarnings("unused")
+    public float getBarLength() {
+        return mBarLength;
+    }
+
+    @SuppressWarnings("unused")
+    public void setBarLength(float length) {
+        if (mBarLength != length) {
+            mBarLength = length;
+            invalidateSelf();
+        }
+    }
+
+    @SuppressWarnings("unused")
+    @ColorInt
+    public int getColor() {
+        return mPaint.getColor();
+    }
+
+    private void setColor(@ColorInt int color) {
+        if (color != mPaint.getColor()) {
+            mPaint.setColor(color);
+            invalidateSelf();
+        }
+    }
+
+    @SuppressWarnings("unused")
+    public float getBarThickness() {
+        return mPaint.getStrokeWidth();
+    }
+
+    private void setBarThickness(float width) {
+        if (mPaint.getStrokeWidth() != width) {
+            mPaint.setStrokeWidth(width);
+            mMaxCutForBarSize = (float) (width / 2 * Math.cos(ARROW_HEAD_ANGLE));
+            invalidateSelf();
+        }
+    }
+
+    @SuppressWarnings("unused")
+    public float getGapSize() {
+        return mBarGap;
+    }
+
+    private void setGapSize(float gap) {
+        if (gap != mBarGap) {
+            mBarGap = gap;
+            invalidateSelf();
+        }
+    }
+
+    @SuppressWarnings("unused")
+    public boolean isSpinEnabled() {
+        return mSpin;
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private void setSpinEnabled(boolean enabled) {
+        if (mSpin != enabled) {
+            mSpin = enabled;
+            invalidateSelf();
+        }
+    }
+
+    @SuppressWarnings("unused")
+    @ArrowDirection
+    public int getDirection() {
+        return mDirection;
+    }
+
+    void setDirection(@ArrowDirection int direction) {
+        if (direction != mDirection) {
+            mDirection = direction;
+            invalidateSelf();
+        }
+    }
+
+    void setVerticalMirror(boolean verticalMirror) {
+        if (mVerticalMirror != verticalMirror) {
+            mVerticalMirror = verticalMirror;
+            invalidateSelf();
+        }
     }
 
     @Override
     public void draw(Canvas canvas) {
         Rect bounds = getBounds();
-        final boolean flipToPointRight = DrawableCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL;
+
+        final boolean flipToPointRight;
+        switch (mDirection) {
+            case ARROW_DIRECTION_LEFT:
+                flipToPointRight = false;
+                break;
+            case ARROW_DIRECTION_RIGHT:
+                flipToPointRight = true;
+                break;
+            case ARROW_DIRECTION_END:
+                flipToPointRight = DrawableCompat.getLayoutDirection(this)
+                        == ViewCompat.LAYOUT_DIRECTION_LTR;
+                break;
+            case ARROW_DIRECTION_START:
+            default:
+                flipToPointRight = DrawableCompat.getLayoutDirection(this)
+                        == ViewCompat.LAYOUT_DIRECTION_RTL;
+                break;
+        }
+
         float arrowHeadBarLength = (float) Math.sqrt(mArrowHeadLength * mArrowHeadLength * 2);
-        arrowHeadBarLength = match(mBarLength, arrowHeadBarLength, mProgress);
-        final float arrowShaftLength = match(mBarLength, mArrowShaftLength, mProgress);
-        final float arrowShaftCut = Math.round(match(0, mMaxCutForBarSize, mProgress));
-        final float rotation = match(0, ARROW_HEAD_ANGLE, mProgress);
-        final float canvasRotate = match(flipToPointRight ? 0 : -180, flipToPointRight ? 180 : 0, mProgress);
+        arrowHeadBarLength = lerp(mBarLength, arrowHeadBarLength, mProgress);
+        final float arrowShaftLength = lerp(mBarLength, mArrowShaftLength, mProgress);
+        final float arrowShaftCut = Math.round(lerp(0, mMaxCutForBarSize, mProgress));
+        final float rotation = lerp(0, ARROW_HEAD_ANGLE, mProgress);
+        final float canvasRotate = lerp(flipToPointRight ? 0 : -180, flipToPointRight ? 180 : 0, mProgress);
         final float arrowWidth = Math.round(arrowHeadBarLength * Math.cos(rotation));
         final float arrowHeight = Math.round(arrowHeadBarLength * Math.sin(rotation));
         mPath.rewind();
-        final float topBottomBarOffset = match(mBarGap + mPaint.getStrokeWidth(), -mMaxCutForBarSize, mProgress);
+        final float topBottomBarOffset = lerp(mBarGap + mPaint.getStrokeWidth(), -mMaxCutForBarSize, mProgress);
         final float arrowEdge = -arrowShaftLength / 2;
         mPath.moveTo(arrowEdge + arrowShaftCut, 0);
         mPath.rLineTo(arrowShaftLength - arrowShaftCut * 2, 0);
@@ -108,6 +244,35 @@ class SearchArrowDrawable extends Drawable {
         canvas.restore();
     }
 
+    @Override
+    public void setAlpha(int alpha) {
+        if (alpha != mPaint.getAlpha()) {
+            mPaint.setAlpha(alpha);
+            invalidateSelf();
+        }
+    }
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        mPaint.setColorFilter(colorFilter);
+        invalidateSelf();
+    }
+
+    @Override
+    public int getIntrinsicHeight() {
+        return mSize;
+    }
+
+    @Override
+    public int getIntrinsicWidth() {
+        return mSize;
+    }
+
+    @Override
+    public int getOpacity() {
+        return PixelFormat.TRANSLUCENT;
+    }
+
     @FloatRange(from = STATE_ARROW, to = STATE_HAMBURGER)
     private float getProgress() {
         return mProgress;
@@ -120,48 +285,9 @@ class SearchArrowDrawable extends Drawable {
         }
     }
 
-    void setVerticalMirror(boolean verticalMirror) {
-        if (mVerticalMirror != verticalMirror) {
-            mVerticalMirror = verticalMirror;
-            invalidateSelf();
-        }
-    }
-
-    @Override
-    public void setAlpha(int alpha) {
-        if (alpha != mPaint.getAlpha()) {
-            mPaint.setAlpha(alpha);
-            invalidateSelf();
-        }
-    }
-
     @SuppressWarnings("unused")
-    public void setColor(@ColorInt int color) {
-        if (color != mPaint.getColor()) {
-            mPaint.setColor(color);
-            invalidateSelf();
-        }
-    }
-
-    @Override
-    public void setColorFilter(@Nullable ColorFilter colorFilter) {
-        mPaint.setColorFilter(colorFilter);
-        invalidateSelf();
-    }
-
-    @Override
-    public int getOpacity() {
-        return PixelFormat.TRANSLUCENT;
-    }
-
-    @Override
-    public int getIntrinsicWidth() {
-        return mSize;
-    }
-
-    @Override
-    public int getIntrinsicHeight() {
-        return mSize;
+    public final Paint getPaint() {
+        return mPaint;
     }
 
     void animate(float state, int duration) {
@@ -174,6 +300,12 @@ class SearchArrowDrawable extends Drawable {
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(duration);
         anim.start();
+    }
+
+    @IntDef({ARROW_DIRECTION_LEFT, ARROW_DIRECTION_RIGHT,
+            ARROW_DIRECTION_START, ARROW_DIRECTION_END})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface ArrowDirection {
     }
 
 }

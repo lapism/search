@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.TypedArray;
@@ -16,7 +15,6 @@ import android.graphics.PorterDuffColorFilter;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
@@ -41,6 +39,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Locale;
 
 
 public class SearchView extends FrameLayout implements View.OnClickListener { // Filter.FilterListener
@@ -54,9 +53,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
     public static final int THEME_DARK = 3001;
     public static final int SPEECH_REQUEST_CODE = 4000;
     public static final int ANIMATION_DURATION = 300;
+
     private static int mIconColor = Color.BLACK;
     private static int mTextColor = Color.BLACK;
     private static int mTextHighlightColor = Color.BLACK;
+    private static CharSequence mUserQuery = " ";
     private final Context mContext;
     private OnQueryTextListener mOnQueryChangeListener = null;
     private OnOpenCloseListener mOnOpenCloseListener = null;
@@ -65,7 +66,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
     private View mShadowView;
     private View mDividerView;
     private CardView mCardView;
-    private SearchAnimator mSearchAnimator;
     private SearchEditText mEditText;
     private ImageView mBackImageView;
     private ImageView mVoiceImageView;
@@ -74,10 +74,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
     private Fragment mFragment = null;
     private android.support.v4.app.Fragment mSupportFragment = null;
 
-    private SearchAdapter mSearchAdapter;
+    private SearchAdapter mSearchAdapter = null;
+    private RecyclerView.Adapter mAdapter = null;
     private CharSequence mOldQueryText;
     private SearchArrowDrawable mSearchArrow;
-    private CharSequence mUserQuery;
 
     private String mVoiceSearchText = "Speak now";
     private int mVersion = VERSION_TOOLBAR;
@@ -149,6 +149,21 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         mTextHighlightColor = color;
     }
 
+    @SuppressWarnings("unused")
+    public static CharSequence getUserQuery() {
+        return mUserQuery;
+    }
+
+    private static boolean isRTL() {
+        return isRTL(Locale.getDefault());
+    }
+
+    private static boolean isRTL(Locale locale) {
+        final int directionality = Character.getDirectionality(locale.getDisplayName().charAt(0));
+        return directionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT ||
+                directionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC;
+    }
+
     // ---------------------------------------------------------------------------------------------
     private void initView() {
         LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
@@ -199,10 +214,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
                 }
                 SearchView.this.onTextChanged(s);
 
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+                /*SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("s", s.toString());
-                editor.apply();
+                editor.apply();*/
             }
 
             @Override
@@ -224,10 +239,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         setVersionMargins(VERSION_MARGINS_TOOLBAR_SMALL);
         setTheme(THEME_LIGHT, true);
 
-        mSearchAnimator = new SearchAnimator(mContext, mEditText, this, mOnOpenCloseListener);
-
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
-        mEditText.setText(sp.getString("s", " ")); // TODO
+        // SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
+        // mEditText.setText(sp.getString("s", " ")); // TODO
     }
 
     private void initStyle(AttributeSet attrs, int defStyleAttr) {
@@ -317,6 +330,13 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         if (mVersion == VERSION_TOOLBAR) {
             mEditText.clearFocus();
             mSearchArrow = new SearchArrowDrawable(mContext);
+            if (isRTL()) {
+                // The view has RTL layout
+                mSearchArrow.setDirection(SearchArrowDrawable.ARROW_DIRECTION_END);
+            } else {
+                // The view has LTR layout
+                mSearchArrow.setDirection(SearchArrowDrawable.ARROW_DIRECTION_START);
+            }
             mBackImageView.setImageDrawable(mSearchArrow);
         }
 
@@ -472,7 +492,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
     public void addFocus() {
         mIsSearchOpen = true;
         setArrow(true);
-        showSuggestions(); // TODO ORDER
+        showSuggestions();
         if (mShadow) {
             SearchAnimator.fadeIn(mShadowView, mAnimationDuration);
         }
@@ -511,14 +531,14 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
     }
 
     private void showSuggestions() {
-        if (mSearchAdapter != null && mRecyclerView.getVisibility() == View.GONE) {
-            if (mSearchAdapter.getItemCount() > 0) { // TODO
+        if (mRecyclerView.getVisibility() == View.GONE) {
+            if (mSearchAdapter != null || mAdapter != null) {
                 mDividerView.setVisibility(View.VISIBLE);
+                mRecyclerView.setVisibility(View.VISIBLE);
+                SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
+                // mRecyclerView.setAlpha(0.0f);
+                // mRecyclerView.animate().alpha(1.0f);
             }
-            mRecyclerView.setVisibility(View.VISIBLE);
-            SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
-            // mRecyclerView.setAlpha(0.0f);
-            // mRecyclerView.animate().alpha(1.0f);
         }
     }
 
@@ -575,7 +595,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     reveal();
                 } else {
-                    mSearchAnimator.fadeOpen(mCardView, mAnimationDuration);
+                    SearchAnimator.fadeOpen(mCardView, mAnimationDuration, mEditText, mOnOpenCloseListener);
                 }
             } else {
                 mCardView.setVisibility(View.VISIBLE);
@@ -599,9 +619,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         if (mVersion == VERSION_MENU_ITEM) {
             if (animate) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    mSearchAnimator.revealClose(mCardView, mAnimationDuration);
+                    SearchAnimator.revealClose(mCardView, mAnimationDuration, mContext, mEditText, this, mOnOpenCloseListener);
                 } else {
-                    mSearchAnimator.fadeClose(mCardView, mAnimationDuration);
+                    SearchAnimator.fadeClose(mCardView, mAnimationDuration, mEditText, this, mOnOpenCloseListener);
                 }
             } else {
                 if (mEditText.length() > 0) {
@@ -631,10 +651,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         mRecyclerView.setAdapter(mSearchAdapter);
     }
 
-    /*public void setAdapter(RecyclerView.Adapter adapter) {
-        mSearchAdapter = adapter;
-        mRecyclerView.setAdapter(mSearchAdapter);
-    }*/
+    @SuppressWarnings("unused")
+    public void setAdapter(RecyclerView.Adapter adapter) {
+        mAdapter = adapter;
+        mRecyclerView.setAdapter(mAdapter);
+    }
 
     private boolean isVoiceAvailable() {
         PackageManager pm = getContext().getPackageManager();
@@ -707,7 +728,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
             @Override
             public void onGlobalLayout() {
                 mCardView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                mSearchAnimator.revealOpen(mCardView, mAnimationDuration);
+                SearchAnimator.revealOpen(mCardView, mAnimationDuration, mContext, mEditText, mOnOpenCloseListener);
             }
         });
     }
