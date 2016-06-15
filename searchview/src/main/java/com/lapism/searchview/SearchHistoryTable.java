@@ -59,7 +59,7 @@ public class SearchHistoryTable {
         return hasObject;
     }
 
-    List<SearchItem> getAllItems() {
+    public List<SearchItem> getAllItems() {
         List<SearchItem> list = new ArrayList<>();
 
         String selectQuery =
