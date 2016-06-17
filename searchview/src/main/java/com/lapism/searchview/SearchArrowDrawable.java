@@ -24,9 +24,7 @@ import java.lang.annotation.RetentionPolicy;
 // from AppCompat
 class SearchArrowDrawable extends Drawable {
 
-    @SuppressWarnings("WeakerAccess")
     static final int ARROW_DIRECTION_LEFT = 0;
-    @SuppressWarnings("WeakerAccess")
     static final int ARROW_DIRECTION_RIGHT = 1;
     static final int ARROW_DIRECTION_START = 2;
     static final int ARROW_DIRECTION_END = 3;
@@ -78,12 +76,10 @@ class SearchArrowDrawable extends Drawable {
         return a + (b - a) * t;
     }
 
-    @SuppressWarnings("unused")
     public float getArrowHeadLength() {
         return mArrowHeadLength;
     }
 
-    @SuppressWarnings("unused")
     public void setArrowHeadLength(float length) {
         if (mArrowHeadLength != length) {
             mArrowHeadLength = length;
@@ -91,12 +87,10 @@ class SearchArrowDrawable extends Drawable {
         }
     }
 
-    @SuppressWarnings("unused")
     public float getArrowShaftLength() {
         return mArrowShaftLength;
     }
 
-    @SuppressWarnings("unused")
     public void setArrowShaftLength(float length) {
         if (mArrowShaftLength != length) {
             mArrowShaftLength = length;
@@ -104,12 +98,10 @@ class SearchArrowDrawable extends Drawable {
         }
     }
 
-    @SuppressWarnings("unused")
     public float getBarLength() {
         return mBarLength;
     }
 
-    @SuppressWarnings("unused")
     public void setBarLength(float length) {
         if (mBarLength != length) {
             mBarLength = length;
@@ -117,7 +109,6 @@ class SearchArrowDrawable extends Drawable {
         }
     }
 
-    @SuppressWarnings("unused")
     @ColorInt
     public int getColor() {
         return mPaint.getColor();
@@ -130,7 +121,6 @@ class SearchArrowDrawable extends Drawable {
         }
     }
 
-    @SuppressWarnings("unused")
     public float getBarThickness() {
         return mPaint.getStrokeWidth();
     }
@@ -143,7 +133,6 @@ class SearchArrowDrawable extends Drawable {
         }
     }
 
-    @SuppressWarnings("unused")
     public float getGapSize() {
         return mBarGap;
     }
@@ -155,12 +144,10 @@ class SearchArrowDrawable extends Drawable {
         }
     }
 
-    @SuppressWarnings("unused")
     public boolean isSpinEnabled() {
         return mSpin;
     }
 
-    @SuppressWarnings("SameParameterValue")
     private void setSpinEnabled(boolean enabled) {
         if (mSpin != enabled) {
             mSpin = enabled;
@@ -168,7 +155,6 @@ class SearchArrowDrawable extends Drawable {
         }
     }
 
-    @SuppressWarnings("unused")
     @ArrowDirection
     public int getDirection() {
         return mDirection;
@@ -285,7 +271,6 @@ class SearchArrowDrawable extends Drawable {
         }
     }
 
-    @SuppressWarnings("unused")
     public final Paint getPaint() {
         return mPaint;
     }

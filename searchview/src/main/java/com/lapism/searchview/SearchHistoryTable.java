@@ -20,12 +20,10 @@ public class SearchHistoryTable {
     }
 
     // TODO FOR onResume AND onPause
-    @SuppressWarnings("unused")
     public void open() throws SQLException {
         db = dbHelper.getWritableDatabase();
     }
 
-    @SuppressWarnings("unused")
     public void close() {
         dbHelper.close();
     }
@@ -87,7 +85,6 @@ public class SearchHistoryTable {
         db.close();
     }
 
-    @SuppressWarnings("unused")
     public int getItemsCount() {
         db = dbHelper.getReadableDatabase();
         String countQuery = "SELECT * FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE;

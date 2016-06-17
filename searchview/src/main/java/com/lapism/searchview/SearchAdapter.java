@@ -26,11 +26,9 @@ import java.util.Locale;
 // TODO E/RecyclerView: No adapter attached; skipping layout when search
 // W/IInputConnectionWrapper: getTextBeforeCursor on inactive InputConnection
     /*
-    I'm using your SearchView library (thanks btw)
-    and it seems to have a problem on filters with no results.
+    it seems to have a problem on filters with no results.
     When i type texts that don't have a match in the history, all of it is displayed as suggestions.
     */
-@SuppressWarnings("WeakerAccess")
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
     protected final SearchHistoryTable mHistoryDatabase;
@@ -39,7 +37,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     protected List<SearchItem> mSuggestionsList = new ArrayList<>();
     protected OnItemClickListener mItemClickListener;
 
-    @SuppressWarnings("unused")
     public SearchAdapter(Context context) {// getContext();
         mHistoryDatabase = new SearchHistoryTable(context);
     }
@@ -49,12 +46,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         mHistoryDatabase = new SearchHistoryTable(context);
     }
 
-    @SuppressWarnings("unused")
     public List<SearchItem> getSuggestionsList() {
         return mSuggestionsList;
     }
 
-    @SuppressWarnings("unused")
     public void setSuggestionsList(List<SearchItem> suggestionsList) {
         mSuggestionsList = suggestionsList;
     }
@@ -162,8 +157,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     public class ResultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        final ImageView icon_left;
-        final TextView text;
+        final protected ImageView icon_left;
+        final protected TextView text;
 
         public ResultViewHolder(View view) {
             super(view);

@@ -19,37 +19,36 @@ public class SearchItem implements Parcelable {
     private int icon;
     private CharSequence text;
 
-    SearchItem() {
+    public SearchItem() {
     }
 
     public SearchItem(CharSequence text) {
         this(R.drawable.search_ic_search_black_24dp, text);
     }
 
-    @SuppressWarnings("WeakerAccess")
     public SearchItem(int icon, CharSequence text) {
         this.icon = icon;
         this.text = text;
     }
 
-    private SearchItem(Parcel in) {
+    public SearchItem(Parcel in) {
         this.icon = in.readInt();
         this.text = in.readParcelable(CharSequence.class.getClassLoader());
     }
 
-    int get_icon() {
+    public int get_icon() {
         return this.icon;
     }
 
-    void set_icon(int icon) {
+    public void set_icon(int icon) {
         this.icon = icon;
     }
 
-    CharSequence get_text() {
+    public CharSequence get_text() {
         return this.text;
     }
 
-    void set_text(CharSequence text) {
+    public void set_text(CharSequence text) {
         this.text = text;
     }
 

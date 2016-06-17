@@ -117,7 +117,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         return mIconColor;
     }
 
-    @SuppressWarnings("WeakerAccess")
     public void setIconColor(@ColorInt int color) {
         mIconColor = color;
         ColorFilter colorFilter = new PorterDuffColorFilter(mIconColor, PorterDuff.Mode.SRC_IN);
@@ -134,7 +133,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         return mTextColor;
     }
 
-    @SuppressWarnings("WeakerAccess")
     public void setTextColor(@ColorInt int color) {
         mTextColor = color;
         mEditText.setTextColor(mTextColor);
@@ -144,12 +142,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         return mTextHighlightColor;
     }
 
-    @SuppressWarnings("WeakerAccess")
     public void setTextHighlightColor(@ColorInt int color) {
         mTextHighlightColor = color;
     }
 
-    @SuppressWarnings("unused")
     public static CharSequence getUserQuery() {
         return mUserQuery;
     }
@@ -387,7 +383,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         mEditText.setText(text);
     }
 
-    @SuppressWarnings("SameParameterValue")
     public void setText(@StringRes int text) {
         mEditText.setText(text);
     }
@@ -400,12 +395,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         mEditText.setHint(hint);
     }
 
-    @SuppressWarnings("SameParameterValue")
     public void setHint(@StringRes int hint) {
         mEditText.setHint(hint);
     }
 
-    @SuppressWarnings("WeakerAccess")
     public void setHintColor(@ColorInt int color) { // @ColorRes
         mEditText.setHintTextColor(color);
     }
@@ -435,7 +428,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         mAnimationDuration = animationDuration;
     }
 
-    @SuppressWarnings("WeakerAccess")
     public void setShadow(boolean shadow) {
         if (shadow) {
             mShadowView.setVisibility(View.VISIBLE);
@@ -456,19 +448,16 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         invalidate();
     }
 
-    @SuppressWarnings("unused")
     public void setVoice(boolean voice, Activity context) {
         mActivity = context;
         setVoice(voice);
     }
 
-    @SuppressWarnings("unused")
     public void setVoice(boolean voice, Fragment context) {
         mFragment = context;
         setVoice(voice);
     }
 
-    @SuppressWarnings("unused")
     public void setVoice(boolean voice, android.support.v4.app.Fragment context) {
         mSupportFragment = context;
         setVoice(voice);
@@ -488,7 +477,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         }
     }
 
-    @SuppressWarnings("WeakerAccess")
     public void addFocus() {
         mIsSearchOpen = true;
         setArrow(true);
@@ -509,7 +497,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         }
     }
 
-    @SuppressWarnings("WeakerAccess")
     public void removeFocus() {
         mIsSearchOpen = false;
         setHamburger(true);
@@ -586,7 +573,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         mOldQueryText = newText.toString();
     }
 
-    @SuppressWarnings("SameParameterValue")
     public void open(boolean animate) {
         if (mVersion == VERSION_MENU_ITEM) {
             setVisibility(View.VISIBLE);
@@ -651,7 +637,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         mRecyclerView.setAdapter(mSearchAdapter);
     }
 
-    @SuppressWarnings("unused")
     public void setAdapter(RecyclerView.Adapter adapter) {
         mAdapter = adapter;
         mRecyclerView.setAdapter(mAdapter);
@@ -682,7 +667,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         }
     }
 
-    @SuppressWarnings("SameParameterValue")
     private void setArrow(boolean animate) {
         if (mSearchArrow != null && mVersion == VERSION_TOOLBAR) {
             if (animate) {
@@ -695,7 +679,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         }
     }
 
-    @SuppressWarnings("SameParameterValue")
     private void setHamburger(boolean animate) {
         if (mSearchArrow != null && mVersion == VERSION_TOOLBAR) {
             if (animate) {
@@ -800,10 +783,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
 
 
     public interface OnQueryTextListener {
-        @SuppressWarnings({"SameReturnValue", "UnusedReturnValue", "UnusedParameters"})
         boolean onQueryTextChange(String newText);
 
-        @SuppressWarnings("SameReturnValue")
         boolean onQueryTextSubmit(String query);
     }
 
