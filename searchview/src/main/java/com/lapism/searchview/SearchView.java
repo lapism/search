@@ -45,6 +45,7 @@ import java.util.Locale;
 public class SearchView extends FrameLayout implements View.OnClickListener { // Filter.FilterListener
 
     public static final int VERSION_TOOLBAR = 1000;
+    public static final int VERSION_TOOLBAR_BACK = 1002;
     public static final int VERSION_MENU_ITEM = 1001;
     public static final int VERSION_MARGINS_TOOLBAR_SMALL = 2000;
     public static final int VERSION_MARGINS_TOOLBAR_BIG = 2001;
@@ -326,18 +327,23 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
         if (mVersion == VERSION_TOOLBAR) {
             mEditText.clearFocus();
             mSearchArrow = new SearchArrowDrawable(mContext);
-            if (isRTL()) {
+            /*if (isRTL()) {
                 // The view has RTL layout
                 mSearchArrow.setDirection(SearchArrowDrawable.ARROW_DIRECTION_END);
             } else {
                 // The view has LTR layout
                 mSearchArrow.setDirection(SearchArrowDrawable.ARROW_DIRECTION_START);
-            }
+            }*/
             mBackImageView.setImageDrawable(mSearchArrow);
         }
 
         if (mVersion == VERSION_MENU_ITEM) {
             setVisibility(View.GONE);
+            mBackImageView.setImageResource(R.drawable.search_ic_arrow_back_black_24dp);
+        }
+
+        if (mVersion == VERSION_TOOLBAR_BACK) {
+            mEditText.clearFocus();
             mBackImageView.setImageResource(R.drawable.search_ic_arrow_back_black_24dp);
         }
 
@@ -720,6 +726,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
     @Override
     public void onClick(View v) {
         if (v == mBackImageView || v == mShadowView) {
+            if (mVersion==VERSION_TOOLBAR_BACK){
+                if (mOnMenuClickListener != null) {
+                    mOnMenuClickListener.onMenuClick();
+                }
+            }
             if (mVersion == VERSION_TOOLBAR) {
                 if (mIsSearchArrowHamburgerState == SearchArrowDrawable.STATE_HAMBURGER) {
                     if (mOnMenuClickListener != null) {

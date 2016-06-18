@@ -4,6 +4,7 @@
     <declare-styleable name="SearchView">
         <attr name="search_version" format="enum">
             <enum name="toolbar" value="1000" />
+            <enum name="toolbar_back" value="1002" />
             <enum name="menu_item" value="1001" />
         </attr>
         <attr name="search_version_margins" format="enum">
