@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/search_view_item"
     android:layout_width="match_parent"
     android:layout_height="@dimen/search_item_height"
@@ -30,7 +31,8 @@
         android:layout_weight="1"
         android:gravity="start|center_vertical"
         android:maxLines="1"
-        android:textSize="@dimen/search_text_small" />
+        android:textSize="@dimen/search_text_small"
+        tools:ignore="SelectableText" />
 
     <ImageView
         android:id="@+id/imageView_item_icon_right"

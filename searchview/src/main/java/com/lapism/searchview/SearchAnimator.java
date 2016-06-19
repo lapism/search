@@ -36,8 +36,8 @@ class SearchAnimator {
     static void revealOpen(View view, int duration, Context context, final SearchEditText editText, final SearchView.OnOpenCloseListener listener) {
 
         int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
-        int cx = view.getWidth() - padding;
 
+        int cx = view.getWidth() - padding;
         int cy = context.getResources().getDimensionPixelSize(R.dimen.search_height) / 2;
 
         if (cx != 0 && cy != 0) {
@@ -92,6 +92,7 @@ class SearchAnimator {
     static void revealClose(final View view, int duration, Context context, final SearchEditText editText, final SearchView searchView, final SearchView.OnOpenCloseListener listener) {
 
         int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
+
         int cx = view.getWidth() - padding;
         int cy = context.getResources().getDimensionPixelSize(R.dimen.search_height) / 2;
 

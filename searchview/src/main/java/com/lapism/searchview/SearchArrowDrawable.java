@@ -24,14 +24,12 @@ import java.lang.annotation.RetentionPolicy;
 // from AppCompat
 class SearchArrowDrawable extends Drawable {
 
-    static final int ARROW_DIRECTION_LEFT = 0;
-    static final int ARROW_DIRECTION_RIGHT = 1;
-    static final int ARROW_DIRECTION_START = 2;
-    static final int ARROW_DIRECTION_END = 3;
-
     static final float STATE_ARROW = 0.0f;
     static final float STATE_HAMBURGER = 1.0f;
-
+    private static final int ARROW_DIRECTION_LEFT = 0;
+    private static final int ARROW_DIRECTION_RIGHT = 1;
+    private static final int ARROW_DIRECTION_START = 2;
+    private static final int ARROW_DIRECTION_END = 3;
     private static final Property<SearchArrowDrawable, Float> PROGRESS = new Property<SearchArrowDrawable, Float>(Float.class, "progress") {
         @Override
         public void set(SearchArrowDrawable object, Float value) {
@@ -148,6 +146,7 @@ class SearchArrowDrawable extends Drawable {
         return mSpin;
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void setSpinEnabled(boolean enabled) {
         if (mSpin != enabled) {
             mSpin = enabled;

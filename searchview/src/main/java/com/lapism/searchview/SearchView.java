@@ -337,13 +337,13 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
             mBackImageView.setImageDrawable(mSearchArrow);
         }
 
-        if (mVersion == VERSION_MENU_ITEM) {
-            setVisibility(View.GONE);
+        if (mVersion == VERSION_TOOLBAR_BACK) {
+            mEditText.clearFocus();
             mBackImageView.setImageResource(R.drawable.search_ic_arrow_back_black_24dp);
         }
 
-        if (mVersion == VERSION_TOOLBAR_BACK) {
-            mEditText.clearFocus();
+        if (mVersion == VERSION_MENU_ITEM) {
+            setVisibility(View.GONE);
             mBackImageView.setImageResource(R.drawable.search_ic_arrow_back_black_24dp);
         }
 
@@ -726,7 +726,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener { //
     @Override
     public void onClick(View v) {
         if (v == mBackImageView || v == mShadowView) {
-            if (mVersion==VERSION_TOOLBAR_BACK){
+            if (mVersion == VERSION_TOOLBAR_BACK) {
                 if (mOnMenuClickListener != null) {
                     mOnMenuClickListener.onMenuClick();
                 }
