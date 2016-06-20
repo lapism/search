@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">SearchView Sample</string>
-    <string name="version">Version: 3.2.3</string>
+    <string name="version">Version: 3.3</string>
 
     <string name="light_toolbar">Light Toolbar</string>
     <string name="light_menu_item">Light Menu item</string>

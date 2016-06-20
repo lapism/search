@@ -19,20 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-// TODO file:///E:/Android/SearchView/sample/build/outputs/lint-results-debug.html
-// TODO file:///E:/Android/SearchView/searchview/build/outputs/lint-results-debug.html
-// TODO voice click result
-// TODO ARROW / HAMBURGER / BEHAVIOR / SingleTask / DIVIDER BUG
-// TODO E/RecyclerView: No adapter attached; skipping layout when search
-// W/IInputConnectionWrapper: getTextBeforeCursor on inactive InputConnection
-    /*
-    it seems to have a problem on filters with no results.
-    When i type texts that don't have a match in the history, all of it is displayed as suggestions.
-    */
+
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
     protected final SearchHistoryTable mHistoryDatabase;
-    protected String key = " ";
+    protected String key = "";
     protected List<SearchItem> mResultList = new ArrayList<>();
     protected List<SearchItem> mSuggestionsList = new ArrayList<>();
     protected OnItemClickListener mItemClickListener;
@@ -44,6 +36,23 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public SearchAdapter(Context context, List<SearchItem> suggestionsList) {
         mSuggestionsList = suggestionsList;
         mHistoryDatabase = new SearchHistoryTable(context);
+    }
+
+    private static boolean isRTL() {
+        return isRTL(Locale.getDefault());
+    }
+
+    /*if (isRTL()) {
+        // The view has RTL layout
+        mSearchArrow.setDirection(SearchArrowDrawable.ARROW_DIRECTION_END);
+    } else {
+        // The view has LTR layout
+        mSearchArrow.setDirection(SearchArrowDrawable.ARROW_DIRECTION_START);
+    }*/
+    private static boolean isRTL(Locale locale) {
+        final int directionality = Character.getDirectionality(locale.getDisplayName().charAt(0));
+        return directionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT ||
+                directionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC;
     }
 
     public List<SearchItem> getSuggestionsList() {
@@ -88,7 +97,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                         filterResults.count = results.size();
                     }
                 } else {
-                    key = " ";
+                    key = "";
                 }
 
                 return filterResults;
@@ -106,7 +115,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                         }
                     }
                 } else {
-                    if (!mHistoryDatabase.getAllItems().isEmpty()) {
+                    if (!mHistoryDatabase.getAllItems().isEmpty() && key.isEmpty()) {
                         mResultList = mHistoryDatabase.getAllItems();
                     }
                 }
@@ -133,7 +142,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
         String string = item.get_text().toString().toLowerCase(Locale.getDefault());
 
-        if (string.contains(key)) {
+        if (string.contains(key) && !key.isEmpty()) {
             SpannableString s = new SpannableString(string);
             s.setSpan(new ForegroundColorSpan(SearchView.getTextHighlightColor()), string.indexOf(key), string.indexOf(key) + key.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
@@ -155,6 +164,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         void onItemClick(View view, int position);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public class ResultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         final protected ImageView icon_left;
@@ -174,10 +184,41 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             }
         }
     }
-
-}
-
+}                // mRecyclerView.setAlpha(0.0f);
+// mRecyclerView.animate().alpha(1.0f);
+// Filter.FilterListener
+                /*SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("s", s.toString());
+                editor.apply();*/
+// SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
+// mEditText.setText(sp.getString("s", " ")); // TODO
 /*else {
             s.removeSpan(new ForegroundColorSpan(SearchView.getTextColor()));
             viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
 }*/
+// @ColorRes
+    /*searchView.this.onTextChanged(s);
+    private boolean mArrow = false;
+    private boolean mHamburger = false;
+
+    private void setArrow() {
+        mArrow = true;
+        setArrow(false);
+    }
+
+    private void setHamburger() {
+        mHamburger = true;
+        setHamburger(false);
+    }*/
+// TODO file:///E:/Android/SearchView/sample/build/outputs/lint-results-debug.html
+// TODO file:///E:/Android/SearchView/searchview/build/outputs/lint-results-debug.html
+// TODO voice click result
+// TODO ARROW / HAMBURGER / BEHAVIOR / SingleTask / DIVIDER BUG
+// TODO E/RecyclerView: No adapter attached; skipping layout when search
+// W/IInputConnectionWrapper: getTextBeforeCursor on inactive InputConnection
+    /*
+    it seems to have a problem on filters with no results.
+    When i type texts that don't have a match in the history, all of it is displayed as suggestions.
+    */
+

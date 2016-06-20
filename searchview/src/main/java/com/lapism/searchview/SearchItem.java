@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 
+@SuppressWarnings("WeakerAccess")
 public class SearchItem implements Parcelable {
 
     public static final Parcelable.Creator<SearchItem> CREATOR = new Parcelable.Creator<SearchItem>() {

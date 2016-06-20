@@ -22,8 +22,6 @@ public class ResultActivity extends BaseActivity {
 
         // -----------------------------------------------------------------------------------------
         setSearchView();
-        // mSearchView.setShadow(false);
-        // mSearchView.setArrow();
         mSearchView.setText(R.string.search);
         mSearchView.setOnMenuClickListener(new SearchView.OnMenuClickListener() {
             @Override
