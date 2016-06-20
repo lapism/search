@@ -1,4 +1,4 @@
-**3.3**
+**3.3**  
 Fixes:
  - Better RTL support
  - Fixed reveal animation
