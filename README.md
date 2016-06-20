@@ -31,11 +31,7 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-<<<<<<< HEAD
-        compile 'com.lapism:searchview:3.3'
-=======
         compile 'com.lapism:searchview:3.2.2'
->>>>>>> origin/master
         }
 ```
 
