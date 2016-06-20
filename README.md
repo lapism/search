@@ -70,7 +70,8 @@ dependencies {
 ```xml
         <attr name="search_version" format="enum">
             <enum name="toolbar" value="1000" />
-            <enum name="menu_item" value="1001" />
+            <enum name="toolbar_back" value="1001" />
+            <enum name="menu_item" value="1002" />
         </attr>
         <attr name="search_version_margins" format="enum">
             <enum name="toolbar_small" value="2000" />
@@ -81,6 +82,7 @@ dependencies {
             <enum name="light" value="3000" />
             <enum name="dark" value="3001" />
         </attr>
+        <attr name="search_navigation_icon" format="integer" />
         <attr name="search_icon_color" format="color" />
         <attr name="search_background_color" format="color" />
         <attr name="search_text" format="string" />
