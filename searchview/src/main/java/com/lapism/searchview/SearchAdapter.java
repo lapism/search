@@ -38,23 +38,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         mHistoryDatabase = new SearchHistoryTable(context);
     }
 
-    private static boolean isRTL() {
-        return isRTL(Locale.getDefault());
-    }
-
-    /*if (isRTL()) {
-        // The view has RTL layout
-        mSearchArrow.setDirection(SearchArrowDrawable.ARROW_DIRECTION_END);
-    } else {
-        // The view has LTR layout
-        mSearchArrow.setDirection(SearchArrowDrawable.ARROW_DIRECTION_START);
-    }*/
-    private static boolean isRTL(Locale locale) {
-        final int directionality = Character.getDirectionality(locale.getDisplayName().charAt(0));
-        return directionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT ||
-                directionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC;
-    }
-
     public List<SearchItem> getSuggestionsList() {
         return mSuggestionsList;
     }
@@ -184,41 +167,28 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             }
         }
     }
-}                // mRecyclerView.setAlpha(0.0f);
+}
+
+// mRecyclerView.setAlpha(0.0f);
 // mRecyclerView.animate().alpha(1.0f);
-// Filter.FilterListener
-                /*SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("s", s.toString());
-                editor.apply();*/
+
+/*SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+SharedPreferences.Editor editor = preferences.edit();
+editor.putString("s", s.toString());
+editor.apply();*/
+
 // SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
-// mEditText.setText(sp.getString("s", " ")); // TODO
-/*else {
-            s.removeSpan(new ForegroundColorSpan(SearchView.getTextColor()));
-            viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
-}*/
-// @ColorRes
-    /*searchView.this.onTextChanged(s);
-    private boolean mArrow = false;
-    private boolean mHamburger = false;
+// mEditText.setText(sp.getString("s", " ")); TODO
 
-    private void setArrow() {
-        mArrow = true;
-        setArrow(false);
-    }
+//         s.removeSpan(new ForegroundColorSpan(SearchView.getTextColor()));
+//         viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
+// @ColorRes, Filter.FilterListener
 
-    private void setHamburger() {
-        mHamburger = true;
-        setHamburger(false);
-    }*/
+
+// TODO ANALYSE
 // TODO file:///E:/Android/SearchView/sample/build/outputs/lint-results-debug.html
 // TODO file:///E:/Android/SearchView/searchview/build/outputs/lint-results-debug.html
-// TODO voice click result
-// TODO ARROW / HAMBURGER / BEHAVIOR / SingleTask / DIVIDER BUG
+// TODO BEHAVIOR CHECK FITSWINDOW CHEESESSQUEARE / SingleTask / DIVIDER BUG, IKONKA
+// BLUTOOTH CHAT, COMMITS U CHEESESSQUARE, KRIZEK. CONSTRAINZ, IKOMKNY A PROGRTAMEK
 // TODO E/RecyclerView: No adapter attached; skipping layout when search
-// W/IInputConnectionWrapper: getTextBeforeCursor on inactive InputConnection
-    /*
-    it seems to have a problem on filters with no results.
-    When i type texts that don't have a match in the history, all of it is displayed as suggestions.
-    */
-
+// TODO W/IInputConnectionWrapper: getTextBeforeCursor on inactive InputConnection

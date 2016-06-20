@@ -116,7 +116,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         if (mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else if (mSearchView != null && mSearchView.isSearchOpen()) {
-            mSearchView.close(true);
+            // mSearchView.close(true);
         } else {
             super.onBackPressed();
         }
@@ -224,8 +224,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-                    mSearchView.close(false);
                     getData(query, 0);
+                    // mSearchView.close(false);
                     return true;
                 }
 
@@ -259,10 +259,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             searchAdapter.setOnItemClickListener(new SearchAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    mSearchView.close(false);
                     TextView textView = (TextView) view.findViewById(R.id.textView_item_text);
                     String query = textView.getText().toString();
                     getData(query, position);
+                    // mSearchView.close(false);
                 }
             });
             mSearchView.setAdapter(searchAdapter);

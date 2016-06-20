@@ -59,6 +59,7 @@ public class SearchHistoryTable {
         return hasObject;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public List<SearchItem> getAllItems() {
         List<SearchItem> list = new ArrayList<>();
 

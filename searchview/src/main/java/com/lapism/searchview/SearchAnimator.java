@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -43,7 +42,7 @@ class SearchAnimator {
         if (cx != 0 && cy != 0) {
             float finalRadius = (float) Math.hypot(cx, cy);
 
-            if (isRtlLayout(context)) {
+            if (SearchUtils.isRtlLayout(context)) {
                 cx = padding;
             }
 
@@ -82,12 +81,6 @@ class SearchAnimator {
         }
     }
 
-    private static boolean isRtlLayout(Context context) {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 &&
-                context.getResources().getConfiguration()
-                        .getLayoutDirection() == ViewCompat.LAYOUT_DIRECTION_RTL;
-    }
-
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     static void revealClose(final View view, int duration, Context context, final SearchEditText editText, final SearchView searchView, final SearchView.OnOpenCloseListener listener) {
 
@@ -99,7 +92,7 @@ class SearchAnimator {
         if (cx != 0 && cy != 0) {
             float initialRadius = (float) Math.hypot(cx, cy);
 
-            if (isRtlLayout(context)) {
+            if (SearchUtils.isRtlLayout(context)) {
                 cx = padding;
             }
 
