@@ -70,7 +70,7 @@ dependencies {
 ```xml
         <attr name="search_version" format="enum">
             <enum name="toolbar" value="1000" />
-            <enum name="toolbar_back" value="1001" />
+            <enum name="toolbar_icon" value="1001" />
             <enum name="menu_item" value="1002" />
         </attr>
         <attr name="search_version_margins" format="enum">
