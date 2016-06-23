@@ -8,6 +8,9 @@ News:
 - SearchView.VERSION_TOOLBAR_ICON attribute
 - SearchView.setNavigationIcon(int/drawable)
  
+**3.2.3**
+ - DELETED
+
 **3.2.2**
  - Support libraries 24.0.0, Gradle 2.14
 
