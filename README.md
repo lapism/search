@@ -31,7 +31,7 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-        compile 'com.lapism:searchview:3.2.2'
+        compile 'com.lapism:searchview:3.3'
         }
 ```
 
@@ -87,7 +87,14 @@ dependencies {
         <attr name="search_background_color" format="color" />
         <attr name="search_text" format="string" />
         <attr name="search_text_color" format="color" />
+        <attr name="search_text_highlight_color" format="color" />
         <attr name="search_text_size" format="dimension" />
+        <attr name="search_text_style" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="bold" value="1" />
+            <enum name="italic" value="2" />
+            <enum name="bold_italic" value="3" />
+        </attr>
         <attr name="search_hint" format="string" />
         <attr name="search_hint_color" format="color" />
         <attr name="search_divider" format="boolean" />

@@ -58,9 +58,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     private static int mIconColor = Color.BLACK;
     private static int mTextColor = Color.BLACK;
-    private static String mTextFont = "sans-serif-medium";
-    private static int mTextStyle = Typeface.NORMAL;
     private static int mTextHighlightColor = Color.BLACK;
+
+    private static Typeface mTextFont = Typeface.DEFAULT;
+    private static int mTextStyle = Typeface.NORMAL;
+
     private static CharSequence mUserQuery = " ";
 
     private final Context mContext;
@@ -162,13 +164,14 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     @SuppressWarnings("WeakerAccess")
-    public static String getTextFont() {
+    public static Typeface getTextFont() {
         return mTextFont;
     }
 
-    @SuppressWarnings("WeakerAccess")
-    public void setTextFont(String font) {
-        setTextFontAndStyle(font, Typeface.NORMAL);
+    @SuppressWarnings("unused")
+    public void setTextFont(Typeface font) {
+        mTextFont = font;
+        mEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
     }
 
     @SuppressWarnings("WeakerAccess")
@@ -178,7 +181,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     @SuppressWarnings("WeakerAccess")
     public void setTextStyle(int style) {
-        setTextFontAndStyle("sans-serif-medium", style);
+        mTextStyle = style;
+        mEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -198,13 +202,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         if (!TextUtils.isEmpty(query)) {
             onSubmitQuery();
         }
-    }
-
-    @SuppressWarnings("WeakerAccess")
-    public void setTextFontAndStyle(String font, int style) {
-        mTextFont = font;
-        mTextStyle = style;
-        mEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
     }
 
     @SuppressWarnings("unused")
@@ -312,9 +309,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             }
             if (attr.hasValue(R.styleable.SearchView_search_text_size)) {
                 setTextSize(attr.getDimension(R.styleable.SearchView_search_text_size, 0));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_text_font)) {
-                setTextFont(attr.getString(R.styleable.SearchView_search_text_font));
             }
             if (attr.hasValue(R.styleable.SearchView_search_text_style)) {
                 setTextStyle(attr.getInt(R.styleable.SearchView_search_text_style, 0));

@@ -23,7 +23,6 @@
         <attr name="search_text_color" format="color" />
         <attr name="search_text_highlight_color" format="color" />
         <attr name="search_text_size" format="dimension" />
-        <attr name="search_text_font" format="string" />
         <attr name="search_text_style" format="enum">
             <enum name="normal" value="0" />
             <enum name="bold" value="1" />

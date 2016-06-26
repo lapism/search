@@ -1,15 +1,18 @@
 **3.3**  
 Fixes:
-- Better RTL support
-- Fixed reveal animation
+- RTL support
+- fixed reveal animation
 - DrawerArrowDrawable from AppCompat Support Library
+- fixes in searching
  
 News:
-- SearchView.VERSION_TOOLBAR_ICON attribute
-- SearchView.setNavigationIcon(int/drawable)
+- attribute SearchView.VERSION_TOOLBAR_ICON
+- method SearchView.setNavigationIcon
+- method SearchView.setTextFont
+- method SearchView.setTextStyle
  
 **3.2.3**
- - DELETED
+ - DELETED [problem with upload]
 
 **3.2.2**
  - Support libraries 24.0.0, Gradle 2.14
