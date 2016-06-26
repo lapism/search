@@ -19,7 +19,7 @@ public class SearchHistoryTable {
         dbHelper = new SearchHistoryDatabase(mContext);
     }
 
-    // TODO FOR onResume AND onPause
+    // FOR onResume AND onPause
     @SuppressWarnings("unused")
     public void open() throws SQLException {
         db = dbHelper.getWritableDatabase();

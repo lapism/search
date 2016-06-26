@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
@@ -57,6 +58,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     private static int mIconColor = Color.BLACK;
     private static int mTextColor = Color.BLACK;
+    private static String mTextFont = "sans-serif-medium";
+    private static int mTextStyle = Typeface.NORMAL;
     private static int mTextHighlightColor = Color.BLACK;
     private static CharSequence mUserQuery = " ";
 
@@ -137,6 +140,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static int getTextColor() {
         return mTextColor;
     }
@@ -157,6 +161,27 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mTextHighlightColor = color;
     }
 
+    @SuppressWarnings("WeakerAccess")
+    public static String getTextFont() {
+        return mTextFont;
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    public void setTextFont(String font) {
+        setTextFontAndStyle(font, Typeface.NORMAL);
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    public static int getTextStyle() {
+        return mTextStyle;
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    public void setTextStyle(int style) {
+        setTextFontAndStyle("sans-serif-medium", style);
+    }
+
+    // ---------------------------------------------------------------------------------------------
     @SuppressWarnings("unused")
     public static CharSequence getQuery() {
         return mUserQuery;
@@ -175,8 +200,15 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
+    @SuppressWarnings("WeakerAccess")
+    public void setTextFontAndStyle(String font, int style) {
+        mTextFont = font;
+        mTextStyle = style;
+        mEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
+    }
+
     @SuppressWarnings("unused")
-    public void setQuery2(CharSequence query) {
+    private void setQuery2(CharSequence query) {
         mEditText.setText(query);
         mEditText.setSelection(TextUtils.isEmpty(query) ? 0 : query.length());
     }
@@ -249,7 +281,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     private void initStyle(AttributeSet attrs, int defStyleAttr) {
-        TypedArray attr = mContext.obtainStyledAttributes(attrs, R.styleable.SearchView, defStyleAttr, 0);
+        final TypedArray attr = mContext.obtainStyledAttributes(attrs, R.styleable.SearchView, defStyleAttr, 0);
         if (attr != null) {
             if (attr.hasValue(R.styleable.SearchView_search_version)) {
                 setVersion(attr.getInt(R.styleable.SearchView_search_version, VERSION_TOOLBAR));
@@ -275,8 +307,17 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             if (attr.hasValue(R.styleable.SearchView_search_text_color)) {
                 setTextColor(attr.getColor(R.styleable.SearchView_search_text_color, 0));
             }
+            if (attr.hasValue(R.styleable.SearchView_search_text_highlight_color)) {
+                setTextHighlightColor(attr.getColor(R.styleable.SearchView_search_text_highlight_color, 0));
+            }
             if (attr.hasValue(R.styleable.SearchView_search_text_size)) {
                 setTextSize(attr.getDimension(R.styleable.SearchView_search_text_size, 0));
+            }
+            if (attr.hasValue(R.styleable.SearchView_search_text_font)) {
+                setTextFont(attr.getString(R.styleable.SearchView_search_text_font));
+            }
+            if (attr.hasValue(R.styleable.SearchView_search_text_style)) {
+                setTextStyle(attr.getInt(R.styleable.SearchView_search_text_style, 0));
             }
             if (attr.hasValue(R.styleable.SearchView_search_hint)) {
                 setHint(attr.getString(R.styleable.SearchView_search_hint));
@@ -306,34 +347,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 setElevation(attr.getDimensionPixelSize(R.styleable.SearchView_search_elevation, 0));
             }
 
-
             attr.recycle();
         }
     }
 
     // ---------------------------------------------------------------------------------------------
-    public void setTheme(int theme, boolean tint) {
-        if (theme == THEME_LIGHT) {
-            setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
-            if (tint) {
-                setIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
-                setHintColor(ContextCompat.getColor(mContext, R.color.search_light_hint));
-                setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
-                setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_light_text_highlight));
-            }
-        }
-
-        if (theme == THEME_DARK) {
-            setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
-            if (tint) {
-                setIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
-                setHintColor(ContextCompat.getColor(mContext, R.color.search_dark_hint));
-                setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
-                setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_dark_text_highlight));
-            }
-        }
-    }
-
     public void setVersion(int version) {
         mVersion = version;
 
@@ -387,6 +405,28 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mCardView.setLayoutParams(params);
     }
 
+    public void setTheme(int theme, boolean tint) {
+        if (theme == THEME_LIGHT) {
+            setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
+            if (tint) {
+                setIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
+                setHintColor(ContextCompat.getColor(mContext, R.color.search_light_hint));
+                setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
+                setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_light_text_highlight));
+            }
+        }
+
+        if (theme == THEME_DARK) {
+            setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
+            if (tint) {
+                setIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+                setHintColor(ContextCompat.getColor(mContext, R.color.search_dark_hint));
+                setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
+                setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_dark_text_highlight));
+            }
+        }
+    }
+
     @SuppressWarnings("WeakerAccess")
     public void setNavigationIcon(int resource) {
         if (mVersion != VERSION_TOOLBAR) {
@@ -410,6 +450,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mEditText.setText(text);
     }
 
+    @SuppressWarnings("SameParameterValue")
     public void setText(@StringRes int text) {
         mEditText.setText(text);
     }
@@ -422,6 +463,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mEditText.setHint(hint);
     }
 
+    @SuppressWarnings("SameParameterValue")
     public void setHint(@StringRes int hint) {
         mEditText.setHint(hint);
     }
@@ -446,6 +488,24 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         } else {
             mVoiceImageView.setVisibility(View.GONE);
         }
+    }
+
+    @SuppressWarnings("unused")
+    public void setVoice(boolean voice, Activity context) {
+        mActivity = context;
+        setVoice(voice);
+    }
+
+    @SuppressWarnings("unused")
+    public void setVoice(boolean voice, Fragment context) {
+        mFragment = context;
+        setVoice(voice);
+    }
+
+    @SuppressWarnings("unused")
+    public void setVoice(boolean voice, android.support.v4.app.Fragment context) {
+        mSupportFragment = context;
+        setVoice(voice);
     }
 
     public void setVoiceText(String text) {
@@ -477,24 +537,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         invalidate();
     }
 
-    @SuppressWarnings("unused")
-    public void setVoice(boolean voice, Activity context) {
-        mActivity = context;
-        setVoice(voice);
-    }
-
-    @SuppressWarnings("unused")
-    public void setVoice(boolean voice, Fragment context) {
-        mFragment = context;
-        setVoice(voice);
-    }
-
-    @SuppressWarnings("unused")
-    public void setVoice(boolean voice, android.support.v4.app.Fragment context) {
-        mSupportFragment = context;
-        setVoice(voice);
-    }
-
+    // ---------------------------------------------------------------------------------------------
     public void setAdapter(SearchAdapter adapter) {
         mSearchAdapter = adapter;
         mRecyclerView.setAdapter(mSearchAdapter);
@@ -506,6 +549,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    @SuppressWarnings("SameParameterValue")
     public void open(boolean animate) {
         if (mVersion == VERSION_MENU_ITEM) {
             setVisibility(View.VISIBLE);
@@ -538,6 +582,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
+    @SuppressWarnings("SameParameterValue")
     public void close(boolean animate) {
         if (mVersion == VERSION_MENU_ITEM) {
             if (animate) {
@@ -812,9 +857,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public interface OnQueryTextListener {
-        @SuppressWarnings("UnusedReturnValue")
+        @SuppressWarnings({"UnusedParameters", "UnusedReturnValue", "SameReturnValue"})
         boolean onQueryTextChange(String newText);
 
+        @SuppressWarnings("SameReturnValue")
         boolean onQueryTextSubmit(String query);
     }
 

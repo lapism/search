@@ -2,6 +2,7 @@ package com.lapism.searchview;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -20,15 +21,20 @@ import java.util.List;
 import java.util.Locale;
 
 
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
+    @SuppressWarnings("WeakerAccess")
     protected final SearchHistoryTable mHistoryDatabase;
+    @SuppressWarnings("WeakerAccess")
     protected String key = "";
+    @SuppressWarnings("WeakerAccess")
     protected List<SearchItem> mResultList = new ArrayList<>();
+    @SuppressWarnings("WeakerAccess")
     protected List<SearchItem> mSuggestionsList = new ArrayList<>();
+    @SuppressWarnings("WeakerAccess")
     protected OnItemClickListener mItemClickListener;
 
+    @SuppressWarnings("unused")
     public SearchAdapter(Context context) {// getContext();
         mHistoryDatabase = new SearchHistoryTable(context);
     }
@@ -38,10 +44,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         mHistoryDatabase = new SearchHistoryTable(context);
     }
 
+    @SuppressWarnings("unused")
     public List<SearchItem> getSuggestionsList() {
         return mSuggestionsList;
     }
 
+    @SuppressWarnings("unused")
     public void setSuggestionsList(List<SearchItem> suggestionsList) {
         mSuggestionsList = suggestionsList;
     }
@@ -121,6 +129,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
         viewHolder.icon_left.setImageResource(item.get_icon());
         viewHolder.icon_left.setColorFilter(SearchView.getIconColor(), PorterDuff.Mode.SRC_IN);
+        viewHolder.text.setTypeface((Typeface.create(SearchView.getTextFont(), SearchView.getTextStyle())));
         viewHolder.text.setTextColor(SearchView.getTextColor());
 
         String string = item.get_text().toString().toLowerCase(Locale.getDefault());
@@ -167,6 +176,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             }
         }
     }
+
 }
 
 // mRecyclerView.setAlpha(0.0f);
@@ -188,7 +198,6 @@ editor.apply();*/
 // TODO ANALYSE
 // TODO file:///E:/Android/SearchView/sample/build/outputs/lint-results-debug.html
 // TODO file:///E:/Android/SearchView/searchview/build/outputs/lint-results-debug.html
-// TODO BEHAVIOR CHECK FITSWINDOW CHEESESSQUEARE / SingleTask / DIVIDER BUG, IKONKA
-// BLUTOOTH CHAT, COMMITS U CHEESESSQUARE, KRIZEK. CONSTRAINZ, IKOMKNY A PROGRTAMEK
+// TODO BEHAVIOR / SingleTask / DIVIDER BUG, ICON, CROSS TOOLBAR_ICON
 // TODO E/RecyclerView: No adapter attached; skipping layout when search
 // TODO W/IInputConnectionWrapper: getTextBeforeCursor on inactive InputConnection

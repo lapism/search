@@ -34,7 +34,7 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <!--
+        <!-- "?attr/actionBarSize"
 ?attr/actionBarSize@CoordinatorLayout.DefaultBehavior(FloatingActionButton.Behavior.class)
         android.support.v4.widget.NestedScrollView -->
 

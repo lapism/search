@@ -38,14 +38,14 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <android.support.design.widget.FloatingActionButton
-            app:layout_behavior="@string/fab_behavior"
             android:id="@+id/fab_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/key_line"
             android:src="@drawable/ic_delete_white_24dp"
-            android:tint="@android:color/white" />
+            android:tint="@android:color/white"
+            app:layout_behavior="@string/fab_behavior" />
 
     </android.support.design.widget.CoordinatorLayout>
 
