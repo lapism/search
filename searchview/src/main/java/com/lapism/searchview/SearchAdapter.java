@@ -198,6 +198,6 @@ editor.apply();*/
 // TODO ANALYSE
 // TODO file:///E:/Android/SearchView/sample/build/outputs/lint-results-debug.html
 // TODO file:///E:/Android/SearchView/searchview/build/outputs/lint-results-debug.html
-// TODO BEHAVIOR / SingleTask / DIVIDER BUG, ICON, CROSS TOOLBAR_ICON
+// TODO CoordinatorLayout.Behavior / SingleTask / VISIBLE DIVIDER BUG, ICON, CROSS TOOLBAR_ICON, FIX SAMPLE ON POST CREATE
 // TODO E/RecyclerView: No adapter attached; skipping layout when search
 // TODO W/IInputConnectionWrapper: getTextBeforeCursor on inactive InputConnection

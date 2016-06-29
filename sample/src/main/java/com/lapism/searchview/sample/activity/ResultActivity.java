@@ -32,6 +32,7 @@ public class ResultActivity extends BaseActivity {
         // -----------------------------------------------------------------------------------------
 
         customSearchView();
+        mSearchView.open(false);
     }
 
     @Override

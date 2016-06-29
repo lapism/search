@@ -617,7 +617,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             SearchAnimator.fadeIn(mShadowView, mAnimationDuration);
         }
         showKeyboard();
-        if (mVersion == VERSION_TOOLBAR) {
+        if (mVersion != VERSION_MENU_ITEM) {
             postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -638,7 +638,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
         hideSuggestions();
         hideKeyboard();
-        if (mVersion == VERSION_TOOLBAR) {
+        if (mVersion != VERSION_MENU_ITEM) {
             postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -675,12 +675,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
         mOldQueryText = newText.toString();
 
-
-        if (!TextUtils.isEmpty(newText)) {  // TODO
-            if (mVersion != VERSION_TOOLBAR_ICON) {
-                mEmptyImageView.setVisibility(View.VISIBLE);
-                checkVoiceStatus(false);
-            }
+        if (!TextUtils.isEmpty(newText)) { // TODO CROSS
+            mEmptyImageView.setVisibility(View.VISIBLE);
+            checkVoiceStatus(false);
         } else {
             mEmptyImageView.setVisibility(View.GONE);
             checkVoiceStatus(true);
@@ -695,7 +692,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    private void showKeyboard() {
+    @SuppressWarnings("WeakerAccess")
+    public void showKeyboard() {
         if (!isInEditMode()) {
             InputMethodManager imm = (InputMethodManager) mEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(mEditText, 0);
@@ -703,7 +701,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    private void hideKeyboard() {
+    @SuppressWarnings("WeakerAccess")
+    public void hideKeyboard() {
         if (!isInEditMode()) {
             InputMethodManager imm = (InputMethodManager) mEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
@@ -713,7 +712,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private void showSuggestions() {
         if (mRecyclerView.getVisibility() == View.GONE) {
             if (mSearchAdapter != null || mAdapter != null) {
-                mDividerView.setVisibility(View.VISIBLE);
+                mDividerView.setVisibility(View.VISIBLE); // TODO DIVIDER BUG
                 mRecyclerView.setVisibility(View.VISIBLE);
                 SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
             }

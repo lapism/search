@@ -1,5 +1,9 @@
+**3.3.1**  
+- small fixes
+
 **3.3**  
 Fixes:
+- removed android.permission.RECORD_AUDIO
 - RTL support
 - fixed reveal animation
 - DrawerArrowDrawable from AppCompat Support Library
