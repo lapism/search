@@ -353,6 +353,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             mEditText.clearFocus();
             mSearchArrow = new SearchArrowDrawable(mContext);
 
+            setVisibility(View.VISIBLE);
+            mCardView.setVisibility(VISIBLE);
+
             mBackImageView.setImageDrawable(mSearchArrow);
         }
 
