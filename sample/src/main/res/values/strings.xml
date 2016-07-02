@@ -10,6 +10,8 @@
     <string name="dark_toolbar">Dark Toolbar</string>
     <string name="dark_menu_item">Dark Menu item</string>
 
+    <string name="toggle_versions">Toggle versions</string>
+
     <string name="search">Search</string>
     <string name="installed">Installed</string>
     <string name="all">All</string>

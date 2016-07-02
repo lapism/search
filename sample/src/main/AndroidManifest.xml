@@ -30,6 +30,10 @@
             android:label="@string/app_name" />
 
         <activity
+                android:name=".activity.ToggleActivity"
+                android:label="@string/app_name" />
+
+        <activity
             android:name=".activity.AboutActivity"
             android:label="@string/app_name" />
 
