@@ -134,12 +134,4 @@ public class MenuItemActivity extends BaseActivity {
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
-
-    private void setNightMode(@AppCompatDelegate.NightMode int nightMode) {
-        AppCompatDelegate.setDefaultNightMode(nightMode);
-        if (Build.VERSION.SDK_INT >= 11) {
-            recreate();
-        }
-    }
-
 }

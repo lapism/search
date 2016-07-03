@@ -1,6 +1,7 @@
 package com.lapism.searchview.sample.base;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -11,6 +12,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +27,7 @@ import com.lapism.searchview.sample.R;
 import com.lapism.searchview.sample.activity.AboutActivity;
 import com.lapism.searchview.sample.activity.MenuItemActivity;
 import com.lapism.searchview.sample.activity.ResultActivity;
+import com.lapism.searchview.sample.activity.ToggleActivity;
 import com.lapism.searchview.sample.activity.ToolbarActivity;
 import com.lapism.searchview.sample.view.FragmentAdapter;
 import com.lapism.searchview.sample.view.SearchFragment;
@@ -43,7 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     protected DrawerLayout mDrawerLayout = null;
     protected Toolbar mToolbar = null;
 
-    private FloatingActionButton mFab = null;
+    protected FloatingActionButton mFab = null;
     private SearchHistoryTable mHistoryDatabase;
 
     // ---------------------------------------------------------------------------------------------
@@ -101,6 +104,15 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             finish();
         }
 
+        if (id == R.id.nav_toggle_versions) {
+            Intent intent = new Intent(this, ToggleActivity.class);
+            intent.putExtra("version", SearchView.VERSION_TOOLBAR);
+            intent.putExtra("version_margins", SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
+            intent.putExtra("theme", SearchView.THEME_LIGHT);
+            startActivity(intent);
+            finish();
+        }
+
         if (id == R.id.nav_about) {
             Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
@@ -138,7 +150,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     }
 
     // ---------------------------------------------------------------------------------------------
-    private void setFab() {
+    protected void setFab() {
         mFab = (FloatingActionButton) findViewById(R.id.fab_delete);
         if (mFab != null) {
             mFab.setOnClickListener(new View.OnClickListener() {
@@ -290,6 +302,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         startActivity(intent);
 
         Toast.makeText(getApplicationContext(), text + ", position: " + position, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void setNightMode(@AppCompatDelegate.NightMode int nightMode) {
+        AppCompatDelegate.setDefaultNightMode(nightMode);
+        if (Build.VERSION.SDK_INT >= 11) {
+            recreate();
+        }
     }
 
 }
