@@ -2,7 +2,6 @@ package com.lapism.searchview.sample.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.v4.view.GravityCompat;

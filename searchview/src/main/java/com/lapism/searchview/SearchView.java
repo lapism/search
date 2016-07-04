@@ -63,7 +63,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private static Typeface mTextFont = Typeface.DEFAULT;
     private static int mTextStyle = Typeface.NORMAL;
 
-    private static CharSequence mUserQuery = " ";
+    private static CharSequence mUserQuery = "";
 
     private final Context mContext;
 
@@ -436,7 +436,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     @SuppressWarnings("unused")
     public void setNavigationIcon(Drawable drawable) {
-        if (mVersion != VERSION_TOOLBAR) {
+        if (drawable == null) {
+            mBackImageView.setVisibility(View.GONE);
+        } else if (mVersion != VERSION_TOOLBAR) {
             mBackImageView.setImageDrawable(drawable);
         }
     }
@@ -623,6 +625,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             SearchAnimator.fadeIn(mShadowView, mAnimationDuration);
         }
         showKeyboard();
+        showClearTextIcon();
         if (mVersion != VERSION_MENU_ITEM) {
             postDelayed(new Runnable() {
                 @Override
@@ -644,6 +647,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
         hideSuggestions();
         hideKeyboard();
+        hideClearTextIcon();
         if (mVersion != VERSION_MENU_ITEM) {
             postDelayed(new Runnable() {
                 @Override
@@ -681,12 +685,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
         mOldQueryText = newText.toString();
 
-        if (!TextUtils.isEmpty(newText)) { // TODO CROSS
-            mEmptyImageView.setVisibility(View.VISIBLE);
-            checkVoiceStatus(false);
+        if (!TextUtils.isEmpty(newText)) {
+            showClearTextIcon();
         } else {
-            mEmptyImageView.setVisibility(View.GONE);
-            checkVoiceStatus(true);
+            hideClearTextIcon();
         }
     }
 
@@ -746,6 +748,20 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             mSearchArrow.setVerticalMirror(true);
             mSearchArrow.animate(SearchArrowDrawable.STATE_HAMBURGER, mAnimationDuration);
             mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
+        }
+    }
+
+    private void hideClearTextIcon() {
+        if (mUserQuery.length() == 0) {
+            mEmptyImageView.setVisibility(View.GONE);
+            checkVoiceStatus(true);
+        }
+    }
+
+    private void showClearTextIcon() {
+        if (mUserQuery.length() > 0) {
+            mEmptyImageView.setVisibility(View.VISIBLE);
+            checkVoiceStatus(false);
         }
     }
 
@@ -816,6 +832,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             if (mEditText.length() > 0) {
                 mEditText.getText().clear();
             }
+            setHint("");
         } else if (v == mShadowView) {
             close(true);
         }

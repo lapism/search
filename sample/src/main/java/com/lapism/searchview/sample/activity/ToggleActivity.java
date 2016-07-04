@@ -1,13 +1,8 @@
 package com.lapism.searchview.sample.activity;
 
-import com.lapism.searchview.SearchView;
-import com.lapism.searchview.sample.R;
-import com.lapism.searchview.sample.base.BaseActivity;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
@@ -21,6 +16,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.lapism.searchview.SearchView;
+import com.lapism.searchview.sample.R;
+import com.lapism.searchview.sample.base.BaseActivity;
 
 import java.util.List;
 

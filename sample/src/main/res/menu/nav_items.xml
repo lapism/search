@@ -27,9 +27,9 @@
 
     <group android:checkableBehavior="single">
         <item
-                android:id="@+id/nav_toggle_versions"
-                android:icon="@drawable/ic_menu_search"
-                android:title="@string/toggle_versions" />
+            android:id="@+id/nav_toggle_versions"
+            android:icon="@drawable/ic_menu_search"
+            android:title="@string/toggle_versions" />
     </group>
 
     <item android:title="@string/about">
