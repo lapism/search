@@ -34,10 +34,6 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <!-- "?attr/actionBarSize"
-?attr/actionBarSize@CoordinatorLayout.DefaultBehavior(FloatingActionButton.Behavior.class)
-        android.support.v4.widget.NestedScrollView -->
-
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
@@ -58,7 +54,9 @@
     <com.lapism.searchview.SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:search_clear_on_close="false"
+        app:search_clear_on_open="false"/>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
