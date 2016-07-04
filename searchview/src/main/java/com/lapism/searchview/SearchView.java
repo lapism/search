@@ -93,6 +93,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private boolean mShadow = true;
     private boolean mVoice = true;
     private boolean mIsSearchOpen = false;
+    private boolean mShouldClearOnClose;
+    private boolean mShouldClearOnOpen;
 
     private SavedState mSavedState;
     private CharSequence mOldQueryText;
@@ -341,6 +343,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 setElevation(attr.getDimensionPixelSize(R.styleable.SearchView_search_elevation, 0));
             }
 
+            mShouldClearOnClose = attr.getBoolean(R.styleable.SearchView_search_clear_on_close, true);
+            mShouldClearOnOpen = attr.getBoolean(R.styleable.SearchView_search_clear_on_open, true);
+
             attr.recycle();
         }
     }
@@ -564,7 +569,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 }
             } else {
                 mCardView.setVisibility(View.VISIBLE);
-                if (mEditText.length() > 0) {
+                if (mShouldClearOnOpen && mEditText.length() > 0) {
                     mEditText.getText().clear();
                 }
                 mEditText.requestFocus();
@@ -574,7 +579,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             }
         }
         if (mVersion == VERSION_TOOLBAR) {
-            if (mEditText.length() > 0) {
+            if (mShouldClearOnOpen && mEditText.length() > 0) {
                 mEditText.getText().clear();
             }
             mEditText.requestFocus();
@@ -594,7 +599,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                     SearchAnimator.fadeClose(mCardView, mAnimationDuration, mEditText, this, mOnOpenCloseListener);
                 }
             } else {
-                if (mEditText.length() > 0) {
+                if (mShouldClearOnClose && mEditText.length() > 0) {
                     mEditText.getText().clear();
                 }
                 mEditText.clearFocus();
@@ -606,7 +611,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             }
         }
         if (mVersion == VERSION_TOOLBAR) {
-            if (mEditText.length() > 0) {
+            if (mShouldClearOnClose && mEditText.length() > 0) {
                 mEditText.getText().clear();
             }
             mEditText.clearFocus();
