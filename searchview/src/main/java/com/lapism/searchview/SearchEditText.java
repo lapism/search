@@ -37,4 +37,5 @@ public class SearchEditText extends AppCompatEditText {
         // return super.onKeyPreIme(keyCode, event);
         return super.dispatchKeyEvent(event);
     }
+    
 }
