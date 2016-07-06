@@ -565,7 +565,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     reveal();
                 } else {
-                    SearchAnimator.fadeOpen(mCardView, mAnimationDuration, mEditText, mOnOpenCloseListener);
+                    SearchAnimator.fadeOpen(mCardView, mAnimationDuration, mEditText, mShouldClearOnOpen, mOnOpenCloseListener);
                 }
             } else {
                 mCardView.setVisibility(View.VISIBLE);
@@ -594,9 +594,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         if (mVersion == VERSION_MENU_ITEM) {
             if (animate) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    SearchAnimator.revealClose(mCardView, mAnimationDuration, mContext, mEditText, this, mOnOpenCloseListener);
+                    SearchAnimator.revealClose(mCardView, mAnimationDuration, mContext, mEditText, mShouldClearOnClose, this, mOnOpenCloseListener);
                 } else {
-                    SearchAnimator.fadeClose(mCardView, mAnimationDuration, mEditText, this, mOnOpenCloseListener);
+                    SearchAnimator.fadeClose(mCardView, mAnimationDuration, mEditText, mShouldClearOnClose, this, mOnOpenCloseListener);
                 }
             } else {
                 if (mShouldClearOnClose && mEditText.length() > 0) {
@@ -804,7 +804,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             @Override
             public void onGlobalLayout() {
                 mCardView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                SearchAnimator.revealOpen(mCardView, mAnimationDuration, mContext, mEditText, mOnOpenCloseListener);
+                SearchAnimator.revealOpen(mCardView, mAnimationDuration, mContext, mEditText, mShouldClearOnOpen, mOnOpenCloseListener);
             }
         });
     }

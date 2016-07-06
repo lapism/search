@@ -32,7 +32,7 @@ class SearchAnimator {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    static void revealOpen(View view, int duration, Context context, final SearchEditText editText, final SearchView.OnOpenCloseListener listener) {
+    static void revealOpen(View view, int duration, Context context, final SearchEditText editText, final boolean shouldClearOnOpen, final SearchView.OnOpenCloseListener listener) {
 
         int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
 
@@ -59,7 +59,7 @@ class SearchAnimator {
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    if (editText.length() > 0) {
+                    if (shouldClearOnOpen && editText.length() > 0) {
                         editText.getText().clear();
                     }
                     editText.requestFocus();
@@ -82,7 +82,7 @@ class SearchAnimator {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    static void revealClose(final View view, int duration, Context context, final SearchEditText editText, final SearchView searchView, final SearchView.OnOpenCloseListener listener) {
+    static void revealClose(final View view, int duration, Context context, final SearchEditText editText, final boolean shouldClearOnClose, final SearchView searchView, final SearchView.OnOpenCloseListener listener) {
 
         int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
 
@@ -102,7 +102,7 @@ class SearchAnimator {
             anim.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
-                    if (editText.length() > 0) {
+                    if (shouldClearOnClose && editText.length() > 0) {
                         editText.getText().clear();
                     }
                     editText.clearFocus();
@@ -131,7 +131,7 @@ class SearchAnimator {
         }
     }
 
-    static void fadeOpen(View view, int duration, final SearchEditText editText, final SearchView.OnOpenCloseListener listener) {
+    static void fadeOpen(View view, int duration, final SearchEditText editText, final boolean shouldClearOnOpen, final SearchView.OnOpenCloseListener listener) {
         Animation anim = new AlphaAnimation(0.0f, 1.0f);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(duration);
@@ -145,7 +145,7 @@ class SearchAnimator {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if (editText.length() > 0) {
+                if (shouldClearOnOpen && editText.length() > 0) {
                     editText.getText().clear();
                 }
                 editText.requestFocus();
@@ -160,14 +160,14 @@ class SearchAnimator {
         view.setVisibility(View.VISIBLE);
     }
 
-    static void fadeClose(final View view, int duration, final SearchEditText editText, final SearchView searchView, final SearchView.OnOpenCloseListener listener) {
+    static void fadeClose(final View view, int duration, final SearchEditText editText, final boolean shouldClearOnClose, final SearchView searchView, final SearchView.OnOpenCloseListener listener) {
         Animation anim = new AlphaAnimation(1.0f, 0.0f);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(duration);
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                if (editText.length() > 0) {
+                if (shouldClearOnClose && editText.length() > 0) {
                     editText.getText().clear();
                 }
                 editText.clearFocus();
