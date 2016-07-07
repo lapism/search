@@ -12,6 +12,7 @@ import java.util.List;
 
 public class SearchHistoryTable {
 
+    private static int mHistorySize = 2;
     private final SearchHistoryDatabase dbHelper;
     private SQLiteDatabase db;
 
@@ -66,7 +67,7 @@ public class SearchHistoryTable {
         String selectQuery =
                 "SELECT * FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE +
                         " ORDER BY " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID +
-                        " DESC LIMIT 2";
+                        " DESC LIMIT " + mHistorySize;
 
         db = dbHelper.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -80,6 +81,11 @@ public class SearchHistoryTable {
         }
         cursor.close();
         return list;
+    }
+
+    @SuppressWarnings("unused")
+    public void setHistorySize(int historySize) {
+        mHistorySize = historySize;
     }
 
     public void clearDatabase() {

@@ -56,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:search_clear_on_close="false"
-        app:search_clear_on_open="false"/>
+        app:search_clear_on_open="false" />
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

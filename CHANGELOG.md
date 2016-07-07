@@ -1,5 +1,11 @@
+**3.3.3**  
+- Fix for issue #108 and #72
+  Added two style attributes to define whether search view should be cleaned upon open/close.
+  More here: https://github.com/lapism/SearchView/pull/111 and here: https://github.com/lapism/SearchView/pull/114 
+  
 **3.3.2**  
-- fixes
+- Fix for issue #72
+  More here: https://github.com/lapism/SearchView/pull/110
 
 **3.3.1**  
 - small fixes

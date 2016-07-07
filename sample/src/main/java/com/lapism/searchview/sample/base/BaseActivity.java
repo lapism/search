@@ -1,7 +1,6 @@
 package com.lapism.searchview.sample.base;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -306,9 +305,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     protected void setNightMode(@AppCompatDelegate.NightMode int nightMode) {
         AppCompatDelegate.setDefaultNightMode(nightMode);
-        if (Build.VERSION.SDK_INT >= 11) {
-            recreate();
-        }
+        recreate();
     }
 
 }
