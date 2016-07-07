@@ -858,7 +858,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             if (mEditText.length() > 0) {
                 mEditText.getText().clear();
             }
-            setHint("");
         } else if (v == mShadowView) {
             close(true);
         }
