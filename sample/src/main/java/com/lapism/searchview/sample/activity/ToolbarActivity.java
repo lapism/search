@@ -22,7 +22,11 @@ public class ToolbarActivity extends BaseActivity {
 
     @Override
     protected int getNavItem() {
-        return NAV_ITEM_TOOLBAR;
+        if (SearchView.THEME_LIGHT == getIntent().getIntExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT)) {
+            return NAV_ITEM_TOOLBAR;
+        } else {
+            return NAV_ITEM_TOOLBAR_DARK;
+        }
     }
 
     @Override

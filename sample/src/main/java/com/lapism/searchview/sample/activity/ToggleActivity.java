@@ -30,7 +30,7 @@ public class ToggleActivity extends BaseActivity {
 
     @Override
     protected int getNavItem() {
-        return NAV_ITEM_TOOLBAR;
+        return NAV_ITEM_TOGGLE;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class ToggleActivity extends BaseActivity {
 
         setViewPager();
 
-        mCurrentVersion = getIntent().getIntExtra("version", SearchView.VERSION_TOOLBAR);
+        mCurrentVersion = getIntent().getIntExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
 
         // -----------------------------------------------------------------------------------------
         setSearchView();

@@ -37,10 +37,17 @@ import java.util.List;
 
 
 public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    protected static final String EXTRA_KEY_VERSION = "version";
+    protected static final String EXTRA_KEY_VERSION_MARGINS = "version_margins";
+    protected static final String EXTRA_KEY_THEME = "theme";
+    protected static final String EXTRA_KEY_TEXT = "text";
 
     protected static final int NAV_ITEM_INVALID = -1;
     protected static final int NAV_ITEM_TOOLBAR = 0;
+    protected static final int NAV_ITEM_TOOLBAR_DARK = 1;
     protected static final int NAV_ITEM_MENU_ITEM = 2;
+    protected static final int NAV_ITEM_MENU_ITEM_DARK = 3;
+    protected static final int NAV_ITEM_TOGGLE = 4;
 
     protected SearchView mSearchView = null;
     protected DrawerLayout mDrawerLayout = null;
@@ -70,45 +77,45 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
         if (id == R.id.nav_light_toolbar) {
             Intent intent = new Intent(this, ToolbarActivity.class);
-            intent.putExtra("version", SearchView.VERSION_TOOLBAR);
-            intent.putExtra("version_margins", SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
-            intent.putExtra("theme", SearchView.THEME_LIGHT);
+            intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
+            intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
+            intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
             startActivity(intent);
             finish();
         }
 
         if (id == R.id.nav_dark_toolbar) {
             Intent intent = new Intent(this, ToolbarActivity.class);
-            intent.putExtra("version", SearchView.VERSION_TOOLBAR);
-            intent.putExtra("version_margins", SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
-            intent.putExtra("theme", SearchView.THEME_DARK);
+            intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
+            intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
+            intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_DARK);
             startActivity(intent);
             finish();
         }
 
         if (id == R.id.nav_light_menu_item) {
             Intent intent = new Intent(this, MenuItemActivity.class);
-            intent.putExtra("version", SearchView.VERSION_MENU_ITEM);
-            intent.putExtra("version_margins", SearchView.VERSION_MARGINS_MENU_ITEM);
-            intent.putExtra("theme", SearchView.THEME_LIGHT);
+            intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_MENU_ITEM);
+            intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_MENU_ITEM);
+            intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
             startActivity(intent);
             finish();
         }
 
         if (id == R.id.nav_dark_menu_item) {
             Intent intent = new Intent(this, MenuItemActivity.class);
-            intent.putExtra("version", SearchView.VERSION_MENU_ITEM);
-            intent.putExtra("version_margins", SearchView.VERSION_MARGINS_MENU_ITEM);
-            intent.putExtra("theme", SearchView.THEME_DARK);
+            intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_MENU_ITEM);
+            intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_MENU_ITEM);
+            intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_DARK);
             startActivity(intent);
             finish();
         }
 
         if (id == R.id.nav_toggle_versions) {
             Intent intent = new Intent(this, ToggleActivity.class);
-            intent.putExtra("version", SearchView.VERSION_TOOLBAR);
-            intent.putExtra("version_margins", SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
-            intent.putExtra("theme", SearchView.THEME_LIGHT);
+            intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
+            intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
+            intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
             startActivity(intent);
             finish();
         }
@@ -284,10 +291,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     protected void customSearchView() {
         final Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            mSearchView.setVersion(extras.getInt("version"));
-            mSearchView.setVersionMargins(extras.getInt("version_margins"));
-            mSearchView.setTheme(extras.getInt("theme"), true);
-            mSearchView.setText(extras.getString("text"));
+            mSearchView.setVersion(extras.getInt(EXTRA_KEY_VERSION));
+            mSearchView.setVersionMargins(extras.getInt(EXTRA_KEY_VERSION_MARGINS));
+            mSearchView.setTheme(extras.getInt(EXTRA_KEY_THEME), true);
+            mSearchView.setText(extras.getString(EXTRA_KEY_TEXT));
         }
     }
 
@@ -295,10 +302,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         mHistoryDatabase.addItem(new SearchItem(text));
 
         Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-        intent.putExtra("version", SearchView.VERSION_TOOLBAR_ICON);
-        intent.putExtra("version_margins", SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
-        intent.putExtra("theme", SearchView.THEME_LIGHT);
-        intent.putExtra("text", text);
+        intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR_ICON);
+        intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
+        intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
+        intent.putExtra(EXTRA_KEY_TEXT, text);
         startActivity(intent);
 
         Toast.makeText(getApplicationContext(), text + ", position: " + position, Toast.LENGTH_SHORT).show();
