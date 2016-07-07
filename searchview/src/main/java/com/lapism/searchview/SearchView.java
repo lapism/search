@@ -94,8 +94,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private boolean mVoice = true;
     private boolean mIsSearchOpen = false;
 
-    private boolean mShouldClearOnClose;
-    private boolean mShouldClearOnOpen;
+    private boolean mShouldClearOnClose = true;
+    private boolean mShouldClearOnOpen = true;
 
     private SavedState mSavedState;
     private CharSequence mOldQueryText;
@@ -343,9 +343,12 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             if (attr.hasValue(R.styleable.SearchView_search_elevation)) {
                 setElevation(attr.getDimensionPixelSize(R.styleable.SearchView_search_elevation, 0));
             }
-
-            mShouldClearOnClose = attr.getBoolean(R.styleable.SearchView_search_clear_on_close, true);
-            mShouldClearOnOpen = attr.getBoolean(R.styleable.SearchView_search_clear_on_open, true);
+            if (attr.hasValue(R.styleable.SearchView_search_clear_on_close)) {
+                setShouldClearOnClose(attr.getBoolean(R.styleable.SearchView_search_clear_on_close, true));
+            }
+            if (attr.hasValue(R.styleable.SearchView_search_clear_on_open)) {
+                setShouldClearOnOpen(attr.getBoolean(R.styleable.SearchView_search_clear_on_open, true));
+            }
 
             attr.recycle();
         }
@@ -546,21 +549,21 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     @SuppressWarnings("unused")
-    public boolean shouldClearOnClose() {
+    public boolean getShouldClearOnClose() {
         return mShouldClearOnClose;
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("WeakerAccess")
     public void setShouldClearOnClose(boolean shouldClearOnClose) {
         mShouldClearOnClose = shouldClearOnClose;
     }
 
     @SuppressWarnings("unused")
-    public boolean shouldClearOnOpen() {
+    public boolean getShouldClearOnOpen() {
         return mShouldClearOnOpen;
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("WeakerAccess")
     public void setShouldClearOnOpen(boolean shouldClearOnOpen) {
         mShouldClearOnOpen = shouldClearOnOpen;
     }

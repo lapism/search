@@ -1,3 +1,16 @@
+**3.4**  
+Fixes:
+- fixed missing hint
+
+News:
+- SearchHistoryTable.setHistorySize(int historySize)
+- SearchView has 4 new methods: 
+  * getShouldClearOnOpen 
+  * setShouldClearOnOpen
+  * setShouldClearOnClose
+  * getShouldClearOnClose
+  
+  
 **3.3.3**  
 - Added two style attributes to define whether search view should be cleaned upon open/close
 - fixes

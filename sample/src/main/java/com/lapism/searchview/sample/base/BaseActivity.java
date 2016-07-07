@@ -39,17 +39,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     protected static final String EXTRA_KEY_VERSION = "version";
     protected static final String EXTRA_KEY_THEME = "theme";
-
-    private static final String EXTRA_KEY_VERSION_MARGINS = "version_margins";
-    private static final String EXTRA_KEY_TEXT = "text";
-
     protected static final int NAV_ITEM_INVALID = -1;
     protected static final int NAV_ITEM_TOOLBAR = 0;
     protected static final int NAV_ITEM_TOOLBAR_DARK = 1;
     protected static final int NAV_ITEM_MENU_ITEM = 2;
     protected static final int NAV_ITEM_MENU_ITEM_DARK = 3;
     protected static final int NAV_ITEM_TOGGLE = 4;
-
+    private static final String EXTRA_KEY_VERSION_MARGINS = "version_margins";
+    private static final String EXTRA_KEY_TEXT = "text";
     protected SearchView mSearchView = null;
     protected DrawerLayout mDrawerLayout = null;
     protected Toolbar mToolbar = null;

@@ -1,35 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Launch Screen -->
-    <style name="AppThemeLauncher" parent="AppThemeLightBase">
+    <!-- Launcher -->
+    <style name="LauncherAppTheme" parent="BaseAppThemeLight">
         <item name="colorPrimaryDark">#60000000</item>
         <item name="android:windowBackground">@drawable/launch_screen</item>
     </style>
 
-    <style name="AppThemeDarkBase" parent="Theme.AppCompat.NoActionBar">
+    <!-- Base -->
+    <style name="BaseAppThemeDark" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccentDark</item>
     </style>
 
-    <style name="AppThemeLightBase" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="BaseAppThemeLight" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccentLight</item>
     </style>
 
-    <style name="AppThemeDayNightBase" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="BaseAppThemeDayNight" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccentLight</item>
     </style>
 
-    <style name="AppThemeLight" parent="AppThemeDayNightBase" />
+    <!-- AppTheme -->
+    <style name="AppThemeLight" parent="BaseAppThemeDayNight" />
 
-    <style name="AppThemeDark" parent="AppThemeDarkBase" />
+    <style name="AppThemeDark" parent="BaseAppThemeDark" />
+
+    <style name="AppThemeDayNight" parent="BaseAppThemeDayNight" />
 
 
+    <!-- AppTheme2 -->
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppThemeDark2" parent="Theme.AppCompat.NoActionBar">
@@ -46,35 +51,7 @@
 
         <item name="colorButtonNormal">#00acc1</item>
         <item name="android:textColor">#ffffffff</item>
+        <item name="android:windowBackground">@android:color/white</item>
     </style>
-
-    <style name="Widget.CardContent" parent="android:Widget">
-        <item name="android:padding">16dp</item>
-        <item name="android:orientation">vertical</item>
-    </style>
-
-    <style name="Base.Theme.DesignDemoLight" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccentLight</item>
-    </style>
-
-
-    <!-- <style name="Base.Theme.DesignDemoDark" parent="Theme.AppCompat.NoActionBar">
-         <item name="colorPrimary">#2196f3</item>
-         <item name="colorPrimaryDark">#1976d2</item>
-         <item name="colorAccent">#ff4081</item>
-         <item name="android:windowBackground">@color/window_background</item>
-     </style>
-
-     <style name="Theme.DesignDemoDark" parent="Base.Theme.DesignDemoDark" />
-
-         <style name="Theme.DesignDemoDark" parent="Base.Theme.DesignDemoDark">
-         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-         <item name="android:statusBarColor">@android:color/transparent</item>
-     </style>
-    <!-         <item name="android:windowBackground">#ff4081</item> -->
-    -->
-
 
 </resources>
