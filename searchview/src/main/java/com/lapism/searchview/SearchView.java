@@ -93,6 +93,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private boolean mShadow = true;
     private boolean mVoice = true;
     private boolean mIsSearchOpen = false;
+
     private boolean mShouldClearOnClose;
     private boolean mShouldClearOnOpen;
 
@@ -542,6 +543,26 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mCardView.setMaxCardElevation(elevation);
         mCardView.setCardElevation(elevation);
         invalidate();
+    }
+
+    @SuppressWarnings("unused")
+    public boolean shouldClearOnClose() {
+        return mShouldClearOnClose;
+    }
+
+    @SuppressWarnings("unused")
+    public void setShouldClearOnClose(boolean shouldClearOnClose) {
+        mShouldClearOnClose = shouldClearOnClose;
+    }
+
+    @SuppressWarnings("unused")
+    public boolean shouldClearOnOpen() {
+        return mShouldClearOnOpen;
+    }
+
+    @SuppressWarnings("unused")
+    public void setShouldClearOnOpen(boolean shouldClearOnOpen) {
+        mShouldClearOnOpen = shouldClearOnOpen;
     }
 
     // ---------------------------------------------------------------------------------------------
