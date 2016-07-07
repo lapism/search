@@ -36,10 +36,12 @@ import java.util.List;
 
 
 public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
     protected static final String EXTRA_KEY_VERSION = "version";
-    protected static final String EXTRA_KEY_VERSION_MARGINS = "version_margins";
     protected static final String EXTRA_KEY_THEME = "theme";
-    protected static final String EXTRA_KEY_TEXT = "text";
+
+    private static final String EXTRA_KEY_VERSION_MARGINS = "version_margins";
+    private static final String EXTRA_KEY_TEXT = "text";
 
     protected static final int NAV_ITEM_INVALID = -1;
     protected static final int NAV_ITEM_TOOLBAR = 0;
