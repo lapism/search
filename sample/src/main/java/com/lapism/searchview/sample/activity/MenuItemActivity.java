@@ -22,7 +22,11 @@ public class MenuItemActivity extends BaseActivity {
 
     @Override
     protected int getNavItem() {
-        return NAV_ITEM_MENU_ITEM;
+        if (SearchView.THEME_LIGHT == getIntent().getIntExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT)) {
+            return NAV_ITEM_MENU_ITEM;
+        } else {
+            return NAV_ITEM_MENU_ITEM_DARK;
+        }
     }
 
     @Override
