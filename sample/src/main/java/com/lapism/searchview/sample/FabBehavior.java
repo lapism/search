@@ -7,7 +7,7 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
-
+@SuppressWarnings("unused")
 public class FabBehavior extends FloatingActionButton.Behavior {
 
     public FabBehavior(Context context, AttributeSet attrs) {
