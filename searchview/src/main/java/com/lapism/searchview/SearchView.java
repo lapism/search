@@ -67,38 +67,38 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     private final Context mContext;
 
-    private OnQueryTextListener mOnQueryChangeListener = null;
-    private OnOpenCloseListener mOnOpenCloseListener = null;
-    private OnMenuClickListener mOnMenuClickListener = null;
-    private Activity mActivity = null;
-    private Fragment mFragment = null;
-    private android.support.v4.app.Fragment mSupportFragment = null;
-    private SearchArrowDrawable mSearchArrow = null;
-    private SearchAdapter mSearchAdapter = null;
-    private RecyclerView.Adapter mAdapter = null;
+    protected OnQueryTextListener mOnQueryChangeListener = null;
+    protected OnOpenCloseListener mOnOpenCloseListener = null;
+    protected OnMenuClickListener mOnMenuClickListener = null;
+    protected Activity mActivity = null;
+    protected Fragment mFragment = null;
+    protected android.support.v4.app.Fragment mSupportFragment = null;
+    protected SearchArrowDrawable mSearchArrow = null;
+    protected SearchAdapter mSearchAdapter = null;
+    protected RecyclerView.Adapter mAdapter = null;
 
-    private RecyclerView mRecyclerView;
-    private View mShadowView;
-    private View mDividerView;
-    private CardView mCardView;
-    private SearchEditText mEditText;
-    private ImageView mBackImageView;
-    private ImageView mVoiceImageView;
-    private ImageView mEmptyImageView;
+    protected RecyclerView mRecyclerView;
+    protected View mShadowView;
+    protected View mDividerView;
+    protected CardView mCardView;
+    protected SearchEditText mEditText;
+    protected ImageView mBackImageView;
+    protected ImageView mVoiceImageView;
+    protected ImageView mEmptyImageView;
 
-    private String mVoiceSearchText = "Speak now";
-    private int mVersion = VERSION_TOOLBAR;
-    private int mAnimationDuration = ANIMATION_DURATION;
-    private float mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
-    private boolean mShadow = true;
-    private boolean mVoice = true;
-    private boolean mIsSearchOpen = false;
+    protected String mVoiceSearchText = "Speak now";
+    protected int mVersion = VERSION_TOOLBAR;
+    protected int mAnimationDuration = ANIMATION_DURATION;
+    protected float mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
+    protected boolean mShadow = true;
+    protected boolean mVoice = true;
+    protected boolean mIsSearchOpen = false;
 
     private boolean mShouldClearOnClose = true;
     private boolean mShouldClearOnOpen = true;
 
-    private SavedState mSavedState;
-    private CharSequence mOldQueryText;
+    protected SavedState mSavedState;
+    protected CharSequence mOldQueryText;
 
     // ---------------------------------------------------------------------------------------------
     public SearchView(Context context) {
@@ -764,7 +764,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    private void setArrow() {
+    protected void setArrow() {
         if (mSearchArrow != null) {
             mSearchArrow.setVerticalMirror(false);
             mSearchArrow.animate(SearchArrowDrawable.STATE_ARROW, mAnimationDuration);
