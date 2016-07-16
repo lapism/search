@@ -137,4 +137,5 @@ public class MenuItemActivity extends BaseActivity {
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
+
 }

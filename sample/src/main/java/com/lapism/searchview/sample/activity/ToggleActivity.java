@@ -164,4 +164,5 @@ public class ToggleActivity extends BaseActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }

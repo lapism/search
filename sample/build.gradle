@@ -7,8 +7,8 @@ android {
         applicationId 'com.lapism.searchview.sample'
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 33
-        versionName "3.4"
+        versionCode 34
+        versionName "3.4.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
