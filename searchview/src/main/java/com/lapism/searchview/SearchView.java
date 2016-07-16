@@ -195,15 +195,20 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void setQuery(CharSequence query) {
+        setQueryWithoutSubmitting(query);
+
+        if (!TextUtils.isEmpty(query)) {
+            onSubmitQuery();
+        }
+    }
+
+    private void setQueryWithoutSubmitting(CharSequence query) {
         mEditText.setText(query);
         if (query != null) {
             mEditText.setSelection(mEditText.length());
             mUserQuery = query;
         } else {
             mEditText.getText().clear();
-        }
-        if (!TextUtils.isEmpty(query)) {
-            onSubmitQuery();
         }
     }
 
@@ -898,7 +903,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mSavedState = (SavedState) state;
         if (mSavedState.isSearchOpen) {
             open(true);
-            setQuery(mSavedState.query);
+            setQueryWithoutSubmitting(mSavedState.query);
         }
         super.onRestoreInstanceState(mSavedState.getSuperState());
     }
