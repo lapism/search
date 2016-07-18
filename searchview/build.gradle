@@ -13,7 +13,7 @@ buildscript {
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    buildToolsVersion "24.0.1"
 
     sourceSets {
         main.res.srcDirs 'res', 'res-public'
@@ -38,9 +38,9 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'com.android.support:appcompat-v7:24.0.0'
-    compile 'com.android.support:recyclerview-v7:24.0.0'
-    compile 'com.android.support:cardview-v7:24.0.0'
+    compile 'com.android.support:appcompat-v7:24.1.0'
+    compile 'com.android.support:recyclerview-v7:24.1.0'
+    compile 'com.android.support:cardview-v7:24.1.0'
 
     testCompile 'junit:junit:4.12'
 }
