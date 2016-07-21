@@ -37,11 +37,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     @SuppressWarnings("unused")
     public SearchAdapter(Context context) {// getContext();
         mHistoryDatabase = new SearchHistoryTable(context);
+        getFilter().filter("");
     }
 
     public SearchAdapter(Context context, List<SearchItem> suggestionsList) {
         mSuggestionsList = suggestionsList;
         mHistoryDatabase = new SearchHistoryTable(context);
+        getFilter().filter("");
     }
 
     @SuppressWarnings("unused")
