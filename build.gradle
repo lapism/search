@@ -20,6 +20,6 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-// Java SE Development Kit 8u92
-// gradlew wrapper --gradle-version=2.14
-// gradle-2.14-all.zip
+// Java SE Development Kit 8u102
+// gradlew wrapper --gradle-version=2.14.1
+// gradle-2.14.1-all.zip
