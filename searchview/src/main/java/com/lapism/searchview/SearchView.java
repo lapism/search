@@ -36,6 +36,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Filterable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -73,7 +74,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     protected Fragment mFragment = null;
     protected android.support.v4.app.Fragment mSupportFragment = null;
     protected SearchArrowDrawable mSearchArrow = null;
-    protected SearchAdapter mSearchAdapter = null;
     protected RecyclerView.Adapter mAdapter = null;
 
     protected RecyclerView mRecyclerView;
@@ -549,11 +549,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     // ---------------------------------------------------------------------------------------------
-    public void setAdapter(SearchAdapter adapter) {
-        mSearchAdapter = adapter;
-        mRecyclerView.setAdapter(mSearchAdapter);
-    }
-
     public void setAdapter(RecyclerView.Adapter adapter) {
         mAdapter = adapter;
         mRecyclerView.setAdapter(mAdapter);
@@ -683,8 +678,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private void onTextChanged(CharSequence newText) {
         CharSequence text = mEditText.getText();
         mUserQuery = text;
-        if (mSearchAdapter != null) {
-            (mSearchAdapter).getFilter().filter(text);
+        if (mAdapter != null && mAdapter instanceof Filterable) {
+            ((Filterable) mAdapter).getFilter().filter(text);
         }
         if (mOnQueryChangeListener != null && !TextUtils.equals(newText, mOldQueryText)) {
             mOnQueryChangeListener.onQueryTextChange(newText.toString());
@@ -723,7 +718,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     private void showSuggestions() {
         if (mRecyclerView.getVisibility() == View.GONE) {
-            if (mSearchAdapter != null || mAdapter != null) {
+            if (mAdapter != null) {
                 mDividerView.setVisibility(View.VISIBLE); // TODO DIVIDER BUG
                 mRecyclerView.setVisibility(View.VISIBLE);
                 SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
