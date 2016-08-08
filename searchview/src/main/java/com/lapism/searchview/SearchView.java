@@ -97,6 +97,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     private boolean mShouldClearOnClose = true;
     private boolean mShouldClearOnOpen = true;
+    private boolean mShouldHideOnKeyboardClose = true;
 
     // ---------------------------------------------------------------------------------------------
     public SearchView(Context context) {
@@ -340,7 +341,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             if (attr.hasValue(R.styleable.SearchView_search_clear_on_open)) {
                 setShouldClearOnOpen(attr.getBoolean(R.styleable.SearchView_search_clear_on_open, true));
             }
-
+            if (attr.hasValue(R.styleable.SearchView_search_hide_on_keyboard_close)){
+                setShouldHideOnKeyboardClose(attr.getBoolean(R.styleable.SearchView_search_hide_on_keyboard_close,true));
+            }
             attr.recycle();
         }
     }
@@ -546,6 +549,18 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public void setShouldClearOnOpen(boolean shouldClearOnOpen) {
         mShouldClearOnOpen = shouldClearOnOpen;
+    }
+
+    public boolean getShouldHideOnKeyboardClose() {
+        return mShouldHideOnKeyboardClose;
+    }
+
+    /**
+     *
+     * @param shouldHideOnKeyboardClose to auto hide the searchview when keyboard is close
+     */
+    public void setShouldHideOnKeyboardClose(boolean shouldHideOnKeyboardClose){
+        mShouldHideOnKeyboardClose = shouldHideOnKeyboardClose;
     }
 
     // ---------------------------------------------------------------------------------------------
