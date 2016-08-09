@@ -408,6 +408,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mCardView.setLayoutParams(params);
     }
 
+    public void setTheme(int theme) {
+        setTheme(theme, true);
+    }
+
     public void setTheme(int theme, boolean tint) {
         if (theme == THEME_LIGHT) {
             setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
