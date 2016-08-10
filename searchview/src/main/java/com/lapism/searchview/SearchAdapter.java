@@ -98,24 +98,52 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                mResultList.clear();
+
+                List<SearchItem> dataSet = new ArrayList<>();
 
                 if (results.values != null) {
                     List<?> result = (ArrayList<?>) results.values;
                     for (Object object : result) {
                         if (object instanceof SearchItem) {
-                            mResultList.add((SearchItem) object);
+                            dataSet.add((SearchItem) object);
                         }
                     }
                 } else {
                     if (!mHistoryDatabase.getAllItems().isEmpty() && key.isEmpty()) {
-                        mResultList = mHistoryDatabase.getAllItems();
+                        dataSet = mHistoryDatabase.getAllItems();
                     }
                 }
 
-                notifyDataSetChanged();
+                setData(dataSet);
             }
         };
+    }
+
+    public void setData(List<SearchItem> data)
+    {
+        if (mResultList == null) {
+            mResultList = data;
+            notifyDataSetChanged();
+        }
+        else {
+            int previousSize = mResultList.size();
+            int nextSize = data.size();
+            mResultList = data;
+            if (previousSize == nextSize && nextSize != 0)
+                notifyItemRangeChanged(0, previousSize);
+            else if (previousSize > nextSize) {
+                if (nextSize == 0)
+                    notifyItemRangeRemoved(0, previousSize);
+                else {
+                    notifyItemRangeChanged(0, nextSize);
+                    notifyItemRangeRemoved(nextSize - 1, previousSize);
+                }
+            }
+            else {
+                notifyItemRangeChanged(0, previousSize);
+                notifyItemRangeInserted(previousSize - 1, nextSize);
+            }
+        }
     }
 
     @Override
