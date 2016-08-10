@@ -41,6 +41,45 @@ public class SearchHistoryTable {
             db.insert(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, values);
             db.close();
         }
+        else
+        {
+            db = dbHelper.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID, getLastItemId() + 1);
+
+            db.update(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, values,
+                    SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " = ? ", new String[]{Integer.toString(getItemId(item))});
+            db.close();
+        }
+    }
+
+    private int getItemId(SearchItem item) {
+        db = dbHelper.getReadableDatabase();
+        String query = "SELECT " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID +
+                " FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE +
+                " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TEXT + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{item.get_text().toString()});
+        cursor.moveToFirst();
+        int id = cursor.getInt(0);
+
+        cursor.close();
+        db.close();
+
+        return id;
+    }
+
+    private int getLastItemId() {
+        db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " FROM " +
+                SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null);
+        cursor.moveToLast();
+        int count = cursor.getInt(0);
+
+        cursor.close();
+        db.close();
+
+        return count;
     }
 
     private boolean checkText(String text) {
