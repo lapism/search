@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <!-- Searchview -->
-    <dimen name="search_height">42dp</dimen>
-
-</resources>

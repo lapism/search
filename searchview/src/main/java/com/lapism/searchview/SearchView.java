@@ -215,6 +215,13 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setVisibility(View.GONE);
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING)
+                    hideKeyboard();
+            }
+        });
 
         mDividerView = findViewById(R.id.view_divider);
         mDividerView.setVisibility(View.GONE);
@@ -341,8 +348,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             if (attr.hasValue(R.styleable.SearchView_search_clear_on_open)) {
                 setShouldClearOnOpen(attr.getBoolean(R.styleable.SearchView_search_clear_on_open, true));
             }
-            if (attr.hasValue(R.styleable.SearchView_search_hide_on_keyboard_close)){
-                setShouldHideOnKeyboardClose(attr.getBoolean(R.styleable.SearchView_search_hide_on_keyboard_close,true));
+            if (attr.hasValue(R.styleable.SearchView_search_hide_on_keyboard_close)) {
+                setShouldHideOnKeyboardClose(attr.getBoolean(R.styleable.SearchView_search_hide_on_keyboard_close, true));
             }
             attr.recycle();
         }
@@ -560,10 +567,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     /**
-     *
      * @param shouldHideOnKeyboardClose to auto hide the searchview when keyboard is close
      */
-    public void setShouldHideOnKeyboardClose(boolean shouldHideOnKeyboardClose){
+    public void setShouldHideOnKeyboardClose(boolean shouldHideOnKeyboardClose) {
         mShouldHideOnKeyboardClose = shouldHideOnKeyboardClose;
     }
 

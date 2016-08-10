@@ -24,7 +24,7 @@ android {
         targetSdkVersion 24
         versionCode 3
         versionName "3.4.1"
-        vectorDrawables.useSupportLibrary = true
+        vectorDrawables.useSupportLibrary true
     }
     buildTypes {
         release {

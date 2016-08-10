@@ -40,9 +40,7 @@ public class SearchHistoryTable {
 
             db.insert(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, values);
             db.close();
-        }
-        else
-        {
+        } else {
             db = dbHelper.getWritableDatabase();
 
             ContentValues values = new ContentValues();
