@@ -141,7 +141,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             }
             else {
                 notifyItemRangeChanged(0, previousSize);
-                notifyItemRangeInserted(previousSize - 1, nextSize);
+                notifyItemRangeInserted(previousSize, nextSize - previousSize);
             }
         }
     }
