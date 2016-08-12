@@ -213,7 +213,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_result);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setItemAnimator(null);
+        mRecyclerView.getLayoutTransition().setDuration(200);
         mRecyclerView.setVisibility(View.GONE);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
