@@ -65,7 +65,7 @@ public class MenuItemActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                mSearchView.open(true);
+                mSearchView.open(true, item);
                 return true;
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START); // finish()

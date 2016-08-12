@@ -34,7 +34,9 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Filterable;
@@ -97,6 +99,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private boolean mShouldClearOnClose = true;
     private boolean mShouldClearOnOpen = true;
     private boolean mShouldHideOnKeyboardClose = true;
+    private View mMenuItemView = null;
+    private int mMenuItemCx = -1;
 
     // ---------------------------------------------------------------------------------------------
     public SearchView(Context context) {
@@ -586,14 +590,21 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    public void open(boolean animate)
+    {
+        open(animate, null);
+    }
+
     @SuppressWarnings("SameParameterValue")
-    public void open(boolean animate) {
+    public void open(boolean animate, MenuItem menuItem) {
         mFiltersContainer.setVisibility(View.VISIBLE);
         if (mVersion == VERSION_MENU_ITEM) {
             setVisibility(View.VISIBLE);
 
             if (animate) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    if (menuItem != null)
+                        getMenuItemPosition(menuItem.getItemId());
                     reveal();
                 } else {
                     SearchAnimator.fadeOpen(mCardView, mAnimationDuration, mEditText, mShouldClearOnOpen, mOnOpenCloseListener);
@@ -626,7 +637,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         if (mVersion == VERSION_MENU_ITEM) {
             if (animate) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    SearchAnimator.revealClose(mCardView, mAnimationDuration, mContext, mEditText, mShouldClearOnClose, this, mOnOpenCloseListener);
+                    SearchAnimator.revealClose(mCardView, mMenuItemCx, mAnimationDuration, mContext, mEditText, mShouldClearOnClose, this, mOnOpenCloseListener);
                 } else {
                     SearchAnimator.fadeClose(mCardView, mAnimationDuration, mEditText, mShouldClearOnClose, this, mOnOpenCloseListener);
                 }
@@ -787,6 +798,32 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
+    private int getCenterX(View view)
+    {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        return location[0] + view.getWidth() / 2;
+    }
+
+    private void getMenuItemPosition(int menuItemId)
+    {
+        if (mMenuItemView != null)
+            mMenuItemCx = getCenterX(mMenuItemView);
+        ViewParent viewParent = getParent();
+        while (viewParent != null && viewParent instanceof View)
+        {
+            View parent = (View) viewParent;
+            View view = parent.findViewById(menuItemId);
+            if (view != null)
+            {
+                mMenuItemView = view;
+                mMenuItemCx = getCenterX(mMenuItemView);
+                break;
+            }
+            viewParent = viewParent.getParent();
+        }
+    }
+
     private void restoreFiltersState(List<Boolean> states) {
         mSearchFiltersStates = states;
         for (int i = 0, j = 0, n = mFiltersContainer.getChildCount(); i < n; i++) {
@@ -879,7 +916,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             @Override
             public void onGlobalLayout() {
                 mCardView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                SearchAnimator.revealOpen(mCardView, mAnimationDuration, mContext, mEditText, mShouldClearOnOpen, mOnOpenCloseListener);
+                SearchAnimator.revealOpen(mCardView, mMenuItemCx, mAnimationDuration, mContext, mEditText, mShouldClearOnOpen, mOnOpenCloseListener);
             }
         });
     }
