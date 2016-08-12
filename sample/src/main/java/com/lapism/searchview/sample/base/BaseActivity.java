@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lapism.searchview.SearchAdapter;
+import com.lapism.searchview.SearchFilter;
 import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
@@ -284,6 +285,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                 }
             });
             mSearchView.setAdapter(searchAdapter);
+
+            /*
+            List<SearchFilter> filter = new ArrayList<>();
+            filter.add(new SearchFilter("Filter1", true));
+            filter.add(new SearchFilter("Filter2", true));
+            mSearchView.setFilters(filter);
+            //use mSearchView.getFiltersStates() to consider filter when performing search
+            */
         }
     }
 

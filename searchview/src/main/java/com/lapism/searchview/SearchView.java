@@ -22,6 +22,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,8 +40,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Filterable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
@@ -79,6 +82,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     protected ImageView mBackImageView;
     protected ImageView mVoiceImageView;
     protected ImageView mEmptyImageView;
+    protected LinearLayout mFiltersContainer;
     protected String mVoiceSearchText = "Speak now";
     protected int mVersion = VERSION_TOOLBAR;
     protected int mAnimationDuration = ANIMATION_DURATION;
@@ -86,6 +90,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     protected boolean mShadow = true;
     protected boolean mVoice = true;
     protected boolean mIsSearchOpen = false;
+    protected List<Boolean> mSearchFiltersStates = null;
     protected SavedState mSavedState;
     protected CharSequence mOldQueryText;
     private CharSequence mUserQuery = "";
@@ -143,6 +148,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public void setTextColor(@ColorInt int color) {
         mTextColor = color;
         mEditText.setTextColor(mTextColor);
+        for (int i = 0, n = mFiltersContainer.getChildCount(); i < n; i++) {
+            View child = mFiltersContainer.getChildAt(i);
+            if (child instanceof AppCompatCheckBox)
+                ((AppCompatCheckBox) child).setTextColor(mTextColor);
+        }
     }
 
     public static int getTextHighlightColor() {
@@ -268,6 +278,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 }
             }
         });
+        mFiltersContainer = (LinearLayout) findViewById(R.id.filters_container);
 
         setVersion(VERSION_TOOLBAR);
         setVersionMargins(VERSION_MARGINS_TOOLBAR_SMALL);
@@ -353,6 +364,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     // ---------------------------------------------------------------------------------------------
     public void setVersion(int version) {
         mVersion = version;
+        mFiltersContainer.setVisibility(View.GONE);
 
         if (mVersion == VERSION_TOOLBAR) {
             mEditText.clearFocus();
@@ -576,6 +588,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     @SuppressWarnings("SameParameterValue")
     public void open(boolean animate) {
+        mFiltersContainer.setVisibility(View.VISIBLE);
         if (mVersion == VERSION_MENU_ITEM) {
             setVisibility(View.VISIBLE);
 
@@ -609,6 +622,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     @SuppressWarnings("SameParameterValue")
     public void close(boolean animate) {
+        mFiltersContainer.setVisibility(View.GONE);
         if (mVersion == VERSION_MENU_ITEM) {
             if (animate) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -658,6 +672,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 }
             }, mAnimationDuration);
         }
+        mFiltersContainer.setVisibility(View.VISIBLE);
     }
 
     public void removeFocus() {
@@ -690,6 +705,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         CharSequence query = mEditText.getText();
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
             if (mOnQueryChangeListener == null || !mOnQueryChangeListener.onQueryTextSubmit(query.toString())) {
+                dispatchFilters();
                 mEditText.setText(query);
             }
         }
@@ -702,6 +718,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             ((Filterable) mAdapter).getFilter().filter(text);
         }
         if (mOnQueryChangeListener != null && !TextUtils.equals(newText, mOldQueryText)) {
+            dispatchFilters();
             mOnQueryChangeListener.onQueryTextChange(newText.toString());
         }
         mOldQueryText = newText.toString();
@@ -768,6 +785,50 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             mSearchArrow.animate(SearchArrowDrawable.STATE_HAMBURGER, mAnimationDuration);
             mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
         }
+    }
+
+    private void restoreFiltersState(List<Boolean> states) {
+        mSearchFiltersStates = states;
+        for (int i = 0, j = 0, n = mFiltersContainer.getChildCount(); i < n; i++) {
+            View view = mFiltersContainer.getChildAt(i);
+            if (view instanceof AppCompatCheckBox)
+                ((AppCompatCheckBox) view).setChecked(mSearchFiltersStates.get(j++));
+        }
+    }
+
+    private void dispatchFilters() {
+        if (mSearchFiltersStates != null) {
+            for (int i = 0, j = 0, n = mFiltersContainer.getChildCount(); i < n; i++) {
+                View view = mFiltersContainer.getChildAt(i);
+                if (view instanceof AppCompatCheckBox)
+                    mSearchFiltersStates.set(j++, ((AppCompatCheckBox) view).isChecked());
+            }
+        }
+    }
+
+    public void setFilters(@Nullable List<SearchFilter> filters) {
+        mFiltersContainer.removeAllViews();
+        if (filters == null)
+            mSearchFiltersStates = null;
+        else {
+            mSearchFiltersStates = new ArrayList<>();
+            for (SearchFilter filter : filters) {
+                AppCompatCheckBox checkBox = new AppCompatCheckBox(mContext);
+                checkBox.setText(filter.getTitle());
+                checkBox.setTextSize(11);
+                checkBox.setTextColor(mTextColor);
+                checkBox.setChecked(filter.isChecked());
+                mFiltersContainer.addView(checkBox);
+
+                boolean isChecked = filter.isChecked();
+                mSearchFiltersStates.add(isChecked);
+            }
+        }
+    }
+
+    public List<Boolean> getFiltersStates()
+    {
+        return mSearchFiltersStates;
     }
 
     private void hideClearTextIcon() {
@@ -876,6 +937,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mSavedState = new SavedState(superState);
         mSavedState.query = mUserQuery != null ? mUserQuery.toString() : null;
         mSavedState.isSearchOpen = mIsSearchOpen;
+        dispatchFilters();
+        mSavedState.searchFiltersStates = mSearchFiltersStates;
         return mSavedState;
     }
 
@@ -890,6 +953,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             open(true);
             setQueryWithoutSubmitting(mSavedState.query);
         }
+        restoreFiltersState(mSavedState.searchFiltersStates);
         super.onRestoreInstanceState(mSavedState.getSuperState());
     }
 
@@ -928,6 +992,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         String query;
         boolean isSearchOpen;
+        List<Boolean> searchFiltersStates;
 
         SavedState(Parcelable superState) {
             super(superState);
@@ -937,6 +1002,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             super(in);
             this.query = in.readString();
             this.isSearchOpen = in.readInt() == 1;
+            in.readList(searchFiltersStates, List.class.getClassLoader());
         }
 
         @Override
@@ -944,6 +1010,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             super.writeToParcel(out, flags);
             out.writeString(query);
             out.writeInt(isSearchOpen ? 1 : 0);
+            out.writeList(searchFiltersStates);
         }
 
     }
