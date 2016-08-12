@@ -7,8 +7,8 @@ android {
         applicationId 'com.lapism.searchview.sample'
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 34
-        versionName "3.4.1"
+        versionCode 35
+        versionName "3.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -36,6 +36,10 @@ android {
 
 dependencies {
     compile project(':searchview')
+
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.android.support:design:24.1.1'

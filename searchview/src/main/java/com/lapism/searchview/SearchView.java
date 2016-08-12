@@ -43,7 +43,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
@@ -63,10 +62,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private static int mTextHighlightColor = Color.BLACK;
     private static int mTextStyle = Typeface.NORMAL;
     private static Typeface mTextFont = Typeface.DEFAULT;
-    private static CharSequence mUserQuery = "";
-
     private final Context mContext;
-
     protected OnQueryTextListener mOnQueryChangeListener = null;
     protected OnOpenCloseListener mOnOpenCloseListener = null;
     protected OnMenuClickListener mOnMenuClickListener = null;
@@ -75,7 +71,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     protected android.support.v4.app.Fragment mSupportFragment = null;
     protected SearchArrowDrawable mSearchArrow = null;
     protected RecyclerView.Adapter mAdapter = null;
-
     protected RecyclerView mRecyclerView;
     protected View mShadowView;
     protected View mDividerView;
@@ -84,7 +79,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     protected ImageView mBackImageView;
     protected ImageView mVoiceImageView;
     protected ImageView mEmptyImageView;
-
     protected String mVoiceSearchText = "Speak now";
     protected int mVersion = VERSION_TOOLBAR;
     protected int mAnimationDuration = ANIMATION_DURATION;
@@ -94,7 +88,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     protected boolean mIsSearchOpen = false;
     protected SavedState mSavedState;
     protected CharSequence mOldQueryText;
-
+    private CharSequence mUserQuery = "";
     private boolean mShouldClearOnClose = true;
     private boolean mShouldClearOnOpen = true;
     private boolean mShouldHideOnKeyboardClose = true;
@@ -178,7 +172,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     // ---------------------------------------------------------------------------------------------
-    public static CharSequence getQuery() {
+    public CharSequence getQuery() {
         return mUserQuery;
     }
 
@@ -200,10 +194,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    private void setQuery2(CharSequence query) {
+    /*private void setQuery2(CharSequence query) {
         mEditText.setText(query);
         mEditText.setSelection(TextUtils.isEmpty(query) ? 0 : query.length());
-    }
+    }*/
 
     // ---------------------------------------------------------------------------------------------
     private void initView() {

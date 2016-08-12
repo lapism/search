@@ -20,21 +20,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
-    @SuppressWarnings("WeakerAccess")
     protected final SearchHistoryTable mHistoryDatabase;
-    @SuppressWarnings("WeakerAccess")
     protected String key = "";
-    @SuppressWarnings("WeakerAccess")
     protected List<SearchItem> mResultList = new ArrayList<>();
-    @SuppressWarnings("WeakerAccess")
     protected List<SearchItem> mSuggestionsList = new ArrayList<>();
-    @SuppressWarnings("WeakerAccess")
     protected OnItemClickListener mItemClickListener;
 
-    @SuppressWarnings("unused")
+
     public SearchAdapter(Context context) {// getContext();
         mHistoryDatabase = new SearchHistoryTable(context);
         getFilter().filter("");
@@ -46,12 +41,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         getFilter().filter("");
     }
 
-    @SuppressWarnings("unused")
     public List<SearchItem> getSuggestionsList() {
         return mSuggestionsList;
     }
 
-    @SuppressWarnings("unused")
     public void setSuggestionsList(List<SearchItem> suggestionsList) {
         mSuggestionsList = suggestionsList;
     }
@@ -186,7 +179,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         void onItemClick(View view, int position);
     }
 
-    @SuppressWarnings("WeakerAccess")
     public class ResultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         final protected ImageView icon_left;

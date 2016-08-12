@@ -23,7 +23,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 24
         versionCode 3
-        versionName "3.4.1"
+        versionName "3.5"
         vectorDrawables.useSupportLibrary true
     }
     buildTypes {
@@ -49,7 +49,7 @@ publish {
     userOrg = 'lapism'
     groupId = 'com.lapism'
     artifactId = 'searchview'
-    publishVersion = '3.4.1'
+    publishVersion = '3.5'
     desc = 'SearchView Library'
     website = 'https://github.com/lapism/SearchView'
 }
