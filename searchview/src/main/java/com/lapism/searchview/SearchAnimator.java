@@ -32,19 +32,21 @@ class SearchAnimator {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    static void revealOpen(View view, int duration, Context context, final SearchEditText editText, final boolean shouldClearOnOpen, final SearchView.OnOpenCloseListener listener) {
+    static void revealOpen(View view, int cx, int duration, Context context, final SearchEditText editText, final boolean shouldClearOnOpen, final SearchView.OnOpenCloseListener listener) {
 
-        int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
+        if (cx <= 0)
+        {
+            int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
+            if (SearchUtils.isRtlLayout(context))
+                cx = padding;
+            else
+                cx = view.getWidth() - padding;
+        }
 
-        int cx = view.getWidth() - padding;
         int cy = context.getResources().getDimensionPixelSize(R.dimen.search_height) / 2;
 
         if (cx != 0 && cy != 0) {
             float finalRadius = (float) Math.hypot(cx, cy);
-
-            if (SearchUtils.isRtlLayout(context)) {
-                cx = padding;
-            }
 
             Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0.0f, finalRadius);
             anim.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -82,19 +84,21 @@ class SearchAnimator {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    static void revealClose(final View view, int duration, Context context, final SearchEditText editText, final boolean shouldClearOnClose, final SearchView searchView, final SearchView.OnOpenCloseListener listener) {
+    static void revealClose(final View view, int cx, int duration, Context context, final SearchEditText editText, final boolean shouldClearOnClose, final SearchView searchView, final SearchView.OnOpenCloseListener listener) {
 
-        int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
+        if (cx <= 0)
+        {
+            int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
+            if (SearchUtils.isRtlLayout(context))
+                cx = padding;
+            else
+                cx = view.getWidth() - padding;
+        }
 
-        int cx = view.getWidth() - padding;
         int cy = context.getResources().getDimensionPixelSize(R.dimen.search_height) / 2;
 
         if (cx != 0 && cy != 0) {
             float initialRadius = (float) Math.hypot(cx, cy);
-
-            if (SearchUtils.isRtlLayout(context)) {
-                cx = padding;
-            }
 
             Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, initialRadius, 0.0f);
             anim.setInterpolator(new AccelerateDecelerateInterpolator());
