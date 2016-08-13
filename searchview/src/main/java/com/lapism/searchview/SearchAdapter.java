@@ -112,13 +112,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         };
     }
 
-    public void setData(List<SearchItem> data)
-    {
+    public void setData(List<SearchItem> data) {
         if (mResultList == null) {
             mResultList = data;
             notifyDataSetChanged();
-        }
-        else {
+        } else {
             int previousSize = mResultList.size();
             int nextSize = data.size();
             mResultList = data;
@@ -131,8 +129,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                     notifyItemRangeChanged(0, nextSize);
                     notifyItemRangeRemoved(nextSize - 1, previousSize);
                 }
-            }
-            else {
+            } else {
                 notifyItemRangeChanged(0, previousSize);
                 notifyItemRangeInserted(previousSize, nextSize - previousSize);
             }

@@ -24,7 +24,6 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -47,6 +46,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+// import android.support.v7.widget.DefaultItemAnimator;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchView extends FrameLayout implements View.OnClickListener {
@@ -577,9 +578,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return mShouldHideOnKeyboardClose;
     }
 
-    /**
-     * @param shouldHideOnKeyboardClose to auto hide the searchview when keyboard is close
-     */
     public void setShouldHideOnKeyboardClose(boolean shouldHideOnKeyboardClose) {
         mShouldHideOnKeyboardClose = shouldHideOnKeyboardClose;
     }
@@ -764,7 +762,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    private void showSuggestions() {
+    public void showSuggestions() {
         if (mRecyclerView.getVisibility() == View.GONE) {
             if (mAdapter != null) {
                 mDividerView.setVisibility(View.VISIBLE); // TODO DIVIDER BUG
@@ -774,7 +772,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    private void hideSuggestions() {
+    public void hideSuggestions() {
         if (mRecyclerView.getVisibility() == View.VISIBLE) {
             mDividerView.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.GONE);
