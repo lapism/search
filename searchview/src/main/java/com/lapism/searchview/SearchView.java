@@ -594,7 +594,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 {
                     dispatchFilters();
                 }
-            });
+            }, 0);
     }
 
     public RecyclerView.Adapter getAdapter()
@@ -727,8 +727,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private void onSubmitQuery() {
         CharSequence query = mEditText.getText();
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
+            dispatchFilters();
             if (mOnQueryChangeListener == null || !mOnQueryChangeListener.onQueryTextSubmit(query.toString())) {
-                dispatchFilters();
                 mEditText.setText(query);
             }
         }

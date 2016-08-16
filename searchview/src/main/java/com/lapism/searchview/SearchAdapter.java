@@ -178,9 +178,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     public void addOnItemClickListener(OnItemClickListener listener)
     {
+        addOnItemClickListener(listener, null);
+    }
+
+    protected void addOnItemClickListener(OnItemClickListener listener, Integer position)
+    {
         if (mItemClickListeners == null)
             mItemClickListeners = new ArrayList<>();
-        mItemClickListeners.add(listener);
+        if (position == null)
+            mItemClickListeners.add(listener);
+        else
+            mItemClickListeners.add(position, listener);
     }
 
     @Deprecated
