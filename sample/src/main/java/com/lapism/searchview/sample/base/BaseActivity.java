@@ -2,6 +2,7 @@ package com.lapism.searchview.sample.base;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -25,6 +26,8 @@ import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
 import com.lapism.searchview.sample.activity.AboutActivity;
+import com.lapism.searchview.sample.activity.FiltersActivity;
+import com.lapism.searchview.sample.activity.HistoryToggleActivity;
 import com.lapism.searchview.sample.activity.MenuItemActivity;
 import com.lapism.searchview.sample.activity.ResultActivity;
 import com.lapism.searchview.sample.activity.ToggleActivity;
@@ -46,6 +49,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     protected static final int NAV_ITEM_MENU_ITEM = 2;
     protected static final int NAV_ITEM_MENU_ITEM_DARK = 3;
     protected static final int NAV_ITEM_TOGGLE = 4;
+    protected static final int NAV_ITEM_HISTORY_TOGGLE = 5;
+    protected static final int NAV_ITEM_FILTERS = 6;
     private static final String EXTRA_KEY_VERSION_MARGINS = "version_margins";
     private static final String EXTRA_KEY_TEXT = "text";
     protected SearchView mSearchView = null;
@@ -74,8 +79,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_light_toolbar) {
-            Intent intent = new Intent(this, ToolbarActivity.class);
+        if (id == R.id.nav_light_toolbar || id == R.id.nav_filters_version) {
+            Intent intent = new Intent(this, id == R.id.nav_light_toolbar ? ToolbarActivity.class : FiltersActivity.class);
             intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
             intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
             intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
@@ -110,8 +115,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             finish();
         }
 
-        if (id == R.id.nav_toggle_versions) {
-            Intent intent = new Intent(this, ToggleActivity.class);
+        if (id == R.id.nav_toggle_versions || id == R.id.nav_history_toggle_versions) {
+            Intent intent = new Intent(this, id == R.id.nav_toggle_versions ? ToggleActivity.class : HistoryToggleActivity.class);
             intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
             intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
             intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
@@ -275,7 +280,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             suggestionsList.add(new SearchItem("search3"));
 
             SearchAdapter searchAdapter = new SearchAdapter(this, suggestionsList);
-            searchAdapter.setOnItemClickListener(new SearchAdapter.OnItemClickListener() {
+            searchAdapter.addOnItemClickListener(new SearchAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
                     TextView textView = (TextView) view.findViewById(R.id.textView_item_text);
@@ -306,7 +311,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         }
     }
 
-    private void getData(String text, int position) {
+    @CallSuper
+    protected void getData(String text, int position) {
         mHistoryDatabase.addItem(new SearchItem(text));
 
         Intent intent = new Intent(getApplicationContext(), ResultActivity.class);

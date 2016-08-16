@@ -11,6 +11,9 @@
     <string name="dark_menu_item">Dark Menu item</string>
 
     <string name="toggle_versions">Toggle versions</string>
+    <string name="history_toggle_versions">Toggle history</string>
+
+    <string name="filters_version">Filters versions</string>
 
     <string name="search">Search</string>
     <string name="installed">Installed</string>
