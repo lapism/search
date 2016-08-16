@@ -72,6 +72,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     protected OnQueryTextListener mOnQueryChangeListener = null;
     protected OnOpenCloseListener mOnOpenCloseListener = null;
     protected OnMenuClickListener mOnMenuClickListener = null;
+    protected OnVoiceClickListener mOnVoiceClickListener = null;
     protected Activity mActivity = null;
     protected Fragment mFragment = null;
     protected android.support.v4.app.Fragment mSupportFragment = null;
@@ -895,6 +896,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     private void onVoiceClicked() {
+        if (mOnVoiceClickListener != null)
+            mOnVoiceClickListener.onVoiceClick();
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, mVoiceSearchText);
@@ -979,6 +982,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mOnMenuClickListener = listener;
     }
 
+    public void setOnVoiceClickListener(OnVoiceClickListener listener) {
+        mOnVoiceClickListener = listener;
+    }
+
     // ---------------------------------------------------------------------------------------------
     @Override
     public Parcelable onSaveInstanceState() {
@@ -1022,6 +1029,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public interface OnMenuClickListener {
         void onMenuClick();
+    }
+
+    public interface OnVoiceClickListener {
+        void onVoiceClick();
     }
 
     private static class SavedState extends View.BaseSavedState {

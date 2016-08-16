@@ -50,6 +50,11 @@ public class ToggleActivity extends BaseActivity {
             @Override
             public void onMenuClick() {
                 mDrawerLayout.openDrawer(GravityCompat.START); // finish();
+            }
+        });
+        mSearchView.setOnVoiceClickListener(new SearchView.OnVoiceClickListener() {
+            @Override
+            public void onVoiceClick() {
                 perm(Manifest.permission.RECORD_AUDIO, 0);
             }
         });
