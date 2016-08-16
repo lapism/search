@@ -586,6 +586,20 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public void setAdapter(RecyclerView.Adapter adapter) {
         mAdapter = adapter;
         mRecyclerView.setAdapter(mAdapter);
+        if (mAdapter instanceof SearchAdapter)
+            ((SearchAdapter) mAdapter).addOnItemClickListener(new SearchAdapter.OnItemClickListener()
+            {
+                @Override
+                public void onItemClick(View view, int position)
+                {
+                    dispatchFilters();
+                }
+            });
+    }
+
+    public RecyclerView.Adapter getAdapter()
+    {
+        return mRecyclerView.getAdapter();
     }
 
     public void open(boolean animate)

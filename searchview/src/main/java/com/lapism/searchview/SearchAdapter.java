@@ -24,11 +24,11 @@ import java.util.Locale;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
     protected final SearchHistoryTable mHistoryDatabase;
+    private Integer mDatabaseKey;
     protected String key = "";
     protected List<SearchItem> mResultList = new ArrayList<>();
     protected List<SearchItem> mSuggestionsList = new ArrayList<>();
-    protected OnItemClickListener mItemClickListener;
-
+    protected List<OnItemClickListener> mItemClickListeners;
 
     public SearchAdapter(Context context) {// getContext();
         mHistoryDatabase = new SearchHistoryTable(context);
@@ -49,6 +49,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         mSuggestionsList = suggestionsList;
     }
 
+    public void setDatabaseKey(Integer key)
+    {
+        mDatabaseKey = key;
+        getFilter().filter("");
+    }
+
     @Override
     public int getItemViewType(int position) {
         return position;
@@ -66,8 +72,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
                     List<SearchItem> results = new ArrayList<>();
                     List<SearchItem> history = new ArrayList<>();
-                    if (!mHistoryDatabase.getAllItems().isEmpty()) {
-                        history.addAll(mHistoryDatabase.getAllItems());
+                    if (!mHistoryDatabase.getAllItems(mDatabaseKey).isEmpty()) {
+                        history.addAll(mHistoryDatabase.getAllItems(mDatabaseKey));
                     }
                     history.addAll(mSuggestionsList);
 
@@ -102,11 +108,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                         }
                     }
                 } else {
-                    if (!mHistoryDatabase.getAllItems().isEmpty() && key.isEmpty()) {
-                        dataSet = mHistoryDatabase.getAllItems();
+                    if (key.isEmpty()) {
+                        List<SearchItem> allItems = mHistoryDatabase.getAllItems(mDatabaseKey);
+                        if (!allItems.isEmpty()) {
+                            dataSet = allItems;
+                        }
                     }
                 }
-
                 setData(dataSet);
             }
         };
@@ -168,8 +176,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         return mResultList.size();
     }
 
+    public void addOnItemClickListener(OnItemClickListener listener)
+    {
+        if (mItemClickListeners == null)
+            mItemClickListeners = new ArrayList<>();
+        mItemClickListeners.add(listener);
+    }
+
+    @Deprecated
+    /* use addOnItemClickListener instead */
     public void setOnItemClickListener(OnItemClickListener mItemClickListener) {
-        this.mItemClickListener = mItemClickListener;
+        addOnItemClickListener(mItemClickListener);
     }
 
     public interface OnItemClickListener {
@@ -190,8 +207,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
         @Override
         public void onClick(View v) {
-            if (mItemClickListener != null) {
-                mItemClickListener.onItemClick(v, getLayoutPosition());
+            if (mItemClickListeners != null) {
+                int layoutPosition = getLayoutPosition();
+                for (OnItemClickListener listener : mItemClickListeners)
+                    listener.onItemClick(v, layoutPosition);
             }
         }
     }
