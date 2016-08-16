@@ -46,8 +46,8 @@ public class SearchHistoryTable {
             ContentValues values = new ContentValues();
             values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID, getLastItemId() + 1);
 
-            db.update(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, values,
-                    SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " = ? ", new String[]{Integer.toString(getItemId(item))});
+            // TODO
+            db.update(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, values, SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " = ? ", new String[]{Integer.toString(getItemId(item))});
             db.close();
         }
     }

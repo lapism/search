@@ -97,15 +97,9 @@
                 android:id="@+id/filters_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:showDividers="middle"
                 android:divider="@drawable/filter_empty_divider"
-                android:layout_marginTop="@dimen/filter_margin_top"
-                android:layout_marginEnd="@dimen/filter_margin_start"
-                android:layout_marginLeft="@dimen/filter_margin_start"
-                android:layout_marginRight="@dimen/filter_margin_start"
-                android:layout_marginStart="@dimen/filter_margin_start"
-                android:orientation="horizontal">
-            </LinearLayout>
+                android:orientation="horizontal"
+                android:showDividers="middle" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView_result"

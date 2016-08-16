@@ -1,4 +1,30 @@
-// COMING SOON onPostCreate HistoryDatabase perhaps needs a method to refresh ROZLOZENI leak
+// COMING SOON onPostCreate HistoryDatabase perhaps needs a method to refresh ROZLOZENI
+// V21 DRAW A PROJIY TO
+
+
+// mRecyclerView.setAlpha(0.0f);
+// mRecyclerView.animate().alpha(1.0f);
+
+//         s.removeSpan(new ForegroundColorSpan(SearchView.getTextColor()));
+//         viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
+// @ColorRes, Filter.FilterListener
+
+
+// ANALYSE
+// TODO file:///E:/Android/SearchView/sample/build/outputs/lint-results-debug.html
+// TODO file:///E:/Android/SearchView/searchview/build/outputs/lint-results-debug.html
+
+// TODO CoordinatorLayout.Behavior / SingleTask / VISIBLE DIVIDER BUG, ICON, CROSS TOOLBAR_ICON, FIX SAMPLE ON POST CREATE
+// TODO E/RecyclerView: No adapter attached; skipping layout when search
+// TODO W/IInputConnectionWrapper: getTextBeforeCursor on inactive InputConnection
+
+
+
+
+
+
+
+
 
 /*
 Hello,

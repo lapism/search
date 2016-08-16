@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="search_height">48dp</dimen>
+    <dimen name="search_height">47dp</dimen>
 
 </resources>

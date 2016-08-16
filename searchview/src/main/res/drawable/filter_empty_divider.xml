@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <size
-        android:height="0dp"
-        android:width="@dimen/filter_spacing"/>
+        android:width="@dimen/filter_spacing"
+        android:height="0dp" />
 </shape>

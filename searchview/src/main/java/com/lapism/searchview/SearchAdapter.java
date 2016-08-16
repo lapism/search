@@ -29,7 +29,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     protected List<SearchItem> mSuggestionsList = new ArrayList<>();
     protected OnItemClickListener mItemClickListener;
 
-
     public SearchAdapter(Context context) {// getContext();
         mHistoryDatabase = new SearchHistoryTable(context);
         getFilter().filter("");
@@ -197,26 +196,3 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     }
 
 }
-
-// mRecyclerView.setAlpha(0.0f);
-// mRecyclerView.animate().alpha(1.0f);
-
-/*SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-SharedPreferences.Editor editor = preferences.edit();
-editor.putString("s", s.toString());
-editor.apply();*/
-
-// SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
-// mEditText.setText(sp.getString("s", " ")); TODO
-
-//         s.removeSpan(new ForegroundColorSpan(SearchView.getTextColor()));
-//         viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
-// @ColorRes, Filter.FilterListener
-
-
-// TODO ANALYSE
-// TODO file:///E:/Android/SearchView/sample/build/outputs/lint-results-debug.html
-// TODO file:///E:/Android/SearchView/searchview/build/outputs/lint-results-debug.html
-// TODO CoordinatorLayout.Behavior / SingleTask / VISIBLE DIVIDER BUG, ICON, CROSS TOOLBAR_ICON, FIX SAMPLE ON POST CREATE
-// TODO E/RecyclerView: No adapter attached; skipping layout when search
-// TODO W/IInputConnectionWrapper: getTextBeforeCursor on inactive InputConnection

@@ -588,8 +588,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    public void open(boolean animate)
-    {
+    public void open(boolean animate) {
         open(animate, null);
     }
 
@@ -796,24 +795,20 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    private int getCenterX(View view)
-    {
+    private int getCenterX(View view) {
         int[] location = new int[2];
         view.getLocationOnScreen(location);
         return location[0] + view.getWidth() / 2;
     }
 
-    private void getMenuItemPosition(int menuItemId)
-    {
+    private void getMenuItemPosition(int menuItemId) {
         if (mMenuItemView != null)
             mMenuItemCx = getCenterX(mMenuItemView);
         ViewParent viewParent = getParent();
-        while (viewParent != null && viewParent instanceof View)
-        {
+        while (viewParent != null && viewParent instanceof View) {
             View parent = (View) viewParent;
             View view = parent.findViewById(menuItemId);
-            if (view != null)
-            {
+            if (view != null) {
                 mMenuItemView = view;
                 mMenuItemCx = getCenterX(mMenuItemView);
                 break;
@@ -861,8 +856,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    public List<Boolean> getFiltersStates()
-    {
+    public List<Boolean> getFiltersStates() {
         return mSearchFiltersStates;
     }
 

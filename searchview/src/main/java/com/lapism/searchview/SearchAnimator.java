@@ -34,8 +34,7 @@ class SearchAnimator {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     static void revealOpen(View view, int cx, int duration, Context context, final SearchEditText editText, final boolean shouldClearOnOpen, final SearchView.OnOpenCloseListener listener) {
 
-        if (cx <= 0)
-        {
+        if (cx <= 0) {
             int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
             if (SearchUtils.isRtlLayout(context))
                 cx = padding;
@@ -86,8 +85,7 @@ class SearchAnimator {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     static void revealClose(final View view, int cx, int duration, Context context, final SearchEditText editText, final boolean shouldClearOnClose, final SearchView searchView, final SearchView.OnOpenCloseListener listener) {
 
-        if (cx <= 0)
-        {
+        if (cx <= 0) {
             int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
             if (SearchUtils.isRtlLayout(context))
                 cx = padding;
