@@ -1,5 +1,6 @@
 package com.lapism.searchview;
 
+import android.animation.LayoutTransition;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
@@ -52,6 +53,7 @@ import java.util.List;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
+    public static final int LAYOUT_TRANSITION_DURATION = 200;
     public static final int ANIMATION_DURATION = 300;
     public static final int VERSION_TOOLBAR = 1000;
     public static final int VERSION_TOOLBAR_ICON = 1001;
@@ -215,6 +217,12 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mEditText.setSelection(TextUtils.isEmpty(query) ? 0 : query.length());
     }*/
 
+    public LayoutTransition getRecyclerViewLayoutTransition() {
+        LayoutTransition layoutTransition = new LayoutTransition();
+        layoutTransition.setDuration(LAYOUT_TRANSITION_DURATION);
+        return layoutTransition;
+    }
+
     // ---------------------------------------------------------------------------------------------
     private void initView() {
         LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
@@ -224,13 +232,20 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_result);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setItemAnimator(null);
-        mRecyclerView.getLayoutTransition().setDuration(200);
+        mRecyclerView.setLayoutTransition(getRecyclerViewLayoutTransition());
         mRecyclerView.setVisibility(View.GONE);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if (newState == RecyclerView.SCROLL_STATE_DRAGGING)
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    mRecyclerView.setLayoutTransition(null);
                     hideKeyboard();
+                }
+                else {
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        mRecyclerView.setLayoutTransition(getRecyclerViewLayoutTransition());
+                    }
+                }
             }
         });
 

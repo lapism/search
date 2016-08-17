@@ -273,22 +273,27 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                 }
             });
 
-            List<SearchItem> suggestionsList = new ArrayList<>();
-            suggestionsList.add(new SearchItem("search1"));
-            suggestionsList.add(new SearchItem("search2"));
-            suggestionsList.add(new SearchItem("search3"));
+            if (mSearchView.getAdapter() == null)
+            {
+                List<SearchItem> suggestionsList = new ArrayList<>();
+                suggestionsList.add(new SearchItem("search1"));
+                suggestionsList.add(new SearchItem("search2"));
+                suggestionsList.add(new SearchItem("search3"));
 
-            SearchAdapter searchAdapter = new SearchAdapter(this, suggestionsList);
-            searchAdapter.addOnItemClickListener(new SearchAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    TextView textView = (TextView) view.findViewById(R.id.textView_item_text);
-                    String query = textView.getText().toString();
-                    getData(query, position);
-                    // mSearchView.close(false);
-                }
-            });
-            mSearchView.setAdapter(searchAdapter);
+                SearchAdapter searchAdapter = new SearchAdapter(this, suggestionsList);
+                searchAdapter.addOnItemClickListener(new SearchAdapter.OnItemClickListener()
+                {
+                    @Override
+                    public void onItemClick(View view, int position)
+                    {
+                        TextView textView = (TextView) view.findViewById(R.id.textView_item_text);
+                        String query = textView.getText().toString();
+                        getData(query, position);
+                        // mSearchView.close(false);
+                    }
+                });
+                mSearchView.setAdapter(searchAdapter);
+            }
 
             /*
             List<SearchFilter> filter = new ArrayList<>();
