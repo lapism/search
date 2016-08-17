@@ -23,14 +23,14 @@ public class SearchHistoryTable {
     }
 
     // FOR onResume AND onPause
-    @SuppressWarnings("unused")
+    @SuppressWarnings("WeakerAccess")
     public void open() throws SQLException {
         if (mConnectionCount == 0)
             db = dbHelper.getWritableDatabase();
         mConnectionCount++;
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("WeakerAccess")
     public void close() {
         mConnectionCount--;
         if (mConnectionCount == 0)
@@ -41,6 +41,7 @@ public class SearchHistoryTable {
         addItem(item, mCurrentDatabaseKey);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public void addItem(SearchItem item, Integer databaseKey) {
         ContentValues values = new ContentValues();
         if (!checkText(item.get_text().toString())) {
