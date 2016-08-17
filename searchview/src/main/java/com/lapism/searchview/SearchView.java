@@ -826,24 +826,21 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    private int getCenterX(View view)
-    {
+    private int getCenterX(View view) {
         int[] location = new int[2];
         view.getLocationOnScreen(location);
         return location[0] + view.getWidth() / 2;
     }
 
-    private void getMenuItemPosition(int menuItemId)
-    {
-        if (mMenuItemView != null)
+    private void getMenuItemPosition(int menuItemId) {
+        if (mMenuItemView != null) {
             mMenuItemCx = getCenterX(mMenuItemView);
+        }
         ViewParent viewParent = getParent();
-        while (viewParent != null && viewParent instanceof View)
-        {
+        while (viewParent != null && viewParent instanceof View) {
             View parent = (View) viewParent;
             View view = parent.findViewById(menuItemId);
-            if (view != null)
-            {
+            if (view != null) {
                 mMenuItemView = view;
                 mMenuItemCx = getCenterX(mMenuItemView);
                 break;
@@ -856,8 +853,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mSearchFiltersStates = states;
         for (int i = 0, j = 0, n = mFiltersContainer.getChildCount(); i < n; i++) {
             View view = mFiltersContainer.getChildAt(i);
-            if (view instanceof AppCompatCheckBox)
+            if (view instanceof AppCompatCheckBox) {
                 ((AppCompatCheckBox) view).setChecked(mSearchFiltersStates.get(j++));
+            }
         }
     }
 
@@ -873,10 +871,19 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public void setFilters(@Nullable List<SearchFilter> filters) {
         mFiltersContainer.removeAllViews();
-        if (filters == null)
+        if (filters == null) {
             mSearchFiltersStates = null;
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mFiltersContainer.getLayoutParams();
+            params.topMargin = 0;
+            params.bottomMargin = 0;
+            mFiltersContainer.setLayoutParams(params);
+        }
         else {
             mSearchFiltersStates = new ArrayList<>();
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mFiltersContainer.getLayoutParams();
+            params.topMargin = mContext.getResources().getDimensionPixelSize(R.dimen.filter_margin_top);
+            params.bottomMargin = params.topMargin / 2;
+            mFiltersContainer.setLayoutParams(params);
             for (SearchFilter filter : filters) {
                 AppCompatCheckBox checkBox = new AppCompatCheckBox(mContext);
                 checkBox.setText(filter.getTitle());
