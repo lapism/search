@@ -32,6 +32,7 @@
                 android:paddingStart="@dimen/search_key_line">
 
                 <ImageView
+                    android:background="?attr/selectableItemBackground"
                     android:id="@+id/imageView_arrow_back"
                     android:layout_width="@dimen/search_icon"
                     android:layout_height="match_parent"

@@ -13,6 +13,8 @@ import java.util.List;
 public class SearchHistoryTable {
 
     private static int mHistorySize = 2;
+    private static int mConnectionCount = 0;
+    private static Integer mCurrentDatabaseKey;
     private final SearchHistoryDatabase dbHelper;
     private SQLiteDatabase db;
 
@@ -23,65 +25,68 @@ public class SearchHistoryTable {
     // FOR onResume AND onPause
     @SuppressWarnings("unused")
     public void open() throws SQLException {
-        db = dbHelper.getWritableDatabase();
+        if (mConnectionCount == 0)
+            db = dbHelper.getWritableDatabase();
+        mConnectionCount++;
     }
 
     @SuppressWarnings("unused")
     public void close() {
-        dbHelper.close();
+        mConnectionCount--;
+        if (mConnectionCount == 0)
+            dbHelper.close();
     }
 
     public void addItem(SearchItem item) {
+        addItem(item, mCurrentDatabaseKey);
+    }
+
+    public void addItem(SearchItem item, Integer databaseKey) {
+        ContentValues values = new ContentValues();
         if (!checkText(item.get_text().toString())) {
-            db = dbHelper.getWritableDatabase();
-
-            ContentValues values = new ContentValues();
             values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TEXT, item.get_text().toString());
-
+            if (databaseKey != null)
+                values.put(SearchHistoryDatabase.SEARCH_HISTORY_KEY, databaseKey);
+            open();
             db.insert(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, values);
-            db.close();
-        } else {
-            db = dbHelper.getWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID, getLastItemId() + 1);
-
-            // TODO
+            close();
+        }
+        else {
+            values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID, getLastItemId(databaseKey) + 1);
+            open();
             db.update(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, values, SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " = ? ", new String[]{Integer.toString(getItemId(item))});
-            db.close();
+            close();
         }
     }
 
     private int getItemId(SearchItem item) {
-        db = dbHelper.getReadableDatabase();
+        open();
         String query = "SELECT " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID +
                 " FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE +
                 " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TEXT + " = ?";
-        Cursor cursor = db.rawQuery(query, new String[]{item.get_text().toString()});
-        cursor.moveToFirst();
-        int id = cursor.getInt(0);
-
-        cursor.close();
-        db.close();
-
+        Cursor res = db.rawQuery(query, new String[]{item.get_text().toString()});
+        res.moveToFirst();
+        int id = res.getInt(0);
+        close();
+        res.close();
         return id;
     }
 
-    private int getLastItemId() {
-        db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " FROM " +
-                SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null);
-        cursor.moveToLast();
-        int count = cursor.getInt(0);
-
-        cursor.close();
-        db.close();
-
+    private int getLastItemId(Integer databaseKey) {
+        open();
+        String sql = "SELECT " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE;
+        if (databaseKey != null)
+            sql += " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_KEY + " = " + databaseKey;
+        Cursor res = db.rawQuery(sql, null);
+        res.moveToLast();
+        int count = res.getInt(0);
+        close();
+        res.close();
         return count;
     }
 
     private boolean checkText(String text) {
-        db = dbHelper.getReadableDatabase();
+        open();
 
         String query = "SELECT * FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE + " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TEXT + " =?";
         Cursor cursor = db.rawQuery(query, new String[]{text});
@@ -93,20 +98,21 @@ public class SearchHistoryTable {
         }
 
         cursor.close();
-        db.close();
+        close();
         return hasObject;
     }
 
     @SuppressWarnings("WeakerAccess")
-    public List<SearchItem> getAllItems() {
+    public List<SearchItem> getAllItems(Integer databaseKey) {
+        mCurrentDatabaseKey = databaseKey;
         List<SearchItem> list = new ArrayList<>();
 
-        String selectQuery =
-                "SELECT * FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE +
-                        " ORDER BY " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID +
-                        " DESC LIMIT " + mHistorySize;
+        String selectQuery = "SELECT * FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE;
+        if (databaseKey != null)
+            selectQuery += " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_KEY + " = " + databaseKey;
+        selectQuery += " ORDER BY " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " DESC LIMIT " + mHistorySize;
 
-        db = dbHelper.getWritableDatabase();
+        open();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
@@ -117,6 +123,7 @@ public class SearchHistoryTable {
             } while (cursor.moveToNext());
         }
         cursor.close();
+        close();
         return list;
     }
 
@@ -126,19 +133,19 @@ public class SearchHistoryTable {
     }
 
     public void clearDatabase() {
-        db = dbHelper.getWritableDatabase();
+        open();
         db.delete(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, null);
-        db.close();
+        close();
     }
 
     @SuppressWarnings("unused")
     public int getItemsCount() {
-        db = dbHelper.getReadableDatabase();
+        open();
         String countQuery = "SELECT * FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE;
         Cursor cursor = db.rawQuery(countQuery, null);
         int count = cursor.getCount();
         cursor.close();
-        db.close();
+        close();
         return count;
     }
 
