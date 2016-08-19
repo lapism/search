@@ -1,5 +1,5 @@
 // COMING SOON onPostCreate HistoryDatabase perhaps needs a method to refresh ROZLOZENI
-// V21 DRAW A PROJIY TO
+// V21 DRAW
 
 
 // mRecyclerView.setAlpha(0.0f);

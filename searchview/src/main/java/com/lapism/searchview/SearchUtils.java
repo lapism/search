@@ -7,9 +7,9 @@ import android.support.v4.view.ViewCompat;
 import java.util.Locale;
 
 
+@SuppressWarnings("unused")
 class SearchUtils {
 
-    @SuppressWarnings("unused")
     static boolean isRTL() {
         return isRTL(Locale.getDefault());
     }

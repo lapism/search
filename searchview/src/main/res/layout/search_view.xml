@@ -32,7 +32,6 @@
                 android:paddingStart="@dimen/search_key_line">
 
                 <ImageView
-                    android:background="?attr/selectableItemBackground"
                     android:id="@+id/imageView_arrow_back"
                     android:layout_width="@dimen/search_icon"
                     android:layout_height="match_parent"
@@ -98,6 +97,10 @@
                 android:id="@+id/filters_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/filter_margin_start"
+                android:layout_marginLeft="@dimen/filter_margin_start"
+                android:layout_marginRight="@dimen/filter_margin_start"
+                android:layout_marginStart="@dimen/filter_margin_start"
                 android:divider="@drawable/filter_empty_divider"
                 android:orientation="horizontal"
                 android:showDividers="middle" />

@@ -35,8 +35,8 @@
             android:label="@string/app_name" />
 
         <activity
-        android:name=".activity.HistoryToggleActivity"
-        android:label="@string/app_name" />
+            android:name=".activity.HistoryToggleActivity"
+            android:label="@string/app_name" />
 
         <activity
             android:name=".activity.FiltersActivity"

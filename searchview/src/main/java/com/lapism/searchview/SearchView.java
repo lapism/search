@@ -50,6 +50,7 @@ import java.util.List;
 
 // import android.support.v7.widget.DefaultItemAnimator;
 
+
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
@@ -240,8 +241,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
                     mRecyclerView.setLayoutTransition(null);
                     hideKeyboard();
-                }
-                else {
+                } else {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                         mRecyclerView.setLayoutTransition(getRecyclerViewLayoutTransition());
                     }
@@ -492,7 +492,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mEditText.setText(text);
     }
 
-    @SuppressWarnings("SameParameterValue")
     public void setText(@StringRes int text) {
         mEditText.setText(text);
     }
@@ -505,7 +504,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mEditText.setHint(hint);
     }
 
-    @SuppressWarnings("SameParameterValue")
     public void setHint(@StringRes int hint) {
         mEditText.setHint(hint);
     }
@@ -598,31 +596,27 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mShouldHideOnKeyboardClose = shouldHideOnKeyboardClose;
     }
 
+    public RecyclerView.Adapter getAdapter() {
+        return mRecyclerView.getAdapter();
+    }
+
     // ---------------------------------------------------------------------------------------------
     public void setAdapter(RecyclerView.Adapter adapter) {
         mAdapter = adapter;
         mRecyclerView.setAdapter(mAdapter);
         if (mAdapter instanceof SearchAdapter)
-            ((SearchAdapter) mAdapter).addOnItemClickListener(new SearchAdapter.OnItemClickListener()
-            {
+            ((SearchAdapter) mAdapter).addOnItemClickListener(new SearchAdapter.OnItemClickListener() {
                 @Override
-                public void onItemClick(View view, int position)
-                {
+                public void onItemClick(View view, int position) {
                     dispatchFilters();
                 }
             }, 0);
-    }
-
-    public RecyclerView.Adapter getAdapter()
-    {
-        return mRecyclerView.getAdapter();
     }
 
     public void open(boolean animate) {
         open(animate, null);
     }
 
-    @SuppressWarnings("SameParameterValue")
     public void open(boolean animate, MenuItem menuItem) {
         mFiltersContainer.setVisibility(View.VISIBLE);
         if (mVersion == VERSION_MENU_ITEM) {
@@ -658,7 +652,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    @SuppressWarnings("SameParameterValue")
     public void close(boolean animate) {
         mFiltersContainer.setVisibility(View.GONE);
         if (mVersion == VERSION_MENU_ITEM) {
@@ -832,8 +825,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     private void getMenuItemPosition(int menuItemId) {
-        if (mMenuItemView != null)
+        if (mMenuItemView != null) {
             mMenuItemCx = getCenterX(mMenuItemView);
+        }
         ViewParent viewParent = getParent();
         while (viewParent != null && viewParent instanceof View) {
             View parent = (View) viewParent;
@@ -851,8 +845,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mSearchFiltersStates = states;
         for (int i = 0, j = 0, n = mFiltersContainer.getChildCount(); i < n; i++) {
             View view = mFiltersContainer.getChildAt(i);
-            if (view instanceof AppCompatCheckBox)
+            if (view instanceof AppCompatCheckBox) {
                 ((AppCompatCheckBox) view).setChecked(mSearchFiltersStates.get(j++));
+            }
         }
     }
 
@@ -868,10 +863,18 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public void setFilters(@Nullable List<SearchFilter> filters) {
         mFiltersContainer.removeAllViews();
-        if (filters == null)
+        if (filters == null) {
             mSearchFiltersStates = null;
-        else {
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mFiltersContainer.getLayoutParams();
+            params.topMargin = 0;
+            params.bottomMargin = 0;
+            mFiltersContainer.setLayoutParams(params);
+        } else {
             mSearchFiltersStates = new ArrayList<>();
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mFiltersContainer.getLayoutParams();
+            params.topMargin = mContext.getResources().getDimensionPixelSize(R.dimen.filter_margin_top);
+            params.bottomMargin = params.topMargin / 2;
+            mFiltersContainer.setLayoutParams(params);
             for (SearchFilter filter : filters) {
                 AppCompatCheckBox checkBox = new AppCompatCheckBox(mContext);
                 checkBox.setText(filter.getTitle());
@@ -1022,11 +1025,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         super.onRestoreInstanceState(mSavedState.getSuperState());
     }
 
+    @SuppressWarnings({"UnusedReturnValue", "SameReturnValue"})
     public interface OnQueryTextListener {
-        @SuppressWarnings({"UnusedParameters", "UnusedReturnValue", "SameReturnValue"})
         boolean onQueryTextChange(String newText);
 
-        @SuppressWarnings("SameReturnValue")
         boolean onQueryTextSubmit(String query);
     }
 

@@ -9,16 +9,14 @@ import com.lapism.searchview.SearchFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FiltersActivity extends ToolbarActivity
-{
+public class FiltersActivity extends ToolbarActivity {
     @Override
     protected int getNavItem() {
         return NAV_ITEM_FILTERS;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         List<SearchFilter> filters = new ArrayList<>();
         filters.add(new SearchFilter("Filter1", true));
@@ -28,19 +26,15 @@ public class FiltersActivity extends ToolbarActivity
     }
 
     @Override
-    protected void getData(String text, int position)
-    {
+    protected void getData(String text, int position) {
         super.getData(text, position);
-        new Handler().postDelayed(new Runnable()
-        {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 String text = "Selected: ";
                 List<Boolean> filtersState = mSearchView.getFiltersStates();
                 int i = 0;
-                for (Boolean filter : filtersState)
-                {
+                for (Boolean filter : filtersState) {
                     i++;
                     if (filter)
                         text += "Filter" + i;

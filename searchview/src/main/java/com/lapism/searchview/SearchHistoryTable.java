@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchHistoryTable {
 
     private static int mHistorySize = 2;
@@ -23,14 +24,12 @@ public class SearchHistoryTable {
     }
 
     // FOR onResume AND onPause
-    @SuppressWarnings("WeakerAccess")
     public void open() throws SQLException {
         if (mConnectionCount == 0)
             db = dbHelper.getWritableDatabase();
         mConnectionCount++;
     }
 
-    @SuppressWarnings("WeakerAccess")
     public void close() {
         mConnectionCount--;
         if (mConnectionCount == 0)
@@ -41,7 +40,6 @@ public class SearchHistoryTable {
         addItem(item, mCurrentDatabaseKey);
     }
 
-    @SuppressWarnings("WeakerAccess")
     public void addItem(SearchItem item, Integer databaseKey) {
         ContentValues values = new ContentValues();
         if (!checkText(item.get_text().toString())) {
@@ -51,8 +49,7 @@ public class SearchHistoryTable {
             open();
             db.insert(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, values);
             close();
-        }
-        else {
+        } else {
             values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID, getLastItemId(databaseKey) + 1);
             open();
             db.update(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, values, SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " = ? ", new String[]{Integer.toString(getItemId(item))});
@@ -103,7 +100,6 @@ public class SearchHistoryTable {
         return hasObject;
     }
 
-    @SuppressWarnings("WeakerAccess")
     public List<SearchItem> getAllItems(Integer databaseKey) {
         mCurrentDatabaseKey = databaseKey;
         List<SearchItem> list = new ArrayList<>();
@@ -128,7 +124,6 @@ public class SearchHistoryTable {
         return list;
     }
 
-    @SuppressWarnings("unused")
     public void setHistorySize(int historySize) {
         mHistorySize = historySize;
     }
@@ -139,7 +134,6 @@ public class SearchHistoryTable {
         close();
     }
 
-    @SuppressWarnings("unused")
     public int getItemsCount() {
         open();
         String countQuery = "SELECT * FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE;

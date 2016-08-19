@@ -20,15 +20,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
     protected final SearchHistoryTable mHistoryDatabase;
-    private Integer mDatabaseKey;
     protected String key = "";
     protected List<SearchItem> mResultList = new ArrayList<>();
     protected List<SearchItem> mSuggestionsList = new ArrayList<>();
     protected List<OnItemClickListener> mItemClickListeners;
+    private Integer mDatabaseKey;
 
     public SearchAdapter(Context context) {// getContext();
         mHistoryDatabase = new SearchHistoryTable(context);
@@ -49,8 +50,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         mSuggestionsList = suggestionsList;
     }
 
-    public void setDatabaseKey(Integer key)
-    {
+    public void setDatabaseKey(Integer key) {
         mDatabaseKey = key;
         getFilter().filter("");
     }
@@ -176,13 +176,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         return mResultList.size();
     }
 
-    public void addOnItemClickListener(OnItemClickListener listener)
-    {
+    public void addOnItemClickListener(OnItemClickListener listener) {
         addOnItemClickListener(listener, null);
     }
 
-    protected void addOnItemClickListener(OnItemClickListener listener, Integer position)
-    {
+    protected void addOnItemClickListener(OnItemClickListener listener, Integer position) {
         if (mItemClickListeners == null)
             mItemClickListeners = new ArrayList<>();
         if (position == null)
@@ -197,6 +195,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         addOnItemClickListener(mItemClickListener);
     }
 
+    @SuppressWarnings("UnusedParameters")
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
