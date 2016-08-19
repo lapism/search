@@ -414,6 +414,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mEmptyImageView.setImageResource(R.drawable.search_ic_clear_black_24dp);
     }
 
+    public int getVersion() {
+        return mVersion;
+    }
+
     public void setVersionMargins(int version) {
         CardView.LayoutParams params = new CardView.LayoutParams(
                 CardView.LayoutParams.MATCH_PARENT,
