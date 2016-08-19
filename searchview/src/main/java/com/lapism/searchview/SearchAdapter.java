@@ -73,8 +73,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
                     List<SearchItem> results = new ArrayList<>();
                     List<SearchItem> history = new ArrayList<>();
-                    if (!mHistoryDatabase.getAllItems(mDatabaseKey).isEmpty()) {
-                        history.addAll(mHistoryDatabase.getAllItems(mDatabaseKey));
+                    List<SearchItem> databaseAllItems = mHistoryDatabase.getAllItems(mDatabaseKey);
+                    if (!databaseAllItems.isEmpty()) {
+                        history.addAll(databaseAllItems);
                     }
                     history.addAll(mSuggestionsList);
 
