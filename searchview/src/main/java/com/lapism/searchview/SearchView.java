@@ -316,7 +316,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 setVersionMargins(attr.getInt(R.styleable.SearchView_search_version_margins, VERSION_MARGINS_TOOLBAR_SMALL));
             }
             if (attr.hasValue(R.styleable.SearchView_search_theme)) {
-                setTheme(attr.getInt(R.styleable.SearchView_search_theme, THEME_LIGHT), false);
+                setTheme(attr.getInt(R.styleable.SearchView_search_theme, THEME_LIGHT));
             }
             if (attr.hasValue(R.styleable.SearchView_search_navigation_icon)) {
                 setNavigationIcon(attr.getResourceId(R.styleable.SearchView_search_navigation_icon, 0));
@@ -327,8 +327,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             if (attr.hasValue(R.styleable.SearchView_search_background_color)) {
                 setBackgroundColor(attr.getColor(R.styleable.SearchView_search_background_color, 0));
             }
-            if (attr.hasValue(R.styleable.SearchView_search_text)) {
-                setText(attr.getString(R.styleable.SearchView_search_text));
+            if (attr.hasValue(R.styleable.SearchView_search_text_input)) {
+                setTextInput(attr.getString(R.styleable.SearchView_search_text_input));
             }
             if (attr.hasValue(R.styleable.SearchView_search_text_color)) {
                 setTextColor(attr.getColor(R.styleable.SearchView_search_text_color, 0));
@@ -488,8 +488,14 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mCardView.setCardBackgroundColor(color);
     }
 
-    public void setText(CharSequence text) {
+    public void setTextInput(CharSequence text) {
         mEditText.setText(text);
+    }
+
+    @Deprecated
+    /* Use setTextInput. */
+    public void setText(CharSequence text) {
+        setTextInput(text);
     }
 
     public void setText(@StringRes int text) {

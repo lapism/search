@@ -55,4 +55,4 @@ publish {
 }
 
 // build first
-// gradlew clean build bintrayUpload -PbintrayUser=lapism -PbintrayKey=BINTRAY_KEY -PdryRun=false
+// gradlew clean build bintrayUpload -PbintrayUser=lapism -PbintrayKey= -PdryRun=false

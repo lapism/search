@@ -19,7 +19,7 @@
         <attr name="search_navigation_icon" format="integer" />
         <attr name="search_icon_color" format="color" />
         <attr name="search_background_color" format="color" />
-        <attr name="search_text" format="string" />
+        <attr name="search_text_input" format="string" />
         <attr name="search_text_color" format="color" />
         <attr name="search_text_highlight_color" format="color" />
         <attr name="search_text_size" format="dimension" />
@@ -41,7 +41,6 @@
         <attr name="search_clear_on_close" format="boolean" />
         <attr name="search_clear_on_open" format="boolean" />
         <attr name="search_hide_on_keyboard_close" format="boolean" />
-
     </declare-styleable>
 
 </resources>

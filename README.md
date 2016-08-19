@@ -24,6 +24,7 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 [Service Notes](https://play.google.com/store/apps/details?id=notes.service.com.servicenotes)  
 [Business Card Reader](https://play.google.com/store/apps/details?id=com.iac.bcreader) <br />
 [Toiletto](https://play.google.com/store/apps/details?id=org.super8.lastbastion) <br />
+[Zikobot](https://play.google.com/store/apps/details?id=com.startogamu.zikobot) <br />
 
 ------------------------------------------------------------------------------------------------------------------------------
 
@@ -31,7 +32,7 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-        compile 'com.lapism:searchview:3.4.1'
+        compile 'com.lapism:searchview:3.5'
         }
 ```
 
@@ -85,7 +86,7 @@ dependencies {
         <attr name="search_navigation_icon" format="integer" />
         <attr name="search_icon_color" format="color" />
         <attr name="search_background_color" format="color" />
-        <attr name="search_text" format="string" />
+        <attr name="search_text_input" format="string" />
         <attr name="search_text_color" format="color" />
         <attr name="search_text_highlight_color" format="color" />
         <attr name="search_text_size" format="dimension" />
@@ -106,4 +107,5 @@ dependencies {
         <attr name="search_elevation" format="dimension" />
         <attr name="search_clear_on_close" format="boolean" />
         <attr name="search_clear_on_open" format="boolean" />
+        <attr name="search_hide_on_keyboard_close" format="boolean" />
 ```

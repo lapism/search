@@ -21,5 +21,5 @@ task clean(type: Delete) {
 }
 
 // Java SE Development Kit 8u102
-// gradlew wrapper --gradle-version=2.14.1
-// gradle-2.14.1-all.zip
+// gradlew wrapper --gradle-version=3.0
+// gradle-3.0-all.zip

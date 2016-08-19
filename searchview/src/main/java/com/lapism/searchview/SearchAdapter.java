@@ -31,6 +31,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     protected List<OnItemClickListener> mItemClickListeners;
     private Integer mDatabaseKey;
 
+    // todo The first constructor of searchAdapter should work... weird.
     public SearchAdapter(Context context) {// getContext();
         mHistoryDatabase = new SearchHistoryTable(context);
         getFilter().filter("");
@@ -190,7 +191,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     }
 
     @Deprecated
-    /* use addOnItemClickListener instead */
+    /* Use addOnItemClickListener. */
     public void setOnItemClickListener(OnItemClickListener mItemClickListener) {
         addOnItemClickListener(mItemClickListener);
     }
