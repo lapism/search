@@ -25,15 +25,17 @@ public class SearchHistoryTable {
 
     // FOR onResume AND onPause
     public void open() throws SQLException {
-        if (mConnectionCount == 0)
+        if (mConnectionCount == 0) {
             db = dbHelper.getWritableDatabase();
+        }
         mConnectionCount++;
     }
 
     public void close() {
         mConnectionCount--;
-        if (mConnectionCount == 0)
+        if (mConnectionCount == 0) {
             dbHelper.close();
+        }
     }
 
     public void addItem(SearchItem item) {
@@ -44,8 +46,9 @@ public class SearchHistoryTable {
         ContentValues values = new ContentValues();
         if (!checkText(item.get_text().toString())) {
             values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TEXT, item.get_text().toString());
-            if (databaseKey != null)
+            if (databaseKey != null) {
                 values.put(SearchHistoryDatabase.SEARCH_HISTORY_KEY, databaseKey);
+            }
             open();
             db.insert(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, values);
             close();
@@ -129,8 +132,17 @@ public class SearchHistoryTable {
     }
 
     public void clearDatabase() {
+        clearDatabase(null);
+    }
+
+    public void clearDatabase(Integer key) {
         open();
-        db.delete(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, null);
+        if (key == null) {
+            db.delete(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, null);
+        }
+        else {
+            db.delete(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, SearchHistoryDatabase.SEARCH_HISTORY_KEY + " = ?", new String[]{String.valueOf(key)});
+        }
         close();
     }
 
