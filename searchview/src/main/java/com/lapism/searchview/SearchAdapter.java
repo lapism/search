@@ -162,11 +162,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         viewHolder.text.setTypeface((Typeface.create(SearchView.getTextFont(), SearchView.getTextStyle())));
         viewHolder.text.setTextColor(SearchView.getTextColor());
 
-        String string = item.get_text().toString().toLowerCase(Locale.getDefault());
+        String itemText = item.get_text().toString();
+        String itemTextLower = itemText.toLowerCase(Locale.getDefault());
 
-        if (string.contains(key) && !key.isEmpty()) {
-            SpannableString s = new SpannableString(string);
-            s.setSpan(new ForegroundColorSpan(SearchView.getTextHighlightColor()), string.indexOf(key), string.indexOf(key) + key.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        if (itemTextLower.contains(key) && !key.isEmpty()) {
+            SpannableString s = new SpannableString(itemText);
+            s.setSpan(new ForegroundColorSpan(SearchView.getTextHighlightColor()), itemTextLower.indexOf(key), itemTextLower.indexOf(key) + key.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
         } else {
             viewHolder.text.setText(item.get_text());
