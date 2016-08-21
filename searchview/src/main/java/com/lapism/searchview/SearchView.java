@@ -430,16 +430,21 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             int bottom = 0;
 
             params.setMargins(leftRight, top, leftRight, bottom);
+
         } else if (version == VERSION_MARGINS_TOOLBAR_BIG) {
             int top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
             int leftRight = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_big_left_right);
             int bottom = 0;
 
             params.setMargins(leftRight, top, leftRight, bottom);
-        } else if (version == VERSION_MARGINS_MENU_ITEM) {
-            int margin = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
 
-            params.setMargins(margin, margin, margin, margin);
+        } else if (version == VERSION_MARGINS_MENU_ITEM) {
+            int top = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
+            int leftRight = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_left_right);
+            int bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
+
+            params.setMargins(leftRight, top, leftRight, bottom);
+
         } else {
             params.setMargins(0, 0, 0, 0);
         }
@@ -797,7 +802,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public void showSuggestions() {
         if (mRecyclerView.getVisibility() == View.GONE) {
             if (mAdapter != null) {
-                mDividerView.setVisibility(View.VISIBLE); // TODO DIVIDER BUG
+                mDividerView.setVisibility(View.VISIBLE);
                 mRecyclerView.setVisibility(View.VISIBLE);
                 SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
             }

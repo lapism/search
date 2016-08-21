@@ -1,30 +1,33 @@
-// COMING SOON onPostCreate HistoryDatabase perhaps needs a method to refresh ROZLOZENI
+// onPostCreate
+// HistoryDatabase perhaps needs a method to refresh
 // V21 DRAW
-
 
 // mRecyclerView.setAlpha(0.0f);
 // mRecyclerView.animate().alpha(1.0f);
 
-//         s.removeSpan(new ForegroundColorSpan(SearchView.getTextColor()));
-//         viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
+// s.removeSpan(new ForegroundColorSpan(SearchView.getTextColor()));
+// viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
 // @ColorRes, Filter.FilterListener
 
 
-// ANALYSE
-// TODO file:///E:/Android/SearchView/sample/build/outputs/lint-results-debug.html
-// TODO file:///E:/Android/SearchView/searchview/build/outputs/lint-results-debug.html
-
-// TODO CoordinatorLayout.Behavior / SingleTask / VISIBLE DIVIDER BUG, ICON, CROSS TOOLBAR_ICON, FIX SAMPLE ON POST CREATE
-// TODO E/RecyclerView: No adapter attached; skipping layout when search
-// TODO W/IInputConnectionWrapper: getTextBeforeCursor on inactive InputConnection
-
-
-
-
-
-
-
-
+// ANALYSE + ISSUES, TODOS
+// file:///E:/Android/SearchView/sample/build/outputs/lint-results-debug.html
+// file:///E:/Android/SearchView/searchview/build/outputs/lint-results-debug.html
+// CoordinatorLayout.Behavior
+// SingleTask
+// VISIBLE DIVIDER BUG
+// ICON,
+// FIX SAMPLE ON POST CREATE
+/*
+SPAN_EXCLUSIVE_EXCLUSIVE spans cannot have a zero length
+RecyclerView does not support scrolling to an absolute position. Use scrollToPosition instead
+beginBatchEdit on inactive InputConnection
+getSelectedText on inactive InputConnection
+endBatchEdit on inactive InputConnection
+getTextBeforeCursor on inactive InputConnection
+getTextAfterCursor on inactive InputConnection
+No adapter attached; skipping layout
+*/
 
 /*
 Hello,
@@ -168,6 +171,4 @@ public class FloatingSearchViewBehaviour extends CoordinatorLayout.Behavior<Sear
                 -(getStatusBarHeight() / 2);
     }
 
-}
-
-*/
+} */

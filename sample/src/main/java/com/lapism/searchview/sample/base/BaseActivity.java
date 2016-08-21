@@ -309,7 +309,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             mSearchView.setVersion(extras.getInt(EXTRA_KEY_VERSION));
             mSearchView.setVersionMargins(extras.getInt(EXTRA_KEY_VERSION_MARGINS));
             mSearchView.setTheme(extras.getInt(EXTRA_KEY_THEME), true);
-            mSearchView.setText(extras.getString(EXTRA_KEY_TEXT));
+            mSearchView.setTextInput(extras.getString(EXTRA_KEY_TEXT));
         }
     }
 

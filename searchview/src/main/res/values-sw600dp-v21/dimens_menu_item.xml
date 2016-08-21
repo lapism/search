@@ -2,5 +2,6 @@
 <resources>
 
     <dimen name="search_menu_item_margin">8dp</dimen>
+    <dimen name="search_menu_item_margin_left_right">8dp</dimen>
 
 </resources>
