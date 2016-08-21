@@ -73,6 +73,7 @@ public class SearchHistoryTable {
         return id;
     }
 
+    // todo // FIXME: 20.08.2016
     private int getLastItemId(Integer databaseKey) {
         open();
         String sql = "SELECT " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE;
@@ -108,8 +109,9 @@ public class SearchHistoryTable {
         List<SearchItem> list = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE;
-        if (databaseKey != null)
+        if (databaseKey != null) {
             selectQuery += " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_KEY + " = " + databaseKey;
+        }
         selectQuery += " ORDER BY " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " DESC LIMIT " + mHistorySize;
 
         open();
@@ -139,8 +141,7 @@ public class SearchHistoryTable {
         open();
         if (key == null) {
             db.delete(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, null);
-        }
-        else {
+        } else {
             db.delete(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, SearchHistoryDatabase.SEARCH_HISTORY_KEY + " = ?", new String[]{String.valueOf(key)});
         }
         close();

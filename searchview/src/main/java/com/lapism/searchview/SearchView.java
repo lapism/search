@@ -382,6 +382,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
+    public int getVersion() {
+        return mVersion;
+    }
+
     // ---------------------------------------------------------------------------------------------
     public void setVersion(int version) {
         mVersion = version;
@@ -412,10 +416,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         mVoiceImageView.setImageResource(R.drawable.search_ic_mic_black_24dp);
         mEmptyImageView.setImageResource(R.drawable.search_ic_clear_black_24dp);
-    }
-
-    public int getVersion() {
-        return mVersion;
     }
 
     public void setVersionMargins(int version) {
