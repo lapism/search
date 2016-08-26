@@ -193,5 +193,4 @@ class SearchAnimator {
         view.setVisibility(View.GONE);
     }
 
-
 }
