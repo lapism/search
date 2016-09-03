@@ -37,7 +37,7 @@
                     android:layout_height="match_parent"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
-                    android:contentDescription="@string/search_content_description" />
+                    android:contentDescription="@string/search_app_name" />
 
                 <com.lapism.searchview.SearchEditText
                     android:id="@+id/searchEditText_input"
@@ -78,7 +78,7 @@
                         android:layout_height="match_parent"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
-                        android:contentDescription="@string/search_content_description" />
+                        android:contentDescription="@string/search_app_name" />
 
                     <ImageView
                         android:id="@+id/imageView_clear"
@@ -86,7 +86,7 @@
                         android:layout_height="match_parent"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
-                        android:contentDescription="@string/search_content_description" />
+                        android:contentDescription="@string/search_app_name" />
 
                 </FrameLayout>
 

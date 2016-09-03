@@ -141,13 +141,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     public void onBackPressed() {
         if (mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else //noinspection StatementWithEmptyBody
-            if (mSearchView != null && mSearchView.isSearchOpen()) { // TODO
-                // mSearchView.close(true);
-            } else {
-                super.onBackPressed();
-            }
+        } else {
+            super.onBackPressed();
+        }
     }
+    /*
+                if (mSearchView != null && mSearchView.isSearchOpen()) {
+                // mSearchView.close(true);
+    */
 
     // ---------------------------------------------------------------------------------------------
     protected int getNavItem() {

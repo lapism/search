@@ -73,7 +73,6 @@ public class SearchHistoryTable {
         return id;
     }
 
-    // todo // FIXME: 20.08.2016
     private int getLastItemId(Integer databaseKey) {
         open();
         String sql = "SELECT " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE;

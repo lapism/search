@@ -1,7 +1,3 @@
-// onPostCreate, fix example
-// HistoryDatabase perhaps needs a method to refresh
-// todo
-
 /*
 When you press the search icon, the material searchview animation start from a different ActionBar icon,
 it should start from the clicked icon, but it's starting from the 3dots icon (menu), same for closing animation .
@@ -35,21 +31,24 @@ it should start from the clicked icon, but it's starting from the 3dots icon (me
         },1000);
 
     }
+/*
+I'm using SearchView inside my Fragment.
 
+When I open(true) my SearchView, the keyboard is showing.
+When I rotate my phone, the SearchView is still shown but the keyboard has gone.
+searchView.isSearchOpen() is false
+
+VISIBLE DIVIDER BUG
+onPostCreate,
+fix example
+TOOLBAR ICON SET DEPRECATED
 */
-// s.removeSpan(new ForegroundColorSpan(SearchView.getTextColor()));
-// viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
 
 
-// ANALYSE + ISSUES, TODO
+// --------------------------------------------------------------------------------------------------
+// ANALYZE, TODO, FIXME
 // file:///E:/Android/SearchView/sample/build/outputs/lint-results-debug.html
 // file:///E:/Android/SearchView/searchview/build/outputs/lint-results-debug.html
-// CoordinatorLayout.Behavior
-// SingleTask
-// VISIBLE DIVIDER BUG
-// ICON,
-// FIX SAMPLE ON POST CREATE use method setMargin in onPostCreate. Or set your custom margin in xml.
-
 
 /*
 SPAN_EXCLUSIVE_EXCLUSIVE spans cannot have a zero length
@@ -62,16 +61,9 @@ getTextAfterCursor on inactive InputConnection
 No adapter attached; skipping layout
 */
 
-/*I'm using SearchView inside my Fragment.
-When I open(true) my SearchView, the keyboard is showing.
-When I rotate my phone, the SearchView is still shown but the keyboard has gone.
-
-Even using searchView.onSaveInstanceState() and searchView.onRestoreInstanceState(...).
-(When restoring the view, searchView.isSearchOpen() is false).if (searchView.isSearchOpen()) {
-    searchView.showKeyboard();// not called
-}*/
-
-
+// SingleTask
+// s.removeSpan(new ForegroundColorSpan(SearchView.getTextColor()));
+// viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);getContext();
 // @ColorRes, Filter.FilterListener
 // mRecyclerView.setAlpha(0.0f);
 // mRecyclerView.animate().alpha(1.0f);

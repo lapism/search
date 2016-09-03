@@ -34,7 +34,6 @@ public class SearchBehaviour extends CoordinatorLayout.Behavior<SearchView> {
             CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams)
                     appBarLayout.getLayoutParams();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                // A bug that makes the floating search view disappear
                 appBarLayout.setStateListAnimator(null);
             }
             this.appBarBehavior = (AppBarLayout.Behavior) params.getBehavior();
@@ -100,7 +99,7 @@ public class SearchBehaviour extends CoordinatorLayout.Behavior<SearchView> {
             return valueAnimator;
         }
         valueAnimator.setInterpolator(new DecelerateInterpolator());
-       // valueAnimator.addUpdateListener(animation -> HeaderBehaviorHelper.setHeaderTopBottomOffset(parent, appBarLayout, (int) animation.getAnimatedValue()));
+        // valueAnimator.addUpdateListener(animation -> HeaderBehaviorHelper.setHeaderTopBottomOffset(parent, appBarLayout, (int) animation.getAnimatedValue()));
         valueAnimator.setIntValues(appBarBehavior.getTopAndBottomOffset(), offset);
         return valueAnimator;
     }
@@ -118,8 +117,7 @@ public class SearchBehaviour extends CoordinatorLayout.Behavior<SearchView> {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             return appBarLayout.getTotalScrollRange() - searchView.getMinimumHeight()
                     - (getStatusBarHeight() / 2);
-        }
-        else
+        } else
             return 0;
     }
 

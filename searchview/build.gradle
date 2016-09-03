@@ -15,16 +15,19 @@ android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
 
-    sourceSets {
-        main.res.srcDirs 'res', 'res-public'
-        // main.res.srcDirs += 'src/main/res-public'
-    }
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 24
         versionCode 3
-        versionName "3.5"
+        versionName "3.6"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // vectorDrawables.useSupportLibrary = true
+    }
+    //noinspection GroovyAssignabilityCheck
+    sourceSets {
+        main.res.srcDirs 'res', 'res-public'
+        // main.res.srcDirs += 'src/main/res-public'
     }
     buildTypes {
         release {
@@ -37,6 +40,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.android.support:recyclerview-v7:24.2.0'
@@ -49,11 +55,14 @@ publish {
     userOrg = 'lapism'
     groupId = 'com.lapism'
     artifactId = 'searchview'
-    publishVersion = '3.5'
+    publishVersion = '3.6'
     desc = 'SearchView Library'
     //noinspection GroovyResultOfAssignmentUsed
     website = 'https://github.com/lapism/SearchView'
 }
 
+// Java SE Development Kit 8u102
+// gradlew wrapper --gradle-version=3.0
+// gradle-3.0-all.zip
 // build first
 // gradlew clean build bintrayUpload -PbintrayUser=lapism -PbintrayKey= -PdryRun=false

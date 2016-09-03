@@ -50,7 +50,6 @@ import java.util.List;
 
 // import android.support.v7.widget.DefaultItemAnimator;
 
-
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
@@ -71,6 +70,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private static int mTextHighlightColor = Color.BLACK;
     private static int mTextStyle = Typeface.NORMAL;
     private static Typeface mTextFont = Typeface.DEFAULT;
+
     private final Context mContext;
     protected OnQueryTextListener mOnQueryChangeListener = null;
     protected OnOpenCloseListener mOnOpenCloseListener = null;
@@ -293,6 +293,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
+                    /*if(mAdapter != null) {
+                        mAdapter.notifyDataSetChanged();
+                    }*/
                     addFocus();
                 } else {
                     removeFocus();
@@ -617,11 +620,15 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mShouldHideOnKeyboardClose = shouldHideOnKeyboardClose;
     }
 
+    private void useAnimatedArrow(boolean arrow) { // Boolean
+        // soon
+    }
+
+    // ---------------------------------------------------------------------------------------------
     public RecyclerView.Adapter getAdapter() {
         return mRecyclerView.getAdapter();
     }
 
-    // ---------------------------------------------------------------------------------------------
     public void setAdapter(RecyclerView.Adapter adapter) {
         mAdapter = adapter;
         mRecyclerView.setAdapter(mAdapter);
@@ -1093,7 +1100,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         private SavedState(Parcel in) {
             super(in);
             this.query = in.readString();
-            this.isSearchOpen = in.readInt() == 0;
+            this.isSearchOpen = in.readInt() == 1;
             in.readList(searchFiltersStates, List.class.getClassLoader());
         }
 

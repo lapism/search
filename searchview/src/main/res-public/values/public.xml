@@ -3,6 +3,6 @@
 
     <public name="actionBarDivider" type="attr" />
     <public name="support_simple_spinner_dropdown_item" type="layout" />
-    <public name="TextAppearance.AppCompat" type="style" />
+    <public type="style" name="TextAppearance.AppCompat"/>
 
 </resources>

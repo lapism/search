@@ -17,7 +17,7 @@
         android:id="@+id/imageView_item_icon_left"
         android:layout_width="@dimen/search_icon"
         android:layout_height="@dimen/search_icon"
-        android:contentDescription="@string/search_content_description" />
+        android:contentDescription="@string/search_app_name" />
 
     <TextView
         android:id="@+id/textView_item_text"
@@ -38,6 +38,6 @@
         android:id="@+id/imageView_item_icon_right"
         android:layout_width="@dimen/search_icon"
         android:layout_height="@dimen/search_icon"
-        android:contentDescription="@string/search_content_description" />
+        android:contentDescription="@string/search_app_name" />
 
 </LinearLayout>

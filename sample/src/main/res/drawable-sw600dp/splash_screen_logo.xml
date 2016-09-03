@@ -2,14 +2,14 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
     android:opacity="opaque">
     <item android:drawable="@android:color/white" />
-    <item android:bottom="64dp">
+    <item android:bottom="72dp">
         <bitmap
             android:gravity="center"
-            android:src="@drawable/product_logo_searchview_color_144" />
+            android:src="@drawable/splash_searchview_192" />
     </item>
-    <item android:bottom="104dp">
+    <item android:bottom="96dp">
         <bitmap
             android:gravity="bottom|center_horizontal"
-            android:src="@drawable/searchview_dark20_color_132x44" />
+            android:src="@drawable/ic_searchview_60" />
     </item>
 </layer-list>

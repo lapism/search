@@ -19,7 +19,3 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
-// Java SE Development Kit 8u102
-// gradlew wrapper --gradle-version=3.0
-// gradle-3.0-all.zip
