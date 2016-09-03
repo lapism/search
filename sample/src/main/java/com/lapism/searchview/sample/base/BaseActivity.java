@@ -322,7 +322,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         mHistoryDatabase.addItem(new SearchItem(text));
 
         Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-        intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR_ICON);
+        intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
         intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
         intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
         intent.putExtra(EXTRA_KEY_TEXT, text);

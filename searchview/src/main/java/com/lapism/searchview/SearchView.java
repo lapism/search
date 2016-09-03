@@ -20,6 +20,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.speech.RecognizerIntent;
 import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
@@ -53,10 +54,12 @@ import java.util.List;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
+    @Deprecated
+    public static final int VERSION_TOOLBAR_ICON = 1000;
+
     public static final int LAYOUT_TRANSITION_DURATION = 200;
     public static final int ANIMATION_DURATION = 300;
     public static final int VERSION_TOOLBAR = 1000;
-    public static final int VERSION_TOOLBAR_ICON = 1001;
     public static final int VERSION_MENU_ITEM = 1002;
     public static final int VERSION_MARGINS_TOOLBAR_SMALL = 2000;
     public static final int VERSION_MARGINS_TOOLBAR_BIG = 2001;
@@ -257,6 +260,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mShadowView.setVisibility(View.GONE);
 
         mBackImageView = (ImageView) findViewById(R.id.imageView_arrow_back);
+        mBackImageView.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         mBackImageView.setOnClickListener(this);
 
         mVoiceImageView = (ImageView) findViewById(R.id.imageView_mic);
@@ -293,9 +297,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    /*if(mAdapter != null) {
-                        mAdapter.notifyDataSetChanged();
-                    }*/
                     addFocus();
                 } else {
                     removeFocus();
@@ -396,17 +397,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         if (mVersion == VERSION_TOOLBAR) {
             mEditText.clearFocus();
-            mSearchArrow = new SearchArrowDrawable(mContext);
-
-            mBackImageView.setImageDrawable(mSearchArrow);
-
-            setVisibility(View.VISIBLE);
-            mCardView.setVisibility(VISIBLE);
-        }
-
-        if (mVersion == VERSION_TOOLBAR_ICON) {
-            mEditText.clearFocus();
-            mBackImageView.setImageResource(R.drawable.ic_arrow_back_black_24dp);
 
             setVisibility(View.VISIBLE);
             mCardView.setVisibility(VISIBLE);
@@ -414,7 +404,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         if (mVersion == VERSION_MENU_ITEM) {
             setVisibility(View.GONE);
-            mBackImageView.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         }
 
         mVoiceImageView.setImageResource(R.drawable.ic_mic_black_24dp);
@@ -481,17 +470,22 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    public void setNavigationIcon(int resource) {
-        if (mVersion != VERSION_TOOLBAR) {
-            mBackImageView.setImageResource(resource);
-        }
+    public void setNavigationIcon(@DrawableRes int resource) {
+        mBackImageView.setImageResource(resource);
     }
 
     public void setNavigationIcon(Drawable drawable) {
         if (drawable == null) {
             mBackImageView.setVisibility(View.GONE);
-        } else if (mVersion != VERSION_TOOLBAR) {
+        } else {
             mBackImageView.setImageDrawable(drawable);
+        }
+    }
+
+    public void setNavigationIconArrowHamburger(boolean icon) { // Boolean
+        if (icon) {
+            mSearchArrow = new SearchArrowDrawable(mContext);
+            mBackImageView.setImageDrawable(mSearchArrow);
         }
     }
 
@@ -506,18 +500,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public void setTextInput(@StringRes int text) {
         mEditText.setText(text);
-    }
-
-    @Deprecated
-    /* Use setTextInput. */
-    public void setText(CharSequence text) {
-        setTextInput(text);
-    }
-
-    @Deprecated
-    /* Use setTextInput. */
-    public void setText(@StringRes int text) {
-        setTextInput(text);
     }
 
     public void setTextSize(float size) {
@@ -620,8 +602,16 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mShouldHideOnKeyboardClose = shouldHideOnKeyboardClose;
     }
 
-    private void useAnimatedArrow(boolean arrow) { // Boolean
-        // soon
+    /* Use setTextInput. */
+    @Deprecated
+    public void setText(CharSequence text) {
+        setTextInput(text);
+    }
+
+    /* Use setTextInput. */
+    @Deprecated
+    public void setText(@StringRes int text) {
+        setTextInput(text);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -675,9 +665,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             }
             mEditText.requestFocus();
         }
-        if (mVersion == VERSION_TOOLBAR_ICON) {
-            mEditText.requestFocus();
-        }
     }
 
     public void close(boolean animate) {
@@ -705,9 +692,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             if (mShouldClearOnClose && mEditText.length() > 0) {
                 mEditText.getText().clear();
             }
-            mEditText.clearFocus();
-        }
-        if (mVersion == VERSION_TOOLBAR_ICON) {
             mEditText.clearFocus();
         }
     }
@@ -936,8 +920,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     private void onVoiceClicked() {
-        if (mOnVoiceClickListener != null)
+        if (mOnVoiceClickListener != null) {
             mOnVoiceClickListener.onVoiceClick();
+        }
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, mVoiceSearchText);
@@ -980,24 +965,15 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == mBackImageView) {
-            if (mVersion == VERSION_TOOLBAR) {
-                if (mIsSearchArrowHamburgerState == SearchArrowDrawable.STATE_HAMBURGER) {
-                    if (mOnMenuClickListener != null) {
-                        mOnMenuClickListener.onMenuClick();
-                    }
-                }
-                if (mIsSearchArrowHamburgerState == SearchArrowDrawable.STATE_ARROW) {
-                    close(true);
-                }
-            }
-            if (mVersion == VERSION_TOOLBAR_ICON) {
+            if (mSearchArrow != null && mIsSearchArrowHamburgerState == SearchArrowDrawable.STATE_ARROW) {
+                close(true);
+            } else {
                 if (mOnMenuClickListener != null) {
                     mOnMenuClickListener.onMenuClick();
+                } else {
+                    close(true);
                 }
-            }
-            if (mVersion == VERSION_MENU_ITEM) {
-                close(true);
-            }
+            }// // TODO: 03.09.2016
         } else if (v == mVoiceImageView) {
             onVoiceClicked();
         } else if (v == mEmptyImageView) {

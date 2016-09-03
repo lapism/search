@@ -191,8 +191,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             mItemClickListeners.add(position, listener);
     }
 
-    @Deprecated
     /* Use addOnItemClickListener. */
+    @Deprecated
     public void setOnItemClickListener(OnItemClickListener mItemClickListener) {
         addOnItemClickListener(mItemClickListener);
     }

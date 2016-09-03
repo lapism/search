@@ -40,6 +40,7 @@ public class ToolbarActivity extends BaseActivity {
 
         // -----------------------------------------------------------------------------------------
         setSearchView();
+        mSearchView.setNavigationIconArrowHamburger(true);
         mSearchView.setOnMenuClickListener(new SearchView.OnMenuClickListener() {
             @Override
             public void onMenuClick() {
