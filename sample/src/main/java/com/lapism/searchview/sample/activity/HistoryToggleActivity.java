@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.lapism.searchview.SearchAdapter;
 
 public class HistoryToggleActivity extends ToggleActivity {
+
     @Override
     protected int getNavItem() {
         return NAV_ITEM_HISTORY_TOGGLE;
@@ -31,4 +32,5 @@ public class HistoryToggleActivity extends ToggleActivity {
             });
         }
     }
+
 }

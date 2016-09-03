@@ -43,6 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     protected static final String EXTRA_KEY_VERSION = "version";
     protected static final String EXTRA_KEY_THEME = "theme";
+
     protected static final int NAV_ITEM_INVALID = -1;
     protected static final int NAV_ITEM_TOOLBAR = 0;
     protected static final int NAV_ITEM_TOOLBAR_DARK = 1;
@@ -51,13 +52,15 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     protected static final int NAV_ITEM_TOGGLE = 4;
     protected static final int NAV_ITEM_HISTORY_TOGGLE = 5;
     protected static final int NAV_ITEM_FILTERS = 6;
+
     private static final String EXTRA_KEY_VERSION_MARGINS = "version_margins";
     private static final String EXTRA_KEY_TEXT = "text";
+
     protected SearchView mSearchView = null;
     protected DrawerLayout mDrawerLayout = null;
     protected Toolbar mToolbar = null;
-
     protected FloatingActionButton mFab = null;
+
     private SearchHistoryTable mHistoryDatabase;
 
     // ---------------------------------------------------------------------------------------------
@@ -169,7 +172,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                 @Override
                 public void onClick(View v) {
                     mHistoryDatabase.clearDatabase();
-                    Snackbar.make(v, "Search history deleted", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    Snackbar.make(v, "Search history deleted.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
             });
         }

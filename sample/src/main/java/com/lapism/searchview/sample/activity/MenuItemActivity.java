@@ -39,11 +39,15 @@ public class MenuItemActivity extends BaseActivity {
         }
 
         setViewPager();
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
 
         // -----------------------------------------------------------------------------------------
         setSearchView();
         // -----------------------------------------------------------------------------------------
-
         customSearchView();
     }
 

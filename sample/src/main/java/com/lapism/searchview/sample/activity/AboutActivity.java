@@ -22,6 +22,7 @@ public class AboutActivity extends BaseActivity {
 
         if (mToolbar != null) {
             mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
+            //mToolbar.setNavigationOnClickListener();
         }
     }
 

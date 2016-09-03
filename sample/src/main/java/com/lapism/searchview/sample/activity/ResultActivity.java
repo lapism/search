@@ -22,7 +22,7 @@ public class ResultActivity extends BaseActivity {
 
         // -----------------------------------------------------------------------------------------
         setSearchView();
-        mSearchView.setText(R.string.search);
+        mSearchView.setTextInput(R.string.search);
         mSearchView.setOnMenuClickListener(new SearchView.OnMenuClickListener() {
             @Override
             public void onMenuClick() {

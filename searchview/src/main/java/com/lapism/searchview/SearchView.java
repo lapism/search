@@ -403,7 +403,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         if (mVersion == VERSION_TOOLBAR_ICON) {
             mEditText.clearFocus();
-            mBackImageView.setImageResource(R.drawable.search_ic_arrow_back_black_24dp);
+            mBackImageView.setImageResource(R.drawable.ic_arrow_back_black_24dp);
 
             setVisibility(View.VISIBLE);
             mCardView.setVisibility(VISIBLE);
@@ -411,11 +411,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         if (mVersion == VERSION_MENU_ITEM) {
             setVisibility(View.GONE);
-            mBackImageView.setImageResource(R.drawable.search_ic_arrow_back_black_24dp);
+            mBackImageView.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         }
 
-        mVoiceImageView.setImageResource(R.drawable.search_ic_mic_black_24dp);
-        mEmptyImageView.setImageResource(R.drawable.search_ic_clear_black_24dp);
+        mVoiceImageView.setImageResource(R.drawable.ic_mic_black_24dp);
+        mEmptyImageView.setImageResource(R.drawable.ic_clear_black_24dp);
     }
 
     public void setVersionMargins(int version) {
@@ -501,14 +501,20 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mEditText.setText(text);
     }
 
+    public void setTextInput(@StringRes int text) {
+        mEditText.setText(text);
+    }
+
     @Deprecated
     /* Use setTextInput. */
     public void setText(CharSequence text) {
         setTextInput(text);
     }
 
+    @Deprecated
+    /* Use setTextInput. */
     public void setText(@StringRes int text) {
-        mEditText.setText(text);
+        setTextInput(text);
     }
 
     public void setTextSize(float size) {
@@ -1087,7 +1093,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         private SavedState(Parcel in) {
             super(in);
             this.query = in.readString();
-            this.isSearchOpen = in.readInt() == 1;
+            this.isSearchOpen = in.readInt() == 0;
             in.readList(searchFiltersStates, List.class.getClassLoader());
         }
 

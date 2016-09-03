@@ -1,46 +1,10 @@
-// onPostCreate
-// HistoryDatabase perhaps needs a method to refresh
-// V21 DRAW
-
-// mRecyclerView.setAlpha(0.0f);
-// mRecyclerView.animate().alpha(1.0f);
-
-// s.removeSpan(new ForegroundColorSpan(SearchView.getTextColor()));
-// viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
-// @ColorRes, Filter.FilterListener
-
-
-// ANALYSE + ISSUES, TODOS
-// file:///E:/Android/SearchView/sample/build/outputs/lint-results-debug.html
-// file:///E:/Android/SearchView/searchview/build/outputs/lint-results-debug.html
-// CoordinatorLayout.Behavior
-// SingleTask
-// VISIBLE DIVIDER BUG
-// ICON,
-// FIX SAMPLE ON POST CREATE
-/*
-SPAN_EXCLUSIVE_EXCLUSIVE spans cannot have a zero length
-RecyclerView does not support scrolling to an absolute position. Use scrollToPosition instead
-beginBatchEdit on inactive InputConnection
-getSelectedText on inactive InputConnection
-endBatchEdit on inactive InputConnection
-getTextBeforeCursor on inactive InputConnection
-getTextAfterCursor on inactive InputConnection
-No adapter attached; skipping layout
-*/
-
-/*
-Hello,
-
-I created I Behaviour that worked for me. I will not submit a PullRequest because I am not sure it's the best solution and I only did focusing on my Application. But I think it's a good place start :
-package com.appprova.core.views;
+package com.lapism.searchview.sample;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.HeaderBehaviorHelper;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
@@ -49,7 +13,7 @@ import android.view.animation.DecelerateInterpolator;
 import com.lapism.searchview.SearchView;
 
 @SuppressWarnings("unused")
-public class FloatingSearchViewBehaviour extends CoordinatorLayout.Behavior<SearchView> {
+public class SearchBehaviour extends CoordinatorLayout.Behavior<SearchView> {
 
     private AppBarLayout appBarLayout;
     private AppBarLayout.Behavior appBarBehavior;
@@ -57,9 +21,8 @@ public class FloatingSearchViewBehaviour extends CoordinatorLayout.Behavior<Sear
     private SearchView searchView;
     private boolean isScrolling;
 
-
     @SuppressWarnings("unused")
-    public FloatingSearchViewBehaviour(Context context, AttributeSet attrs) {
+    public SearchBehaviour(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -67,7 +30,7 @@ public class FloatingSearchViewBehaviour extends CoordinatorLayout.Behavior<Sear
     public boolean layoutDependsOn(CoordinatorLayout parent, SearchView child, View dependency) {
         if (dependency instanceof AppBarLayout) {
             this.searchView = child;
-            this.appBarLayout = (AppBarLayout)dependency;
+            this.appBarLayout = (AppBarLayout) dependency;
             CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams)
                     appBarLayout.getLayoutParams();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -80,11 +43,8 @@ public class FloatingSearchViewBehaviour extends CoordinatorLayout.Behavior<Sear
         return super.layoutDependsOn(parent, child, dependency);
     }
 
-
     @Override
-    public void onNestedPreScroll(CoordinatorLayout parent, SearchView child, View target,
-                                  int dx, int dy, int[] consumed) {
-        // We can just ignore down scroll
+    public void onNestedPreScroll(CoordinatorLayout parent, SearchView child, View target, int dx, int dy, int[] consumed) {
         if (dy >= 0 || dy > -10 || this.isScrolling) {
             return;
         }
@@ -107,17 +67,12 @@ public class FloatingSearchViewBehaviour extends CoordinatorLayout.Behavior<Sear
     }
 
     @Override
-    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout,
-                                       SearchView child, View directTargetChild, View target,
-                                       int nestedScrollAxes) {
-        return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL ||
-                super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target,
-                        nestedScrollAxes);
+    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, SearchView child, View directTargetChild, View target, int nestedScrollAxes) {
+        return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL || super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, nestedScrollAxes);
     }
 
     @Override
-    public boolean onDependentViewChanged(CoordinatorLayout parent,
-                                          SearchView child, View dependency) {
+    public boolean onDependentViewChanged(CoordinatorLayout parent, SearchView child, View dependency) {
         if (needsToAdjustSearchBar()) {
             float offset = getMinExpandHeight() + appBarBehavior.getTopAndBottomOffset();
             child.setY(offset);
@@ -126,33 +81,26 @@ public class FloatingSearchViewBehaviour extends CoordinatorLayout.Behavior<Sear
         return super.onDependentViewChanged(parent, child, dependency);
     }
 
-    // Convenience
-
     private int getStatusBarHeight() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
             return 0;
         }
         int result = 0;
-        int resourceId = searchView.getContext().getResources()
-                .getIdentifier("status_bar_height", "dimen", "android");
+        int resourceId = searchView.getContext().getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             result = searchView.getContext().getResources().getDimensionPixelSize(resourceId);
         }
         return result;
     }
 
-    private ValueAnimator getValueAnimator(CoordinatorLayout parent,
-                                           SearchView searchView, int offset) {
+    private ValueAnimator getValueAnimator(CoordinatorLayout parent, SearchView searchView, int offset) {
         if (valueAnimator == null) {
             valueAnimator = ValueAnimator.ofInt();
         } else if (valueAnimator.isRunning()) {
             return valueAnimator;
         }
         valueAnimator.setInterpolator(new DecelerateInterpolator());
-        valueAnimator.addUpdateListener(animation ->
-                HeaderBehaviorHelper.setHeaderTopBottomOffset(parent, appBarLayout,
-                        (int) animation.getAnimatedValue()));
-
+       // valueAnimator.addUpdateListener(animation -> HeaderBehaviorHelper.setHeaderTopBottomOffset(parent, appBarLayout, (int) animation.getAnimatedValue()));
         valueAnimator.setIntValues(appBarBehavior.getTopAndBottomOffset(), offset);
         return valueAnimator;
     }
@@ -167,8 +115,12 @@ public class FloatingSearchViewBehaviour extends CoordinatorLayout.Behavior<Sear
     }
 
     private int getMinExpandHeight() {
-        return appBarLayout.getTotalScrollRange() - searchView.getMinimumHeight()
-                -(getStatusBarHeight() / 2);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            return appBarLayout.getTotalScrollRange() - searchView.getMinimumHeight()
+                    - (getStatusBarHeight() / 2);
+        }
+        else
+            return 0;
     }
 
-} */
+}

@@ -119,7 +119,7 @@ public class SearchHistoryTable {
         if (cursor.moveToFirst()) {
             do {
                 SearchItem item = new SearchItem();
-                item.set_icon(R.drawable.search_ic_history_black_24dp);
+                item.set_icon(R.drawable.ic_history_black_24dp);
                 item.set_text(cursor.getString(1));
                 list.add(item);
             } while (cursor.moveToNext());

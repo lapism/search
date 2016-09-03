@@ -24,7 +24,7 @@ android {
         targetSdkVersion 24
         versionCode 3
         versionName "3.5"
-        vectorDrawables.useSupportLibrary = true
+        // vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -51,6 +51,7 @@ publish {
     artifactId = 'searchview'
     publishVersion = '3.5'
     desc = 'SearchView Library'
+    //noinspection GroovyResultOfAssignmentUsed
     website = 'https://github.com/lapism/SearchView'
 }
 

@@ -151,7 +151,7 @@ public class ToggleActivity extends BaseActivity {
                 mSearchView.open(true);
                 return true;
             case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START); // finish()
+                mDrawerLayout.openDrawer(GravityCompat.START); // finish();
                 return true;
             case R.id.menu_night_mode_system:
                 setNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
