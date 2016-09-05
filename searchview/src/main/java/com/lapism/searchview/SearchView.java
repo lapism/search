@@ -54,6 +54,7 @@ import java.util.List;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
+    /* Use VERSION_TOOLBAR. */
     @Deprecated
     public static final int VERSION_TOOLBAR_ICON = 1000;
 
@@ -216,12 +217,14 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    /*private void setQuery2(CharSequence query) {
+    /*
+    private void setQuery2(CharSequence query) {
         mEditText.setText(query);
         mEditText.setSelection(TextUtils.isEmpty(query) ? 0 : query.length());
-    }*/
+    }
+    */
 
-    public LayoutTransition getRecyclerViewLayoutTransition() {
+    private LayoutTransition getRecyclerViewLayoutTransition() {
         LayoutTransition layoutTransition = new LayoutTransition();
         layoutTransition.setDuration(LAYOUT_TRANSITION_DURATION);
         return layoutTransition;
@@ -303,6 +306,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 }
             }
         });
+
         mFiltersContainer = (LinearLayout) findViewById(R.id.filters_container);
 
         setVersion(VERSION_TOOLBAR);

@@ -1,5 +1,6 @@
 package com.lapism.searchview.sample;
 
+/*
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Build;
@@ -121,4 +122,4 @@ public class SearchBehaviour extends CoordinatorLayout.Behavior<SearchView> {
             return 0;
     }
 
-}
+}*/
