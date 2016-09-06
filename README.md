@@ -25,6 +25,8 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 [Business Card Reader](https://play.google.com/store/apps/details?id=com.iac.bcreader) <br />
 [Toiletto](https://play.google.com/store/apps/details?id=org.super8.lastbastion) <br />
 [Zikobot](https://play.google.com/store/apps/details?id=com.startogamu.zikobot) <br />
+[AllWeather](https://play.google.com/store/apps/details?id=com.dev.nicola.allweather) <br />
+
 
 ------------------------------------------------------------------------------------------------------------------------------
 
