@@ -47,7 +47,7 @@ public class MenuItemActivity extends BaseActivity {
 
         // -----------------------------------------------------------------------------------------
         setSearchView();
-        mSearchView.setNavigationIconArrowHamburger(true);
+        mSearchView.setNavigationIconArrowHamburger();
         // -----------------------------------------------------------------------------------------
         customSearchView();
     }

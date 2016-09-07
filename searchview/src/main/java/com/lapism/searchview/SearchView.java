@@ -195,42 +195,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     // ---------------------------------------------------------------------------------------------
-    public CharSequence getQuery() {
-        return mUserQuery;
-    }
-
-    public void setQuery(CharSequence query) {
-        setQueryWithoutSubmitting(query);
-
-        if (!TextUtils.isEmpty(query)) {
-            onSubmitQuery();
-        }
-    }
-
-    private void setQueryWithoutSubmitting(CharSequence query) {
-        mEditText.setText(query);
-        if (query != null) {
-            mEditText.setSelection(mEditText.length());
-            mUserQuery = query;
-        } else {
-            mEditText.getText().clear();
-        }
-    }
-
-    /*
-    private void setQuery2(CharSequence query) {
-        mEditText.setText(query);
-        mEditText.setSelection(TextUtils.isEmpty(query) ? 0 : query.length());
-    }
-    */
-
-    private LayoutTransition getRecyclerViewLayoutTransition() {
-        LayoutTransition layoutTransition = new LayoutTransition();
-        layoutTransition.setDuration(LAYOUT_TRANSITION_DURATION);
-        return layoutTransition;
-    }
-
-    // ---------------------------------------------------------------------------------------------
     private void initView() {
         LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
 
@@ -267,9 +231,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mBackImageView.setOnClickListener(this);
 
         mVoiceImageView = (ImageView) findViewById(R.id.imageView_mic);
+        mVoiceImageView.setImageResource(R.drawable.ic_mic_black_24dp);
         mVoiceImageView.setOnClickListener(this);
 
         mEmptyImageView = (ImageView) findViewById(R.id.imageView_clear);
+        mEmptyImageView.setImageResource(R.drawable.ic_clear_black_24dp);
         mEmptyImageView.setOnClickListener(this);
         mEmptyImageView.setVisibility(View.GONE);
 
@@ -311,7 +277,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         setVersion(VERSION_TOOLBAR);
         setVersionMargins(VERSION_MARGINS_TOOLBAR_SMALL);
-        setTheme(THEME_LIGHT, true);
+        setTheme(THEME_LIGHT);
     }
 
     private void initStyle(AttributeSet attrs, int defStyleAttr) {
@@ -400,18 +366,13 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mFiltersContainer.setVisibility(View.GONE);
 
         if (mVersion == VERSION_TOOLBAR) {
-            mEditText.clearFocus();
-
             setVisibility(View.VISIBLE);
-            mCardView.setVisibility(VISIBLE);
+            mEditText.clearFocus();
         }
 
         if (mVersion == VERSION_MENU_ITEM) {
             setVisibility(View.GONE);
         }
-
-        mVoiceImageView.setImageResource(R.drawable.ic_mic_black_24dp);
-        mEmptyImageView.setImageResource(R.drawable.ic_clear_black_24dp);
     }
 
     public void setVersionMargins(int version) {
@@ -486,13 +447,12 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    public void setNavigationIconArrowHamburger(boolean icon) { // Boolean
-        if (icon) {
-            mSearchArrow = new SearchArrowDrawable(mContext);
-            mBackImageView.setImageDrawable(mSearchArrow);
-        }
+    public void setNavigationIconArrowHamburger() {
+        mSearchArrow = new SearchArrowDrawable(mContext);
+        mBackImageView.setImageDrawable(mSearchArrow);
     }
 
+    //@IntR
     @Override
     public void setBackgroundColor(@ColorInt int color) {
         mCardView.setCardBackgroundColor(color);
@@ -619,6 +579,41 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     // ---------------------------------------------------------------------------------------------
+        /*
+    private void setQuery2(CharSequence query) {
+        mEditText.setText(query);
+        mEditText.setSelection(TextUtils.isEmpty(query) ? 0 : query.length());
+    }
+    */
+
+    public CharSequence getQuery() {
+        return mUserQuery;
+    }
+
+    public void setQuery(CharSequence query) {
+        setQueryWithoutSubmitting(query);
+
+        if (!TextUtils.isEmpty(query)) {
+            onSubmitQuery();
+        }
+    }
+
+    private void setQueryWithoutSubmitting(CharSequence query) {
+        mEditText.setText(query);
+        if (query != null) {
+            mEditText.setSelection(mEditText.length());
+            mUserQuery = query;
+        } else {
+            mEditText.getText().clear();
+        }
+    }
+
+    private LayoutTransition getRecyclerViewLayoutTransition() {
+        LayoutTransition layoutTransition = new LayoutTransition();
+        layoutTransition.setDuration(LAYOUT_TRANSITION_DURATION);
+        return layoutTransition;
+    }
+
     public RecyclerView.Adapter getAdapter() {
         return mRecyclerView.getAdapter();
     }
@@ -803,7 +798,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public void showSuggestions() {
         if (mRecyclerView.getVisibility() == View.GONE) {
             if (mAdapter != null) {
-                mDividerView.setVisibility(View.VISIBLE);
+                if (mAdapter.getItemCount() > 0) {
+                    mDividerView.setVisibility(View.VISIBLE);
+                }
                 mRecyclerView.setVisibility(View.VISIBLE);
                 SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
             }
@@ -977,7 +974,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 } else {
                     close(true);
                 }
-            }// // TODO: 03.09.2016
+            }
         } else if (v == mVoiceImageView) {
             onVoiceClicked();
         } else if (v == mEmptyImageView) {

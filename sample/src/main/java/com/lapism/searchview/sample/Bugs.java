@@ -10,12 +10,12 @@ searchView.isSearchOpen() is false
                     if(mAdapter != null) {
                         mAdapter.notifyDataSetChanged();
                     }
-                    
-VISIBLE DIVIDER BUG
+
 onPostCreate,
+behavior
 fix example
 */
-
+// Boolean, boolean
 
 // --------------------------------------------------------------------------------------------------
 // ANALYZE, TODO, FIXME

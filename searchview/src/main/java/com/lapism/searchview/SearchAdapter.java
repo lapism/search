@@ -38,6 +38,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     public SearchAdapter(Context context, List<SearchItem> suggestionsList) {
         mSuggestionsList = suggestionsList;
+        mResultList = suggestionsList;
         mHistoryDatabase = new SearchHistoryTable(context);
         getFilter().filter("");
     }
@@ -48,6 +49,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     public void setSuggestionsList(List<SearchItem> suggestionsList) {
         mSuggestionsList = suggestionsList;
+        mResultList = suggestionsList;
     }
 
     public void setDatabaseKey(Integer key) {
@@ -217,9 +219,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         @Override
         public void onClick(View v) {
             if (mItemClickListeners != null) {
-                int layoutPosition = getLayoutPosition();
                 for (OnItemClickListener listener : mItemClickListeners)
-                    listener.onItemClick(v, layoutPosition);
+                    listener.onItemClick(v, getLayoutPosition());
             }
         }
     }
