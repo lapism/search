@@ -54,20 +54,25 @@ import java.util.List;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
-    /* Use VERSION_TOOLBAR. */
-    @Deprecated
-    public static final int VERSION_TOOLBAR_ICON = 1000;
-
-    public static final int LAYOUT_TRANSITION_DURATION = 200;
-    public static final int ANIMATION_DURATION = 300;
     public static final int VERSION_TOOLBAR = 1000;
-    public static final int VERSION_MENU_ITEM = 1002;
+    public static final int VERSION_MENU_ITEM = 1001;
+
     public static final int VERSION_MARGINS_TOOLBAR_SMALL = 2000;
     public static final int VERSION_MARGINS_TOOLBAR_BIG = 2001;
     public static final int VERSION_MARGINS_MENU_ITEM = 2002;
+
     public static final int THEME_LIGHT = 3000;
     public static final int THEME_DARK = 3001;
+
     public static final int SPEECH_REQUEST_CODE = 4000;
+
+    public static final int LAYOUT_TRANSITION_DURATION = 200;
+    public static final int ANIMATION_DURATION = 300;
+
+    public static final int TEXT_STYLE_NORMAL = 0;
+    public static final int TEXT_STYLE_BOLD = 1;
+    public static final int TEXT_STYLE_ITALIC = 2;
+    public static final int TEXT_STYLE_BOLD_ITALIC = 3;
 
     private static int mIconColor = Color.BLACK;
     private static int mTextColor = Color.BLACK;
