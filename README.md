@@ -26,15 +26,15 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 [Toiletto](https://play.google.com/store/apps/details?id=org.super8.lastbastion) <br />
 [Zikobot](https://play.google.com/store/apps/details?id=com.startogamu.zikobot) <br />
 [AllWeather](https://play.google.com/store/apps/details?id=com.dev.nicola.allweather) <br />
-
-
+[Karaoke Online Sing & Record](https://play.google.com/store/apps/details?id=com.anhlt.karaokeonline) <br />
+ 
 ------------------------------------------------------------------------------------------------------------------------------
 
 # Usage
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-        compile 'com.lapism:searchview:3.6'
+        compile 'com.lapism:searchview:3.6.1'
         }
 ```
 

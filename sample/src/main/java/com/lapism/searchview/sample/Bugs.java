@@ -14,6 +14,7 @@ searchView.isSearchOpen() is false
 onPostCreate,
 behavior
 fix example
+NO DIVIDER
 */
 // Boolean, boolean
 
