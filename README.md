@@ -73,8 +73,7 @@ dependencies {
 ```xml
         <attr name="search_version" format="enum">
             <enum name="toolbar" value="1000" />
-            <enum name="toolbar_icon" value="1001" />
-            <enum name="menu_item" value="1002" />
+            <enum name="menu_item" value="1001" />
         </attr>
         <attr name="search_version_margins" format="enum">
             <enum name="toolbar_small" value="2000" />
@@ -110,4 +109,5 @@ dependencies {
         <attr name="search_clear_on_close" format="boolean" />
         <attr name="search_clear_on_open" format="boolean" />
         <attr name="search_hide_on_keyboard_close" format="boolean" />
+        <attr name="search_cursor_drawable" format="integer" />
 ```
