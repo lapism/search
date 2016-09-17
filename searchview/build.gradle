@@ -19,7 +19,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 24
         versionCode 3
-        versionName "3.6.1"
+        versionName "3.6.2"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // vectorDrawables.useSupportLibrary = true
@@ -55,7 +55,7 @@ publish {
     userOrg = 'lapism'
     groupId = 'com.lapism'
     artifactId = 'searchview'
-    publishVersion = '3.6.1'
+    publishVersion = '3.6.2'
     desc = 'SearchView Library'
     //noinspection GroovyResultOfAssignmentUsed
     website = 'https://github.com/lapism/SearchView'

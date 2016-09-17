@@ -46,6 +46,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -337,7 +338,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 setVoiceText(attr.getString(R.styleable.SearchView_search_voice_text));
             }
             if (attr.hasValue(R.styleable.SearchView_search_animation_duration)) {
-                setAnimationDuration(attr.getInt(R.styleable.SearchView_search_animation_duration, mAnimationDuration));
+                setAnimationDuration(attr.getInteger(R.styleable.SearchView_search_animation_duration, mAnimationDuration));
             }
             if (attr.hasValue(R.styleable.SearchView_search_shadow)) {
                 setShadow(attr.getBoolean(R.styleable.SearchView_search_shadow, false));
@@ -356,6 +357,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             }
             if (attr.hasValue(R.styleable.SearchView_search_hide_on_keyboard_close)) {
                 setShouldHideOnKeyboardClose(attr.getBoolean(R.styleable.SearchView_search_hide_on_keyboard_close, true));
+            }
+            if (attr.hasValue(R.styleable.SearchView_search_cursor_drawable)) {
+                setCursorDrawable(attr.getResourceId(R.styleable.SearchView_search_cursor_drawable, 0));
             }
             attr.recycle();
         }
@@ -569,6 +573,21 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public void setShouldHideOnKeyboardClose(boolean shouldHideOnKeyboardClose) {
         mShouldHideOnKeyboardClose = shouldHideOnKeyboardClose;
+    }
+
+    // more here: http://stackoverflow.com/questions/11554078/set-textcursordrawable-programatically
+    public void setCursorDrawable(@DrawableRes int drawable) {
+        try {
+            Field f = TextView.class.getDeclaredField("mCursorDrawableRes");
+            f.setAccessible(true);
+            try {
+                f.set(mEditText, drawable);
+            } catch (IllegalAccessException e1) {
+                e1.printStackTrace();
+            }
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
     }
 
     /* Use setTextInput. */
