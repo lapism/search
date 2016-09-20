@@ -45,7 +45,9 @@ class SearchAnimator {
         int cy = context.getResources().getDimensionPixelSize(R.dimen.search_height) / 2;
 
         if (cx != 0 && cy != 0) {
-            float finalRadius = (float) Math.hypot(cx, cy);
+            Point displaySize = new Point();
+            ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getSize(displaySize);
+            float finalRadius = (float) Math.hypot(Math.max(cx, displaySize.x - cx), cy);
 
             Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0.0f, finalRadius);
             anim.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -96,7 +98,9 @@ class SearchAnimator {
         int cy = context.getResources().getDimensionPixelSize(R.dimen.search_height) / 2;
 
         if (cx != 0 && cy != 0) {
-            float initialRadius = (float) Math.hypot(cx, cy);
+            Point displaySize = new Point();
+            ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getSize(displaySize);
+            float initialRadius = (float) Math.hypot(Math.max(cx, displaySize.x - cx), cy);
 
             Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, initialRadius, 0.0f);
             anim.setInterpolator(new AccelerateDecelerateInterpolator());
