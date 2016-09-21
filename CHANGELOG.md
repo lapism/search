@@ -1,3 +1,6 @@
+**3.6.3**  
+Fixes only.
+
 **3.6.2**  
 Changes:
  - removed TOOLBAR_ICON. Use TOOLBAR instead.

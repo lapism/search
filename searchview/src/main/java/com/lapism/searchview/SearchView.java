@@ -590,18 +590,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    /* Use setTextInput. */
-    @Deprecated
-    public void setText(CharSequence text) {
-        setTextInput(text);
-    }
-
-    /* Use setTextInput. */
-    @Deprecated
-    public void setText(@StringRes int text) {
-        setTextInput(text);
-    }
-
     // ---------------------------------------------------------------------------------------------
         /*
     private void setQuery2(CharSequence query) {
