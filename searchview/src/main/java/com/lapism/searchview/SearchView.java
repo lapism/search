@@ -44,6 +44,7 @@ import android.widget.Filterable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
@@ -96,6 +97,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     protected View mDividerView;
     protected CardView mCardView;
     protected SearchEditText mEditText;
+    protected ProgressBar mProgressBar;
     protected ImageView mBackImageView;
     protected ImageView mVoiceImageView;
     protected ImageView mEmptyImageView;
@@ -235,6 +237,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mBackImageView = (ImageView) findViewById(R.id.imageView_arrow_back);
         mBackImageView.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         mBackImageView.setOnClickListener(this);
+
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mProgressBar.setVisibility(View.GONE);
 
         mVoiceImageView = (ImageView) findViewById(R.id.imageView_mic);
         mVoiceImageView.setImageResource(R.drawable.ic_mic_black_24dp);
@@ -790,6 +795,18 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         } else {
             mVoiceImageView.setVisibility(View.GONE);
         }
+    }
+
+    public void showProgress() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    public void hideProgress() {
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    public boolean isShowingProgress() {
+        return mProgressBar.getVisibility() == View.VISIBLE;
     }
 
     public void showKeyboard() {
