@@ -73,7 +73,7 @@
                     android:layout_width="@dimen/progress_width"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/progress_margin_end"
-                    android:layout_marginRight="@dimen/progress_margin_end"/>
+                    android:layout_marginRight="@dimen/progress_margin_end" />
 
                 <FrameLayout
                     android:layout_width="@dimen/search_icon"

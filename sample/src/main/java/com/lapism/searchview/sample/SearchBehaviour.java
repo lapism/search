@@ -1,4 +1,9 @@
 /*
+KNOWN BUGS:
+----------------------------------------------------------------------------------------------------
+
+ - NO DIVIDER
+
 When you press the search icon, the material searchview animation start from a different ActionBar icon,
 it should start from the clicked icon, but it's starting from the 3dots icon (menu), same for closing animation .
 
@@ -7,17 +12,16 @@ When I open(true) my SearchView, the keyboard is showing.
 When I rotate my phone, the SearchView is still shown but the keyboard has gone.
 searchView.isSearchOpen() is false
 
-if(mAdapter != null) {
-mAdapter.notifyDataSetChanged();
-}
 
-behavior
-fix example
-NO DIVIDER
-*/
+TO DO:
+
+ - behavior
+ - fix example
+
+
+----------------------------------------------------------------------------------------------------
+
 // Boolean, boolean
-
-// --------------------------------------------------------------------------------------------------
 // ANALYZE, TODO, FIXME
 // file:///E:/Android/SearchView/sample/build/outputs/lint-results-debug.html
 // file:///E:/Android/SearchView/searchview/build/outputs/lint-results-debug.html
@@ -50,7 +54,7 @@ public void run() {
         },1000);*/
 
 
-package com.lapism.searchview.sample;
+
 
 /*
 import android.animation.ValueAnimator;
@@ -65,7 +69,7 @@ import android.view.animation.DecelerateInterpolator;
 
 import com.lapism.searchview.SearchView;
 
-@SuppressWarnings("unused")
+
 public class SearchBehaviour extends CoordinatorLayout.Behavior<SearchView> {
 
     private AppBarLayout appBarLayout;

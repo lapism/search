@@ -29,9 +29,11 @@ import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
-import com.lapism.searchview.sample.activity.FiltersActivity;
-import com.lapism.searchview.sample.activity.HistoryToggleActivity;
-import com.lapism.searchview.sample.activity.ToggleActivity;
+import com.lapism.searchview.sample.activity.MenuItemActivity;
+import com.lapism.searchview.sample.activity.ResultActivity;
+import com.lapism.searchview.sample.activity.ToolbarActivity;
+import com.lapism.searchview.sample.undone.FiltersActivity;
+import com.lapism.searchview.sample.undone.HistoryToggleActivity;
 import com.lapism.searchview.sample.view.FragmentAdapter;
 import com.lapism.searchview.sample.view.SearchFragment;
 
@@ -43,11 +45,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected static final int NAV_ITEM_INVALID = -1;
     protected static final int NAV_ITEM_TOOLBAR = 0;
-    protected static final int NAV_ITEM_TOGGLE = 2;
-    protected static final int NAV_ITEM_HISTORY_TOGGLE = 3;
+    protected static final int NAV_ITEM_HISTORY_TOGGLE = 2;
     protected static final int NAV_ITEM_FILTERS = 4;
     protected static final String EXTRA_KEY_VERSION = "version";
-    static final int NAV_ITEM_MENU_ITEM = 1;
+    protected static final int NAV_ITEM_MENU_ITEM = 1;
     private static final String EXTRA_KEY_THEME = "theme";
     private static final String EXTRA_KEY_VERSION_MARGINS = "version_margins";
     private static final String EXTRA_KEY_TEXT = "text";
@@ -78,7 +79,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            super.onBackPressed(); // finish
         }
     }
 
@@ -120,7 +121,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     // ---------------------------------------------------------------------------------------------
-    void setToolbar() {
+    protected void setToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             mToolbar.setNavigationContentDescription(getResources().getString(R.string.app_name));
@@ -209,7 +210,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }
 
                 if (id == R.id.nav_toggle_versions || id == R.id.nav_history_toggle_versions) {
-                    Intent intent = new Intent(BaseActivity.this, id == R.id.nav_toggle_versions ? ToggleActivity.class : HistoryToggleActivity.class);
+                   // Intent intent = new Intent(this, id == R.id.nav_toggle_versions ? ToggleActivity.class : HistoryToggleActivity.class);
+                    Intent intent = new Intent(BaseActivity.this, HistoryToggleActivity.class);
                     intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
                     intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
                     intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);

@@ -1109,7 +1109,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         private SavedState(Parcel in) {
             super(in);
             this.query = in.readString();
-            this.isSearchOpen = in.readInt() == 1;
+            this.isSearchOpen = in.readInt() == 0; // FIXME
             in.readList(searchFiltersStates, List.class.getClassLoader());
         }
 

@@ -1,10 +1,6 @@
-
-
-
      if (mSearchView != null && mSearchView.isSearchOpen()) {
          mSearchView.close(true);
          }
-
 
 if (SearchView.THEME_LIGHT == getIntent().getIntExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT)) {
                 return NAV_ITEM_MENU_ITEM_LIGHT;
@@ -14,11 +10,6 @@ if (SearchView.THEME_LIGHT == getIntent().getIntExtra(EXTRA_KEY_THEME, SearchVie
             ]
                     // invalidateOptionsMenu();
                     // syncState();
-
-
-
-
-
 
         /*ActionBar ab = getSupportActionBar();
         if (ab != null) {

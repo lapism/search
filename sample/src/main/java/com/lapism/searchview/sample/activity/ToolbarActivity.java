@@ -1,4 +1,4 @@
-package com.lapism.searchview.sample.base;
+package com.lapism.searchview.sample.activity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -11,6 +11,7 @@ import android.support.v4.view.GravityCompat;
 
 import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
+import com.lapism.searchview.sample.base.BaseActivity;
 
 
 public class ToolbarActivity extends BaseActivity {
@@ -25,6 +26,7 @@ public class ToolbarActivity extends BaseActivity {
         setTheme(R.style.AppThemeLight);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_toolbar);
+        setTitle(null); // ""
         setToolbar();
         setViewPager();
     }
@@ -33,7 +35,6 @@ public class ToolbarActivity extends BaseActivity {
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-        setTitle(null);//""
         setSearchView();
         mSearchView.setNavigationIconArrowHamburger();
         mSearchView.setOnMenuClickListener(new SearchView.OnMenuClickListener() {

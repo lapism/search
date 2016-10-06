@@ -1,12 +1,15 @@
-package com.lapism.searchview.sample.base;
+package com.lapism.searchview.sample.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.GravityCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.lapism.searchview.sample.R;
+import com.lapism.searchview.sample.base.BaseActivity;
 
 
 public class MenuItemActivity extends BaseActivity {
@@ -22,6 +25,8 @@ public class MenuItemActivity extends BaseActivity {
         setContentView(R.layout.activity_menu_item);
         setToolbar();
         setViewPager();
+        // invalidateOptionsMenu();
+        // int mCurrentVersion = getIntent().getIntExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
     }
 
     @Override
@@ -29,12 +34,12 @@ public class MenuItemActivity extends BaseActivity {
         super.onPostCreate(savedInstanceState);
         mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
         mActionBarDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_delete_white_24dp);
-        /*mActionBarDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+        mActionBarDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //  mDrawerLayout.openDrawer(GravityCompat.START); finish
+                mDrawerLayout.openDrawer(GravityCompat.START); //finish
             }
-        });*/
+        });
 
         setSearchView();
         customSearchView();
@@ -44,7 +49,7 @@ public class MenuItemActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
-        return true;
+        return true; // false
     }
 
     @Override
@@ -53,6 +58,9 @@ public class MenuItemActivity extends BaseActivity {
             case R.id.action_search:
                 mSearchView.open(true, item);
                 return true;
+            /* case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START); finish();
+                return true;*/
             default:
                 return super.onOptionsItemSelected(item);
         }

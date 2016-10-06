@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".base.ResultActivity">
+    tools:context=".activity.ResultActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -41,6 +41,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <include layout="@layout/nav"/>
+    <include layout="@layout/nav" />
 
 </android.support.v4.widget.DrawerLayout>

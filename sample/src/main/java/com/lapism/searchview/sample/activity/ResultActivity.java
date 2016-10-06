@@ -1,22 +1,25 @@
-package com.lapism.searchview.sample.base;
+package com.lapism.searchview.sample.activity;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.view.GravityCompat;
 
 import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
+import com.lapism.searchview.sample.base.BaseActivity;
 
 
 public class ResultActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
     }
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
         setSearchView();
         mSearchView.setTextInput(R.string.search);
         mSearchView.setOnMenuClickListener(new SearchView.OnMenuClickListener() {

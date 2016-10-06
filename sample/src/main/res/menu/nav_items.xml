@@ -23,9 +23,6 @@
             android:id="@+id/nav_history_toggle_versions"
             android:icon="@drawable/ic_menu_search"
             android:title="@string/history_toggle_versions" />
-    </group>
-
-    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_filters_version"
             android:icon="@drawable/ic_menu_search"
