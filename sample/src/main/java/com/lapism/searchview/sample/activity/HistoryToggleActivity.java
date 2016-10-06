@@ -13,6 +13,7 @@ public class HistoryToggleActivity extends ToggleActivity {
         return NAV_ITEM_HISTORY_TOGGLE;
     }
 
+    @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         Toast.makeText(HistoryToggleActivity.this, "Fetching from entire database", Toast.LENGTH_SHORT).show();

@@ -100,7 +100,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     protected ImageView mVoiceImageView;
     protected ImageView mEmptyImageView;
     protected LinearLayout mFiltersContainer;
-    protected String mVoiceSearchText = "Speak now";
+    protected String mVoiceText = "Speak now";
     protected int mVersion = VERSION_TOOLBAR;
     protected int mAnimationDuration = ANIMATION_DURATION;
     protected float mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
@@ -207,6 +207,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mCardView = (CardView) findViewById(R.id.cardView);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_result);
+        // mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setItemAnimator(null);
         mRecyclerView.setLayoutTransition(getRecyclerViewLayoutTransition());
@@ -229,6 +230,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mDividerView.setVisibility(View.GONE);
 
         mShadowView = findViewById(R.id.view_shadow);
+        mShadowView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_shadow_layout));
         mShadowView.setOnClickListener(this);
         mShadowView.setVisibility(View.GONE);
 
@@ -284,6 +286,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         setVersion(VERSION_TOOLBAR);
         setVersionMargins(VERSION_MARGINS_TOOLBAR_SMALL);
         setTheme(THEME_LIGHT);
+        setVoice(true);
     }
 
     private void initStyle(AttributeSet attrs, int defStyleAttr) {
@@ -332,7 +335,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 setDivider(attr.getBoolean(R.styleable.SearchView_search_divider, false));
             }
             if (attr.hasValue(R.styleable.SearchView_search_voice)) {
-                setVoice(attr.getBoolean(R.styleable.SearchView_search_voice, false));
+                setVoice(attr.getBoolean(R.styleable.SearchView_search_voice, true));
             }
             if (attr.hasValue(R.styleable.SearchView_search_voice_text)) {
                 setVoiceText(attr.getString(R.styleable.SearchView_search_voice_text));
@@ -341,7 +344,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 setAnimationDuration(attr.getInteger(R.styleable.SearchView_search_animation_duration, mAnimationDuration));
             }
             if (attr.hasValue(R.styleable.SearchView_search_shadow)) {
-                setShadow(attr.getBoolean(R.styleable.SearchView_search_shadow, false));
+                setShadow(attr.getBoolean(R.styleable.SearchView_search_shadow, true));
             }
             if (attr.hasValue(R.styleable.SearchView_search_shadow_color)) {
                 setShadowColor(attr.getColor(R.styleable.SearchView_search_shadow_color, 0));
@@ -524,7 +527,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void setVoiceText(String text) {
-        mVoiceSearchText = text;
+        mVoiceText = text;
     }
 
     public void setAnimationDuration(int animationDuration) {
@@ -938,7 +941,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, mVoiceSearchText);
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, mVoiceText);
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
 
         if (mActivity != null) {

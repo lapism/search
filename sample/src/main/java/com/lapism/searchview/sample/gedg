@@ -1,0 +1,249 @@
+
+
+
+     if (mSearchView != null && mSearchView.isSearchOpen()) {
+         mSearchView.close(true);
+         }
+
+
+if (SearchView.THEME_LIGHT == getIntent().getIntExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT)) {
+                return NAV_ITEM_MENU_ITEM_LIGHT;
+      } else {
+                return NAV_ITEM_MENU_ITEM_DARK;
+            }
+            ]
+                    // invalidateOptionsMenu();
+                    // syncState();
+
+
+
+
+
+
+        /*ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+                getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            ab.setDisplayHomeAsUpEnabled(true);
+            ab.setTitle("");
+        }*/
+/**
+ * //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_delete_white_24dp);
+ *
+ * Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+ * if(toolbar != null) {
+ * setSupportActionBar(toolbar);
+ * getSupportActionBar().setTitle("My custom toolbar!");
+ * getSupportActionBar().setHomeButtonEnabled(true);
+ * getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+ * }
+ */
+//getActionBar().setDisplayHomeAsUpEnabled(false);
+        /*
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
+       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        /final ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+            ab.setDisplayHomeAsUpEnabled(true);
+        }*/
+
+
+    /*
+            case R.id.menu_night_mode_system:
+                setNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                return true;
+            case R.id.menu_night_mode_day:
+                setNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                return true;
+            case R.id.menu_night_mode_night:
+                setNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                return true;
+            case R.id.menu_night_mode_auto:
+                setNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+                return true;
+
+protected void setNightMode(@AppCompatDelegate.NightMode int nightMode) {
+ AppCompatDelegate.setDefaultNightMode(nightMode);
+recreate();
+                case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START); // finish()
+                return true;
+            case R.id.menu_night_mode_system:
+                setNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                return true;
+            case R.id.menu_night_mode_day:
+                setNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                return true;
+            case R.id.menu_night_mode_night:
+                setNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                return true;
+            case R.id.menu_night_mode_auto:
+                setNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+                return true;
+
+       @Override
+115     public boolean onOptionsItemSelected(MenuItem item) {
+116         switch (item.getItemId()) {
+117             case android.R.id.home:
+118                 mDrawerLayout.openDrawer(GravityCompat.START);
+119                 return true;
+120             case R.id.menu_night_mode_system:
+121                 setNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+122                 break;
+123             case R.id.menu_night_mode_day:
+124                 setNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+125                 break;
+126             case R.id.menu_night_mode_night:
+127                 setNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+128                 break;
+129             case R.id.menu_night_mode_auto:
+130                 setNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+131                 break;
+132         }
+133         return super.onOptionsItemSelected(item);
+134    /*/
+
+
+        if (mActionBarToolbar != null) {
+            mActionBarToolbar.setNavigationIcon(R.drawable.ic_ab_drawer);
+            mActionBarToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mDrawerLayout.openDrawer(GravityCompat.START);
+                }
+            });
+        }
+
+
+
+
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        MainActivity2.Adapter adapter = new MainActivity2.Adapter(getSupportFragmentManager());
+        adapter.addFragment(new CheeseListFragment(), "Category 1");
+        adapter.addFragment(new CheeseListFragment(), "Category 2");
+        adapter.addFragment(new CheeseListFragment(), "Category 3");
+        viewPager.setAdapter(adapter);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);*/
+
+      /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(ContextCompat.getColor(context, R.color.primaryColorDark));
+            getWindow().setNavigationBarColor(ContextCompat.getColor(context, R.color.navigationBarBgColor));
+        }*/
+
+            @SuppressLint("SwitchIntDef")
+            @Override
+            public boolean onPrepareOptionsMenu(Menu menu) {
+                switch (AppCompatDelegate.getDefaultNightMode()) {
+                    case AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM:
+                        menu.findItem(R.id.menu_night_mode_system).setChecked(true);
+                        break;
+                    case AppCompatDelegate.MODE_NIGHT_AUTO:
+                        menu.findItem(R.id.menu_night_mode_auto).setChecked(true);
+                        break;
+                    case AppCompatDelegate.MODE_NIGHT_YES:
+                        menu.findItem(R.id.menu_night_mode_night).setChecked(true);
+                        break;
+                    case AppCompatDelegate.MODE_NIGHT_NO:
+                        menu.findItem(R.id.menu_night_mode_day).setChecked(true);
+                        break;
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onOptionsItemSelected(MenuItem item) {
+                if (mActionBarDrawerToggle.onOptionsItemSelected(item)) {
+                    return true;
+                }
+                switch (item.getItemId()) {
+                    case android.R.id.home:
+                        mDrawerLayout.openDrawer(GravityCompat.START);
+                        return true;
+                    case R.id.menu_night_mode_system:
+                        setNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                        break;
+                    case R.id.menu_night_mode_day:
+                        setNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        break;
+                    case R.id.menu_night_mode_night:
+                        setNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        break;
+                    case R.id.menu_night_mode_auto:
+                        setNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+                        break;
+                }
+                return super.onOptionsItemSelected(item);
+            }
+
+            private void setNightMode(@AppCompatDelegate.NightMode int nightMode) {
+                AppCompatDelegate.setDefaultNightMode(nightMode);
+                recreate();
+            }
+
+            static class Adapter extends FragmentPagerAdapter {
+                private final List<Fragment> mFragments = new ArrayList<>();
+                private final List<String> mFragmentTitles = new ArrayList<>();
+
+                Adapter(FragmentManager fm) {
+                    super(fm);
+                }
+
+                void addFragment(Fragment fragment, String title) {
+                    mFragments.add(fragment);
+                    mFragmentTitles.add(title);
+                }
+
+                @Override
+                public Fragment getItem(int position) {
+                    return mFragments.get(position);
+                }
+
+                @Override
+                public int getCount() {
+                    return mFragments.size();
+                }
+
+                @Override
+                public CharSequence getPageTitle(int position) {
+                    return mFragmentTitles.get(position);
+                }
+            }
+
+            // if (Build.VERSION.SDK_INT >= 11)
+
+
+
+            private void closeDrawerAfterSmallDelay() {
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                    }
+                }, 300);
+            }

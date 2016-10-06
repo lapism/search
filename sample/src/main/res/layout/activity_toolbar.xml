@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activity.ToolbarActivity">
+    tools:context=".base.ToolbarActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -51,6 +51,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/key_line"
             android:src="@drawable/ic_delete_white_24dp"
+            android:tint="@android:color/white"
             app:layout_behavior="@string/fab_behavior" />
 
     </android.support.design.widget.CoordinatorLayout>
@@ -60,13 +61,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_items" />
+    <include layout="@layout/nav"/>
 
 </android.support.v4.widget.DrawerLayout>

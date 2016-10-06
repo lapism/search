@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import com.lapism.searchview.SearchFilter;
+import com.lapism.searchview.sample.base.ToolbarActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class FiltersActivity extends ToolbarActivity {
         filters.add(new SearchFilter("Filter1", true));
         filters.add(new SearchFilter("Filter2", false));
         filters.add(new SearchFilter("Filter3", true));
+
         mSearchView.setFilters(filters);
     }
 

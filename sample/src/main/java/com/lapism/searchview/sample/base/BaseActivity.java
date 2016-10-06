@@ -1,20 +1,24 @@
 package com.lapism.searchview.sample.base;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -25,13 +29,9 @@ import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
-import com.lapism.searchview.sample.activity.AboutActivity;
 import com.lapism.searchview.sample.activity.FiltersActivity;
 import com.lapism.searchview.sample.activity.HistoryToggleActivity;
-import com.lapism.searchview.sample.activity.MenuItemActivity;
-import com.lapism.searchview.sample.activity.ResultActivity;
 import com.lapism.searchview.sample.activity.ToggleActivity;
-import com.lapism.searchview.sample.activity.ToolbarActivity;
 import com.lapism.searchview.sample.view.FragmentAdapter;
 import com.lapism.searchview.sample.view.SearchFragment;
 
@@ -39,102 +39,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-    protected static final String EXTRA_KEY_VERSION = "version";
-    protected static final String EXTRA_KEY_THEME = "theme";
+public abstract class BaseActivity extends AppCompatActivity {
 
     protected static final int NAV_ITEM_INVALID = -1;
     protected static final int NAV_ITEM_TOOLBAR = 0;
-    protected static final int NAV_ITEM_TOOLBAR_DARK = 1;
-    protected static final int NAV_ITEM_MENU_ITEM = 2;
-    protected static final int NAV_ITEM_MENU_ITEM_DARK = 3;
-    protected static final int NAV_ITEM_TOGGLE = 4;
-    protected static final int NAV_ITEM_HISTORY_TOGGLE = 5;
-    protected static final int NAV_ITEM_FILTERS = 6;
-
+    protected static final int NAV_ITEM_TOGGLE = 2;
+    protected static final int NAV_ITEM_HISTORY_TOGGLE = 3;
+    protected static final int NAV_ITEM_FILTERS = 4;
+    protected static final String EXTRA_KEY_VERSION = "version";
+    static final int NAV_ITEM_MENU_ITEM = 1;
+    private static final String EXTRA_KEY_THEME = "theme";
     private static final String EXTRA_KEY_VERSION_MARGINS = "version_margins";
     private static final String EXTRA_KEY_TEXT = "text";
 
     protected SearchView mSearchView = null;
     protected DrawerLayout mDrawerLayout = null;
-    protected Toolbar mToolbar = null;
     protected FloatingActionButton mFab = null;
-
+    protected ActionBarDrawerToggle mActionBarDrawerToggle;
+    private Toolbar mToolbar = null;
     private SearchHistoryTable mHistoryDatabase;
 
     // ---------------------------------------------------------------------------------------------
-    @Override
-    public void setContentView(int layoutResID) {
-        super.setContentView(layoutResID);
-        getToolbar();
+    protected int getNavItem() {
+        return NAV_ITEM_INVALID;
     }
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         setFab();
         setDrawer();
         setNavigationView();
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.nav_light_toolbar || id == R.id.nav_filters_version) {
-            Intent intent = new Intent(this, id == R.id.nav_light_toolbar ? ToolbarActivity.class : FiltersActivity.class);
-            intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
-            intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
-            intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
-            startActivity(intent);
-            finish();
-        }
-
-        if (id == R.id.nav_dark_toolbar) {
-            Intent intent = new Intent(this, ToolbarActivity.class);
-            intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
-            intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
-            intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_DARK);
-            startActivity(intent);
-            finish();
-        }
-
-        if (id == R.id.nav_light_menu_item) {
-            Intent intent = new Intent(this, MenuItemActivity.class);
-            intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_MENU_ITEM);
-            intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_MENU_ITEM);
-            intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
-            startActivity(intent);
-            finish();
-        }
-
-        if (id == R.id.nav_dark_menu_item) {
-            Intent intent = new Intent(this, MenuItemActivity.class);
-            intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_MENU_ITEM);
-            intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_MENU_ITEM);
-            intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_DARK);
-            startActivity(intent);
-            finish();
-        }
-
-        if (id == R.id.nav_toggle_versions || id == R.id.nav_history_toggle_versions) {
-            Intent intent = new Intent(this, id == R.id.nav_toggle_versions ? ToggleActivity.class : HistoryToggleActivity.class);
-            intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
-            intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
-            intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
-            startActivity(intent);
-            finish();
-        }
-
-        if (id == R.id.nav_about) {
-            Intent intent = new Intent(this, AboutActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
-        mDrawerLayout.closeDrawer(GravityCompat.START); // mDrawer.closeDrawers();
-        return true;
+        mActionBarDrawerToggle.syncState();
     }
 
     @Override
@@ -145,24 +81,63 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             super.onBackPressed();
         }
     }
-    /*
-                if (mSearchView != null && mSearchView.isSearchOpen()) {
-                // mSearchView.close(true);
-    */
 
-    // ---------------------------------------------------------------------------------------------
-    protected int getNavItem() {
-        return NAV_ITEM_INVALID;
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mActionBarDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    private void getToolbar() {
-        if (mToolbar == null) {
-            mToolbar = (Toolbar) findViewById(R.id.toolbar);
-            if (mToolbar != null) {
-                mToolbar.setNavigationContentDescription(getResources().getString(R.string.app_name));
-                setSupportActionBar(mToolbar);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (mActionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // menu.setVisible(!mDrawerLayout.isDrawerOpen(GravityCompat.START));
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SearchView.SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
+            List<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (results != null && results.size() > 0) {
+                String searchWrd = results.get(0);
+                if (!TextUtils.isEmpty(searchWrd)) {
+                    if (mSearchView != null) {
+                        mSearchView.setQuery(searchWrd);
+                    }
+                }
             }
         }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    void setToolbar() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (mToolbar != null) {
+            mToolbar.setNavigationContentDescription(getResources().getString(R.string.app_name));
+            setSupportActionBar(mToolbar);
+        }
+    }
+
+    protected void setViewPager() {
+        FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
+        adapter.addFragment(new SearchFragment(), getString(R.string.installed));
+        adapter.addFragment(new SearchFragment(), getString(R.string.all));
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager.setAdapter(adapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -181,12 +156,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     private void setDrawer() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        if (mDrawerLayout != null) {
-            mDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() { // new DrawerLayout.DrawerListener();
+        if (mDrawerLayout != null && mToolbar != null) {
+            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+            mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close) {
                 @Override
                 public void onDrawerOpened(View drawerView) {
                     super.onDrawerOpened(drawerView);
-                    invalidateOptionsMenu();
                     if (mSearchView != null && mSearchView.isSearchOpen()) {
                         mSearchView.close(true);
                     }
@@ -198,39 +173,58 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
                 @Override
                 public void onDrawerClosed(View drawerView) {
                     super.onDrawerClosed(drawerView);
-                    invalidateOptionsMenu();
                     if (mFab != null) {
                         mFab.show();
                     }
                 }
-            });
+            };
+            mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
+            mActionBarDrawerToggle.syncState();
         }
     }
 
     private void setNavigationView() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        if (navigationView != null) {
-            navigationView.setNavigationItemSelectedListener(this);
-            if (getNavItem() > -1) {
-                navigationView.getMenu().getItem(getNavItem()).setChecked(true);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+
+                if (id == R.id.nav_light_toolbar || id == R.id.nav_filters_version) {
+                    Intent intent = new Intent(BaseActivity.this, id == R.id.nav_light_toolbar ? ToolbarActivity.class : FiltersActivity.class);
+                    intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
+                    intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
+                    intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
+                    startActivity(intent);
+                    finish();
+                }
+
+                if (id == R.id.nav_light_menu_item) {
+                    Intent intent = new Intent(BaseActivity.this, MenuItemActivity.class);
+                    intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_MENU_ITEM);
+                    intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_MENU_ITEM);
+                    intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
+                    startActivity(intent);
+                    finish();
+                }
+
+                if (id == R.id.nav_toggle_versions || id == R.id.nav_history_toggle_versions) {
+                    Intent intent = new Intent(BaseActivity.this, id == R.id.nav_toggle_versions ? ToggleActivity.class : HistoryToggleActivity.class);
+                    intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
+                    intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
+                    intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
+                    startActivity(intent);
+                    finish();
+                }
+
+                // item.setChecked(true);
+                // mDrawerLayout.closeDrawers();
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                return true;
             }
-        }
-    }
-
-    // ---------------------------------------------------------------------------------------------
-    protected void setViewPager() {
-        final FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
-        adapter.addFragment(new SearchFragment(), getString(R.string.installed));
-        adapter.addFragment(new SearchFragment(), getString(R.string.all));
-
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
-        if (viewPager != null) {
-            viewPager.setAdapter(adapter);
-        }
-
-        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        if (tabLayout != null) {
-            tabLayout.setupWithViewPager(viewPager);
+        });
+        if (getNavItem() > NAV_ITEM_INVALID) {
+            navigationView.getMenu().getItem(getNavItem()).setChecked(true);
         }
     }
 
@@ -242,13 +236,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             mSearchView.setVersion(SearchView.VERSION_TOOLBAR);
             mSearchView.setVersionMargins(SearchView.VERSION_MARGINS_TOOLBAR_BIG);
             mSearchView.setHint(R.string.search);
-            mSearchView.setTextSize(16);
-            mSearchView.setHint("Search");
-            mSearchView.setDivider(false);
-            mSearchView.setVoice(true);
             mSearchView.setVoiceText("Set permission on Android 6+ !");
-            mSearchView.setAnimationDuration(SearchView.ANIMATION_DURATION);
-            mSearchView.setShadowColor(ContextCompat.getColor(this, R.color.search_shadow_layout));
             mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
@@ -308,8 +296,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     }
 
     protected void customSearchView() {
-        final Bundle extras = getIntent().getExtras();
-        if (extras != null) {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && mSearchView != null) {
             mSearchView.setVersion(extras.getInt(EXTRA_KEY_VERSION));
             mSearchView.setVersionMargins(extras.getInt(EXTRA_KEY_VERSION_MARGINS));
             mSearchView.setTheme(extras.getInt(EXTRA_KEY_THEME), true);
@@ -317,6 +305,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         }
     }
 
+    // ---------------------------------------------------------------------------------------------
     @CallSuper
     protected void getData(String text, int position) {
         mHistoryDatabase.addItem(new SearchItem(text));
@@ -329,11 +318,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         startActivity(intent);
 
         Toast.makeText(getApplicationContext(), text + ", position: " + position, Toast.LENGTH_SHORT).show();
-    }
-
-    protected void setNightMode(@AppCompatDelegate.NightMode int nightMode) {
-        AppCompatDelegate.setDefaultNightMode(nightMode);
-        recreate();
     }
 
 }

@@ -8,23 +8,12 @@
             android:icon="@drawable/ic_menu_search"
             android:title="@string/light_toolbar" />
         <item
-            android:id="@+id/nav_dark_toolbar"
-            android:icon="@drawable/ic_menu_search"
-            android:title="@string/dark_toolbar" />
-    </group>
-
-    <!-- android:id="@+id/group_menu_item" -->
-    <group android:checkableBehavior="single">
-        <item
             android:id="@+id/nav_light_menu_item"
             android:icon="@drawable/ic_menu_search"
             android:title="@string/light_menu_item" />
-        <item
-            android:id="@+id/nav_dark_menu_item"
-            android:icon="@drawable/ic_menu_search"
-            android:title="@string/dark_menu_item" />
     </group>
 
+    <!-- android:id="@+id/group_menu_item" -->
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_toggle_versions"

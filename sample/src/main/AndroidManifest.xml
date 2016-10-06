@@ -14,7 +14,7 @@
         android:theme="@style/AppThemeLight">
 
         <activity
-            android:name=".activity.ToolbarActivity"
+            android:name=".base.ToolbarActivity"
             android:label="@string/app_name"
             android:launchMode="standard"
             android:theme="@style/LauncherAppTheme">
@@ -27,7 +27,7 @@
         </activity>
 
         <activity
-            android:name=".activity.MenuItemActivity"
+            android:name=".base.MenuItemActivity"
             android:label="@string/app_name" />
 
         <activity
@@ -43,14 +43,10 @@
             android:label="@string/app_name" />
 
         <activity
-            android:name=".activity.AboutActivity"
-            android:label="@string/app_name" />
-
-        <activity
-            android:name=".activity.ResultActivity"
+            android:name=".base.ResultActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:parentActivityName=".activity.ToolbarActivity"
+            android:parentActivityName=".base.ToolbarActivity"
             tools:ignore="UnusedAttribute" />
 
     </application>

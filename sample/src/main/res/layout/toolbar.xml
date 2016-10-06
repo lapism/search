@@ -8,24 +8,3 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     app:layout_scrollFlags="scroll|enterAlways|snap"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-    <!--
-    android:layout_height="?attr/actionBarSize"
-    android:background="?attr/colorPrimary"
-    android:elevation="4dp"
-    android:layout_height="?attr/actionBarSize"
-    android:background="?attr/colorPrimary"
-    -->
-
-
-    <!-- 256dp
-       android:background="?attr/colorPrimaryDark"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark"
-      -->
-
-
-
-
-
-

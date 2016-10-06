@@ -2,7 +2,10 @@
 <resources>
 
     <string name="app_name">SearchView Sample</string>
-    <string name="version">Version: 3.7</string>
+    <string name="version">Version: 3.8</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 
     <string name="light_toolbar">Light Toolbar</string>
     <string name="light_menu_item">Light Menu item</string>
@@ -29,3 +32,19 @@
     <string name="menu_night_mode_auto">Auto</string>
 
 </resources>
+
+
+    <!--
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    android:elevation="4dp"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    -->
+
+
+    <!-- 256dp
+       android:background="?attr/colorPrimaryDark"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+      -->
