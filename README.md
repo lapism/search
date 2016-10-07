@@ -111,3 +111,6 @@ dependencies {
         <attr name="search_hide_on_keyboard_close" format="boolean" />
         <attr name="search_cursor_drawable" format="integer" />
 ```
+
+**TODO + known bugs:**
+No divider when SearchView starts.

@@ -4,24 +4,17 @@
     <string name="app_name">SearchView Sample</string>
     <string name="version">Version: 3.8</string>
 
+    <string name="toolbar">Toolbar</string>
+    <string name="menu_item">Menu item</string>
+    <string name="history">History</string>
+    <string name="filters">Filters</string>
+
     <string name="open">Open</string>
     <string name="close">Close</string>
-
-    <string name="light_toolbar">Light Toolbar</string>
-    <string name="light_menu_item">Light Menu item</string>
-
-    <string name="dark_toolbar">Dark Toolbar</string>
-    <string name="dark_menu_item">Dark Menu item</string>
-
-    <string name="toggle_versions">Toggle versions</string>
-    <string name="history_toggle_versions">Toggle history</string>
-
-    <string name="filters_version">Filters versions</string>
 
     <string name="search">Search</string>
     <string name="installed">Installed</string>
     <string name="all">All</string>
-    <string name="about">About</string>
 
     <string name="fab_behavior">com.lapism.searchview.sample.widget.FabBehavior</string>
 

@@ -21,6 +21,7 @@ public class ResultActivity extends BaseActivity {
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         setSearchView();
+        mSearchView.setNavigationIconArrowHamburger();
         mSearchView.setTextInput(R.string.search);
         mSearchView.setOnMenuClickListener(new SearchView.OnMenuClickListener() {
             @Override

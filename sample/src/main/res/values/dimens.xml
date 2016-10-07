@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
     <dimen name="nav_header_height">192dp</dimen>
-    <dimen name="about_height">256dp</dimen>
 
     <dimen name="key_line_8">16dp</dimen>
     <dimen name="key_line_16">16dp</dimen>
@@ -11,7 +9,6 @@
     <dimen name="key_line">16dp</dimen>
     <dimen name="key_line_tab">60dp</dimen>
 
-    <dimen name="icon">40dp</dimen>
     <dimen name="fab">56dp</dimen>
 
     <dimen name="toolbar_height">56dp</dimen>

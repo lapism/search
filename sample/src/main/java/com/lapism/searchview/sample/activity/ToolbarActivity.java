@@ -35,18 +35,13 @@ public class ToolbarActivity extends BaseActivity {
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
+
         setSearchView();
         mSearchView.setNavigationIconArrowHamburger();
         mSearchView.setOnMenuClickListener(new SearchView.OnMenuClickListener() {
             @Override
             public void onMenuClick() {
                 mDrawerLayout.openDrawer(GravityCompat.START); // finish();
-            }
-        });
-        mSearchView.setOnVoiceClickListener(new SearchView.OnVoiceClickListener() {
-            @Override
-            public void onVoiceClick() {
-                perm();
             }
         });
         customSearchView();
@@ -62,6 +57,7 @@ public class ToolbarActivity extends BaseActivity {
 
     // implements ActivityCompat.OnRequestPermissionsResultCallback
     // http://developer.android.com/training/permissions/requesting.html
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {

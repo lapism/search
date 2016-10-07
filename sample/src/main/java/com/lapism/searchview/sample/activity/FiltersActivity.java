@@ -1,17 +1,21 @@
-package com.lapism.searchview.sample.undone;
+package com.lapism.searchview.sample.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.view.GravityCompat;
 import android.widget.Toast;
 
 import com.lapism.searchview.SearchFilter;
-import com.lapism.searchview.sample.activity.ToolbarActivity;
+import com.lapism.searchview.SearchView;
+import com.lapism.searchview.sample.R;
+import com.lapism.searchview.sample.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FiltersActivity extends ToolbarActivity {
+
+public class FiltersActivity extends BaseActivity {
 
     @Override
     protected int getNavItem() {
@@ -19,8 +23,29 @@ public class FiltersActivity extends ToolbarActivity {
     }
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setTheme(R.style.AppThemeLight);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_toolbar);
+        setTitle(null); // ""
+        setToolbar();
+        setViewPager();
+    }
+
+    @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
+
+        setSearchView();
+        mSearchView.setNavigationIconArrowHamburger();
+        mSearchView.setOnMenuClickListener(new SearchView.OnMenuClickListener() {
+            @Override
+            public void onMenuClick() {
+                mDrawerLayout.openDrawer(GravityCompat.START); // finish();
+            }
+        });
+        customSearchView();
 
         List<SearchFilter> filters = new ArrayList<>();
         filters.add(new SearchFilter("Filter1", true));

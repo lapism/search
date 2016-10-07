@@ -4,38 +4,25 @@
     <!-- android:id="@+id/group_toolbar" -->
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_light_toolbar"
+            android:id="@+id/nav_item_toolbar"
             android:icon="@drawable/ic_menu_search"
-            android:title="@string/light_toolbar" />
+            android:title="@string/toolbar" />
         <item
-            android:id="@+id/nav_light_menu_item"
+            android:id="@+id/nav_item_menu_item"
             android:icon="@drawable/ic_menu_search"
-            android:title="@string/light_menu_item" />
+            android:title="@string/menu_item" />
     </group>
 
     <!-- android:id="@+id/group_menu_item" -->
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_toggle_versions"
+            android:id="@+id/nav_item_history"
             android:icon="@drawable/ic_menu_search"
-            android:title="@string/toggle_versions" />
+            android:title="@string/history" />
         <item
-            android:id="@+id/nav_history_toggle_versions"
+            android:id="@+id/nav_item_filters"
             android:icon="@drawable/ic_menu_search"
-            android:title="@string/history_toggle_versions" />
-        <item
-            android:id="@+id/nav_filters_version"
-            android:icon="@drawable/ic_menu_search"
-            android:title="@string/filters_version" />
+            android:title="@string/filters" />
     </group>
-
-    <item android:title="@string/about">
-        <menu>
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_menu_search"
-                android:title="@string/about" />
-        </menu>
-    </item>
 
 </menu>

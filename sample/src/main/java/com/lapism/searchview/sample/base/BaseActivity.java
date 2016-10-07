@@ -18,7 +18,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -29,11 +28,11 @@ import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
+import com.lapism.searchview.sample.activity.FiltersActivity;
+import com.lapism.searchview.sample.activity.HistoryActivity;
 import com.lapism.searchview.sample.activity.MenuItemActivity;
 import com.lapism.searchview.sample.activity.ResultActivity;
 import com.lapism.searchview.sample.activity.ToolbarActivity;
-import com.lapism.searchview.sample.undone.FiltersActivity;
-import com.lapism.searchview.sample.undone.HistoryToggleActivity;
 import com.lapism.searchview.sample.view.FragmentAdapter;
 import com.lapism.searchview.sample.view.SearchFragment;
 
@@ -43,12 +42,14 @@ import java.util.List;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
+    @SuppressWarnings("WeakerAccess")
     protected static final int NAV_ITEM_INVALID = -1;
     protected static final int NAV_ITEM_TOOLBAR = 0;
-    protected static final int NAV_ITEM_HISTORY_TOGGLE = 2;
-    protected static final int NAV_ITEM_FILTERS = 4;
-    protected static final String EXTRA_KEY_VERSION = "version";
     protected static final int NAV_ITEM_MENU_ITEM = 1;
+    protected static final int NAV_ITEM_HISTORY_TOGGLE = 2;
+    protected static final int NAV_ITEM_FILTERS = 3;
+
+    private static final String EXTRA_KEY_VERSION = "version";
     private static final String EXTRA_KEY_THEME = "theme";
     private static final String EXTRA_KEY_VERSION_MARGINS = "version_margins";
     private static final String EXTRA_KEY_TEXT = "text";
@@ -56,7 +57,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected SearchView mSearchView = null;
     protected DrawerLayout mDrawerLayout = null;
     protected FloatingActionButton mFab = null;
-    protected ActionBarDrawerToggle mActionBarDrawerToggle;
+    protected ActionBarDrawerToggle mActionBarDrawerToggle = null;
+
     private Toolbar mToolbar = null;
     private SearchHistoryTable mHistoryDatabase;
 
@@ -71,7 +73,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         setFab();
         setDrawer();
         setNavigationView();
-        mActionBarDrawerToggle.syncState();
+        if (mActionBarDrawerToggle != null) { // TODO IS NOT NULL EVERYWHERE
+            mActionBarDrawerToggle.syncState();
+        }
     }
 
     @Override
@@ -86,9 +90,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mActionBarDrawerToggle.onConfigurationChanged(newConfig);
+        if (mActionBarDrawerToggle != null) { // TODO IS NOT NULL EVERYWHERE
+            mActionBarDrawerToggle.onConfigurationChanged(newConfig);
+        }
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mActionBarDrawerToggle.onOptionsItemSelected(item)) {
@@ -98,11 +105,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+    /*@Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // menu.setVisible(!mDrawerLayout.isDrawerOpen(GravityCompat.START));
         return super.onPrepareOptionsMenu(menu);
-    }
+    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -142,7 +149,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     // ---------------------------------------------------------------------------------------------
-    protected void setFab() {
+    private void setFab() {
         mFab = (FloatingActionButton) findViewById(R.id.fab_delete);
         if (mFab != null) {
             mFab.setOnClickListener(new View.OnClickListener() {
@@ -191,8 +198,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
 
-                if (id == R.id.nav_light_toolbar || id == R.id.nav_filters_version) {
-                    Intent intent = new Intent(BaseActivity.this, id == R.id.nav_light_toolbar ? ToolbarActivity.class : FiltersActivity.class);
+                if (id == R.id.nav_item_toolbar || id == R.id.nav_item_filters) {
+                    Intent intent = new Intent(BaseActivity.this, id == R.id.nav_item_toolbar ? ToolbarActivity.class : FiltersActivity.class);
                     intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
                     intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
                     intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
@@ -200,7 +207,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     finish();
                 }
 
-                if (id == R.id.nav_light_menu_item) {
+                if (id == R.id.nav_item_menu_item) {
                     Intent intent = new Intent(BaseActivity.this, MenuItemActivity.class);
                     intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_MENU_ITEM);
                     intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_MENU_ITEM);
@@ -209,9 +216,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                     finish();
                 }
 
-                if (id == R.id.nav_toggle_versions || id == R.id.nav_history_toggle_versions) {
-                   // Intent intent = new Intent(this, id == R.id.nav_toggle_versions ? ToggleActivity.class : HistoryToggleActivity.class);
-                    Intent intent = new Intent(BaseActivity.this, HistoryToggleActivity.class);
+                if (id == R.id.nav_item_history) {
+                    // Intent intent = new Intent(this, id == R.id.nav_toggle_versions ? ToggleActivity.class : HistoryActivity.class);
+                    Intent intent = new Intent(BaseActivity.this, HistoryActivity.class);
                     intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
                     intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
                     intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
@@ -235,8 +242,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         mSearchView = (SearchView) findViewById(R.id.searchView);
         if (mSearchView != null) {
-            mSearchView.setVersion(SearchView.VERSION_TOOLBAR);
-            mSearchView.setVersionMargins(SearchView.VERSION_MARGINS_TOOLBAR_BIG);
             mSearchView.setHint(R.string.search);
             mSearchView.setVoiceText("Set permission on Android 6+ !");
             mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -265,6 +270,11 @@ public abstract class BaseActivity extends AppCompatActivity {
                     if (mFab != null) {
                         mFab.show();
                     }
+                }
+            });
+            mSearchView.setOnVoiceClickListener(new SearchView.OnVoiceClickListener() {
+                @Override
+                public void onVoiceClick() {
                 }
             });
 

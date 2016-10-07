@@ -1,25 +1,26 @@
 **3.8**  
+ - much simpler sample app.
  - added default shadow color.
- - simpler sample app.
+ - added ProgressBar.
 
 **3.7**  
- - Fixes only.
+ - fixes only.
 
 **3.6.3**  
- - Fixes only.
+ - fixes only.
 
 **3.6.2**  
- - removed TOOLBAR_ICON. Use TOOLBAR instead.
+ - removed version TOOLBAR_ICON. Use version TOOLBAR instead.
  - added support for custom cursor Drawable.
   
 **3.6.1**  
- - Fixes only.
+ - fixes only.
 
 **3.6**  
-Changes:
-- SearchView.TOOLBAR_ICON is now deprecated. Use TOOLBAR instead.
+- version TOOLBAR_ICON is now deprecated. Use version TOOLBAR instead.
 - SearchView.setText is now deprecated. Use setTextInput instead.
-
-News:
 - SearchView.setNavigationIconArrowHamburger(). Use this method to set an animated hamburger icon
   or you can set your own icon with SearchView.setNavigationIcon.
+  
+**3.5 and less**
+- no info.

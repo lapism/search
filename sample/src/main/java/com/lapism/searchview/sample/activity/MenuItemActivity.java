@@ -33,11 +33,11 @@ public class MenuItemActivity extends BaseActivity {
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-        mActionBarDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_delete_white_24dp);
+        mActionBarDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
         mActionBarDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDrawerLayout.openDrawer(GravityCompat.START); //finish
+                mDrawerLayout.openDrawer(GravityCompat.START); // WITHOUT finish(); + finish();
             }
         });
 
