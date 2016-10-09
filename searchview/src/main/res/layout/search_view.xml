@@ -35,7 +35,7 @@
                     android:id="@+id/imageView_arrow_back"
                     android:layout_width="@dimen/search_icon"
                     android:layout_height="match_parent"
-                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:contentDescription="@string/search_app_name" />
 
@@ -61,6 +61,7 @@
                     <requestFocus />
                 </com.lapism.searchview.SearchEditText>
                 <!--
+                                    android:background="?android:attr/selectableItemBackgroundBorderless"
                  android:background="?android:attr/listDivider"
                     @android:color/transparent red
                  app:cardUseCompatPadding="true"
@@ -70,7 +71,7 @@
 
                 <ProgressBar
                     android:id="@+id/progressBar"
-                    style="?attr/indeterminateProgressStyle"
+                    style="?android:attr/indeterminateProgressStyle"
                     android:layout_width="@dimen/progress_width"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/progress_margin_end"
@@ -84,7 +85,7 @@
                         android:id="@+id/imageView_mic"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:background="?android:attr/selectableItemBackground"
                         android:clickable="true"
                         android:contentDescription="@string/search_app_name" />
 
@@ -92,7 +93,7 @@
                         android:id="@+id/imageView_clear"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:background="?android:attr/selectableItemBackground"
                         android:clickable="true"
                         android:contentDescription="@string/search_app_name" />
 
