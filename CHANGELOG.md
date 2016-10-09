@@ -2,6 +2,7 @@
  - much simpler sample app.
  - added default shadow color.
  - added ProgressBar.
+ - added method setHeight(float dp) and attribute search_height.
 
 **3.7**  
  - fixes only.
@@ -23,4 +24,4 @@
   or you can set your own icon with SearchView.setNavigationIcon.
   
 **3.5 and less**
-- no info.
+- no info :-).

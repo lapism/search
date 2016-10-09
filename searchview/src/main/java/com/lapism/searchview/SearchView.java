@@ -37,6 +37,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
@@ -102,6 +103,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     protected ImageView mVoiceImageView;
     protected ImageView mEmptyImageView;
     protected LinearLayout mFiltersContainer;
+    protected LinearLayout mLinearLayout;
     protected String mVoiceText = "Speak now";
     protected int mVersion = VERSION_TOOLBAR;
     protected int mAnimationDuration = ANIMATION_DURATION;
@@ -206,6 +208,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private void initView() {
         LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
 
+        mLinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         mCardView = (CardView) findViewById(R.id.cardView);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_result);
@@ -297,6 +300,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private void initStyle(AttributeSet attrs, int defStyleAttr) {
         final TypedArray attr = mContext.obtainStyledAttributes(attrs, R.styleable.SearchView, defStyleAttr, 0);
         if (attr != null) {
+            if (attr.hasValue(R.styleable.SearchView_search_height)) {
+                setHeight(attr.getDimension(R.styleable.SearchView_search_height, 0));
+            }
             if (attr.hasValue(R.styleable.SearchView_search_version)) {
                 setVersion(attr.getInt(R.styleable.SearchView_search_version, VERSION_TOOLBAR));
             }
@@ -377,7 +383,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return mVersion;
     }
 
-    // ---------------------------------------------------------------------------------------------
     public void setVersion(int version) {
         mVersion = version;
         mFiltersContainer.setVisibility(View.GONE);
@@ -390,6 +395,15 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         if (mVersion == VERSION_MENU_ITEM) {
             setVisibility(View.GONE);
         }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    public void setHeight(float dp) {
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
+        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
+        params.height = height;
+        params.width = LinearLayout.LayoutParams.MATCH_PARENT;
+        mLinearLayout.setLayoutParams(params);
     }
 
     public void setVersionMargins(int version) {
@@ -1079,6 +1093,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         void onMenuClick();
     }
 
+    @SuppressWarnings("EmptyMethod")
     public interface OnVoiceClickListener {
         void onVoiceClick();
     }

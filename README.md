@@ -34,7 +34,7 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-        compile 'com.lapism:searchview:3.7'
+        compile 'com.lapism:searchview:3.8'
         }
 ```
 
@@ -110,6 +110,7 @@ dependencies {
         <attr name="search_clear_on_open" format="boolean" />
         <attr name="search_hide_on_keyboard_close" format="boolean" />
         <attr name="search_cursor_drawable" format="integer" />
+        <attr name="search_height" format="integer" />
 ```
 
 **TODO + known bugs:**

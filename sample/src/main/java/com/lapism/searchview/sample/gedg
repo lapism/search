@@ -1,7 +1,11 @@
      if (mSearchView != null && mSearchView.isSearchOpen()) {
          mSearchView.close(true);
          }
-
+       /* mLinearLayout.setLayoutParams(
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));*/
+        // LinearLayout.LayoutParams g = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,dp);
 if (SearchView.THEME_LIGHT == getIntent().getIntExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT)) {
                 return NAV_ITEM_MENU_ITEM_LIGHT;
       } else {

@@ -47,6 +47,7 @@ public class ToolbarActivity extends BaseActivity {
         customSearchView();
     }
 
+    @SuppressWarnings("unused")
     private void perm() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO)) {
