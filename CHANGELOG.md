@@ -1,3 +1,6 @@
+**3.8.1**   
+ - fixes only.
+
 **3.8**  
  - much simpler sample app.
  - added default shadow color.

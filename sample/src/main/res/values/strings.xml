@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">SearchView Sample</string>
-    <string name="version">Version: 3.8</string>
+    <string name="version">Version: 3.8.1</string>
 
     <string name="toolbar">Toolbar</string>
     <string name="menu_item">Menu item</string>
@@ -15,14 +15,6 @@
     <string name="search">Search</string>
     <string name="installed">Installed</string>
     <string name="all">All</string>
-
-    <string name="fab_behavior">com.lapism.searchview.sample.widget.FabBehavior</string>
-
-    <string name="menu_night_mode">Night mode</string>
-    <string name="menu_night_mode_system">Follow system</string>
-    <string name="menu_night_mode_day">Day (always)</string>
-    <string name="menu_night_mode_night">Night (always)</string>
-    <string name="menu_night_mode_auto">Auto</string>
 
 </resources>
 

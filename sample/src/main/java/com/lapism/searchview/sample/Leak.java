@@ -1,4 +1,4 @@
-package com.lapism.searchview.sample.widget;
+package com.lapism.searchview.sample;
 
 import android.app.Application;
 

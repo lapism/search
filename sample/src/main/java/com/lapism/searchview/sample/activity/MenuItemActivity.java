@@ -55,7 +55,7 @@ public class MenuItemActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_search:
+            case R.id.menu_search:
                 mSearchView.open(true, item);
                 return true;
             /* case android.R.id.home:

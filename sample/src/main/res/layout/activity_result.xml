@@ -32,7 +32,7 @@
             android:layout_margin="@dimen/key_line"
             android:src="@drawable/ic_delete_white_24dp"
             android:tint="@android:color/white"
-            app:layout_behavior="@string/fab_behavior" />
+            app:layout_behavior="com.lapism.design.widget.FabBehavior" />
 
     </android.support.design.widget.CoordinatorLayout>
 
