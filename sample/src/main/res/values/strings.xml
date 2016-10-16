@@ -4,15 +4,16 @@
     <string name="app_name">SearchView Sample</string>
     <string name="version">Version: 3.8.1</string>
 
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="search">Search</string>
+
+    <!-- nav_items -->
     <string name="toolbar">Toolbar</string>
     <string name="menu_item">Menu item</string>
     <string name="history">History</string>
     <string name="filters">Filters</string>
 
-    <string name="open">Open</string>
-    <string name="close">Close</string>
-
-    <string name="search">Search</string>
     <string name="installed">Installed</string>
     <string name="all">All</string>
 

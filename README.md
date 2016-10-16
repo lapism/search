@@ -113,7 +113,10 @@ dependencies {
         <attr name="search_height" format="integer" />
 ```
 
-**TODO + known bugs:**  
+**Known bugs:**  
 No divider when SearchView starts.  
 No keyboard when SearchView is in landscape mode.  
+
+**TODO:**  
+CoordinatorLayout.Behavior. 
 

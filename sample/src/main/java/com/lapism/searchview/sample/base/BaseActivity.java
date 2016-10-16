@@ -28,11 +28,11 @@ import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
-import com.lapism.searchview.sample.activity.FiltersActivity;
-import com.lapism.searchview.sample.activity.HistoryActivity;
-import com.lapism.searchview.sample.activity.MenuItemActivity;
-import com.lapism.searchview.sample.activity.ResultActivity;
-import com.lapism.searchview.sample.activity.ToolbarActivity;
+import com.lapism.searchview.sample.activity.menu.FiltersActivity;
+import com.lapism.searchview.sample.activity.menu.HistoryActivity;
+import com.lapism.searchview.sample.activity.menu.MenuItemActivity;
+import com.lapism.searchview.sample.activity.SearchActivity;
+import com.lapism.searchview.sample.activity.menu.ToolbarActivity;
 import com.lapism.searchview.sample.view.FragmentAdapter;
 import com.lapism.searchview.sample.view.SearchFragment;
 
@@ -54,12 +54,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     private static final String EXTRA_KEY_VERSION_MARGINS = "version_margins";
     private static final String EXTRA_KEY_TEXT = "text";
 
+    // TODO
     protected SearchView mSearchView = null;
     protected DrawerLayout mDrawerLayout = null;
     protected FloatingActionButton mFab = null;
     protected ActionBarDrawerToggle mActionBarDrawerToggle = null;
-
     private Toolbar mToolbar = null;
+
     private SearchHistoryTable mHistoryDatabase;
 
     // ---------------------------------------------------------------------------------------------
@@ -73,7 +74,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setFab();
         setDrawer();
         setNavigationView();
-        if (mActionBarDrawerToggle != null) { // TODO IS NOT NULL EVERYWHERE
+        if (mActionBarDrawerToggle != null) {
             mActionBarDrawerToggle.syncState();
         }
     }
@@ -90,7 +91,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (mActionBarDrawerToggle != null) { // TODO IS NOT NULL EVERYWHERE
+        if (mActionBarDrawerToggle != null) {
             mActionBarDrawerToggle.onConfigurationChanged(newConfig);
         }
     }
@@ -101,7 +102,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (mActionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -322,7 +322,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void getData(String text, int position) {
         mHistoryDatabase.addItem(new SearchItem(text));
 
-        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
         intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
         intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
         intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);

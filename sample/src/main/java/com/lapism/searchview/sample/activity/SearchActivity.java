@@ -9,7 +9,7 @@ import com.lapism.searchview.sample.R;
 import com.lapism.searchview.sample.base.BaseActivity;
 
 
-public class ResultActivity extends BaseActivity {
+public class SearchActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

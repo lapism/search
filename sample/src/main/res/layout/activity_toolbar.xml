@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activity.ToolbarActivity">
+    tools:context=".activity.menu.ToolbarActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"

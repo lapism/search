@@ -1,4 +1,4 @@
-package com.lapism.searchview.sample.activity;
+package com.lapism.searchview.sample.activity.menu;
 
 import android.os.Bundle;
 import android.os.Handler;
