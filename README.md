@@ -39,12 +39,9 @@ dependencies {
 ```
 
 ![Screenshot 1]
-(https://github.com/lapism/SearchView/blob/master/images/image_1.png)![Screenshot2]
+(https://github.com/lapism/SearchView/blob/master/images/image_1.png)![Screenshot 2]
 (https://github.com/lapism/SearchView/blob/master/images/image_2.png)![Screenshot 3]
-(https://github.com/lapism/SearchView/blob/master/images/image_3.png)![Screenshot 4]
-(https://github.com/lapism/SearchView/blob/master/images/image_4.png)![Screenshot 5]
-(https://github.com/lapism/SearchView/blob/master/images/image_5.png)![Screenshot 6]
-(https://github.com/lapism/SearchView/blob/master/images/image_6.png)
+(https://github.com/lapism/SearchView/blob/master/images/image_3.png)
 
 **Code:**
 ```java
