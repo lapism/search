@@ -157,3 +157,9 @@ public class SearchHistoryTable {
     }
 
 }
+
+    /*
+        at com.lapism.searchview.SearchHistoryTable.open(SearchHistoryTable.java:29)
+        at com.lapism.searchview.SearchHistoryTable.getAllItems(SearchHistoryTable.java:116)
+        at com.lapism.searchview.SearchAdapter$1.publishResults(SearchAdapter.java:115)
+    */
