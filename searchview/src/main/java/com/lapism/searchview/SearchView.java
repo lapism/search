@@ -676,73 +676,95 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             }, 0);
     }
 
-    public void open(boolean animate) {
-        open(animate, null);
+    @Deprecated
+    public void open(boolean animate, MenuItem menuItem) {
+        open(menuItem);
     }
 
-    public void open(boolean animate, MenuItem menuItem) {
+    @Deprecated
+    public void open(boolean animate) {
+        open(null);
+    }
+
+    public void open() {
+        open(null);
+    }
+
+    public void open(MenuItem menuItem) {
         mFiltersContainer.setVisibility(View.VISIBLE);
         if (mVersion == VERSION_MENU_ITEM) {
             setVisibility(View.VISIBLE);
-
-            if (animate) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    if (menuItem != null)
-                        getMenuItemPosition(menuItem.getItemId());
-                    reveal();
-                } else {
-                    SearchAnimator.fadeOpen(mCardView, mAnimationDuration, mEditText, mShouldClearOnOpen, mOnOpenCloseListener);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (menuItem != null) {
+                    getMenuItemPosition(menuItem.getItemId());
                 }
+                reveal();
             } else {
-                mCardView.setVisibility(View.VISIBLE);
-                if (mShouldClearOnOpen && mEditText.length() > 0) {
-                    mEditText.getText().clear();
-                }
-                mEditText.requestFocus();
+                SearchAnimator.fadeOpen(mCardView, mAnimationDuration, mEditText, mShouldClearOnOpen, mOnOpenCloseListener);
             }
         }
+
         if (mVersion == VERSION_TOOLBAR) {
             if (mShouldClearOnOpen && mEditText.length() > 0) {
                 mEditText.getText().clear();
             }
             mEditText.requestFocus();
         }
-        if (mOnOpenCloseListener != null) {
-            mOnOpenCloseListener.onOpen();
+    }
+
+    private void getMenuItemPosition(int menuItemId) {
+        if (mMenuItemView != null) {
+            mMenuItemCx = getCenterX(mMenuItemView);
+        }
+        ViewParent viewParent = getParent();
+        while (viewParent != null && viewParent instanceof View) {
+            View parent = (View) viewParent;
+            View view = parent.findViewById(menuItemId);
+            if (view != null) {
+                mMenuItemView = view;
+                mMenuItemCx = getCenterX(mMenuItemView);
+                break;
+            }
+            viewParent = viewParent.getParent();
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void reveal() {
+        mCardView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mCardView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                SearchAnimator.revealOpen(mCardView, mMenuItemCx, mAnimationDuration, mContext, mEditText, mShouldClearOnOpen, mOnOpenCloseListener);
+            }
+        });
+    }
+
+    @Deprecated
     public void close(boolean animate) {
+        close();
+    }
+
+    public void close() {
         mFiltersContainer.setVisibility(View.GONE);
         if (mVersion == VERSION_MENU_ITEM) {
-            if (animate) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    SearchAnimator.revealClose(mCardView, mMenuItemCx, mAnimationDuration, mContext, mEditText, mShouldClearOnClose, this, mOnOpenCloseListener);
-                } else {
-                    SearchAnimator.fadeClose(mCardView, mAnimationDuration, mEditText, mShouldClearOnClose, this, mOnOpenCloseListener);
-                }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                SearchAnimator.revealClose(mCardView, mMenuItemCx, mAnimationDuration, mContext, mEditText, mShouldClearOnClose, this, mOnOpenCloseListener);
             } else {
-                if (mShouldClearOnClose && mEditText.length() > 0) {
-                    mEditText.getText().clear();
-                }
-                mEditText.clearFocus();
-                mCardView.setVisibility(View.GONE);
-                setVisibility(View.GONE);
+                SearchAnimator.fadeClose(mCardView, mAnimationDuration, mEditText, mShouldClearOnClose, this, mOnOpenCloseListener);
             }
         }
+
         if (mVersion == VERSION_TOOLBAR) {
             if (mShouldClearOnClose && mEditText.length() > 0) {
                 mEditText.getText().clear();
             }
             mEditText.clearFocus();
         }
-        if (mOnOpenCloseListener != null) {
-            mOnOpenCloseListener.onClose();
-        }
     }
 
     public void showSuggestions() {
-        if(mAdapter != null && mAdapter.getItemCount() > 0) {
+        if (mAdapter != null && mAdapter.getItemCount() > 0) {
             mDividerView.setVisibility(View.VISIBLE);
         }
         mRecyclerView.setVisibility(View.VISIBLE);
@@ -764,7 +786,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
         showKeyboard();
         showClearTextIcon();
-        if (mVersion != VERSION_MENU_ITEM) {
+        mFiltersContainer.setVisibility(View.VISIBLE);
+
+        if (mVersion == VERSION_TOOLBAR) {
             postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -774,7 +798,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 }
             }, mAnimationDuration);
         }
-        mFiltersContainer.setVisibility(View.VISIBLE);
     }
 
     public void removeFocus() {
@@ -786,7 +809,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         hideSuggestions();
         hideKeyboard();
         hideClearTextIcon();
-        if (mVersion != VERSION_MENU_ITEM) {
+
+        if (mVersion == VERSION_TOOLBAR) {
             postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -889,23 +913,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return location[0] + view.getWidth() / 2;
     }
 
-    private void getMenuItemPosition(int menuItemId) {
-        if (mMenuItemView != null) {
-            mMenuItemCx = getCenterX(mMenuItemView);
-        }
-        ViewParent viewParent = getParent();
-        while (viewParent != null && viewParent instanceof View) {
-            View parent = (View) viewParent;
-            View view = parent.findViewById(menuItemId);
-            if (view != null) {
-                mMenuItemView = view;
-                mMenuItemCx = getCenterX(mMenuItemView);
-                break;
-            }
-            viewParent = viewParent.getParent();
-        }
-    }
-
     private void restoreFiltersState(List<Boolean> states) {
         mSearchFiltersStates = states;
         for (int i = 0, j = 0, n = mFiltersContainer.getChildCount(); i < n; i++) {
@@ -1003,28 +1010,17 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return activities.size() != 0;
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void reveal() {
-        mCardView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                mCardView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                SearchAnimator.revealOpen(mCardView, mMenuItemCx, mAnimationDuration, mContext, mEditText, mShouldClearOnOpen, mOnOpenCloseListener);
-            }
-        });
-    }
-
     // ---------------------------------------------------------------------------------------------
     @Override
     public void onClick(View v) {
         if (v == mBackImageView) {
             if (mSearchArrow != null && mIsSearchArrowHamburgerState == SearchArrowDrawable.STATE_ARROW) {
-                close(true);
+                close();
             } else {
                 if (mOnMenuClickListener != null) {
                     mOnMenuClickListener.onMenuClick();
                 } else {
-                    close(true);
+                    close();
                 }
             }
         } else if (v == mVoiceImageView) {
@@ -1034,7 +1030,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 mEditText.getText().clear();
             }
         } else if (v == mShadowView) {
-            close(true);
+            close();
         }
     }
 
@@ -1075,7 +1071,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
         mSavedState = (SavedState) state;
         if (mSavedState.isSearchOpen) {
-            open(true);
+            open();
             setQueryWithoutSubmitting(mSavedState.query);
             mEditText.requestFocus();
         }

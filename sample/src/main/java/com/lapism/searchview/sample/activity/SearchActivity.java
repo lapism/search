@@ -30,7 +30,6 @@ public class SearchActivity extends BaseActivity {
             }
         });
         customSearchView();
-        mSearchView.open(false);
     }
 
     @Override

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!--suppress XmlUnboundNsPrefix -->
 <resources>
 
-    <public name="actionBarDivider" type="attr" />
-    <public name="support_simple_spinner_dropdown_item" type="layout" />
-    <public type="style" name="TextAppearance.AppCompat"/>
+    <public name="search_behavior" type="string" />
 
 </resources>

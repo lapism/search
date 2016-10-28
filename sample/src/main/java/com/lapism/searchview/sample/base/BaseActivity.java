@@ -171,7 +171,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 public void onDrawerOpened(View drawerView) {
                     super.onDrawerOpened(drawerView);
                     if (mSearchView != null && mSearchView.isSearchOpen()) {
-                        mSearchView.close(true);
+                        mSearchView.close();
                     }
                     if (mFab != null) {
                         mFab.hide();

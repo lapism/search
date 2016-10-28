@@ -2,5 +2,7 @@
 <resources>
 
     <string name="search_app_name">SearchView</string>
+    <string name="search_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="search_behavior2" translatable="false">com.lapism.searchview.SearchBehavior</string>
 
 </resources>
