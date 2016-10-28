@@ -10,12 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchHistoryTable {
 
     private static int mHistorySize = 2;
     private static int mConnectionCount = 0;
-    private static Integer mCurrentDatabaseKey;
+    private static Integer mCurrentDatabaseKey = null;
     private final SearchHistoryDatabase dbHelper;
     private SQLiteDatabase db;
 
@@ -47,7 +46,7 @@ public class SearchHistoryTable {
         if (!checkText(item.get_text().toString())) {
             values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TEXT, item.get_text().toString());
             if (databaseKey != null) {
-                values.put(SearchHistoryDatabase.SEARCH_HISTORY_KEY, databaseKey);
+                values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_KEY, databaseKey);
             }
             open();
             db.insert(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, values);
@@ -77,7 +76,7 @@ public class SearchHistoryTable {
         open();
         String sql = "SELECT " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE;
         if (databaseKey != null)
-            sql += " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_KEY + " = " + databaseKey;
+            sql += " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_KEY + " = " + databaseKey;
         Cursor res = db.rawQuery(sql, null);
         res.moveToLast();
         int count = res.getInt(0);
@@ -109,7 +108,7 @@ public class SearchHistoryTable {
 
         String selectQuery = "SELECT * FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE;
         if (databaseKey != null) {
-            selectQuery += " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_KEY + " = " + databaseKey;
+            selectQuery += " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_KEY + " = " + databaseKey;
         }
         selectQuery += " ORDER BY " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " DESC LIMIT " + mHistorySize;
 
@@ -141,7 +140,7 @@ public class SearchHistoryTable {
         if (key == null) {
             db.delete(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, null);
         } else {
-            db.delete(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, SearchHistoryDatabase.SEARCH_HISTORY_KEY + " = ?", new String[]{String.valueOf(key)});
+            db.delete(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_KEY + " = ?", new String[]{String.valueOf(key)});
         }
         close();
     }
@@ -157,9 +156,3 @@ public class SearchHistoryTable {
     }
 
 }
-
-    /*
-        at com.lapism.searchview.SearchHistoryTable.open(SearchHistoryTable.java:29)
-        at com.lapism.searchview.SearchHistoryTable.getAllItems(SearchHistoryTable.java:116)
-        at com.lapism.searchview.SearchAdapter$1.publishResults(SearchAdapter.java:115)
-    */

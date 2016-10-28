@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Locale;
 
 
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
     protected final SearchHistoryTable mHistoryDatabase;
@@ -29,7 +28,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     protected List<SearchItem> mResultList = new ArrayList<>();
     protected List<SearchItem> mSuggestionsList = new ArrayList<>();
     protected List<OnItemClickListener> mItemClickListeners;
-    private Integer mDatabaseKey;
+    private Integer mDatabaseKey = null;
 
     public SearchAdapter(Context context) {
         mHistoryDatabase = new SearchHistoryTable(context);
@@ -199,7 +198,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         addOnItemClickListener(mItemClickListener);
     }
 
-    @SuppressWarnings("UnusedParameters")
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }

@@ -1,7 +1,6 @@
 package com.lapism.searchview;
 
 
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchFilter {
 
     private final String mTitle;

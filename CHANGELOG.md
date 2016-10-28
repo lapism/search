@@ -1,5 +1,8 @@
-**3.8.1**   
- - fixes only.
+**4.0**
+ - fixed issues and bugs.
+ - added SearchBehavior for work in CoordinatorLayout.
+
+**3.9 (internal only)**
 
 **3.8**  
  - much simpler sample app.

@@ -7,7 +7,6 @@ import android.support.v4.view.ViewCompat;
 import java.util.Locale;
 
 
-@SuppressWarnings("unused")
 class SearchUtils {
 
     static boolean isRTL() {
@@ -29,9 +28,7 @@ class SearchUtils {
     }
 
     static boolean isRtlLayout(Context context) {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 &&
-                context.getResources().getConfiguration()
-                        .getLayoutDirection() == ViewCompat.LAYOUT_DIRECTION_RTL;
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && context.getResources().getConfiguration().getLayoutDirection() == ViewCompat.LAYOUT_DIRECTION_RTL;
     }
 
 }
