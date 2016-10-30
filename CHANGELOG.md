@@ -5,9 +5,11 @@
  - method SearchView.open(boolean, MenuItem) was deprecated.
  - method SearchView.open(boolean) was deprecated.
  - method SearchView.close(boolean) was deprecated.
+ - method setNavigationIconArrowHamburger() was deprecated.
  - new method SearchView.open(MenuItem).
  - new method SearchView.open().
  - new method SearchView.close().
+ - new method SearchView.setArrow(boolean for animation after start).
 
 **3.9.x (internal only)**
 
