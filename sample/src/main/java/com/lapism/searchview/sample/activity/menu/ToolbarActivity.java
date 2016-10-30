@@ -37,13 +37,13 @@ public class ToolbarActivity extends BaseActivity {
         mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
 
         setSearchView();
-        mSearchView.setNavigationIconArrowHamburger();
         mSearchView.setOnMenuClickListener(new SearchView.OnMenuClickListener() {
             @Override
             public void onMenuClick() {
                 mDrawerLayout.openDrawer(GravityCompat.START); // finish();
             }
         });
+
         customSearchView();
     }
 

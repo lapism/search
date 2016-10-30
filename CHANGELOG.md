@@ -1,8 +1,20 @@
 **4.0**
- - fixed issues and bugs.
+ - fixed many issues and bugs.
+
  - added SearchBehavior for work in CoordinatorLayout.
 
-**3.9 (internal only)**
+ - method SearchView.setOnOpenCloseListener() now returns boolean values.
+
+ - method SearchView.open(boolean, MenuItem) was deprecated.
+ - method SearchView.open(boolean) was deprecated.
+ - method SearchView.close(boolean) was deprecated.
+
+ - new method SearchView.open(MenuItem).
+ - new method SearchView.open().
+ - new method SearchView.close().
+
+
+**3.9.x (internal only)**
 
 **3.8**  
  - much simpler sample app.

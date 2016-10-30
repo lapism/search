@@ -40,12 +40,20 @@ public class Example extends CoordinatorLayout.Behavior<FloatingActionButton> {
         a.recycle();
     }
 
-    public void setAutoHideEnabled(boolean autoHide) {
-        mAutoHideEnabled = autoHide;
+    private static boolean isBottomSheet(@NonNull View view) {
+        final ViewGroup.LayoutParams lp = view.getLayoutParams();
+        if (lp instanceof CoordinatorLayout.LayoutParams) {
+            return ((CoordinatorLayout.LayoutParams) lp).getBehavior() instanceof BottomSheetBehavior;
+        }
+        return false;
     }
 
     public boolean isAutoHideEnabled() {
         return mAutoHideEnabled;
+    }
+
+    public void setAutoHideEnabled(boolean autoHide) {
+        mAutoHideEnabled = autoHide;
     }
 
     @Override
@@ -61,14 +69,6 @@ public class Example extends CoordinatorLayout.Behavior<FloatingActionButton> {
             updateFabVisibilityForAppBarLayout(parent, (AppBarLayout) dependency, child);
         } else if (isBottomSheet(dependency)) {
             updateFabVisibilityForBottomSheet(dependency, child);
-        }
-        return false;
-    }
-
-    private static boolean isBottomSheet(@NonNull View view) {
-        final ViewGroup.LayoutParams lp = view.getLayoutParams();
-        if (lp instanceof CoordinatorLayout.LayoutParams) {
-            return ((CoordinatorLayout.LayoutParams) lp).getBehavior() instanceof BottomSheetBehavior;
         }
         return false;
     }
@@ -97,13 +97,10 @@ public class Example extends CoordinatorLayout.Behavior<FloatingActionButton> {
         if (!shouldUpdateVisibility(appBarLayout, child)) {
             return false;
         }
-
         if (mTmpRect == null) {
             mTmpRect = new Rect();
         }
-
         final Rect rect = mTmpRect;
-
         if (rect.bottom <= 0) {
             //
         } else {

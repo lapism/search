@@ -24,12 +24,13 @@ import java.util.Locale;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
     protected final SearchHistoryTable mHistoryDatabase;
+    protected List<SearchItem> mSuggestionsList = new ArrayList<>();
     protected String key = "";
     protected List<SearchItem> mResultList = new ArrayList<>();
-    protected List<SearchItem> mSuggestionsList = new ArrayList<>();
     protected List<OnItemClickListener> mItemClickListeners;
     private Integer mDatabaseKey = null;
 
+    // ---------------------------------------------------------------------------------------------
     public SearchAdapter(Context context) {
         mHistoryDatabase = new SearchHistoryTable(context);
         getFilter().filter("");
@@ -56,11 +57,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         getFilter().filter("");
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return position;
-    }
-
+    // ---------------------------------------------------------------------------------------------
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -74,15 +71,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                     List<SearchItem> results = new ArrayList<>();
                     List<SearchItem> history = new ArrayList<>();
                     List<SearchItem> databaseAllItems = mHistoryDatabase.getAllItems(mDatabaseKey);
+
                     if (!databaseAllItems.isEmpty()) {
                         history.addAll(databaseAllItems);
                     }
                     history.addAll(mSuggestionsList);
 
-                    for (SearchItem str : history) {
-                        String string = str.get_text().toString().toLowerCase(Locale.getDefault());
+                    for (SearchItem item : history) {
+                        String string = item.get_text().toString().toLowerCase(Locale.getDefault());
                         if (string.contains(key)) {
-                            results.add(str);
+                            results.add(item);
                         }
                     }
 
@@ -99,10 +97,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-
                 List<SearchItem> dataSet = new ArrayList<>();
 
-                if (results.values != null) {
+                if (results.count > 0) {
                     List<?> result = (ArrayList<?>) results.values;
                     for (Object object : result) {
                         if (object instanceof SearchItem) {
@@ -117,13 +114,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                         }
                     }
                 }
+
                 setData(dataSet);
             }
         };
     }
 
     public void setData(List<SearchItem> data) {
-        if (mResultList == null) {
+        if (mResultList.size() == 0) {
             mResultList = data;
             notifyDataSetChanged();
         } else {
@@ -146,6 +144,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         }
     }
 
+    // ---------------------------------------------------------------------------------------------
     @Override
     public ResultViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -179,6 +178,18 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         return mResultList.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    /* Use addOnItemClickListener. */
+    @Deprecated
+    public void setOnItemClickListener(OnItemClickListener mItemClickListener) {
+        addOnItemClickListener(mItemClickListener);
+    }
+
     public void addOnItemClickListener(OnItemClickListener listener) {
         addOnItemClickListener(listener, null);
     }
@@ -190,12 +201,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             mItemClickListeners.add(listener);
         else
             mItemClickListeners.add(position, listener);
-    }
-
-    /* Use addOnItemClickListener. */
-    @Deprecated
-    public void setOnItemClickListener(OnItemClickListener mItemClickListener) {
-        addOnItemClickListener(mItemClickListener);
     }
 
     public interface OnItemClickListener {

@@ -54,7 +54,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     private static final String EXTRA_KEY_VERSION_MARGINS = "version_margins";
     private static final String EXTRA_KEY_TEXT = "text";
 
-    // TODO
     protected SearchView mSearchView = null;
     protected DrawerLayout mDrawerLayout = null;
     protected FloatingActionButton mFab = null;
@@ -243,7 +242,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         mSearchView = (SearchView) findViewById(R.id.searchView);
         if (mSearchView != null) {
             mSearchView.setHint(R.string.search);
-            mSearchView.setVoiceText("Set permission on Android 6+ !");
             mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
@@ -259,43 +257,45 @@ public abstract class BaseActivity extends AppCompatActivity {
             });
             mSearchView.setOnOpenCloseListener(new SearchView.OnOpenCloseListener() {
                 @Override
-                public void onOpen() {
+                public boolean onOpen() {
                     if (mFab != null) {
                         mFab.hide();
                     }
+                    return true;
                 }
 
                 @Override
-                public void onClose() {
-                    if (mFab != null) {
+                public boolean onClose() {
+                    if (mFab != null && !mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                         mFab.show();
                     }
+                    return true;
                 }
             });
+            mSearchView.setVoiceText("Set permission on Android 6.0+ !");
             mSearchView.setOnVoiceClickListener(new SearchView.OnVoiceClickListener() {
                 @Override
                 public void onVoiceClick() {
+                    // permission
                 }
             });
 
-            if (mSearchView.getAdapter() == null) {
-                List<SearchItem> suggestionsList = new ArrayList<>();
-                suggestionsList.add(new SearchItem("search1"));
-                suggestionsList.add(new SearchItem("search2"));
-                suggestionsList.add(new SearchItem("search3"));
+            List<SearchItem> suggestionsList = new ArrayList<>();
+            suggestionsList.add(new SearchItem("search1"));
+            suggestionsList.add(new SearchItem("search2"));
+            suggestionsList.add(new SearchItem("search3"));
 
-                SearchAdapter searchAdapter = new SearchAdapter(this, suggestionsList);
-                searchAdapter.addOnItemClickListener(new SearchAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        TextView textView = (TextView) view.findViewById(R.id.textView_item_text);
-                        String query = textView.getText().toString();
-                        getData(query, position);
-                        mSearchView.close();
-                    }
-                });
-                mSearchView.setAdapter(searchAdapter);
-            }
+            SearchAdapter searchAdapter = new SearchAdapter(this, suggestionsList);
+            searchAdapter.addOnItemClickListener(new SearchAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    TextView textView = (TextView) view.findViewById(R.id.textView_item_text);
+                    String query = textView.getText().toString();
+                    getData(query, position);
+                    mSearchView.close();
+                }
+            });
+            mSearchView.setAdapter(searchAdapter);
 
             /*
             List<SearchFilter> filter = new ArrayList<>();

@@ -1,9 +1,3 @@
- No keyboard when SearchView is in landscape mode.
-divider
- https://github.com/lapism/SearchView/issues
-
-
-
 
 // Boolean, boolean
 // ANALYZE, TODO, FIXME
