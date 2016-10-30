@@ -42,6 +42,7 @@ public class MenuItemActivity extends BaseActivity {
         });
 
         setSearchView();
+        mSearchView.setArrowOnly(false);
         customSearchView();
     }
 

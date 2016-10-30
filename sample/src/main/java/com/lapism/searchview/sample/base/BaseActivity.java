@@ -291,7 +291,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                         TextView textView = (TextView) view.findViewById(R.id.textView_item_text);
                         String query = textView.getText().toString();
                         getData(query, position);
-                        // mSearchView.close(false);
+                        mSearchView.close();
                     }
                 });
                 mSearchView.setAdapter(searchAdapter);

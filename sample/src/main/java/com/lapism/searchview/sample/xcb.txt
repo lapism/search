@@ -1,5 +1,5 @@
  No keyboard when SearchView is in landscape mode.
- no divider
+divider
  https://github.com/lapism/SearchView/issues
 
 
