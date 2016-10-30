@@ -1123,7 +1123,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         void onVoiceClick();
     }
 
-    private static class SavedState extends View.BaseSavedState {
+    private static class SavedState extends BaseSavedState {
 
         public static final Creator<SavedState> CREATOR =
                 new Creator<SavedState>() {

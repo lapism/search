@@ -17,8 +17,6 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import static android.view.View.VISIBLE;
-
 // static
 public class Example extends CoordinatorLayout.Behavior<FloatingActionButton> {
 

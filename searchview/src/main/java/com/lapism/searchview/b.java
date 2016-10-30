@@ -1,4 +1,4 @@
-
+package com.lapism.searchview;
 /*No keyboard when SearchView is in landscape mode.
         divider
         https://github.com/lapism/SearchView/issues
@@ -111,6 +111,7 @@
 
 /**
  * @hide @hide
+ * @hide
  * @hide
  * @hide
  * @hide

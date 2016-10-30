@@ -7,7 +7,7 @@ import android.text.TextUtils;
 
 public class SearchItem implements Parcelable {
 
-    public static final Parcelable.Creator<SearchItem> CREATOR = new Parcelable.Creator<SearchItem>() {
+    public static final Creator<SearchItem> CREATOR = new Creator<SearchItem>() {
         public SearchItem createFromParcel(Parcel source) {
             return new SearchItem(source);
         }

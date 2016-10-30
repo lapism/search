@@ -43,6 +43,7 @@
             android:launchMode="singleTop"
             android:parentActivityName=".activity.menu.ToolbarActivity" />
         <!-- android:launchMode="singleTask" -->
+
     </application>
 
 </manifest>

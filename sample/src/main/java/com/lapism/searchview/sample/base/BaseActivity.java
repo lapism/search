@@ -28,10 +28,10 @@ import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
+import com.lapism.searchview.sample.activity.SearchActivity;
 import com.lapism.searchview.sample.activity.menu.FiltersActivity;
 import com.lapism.searchview.sample.activity.menu.HistoryActivity;
 import com.lapism.searchview.sample.activity.menu.MenuItemActivity;
-import com.lapism.searchview.sample.activity.SearchActivity;
 import com.lapism.searchview.sample.activity.menu.ToolbarActivity;
 import com.lapism.searchview.sample.view.FragmentAdapter;
 import com.lapism.searchview.sample.view.SearchFragment;
@@ -42,17 +42,16 @@ import java.util.List;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    @SuppressWarnings("WeakerAccess")
     protected static final int NAV_ITEM_INVALID = -1;
     protected static final int NAV_ITEM_TOOLBAR = 0;
     protected static final int NAV_ITEM_MENU_ITEM = 1;
     protected static final int NAV_ITEM_HISTORY_TOGGLE = 2;
     protected static final int NAV_ITEM_FILTERS = 3;
 
-    private static final String EXTRA_KEY_VERSION = "version";
-    private static final String EXTRA_KEY_THEME = "theme";
-    private static final String EXTRA_KEY_VERSION_MARGINS = "version_margins";
-    private static final String EXTRA_KEY_TEXT = "text";
+    protected static final String EXTRA_KEY_VERSION = "version";
+    protected static final String EXTRA_KEY_THEME = "theme";
+    protected static final String EXTRA_KEY_VERSION_MARGINS = "version_margins";
+    protected static final String EXTRA_KEY_TEXT = "text";
 
     protected SearchView mSearchView = null;
     protected DrawerLayout mDrawerLayout = null;
@@ -149,7 +148,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     // ---------------------------------------------------------------------------------------------
     private void setFab() {
-        mFab = (FloatingActionButton) findViewById(R.id.fab_delete);
+        mFab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         if (mFab != null) {
             mFab.setOnClickListener(new View.OnClickListener() {
                 @Override
