@@ -19,7 +19,7 @@
 
         <View
             android:layout_width="@dimen/toolbar_height2"
-            android:layout_height="@dimen/toolbar_height2" />
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/text"

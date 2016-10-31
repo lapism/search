@@ -878,7 +878,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return layoutTransition;
     }
 
-    public void onVoiceClicked() {
+    private void onVoiceClicked() {
         if (mOnVoiceClickListener != null) {
             mOnVoiceClickListener.onVoiceClick();
         }
@@ -969,6 +969,32 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private void showClearTextIcon() {
         if (mUserQuery.length() > 0) {
             mEmptyImageView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private int getCenterX(View view) {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        return location[0] + view.getWidth() / 2;
+    }
+
+    private void restoreFiltersState(List<Boolean> states) {
+        mSearchFiltersStates = states;
+        for (int i = 0, j = 0, n = mFiltersContainer.getChildCount(); i < n; i++) {
+            View view = mFiltersContainer.getChildAt(i);
+            if (view instanceof AppCompatCheckBox) {
+                ((AppCompatCheckBox) view).setChecked(mSearchFiltersStates.get(j++));
+            }
+        }
+    }
+
+    private void dispatchFilters() {
+        if (mSearchFiltersStates != null) {
+            for (int i = 0, j = 0, n = mFiltersContainer.getChildCount(); i < n; i++) {
+                View view = mFiltersContainer.getChildAt(i);
+                if (view instanceof AppCompatCheckBox)
+                    mSearchFiltersStates.set(j++, ((AppCompatCheckBox) view).isChecked());
+            }
         }
     }
 
@@ -1077,36 +1103,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mBackImageView.setImageDrawable(mSearchArrow);
     }
 
+    /* Simply do not use it. */
     @Deprecated
-    private void setQuery2(CharSequence query) {
+    public void setQuery2(CharSequence query) {
         mEditText.setText(query);
         mEditText.setSelection(TextUtils.isEmpty(query) ? 0 : query.length());
-    }
-
-    private int getCenterX(View view) {
-        int[] location = new int[2];
-        view.getLocationOnScreen(location);
-        return location[0] + view.getWidth() / 2;
-    }
-
-    private void restoreFiltersState(List<Boolean> states) {
-        mSearchFiltersStates = states;
-        for (int i = 0, j = 0, n = mFiltersContainer.getChildCount(); i < n; i++) {
-            View view = mFiltersContainer.getChildAt(i);
-            if (view instanceof AppCompatCheckBox) {
-                ((AppCompatCheckBox) view).setChecked(mSearchFiltersStates.get(j++));
-            }
-        }
-    }
-
-    private void dispatchFilters() {
-        if (mSearchFiltersStates != null) {
-            for (int i = 0, j = 0, n = mFiltersContainer.getChildCount(); i < n; i++) {
-                View view = mFiltersContainer.getChildAt(i);
-                if (view instanceof AppCompatCheckBox)
-                    mSearchFiltersStates.set(j++, ((AppCompatCheckBox) view).isChecked());
-            }
-        }
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -1130,6 +1131,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         void onVoiceClick();
     }
 
+    // ---------------------------------------------------------------------------------------------
     private static class SavedState extends BaseSavedState {
 
         public static final Creator<SavedState> CREATOR =
@@ -1149,14 +1151,14 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         boolean isSearchOpen;
         List<Boolean> searchFiltersStates;
 
-        SavedState(Parcelable superState) {
+        public SavedState(Parcelable superState) {
             super(superState);
         }
 
         private SavedState(Parcel in) {
             super(in);
             this.query = in.readString();
-            this.isSearchOpen = in.readInt() == 0;
+            this.isSearchOpen = in.readInt() == 1;
             in.readList(searchFiltersStates, List.class.getClassLoader());
         }
 

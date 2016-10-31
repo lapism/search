@@ -1,9 +1,10 @@
 // DIVIDER
-// VOICE IKONKA
+// VOICE IKONKA opravit
 // NO KEYBOARD LANDSCAPE
-// SEARCH BEHAVIOR
-// B.JAVA SEARCHVIEW PROJIT CELE
+// SEARCH BEHAVIOR projit
+// prepsat SEARCHVIEW PROJIT CELE
 // clikz na cardview
+// no shadow appbar layout
 
 
 

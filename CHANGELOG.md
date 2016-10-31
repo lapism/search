@@ -9,7 +9,7 @@
  - new method SearchView.open(MenuItem).
  - new method SearchView.open().
  - new method SearchView.close().
- - new method SearchView.setArrow(boolean for animation after start).
+ - new method SearchView.setArrowOnly(boolean for animation after start).
 
 **3.9.x (internal only)**
 

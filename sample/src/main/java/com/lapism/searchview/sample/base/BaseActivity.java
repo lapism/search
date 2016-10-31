@@ -245,7 +245,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     getData(query, 0);
-                    // mSearchView.close(false);
+                    mSearchView.close();
                     return true;
                 }
 

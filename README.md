@@ -27,7 +27,11 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 [Zikobot](https://play.google.com/store/apps/details?id=com.startogamu.zikobot) <br />
 [AllWeather](https://play.google.com/store/apps/details?id=com.dev.nicola.allweather) <br />
 [Karaoke Online Sing & Record](https://play.google.com/store/apps/details?id=com.anhlt.karaokeonline) <br />
- 
+
+ **Known bugs:**
+ - no divider when SearchView starts.  
+ - no keyboard when SearchView is in landscape mode.   
+
 ------------------------------------------------------------------------------------------------------------------------------
 
 # Usage
