@@ -18,9 +18,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 // static
-public class Example extends CoordinatorLayout.Behavior<FloatingActionButton> {
-
-    private static final boolean AUTO_HIDE_DEFAULT = true;
+public class Example extends CoordinatorLayout.Behavior<SearchView> {
 
     private Rect mTmpRect;
     private FloatingActionButton.OnVisibilityChangedListener mInternalAutoHideListener;
@@ -28,13 +26,13 @@ public class Example extends CoordinatorLayout.Behavior<FloatingActionButton> {
 
     public Example() {
         super();
-        mAutoHideEnabled = AUTO_HIDE_DEFAULT;
+        mAutoHideEnabled = true;
     }
 
     public Example(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, android.support.design.R.styleable.FloatingActionButton_Behavior_Layout);
-        mAutoHideEnabled = a.getBoolean(android.support.design.R.styleable.FloatingActionButton_Behavior_Layout_behavior_autoHide, AUTO_HIDE_DEFAULT);
+        mAutoHideEnabled = a.getBoolean(android.support.design.R.styleable.FloatingActionButton_Behavior_Layout_behavior_autoHide, true);
         a.recycle();
     }
 
@@ -62,7 +60,7 @@ public class Example extends CoordinatorLayout.Behavior<FloatingActionButton> {
     }
 
     @Override
-    public boolean onDependentViewChanged(CoordinatorLayout parent, FloatingActionButton child, View dependency) {
+    public boolean onDependentViewChanged(CoordinatorLayout parent, SearchView child, View dependency) {
         if (dependency instanceof AppBarLayout) {
             updateFabVisibilityForAppBarLayout(parent, (AppBarLayout) dependency, child);
         } else if (isBottomSheet(dependency)) {
@@ -76,7 +74,7 @@ public class Example extends CoordinatorLayout.Behavior<FloatingActionButton> {
         mInternalAutoHideListener = listener;
     }
 
-    private boolean shouldUpdateVisibility(View dependency, FloatingActionButton child) {
+    private boolean shouldUpdateVisibility(View dependency, SearchView child) {
         final CoordinatorLayout.LayoutParams lp =
                 (CoordinatorLayout.LayoutParams) child.getLayoutParams();
         if (!mAutoHideEnabled) {
@@ -90,8 +88,7 @@ public class Example extends CoordinatorLayout.Behavior<FloatingActionButton> {
         return true;
     }
 
-    private boolean updateFabVisibilityForAppBarLayout(CoordinatorLayout parent,
-                                                       AppBarLayout appBarLayout, FloatingActionButton child) {
+    private boolean updateFabVisibilityForAppBarLayout(CoordinatorLayout parent, AppBarLayout appBarLayout, SearchView child) {
         if (!shouldUpdateVisibility(appBarLayout, child)) {
             return false;
         }
@@ -108,7 +105,7 @@ public class Example extends CoordinatorLayout.Behavior<FloatingActionButton> {
     }
 
     private boolean updateFabVisibilityForBottomSheet(View bottomSheet,
-                                                      FloatingActionButton child) {
+                                                      SearchView child) {
         if (!shouldUpdateVisibility(bottomSheet, child)) {
             return false;
         }
@@ -123,7 +120,7 @@ public class Example extends CoordinatorLayout.Behavior<FloatingActionButton> {
     }
 
     @Override
-    public boolean onLayoutChild(CoordinatorLayout parent, FloatingActionButton child, int layoutDirection) {
+    public boolean onLayoutChild(CoordinatorLayout parent, SearchView child, int layoutDirection) {
         final List<View> dependencies = parent.getDependencies(child);
         for (int i = 0, count = dependencies.size(); i < count; i++) {
             final View dependency = dependencies.get(i);
@@ -144,7 +141,8 @@ public class Example extends CoordinatorLayout.Behavior<FloatingActionButton> {
     }
 
     @Override
-    public boolean getInsetDodgeRect(@NonNull CoordinatorLayout parent, @NonNull FloatingActionButton child, @NonNull Rect rect) {
+    public boolean getInsetDodgeRect(@NonNull CoordinatorLayout parent, @NonNull SearchView child, @NonNull Rect rect) {
+        //super.getInsetDodgeRect(parent, child, rect);
         final Rect shadowPadding = new Rect();
         rect.set(child.getLeft() + shadowPadding.left,
                 child.getTop() + shadowPadding.top,
@@ -153,7 +151,7 @@ public class Example extends CoordinatorLayout.Behavior<FloatingActionButton> {
         return true;
     }
 
-    private void offsetIfNeeded(CoordinatorLayout parent, FloatingActionButton fab) {
+    private void offsetIfNeeded(CoordinatorLayout parent, SearchView fab) {
         final Rect padding = new Rect();
 
         if (padding != null && padding.centerX() > 0 && padding.centerY() > 0) {

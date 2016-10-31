@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "com.lapism.searchview.sample"
-        minSdkVersion 16
+        minSdkVersion 14
         targetSdkVersion 25
         versionCode 41
         versionName "4.0"

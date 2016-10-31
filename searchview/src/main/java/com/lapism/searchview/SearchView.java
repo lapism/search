@@ -62,23 +62,29 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public static final int VERSION_TOOLBAR = 1000;
     public static final int VERSION_MENU_ITEM = 1001;
+
     public static final int VERSION_MARGINS_TOOLBAR_SMALL = 2000;
     public static final int VERSION_MARGINS_TOOLBAR_BIG = 2001;
     public static final int VERSION_MARGINS_MENU_ITEM = 2002;
+
     public static final int THEME_LIGHT = 3000;
     public static final int THEME_DARK = 3001;
+
     public static final int SPEECH_REQUEST_CODE = 4000;
     public static final int LAYOUT_TRANSITION_DURATION = 200;
     public static final int ANIMATION_DURATION = 300;
+
     public static final int TEXT_STYLE_NORMAL = 0;
     public static final int TEXT_STYLE_BOLD = 1;
     public static final int TEXT_STYLE_ITALIC = 2;
     public static final int TEXT_STYLE_BOLD_ITALIC = 3;
+
     private static int mIconColor = Color.BLACK;
     private static int mTextColor = Color.BLACK;
     private static int mTextHighlightColor = Color.BLACK;
     private static int mTextStyle = Typeface.NORMAL;
     private static Typeface mTextFont = Typeface.DEFAULT;
+
     private final Context mContext;
     protected View mMenuItemView = null;
     protected Activity mActivity = null;
@@ -297,6 +303,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         setVersionMargins(VERSION_MARGINS_TOOLBAR_SMALL);
         setTheme(THEME_LIGHT);
+        setVoice(true);
     }
 
     private void initStyle(AttributeSet attrs, int defStyleAttr) {

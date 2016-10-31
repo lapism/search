@@ -52,6 +52,9 @@ public class SearchActivity extends BaseActivity {
             }
         });
         customSearchView();
+        mSearchView.setVersionMargins(SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
+        mSearchView.setShouldClearOnClose(false);
+        //mSearchView.setShouldClearOnOpen(true);
     }
 
     @Override

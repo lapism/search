@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="88dp"
-    android:layout_marginBottom="8dp"
-    android:layout_marginEnd="@dimen/key_line"
-    android:layout_marginLeft="@dimen/key_line"
-    android:layout_marginRight="@dimen/key_line"
-    android:layout_marginStart="@dimen/key_line"
-    android:layout_marginTop="8dp"
+    android:layout_height="@dimen/box2"
+    android:layout_marginBottom="@dimen/key_line_4"
+    android:layout_marginEnd="@dimen/key_line_8"
+    android:layout_marginLeft="@dimen/key_line_8"
+    android:layout_marginRight="@dimen/key_line_8"
+    android:layout_marginStart="@dimen/key_line_8"
+    android:layout_marginTop="@dimen/key_line_4"
     android:clickable="true"
     android:drawSelectorOnTop="true"
-    android:foreground="?attr/selectableItemBackgroundBorderless">
+    android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,8 +18,8 @@
         android:gravity="center_vertical">
 
         <View
-            android:layout_width="@dimen/fab"
-            android:layout_height="@dimen/fab" />
+            android:layout_width="@dimen/toolbar_height2"
+            android:layout_height="@dimen/toolbar_height2" />
 
         <TextView
             android:id="@+id/text"
@@ -31,3 +31,4 @@
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
+<!-- selectableItemBackgroundBorderless -->
