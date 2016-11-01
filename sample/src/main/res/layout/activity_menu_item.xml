@@ -37,6 +37,12 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+        <com.lapism.searchview.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.lapism.searchview.SearchBehavior" />
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/floatingActionButton"
             android:layout_width="wrap_content"
@@ -49,11 +55,16 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <com.lapism.searchview.SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <include layout="@layout/nav" />
 
 </android.support.v4.widget.DrawerLayout>
+
+    <!--
+         android:minHeight="?android:attr/actionBarSize"
+            <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true" />
+    "?attr/actionBarSize @string/bottom_sheet_behavior"
+?attr/actionBarSize@CoordinatorLayout.DefaultBehavior(FloatingActionButton.Example.class)
+    android.support.v4.widget.NestedScrollView -->

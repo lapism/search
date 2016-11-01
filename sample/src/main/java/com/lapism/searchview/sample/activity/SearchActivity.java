@@ -25,6 +25,7 @@ public class SearchActivity extends BaseActivity {
         Bundle extras = getIntent().getExtras();
         String string = "Test";
 
+        // TODO: 01.11.2016
         if (extras != null && mSearchView != null) {
             string = extras.getString(EXTRA_KEY_TEXT);
         }
@@ -44,7 +45,7 @@ public class SearchActivity extends BaseActivity {
         super.onPostCreate(savedInstanceState);
         setSearchView();
         mSearchView.setArrowOnly(true);
-        mSearchView.setTextInput(R.string.search);
+        // mSearchView.setTextOnly(R.string.search);
         mSearchView.setOnMenuClickListener(new SearchView.OnMenuClickListener() {
             @Override
             public void onMenuClick() {
@@ -53,8 +54,7 @@ public class SearchActivity extends BaseActivity {
         });
         customSearchView();
         mSearchView.setVersionMargins(SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
-        mSearchView.setShouldClearOnClose(false);
-        //mSearchView.setShouldClearOnOpen(true);
+        // mSearchView.setShouldClearOnOpen(true);
     }
 
     @Override

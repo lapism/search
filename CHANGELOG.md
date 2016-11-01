@@ -1,15 +1,16 @@
 **4.0**
- - fixed many issues and bugs.
+ - the library has been completely rewritten.
+ - fixed many issues and bugs ( and new has been added :-D ).
  - added SearchBehavior for work in CoordinatorLayout.
  - method SearchView.setOnOpenCloseListener() now returns boolean values.
- - method SearchView.open(boolean, MenuItem) was deprecated.
- - method SearchView.open(boolean) was deprecated.
- - method SearchView.close(boolean) was deprecated.
  - method setNavigationIconArrowHamburger() was deprecated.
- - new method SearchView.open(MenuItem).
- - new method SearchView.open().
- - new method SearchView.close().
  - new method SearchView.setArrowOnly(boolean for animation after start).
+ - new methods SearchView.setInputType and SearchView.getInputType.
+ - new methods SearchView.setImeOptions and SearchView.getImeOptions.
+
+ - SearchView.setHint has been changed to SearchView.setQueryHint.
+ - SearchView.setText has been changed to SearchView.setTextOnly.
+
 
 **3.9.x (internal only)**
 

@@ -43,7 +43,6 @@ public class ToolbarActivity extends BaseActivity {
                 mDrawerLayout.openDrawer(GravityCompat.START); // finish();
             }
         });
-
         customSearchView();
     }
 

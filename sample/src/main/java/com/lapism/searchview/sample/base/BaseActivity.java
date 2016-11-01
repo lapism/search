@@ -117,7 +117,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 String searchWrd = results.get(0);
                 if (!TextUtils.isEmpty(searchWrd)) {
                     if (mSearchView != null) {
-                        mSearchView.setQuery(searchWrd);
+                        mSearchView.setQuery(searchWrd, true);
                     }
                 }
             }
@@ -169,7 +169,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 public void onDrawerOpened(View drawerView) {
                     super.onDrawerOpened(drawerView);
                     if (mSearchView != null && mSearchView.isSearchOpen()) {
-                        mSearchView.close();
+                        mSearchView.close(true);
                     }
                     if (mFab != null) {
                         mFab.hide();
@@ -240,12 +240,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         mSearchView = (SearchView) findViewById(R.id.searchView);
         if (mSearchView != null) {
-            mSearchView.setHint(R.string.search);
+            mSearchView.setShouldClearOnClose(false);
+            mSearchView.setQueryHint(R.string.search);
             mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     getData(query, 0);
-                    mSearchView.close();
+                    mSearchView.close(false);
                     return true;
                 }
 
@@ -291,7 +292,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     TextView textView = (TextView) view.findViewById(R.id.textView_item_text);
                     String query = textView.getText().toString();
                     getData(query, position);
-                    mSearchView.close();
+                    mSearchView.close(false);
                 }
             });
             mSearchView.setAdapter(searchAdapter);
@@ -312,7 +313,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             mSearchView.setVersion(extras.getInt(EXTRA_KEY_VERSION));
             mSearchView.setVersionMargins(extras.getInt(EXTRA_KEY_VERSION_MARGINS));
             mSearchView.setTheme(extras.getInt(EXTRA_KEY_THEME), true);
-            mSearchView.setTextInput(extras.getString(EXTRA_KEY_TEXT));
+            mSearchView.setTextOnly(extras.getString(EXTRA_KEY_TEXT));
         }
     }
 

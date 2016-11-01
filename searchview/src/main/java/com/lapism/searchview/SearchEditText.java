@@ -31,7 +31,7 @@ public class SearchEditText extends AppCompatEditText {
         if (mSearchView.getShouldHideOnKeyboardClose()) {
             if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
                 if (mSearchView != null && mSearchView.isSearchOpen()) {
-                    mSearchView.close();
+                    mSearchView.close(true);
                     return true;
                 }
             }
