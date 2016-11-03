@@ -11,12 +11,12 @@ import com.lapism.searchview.sample.R;
 import java.util.List;
 
 
-public class SimpleStringRecyclerViewAdapter extends RecyclerView.Adapter<SimpleStringRecyclerViewAdapter.ViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
     // private final TypedValue mTypedValue = new TypedValue();
     private final List<String> mValues;
 
-    public SimpleStringRecyclerViewAdapter(List<String> items) {
+    public RecyclerViewAdapter(List<String> items) {
         // context.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
         // mBackground = mTypedValue.resourceId;
         mValues = items;

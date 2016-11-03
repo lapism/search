@@ -9,7 +9,6 @@
     android:layout_marginStart="@dimen/key_line_8"
     android:layout_marginTop="@dimen/key_line_4"
     android:clickable="true"
-    android:drawSelectorOnTop="true"
     android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
@@ -31,4 +30,4 @@
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
-<!-- selectableItemBackgroundBorderless -->
+<!--     android:drawSelectorOnTop="true" selectableItemBackgroundBorderless -->

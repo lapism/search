@@ -17,6 +17,10 @@ import java.util.Random;
 
 public class SearchFragment extends Fragment {
 
+
+    public SearchFragment(){
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -31,7 +35,7 @@ public class SearchFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        recyclerView.setAdapter(new SimpleStringRecyclerViewAdapter(list)); // getActivity();
+        recyclerView.setAdapter(new RecyclerViewAdapter(list)); // getActivity();
         return recyclerView;
     }
 

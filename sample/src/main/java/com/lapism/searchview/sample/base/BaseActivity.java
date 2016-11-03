@@ -241,7 +241,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mSearchView = (SearchView) findViewById(R.id.searchView);
         if (mSearchView != null) {
             mSearchView.setShouldClearOnClose(false);
-            mSearchView.setQueryHint(R.string.search);
+            mSearchView.setHint(R.string.search);
             mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {

@@ -1,17 +1,11 @@
-// DIVIDER
-// VOICE IKONKA opravit
+// no DIVIDER
+// VOICE IKONKA opravit jak v playstoru
 // NO KEYBOARD LANDSCAPE
 // SEARCH BEHAVIOR projit
-// prepsat SEARCHVIEW PROJIT CELE
+// SEARCHVIEW PROJIT todos
 // clikz na cardview
 // no shadow appbar layout
-
-
-
-
-
-
-
+// testnotu textonly a voice na vyhledavani
 
 
 

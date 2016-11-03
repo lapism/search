@@ -40,6 +40,7 @@
                     android:contentDescription="@string/search_app_name" />
 
                 <com.lapism.searchview.SearchEditText
+                    android:privateImeOptions="nm"
                     android:id="@+id/searchEditText_input"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -60,7 +61,7 @@
 
                     <requestFocus />
                 </com.lapism.searchview.SearchEditText>
-                <!--
+                <!--flagNoExtractUi
                                     android:background="?android:attr/selectableItemBackgroundBorderless"
                  android:background="?android:attr/listDivider"
                     @android:color/transparent red

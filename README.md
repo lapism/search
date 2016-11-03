@@ -53,7 +53,7 @@ dependencies {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search: {
-                mSearchView.show(true/false); // animate, ONLY FOR MENU ITEM
+                mSearchView.show(true/false); // animate, ONLY FOR MENU ITEM !
                 return true;
             }
             default:
@@ -72,6 +72,7 @@ dependencies {
 
 **Styling SearchView:**
 ```xml
+        <attr name="search_height" format="integer" />
         <attr name="search_version" format="enum">
             <enum name="toolbar" value="1000" />
             <enum name="menu_item" value="1001" />
@@ -88,7 +89,6 @@ dependencies {
         <attr name="search_navigation_icon" format="integer" />
         <attr name="search_icon_color" format="color" />
         <attr name="search_background_color" format="color" />
-        <attr name="search_text_input" format="string" />
         <attr name="search_text_color" format="color" />
         <attr name="search_text_highlight_color" format="color" />
         <attr name="search_text_size" format="dimension" />
@@ -107,9 +107,8 @@ dependencies {
         <attr name="search_shadow" format="boolean" />
         <attr name="search_shadow_color" format="boolean" />
         <attr name="search_elevation" format="dimension" />
-        <attr name="search_clear_on_close" format="boolean" />
         <attr name="search_clear_on_open" format="boolean" />
+        <attr name="search_clear_on_close" format="boolean" />
         <attr name="search_hide_on_keyboard_close" format="boolean" />
         <attr name="search_cursor_drawable" format="integer" />
-        <attr name="search_height" format="integer" />
 ```

@@ -27,6 +27,7 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
         super(context, attrs);
     }
 
+    // TODO SCROLL
     @Override
     public boolean layoutDependsOn(CoordinatorLayout parent, SearchView child, View dependency) {
         if (dependency instanceof AppBarLayout) {
@@ -43,17 +44,35 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
     }
 
     @Override
+    public boolean onDependentViewChanged(CoordinatorLayout parent, SearchView child, View dependency) {
+        /*if (needsToAdjustSearchBar()) {
+            float offset = getMinExpandHeight() + appBarBehavior.getTopAndBottomOffset();
+            child.setY(offset);
+            return true;
+        }
+        return super.onDependentViewChanged(parent, child, dependency);*/
+        // boolean returnValue = super.onDependentViewChanged(parent, searchView, appbarLayout);
+        if (dependency instanceof AppBarLayout) {
+            mSearchView.setTranslationY(dependency.getY());
+            return true;
+        }
+        return super.onDependentViewChanged(parent, child, dependency);
+    }
+
+    @Override
     public void onNestedPreScroll(CoordinatorLayout parent, SearchView child, View target, int dx, int dy, int[] consumed) {
         if (dy >= 0 || dy > -10 || isScrolling) {
             return;
         }
         isScrolling = true;
-        if (needsToAdjustSearchBar() && !isRunningAnimation()) {
+
+        /*if (needsToAdjustSearchBar() && !isRunningAnimation()) {
             int offset = getMinExpandHeight();
             getValueAnimator(parent, child, -offset).start();
-        }
+        }*/
     }
 
+/*
     @Override
     public void onNestedScroll(CoordinatorLayout coordinatorLayout, SearchView child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
@@ -67,20 +86,7 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
     @Override
     public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, SearchView child, View directTargetChild, View target, int nestedScrollAxes) {
         return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL || super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, nestedScrollAxes);
-    }
-
-    @Override
-    public boolean onDependentViewChanged(CoordinatorLayout parent, SearchView child, View dependency) {
-        /*if (needsToAdjustSearchBar()) {
-            float offset = getMinExpandHeight() + appBarBehavior.getTopAndBottomOffset();
-            child.setY(offset);
-            return true;
-        }
-        return super.onDependentViewChanged(parent, child, dependency);*/
-        // boolean returnValue = super.onDependentViewChanged(parent, searchView, appbarLayout);
-        mSearchView.setTranslationY(dependency.getY());
-        return true;
-    }
+    }*/
 
     private int getStatusBarHeight() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {

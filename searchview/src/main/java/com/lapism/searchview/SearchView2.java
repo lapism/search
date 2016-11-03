@@ -35,9 +35,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.appcompat.R;
 import android.support.v7.view.CollapsibleActionView;
-import android.support.v7.widget.AppCompatAutoCompleteTextView;
-import android.support.v7.widget.LinearLayoutCompat;
-import android.support.v7.widget.TintTypedArray;
+import android.support.v7.widget.*;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
@@ -281,62 +279,10 @@ public class SearchView2 extends LinearLayoutCompat {
 
 */
 
-    static class SavedState extends AbsSavedState {
-        boolean isIconified;
 
-        SavedState(Parcelable superState) {
-            super(superState);
-        }
 
-        public SavedState(Parcel source, ClassLoader loader) {
-            super(source, loader);
-            isIconified = (Boolean) source.readValue(null);
-        }
 
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            super.writeToParcel(dest, flags);
-            dest.writeValue(isIconified);
-        }
 
-        @Override
-        public String toString() {
-            return "SearchView.SavedState{" + Integer.toHexString(System.identityHashCode(this)) + " isIconified=" + isIconified + "}";
-        }
-
-        public static final Parcelable.Creator<SavedState> CREATOR = ParcelableCompat.newCreator(
-                new ParcelableCompatCreatorCallbacks<SavedState>() {
-                    @Override
-                    public SavedState createFromParcel(Parcel in, ClassLoader loader) {
-                        return new SavedState(in, loader);
-                    }
-
-                    @Override
-                    public SavedState[] newArray(int size) {
-                        return new SavedState[size];
-                    }
-                });
-    }
-
-    @Override
-    protected Parcelable onSaveInstanceState() {
-        Parcelable superState = super.onSaveInstanceState();
-        SavedState ss = new SavedState(superState);
-        //ss.isIconified = isIconified();
-        return ss;
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Parcelable state) {
-        if (!(state instanceof SavedState)) {
-            super.onRestoreInstanceState(state);
-            return;
-        }
-        SavedState ss = (SavedState) state;
-        super.onRestoreInstanceState(ss.getSuperState());
-        //updateViewsVisibility(ss.isIconified);
-        requestLayout();
-    }
 
     /**
      * @hide
