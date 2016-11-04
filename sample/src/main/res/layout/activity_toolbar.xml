@@ -29,7 +29,7 @@ android:fitsSystemWindows="false" -->
                 android:layout_height="@dimen/toolbar_height2"
                 android:minHeight="@dimen/toolbar_height2"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:layout_scrollFlags="enterAlwaysCollapsed"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
             <android.support.design.widget.TabLayout

@@ -121,7 +121,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     protected float mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
 
     protected boolean mShadow = true;
-    protected boolean mArrow = true;
+    protected boolean mArrow = false;
     protected boolean mVoice = false;
     protected boolean mIsSearchOpen = false;
     protected boolean mShouldClearOnOpen = false;
@@ -725,11 +725,14 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     // ---------------------------------------------------------------------------------------------
     public void setArrowOnly(boolean animate) {
         if (animate) {
-            setArrow();
+            if (mSearchArrow != null) {
+                mSearchArrow.setVerticalMirror(false);
+                mSearchArrow.animate(SearchArrowDrawable.STATE_ARROW, mAnimationDuration);
+            }
         } else {
             mBackImageView.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         }
-        mArrow = false;
+        mArrow = true;
     }
 
     public void open(boolean animate) {
@@ -821,8 +824,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void addFocus() {
+        // TODO ADD FROM FOCUS LISTENER
         mIsSearchOpen = true;
         if (mArrow) {
+            mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_ARROW;
+        } else {
             setArrow();
         }
         if (mShadow) {
@@ -845,8 +851,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void removeFocus() {
+        // TODO ADD FROM FOCUS LISTENER
         mIsSearchOpen = false;
         if (mArrow) {
+            mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
+        } else {
             setHamburger();
         }
         if (mShadow) {
@@ -885,7 +894,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public boolean isSearchOpen() {
-        return mIsSearchOpen; // getvi
+        return mIsSearchOpen; // getVisibility();
     }
 
     public void showKeyboard() {
@@ -1042,7 +1051,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
         mOldQueryText = newText.toString();
 
-        if (!TextUtils.isEmpty(newText)) { // TODO VOICE
+        if (!TextUtils.isEmpty(newText)) {
             mEmptyImageView.setVisibility(View.VISIBLE);
             if (mVoice) {
                 mVoiceImageView.setVisibility(View.GONE);
@@ -1105,18 +1114,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public void onClick(View v) {
         if (v == mBackImageView) {
             if (mSearchArrow != null && mIsSearchArrowHamburgerState == SearchArrowDrawable.STATE_ARROW) {
-                if (!mArrow) {
-                    if (mOnMenuClickListener != null) {
-                        mOnMenuClickListener.onMenuClick();
-                    }
-                } else {
-                    close(true);
-                }
+                close(true);
             } else {
                 if (mOnMenuClickListener != null) {
                     mOnMenuClickListener.onMenuClick();
-                } else {
-                    close(true);
                 }
             }
         } else if (v == mVoiceImageView) {

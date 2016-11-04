@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 // static
-public class DoNotUseThis extends CoordinatorLayout.Behavior<SearchView> {
+class DoNotUseThis extends CoordinatorLayout.Behavior<SearchView> {
 
     private Rect mTmpRect;
     private FloatingActionButton.OnVisibilityChangedListener mInternalAutoHideListener;

@@ -17,11 +17,10 @@ import android.view.View;
 import java.util.WeakHashMap;
 
 
-public class DoNotUseThis2 extends LinearLayoutCompat {
+class DoNotUseThis2 extends LinearLayoutCompat {
 
     static final boolean DBG = false;
     static final String LOG_TAG = "SearchView";
-
 
     final SearchEditText mSearchSrcTextView;
 

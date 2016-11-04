@@ -28,8 +28,7 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
     public SearchBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-
-    // TODO SCROLL fix
+    
     @Override
     public boolean layoutDependsOn(CoordinatorLayout parent, SearchView child, View dependency) {
         if (dependency instanceof AppBarLayout) {
