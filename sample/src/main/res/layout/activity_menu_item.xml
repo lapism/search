@@ -66,5 +66,5 @@
             android:layout_height="match_parent"
             android:fillViewport="true" />
     "?attr/actionBarSize @string/bottom_sheet_behavior"
-?attr/actionBarSize@CoordinatorLayout.DefaultBehavior(FloatingActionButton.Example.class)
+?attr/actionBarSize@CoordinatorLayout.DefaultBehavior(FloatingActionButton.DoNotUseThis.class)
     android.support.v4.widget.NestedScrollView -->

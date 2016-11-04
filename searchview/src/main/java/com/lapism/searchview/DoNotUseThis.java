@@ -18,18 +18,18 @@ import android.view.ViewGroup;
 import java.util.List;
 
 // static
-public class Example extends CoordinatorLayout.Behavior<SearchView> {
+public class DoNotUseThis extends CoordinatorLayout.Behavior<SearchView> {
 
     private Rect mTmpRect;
     private FloatingActionButton.OnVisibilityChangedListener mInternalAutoHideListener;
     private boolean mAutoHideEnabled;
 
-    public Example() {
+    public DoNotUseThis() {
         super();
         mAutoHideEnabled = true;
     }
 
-    public Example(Context context, AttributeSet attrs) {
+    public DoNotUseThis(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, android.support.design.R.styleable.FloatingActionButton_Behavior_Layout);
         mAutoHideEnabled = a.getBoolean(android.support.design.R.styleable.FloatingActionButton_Behavior_Layout_behavior_autoHide, true);

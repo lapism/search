@@ -25,7 +25,6 @@ public class SearchActivity extends BaseActivity {
         Bundle extras = getIntent().getExtras();
         String string = "Test";
 
-        // TODO: 01.11.2016
         if (extras != null && mSearchView != null) {
             string = extras.getString(EXTRA_KEY_TEXT);
         }

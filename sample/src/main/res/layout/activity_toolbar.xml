@@ -12,7 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+<!--
+android:stateListAnimator="@animator/appbar_always_elevated"
+android:stateListAnimator="@null"
+android:stateListAnimator="@animator/appbar_always_elevated"
+android:fitsSystemWindows="false" -->
         <android.support.design.widget.AppBarLayout
+            app:elevation="0dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -23,7 +29,7 @@
                 android:layout_height="@dimen/toolbar_height2"
                 android:minHeight="@dimen/toolbar_height2"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:layout_scrollFlags="scroll|enterAlways|snap"
+                app:layout_scrollFlags="enterAlwaysCollapsed"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
             <android.support.design.widget.TabLayout
@@ -34,7 +40,8 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <!-- android.support.v4.widget.NestedScrollView -->
+        <!--       exitUntilCollapsed     enterAlwaysCollapsed     app:layout_scrollFlags="scroll|enterAlways|snap"
+        android.support.v4.widget.NestedScrollView -->
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
@@ -70,5 +77,5 @@
             android:layout_height="match_parent"
             android:fillViewport="true" />
     "?attr/actionBarSize @string/bottom_sheet_behavior"
-?attr/actionBarSize@CoordinatorLayout.DefaultBehavior(FloatingActionButton.Example.class)
+?attr/actionBarSize@CoordinatorLayout.DefaultBehavior(FloatingActionButton.DoNotUseThis.class)
     android.support.v4.widget.NestedScrollView -->

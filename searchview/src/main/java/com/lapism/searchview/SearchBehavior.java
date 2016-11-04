@@ -1,5 +1,7 @@
 package com.lapism.searchview;
 
+import android.animation.ObjectAnimator;
+import android.animation.StateListAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Build;
@@ -27,7 +29,7 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
         super(context, attrs);
     }
 
-    // TODO SCROLL
+    // TODO SCROLL fix
     @Override
     public boolean layoutDependsOn(CoordinatorLayout parent, SearchView child, View dependency) {
         if (dependency instanceof AppBarLayout) {
@@ -35,12 +37,17 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
             mAppBarLayout = (AppBarLayout) dependency;
             CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                /*StateListAnimator stateListAnimator = new StateListAnimator();
+                stateListAnimator.addState(new int[0], ObjectAnimator.ofFloat(dependency, "elevation", 4));
+                mAppBarLayout.setStateListAnimator(stateListAnimator);*/
+                // A bug that makes the floating search view disappear
                 mAppBarLayout.setStateListAnimator(null);
+                // TODO no shadow
             }
             mAppBarLayoutBehavior = (AppBarLayout.Behavior) params.getBehavior();
             return true;
         }
-        return super.layoutDependsOn(parent, child, dependency); // false
+        return super.layoutDependsOn(parent, child, dependency);
     }
 
     @Override
@@ -65,14 +72,19 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
             return;
         }
         isScrolling = true;
-
-        /*if (needsToAdjustSearchBar() && !isRunningAnimation()) {
+        if (needsToAdjustSearchBar() && !isRunningAnimation()) {
             int offset = getMinExpandHeight();
             getValueAnimator(parent, child, -offset).start();
+        }
+
+
+        /*public void setAppBarElevation(final boolean visible) {
+            if (appBar != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                appBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(this, (visible) ? R.animator.appbar_elevated : R.animator.appbar_not_elevated));
+            }
         }*/
     }
 
-/*
     @Override
     public void onNestedScroll(CoordinatorLayout coordinatorLayout, SearchView child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
@@ -86,7 +98,7 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
     @Override
     public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, SearchView child, View directTargetChild, View target, int nestedScrollAxes) {
         return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL || super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, nestedScrollAxes);
-    }*/
+    }
 
     private int getStatusBarHeight() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {

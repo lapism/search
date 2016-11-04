@@ -18,7 +18,7 @@ import java.util.Random;
 public class SearchFragment extends Fragment {
 
 
-    public SearchFragment(){
+    public SearchFragment() {
     }
 
     @Override

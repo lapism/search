@@ -125,7 +125,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     protected boolean mVoice = false;
     protected boolean mIsSearchOpen = false;
     protected boolean mShouldClearOnOpen = false;
-    protected boolean mShouldClearOnClose = true;
+    protected boolean mShouldClearOnClose = false;
     protected boolean mShouldHideOnKeyboardClose = true;
 
     // ---------------------------------------------------------------------------------------------
@@ -284,8 +284,20 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
+                    if (!TextUtils.isEmpty(mUserQuery)) {
+                        mEmptyImageView.setVisibility(View.VISIBLE);
+                        if (mVoice) {
+                            mVoiceImageView.setVisibility(View.GONE);
+                        }
+                    }
                     addFocus();
                 } else {
+                    if (!TextUtils.isEmpty(mUserQuery)) {
+                        mEmptyImageView.setVisibility(View.GONE);
+                        if (mVoice) {
+                            mVoiceImageView.setVisibility(View.VISIBLE);
+                        }
+                    }
                     removeFocus();
                 }
             }
@@ -399,6 +411,13 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public void setQuery(CharSequence query, boolean submit) {
         setQueryWithoutSubmitting(query);
 
+        if (!TextUtils.isEmpty(mUserQuery)) {
+            mEmptyImageView.setVisibility(View.GONE);
+            if (mVoice) {
+                mVoiceImageView.setVisibility(View.VISIBLE);
+            }
+        }
+
         if (submit && !TextUtils.isEmpty(query)) {
             onSubmitQuery();
         }
@@ -500,8 +519,40 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return mVersion;
     }
 
-    // ---------------------------------------------------------------------------------------------
+    public void setFilters(@Nullable List<SearchFilter> filters) {
+        mFiltersContainer.removeAllViews();
+        if (filters == null) {
+            mSearchFiltersStates = null;
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mFiltersContainer.getLayoutParams();
+            params.topMargin = 0;
+            params.bottomMargin = 0;
+            mFiltersContainer.setLayoutParams(params);
+        } else {
+            mSearchFiltersStates = new ArrayList<>();
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mFiltersContainer.getLayoutParams();
+            params.topMargin = mContext.getResources().getDimensionPixelSize(R.dimen.filter_margin_top);
+            params.bottomMargin = params.topMargin / 2;
+            mFiltersContainer.setLayoutParams(params);
+            for (SearchFilter filter : filters) {
+                AppCompatCheckBox checkBox = new AppCompatCheckBox(mContext);
+                checkBox.setText(filter.getTitle());
+                checkBox.setTextSize(11);
+                checkBox.setTextColor(mTextColor);
+                checkBox.setChecked(filter.isChecked());
+                mFiltersContainer.addView(checkBox);
+
+                boolean isChecked = filter.isChecked();
+                mSearchFiltersStates.add(isChecked);
+            }
+        }
+    }
+
+    public List<Boolean> getFiltersStates() {
+        return mSearchFiltersStates;
+    }
+
     // TODO GET
+    // ---------------------------------------------------------------------------------------------
     public void setHeight(float dp) {
         int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
         ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
@@ -601,10 +652,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public void setVoice(boolean voice) {
         if (voice && isVoiceAvailable()) {
             mVoiceImageView.setVisibility(View.VISIBLE);
+            mVoice = voice;
         } else {
             mVoiceImageView.setVisibility(View.GONE);
+            mVoice = voice;
         }
-        mVoice = voice;
     }
 
     public void setVoice(boolean voice, Activity context) {
@@ -671,38 +723,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     // ---------------------------------------------------------------------------------------------
-    public void setFilters(@Nullable List<SearchFilter> filters) {
-        mFiltersContainer.removeAllViews();
-        if (filters == null) {
-            mSearchFiltersStates = null;
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mFiltersContainer.getLayoutParams();
-            params.topMargin = 0;
-            params.bottomMargin = 0;
-            mFiltersContainer.setLayoutParams(params);
-        } else {
-            mSearchFiltersStates = new ArrayList<>();
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mFiltersContainer.getLayoutParams();
-            params.topMargin = mContext.getResources().getDimensionPixelSize(R.dimen.filter_margin_top);
-            params.bottomMargin = params.topMargin / 2;
-            mFiltersContainer.setLayoutParams(params);
-            for (SearchFilter filter : filters) {
-                AppCompatCheckBox checkBox = new AppCompatCheckBox(mContext);
-                checkBox.setText(filter.getTitle());
-                checkBox.setTextSize(11);
-                checkBox.setTextColor(mTextColor);
-                checkBox.setChecked(filter.isChecked());
-                mFiltersContainer.addView(checkBox);
-
-                boolean isChecked = filter.isChecked();
-                mSearchFiltersStates.add(isChecked);
-            }
-        }
-    }
-
-    public List<Boolean> getFiltersStates() {
-        return mSearchFiltersStates;
-    }
-
     public void setArrowOnly(boolean animate) {
         if (animate) {
             setArrow();
@@ -865,7 +885,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public boolean isSearchOpen() {
-        return mIsSearchOpen;
+        return mIsSearchOpen; // getvi
     }
 
     public void showKeyboard() {
@@ -896,7 +916,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     // ---------------------------------------------------------------------------------------------
-    // TODO SAVED INSTANCE
     private void setQueryWithoutSubmitting(CharSequence query) {
         mSearchEditText.setText(query);
         if (query != null) {
@@ -1073,6 +1092,14 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         });
     }
 
+    /*private int getPreferredWidth() {
+        return getContext().getResources().getDimensionPixelSize(android.support.v7.appcompat.R.dimen.abc_search_view_preferred_width);
+    }
+
+    private int getPreferredHeight() {
+        return getContext().getResources().getDimensionPixelSize(android.support.v7.appcompat.R.dimen.abc_search_view_preferred_height);
+    }*/
+
     // ---------------------------------------------------------------------------------------------
     @Override
     public void onClick(View v) {
@@ -1127,7 +1154,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         SavedState ss = (SavedState) state;
         if (ss.isSearchOpen) {
             open(true);
-            setQueryWithoutSubmitting(ss.query);
+            setQueryWithoutSubmitting(ss.query); // TODO
             mSearchEditText.requestFocus();
         }
 
@@ -1186,16 +1213,16 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private static class SavedState extends BaseSavedState {
 
         public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
-                    @Override
-                    public SavedState createFromParcel(Parcel in) {
-                        return new SavedState(in);
-                    }
+            @Override
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
 
-                    @Override
-                    public SavedState[] newArray(int size) {
-                        return new SavedState[size];
-                    }
-                };
+            @Override
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
         String query;
         boolean isSearchOpen;
         List<Boolean> searchFiltersStates;

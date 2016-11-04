@@ -235,12 +235,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    // it can be in OnCreate
     protected void setSearchView() {
         mHistoryDatabase = new SearchHistoryTable(this);
 
         mSearchView = (SearchView) findViewById(R.id.searchView);
         if (mSearchView != null) {
-            mSearchView.setShouldClearOnClose(false);
             mSearchView.setHint(R.string.search);
             mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -313,7 +313,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             mSearchView.setVersion(extras.getInt(EXTRA_KEY_VERSION));
             mSearchView.setVersionMargins(extras.getInt(EXTRA_KEY_VERSION_MARGINS));
             mSearchView.setTheme(extras.getInt(EXTRA_KEY_THEME), true);
-            mSearchView.setTextOnly(extras.getString(EXTRA_KEY_TEXT));
+            mSearchView.setQuery(extras.getString(EXTRA_KEY_TEXT), false);
+            // mSearchView.setTextOnly();
         }
     }
 

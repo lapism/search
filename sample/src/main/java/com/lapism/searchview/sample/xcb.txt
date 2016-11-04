@@ -1,18 +1,128 @@
-// no DIVIDER
-// VOICE IKONKA opravit jak v playstoru
-// NO KEYBOARD LANDSCAPE
-// SEARCH BEHAVIOR projit
-// SEARCHVIEW PROJIT todos
-// clikz na cardview
-// no shadow appbar layout
 // testnotu textonly a voice na vyhledavani
 
+NO DIVIDER
+NO KEYBOARD IN LANDSCAPE MODE
+FIX SEARCH BEHAVIOR PLUS PROBLEM WITH SCROLLING--
+FIX SEARCHVIEW WITH TODOS
+CARDVIEW CLICK
+NO SHADOW APPBARLAYOUT in behavior
+
+PROJIT TO NA PLOSE
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+android:outlineProvider="bounds"
+
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white" />
+            <stroke
+                android:width="1dp"
+                android:color="@color/grey"/>
+        </shape>
+    </item>
+</selector>
+but this does:
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white" />
+            <corners android:radius="1dp" />
+            <stroke
+                android:width="1dp"
+                android:color="@color/grey"/>
+        </shape>
+    </item>
+</selector>
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    card_view:cardElevation="4dp" />
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="6dp"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardElevation="4dp"
+    card_view:cardCornerRadius="3dp">
+
+
+
+
+private void setAppBarLayoutBehaviour() {
+    AppBarLayout.Behavior behavior = new AppBarLayout.Behavior() {
+
+        @Override
+        public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View directTargetChild, View target, int nestedScrollAxes) {
+            // Trigger the following events if it is a vertical scrolling
+            return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL || super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, nestedScrollAxes);
+        }
+
+        @Override
+        public void onNestedScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
+            super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
+
+            // If I slowly reach the top, without fling, show the RecyclerView
+            int[] firstVisiblePositions = ((StaggeredGridLayoutManager) ((RecyclerView) target).getLayoutManager()).findFirstCompletelyVisibleItemPositions(null);
+            for (int position : firstVisiblePositions) {
+                if (position == 0) {
+                    showRelatedTerms();
+                    break;
+                }
+            }
+        }
+
+        @Override
+        public boolean onNestedFling(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, float velocityX, float velocityY, boolean consumed) {
+            if (velocityY > 500) {
+                // Hide the RecyclerView
+            } else if (velocityY < -500) {
+                // Show the recyclerView
+            }
+            return true;
+        }
+    };
+    ((CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams()).setBehavior(behavior);
+}
+<android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:fitsSystemWindows="true"
+        android:stateListAnimator="@animator/appbar_always_elevated"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+</android.support.design.widget.AppBarLayout>
+
+<android.support.design.widget.AppBarLayout
+    android:stateListAnimator="@null"
+    android:elevation="@dimen/design_appbar_elevation">
+
+
+ActionBar actionBar = getSupportActionBar();
+if(actionBar != null) {
+   actionBar.setElevation(0);
+}
+
+if(getSupportActionBar() != null) {
+    getSupportActionBar().setElevation(0);
+}
 
 // Boolean, boolean
 // ANALYZE, TODO, FIXME
