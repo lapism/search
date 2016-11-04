@@ -1,4 +1,4 @@
-**4.0**
+**4.0**  
 News:
  - fixed many issues and bugs.
  - added SearchBehavior for work in CoordinatorLayout.
