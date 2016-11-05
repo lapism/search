@@ -29,4 +29,4 @@
 
     </LinearLayout>
 
-</android.support.v7.widget.CardView><!--     android:drawSelectorOnTop="true" selectableItemBackgroundBorderless -->
+</android.support.v7.widget.CardView><!-- android:drawSelectorOnTop="true" selectableItemBackgroundBorderless -->

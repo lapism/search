@@ -12,11 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<!--
-android:stateListAnimator="@animator/appbar_always_elevated"
-android:stateListAnimator="@null"
-android:stateListAnimator="@animator/appbar_always_elevated"
-android:fitsSystemWindows="false" -->
+        <!--
+        android:stateListAnimator="@animator/appbar_always_elevated"
+        android:stateListAnimator="@null"
+        android:stateListAnimator="@animator/appbar_always_elevated"
+        android:fitsSystemWindows="false" -->
         <android.support.design.widget.AppBarLayout
             app:elevation="0dp"
             android:layout_width="match_parent"

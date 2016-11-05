@@ -109,8 +109,8 @@ class DoNotUseThis2 extends LinearLayoutCompat {
             }
         });*/
 
-        // mSearchSrcTextView.setHint(getDecoratedHint(hint == null ? "" : hint));
-    }
+    // mSearchSrcTextView.setHint(getDecoratedHint(hint == null ? "" : hint));
+}
 
     /*private final OnClickListener mOnClickListener = new OnClickListener() {
         @Override
@@ -193,18 +193,20 @@ class DoNotUseThis2 extends LinearLayoutCompat {
 
 */
 
-    /**
-     * @hide
-     */
-    //@RestrictTo(GROUP_ID)/
-    //AppCompatAutoCompleteTextView {
+/**
+ * @hide Sets the APP_DATA for legacy SearchDialog use.
+ * @param appSearchData bundle provided by the app when launching the search dialog
+ * @hide
+ */
+//@RestrictTo(GROUP_ID)/
+//AppCompatAutoCompleteTextView {
 
-    /**
-     * Sets the APP_DATA for legacy SearchDialog use.
-     *
-     * @param appSearchData bundle provided by the app when launching the search dialog
-     * @hide
-     */
-    //@RestrictTo(GROUP_ID)
+/**
+ * Sets the APP_DATA for legacy SearchDialog use.
+ *
+ * @param appSearchData bundle provided by the app when launching the search dialog
+ * @hide
+ */
+//@RestrictTo(GROUP_ID)
 
 

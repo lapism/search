@@ -1172,6 +1172,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mBackImageView.setImageDrawable(mSearchArrow);
     }
 
+    public void setGoogleIcons() {
+        mBackImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_logo));
+        mVoiceImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic));
+    }
+
     // ---------------------------------------------------------------------------------------------
     public void setOnQueryTextListener(OnQueryTextListener listener) {
         mOnQueryChangeListener = listener;

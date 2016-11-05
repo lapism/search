@@ -36,7 +36,7 @@ dependencies {
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }
 
-/*
+/* android.defaultConfig.vectorDrawables.useSupportLibrary = true
 // compile 'com.google.android:flexbox:0.2.3'
 // minifyEnabled true
 // shrinkResources true

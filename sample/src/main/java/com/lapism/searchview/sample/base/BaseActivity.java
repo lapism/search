@@ -326,7 +326,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
         intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
         intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
-        intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
+        // intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
         intent.putExtra(EXTRA_KEY_TEXT, text);
         startActivity(intent);
 
