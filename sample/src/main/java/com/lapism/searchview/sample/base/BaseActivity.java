@@ -163,7 +163,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void setDrawer() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         if (mDrawerLayout != null && mToolbar != null) {
-            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
             mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close) {
                 @Override
                 public void onDrawerOpened(View drawerView) {
@@ -191,47 +190,49 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void setNavigationView() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
+        if (navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    int id = item.getItemId();
 
-                if (id == R.id.nav_item_toolbar || id == R.id.nav_item_filters) {
-                    Intent intent = new Intent(BaseActivity.this, id == R.id.nav_item_toolbar ? ToolbarActivity.class : FiltersActivity.class);
-                    intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
-                    intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
-                    intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
-                    startActivity(intent);
-                    finish();
+                    if (id == R.id.nav_item_toolbar || id == R.id.nav_item_filters) {
+                        Intent intent = new Intent(BaseActivity.this, id == R.id.nav_item_toolbar ? ToolbarActivity.class : FiltersActivity.class);
+                        intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
+                        intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
+                        intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    if (id == R.id.nav_item_menu_item) {
+                        Intent intent = new Intent(BaseActivity.this, MenuItemActivity.class);
+                        intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_MENU_ITEM);
+                        intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_MENU_ITEM);
+                        intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    if (id == R.id.nav_item_history) {
+                        // Intent intent = new Intent(this, id == R.id.nav_toggle_versions ? ToggleActivity.class : HistoryActivity.class);
+                        Intent intent = new Intent(BaseActivity.this, HistoryActivity.class);
+                        intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
+                        intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
+                        intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    // item.setChecked(true);
+                    // mDrawerLayout.closeDrawers();
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
+                    return true;
                 }
-
-                if (id == R.id.nav_item_menu_item) {
-                    Intent intent = new Intent(BaseActivity.this, MenuItemActivity.class);
-                    intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_MENU_ITEM);
-                    intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_MENU_ITEM);
-                    intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
-                    startActivity(intent);
-                    finish();
-                }
-
-                if (id == R.id.nav_item_history) {
-                    // Intent intent = new Intent(this, id == R.id.nav_toggle_versions ? ToggleActivity.class : HistoryActivity.class);
-                    Intent intent = new Intent(BaseActivity.this, HistoryActivity.class);
-                    intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
-                    intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
-                    intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
-                    startActivity(intent);
-                    finish();
-                }
-
-                // item.setChecked(true);
-                // mDrawerLayout.closeDrawers();
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-                return true;
+            });
+            if (getNavItem() > NAV_ITEM_INVALID) {
+                navigationView.getMenu().getItem(getNavItem()).setChecked(true);
             }
-        });
-        if (getNavItem() > NAV_ITEM_INVALID) {
-            navigationView.getMenu().getItem(getNavItem()).setChecked(true);
         }
     }
 
