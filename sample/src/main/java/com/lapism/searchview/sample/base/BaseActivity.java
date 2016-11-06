@@ -138,6 +138,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
         adapter.addFragment(new SearchFragment(), getString(R.string.installed));
         adapter.addFragment(new SearchFragment(), getString(R.string.all));
+        // adapter.addFragment(new SearchFragment(), getString(R.string.beta));
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
