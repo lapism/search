@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -28,7 +27,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SearchViewCompat;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -46,6 +44,8 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Filterable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -94,7 +94,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     protected android.support.v4.app.Fragment mSupportFragment = null;
     protected SearchArrowDrawable mSearchArrow = null;
     protected RecyclerView.Adapter mAdapter = null;
-    protected List<Boolean> mSearchFiltersStates = null;
+    protected SearchHistoryTable mSearchHistoryTable;
+    protected List<Boolean> mSearchFiltersStates = new ArrayList<>();
     protected OnQueryTextListener mOnQueryChangeListener = null;
     protected OnOpenCloseListener mOnOpenCloseListener = null;
     protected OnMenuClickListener mOnMenuClickListener = null;
@@ -127,6 +128,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     protected boolean mShouldClearOnOpen = false;
     protected boolean mShouldClearOnClose = false;
     protected boolean mShouldHideOnKeyboardClose = true;
+    protected boolean mSaveQueryOnSubmit = true;
 
     // ---------------------------------------------------------------------------------------------
     public SearchView(Context context) {
@@ -175,8 +177,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mSearchEditText.setTextColor(mTextColor);
         for (int i = 0, n = mFiltersContainer.getChildCount(); i < n; i++) {
             View child = mFiltersContainer.getChildAt(i);
-            if (child instanceof AppCompatCheckBox)
-                ((AppCompatCheckBox) child).setTextColor(mTextColor);
+            if (child instanceof CheckBox)
+                ((CheckBox) child).setTextColor(mTextColor);
         }
     }
 
@@ -462,20 +464,34 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public void setAdapter(RecyclerView.Adapter adapter) {
         mAdapter = adapter;
+        mRecyclerView.setLayoutTransition(null);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                final ViewTreeObserver.OnGlobalLayoutListener listener = this;
+                mRecyclerView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mRecyclerView.setLayoutTransition(getRecyclerViewLayoutTransition());
+                        if (Build.VERSION.SDK_INT < 16) {
+                            mRecyclerView.getViewTreeObserver().removeGlobalOnLayoutListener(listener);
+                        } else {
+                            mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(listener);
+                        }
+                    }
+                });
 
-        /*if (mAdapter instanceof SearchAdapter) {
-            ((SearchAdapter) mAdapter).addOnItemClickListener(new SearchAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    dispatchFilters();
-                }
-            }, 0);
-        }*/
+            }
+        });
     }
 
     public RecyclerView.Adapter getAdapter() {
         return mRecyclerView.getAdapter();
+    }
+
+    public void setSaveQueryOnSubmit(boolean saveQueryOnSubmit) {
+        mSaveQueryOnSubmit = saveQueryOnSubmit;
     }
 
     public void setShouldClearOnClose(boolean shouldClearOnClose) {
@@ -506,12 +522,15 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mVersion = version;
 
         if (mVersion == VERSION_TOOLBAR) {
+            mFiltersContainer.setVisibility(View.GONE);
             setVisibility(View.VISIBLE);
+            mCardView.setVisibility(View.VISIBLE);
             mSearchEditText.clearFocus();
         }
 
         if (mVersion == VERSION_MENU_ITEM) {
             setVisibility(View.GONE);
+            mSearchEditText.getText().clear();
         }
     }
 
@@ -522,23 +541,28 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public void setFilters(@Nullable List<SearchFilter> filters) {
         mFiltersContainer.removeAllViews();
         if (filters == null) {
-            mSearchFiltersStates = null;
+            mSearchFiltersStates.clear();
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mFiltersContainer.getLayoutParams();
             params.topMargin = 0;
             params.bottomMargin = 0;
             mFiltersContainer.setLayoutParams(params);
         } else {
-            mSearchFiltersStates = new ArrayList<>();
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mFiltersContainer.getLayoutParams();
             params.topMargin = mContext.getResources().getDimensionPixelSize(R.dimen.filter_margin_top);
             params.bottomMargin = params.topMargin / 2;
             mFiltersContainer.setLayoutParams(params);
-            for (SearchFilter filter : filters) {
+            for (final SearchFilter filter : filters) {
                 AppCompatCheckBox checkBox = new AppCompatCheckBox(mContext);
                 checkBox.setText(filter.getTitle());
                 checkBox.setTextSize(11);
                 checkBox.setTextColor(mTextColor);
                 checkBox.setChecked(filter.isChecked());
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        filter.setChecked(b);
+                    }
+                });
                 mFiltersContainer.addView(checkBox);
 
                 boolean isChecked = filter.isChecked();
@@ -877,7 +901,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public void showSuggestions() {
         if (mAdapter != null) {
-            if (mAdapter.getItemCount() > 0) {
+            if (mAdapter.getItemCount() > 0 || mFiltersContainer.getChildCount() > 0) {
                 mDividerView.setVisibility(View.VISIBLE);
             }
             mRecyclerView.setVisibility(View.VISIBLE);
@@ -1041,10 +1065,17 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
+    private SearchHistoryTable getSearchHistoryTable() {
+        if (mSearchHistoryTable == null)
+            mSearchHistoryTable = new SearchHistoryTable(mContext);
+        return mSearchHistoryTable;
+    }
+
     private void onSubmitQuery() {
         CharSequence query = mSearchEditText.getText();
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
-            dispatchFilters();
+            if (mSaveQueryOnSubmit)
+                getSearchHistoryTable().addItem(new SearchItem(query));
             if (mOnQueryChangeListener == null || !mOnQueryChangeListener.onQueryTextSubmit(query.toString())) {
                 mSearchEditText.setText(query);
             }
@@ -1058,7 +1089,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             ((Filterable) mAdapter).getFilter().filter(text);
         }
         if (mOnQueryChangeListener != null && !TextUtils.equals(newText, mOldQueryText)) {
-            dispatchFilters();
             mOnQueryChangeListener.onQueryTextChange(newText.toString());
         }
         mOldQueryText = newText.toString();
@@ -1086,18 +1116,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mSearchFiltersStates = states;
         for (int i = 0, j = 0, n = mFiltersContainer.getChildCount(); i < n; i++) {
             View view = mFiltersContainer.getChildAt(i);
-            if (view instanceof AppCompatCheckBox) {
-                ((AppCompatCheckBox) view).setChecked(mSearchFiltersStates.get(j++));
-            }
-        }
-    }
-
-    private void dispatchFilters() {
-        if (mSearchFiltersStates != null) {
-            for (int i = 0, j = 0, n = mFiltersContainer.getChildCount(); i < n; i++) {
-                View view = mFiltersContainer.getChildAt(i);
-                if (view instanceof AppCompatCheckBox)
-                    mSearchFiltersStates.set(j++, ((AppCompatCheckBox) view).isChecked());
+            if (view instanceof CheckBox) {
+                ((CheckBox) view).setChecked(mSearchFiltersStates.get(j++));
             }
         }
     }
@@ -1148,9 +1168,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         Parcelable superState = super.onSaveInstanceState();
         SavedState ss = new SavedState(superState);
 
+        ss.version = mVersion;
         ss.query = mUserQuery != null ? mUserQuery.toString() : null;
         ss.isSearchOpen = mIsSearchOpen;
-        dispatchFilters();
         ss.searchFiltersStates = mSearchFiltersStates;
 
         return ss;
@@ -1164,6 +1184,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
 
         SavedState ss = (SavedState) state;
+        setVersion(ss.version);
         if (ss.isSearchOpen) {
             open(true);
             setQueryWithoutSubmitting(ss.query); // TODO
@@ -1176,6 +1197,23 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     // ---------------------------------------------------------------------------------------------
+    public void enableSubmitOnHistoryClick() {
+        if (mAdapter instanceof SearchAdapter) {
+            ((SearchAdapter) mAdapter).addOnItemClickListener(new SearchAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    TextView textView = (TextView) view.findViewById(R.id.textView_item_text);
+                    String query = textView.getText().toString();
+
+                    if (mOnQueryChangeListener != null)
+                        mOnQueryChangeListener.onQueryTextSubmit(query);
+                    if (mSaveQueryOnSubmit)
+                        getSearchHistoryTable().addItem(new SearchItem(query));
+                }
+            });
+        }
+    }
+
     public void setOnQueryTextListener(OnQueryTextListener listener) {
         mOnQueryChangeListener = listener;
     }
@@ -1227,6 +1265,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 return new SavedState[size];
             }
         };
+        int version;
         String query;
         boolean isSearchOpen;
         List<Boolean> searchFiltersStates;
@@ -1237,6 +1276,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         public SavedState(Parcel source) {
             super(source);
+            this.version = source.readInt();
             this.query = source.readString();
             this.isSearchOpen = source.readInt() == 1;
             source.readList(searchFiltersStates, List.class.getClassLoader());
@@ -1245,6 +1285,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         @TargetApi(24)
         public SavedState(Parcel source, ClassLoader loader) {
             super(source, loader);
+            this.version = source.readInt();
             this.query = source.readString();
             this.isSearchOpen = source.readInt() == 1;
             source.readList(searchFiltersStates, List.class.getClassLoader());
@@ -1253,6 +1294,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         @Override
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
+            out.writeInt(version);
             out.writeString(query);
             out.writeInt(isSearchOpen ? 1 : 0);
             out.writeList(searchFiltersStates);

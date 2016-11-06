@@ -153,6 +153,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             mFab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //TODO remove setVersion here (test only)
+                    mSearchView.setVersion(mSearchView.getVersion() == SearchView.VERSION_MENU_ITEM ? SearchView.VERSION_TOOLBAR : SearchView.VERSION_MENU_ITEM);
                     mHistoryDatabase.clearDatabase();
                     Snackbar.make(v, "Search history deleted.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
@@ -238,11 +240,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     // it can be in OnCreate
     protected void setSearchView() {
-        mHistoryDatabase = new SearchHistoryTable(this);
+        mHistoryDatabase = new SearchHistoryTable(this); //to clear database
 
         mSearchView = (SearchView) findViewById(R.id.searchView);
         if (mSearchView != null) {
             mSearchView.setHint(R.string.search);
+            mSearchView.setSaveQueryOnSubmit(true);
             mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
@@ -287,7 +290,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             suggestionsList.add(new SearchItem("search3"));
 
             SearchAdapter searchAdapter = new SearchAdapter(this, suggestionsList);
-            searchAdapter.addOnItemClickListener(new SearchAdapter.OnItemClickListener() {
+            //needed only if you need position of clicked item
+            /*searchAdapter.addOnItemClickListener(new SearchAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
                     TextView textView = (TextView) view.findViewById(R.id.textView_item_text);
@@ -295,8 +299,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                     getData(query, position);
                     mSearchView.close(false);
                 }
-            });
+            });*/
             mSearchView.setAdapter(searchAdapter);
+            mSearchView.enableSubmitOnHistoryClick(); //call after set adapter
 
             /*
             List<SearchFilter> filter = new ArrayList<>();
@@ -322,8 +327,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     // ---------------------------------------------------------------------------------------------
     @CallSuper
     protected void getData(String text, int position) {
-        mHistoryDatabase.addItem(new SearchItem(text));
-
         Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
         intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
         intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
