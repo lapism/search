@@ -196,6 +196,8 @@ class DoNotUseThis2 extends LinearLayoutCompat {
 /**
  * @hide Sets the APP_DATA for legacy SearchDialog use.
  * @param appSearchData bundle provided by the app when launching the search dialog
+ * @hide Sets the APP_DATA for legacy SearchDialog use.
+ * @param appSearchData bundle provided by the app when launching the search dialog
  * @hide
  */
 //@RestrictTo(GROUP_ID)/
