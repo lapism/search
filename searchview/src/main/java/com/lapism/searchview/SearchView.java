@@ -901,7 +901,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public void showSuggestions() {
         if (mAdapter != null) {
-            if (mAdapter.getItemCount() > 0) {
+            if (mAdapter.getItemCount() > 0 || mFiltersContainer.getChildCount() > 0) {
                 mDividerView.setVisibility(View.VISIBLE);
             }
             mRecyclerView.setVisibility(View.VISIBLE);
