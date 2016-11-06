@@ -429,7 +429,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public CharSequence getQuery() {
         return mSearchEditText.getText();
-    }// mUserquerz
+    }
 
     public void setHint(@Nullable CharSequence hint) {
         mSearchEditText.setHint(hint);
@@ -924,6 +924,18 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return mProgressBar.getVisibility() == View.VISIBLE;
     }
 
+    public void setGoogleIcons() {
+        mBackImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_logo));
+        mVoiceImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic));
+    }
+
+    /* Simply do not use it. */
+    @Deprecated
+    public void setNavigationIconArrowHamburger() {
+        mSearchArrow = new SearchArrowDrawable(mContext);
+        mBackImageView.setImageDrawable(mSearchArrow);
+    }
+
     // ---------------------------------------------------------------------------------------------
     private void setQueryWithoutSubmitting(CharSequence query) {
         mSearchEditText.setText(query);
@@ -1131,7 +1143,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    // ---------------------------------------------------------------------------------------------
     @Override
     protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
@@ -1162,19 +1173,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         restoreFiltersState(ss.searchFiltersStates);
         super.onRestoreInstanceState(ss.getSuperState());
         requestLayout();
-    }
-
-    // ---------------------------------------------------------------------------------------------
-    /* Simply do not use it. */
-    @Deprecated
-    public void setNavigationIconArrowHamburger() {
-        mSearchArrow = new SearchArrowDrawable(mContext);
-        mBackImageView.setImageDrawable(mSearchArrow);
-    }
-
-    private void setGoogleIcons() {
-        mBackImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_logo));
-        mVoiceImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic));
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -1250,7 +1248,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             this.query = source.readString();
             this.isSearchOpen = source.readInt() == 1;
             source.readList(searchFiltersStates, List.class.getClassLoader());
-            //throw new RuntimeException("Stub!");
         }
 
         @Override
@@ -1264,17 +1261,3 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
 }
-
-/*
-        // requestLayout();
-                    if (mUserQuery.length() > 0) {
-                        mEmptyImageView.setVisibility(View.GONE);
-                        if (mVoice) {
-                            mVoiceImageView.setVisibility(View.VISIBLE);
-                        }
-                    } else {
-                        mEmptyImageView.setVisibility(View.VISIBLE);
-                        if (mVoice) {
-                            mVoiceImageView.setVisibility(View.GONE);
-                        }
-                    }*/

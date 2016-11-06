@@ -76,7 +76,6 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
             getValueAnimator(parent, child, -offset).start();
         }
 
-
         /*public void setAppBarElevation(final boolean visible) {
             if (appBar != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 appBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(this, (visible) ? R.animator.appbar_elevated : R.animator.appbar_not_elevated));

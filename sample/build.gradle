@@ -38,6 +38,7 @@ dependencies {
 
 /* android.defaultConfig.vectorDrawables.useSupportLibrary = true
 // compile 'com.google.android:flexbox:0.2.3'
+// CONSTRAINT
 // minifyEnabled true
 // shrinkResources true
 lintOptions {

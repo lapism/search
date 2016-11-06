@@ -37,20 +37,6 @@ public class SearchEditText extends AppCompatEditText {
             }
         }
         return super.onKeyPreIme(keyCode, event);
-        // return super.dispatchKeyEvent(event);
     }
 
 }
-        /*
-        final TintTypedArray a = TintTypedArray.obtainStyledAttributes(context, attrs, R.styleable.SearchView, defStyleAttr, 0);
-        final LayoutInflater inflater = LayoutInflater.from(context);
-        final int layoutResId = a.getResourceId(R.styleable.SearchView_layout, R.layout.abc_search_view);
-        inflater.inflate(layoutResId, this, true);
-        */
-//  ComponentName searchActivity = searchable.getSearchActivity();
-// PendingIntent pending = PendingIntent.getActivity(getContext(), 0, queryIntent, PendingIntent.FLAG_ONE_SHOT);
-       /* Bundle queryExtras = new Bundle();
-        if (mAppSearchData != null) {
-            queryExtras.putParcelable(SearchManager.APP_DATA, mAppSearchData);
-        }*/
-// Resources resources = getResources();
