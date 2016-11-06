@@ -25,6 +25,15 @@ public class MenuItemActivity extends BaseActivity {
         setContentView(R.layout.activity_menu_item);
         setToolbar();
         setViewPager();
+
+        //TODO onpostCreate block (test only {onRestoreState version})
+        {
+            setSearchView();
+            mSearchView.setArrowOnly(false);
+            // mSearchView.setGoogleIcons();
+            customSearchView();
+        }
+
         // invalidateOptionsMenu();
         // int mCurrentVersion = getIntent().getIntExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
     }
@@ -40,11 +49,6 @@ public class MenuItemActivity extends BaseActivity {
                 mDrawerLayout.openDrawer(GravityCompat.START); // WITHOUT finish(); + finish();
             }
         });
-
-        setSearchView();
-        mSearchView.setArrowOnly(false);
-        // mSearchView.setGoogleIcons();
-        customSearchView();
     }
 
     @Override
