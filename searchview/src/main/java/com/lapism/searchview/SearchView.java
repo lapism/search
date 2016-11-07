@@ -233,13 +233,13 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             }
         });
 
-        mDividerView = findViewById(R.id.view_divider);
-        mDividerView.setVisibility(View.GONE);
-
         mShadowView = findViewById(R.id.view_shadow);
         mShadowView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_shadow_layout));
         mShadowView.setOnClickListener(this);
         mShadowView.setVisibility(View.GONE);
+
+        mDividerView = findViewById(R.id.view_divider);
+        mDividerView.setVisibility(View.GONE);
 
         mFiltersContainer = (LinearLayout) findViewById(R.id.filters_container);
         mFiltersContainer.setVisibility(View.GONE);
@@ -877,9 +877,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public void showSuggestions() {
         if (mAdapter != null) {
-            if (mAdapter.getItemCount() > 0) {
+            if (mAdapter.getItemCount() > 0) {// TODO DIVIDER IS ALWAYS VISIBLE
                 mDividerView.setVisibility(View.VISIBLE);
             }
+            //mDividerView.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.VISIBLE);
             SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
         }
@@ -1052,6 +1053,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     private void onTextChanged(CharSequence newText) {
+        if (newText.equals(mOldQueryText)) {
+            return;
+        }
         CharSequence text = mSearchEditText.getText();
         mUserQuery = text;
         if (mAdapter != null && mAdapter instanceof Filterable) {

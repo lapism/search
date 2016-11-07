@@ -106,8 +106,7 @@
                 android:id="@+id/view_divider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/search_divider"
-                android:background="?android:attr/listDivider"
-                android:gravity="start|center_vertical" />
+                android:background="?android:attr/listDivider" />
 
             <LinearLayout
                 android:id="@+id/filters_container"
