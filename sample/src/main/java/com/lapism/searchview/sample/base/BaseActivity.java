@@ -94,7 +94,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mActionBarDrawerToggle.onOptionsItemSelected(item)) {

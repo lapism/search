@@ -34,7 +34,7 @@ public class SearchFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        recyclerView.setAdapter(new RecyclerViewAdapter(list)); // getActivity();
+        recyclerView.setAdapter(new RecyclerViewAdapter(getActivity(), list)); // getActivity();
         return recyclerView;
     }
 

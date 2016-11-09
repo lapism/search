@@ -16,7 +16,9 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical">
 
-        <View
+        <ImageView
+            android:id="@+id/imageView"
+            android:contentDescription="@string/app_name"
             android:layout_width="@dimen/toolbar_height2"
             android:layout_height="match_parent" />
 

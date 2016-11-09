@@ -36,7 +36,7 @@ public class SearchActivity extends BaseActivity {
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new RecyclerViewAdapter(list));
+        recyclerView.setAdapter(new RecyclerViewAdapter(this, list));
     }
 
     @Override
