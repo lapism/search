@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">SearchView Sample</string>
-    <string name="version">Version: 4.0</string>
+    <string name="version">Version: 4.0.1</string>
 
     <string name="open">Open</string>
     <string name="close">Close</string>

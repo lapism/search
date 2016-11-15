@@ -1,8 +1,8 @@
 package com.lapism.searchview.sample.view;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +16,14 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private final TypedValue mTypedValue = new TypedValue();
-    private final int mBackground;
     private final List<String> mValues;
+    private final Context mContext;
 
     public RecyclerViewAdapter(Context context, List<String> items) {
         //context.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
-        mBackground = mTypedValue.resourceId;
+        //TypedValue mTypedValue = new TypedValue();
+        //int mBackground = mTypedValue.resourceId;
+        mContext=context;
         mValues = items;
     }
 
@@ -35,8 +36,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mBoundString = mValues.get(position);
         holder.mTextView.setText(mValues.get(position));
+        holder.mImageView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccent));
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,15 +60,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         final View mView;
-        final ImageView mImageView;
         final TextView mTextView;
-        String mBoundString;
+        final ImageView mImageView;
 
         ViewHolder(View view) {
             super(view);
             mView = view;
-            mImageView = (ImageView) view.findViewById(R.id.imageView);
             mTextView = (TextView) view.findViewById(R.id.text);
+            mImageView = (ImageView) view.findViewById(R.id.imageView);
         }
 
         @Override

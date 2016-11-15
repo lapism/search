@@ -23,11 +23,11 @@ import java.util.Locale;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
-    protected final SearchHistoryTable mHistoryDatabase;
-    protected List<SearchItem> mSuggestionsList = new ArrayList<>();
-    protected String key = "";
-    protected List<SearchItem> mResultList = new ArrayList<>();
-    protected List<OnItemClickListener> mItemClickListeners;
+    private final SearchHistoryTable mHistoryDatabase;
+    private List<SearchItem> mSuggestionsList = new ArrayList<>();
+    private String key = "";
+    private List<SearchItem> mResultList = new ArrayList<>();
+    private List<OnItemClickListener> mItemClickListeners;
     private Integer mDatabaseKey = null;
 
     // ---------------------------------------------------------------------------------------------
@@ -40,20 +40,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         mSuggestionsList = suggestionsList;
         mResultList = suggestionsList;
         mHistoryDatabase = new SearchHistoryTable(context);
-        getFilter().filter("");
-    }
-
-    public List<SearchItem> getSuggestionsList() {
-        return mSuggestionsList;
-    }
-
-    public void setSuggestionsList(List<SearchItem> suggestionsList) {
-        mSuggestionsList = suggestionsList;
-        mResultList = suggestionsList;
-    }
-
-    public void setDatabaseKey(Integer key) {
-        mDatabaseKey = key;
         getFilter().filter("");
     }
 
@@ -120,31 +106,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         };
     }
 
-    public void setData(List<SearchItem> data) {
-        if (mResultList.size() == 0) {
-            mResultList = data;
-            notifyDataSetChanged();
-        } else {
-            int previousSize = mResultList.size();
-            int nextSize = data.size();
-            mResultList = data;
-            if (previousSize == nextSize && nextSize != 0)
-                notifyItemRangeChanged(0, previousSize);
-            else if (previousSize > nextSize) {
-                if (nextSize == 0)
-                    notifyItemRangeRemoved(0, previousSize);
-                else {
-                    notifyItemRangeChanged(0, nextSize);
-                    notifyItemRangeRemoved(nextSize - 1, previousSize);
-                }
-            } else {
-                notifyItemRangeChanged(0, previousSize);
-                notifyItemRangeInserted(previousSize, nextSize - previousSize);
-            }
-        }
-    }
-
-    // ---------------------------------------------------------------------------------------------
     @Override
     public ResultViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -184,7 +145,20 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     }
 
     // ---------------------------------------------------------------------------------------------
-    /* Use addOnItemClickListener. */
+    public void setSuggestionsList(List<SearchItem> suggestionsList) {
+        mSuggestionsList = suggestionsList;
+        mResultList = suggestionsList;
+    }
+
+    public List<SearchItem> getSuggestionsList() {
+        return mSuggestionsList;
+    }
+
+    public void setDatabaseKey(Integer key) {
+        mDatabaseKey = key;
+        getFilter().filter("");
+    }
+
     @Deprecated
     public void setOnItemClickListener(OnItemClickListener mItemClickListener) {
         addOnItemClickListener(mItemClickListener);
@@ -194,7 +168,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         addOnItemClickListener(listener, null);
     }
 
-    protected void addOnItemClickListener(OnItemClickListener listener, Integer position) {
+    private void addOnItemClickListener(OnItemClickListener listener, Integer position) {
         if (mItemClickListeners == null)
             mItemClickListeners = new ArrayList<>();
         if (position == null)
@@ -203,14 +177,38 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             mItemClickListeners.add(position, listener);
     }
 
+    private void setData(List<SearchItem> data) {
+        if (mResultList.size() == 0) {
+            mResultList = data;
+            notifyDataSetChanged();
+        } else {
+            int previousSize = mResultList.size();
+            int nextSize = data.size();
+            mResultList = data;
+            if (previousSize == nextSize && nextSize != 0)
+                notifyItemRangeChanged(0, previousSize);
+            else if (previousSize > nextSize) {
+                if (nextSize == 0)
+                    notifyItemRangeRemoved(0, previousSize);
+                else {
+                    notifyItemRangeChanged(0, nextSize);
+                    notifyItemRangeRemoved(nextSize - 1, previousSize);
+                }
+            } else {
+                notifyItemRangeChanged(0, previousSize);
+                notifyItemRangeInserted(previousSize, nextSize - previousSize);
+            }
+        }
+    }
+
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
 
     public class ResultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        final protected ImageView icon_left;
-        final protected TextView text;
+        final ImageView icon_left;
+        final TextView text;
 
         public ResultViewHolder(View view) {
             super(view);

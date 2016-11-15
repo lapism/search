@@ -46,6 +46,7 @@ public class ToolbarActivity extends BaseActivity {
         customSearchView();
     }
 
+    @SuppressWarnings("unused")
     private void perm() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO)) {
@@ -58,7 +59,7 @@ public class ToolbarActivity extends BaseActivity {
     // http://developer.android.com/training/permissions/requesting.html
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
-        switch (requestCode) {
+       /* switch (requestCode) {
             case 0:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 } else {
@@ -66,7 +67,7 @@ public class ToolbarActivity extends BaseActivity {
                 break;
             default:
                 break;
-        }
+        }*/
     }
 
 }

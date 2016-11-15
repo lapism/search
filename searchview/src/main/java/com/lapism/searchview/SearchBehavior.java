@@ -1,7 +1,5 @@
 package com.lapism.searchview;
 
-import android.animation.ObjectAnimator;
-import android.animation.StateListAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Build;
@@ -73,7 +71,7 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
         isScrolling = true;
         if (needsToAdjustSearchBar() && !isRunningAnimation()) {
             int offset = getMinExpandHeight();
-            getValueAnimator(parent, child, -offset).start();
+            getValueAnimator(-offset).start();
         }
 
         /*public void setAppBarElevation(final boolean visible) {
@@ -110,7 +108,7 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
         return result;
     }
 
-    private ValueAnimator getValueAnimator(CoordinatorLayout parent, SearchView searchView, int offset) {
+    private ValueAnimator getValueAnimator(int offset) {
         if (mValueAnimator == null) {
             mValueAnimator = ValueAnimator.ofInt();
         } else if (mValueAnimator.isRunning()) {

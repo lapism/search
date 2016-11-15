@@ -25,7 +25,6 @@ class SearchArrowDrawable extends DrawerArrowDrawable {
 
     SearchArrowDrawable(Context context) {
         super(context);
-        // mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     }
 
     void animate(float state, int duration) {

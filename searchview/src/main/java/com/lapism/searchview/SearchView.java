@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -28,7 +27,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SearchViewCompat;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -57,7 +55,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-
+// TODO cancel
 @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
@@ -88,45 +86,45 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     private final Context mContext;
 
-    protected View mMenuItemView = null;
-    protected Activity mActivity = null;
-    protected Fragment mFragment = null;
-    protected android.support.v4.app.Fragment mSupportFragment = null;
-    protected SearchArrowDrawable mSearchArrow = null;
-    protected RecyclerView.Adapter mAdapter = null;
-    protected List<Boolean> mSearchFiltersStates = null;
-    protected OnQueryTextListener mOnQueryChangeListener = null;
-    protected OnOpenCloseListener mOnOpenCloseListener = null;
-    protected OnMenuClickListener mOnMenuClickListener = null;
-    protected OnVoiceClickListener mOnVoiceClickListener = null;
+    private View mMenuItemView = null;
+    private Activity mActivity = null;
+    private Fragment mFragment = null;
+    private android.support.v4.app.Fragment mSupportFragment = null;
+    private SearchArrowDrawable mSearchArrow = null;
+    private RecyclerView.Adapter mAdapter = null;
+    private List<Boolean> mSearchFiltersStates = null;
+    private OnQueryTextListener mOnQueryChangeListener = null;
+    private OnOpenCloseListener mOnOpenCloseListener = null;
+    private OnMenuClickListener mOnMenuClickListener = null;
+    private OnVoiceClickListener mOnVoiceClickListener = null;
 
-    protected RecyclerView mRecyclerView;
-    protected View mShadowView;
-    protected View mDividerView;
-    protected CardView mCardView;
-    protected SearchEditText mSearchEditText;
-    protected ProgressBar mProgressBar;
-    protected ImageView mBackImageView;
-    protected ImageView mVoiceImageView;
-    protected ImageView mEmptyImageView;
-    protected LinearLayout mFiltersContainer;
-    protected LinearLayout mLinearLayout;
+    private RecyclerView mRecyclerView;
+    private View mShadowView;
+    private View mDividerView;
+    private CardView mCardView;
+    private SearchEditText mSearchEditText;
+    private ProgressBar mProgressBar;
+    private ImageView mBackImageView;
+    private ImageView mVoiceImageView;
+    private ImageView mEmptyImageView;
+    private LinearLayout mFiltersContainer;
+    private LinearLayout mLinearLayout;
 
-    protected CharSequence mOldQueryText;
-    protected CharSequence mUserQuery = "";
-    protected String mVoiceText = "Speak now";
-    protected int mVersion = VERSION_TOOLBAR;
-    protected int mAnimationDuration = ANIMATION_DURATION;
-    protected int mMenuItemCx = -1;
-    protected float mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
+    private CharSequence mOldQueryText;
+    private CharSequence mUserQuery = "";
+    private String mVoiceText = "Speak now";
+    private int mVersion = VERSION_TOOLBAR;
+    private int mAnimationDuration = ANIMATION_DURATION;
+    private int mMenuItemCx = -1;
+    private float mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
 
-    protected boolean mShadow = true;
-    protected boolean mArrow = false;
-    protected boolean mVoice = false;
-    protected boolean mIsSearchOpen = false;
-    protected boolean mShouldClearOnOpen = false;
-    protected boolean mShouldClearOnClose = false;
-    protected boolean mShouldHideOnKeyboardClose = true;
+    private boolean mShadow = true;
+    private boolean mArrow = false;
+    private boolean mVoice = false;
+    private boolean mIsSearchOpen = false;
+    private boolean mShouldClearOnOpen = false;
+    private boolean mShouldClearOnClose = false;
+    private boolean mShouldHideOnKeyboardClose = true;
 
     // ---------------------------------------------------------------------------------------------
     public SearchView(Context context) {
@@ -1025,7 +1023,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return activities.size() != 0;
     }
 
-    private Runnable mShowImeRunnable = new Runnable() {
+    private final Runnable mShowImeRunnable = new Runnable() {
         @Override
         public void run() {
             InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);

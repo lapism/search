@@ -42,15 +42,16 @@ import java.util.List;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
+    @SuppressWarnings("WeakerAccess")
     protected static final int NAV_ITEM_INVALID = -1;
     protected static final int NAV_ITEM_TOOLBAR = 0;
     protected static final int NAV_ITEM_MENU_ITEM = 1;
     protected static final int NAV_ITEM_HISTORY_TOGGLE = 2;
     protected static final int NAV_ITEM_FILTERS = 3;
 
-    protected static final String EXTRA_KEY_VERSION = "version";
-    protected static final String EXTRA_KEY_THEME = "theme";
-    protected static final String EXTRA_KEY_VERSION_MARGINS = "version_margins";
+    private static final String EXTRA_KEY_VERSION = "version";
+    private static final String EXTRA_KEY_THEME = "theme";
+    private static final String EXTRA_KEY_VERSION_MARGINS = "version_margins";
     protected static final String EXTRA_KEY_TEXT = "text";
 
     protected SearchView mSearchView = null;
@@ -96,10 +97,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mActionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return mActionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     /*@Override
@@ -187,7 +185,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    private void setNavigationView() {
+    private void setNavigationView() { // @Nullable
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
             navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
