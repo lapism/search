@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class SearchHistoryTable {
 
     private static int mHistorySize = 2;

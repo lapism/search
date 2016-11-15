@@ -40,7 +40,6 @@
                     android:contentDescription="@string/search_app_name" />
 
                 <com.lapism.searchview.SearchEditText
-                    android:privateImeOptions="nm"
                     android:id="@+id/searchEditText_input"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -56,6 +55,7 @@
                     android:imeOptions="actionSearch|flagNoExtractUi"
                     android:inputType="textNoSuggestions"
                     android:maxLines="1"
+                    android:privateImeOptions="nm"
                     android:textSize="@dimen/search_text_medium"
                     android:windowSoftInputMode="stateAlwaysHidden">
 

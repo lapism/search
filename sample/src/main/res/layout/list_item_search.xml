@@ -18,9 +18,9 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:contentDescription="@string/app_name"
             android:layout_width="@dimen/toolbar_height2"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:contentDescription="@string/app_name" />
 
         <TextView
             android:id="@+id/text"

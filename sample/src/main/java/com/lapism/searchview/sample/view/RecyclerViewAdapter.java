@@ -23,7 +23,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         //context.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
         //TypedValue mTypedValue = new TypedValue();
         //int mBackground = mTypedValue.resourceId;
-        mContext=context;
+        mContext = context;
         mValues = items;
     }
 

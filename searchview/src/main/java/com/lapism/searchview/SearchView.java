@@ -56,6 +56,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // TODO cancel
+@SuppressWarnings({"unused", "ConstantConditions", "UnusedAssignment"})
 @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
@@ -85,7 +86,12 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private static Typeface mTextFont = Typeface.DEFAULT;
 
     private final Context mContext;
-
+    private final Runnable mShowImeRunnable = new Runnable() {
+        @Override
+        public void run() {
+            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        }
+    };
     private View mMenuItemView = null;
     private Activity mActivity = null;
     private Fragment mFragment = null;
@@ -97,7 +103,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private OnOpenCloseListener mOnOpenCloseListener = null;
     private OnMenuClickListener mOnMenuClickListener = null;
     private OnVoiceClickListener mOnVoiceClickListener = null;
-
     private RecyclerView mRecyclerView;
     private View mShadowView;
     private View mDividerView;
@@ -109,7 +114,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private ImageView mEmptyImageView;
     private LinearLayout mFiltersContainer;
     private LinearLayout mLinearLayout;
-
     private CharSequence mOldQueryText;
     private CharSequence mUserQuery = "";
     private String mVoiceText = "Speak now";
@@ -117,7 +121,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private int mAnimationDuration = ANIMATION_DURATION;
     private int mMenuItemCx = -1;
     private float mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
-
     private boolean mShadow = true;
     private boolean mArrow = false;
     private boolean mVoice = false;
@@ -398,12 +401,12 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mSearchEditText.setText(text);
     }
 
-    public void setTextOnly(@StringRes int text) {
-        mSearchEditText.setText(text);
-    }
-
     public CharSequence getTextOnly() {
         return mSearchEditText.getText();
+    }
+
+    public void setTextOnly(@StringRes int text) {
+        mSearchEditText.setText(text);
     }
 
     public void setQuery(CharSequence query, boolean submit) {
@@ -433,29 +436,33 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mSearchEditText.setHint(hint);
     }
 
-    public void setHint(@StringRes int hint) {
-        mSearchEditText.setHint(hint);
-    }
-
     @Nullable
     public CharSequence getHint() {
         return mSearchEditText.getHint();
     }
 
-    public void setImeOptions(int imeOptions) {
-        mSearchEditText.setImeOptions(imeOptions);
+    public void setHint(@StringRes int hint) {
+        mSearchEditText.setHint(hint);
     }
 
     public int getImeOptions() {
         return mSearchEditText.getImeOptions();
     }
 
-    public void setInputType(int inputType) {
-        mSearchEditText.setInputType(inputType);
+    public void setImeOptions(int imeOptions) {
+        mSearchEditText.setImeOptions(imeOptions);
     }
 
     public int getInputType() {
         return mSearchEditText.getInputType();
+    }
+
+    public void setInputType(int inputType) {
+        mSearchEditText.setInputType(inputType);
+    }
+
+    public RecyclerView.Adapter getAdapter() {
+        return mRecyclerView.getAdapter();
     }
 
     public void setAdapter(RecyclerView.Adapter adapter) {
@@ -472,32 +479,32 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }*/
     }
 
-    public RecyclerView.Adapter getAdapter() {
-        return mRecyclerView.getAdapter();
+    public boolean getShouldClearOnClose() {
+        return mShouldClearOnClose;
     }
 
     public void setShouldClearOnClose(boolean shouldClearOnClose) {
         mShouldClearOnClose = shouldClearOnClose;
     }
 
-    public boolean getShouldClearOnClose() {
-        return mShouldClearOnClose;
+    public boolean getShouldClearOnOpen() {
+        return mShouldClearOnOpen;
     }
 
     public void setShouldClearOnOpen(boolean shouldClearOnOpen) {
         mShouldClearOnOpen = shouldClearOnOpen;
     }
 
-    public boolean getShouldClearOnOpen() {
-        return mShouldClearOnOpen;
+    public boolean getShouldHideOnKeyboardClose() {
+        return mShouldHideOnKeyboardClose;
     }
 
     public void setShouldHideOnKeyboardClose(boolean shouldHideOnKeyboardClose) {
         mShouldHideOnKeyboardClose = shouldHideOnKeyboardClose;
     }
 
-    public boolean getShouldHideOnKeyboardClose() {
-        return mShouldHideOnKeyboardClose;
+    public int getVersion() {
+        return mVersion;
     }
 
     public void setVersion(int version) {
@@ -511,10 +518,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         if (mVersion == VERSION_MENU_ITEM) {
             setVisibility(View.GONE);
         }
-    }
-
-    public int getVersion() {
-        return mVersion;
     }
 
     public void setFilters(@Nullable List<SearchFilter> filters) {
@@ -1023,13 +1026,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return activities.size() != 0;
     }
 
-    private final Runnable mShowImeRunnable = new Runnable() {
-        @Override
-        public void run() {
-            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        }
-    };
-
     private void setImeVisibility(boolean visible) {
         if (visible) {
             post(mShowImeRunnable);
@@ -1195,12 +1191,14 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     // ---------------------------------------------------------------------------------------------
+    @SuppressWarnings({"UnusedReturnValue", "SameReturnValue", "UnusedParameters"})
     public interface OnQueryTextListener {
         boolean onQueryTextSubmit(String query);
 
         boolean onQueryTextChange(String newText);
     }
 
+    @SuppressWarnings({"UnusedReturnValue", "SameReturnValue"})
     public interface OnOpenCloseListener {
         boolean onClose();
 
@@ -1211,6 +1209,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         void onMenuClick();
     }
 
+    @SuppressWarnings("EmptyMethod")
     public interface OnVoiceClickListener {
         void onVoiceClick();
     }
@@ -1233,11 +1232,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         boolean isSearchOpen;
         List<Boolean> searchFiltersStates;
 
-        public SavedState(Parcelable superState) {
+        SavedState(Parcelable superState) {
             super(superState);
         }
 
-        public SavedState(Parcel source) {
+        SavedState(Parcel source) {
             super(source);
             this.query = source.readString();
             this.isSearchOpen = source.readInt() == 1;
@@ -1245,7 +1244,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
 
         @TargetApi(24)
-        public SavedState(Parcel source, ClassLoader loader) {
+        SavedState(Parcel source, ClassLoader loader) {
             super(source, loader);
             this.query = source.readString();
             this.isSearchOpen = source.readInt() == 1;

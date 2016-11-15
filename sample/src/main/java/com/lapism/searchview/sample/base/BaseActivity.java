@@ -48,12 +48,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected static final int NAV_ITEM_MENU_ITEM = 1;
     protected static final int NAV_ITEM_HISTORY_TOGGLE = 2;
     protected static final int NAV_ITEM_FILTERS = 3;
-
+    protected static final String EXTRA_KEY_TEXT = "text";
     private static final String EXTRA_KEY_VERSION = "version";
     private static final String EXTRA_KEY_THEME = "theme";
     private static final String EXTRA_KEY_VERSION_MARGINS = "version_margins";
-    protected static final String EXTRA_KEY_TEXT = "text";
-
     protected SearchView mSearchView = null;
     protected DrawerLayout mDrawerLayout = null;
     protected FloatingActionButton mFab = null;

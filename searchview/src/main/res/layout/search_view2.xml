@@ -10,11 +10,11 @@
         android:layout_height="match_parent" />
 
     <android.support.v7.widget.CardView
-        app:cardBackgroundColor="#c8c8c8"
-        app:cardCornerRadius="20dp"
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#c8c8c8"
+        app:cardCornerRadius="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,18 +31,17 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:scaleType="centerInside"
-                    android:background="@drawable/fasfa"
-                    android:drawSelectorOnTop="true"
                     android:id="@+id/imageView_arrow_back"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:foreground="?android:attr/selectableItemBackground"
+                    android:background="@drawable/fasfa"
                     android:clickable="true"
-                    android:contentDescription="@string/search_app_name" />
+                    android:contentDescription="@string/search_app_name"
+                    android:drawSelectorOnTop="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:scaleType="centerInside" />
 
                 <com.lapism.searchview.SearchEditText
-                    android:privateImeOptions="nm"
                     android:id="@+id/searchEditText_input"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -58,6 +57,7 @@
                     android:imeOptions="actionSearch|flagNoExtractUi"
                     android:inputType="textNoSuggestions"
                     android:maxLines="1"
+                    android:privateImeOptions="nm"
                     android:textSize="@dimen/search_text_medium"
                     android:windowSoftInputMode="stateAlwaysHidden">
 
@@ -85,22 +85,22 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:scaleType="centerInside"
                         android:id="@+id/imageView_mic"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="?android:attr/selectableItemBackground"
                         android:clickable="true"
-                        android:contentDescription="@string/search_app_name" />
+                        android:contentDescription="@string/search_app_name"
+                        android:scaleType="centerInside" />
 
                     <ImageView
-                        android:scaleType="centerInside"
                         android:id="@+id/imageView_clear"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="?android:attr/selectableItemBackground"
                         android:clickable="true"
-                        android:contentDescription="@string/search_app_name" />
+                        android:contentDescription="@string/search_app_name"
+                        android:scaleType="centerInside" />
 
                 </FrameLayout>
 
