@@ -55,7 +55,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO cancel
+// TODO cancel + shadow under
 @SuppressWarnings({"unused", "ConstantConditions", "UnusedAssignment"})
 @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 public class SearchView extends FrameLayout implements View.OnClickListener {
