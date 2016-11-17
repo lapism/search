@@ -5,11 +5,11 @@
     <item android:bottom="72dp">
         <bitmap
             android:gravity="center"
-            android:src="@drawable/splash_searchview_192" />
+            android:src="@drawable/product_logo_searchview_color_192" />
     </item>
     <item android:bottom="96dp">
         <bitmap
             android:gravity="bottom|center_horizontal"
-            android:src="@drawable/ic_searchview_60" />
+            android:src="@drawable/searchview_dark20_color_60" />
     </item>
 </layer-list>

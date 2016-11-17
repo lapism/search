@@ -178,7 +178,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             mItemClickListeners.add(position, listener);
     }
 
-    private void setData(List<SearchItem> data) {
+    public void setData(List<SearchItem> data) {
         if (mResultList.size() == 0) {
             mResultList = data;
             notifyDataSetChanged();

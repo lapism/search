@@ -20,7 +20,6 @@
             android:id="@+id/imageView"
             android:layout_width="@dimen/toolbar_height2"
             android:layout_height="match_parent"
-            android:background="@color/colorAccent"
             android:contentDescription="@string/app_name" />
 
         <TextView

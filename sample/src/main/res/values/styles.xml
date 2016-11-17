@@ -4,7 +4,7 @@
     <!-- Launcher -->
     <style name="LauncherAppTheme" parent="BaseAppThemeLight">
         <item name="colorPrimaryDark">#60000000</item>
-        <item name="android:windowBackground">@drawable/splash_screen_logo</item>
+        <item name="android:windowBackground">@drawable/launch_screen</item>
     </style>
 
     <!-- Base -->
