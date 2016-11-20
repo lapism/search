@@ -49,7 +49,7 @@ public class FiltersActivity extends BaseActivity {
         List<SearchFilter> filters = new ArrayList<>();
         filters.add(new SearchFilter("Filter1", true));
         filters.add(new SearchFilter("Filter2", false));
-        filters.add(new SearchFilter("Filter3", true));
+        filters.add(new SearchFilter("Filter3", false));
 
         mSearchView.setFilters(filters);
     }

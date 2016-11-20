@@ -18,7 +18,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 4
-        versionName "4.0.1"
+        versionName "4.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // vectorDrawables.useSupportLibrary = true
     }
@@ -51,7 +51,7 @@ publish {
     userOrg = 'lapism'
     groupId = 'com.lapism'
     artifactId = 'searchview'
-    publishVersion = '4.0.1'
+    publishVersion = '4.1'
     desc = 'SearchView Library'
     website = 'https://github.com/lapism/SearchView'
 }
@@ -60,8 +60,8 @@ publish {
 // shrinkResources true
 
 // Java SE Development Kit 8u112
-// gradlew wrapper --gradle-version=3.1
-// gradle-3.1-all.zip
+// gradlew wrapper --gradle-version=3.2
+// gradle-3.2-all.zip
 
 // build first
 // gradlew clean build bintrayUpload -PbintrayUser=lapism -PbintrayKey= -PdryRun=false

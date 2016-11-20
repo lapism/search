@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lapism.searchview.SearchDivider;
 import com.lapism.searchview.sample.R;
 
 import java.util.ArrayList;
@@ -34,7 +35,8 @@ public class SearchFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        recyclerView.setAdapter(new RecyclerViewAdapter(getActivity(), list)); // getActivity();
+        recyclerView.addItemDecoration(new SearchDivider(getActivity()));
+        recyclerView.setAdapter(new RecyclerViewAdapter(list)); // getActivity(); getContext
         return recyclerView;
     }
 

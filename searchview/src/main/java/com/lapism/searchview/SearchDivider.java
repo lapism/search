@@ -10,13 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 
-class SearchDivider extends RecyclerView.ItemDecoration {
+public class SearchDivider extends RecyclerView.ItemDecoration {
 
     private Drawable divider;
     private int dividerHeight;
     private int dividerWidth;
 
-    SearchDivider(Context context) {
+    public SearchDivider(Context context) {
         final TypedArray a = context.obtainStyledAttributes(null, new int[]{android.R.attr.listDivider});
         setDivider(a.getDrawable(0));
         a.recycle();

@@ -40,7 +40,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public SearchAdapter(Context context, List<SearchItem> suggestionsList) {
         mSuggestionsList = suggestionsList;
         mResultList = suggestionsList;
-        mHistoryDatabase = new SearchHistoryTable(context);
+        mHistoryDatabase = new SearchHistoryTable(context);// TODO PUT DB IN VIEW
         getFilter().filter("");
     }
 

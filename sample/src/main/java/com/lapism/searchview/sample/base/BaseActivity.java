@@ -293,6 +293,10 @@ public abstract class BaseActivity extends AppCompatActivity {
             });
             mSearchView.setAdapter(searchAdapter);
 
+            /*suggestionsList.add(new SearchItem("search12"));
+            suggestionsList.add(new SearchItem("search22"));
+            suggestionsList.add(new SearchItem("search32"));
+            searchAdapter.notifyDataSetChanged();*/
             /*
             List<SearchFilter> filter = new ArrayList<>();
             filter.add(new SearchFilter("Filter1", true));
