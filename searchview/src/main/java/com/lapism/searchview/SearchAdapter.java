@@ -101,10 +101,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                             List<SearchItem> allItems = mHistoryDatabase.getAllItems(mDatabaseKey);
                             if (!allItems.isEmpty()) {
                                 dataSet = allItems;
+                            }
                         }
                     }
                 }
-
                 setData(dataSet);
             }
         };
