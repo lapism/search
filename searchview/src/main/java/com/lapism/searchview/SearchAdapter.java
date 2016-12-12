@@ -96,7 +96,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                 } else {
                     if (key.isEmpty()) {
                         if (!mSuggestionsList.isEmpty()){
-                            dataset = mSuggestionsList;
+                            dataSet = mSuggestionsList;
                         } else {
                             List<SearchItem> allItems = mHistoryDatabase.getAllItems(mDatabaseKey);
                             if (!allItems.isEmpty()) {
