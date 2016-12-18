@@ -56,7 +56,7 @@ import java.util.List;
 // TODO REMOVE IN FUTURE RELEASE
 // TODO cancel + shadow under
 @SuppressWarnings({"unused", "ConstantConditions", "UnusedAssignment"})
-@CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
+// @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public static final int VERSION_TOOLBAR = 1000;
@@ -924,6 +924,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void setGoogleIcons() {
+        // todo set ptropertzx
         mBackImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_logo));
         mVoiceImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic));
     }

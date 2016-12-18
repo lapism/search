@@ -1,7 +1,6 @@
 **4.1**  
  - fixed issue on API 21.
  - divider is now visible when SearchView starts.
- - pull request by Lucas
  - keyboard in landscape mode
 
 **4.0**  
