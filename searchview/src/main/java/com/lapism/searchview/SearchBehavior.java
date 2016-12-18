@@ -39,7 +39,7 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
                 stateListAnimator.addState(new int[0], ObjectAnimator.ofFloat(dependency, "elevation", 4));
                 mAppBarLayout.setStateListAnimator(stateListAnimator);*/
                 // A bug that makes the floating search view disappear
-                mAppBarLayout.setStateListAnimator(null);
+                mAppBarLayout.setElevation(0);
                 // TODO no shadow
             }
             mAppBarLayoutBehavior = (AppBarLayout.Behavior) params.getBehavior();
