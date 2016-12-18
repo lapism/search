@@ -169,7 +169,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         addOnItemClickListener(listener, null);
     }
 
-    private void addOnItemClickListener(OnItemClickListener listener, Integer position) {
+    public void addOnItemClickListener(OnItemClickListener listener, Integer position) {
         if (mItemClickListeners == null)
             mItemClickListeners = new ArrayList<>();
         if (position == null)
