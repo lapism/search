@@ -28,6 +28,7 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 [AllWeather](https://play.google.com/store/apps/details?id=com.dev.nicola.allweather) <br />
 [Karaoke Online Sing & Record](https://play.google.com/store/apps/details?id=com.anhlt.karaokeonline) <br />
 [Playbuzz](https://play.google.com/store/apps/details?id=com.playbuzz.android.app) <br />
+[MovieTracker](https://play.google.com/store/apps/details?id=jacobs.yen.movietracker) <br />
 
  **Known bugs:**
  - no divider when SearchView starts.  
