@@ -56,7 +56,7 @@ import java.util.List;
 // TODO REMOVE IN FUTURE RELEASE
 // TODO cancel + shadow under
 @SuppressWarnings({"unused", "ConstantConditions", "UnusedAssignment"})
-@CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
+// @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public static final int VERSION_TOOLBAR = 1000;
@@ -704,32 +704,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     // ---------------------------------------------------------------------------------------------
-    public void showSuggestions() {
-        if (mAdapter != null && mAdapter.getItemCount() > 0) { // ||
-            mDividerView.setVisibility(View.VISIBLE);
-            mRecyclerView.setVisibility(View.VISIBLE);
-            SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
-        }
-
-        if (mFiltersContainer.getChildCount() > 0 && mFiltersContainer.getVisibility() == View.GONE) {
-            mDividerView.setVisibility(View.VISIBLE);
-            mFiltersContainer.setVisibility(View.VISIBLE);
-        }
-    }
-
-    public void hideSuggestions() {
-        if (mAdapter != null) {
-            mDividerView.setVisibility(View.GONE);
-            mRecyclerView.setVisibility(View.GONE);
-            SearchAnimator.fadeOut(mRecyclerView, mAnimationDuration);
-        }
-
-        if (mFiltersContainer.getVisibility() == View.VISIBLE) {
-            mDividerView.setVisibility(View.GONE);
-            mFiltersContainer.setVisibility(View.GONE);
-        }
-    }
-
     public void open(boolean animate) {
         open(animate, null);
     }
@@ -817,12 +791,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public void addFocus() {
         mIsSearchOpen = true;
 
-        if (!TextUtils.isEmpty(mUserQuery)) {
-            mEmptyImageView.setVisibility(View.VISIBLE);
-            if (mVoice) {
-                mVoiceImageView.setVisibility(View.GONE);
-            }
-        }
         if (mArrow) {
             mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_ARROW;
         } else {
@@ -842,18 +810,20 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             }, mAnimationDuration);
         }
         showKeyboard();
+
+        // TODO
+        if (!TextUtils.isEmpty(mUserQuery)) {
+            mEmptyImageView.setVisibility(View.VISIBLE);
+            if (mVoice) {
+                mVoiceImageView.setVisibility(View.GONE);
+            }
+        }
         showSuggestions();
     }
 
     public void removeFocus() {
         mIsSearchOpen = false;
 
-        if (!TextUtils.isEmpty(mUserQuery)) {
-            mEmptyImageView.setVisibility(View.GONE);
-            if (mVoice) {
-                mVoiceImageView.setVisibility(View.VISIBLE);
-            }
-        }
         if (mArrow) {
             mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
         } else {
@@ -873,7 +843,41 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             }, mAnimationDuration);
         }
         hideKeyboard();
+
+        // TODO
+        if (!TextUtils.isEmpty(mUserQuery)) {
+            mEmptyImageView.setVisibility(View.GONE);
+            if (mVoice) {
+                mVoiceImageView.setVisibility(View.VISIBLE);
+            }
+        }
         hideSuggestions();
+    }
+
+    public void showSuggestions() {
+        if (mAdapter != null && mAdapter.getItemCount() > 0) { // ||
+            mDividerView.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+            SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
+        }
+
+        if (mFiltersContainer.getChildCount() > 0 && mFiltersContainer.getVisibility() == View.GONE) {
+            mDividerView.setVisibility(View.VISIBLE);
+            mFiltersContainer.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void hideSuggestions() {
+        if (mAdapter != null) {
+            mDividerView.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.GONE);
+            SearchAnimator.fadeOut(mRecyclerView, mAnimationDuration);
+        }
+
+        if (mFiltersContainer.getVisibility() == View.VISIBLE) {
+            mDividerView.setVisibility(View.GONE);
+            mFiltersContainer.setVisibility(View.GONE);
+        }
     }
 
     public void setArrowOnly(boolean animate) {
@@ -920,6 +924,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void setGoogleIcons() {
+        // todo set ptropertzx
         mBackImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_logo));
         mVoiceImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic));
     }
@@ -936,7 +941,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             ((Filterable) mAdapter).getFilter().filter(text);
         }
 
-        if (!TextUtils.isEmpty(text)) {
+        if (!TextUtils.isEmpty(mUserQuery)) {
             showSuggestions();
             mEmptyImageView.setVisibility(View.VISIBLE);
             if (mVoice) {

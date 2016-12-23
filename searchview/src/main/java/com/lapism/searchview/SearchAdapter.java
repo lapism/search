@@ -95,13 +95,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                     }
                 } else {
                     if (key.isEmpty()) {
-                        List<SearchItem> allItems = mHistoryDatabase.getAllItems(mDatabaseKey);
-                        if (!allItems.isEmpty()) {
-                            dataSet = allItems;
+                        if (!mSuggestionsList.isEmpty()){
+                            dataSet = mSuggestionsList;
+                        } else {
+                            List<SearchItem> allItems = mHistoryDatabase.getAllItems(mDatabaseKey);
+                            if (!allItems.isEmpty()) {
+                                dataSet = allItems;
+                            }
                         }
                     }
                 }
-
                 setData(dataSet);
             }
         };
@@ -169,7 +172,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         addOnItemClickListener(listener, null);
     }
 
-    private void addOnItemClickListener(OnItemClickListener listener, Integer position) {
+    public void addOnItemClickListener(OnItemClickListener listener, Integer position) {
         if (mItemClickListeners == null)
             mItemClickListeners = new ArrayList<>();
         if (position == null)
