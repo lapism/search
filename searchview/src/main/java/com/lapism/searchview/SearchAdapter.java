@@ -184,7 +184,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public void setData(List<SearchItem> data) {
         if (mResultList.size() == 0) {
             mResultList = data;
-            notifyDataSetChanged();
+            if(data.size() != 0) {
+                notifyItemRangeInserted(0, data.size());
+            }
         } else {
             int previousSize = mResultList.size();
             int nextSize = data.size();
