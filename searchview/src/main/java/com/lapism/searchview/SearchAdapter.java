@@ -25,11 +25,11 @@ import java.util.Locale;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
     private final SearchHistoryTable mHistoryDatabase;
+    public Integer mDatabaseKey = null;
     private List<SearchItem> mSuggestionsList = new ArrayList<>();
     private String key = "";
     private List<SearchItem> mResultList = new ArrayList<>();
     private List<OnItemClickListener> mItemClickListeners;
-    public Integer mDatabaseKey = null;
 
     // ---------------------------------------------------------------------------------------------
     public SearchAdapter(Context context) {
@@ -95,7 +95,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                     }
                 } else {
                     if (key.isEmpty()) {
-                        if (!mSuggestionsList.isEmpty()){
+                        if (!mSuggestionsList.isEmpty()) {
                             dataSet = mSuggestionsList;
                         } else {
                             List<SearchItem> allItems = mHistoryDatabase.getAllItems(mDatabaseKey);
@@ -184,7 +184,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public void setData(List<SearchItem> data) {
         if (mResultList.size() == 0) {
             mResultList = data;
-            if(data.size() != 0) {
+            if (data.size() != 0) {
                 notifyItemRangeInserted(0, data.size());
             }
         } else {
