@@ -29,7 +29,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     private String key = "";
     private List<SearchItem> mResultList = new ArrayList<>();
     private List<OnItemClickListener> mItemClickListeners;
-    private Integer mDatabaseKey = null;
+    public Integer mDatabaseKey = null;
 
     // ---------------------------------------------------------------------------------------------
     public SearchAdapter(Context context) {
@@ -68,7 +68,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                         String string = item.get_text().toString().toLowerCase(Locale.getDefault());
                         if (string.contains(key)) {
                             results.add(item);
-                        }
+                        }// TODO ADVANCED COMPARE METHOD
                     }
 
                     if (results.size() > 0) {

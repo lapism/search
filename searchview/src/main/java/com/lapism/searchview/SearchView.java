@@ -23,7 +23,6 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.CardView;
@@ -54,7 +53,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 // TODO REMOVE IN FUTURE RELEASE
-// TODO cancel + shadow under
+// todo to sedz napis
+// TODO cancel + shadow under, najit vsechny chyby, stin, klavesnice , divider, filtrovani
 @SuppressWarnings({"unused", "ConstantConditions", "UnusedAssignment"})
 // @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 public class SearchView extends FrameLayout implements View.OnClickListener {
@@ -222,6 +222,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         //mRecyclerView.setItemAnimator(null);
         //mRecyclerView.setLayoutTransition(getRecyclerViewLayoutTransition());
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @SuppressWarnings("StatementWithEmptyBody")
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
