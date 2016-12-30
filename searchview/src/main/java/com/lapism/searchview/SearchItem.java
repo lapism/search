@@ -17,24 +17,37 @@ public class SearchItem implements Parcelable {
             return new SearchItem[size];
         }
     };
+
+
     private int icon;
     private CharSequence text;
+    private String tag;
 
     public SearchItem() {
     }
 
     public SearchItem(CharSequence text) {
-        this(R.drawable.ic_search_black_24dp, text);
+        this(R.drawable.ic_search_black_24dp, text, null);
+    }
+
+    public SearchItem(CharSequence text, String tag) {
+        this(R.drawable.ic_search_black_24dp, text, tag);
     }
 
     public SearchItem(int icon, CharSequence text) {
+        this(icon, text, null);
+    }
+
+    public SearchItem(int icon, CharSequence text, String tag) {
         this.icon = icon;
         this.text = text;
+        this.tag = tag;
     }
 
     public SearchItem(Parcel in) {
         this.icon = in.readInt();
         this.text = in.readParcelable(CharSequence.class.getClassLoader());
+        this.tag = in.readString();
     }
 
     public int get_icon() {
@@ -53,6 +66,14 @@ public class SearchItem implements Parcelable {
         this.text = text;
     }
 
+    public String get_tag() {
+        return this.tag;
+    }
+
+    public void set_tag(String tag) {
+        this.tag = tag;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -62,6 +83,7 @@ public class SearchItem implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.icon);
         TextUtils.writeToParcel(this.text, dest, flags); // dest.writeValue(this.text);
+        dest.writeString(this.tag);
     }
 
 }

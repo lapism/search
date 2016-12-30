@@ -136,6 +136,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         } else {
             viewHolder.text.setText(item.get_text());
         }
+
+        viewHolder.id_tag = item.get_tag();
     }
 
     @Override
@@ -213,6 +215,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     public class ResultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        protected String id_tag;
         final ImageView icon_left;
         final TextView text;
 
@@ -226,10 +229,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         @Override
         public void onClick(View v) {
             if (mItemClickListeners != null) {
-                for (OnItemClickListener listener : mItemClickListeners)
+                for (OnItemClickListener listener : mItemClickListeners) {
+                    v.setTag(id_tag);
                     listener.onItemClick(v, getLayoutPosition());
+                }
             }
         }
+
     }
 
 }
