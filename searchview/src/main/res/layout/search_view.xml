@@ -33,10 +33,12 @@
 
                 <ImageView
                     android:id="@+id/imageView_arrow_back"
-                    android:layout_width="@dimen/search_icon"
+                    android:layout_width="48dp"
                     android:layout_height="match_parent"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
                     android:contentDescription="@string/search_app_name" />
 
                 <com.lapism.searchview.SearchEditText
