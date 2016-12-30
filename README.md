@@ -74,7 +74,7 @@ dependencies {
 
 **Styling SearchView:**
 ```xml
-        <attr name="search_height" format="integer" />
+        <attr name="search_height" format="dimension" />
         <attr name="search_version" format="enum">
             <enum name="toolbar" value="1000" />
             <enum name="menu_item" value="1001" />
