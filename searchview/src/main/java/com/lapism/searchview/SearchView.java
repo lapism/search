@@ -503,6 +503,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void setFilters(@Nullable List<SearchFilter> filters) {
+        mSearchFilters = filters;
         mFiltersContainer.removeAllViews();
         if (filters == null) {
             mSearchFiltersStates = null;
@@ -529,6 +530,24 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 mSearchFiltersStates.add(isChecked);
             }
         }
+    }
+
+    /**
+     * Get the current search filter
+     *
+     * @return a list containing the SearchFilters, or an empty list if there's none
+     */
+    public List<SearchFilter> getSearchFilters() {
+        if (mSearchFilters == null) {
+            return new ArrayList<>();
+        }
+
+        dispatchFilters();
+        List<SearchFilter> searchFilters = new ArrayList<>();
+        for (SearchFilter filter : mSearchFilters) {
+            searchFilters.add(new SearchFilter(filter.getTitle(), filter.isChecked(), filter.getTagId()));
+        }
+        return searchFilters;
     }
 
     public List<Boolean> getFiltersStates() {
@@ -1092,8 +1111,12 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         if (mSearchFiltersStates != null) {
             for (int i = 0, j = 0, n = mFiltersContainer.getChildCount(); i < n; i++) {
                 View view = mFiltersContainer.getChildAt(i);
-                if (view instanceof AppCompatCheckBox)
-                    mSearchFiltersStates.set(j++, ((AppCompatCheckBox) view).isChecked());
+                if (view instanceof AppCompatCheckBox) {
+                    boolean isChecked = ((AppCompatCheckBox) view).isChecked();
+                    mSearchFiltersStates.set(j, isChecked);
+                    mSearchFilters.get(j).setChecked(isChecked);
+                    j++;
+                }
             }
         }
     }
