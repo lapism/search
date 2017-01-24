@@ -29,6 +29,7 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 [Karaoke Online Sing & Record](https://play.google.com/store/apps/details?id=com.anhlt.karaokeonline) <br />
 [Playbuzz](https://play.google.com/store/apps/details?id=com.playbuzz.android.app) <br />
 [MovieTracker](https://play.google.com/store/apps/details?id=jacobs.yen.movietracker) <br />
+[MaxTorz](https://play.google.com/store/apps/details?id=com.maxxsol.maxtorz) <br />
 
  **Known bugs:**
  - no divider when SearchView starts.  
