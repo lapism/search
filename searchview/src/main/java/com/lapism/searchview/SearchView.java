@@ -301,7 +301,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mBackImageView.setImageDrawable(mSearchArrow);
         mBackImageView.setOnClickListener(this);
 
-        setVersionMargins(VERSION_MARGINS_TOOLBAR_SMALL);
         setTheme(THEME_LIGHT); // TODO REMOVE IN FUTURE RELEASE
         setVoice(true);
     }
