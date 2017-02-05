@@ -112,7 +112,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private ImageView mBackImageView;
     private ImageView mVoiceImageView;
     private ImageView mEmptyImageView;
-    private LinearLayout mFiltersContainer;
+    private FlowLayout mFiltersContainer;
     private LinearLayout mLinearLayout;
     private CharSequence mOldQueryText;
     private CharSequence mUserQuery = "";
@@ -245,7 +245,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mDividerView = findViewById(R.id.view_divider);
         mDividerView.setVisibility(View.GONE);
 
-        mFiltersContainer = (LinearLayout) findViewById(R.id.filters_container);
+        mFiltersContainer = (FlowLayout) findViewById(R.id.filters_container);
         mFiltersContainer.setVisibility(View.GONE);
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -522,9 +522,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 checkBox.setTextSize(12);
                 checkBox.setTextColor(mTextColor);
                 checkBox.setChecked(filter.isChecked());
+                FlowLayout.LayoutParams lp = new FlowLayout.LayoutParams(
+                FlowLayout.LayoutParams.WRAP_CONTENT, FlowLayout.LayoutParams.WRAP_CONTENT);
+                checkBox.setLayoutParams(lp);
                 checkBox.setTag(filter.getTagId());
                 mFiltersContainer.addView(checkBox);
-
                 boolean isChecked = filter.isChecked();
                 mSearchFiltersStates.add(isChecked);
             }

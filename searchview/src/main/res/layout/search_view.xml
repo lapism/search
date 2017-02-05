@@ -110,7 +110,7 @@
                 android:layout_height="@dimen/search_divider"
                 android:background="?android:attr/listDivider" />
 
-            <LinearLayout
+            <com.lapism.searchview.FlowLayout
                 android:id="@+id/filters_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
