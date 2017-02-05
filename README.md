@@ -29,6 +29,7 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 [Karaoke Online Sing & Record](https://play.google.com/store/apps/details?id=com.anhlt.karaokeonline) <br />
 [Playbuzz](https://play.google.com/store/apps/details?id=com.playbuzz.android.app) <br />
 [MovieTracker](https://play.google.com/store/apps/details?id=jacobs.yen.movietracker) <br />
+[MaxTorz](https://play.google.com/store/apps/details?id=com.maxxsol.maxtorz) <br />
 
  **Known bugs:**
  - no divider when SearchView starts.  
@@ -74,7 +75,7 @@ dependencies {
 
 **Styling SearchView:**
 ```xml
-        <attr name="search_height" format="integer" />
+        <attr name="search_height" format="dimension" />
         <attr name="search_version" format="enum">
             <enum name="toolbar" value="1000" />
             <enum name="menu_item" value="1001" />

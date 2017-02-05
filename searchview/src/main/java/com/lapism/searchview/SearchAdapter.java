@@ -25,11 +25,11 @@ import java.util.Locale;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
     private final SearchHistoryTable mHistoryDatabase;
+    public Integer mDatabaseKey = null;
     private List<SearchItem> mSuggestionsList = new ArrayList<>();
     private String key = "";
     private List<SearchItem> mResultList = new ArrayList<>();
     private List<OnItemClickListener> mItemClickListeners;
-    public Integer mDatabaseKey = null;
 
     // ---------------------------------------------------------------------------------------------
     public SearchAdapter(Context context) {
@@ -95,7 +95,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                     }
                 } else {
                     if (key.isEmpty()) {
-                        if (!mSuggestionsList.isEmpty()){
+                        if (!mSuggestionsList.isEmpty()) {
                             dataSet = mSuggestionsList;
                         } else {
                             List<SearchItem> allItems = mHistoryDatabase.getAllItems(mDatabaseKey);
@@ -136,6 +136,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         } else {
             viewHolder.text.setText(item.get_text());
         }
+
+        viewHolder.id_tag = item.get_tag();
     }
 
     @Override
@@ -184,7 +186,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public void setData(List<SearchItem> data) {
         if (mResultList.size() == 0) {
             mResultList = data;
-            if(data.size() != 0) {
+            if (data.size() != 0) {
                 notifyItemRangeInserted(0, data.size());
             }
         } else {
@@ -213,6 +215,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     public class ResultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        protected String id_tag;
         final ImageView icon_left;
         final TextView text;
 
@@ -226,10 +229,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         @Override
         public void onClick(View v) {
             if (mItemClickListeners != null) {
-                for (OnItemClickListener listener : mItemClickListeners)
+                for (OnItemClickListener listener : mItemClickListeners) {
+                    v.setTag(id_tag);
                     listener.onItemClick(v, getLayoutPosition());
+                }
             }
         }
+
     }
 
 }
