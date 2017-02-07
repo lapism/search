@@ -733,6 +733,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public void open(boolean animate, MenuItem menuItem) {
         if (mVersion == VERSION_MENU_ITEM) {
+            mIsSearchOpen = true;
+
             setVisibility(View.VISIBLE);
 
             if (animate) {
@@ -761,6 +763,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             }
         }
         if (mVersion == VERSION_TOOLBAR) {
+            mIsSearchOpen = true;
             if (mShouldClearOnOpen && mSearchEditText.length() > 0) {
                 mSearchEditText.getText().clear();
             }
@@ -770,6 +773,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public void close(boolean animate) {
         if (mVersion == VERSION_MENU_ITEM) {
+            mIsSearchOpen = false;
             if (animate) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     SearchAnimator.revealClose(
@@ -804,6 +808,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
 
         if (mVersion == VERSION_TOOLBAR) {
+            mIsSearchOpen = false;
             if (mShouldClearOnClose && mSearchEditText.length() > 0) {
                 mSearchEditText.getText().clear();
             }
@@ -812,7 +817,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void addFocus() {
-        mIsSearchOpen = true;
 
         if (mArrow) {
             mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_ARROW;
@@ -845,7 +849,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void removeFocus() {
-        mIsSearchOpen = false;
 
         if (mArrow) {
             mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
