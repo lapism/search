@@ -30,6 +30,7 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 [Playbuzz](https://play.google.com/store/apps/details?id=com.playbuzz.android.app) <br />
 [MovieTracker](https://play.google.com/store/apps/details?id=jacobs.yen.movietracker) <br />
 [MaxTorz](https://play.google.com/store/apps/details?id=com.maxxsol.maxtorz) <br />
+[RealTime Subscriber YouTube](https://play.google.com/store/apps/details?id=vulcanweblabs.realtimeyoutube) <br />
 
  **Known bugs:**
  - no divider when SearchView starts.  
