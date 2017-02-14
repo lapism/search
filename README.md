@@ -1,5 +1,7 @@
 # SearchView
 
+VERSION 4.1 WILL BE IN NEXT TWO WEEKS (ASAP). SORRY GUYS :-).
+
 Persistent SearchView Library like Play Store.  
 Check sample project very thoroughly !!!  
 Features: Material Design, Toolbar / Menu item version, History, Styling.  
