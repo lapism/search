@@ -59,8 +59,8 @@ publish {
 // shrinkResources true
 
 // Java SE Development Kit 8u112 !!!!
-// gradlew wrapper --gradle-version=3.3
-// gradle-3.3-all.zip
+// gradlew wrapper --gradle-version=3.4
+// gradle-3.4-all.zip
 
 // build first
 // gradlew clean build bintrayUpload -PbintrayUser=lapism -PbintrayKey= -PdryRun=false
