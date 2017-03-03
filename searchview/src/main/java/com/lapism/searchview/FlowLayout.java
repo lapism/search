@@ -40,11 +40,11 @@ import java.util.List;
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class FlowLayout extends ViewGroup {
 
-    private int mGravity = (isIcs() ? Gravity.START : Gravity.LEFT) | Gravity.TOP;
+    private int mGravity = (isIcs() ? Gravity.START : Gravity.START) | Gravity.TOP;
 
-    private final List<List<View>> mLines = new ArrayList<List<View>>();
-    private final List<Integer> mLineHeights = new ArrayList<Integer>();
-    private final List<Integer> mLineMargins = new ArrayList<Integer>();
+    private final List<List<View>> mLines = new ArrayList<>();
+    private final List<Integer> mLineHeights = new ArrayList<>();
+    private final List<Integer> mLineMargins = new ArrayList<>();
 
     public FlowLayout(Context context) {
         this(context, null);
@@ -184,18 +184,18 @@ public class FlowLayout extends ViewGroup {
 
         int lineWidth = 0;
         int lineHeight = 0;
-        List<View> lineViews = new ArrayList<View>();
+        List<View> lineViews = new ArrayList<>();
 
         float horizontalGravityFactor;
         switch ((mGravity & Gravity.HORIZONTAL_GRAVITY_MASK)) {
-            case Gravity.LEFT:
+            case Gravity.START:
             default:
                 horizontalGravityFactor = 0;
                 break;
             case Gravity.CENTER_HORIZONTAL:
                 horizontalGravityFactor = .5f;
                 break;
-            case Gravity.RIGHT:
+            case Gravity.END:
                 horizontalGravityFactor = 1;
                 break;
         }
@@ -222,7 +222,7 @@ public class FlowLayout extends ViewGroup {
 
                 lineHeight = 0;
                 lineWidth = 0;
-                lineViews = new ArrayList<View>();
+                lineViews = new ArrayList<>();
             }
 
             lineWidth += childWidth;
@@ -354,7 +354,7 @@ public class FlowLayout extends ViewGroup {
     public void setGravity(int gravity) {
         if (mGravity != gravity) {
             if ((gravity & Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK) == 0) {
-                gravity |= isIcs() ? Gravity.START : Gravity.LEFT;
+                gravity |= isIcs() ? Gravity.START : Gravity.START;
             }
 
             if ((gravity & Gravity.VERTICAL_GRAVITY_MASK) == 0) {
@@ -374,7 +374,7 @@ public class FlowLayout extends ViewGroup {
      * @return <code>true</code> if device is running ICS or grater version of Android.
      */
     private static boolean isIcs() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+        return true;
     }
 
     public static class LayoutParams extends MarginLayoutParams {

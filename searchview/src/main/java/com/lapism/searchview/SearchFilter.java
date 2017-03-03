@@ -1,13 +1,11 @@
 package com.lapism.searchview;
 
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class SearchFilter implements Parcelable{
+public class SearchFilter implements Parcelable {
 
     public static final Creator<SearchFilter> CREATOR = new Creator<SearchFilter>() {
         @Override
@@ -73,4 +71,5 @@ public class SearchFilter implements Parcelable{
         parcel.writeByte((byte) (mIsChecked ? 1 : 0));
         parcel.writeString(mTagId);
     }
+
 }
