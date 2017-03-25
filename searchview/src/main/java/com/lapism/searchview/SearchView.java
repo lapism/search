@@ -128,6 +128,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private boolean mShouldClearOnOpen = false;
     private boolean mShouldClearOnClose = false;
     private boolean mShouldHideOnKeyboardClose = true;
+    private long mDelay = 0L;
+    private Runnable mQueryRunnable;
 
     // ---------------------------------------------------------------------------------------------
     public SearchView(Context context) {
@@ -523,7 +525,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 checkBox.setTextColor(mTextColor);
                 checkBox.setChecked(filter.isChecked());
                 FlowLayout.LayoutParams lp = new FlowLayout.LayoutParams(
-                FlowLayout.LayoutParams.WRAP_CONTENT, FlowLayout.LayoutParams.WRAP_CONTENT);
+                        FlowLayout.LayoutParams.WRAP_CONTENT, FlowLayout.LayoutParams.WRAP_CONTENT);
                 checkBox.setLayoutParams(lp);
                 checkBox.setTag(filter.getTagId());
                 mFiltersContainer.addView(checkBox);
@@ -955,6 +957,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mVoiceImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic));
     }
 
+    public void setDelay(long delay) {
+        mDelay = delay;
+    }
+
     // ---------------------------------------------------------------------------------------------
     private void onTextChanged(CharSequence newText) {
         if (newText.equals(mOldQueryText)) {
@@ -982,10 +988,27 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
 
         if (mOnQueryChangeListener != null && !TextUtils.equals(newText, mOldQueryText)) {
-            dispatchFilters();
-            mOnQueryChangeListener.onQueryTextChange(newText.toString());
+            if (mDelay != 0L) scheduleQueryCallback(newText);
+            else postQueryCallback(newText);
         }
         mOldQueryText = newText.toString();
+    }
+
+    private void scheduleQueryCallback(final CharSequence text) {
+        if (mQueryRunnable != null) removeCallbacks(mQueryRunnable);
+        mQueryRunnable = new Runnable() {
+            @Override
+            public void run() {
+                postQueryCallback(text);
+                mQueryRunnable = null;
+            }
+        };
+        postDelayed(mQueryRunnable, mDelay);
+    }
+
+    private void postQueryCallback(final CharSequence text) {
+        dispatchFilters();
+        mOnQueryChangeListener.onQueryTextChange(text.toString());
     }
 
     private void setQueryWithoutSubmitting(CharSequence query) {
