@@ -3,7 +3,7 @@
 VERSION 4.1 WILL BE IN NEXT TWO WEEKS (ASAP). SORRY GUYS :-).
 
 Persistent SearchView Library like Play Store.  
-Check sample project very thoroughly !!!  
+Check the [sample project](https://github.com/lapism/SearchView/tree/master/sample/src/main/java/com/lapism/searchview/sample) very thoroughly !!!  
 Features: Material Design, Toolbar / Menu item version, History, Styling.  
 Google Material Design Pattern:  
 https://www.google.com/design/spec/patterns/search.html  
@@ -44,28 +44,27 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-        compile 'com.lapism:searchview:4.0'
-        }
+    compile 'com.lapism:searchview:4.0'
+}
 ```
 
-![Screenshot 1]
-(https://github.com/lapism/SearchView/blob/master/images/image_1.png)![Screenshot 2]
-(https://github.com/lapism/SearchView/blob/master/images/image_2.png)![Screenshot 3]
-(https://github.com/lapism/SearchView/blob/master/images/image_3.png)
+![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)
+![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/image_2.png)
+![Screenshot 3](https://github.com/lapism/SearchView/blob/master/images/image_3.png)
 
 **Code:**
 ```java
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_search: {
-                mSearchView.show(true/false); // animate, ONLY FOR MENU ITEM !
-                return true;
-            }
-            default:
-                return super.onOptionsItemSelected(item);
+@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+        case R.id.action_search: {
+            mSearchView.show(true/false); // animate, ONLY FOR MENU ITEM !
+            return true;
         }
+        default:
+            return super.onOptionsItemSelected(item);
     }
+}
 ```
 
 **XML:**
@@ -76,45 +75,49 @@ dependencies {
     android:layout_height="match_parent" />
 ```
 
+**VERSION CODES**
+
+SearchView identifies its layout style through versions. Currently, there are two values, namely `SearchView.VERSION_TOOLBAR` for the persistent view, and `SearchView.VERSION_MENU_ITEM` for the view that appears on a menuitem press. The version may be defined through `setVersion`
+
 **Styling SearchView:**
 ```xml
-        <attr name="search_height" format="dimension" />
-        <attr name="search_version" format="enum">
-            <enum name="toolbar" value="1000" />
-            <enum name="menu_item" value="1001" />
-        </attr>
-        <attr name="search_version_margins" format="enum">
-            <enum name="toolbar_small" value="2000" />
-            <enum name="toolbar_big" value="2001" />
-            <enum name="menu_item" value="2002" />
-        </attr>
-        <attr name="search_theme" format="enum">
-            <enum name="light" value="3000" />
-            <enum name="dark" value="3001" />
-        </attr>
-        <attr name="search_navigation_icon" format="integer" />
-        <attr name="search_icon_color" format="color" />
-        <attr name="search_background_color" format="color" />
-        <attr name="search_text_color" format="color" />
-        <attr name="search_text_highlight_color" format="color" />
-        <attr name="search_text_size" format="dimension" />
-        <attr name="search_text_style" format="enum">
-            <enum name="normal" value="0" />
-            <enum name="bold" value="1" />
-            <enum name="italic" value="2" />
-            <enum name="bold_italic" value="3" />
-        </attr>
-        <attr name="search_hint" format="string" />
-        <attr name="search_hint_color" format="color" />
-        <attr name="search_divider" format="boolean" />
-        <attr name="search_voice" format="boolean" />
-        <attr name="search_voice_text" format="string" />
-        <attr name="search_animation_duration" format="integer" />
-        <attr name="search_shadow" format="boolean" />
-        <attr name="search_shadow_color" format="boolean" />
-        <attr name="search_elevation" format="dimension" />
-        <attr name="search_clear_on_open" format="boolean" />
-        <attr name="search_clear_on_close" format="boolean" />
-        <attr name="search_hide_on_keyboard_close" format="boolean" />
-        <attr name="search_cursor_drawable" format="integer" />
+<attr name="search_height" format="dimension" />
+<attr name="search_version" format="enum">
+    <enum name="toolbar" value="1000" />
+    <enum name="menu_item" value="1001" />
+</attr>
+<attr name="search_version_margins" format="enum">
+    <enum name="toolbar_small" value="2000" />
+    <enum name="toolbar_big" value="2001" />
+    <enum name="menu_item" value="2002" />
+</attr>
+<attr name="search_theme" format="enum">
+    <enum name="light" value="3000" />
+    <enum name="dark" value="3001" />
+</attr>
+<attr name="search_navigation_icon" format="integer" />
+<attr name="search_icon_color" format="color" />
+<attr name="search_background_color" format="color" />
+<attr name="search_text_color" format="color" />
+<attr name="search_text_highlight_color" format="color" />
+<attr name="search_text_size" format="dimension" />
+<attr name="search_text_style" format="enum">
+    <enum name="normal" value="0" />
+    <enum name="bold" value="1" />
+    <enum name="italic" value="2" />
+    <enum name="bold_italic" value="3" />
+</attr>
+<attr name="search_hint" format="string" />
+<attr name="search_hint_color" format="color" />
+<attr name="search_divider" format="boolean" />
+<attr name="search_voice" format="boolean" />
+<attr name="search_voice_text" format="string" />
+<attr name="search_animation_duration" format="integer" />
+<attr name="search_shadow" format="boolean" />
+<attr name="search_shadow_color" format="boolean" />
+<attr name="search_elevation" format="dimension" />
+<attr name="search_clear_on_open" format="boolean" />
+<attr name="search_clear_on_close" format="boolean" />
+<attr name="search_hide_on_keyboard_close" format="boolean" />
+<attr name="search_cursor_drawable" format="integer" />
 ```
