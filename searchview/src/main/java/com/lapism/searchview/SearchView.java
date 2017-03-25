@@ -129,8 +129,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private boolean mShouldClearOnOpen = false;
     private boolean mShouldClearOnClose = false;
     private boolean mShouldHideOnKeyboardClose = true;
-    private long mDelay = 0L;
-    private Runnable mQueryRunnable;
 
     // ---------------------------------------------------------------------------------------------
     public SearchView(Context context) {
@@ -1011,11 +1009,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return this;
     }
 
-    public SearchView setDelay(long delay) {
-        mDelay = delay;
-        return this;
-    }
-
     // ---------------------------------------------------------------------------------------------
     private void onTextChanged(CharSequence newText) {
         if (newText.equals(mOldQueryText)) {
@@ -1043,27 +1036,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
 
         if (mOnQueryChangeListener != null && !TextUtils.equals(newText, mOldQueryText)) {
-            if (mDelay != 0L) scheduleQueryCallback(newText);
-            else postQueryCallback(newText);
+            dispatchFilters();
+            mOnQueryChangeListener.onQueryTextChange(text.toString());
         }
         mOldQueryText = newText.toString();
-    }
-
-    private void scheduleQueryCallback(final CharSequence text) {
-        if (mQueryRunnable != null) removeCallbacks(mQueryRunnable);
-        mQueryRunnable = new Runnable() {
-            @Override
-            public void run() {
-                postQueryCallback(text);
-                mQueryRunnable = null;
-            }
-        };
-        postDelayed(mQueryRunnable, mDelay);
-    }
-
-    private void postQueryCallback(final CharSequence text) {
-        dispatchFilters();
-        mOnQueryChangeListener.onQueryTextChange(text.toString());
     }
 
     private void setQueryWithoutSubmitting(CharSequence query) {
