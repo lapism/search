@@ -19,11 +19,8 @@ classes
 gen-external-apklibs
 
 #gradle
-.gradle
+.gradle/
 local.properties
-gradlew
-gradlew.bat
-gradle/
 build/
 
 #vi
