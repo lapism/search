@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -33,13 +34,11 @@
 
                 <ImageView
                     android:id="@+id/imageView_arrow_back"
-                    android:layout_width="48dp"
+                    android:layout_width="@dimen/search_icon"
                     android:layout_height="match_parent"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
-                    android:contentDescription="@string/search_app_name"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp" />
+                    android:contentDescription="@string/search_app_name" />
 
                 <com.lapism.searchview.SearchEditText
                     android:id="@+id/searchEditText_input"
@@ -110,7 +109,7 @@
                 android:layout_height="@dimen/search_divider"
                 android:background="?android:attr/listDivider" />
 
-            <LinearLayout
+            <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/filters_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -120,7 +119,8 @@
                 android:layout_marginStart="@dimen/filter_margin_start"
                 android:divider="@drawable/filter_empty_divider"
                 android:orientation="horizontal"
-                android:showDividers="middle" />
+                android:showDividers="middle"
+                app:flexWrap="wrap" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView_result"

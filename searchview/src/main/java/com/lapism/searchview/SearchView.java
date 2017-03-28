@@ -49,11 +49,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.flexbox.FlexboxLayout;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO REMOVE IN FUTURE RELEASE
 // todo to sedz napis
 // TODO cancel + shadow under, najit vsechny chyby, stin, klavesnice , divider, filtrovani
 @SuppressWarnings({"unused", "ConstantConditions", "UnusedAssignment", "UnusedReturnValue"})
@@ -113,7 +114,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private ImageView mBackImageView;
     private ImageView mVoiceImageView;
     private ImageView mEmptyImageView;
-    private LinearLayout mFiltersContainer;
+    private FlexboxLayout mFiltersContainer;
     private LinearLayout mLinearLayout;
     private CharSequence mOldQueryText;
     private CharSequence mUserQuery = "";
@@ -223,7 +224,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mLinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         mCardView = (CardView) findViewById(R.id.cardView);
 
-        // TODO
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_result);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setNestedScrollingEnabled(false);
@@ -254,7 +254,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mDividerView = findViewById(R.id.view_divider);
         mDividerView.setVisibility(View.GONE);
 
-        mFiltersContainer = (LinearLayout) findViewById(R.id.filters_container);
+        mFiltersContainer = (FlexboxLayout) findViewById(R.id.filters_container);
         mFiltersContainer.setVisibility(View.GONE);
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
