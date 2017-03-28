@@ -28,8 +28,8 @@
                 android:focusableInTouchMode="true"
                 android:gravity="start|center_vertical"
                 android:orientation="horizontal"
-                tools:layout_editor_absoluteY="81dp"
-                tools:layout_editor_absoluteX="24dp">
+                tools:layout_editor_absoluteX="24dp"
+                tools:layout_editor_absoluteY="81dp">
 
                 <ImageView
                     android:id="@+id/imageView_arrow_back"
@@ -38,8 +38,8 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:contentDescription="@string/search_app_name"
-                    tools:layout_editor_absoluteY="8dp"
-                    tools:layout_editor_absoluteX="24dp" />
+                    tools:layout_editor_absoluteX="24dp"
+                    tools:layout_editor_absoluteY="8dp" />
 
                 <com.lapism.searchview.SearchEditText
                     android:id="@+id/searchEditText_input"
@@ -54,8 +54,8 @@
                     android:privateImeOptions="nm"
                     android:textSize="@dimen/search_text_medium"
                     android:windowSoftInputMode="stateAlwaysHidden"
-                    tools:layout_editor_absoluteY="8dp"
-                    tools:layout_editor_absoluteX="72dp">
+                    tools:layout_editor_absoluteX="72dp"
+                    tools:layout_editor_absoluteY="8dp">
 
                     <requestFocus />
                 </com.lapism.searchview.SearchEditText>
@@ -73,8 +73,8 @@
                     style="?android:attr/indeterminateProgressStyle"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    tools:layout_editor_absoluteY="8dp"
-                    tools:layout_editor_absoluteX="300dp" />
+                    tools:layout_editor_absoluteX="300dp"
+                    tools:layout_editor_absoluteY="8dp" />
 
 
                 <ImageView
@@ -84,8 +84,8 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:contentDescription="@string/search_app_name"
-                    tools:layout_editor_absoluteY="8dp"
-                    tools:layout_editor_absoluteX="336dp" />
+                    tools:layout_editor_absoluteX="336dp"
+                    tools:layout_editor_absoluteY="8dp" />
 
                 <ImageView
                     android:id="@+id/imageView_clear"
@@ -94,12 +94,12 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:contentDescription="@string/search_app_name"
+                    tools:layout_conversion_absoluteHeight="48dp"
+                    tools:layout_conversion_absoluteWidth="24dp"
                     tools:layout_conversion_absoluteX="336dp"
                     tools:layout_conversion_absoluteY="0dp"
-                    tools:layout_conversion_absoluteWidth="24dp"
-                    tools:layout_conversion_absoluteHeight="48dp"
-                    tools:layout_editor_absoluteY="8dp"
-                    tools:layout_editor_absoluteX="338dp" />
+                    tools:layout_editor_absoluteX="338dp"
+                    tools:layout_editor_absoluteY="8dp" />
 
 
             </android.support.constraint.ConstraintLayout>
@@ -109,8 +109,8 @@
                 android:layout_width="368dp"
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider"
-                tools:layout_editor_absoluteY="129dp"
-                tools:layout_editor_absoluteX="8dp" />
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="129dp" />
 
             <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/filters_container"
@@ -120,15 +120,15 @@
                 android:orientation="horizontal"
                 android:showDividers="middle"
                 app:flexWrap="wrap"
-                tools:layout_editor_absoluteY="130dp"
-                tools:layout_editor_absoluteX="20dp" />
+                tools:layout_editor_absoluteX="20dp"
+                tools:layout_editor_absoluteY="130dp" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView_result"
                 android:layout_width="368dp"
                 android:layout_height="wrap_content"
-                tools:layout_editor_absoluteY="130dp"
-                tools:layout_editor_absoluteX="8dp" />
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="130dp" />
 
         </android.support.constraint.ConstraintLayout>
 
