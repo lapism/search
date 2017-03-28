@@ -1,6 +1,6 @@
 # SearchView
 
-VERSION 4.1 WILL BE IN NEXT TWO WEEKS (ASAP). SORRY GUYS :-).
+VERSION 4.1 WILL BE ASAP. SORRY GUYS :-).
 
 Persistent SearchView Library like Play Store.  
 Check the [sample project](https://github.com/lapism/SearchView/tree/master/sample/src/main/java/com/lapism/searchview/sample) very thoroughly !!!  
