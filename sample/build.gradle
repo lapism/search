@@ -36,10 +36,11 @@ dependencies {
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 
 /* android.defaultConfig.vectorDrawables.useSupportLibrary = true
-// compile 'com.google.android:flexbox:0.2.3'
 // CONSTRAINT
 // minifyEnabled true
 // shrinkResources true

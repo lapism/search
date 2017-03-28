@@ -215,9 +215,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     public class ResultViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        protected String id_tag;
         final ImageView icon_left;
         final TextView text;
+        protected String id_tag;
 
         public ResultViewHolder(View view) {
             super(view);

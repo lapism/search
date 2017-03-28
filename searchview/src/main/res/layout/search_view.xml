@@ -37,9 +37,9 @@
                     android:layout_height="match_parent"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
+                    android:contentDescription="@string/search_app_name"
                     android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:contentDescription="@string/search_app_name" />
+                    android:paddingRight="12dp" />
 
                 <com.lapism.searchview.SearchEditText
                     android:id="@+id/searchEditText_input"
@@ -110,7 +110,7 @@
                 android:layout_height="@dimen/search_divider"
                 android:background="?android:attr/listDivider" />
 
-            <com.lapism.searchview.FlowLayout
+            <LinearLayout
                 android:id="@+id/filters_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

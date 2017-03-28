@@ -56,7 +56,7 @@ import java.util.List;
 // TODO REMOVE IN FUTURE RELEASE
 // todo to sedz napis
 // TODO cancel + shadow under, najit vsechny chyby, stin, klavesnice , divider, filtrovani
-@SuppressWarnings({"unused", "ConstantConditions", "UnusedAssignment"})
+@SuppressWarnings({"unused", "ConstantConditions", "UnusedAssignment", "UnusedReturnValue"})
 // @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
@@ -113,7 +113,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private ImageView mBackImageView;
     private ImageView mVoiceImageView;
     private ImageView mEmptyImageView;
-    private FlowLayout mFiltersContainer;
+    private LinearLayout mFiltersContainer;
     private LinearLayout mLinearLayout;
     private CharSequence mOldQueryText;
     private CharSequence mUserQuery = "";
@@ -212,6 +212,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return this;
     }
 
+    private static int pxToDp(int px) {
+        return (int) (px / Resources.getSystem().getDisplayMetrics().density);
+    }
+
     // ---------------------------------------------------------------------------------------------
     private void initView() {
         LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
@@ -250,7 +254,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mDividerView = findViewById(R.id.view_divider);
         mDividerView.setVisibility(View.GONE);
 
-        mFiltersContainer = (FlowLayout) findViewById(R.id.filters_container);
+        mFiltersContainer = (LinearLayout) findViewById(R.id.filters_container);
         mFiltersContainer.setVisibility(View.GONE);
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -539,8 +543,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 checkBox.setTextSize(12);
                 checkBox.setTextColor(mTextColor);
                 checkBox.setChecked(filter.isChecked());
-                FlowLayout.LayoutParams lp = new FlowLayout.LayoutParams(
-                        FlowLayout.LayoutParams.WRAP_CONTENT, FlowLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 checkBox.setLayoutParams(lp);
                 checkBox.setTag(filter.getTagId());
                 mFiltersContainer.addView(checkBox);
@@ -587,10 +591,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public int getHeightDP() {
         ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
         return pxToDp(params.height);
-    }
-
-    private static int pxToDp(int px) {
-        return (int) (px / Resources.getSystem().getDisplayMetrics().density);
     }
 
     public SearchView setVersionMargins(int version) {
