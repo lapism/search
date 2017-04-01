@@ -24,6 +24,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.CardView;
@@ -114,8 +115,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private ImageView mBackImageView;
     private ImageView mVoiceImageView;
     private ImageView mEmptyImageView;
-    private FlexboxLayout mFiltersContainer;
-    private LinearLayout mLinearLayout;
+    private LinearLayout mFiltersContainer;
+    private LinearLayout mSearchLayout;
     private CharSequence mOldQueryText;
     private CharSequence mUserQuery = "";
     private String mVoiceText = "Speak now";
@@ -221,7 +222,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private void initView() {
         LayoutInflater.from(mContext).inflate((R.layout.search_view2), this, true);
 
-        mLinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
+        mSearchLayout = (LinearLayout) findViewById(R.id.searchLayout);
         mCardView = (CardView) findViewById(R.id.cardView);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_result);
@@ -254,7 +255,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mDividerView = findViewById(R.id.view_divider);
         mDividerView.setVisibility(View.GONE);
 
-        mFiltersContainer = (FlexboxLayout) findViewById(R.id.filters_container);
+        mFiltersContainer = (LinearLayout) findViewById(R.id.filters_container);
         mFiltersContainer.setVisibility(View.GONE);
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -581,15 +582,15 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     // ---------------------------------------------------------------------------------------------
     public SearchView setHeight(float dp) {
         int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
-        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
+        ViewGroup.LayoutParams params = mSearchLayout.getLayoutParams();
         params.height = height;
         params.width = LinearLayout.LayoutParams.MATCH_PARENT;
-        mLinearLayout.setLayoutParams(params);
+        mSearchLayout.setLayoutParams(params);
         return this;
     }
 
     public int getHeightDP() {
-        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
+        ViewGroup.LayoutParams params = mSearchLayout.getLayoutParams();
         return pxToDp(params.height);
     }
 
@@ -944,6 +945,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         if (mAdapter != null) {
             mDividerView.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.GONE);
+
             SearchAnimator.fadeOut(mRecyclerView, mAnimationDuration);
         }
 

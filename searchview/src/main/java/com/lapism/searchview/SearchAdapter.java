@@ -209,6 +209,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         }
     }
 
+
+
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
