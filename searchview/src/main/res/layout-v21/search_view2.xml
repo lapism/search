@@ -34,7 +34,7 @@
                     android:id="@+id/imageView_arrow_back"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/fasfa"
+                    android:background="@drawable/search_fasfa"
                     android:clickable="true"
                     android:contentDescription="@string/search_app_name"
                     android:drawSelectorOnTop="true"
@@ -75,10 +75,10 @@
                 <ProgressBar
                     android:id="@+id/progressBar"
                     style="?android:attr/indeterminateProgressStyle"
-                    android:layout_width="@dimen/progress_width"
+                    android:layout_width="@dimen/search_progress_width"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/progress_margin_end"
-                    android:layout_marginRight="@dimen/progress_margin_end" />
+                    android:layout_marginEnd="@dimen/search_progress_margin_end"
+                    android:layout_marginRight="@dimen/search_progress_margin_end" />
 
                 <FrameLayout
                     android:layout_width="40dp"
@@ -117,11 +117,11 @@
                 android:id="@+id/filters_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/filter_margin_start"
-                android:layout_marginLeft="@dimen/filter_margin_start"
-                android:layout_marginRight="@dimen/filter_margin_start"
-                android:layout_marginStart="@dimen/filter_margin_start"
-                android:divider="@drawable/filter_empty_divider"
+                android:layout_marginEnd="@dimen/search_filter_margin_start"
+                android:layout_marginLeft="@dimen/search_filter_margin_start"
+                android:layout_marginRight="@dimen/search_filter_margin_start"
+                android:layout_marginStart="@dimen/search_filter_margin_start"
+                android:divider="@drawable/search_filter_empty_divider"
                 android:orientation="horizontal"
                 android:showDividers="middle" />
 

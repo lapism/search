@@ -43,10 +43,10 @@
         <attr name="search_cursor_drawable" format="integer" />
     </declare-styleable>
 
-    <declare-styleable name="FlowLayout">
+    <declare-styleable name="SearchFlowLayout">
         <attr name="android:gravity" />
     </declare-styleable>
-    <declare-styleable name="FlowLayout_Layout">
+    <declare-styleable name="SearchFlowLayout_Layout">
         <attr name="android:layout_gravity" />
     </declare-styleable>
 

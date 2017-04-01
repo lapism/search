@@ -27,11 +27,11 @@ public class SearchItem implements Parcelable {
     }
 
     public SearchItem(CharSequence text) {
-        this(R.drawable.ic_search_black_24dp, text, null);
+        this(R.drawable.search_ic_search_black_24dp, text, null);
     }
 
     public SearchItem(CharSequence text, String tag) {
-        this(R.drawable.ic_search_black_24dp, text, tag);
+        this(R.drawable.search_ic_search_black_24dp, text, tag);
     }
 
     public SearchItem(int icon, CharSequence text) {

@@ -116,7 +116,7 @@
                 android:id="@+id/filters_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:divider="@drawable/filter_empty_divider"
+                android:divider="@drawable/search_filter_empty_divider"
                 android:orientation="horizontal"
                 android:showDividers="middle"
                 app:flexWrap="wrap"
