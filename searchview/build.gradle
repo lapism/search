@@ -12,13 +12,13 @@ buildscript {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion Integer.parseInt(project.TARGET_SDK)
+    buildToolsVersion project.BUILD_TOOLS
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 25
-        versionCode 4
-        versionName "4.1"
+        minSdkVersion Integer.parseInt(project.MIN_SDK)
+        targetSdkVersion Integer.parseInt(project.TARGET_SDK)
+        versionCode Integer.parseInt(project.VERSION_CODE)
+        versionName project.VERSION_NAME
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // vectorDrawables.useSupportLibrary = true
     }
@@ -39,10 +39,10 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.android.support:cardview-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
+    compile "com.android.support:appcompat-v7:$ANDROID_SUPPORT_LIBS"
+    compile "com.android.support:recyclerview-v7:$ANDROID_SUPPORT_LIBS"
+    compile "com.android.support:cardview-v7:$ANDROID_SUPPORT_LIBS"
+    compile "com.android.support:design:$ANDROID_SUPPORT_LIBS"
 
     // compile 'com.google.android:flexbox:0.3.0-alpha2'
     compile 'com.google.android:flexbox:0.2.6'
@@ -53,9 +53,9 @@ dependencies {
 
 publish {
     userOrg = 'lapism'
-    groupId = 'com.lapism'
-    artifactId = 'searchview'
-    publishVersion = '4.1'
+    groupId = project.APP_GROUP
+    artifactId = project.APP_ID.toLowerCase()
+    publishVersion = project.VERSION_NAME
     desc = 'SearchView Library'
     website = 'https://github.com/lapism/SearchView'
 }
