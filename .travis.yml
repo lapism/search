@@ -4,7 +4,7 @@ android:
   components:
     # Uncomment the lines below if you want to
     # use the latest revision of Android SDK Tools
-    # - platform-tools
+    - platform-tools
     - tools
 
     # The BuildTools version used by your project
@@ -14,7 +14,6 @@ android:
     - android-25
 
     # Additional components
-    - extra-android-support
     - extra-google-m2repository
     - extra-android-m2repository
 
