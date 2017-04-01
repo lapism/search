@@ -11,6 +11,12 @@ android {
         versionName project.VERSION_NAME
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(output.outputFile.parent,
+                    "${project.APP_ID}-v${variant.versionName}.apk")
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
