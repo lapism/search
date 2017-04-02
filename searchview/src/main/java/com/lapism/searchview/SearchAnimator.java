@@ -16,21 +16,36 @@ import android.view.animation.Animation;
 class SearchAnimator {
 
     static void fadeIn(View view, int duration) {
+        view.setVisibility(View.VISIBLE);
         Animation anim = new AlphaAnimation(0.0f, 1.0f);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(duration);
-
         view.setAnimation(anim);
-        view.setVisibility(View.VISIBLE);
+
     }
 
-    static void fadeOut(View view, int duration) {
+    static void fadeOut(final View view, int duration) {
         Animation anim = new AlphaAnimation(1.0f, 0.0f);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(duration);
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                view.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
         view.setAnimation(anim);
-        view.setVisibility(View.GONE);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

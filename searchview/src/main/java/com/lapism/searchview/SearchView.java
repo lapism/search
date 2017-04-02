@@ -229,7 +229,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setNestedScrollingEnabled(false);
         //mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setVisibility(View.GONE);
+//        mRecyclerView.setVisibility(View.GONE);
         //mRecyclerView.setItemAnimator(null);
         //mRecyclerView.setLayoutTransition(getRecyclerViewLayoutTransition());
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -930,7 +930,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public SearchView showSuggestions() {
         if (mAdapter != null && mAdapter.getItemCount() > 0) { // ||
             mDividerView.setVisibility(View.VISIBLE);
-            mRecyclerView.setVisibility(View.VISIBLE);
             SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
         }
 
@@ -944,8 +943,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public SearchView hideSuggestions() {
         if (mAdapter != null) {
             mDividerView.setVisibility(View.GONE);
-            mRecyclerView.setVisibility(View.GONE);
-
             SearchAnimator.fadeOut(mRecyclerView, mAnimationDuration);
         }
 
