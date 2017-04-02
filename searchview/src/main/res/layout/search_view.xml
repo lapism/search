@@ -21,7 +21,7 @@
             android:orientation="vertical">
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/linearLayout"
+                android:id="@+id/searchLayout"
                 android:layout_width="336dp"
                 android:layout_height="48dp"
                 android:focusable="true"
@@ -46,6 +46,8 @@
                     android:layout_width="0dp"
                     android:layout_height="32dp"
                     android:background="@android:color/transparent"
+                    app:layout_constraintStart_toEndOf="@id/imageView_arrow_back"
+                    app:layout_constraintEnd_toStartOf="@+id/progressBar"
                     android:ems="10"
                     android:gravity="start|center_vertical"
                     android:imeOptions="actionSearch|flagNoExtractUi"
@@ -69,7 +71,7 @@
                  -->
 
                 <ProgressBar
-                    android:id="@+id/progressBar"
+                    android:id="@id/progressBar"
                     style="?android:attr/indeterminateProgressStyle"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
@@ -116,7 +118,7 @@
                 android:id="@+id/filters_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:divider="@drawable/filter_empty_divider"
+                android:divider="@drawable/search_filter_empty_divider"
                 android:orientation="horizontal"
                 android:showDividers="middle"
                 app:flexWrap="wrap"

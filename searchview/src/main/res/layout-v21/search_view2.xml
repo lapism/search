@@ -38,7 +38,7 @@
                     android:clickable="true"
                     android:contentDescription="@string/search_app_name"
                     android:drawSelectorOnTop="true"
-                    android:foreground="?android:attr/selectableItemBackground"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
                     android:scaleType="centerInside" />
 
                 <com.lapism.searchview.SearchEditText
@@ -88,7 +88,7 @@
                         android:id="@+id/imageView_mic"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="?android:attr/selectableItemBackground"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:contentDescription="@string/search_app_name"
                         android:scaleType="centerInside" />
@@ -97,7 +97,7 @@
                         android:id="@+id/imageView_clear"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="?android:attr/selectableItemBackground"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:contentDescription="@string/search_app_name"
                         android:scaleType="centerInside" />

@@ -1,15 +1,21 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion Integer.parseInt(project.TARGET_SDK)
+    buildToolsVersion project.BUILD_TOOLS
     defaultConfig {
-        applicationId "com.lapism.searchview.sample"
-        minSdkVersion 16
-        targetSdkVersion 25
-        versionCode 42
-        versionName "4.1"
+        applicationId "${project.APP_GROUP}." + project.APP_ID.toLowerCase() + ".sample"
+        minSdkVersion Integer.parseInt(project.MIN_SDK)
+        targetSdkVersion Integer.parseInt(project.TARGET_SDK)
+        versionCode Integer.parseInt(project.VERSION_CODE)
+        versionName project.VERSION_NAME
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(output.outputFile.parent,
+                    "${project.APP_ID}-v${variant.versionName}.apk")
+        }
     }
     buildTypes {
         release {
@@ -27,8 +33,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
     testCompile 'junit:junit:4.12'
 
     compile project(':searchview')

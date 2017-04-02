@@ -26,7 +26,8 @@
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        tools:layout_constraintTop_creator="1"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <TextView
         android:id="@+id/textView_item_text"
@@ -39,6 +40,7 @@
         android:maxLines="1"
         android:textIsSelectable="false"
         android:textSize="@dimen/search_text_small"
+        app:layout_constraintLeft_toRightOf="@id/imageView_item_icon_left"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_constraintRight_creator="1"

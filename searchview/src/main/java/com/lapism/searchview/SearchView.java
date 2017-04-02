@@ -24,6 +24,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.CardView;
@@ -114,8 +115,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private ImageView mBackImageView;
     private ImageView mVoiceImageView;
     private ImageView mEmptyImageView;
-    private FlexboxLayout mFiltersContainer;
-    private LinearLayout mLinearLayout;
+    private LinearLayout mFiltersContainer;
+    private LinearLayout mSearchLayout;
     private CharSequence mOldQueryText;
     private CharSequence mUserQuery = "";
     private String mVoiceText = "Speak now";
@@ -219,16 +220,16 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     // ---------------------------------------------------------------------------------------------
     private void initView() {
-        LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
+        LayoutInflater.from(mContext).inflate((R.layout.search_view2), this, true);
 
-        mLinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
+        mSearchLayout = (LinearLayout) findViewById(R.id.searchLayout);
         mCardView = (CardView) findViewById(R.id.cardView);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_result);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setNestedScrollingEnabled(false);
         //mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setVisibility(View.GONE);
+//        mRecyclerView.setVisibility(View.GONE);
         //mRecyclerView.setItemAnimator(null);
         //mRecyclerView.setLayoutTransition(getRecyclerViewLayoutTransition());
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -254,19 +255,19 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mDividerView = findViewById(R.id.view_divider);
         mDividerView.setVisibility(View.GONE);
 
-        mFiltersContainer = (FlexboxLayout) findViewById(R.id.filters_container);
+        mFiltersContainer = (LinearLayout) findViewById(R.id.filters_container);
         mFiltersContainer.setVisibility(View.GONE);
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mProgressBar.setVisibility(View.GONE);
 
         mVoiceImageView = (ImageView) findViewById(R.id.imageView_mic);
-        mVoiceImageView.setImageResource(R.drawable.ic_mic_black_24dp);
+        mVoiceImageView.setImageResource(R.drawable.search_ic_mic_black_24dp);
         mVoiceImageView.setOnClickListener(this);
         mVoiceImageView.setVisibility(View.GONE);
 
         mEmptyImageView = (ImageView) findViewById(R.id.imageView_clear);
-        mEmptyImageView.setImageResource(R.drawable.ic_clear_black_24dp);
+        mEmptyImageView.setImageResource(R.drawable.search_ic_clear_black_24dp);
         mEmptyImageView.setOnClickListener(this);
         mEmptyImageView.setVisibility(View.GONE);
 
@@ -534,7 +535,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         } else {
             mSearchFiltersStates = new ArrayList<>();
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mFiltersContainer.getLayoutParams();
-            params.topMargin = mContext.getResources().getDimensionPixelSize(R.dimen.filter_margin_top);
+            params.topMargin = mContext.getResources().getDimensionPixelSize(R.dimen.search_filter_margin_top);
             params.bottomMargin = params.topMargin / 2;
             mFiltersContainer.setLayoutParams(params);
             for (SearchFilter filter : filters) {
@@ -581,15 +582,15 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     // ---------------------------------------------------------------------------------------------
     public SearchView setHeight(float dp) {
         int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
-        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
+        ViewGroup.LayoutParams params = mSearchLayout.getLayoutParams();
         params.height = height;
         params.width = LinearLayout.LayoutParams.MATCH_PARENT;
-        mLinearLayout.setLayoutParams(params);
+        mSearchLayout.setLayoutParams(params);
         return this;
     }
 
     public int getHeightDP() {
-        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
+        ViewGroup.LayoutParams params = mSearchLayout.getLayoutParams();
         return pxToDp(params.height);
     }
 
@@ -929,7 +930,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public SearchView showSuggestions() {
         if (mAdapter != null && mAdapter.getItemCount() > 0) { // ||
             mDividerView.setVisibility(View.VISIBLE);
-            mRecyclerView.setVisibility(View.VISIBLE);
             SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
         }
 
@@ -943,7 +943,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public SearchView hideSuggestions() {
         if (mAdapter != null) {
             mDividerView.setVisibility(View.GONE);
-            mRecyclerView.setVisibility(View.GONE);
             SearchAnimator.fadeOut(mRecyclerView, mAnimationDuration);
         }
 
@@ -961,7 +960,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 mSearchArrow.animate(SearchArrowDrawable.STATE_ARROW, mAnimationDuration);
             }
         } else {
-            mBackImageView.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+            mBackImageView.setImageResource(R.drawable.search_ic_arrow_back_black_24dp);
         }
         mArrow = true;
         return this;
@@ -1004,8 +1003,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public SearchView setGoogleIcons() {
         // todo set ptropertzx
-        mBackImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_logo));
-        mVoiceImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic));
+        mBackImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_logo));
+        mVoiceImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_mic));
         return this;
     }
 
