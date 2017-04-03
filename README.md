@@ -1,6 +1,6 @@
 # SearchView
 
-VERSION 4.1 WILL BE ASAP. SORRY GUYS :-).
+I AM WORKING ON THIS PROJECT FINALLY AGAIN... Next version will be ASAP
 
 Persistent SearchView Library like Play Store.  
 Check the [sample project](https://github.com/lapism/SearchView/tree/master/sample/src/main/java/com/lapism/searchview/sample) very thoroughly !!!  
@@ -34,6 +34,7 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 [MaxTorz](https://play.google.com/store/apps/details?id=com.maxxsol.maxtorz) <br />
 [RealTime Subscriber YouTube](https://play.google.com/store/apps/details?id=vulcanweblabs.realtimeyoutube) <br />
 [Lucidity - Lucid Dream Journal](https://play.google.com/store/apps/details?id=ch.b3nz.lucidity) <br />
+[Guide COC](https://play.google.com/store/apps/details?id=com.superguide.coc) <br />
 
  **Known bugs:**
  - no divider when SearchView starts.  
