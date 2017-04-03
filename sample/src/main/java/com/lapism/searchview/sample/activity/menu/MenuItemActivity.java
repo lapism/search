@@ -6,7 +6,6 @@ import android.support.v4.view.GravityCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.lapism.searchview.sample.R;
 import com.lapism.searchview.sample.base.BaseActivity;
@@ -34,11 +33,8 @@ public class MenuItemActivity extends BaseActivity {
         super.onPostCreate(savedInstanceState);
         mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
         mActionBarDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
-        mActionBarDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDrawerLayout.openDrawer(GravityCompat.START); // WITHOUT finish(); + finish();
-            }
+        mActionBarDrawerToggle.setToolbarNavigationClickListener(v -> {
+            mDrawerLayout.openDrawer(GravityCompat.START); // WITHOUT finish(); + finish();
         });
 
         setSearchView();

@@ -45,12 +45,7 @@ public class SearchActivity extends BaseActivity {
         setSearchView();
         mSearchView.setArrowOnly(true);
         // mSearchView.setTextOnly(R.string.search);
-        mSearchView.setOnMenuClickListener(new SearchView.OnMenuClickListener() {
-            @Override
-            public void onMenuClick() {
-                finish();
-            }
-        });
+        mSearchView.setOnMenuClickListener(this::finish);
         customSearchView();
         mSearchView.setVersionMargins(SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
         // mSearchView.setShouldClearOnOpen(true);

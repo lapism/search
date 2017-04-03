@@ -32,14 +32,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mTextView.setText(mValues.get(position));
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    /*Context context = v.getContext();
-                    Intent intent = news Intent(context, ExampleDetailActivity.class);
-                    intent.putExtra(ExampleDetailActivity.EXTRA_NAME, holder.mBoundString);
-                    context.startActivity(intent);*/
-            }
+        holder.mView.setOnClickListener(v -> {
+                /*Context context = v.getContext();
+                Intent intent = news Intent(context, ExampleDetailActivity.class);
+                intent.putExtra(ExampleDetailActivity.EXTRA_NAME, holder.mBoundString);
+                context.startActivity(intent);*/
         });
 
         //holder.mImageView.getContext())

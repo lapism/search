@@ -7,7 +7,6 @@ import android.support.v4.view.GravityCompat;
 import android.widget.Toast;
 
 import com.lapism.searchview.SearchFilter;
-import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
 import com.lapism.searchview.sample.base.BaseActivity;
 
@@ -38,11 +37,8 @@ public class FiltersActivity extends BaseActivity {
         mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
 
         setSearchView();
-        mSearchView.setOnMenuClickListener(new SearchView.OnMenuClickListener() {
-            @Override
-            public void onMenuClick() {
-                mDrawerLayout.openDrawer(GravityCompat.START); // finish();
-            }
+        mSearchView.setOnMenuClickListener(() -> {
+            mDrawerLayout.openDrawer(GravityCompat.START); // finish();
         });
         customSearchView();
 
@@ -58,21 +54,18 @@ public class FiltersActivity extends BaseActivity {
     protected void getData(String text, int position) {
         super.getData(text, position);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                String text = "Selected: ";
-                List<Boolean> filtersState = mSearchView.getFiltersStates();
-                int i = 0;
-                for (Boolean filter : filtersState) {
-                    i++;
-                    if (filter)
-                        text += "Filter" + i;
-                }
-                if (text.equals("Selected: "))
-                    text += "nothing";
-                Toast.makeText(FiltersActivity.this, text, Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(() -> {
+            String text1 = "Selected: ";
+            List<Boolean> filtersState = mSearchView.getFiltersStates();
+            int i = 0;
+            for (Boolean filter : filtersState) {
+                i++;
+                if (filter)
+                    text1 += "Filter" + i;
             }
+            if (text1.equals("Selected: "))
+                text1 += "nothing";
+            Toast.makeText(FiltersActivity.this, text1, Toast.LENGTH_SHORT).show();
         }, 600);
     }
 

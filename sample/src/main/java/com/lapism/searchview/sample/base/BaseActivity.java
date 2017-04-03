@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -145,12 +144,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void setFab() {
         mFab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         if (mFab != null) {
-            mFab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mHistoryDatabase.clearDatabase();
-                    Snackbar.make(v, "Search history deleted.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                }
+            mFab.setOnClickListener(v -> {
+                mHistoryDatabase.clearDatabase();
+                Snackbar.make(v, "Search history deleted.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             });
         }
     }
@@ -186,44 +182,41 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void setNavigationView() { // @Nullable
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
-            navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    int id = item.getItemId();
+            navigationView.setNavigationItemSelectedListener(item -> {
+                int id = item.getItemId();
 
-                    if (id == R.id.nav_item_toolbar || id == R.id.nav_item_filters) {
-                        Intent intent = new Intent(BaseActivity.this, id == R.id.nav_item_toolbar ? ToolbarActivity.class : FiltersActivity.class);
-                        intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
-                        intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
-                        intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
-                        startActivity(intent);
-                        finish();
-                    }
-
-                    if (id == R.id.nav_item_menu_item) {
-                        Intent intent = new Intent(BaseActivity.this, MenuItemActivity.class);
-                        intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_MENU_ITEM);
-                        intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_MENU_ITEM);
-                        intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
-                        startActivity(intent);
-                        finish();
-                    }
-
-                    if (id == R.id.nav_item_history) {
-                        // Intent intent = new Intent(this, id == R.id.nav_toggle_versions ? ToggleActivity.class : HistoryActivity.class);
-                        Intent intent = new Intent(BaseActivity.this, HistoryActivity.class);
-                        intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
-                        intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
-                        intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
-                        startActivity(intent);
-                        finish();
-                    }
-
-                    // item.setChecked(true);
-                    // mDrawerLayout.closeDrawers();
-                    mDrawerLayout.closeDrawer(GravityCompat.START);
-                    return true;
+                if (id == R.id.nav_item_toolbar || id == R.id.nav_item_filters) {
+                    Intent intent = new Intent(BaseActivity.this, id == R.id.nav_item_toolbar ? ToolbarActivity.class : FiltersActivity.class);
+                    intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
+                    intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
+                    intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
+                    startActivity(intent);
+                    finish();
                 }
+
+                if (id == R.id.nav_item_menu_item) {
+                    Intent intent = new Intent(BaseActivity.this, MenuItemActivity.class);
+                    intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_MENU_ITEM);
+                    intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_MENU_ITEM);
+                    intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
+                    startActivity(intent);
+                    finish();
+                }
+
+                if (id == R.id.nav_item_history) {
+                    // Intent intent = new Intent(this, id == R.id.nav_toggle_versions ? ToggleActivity.class : HistoryActivity.class);
+                    Intent intent = new Intent(BaseActivity.this, HistoryActivity.class);
+                    intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
+                    intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
+                    intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
+                    startActivity(intent);
+                    finish();
+                }
+
+                // item.setChecked(true);
+                // mDrawerLayout.closeDrawers();
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                return true;
             });
             if (getNavItem() > NAV_ITEM_INVALID) {
                 navigationView.getMenu().getItem(getNavItem()).setChecked(true);
@@ -269,11 +262,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }
             });
             mSearchView.setVoiceText("Set permission on Android 6.0+ !");
-            mSearchView.setOnVoiceClickListener(new SearchView.OnVoiceClickListener() {
-                @Override
-                public void onVoiceClick() {
-                    // permission
-                }
+            mSearchView.setOnVoiceClickListener(() -> {
+                // permission
             });
 
             List<SearchItem> suggestionsList = new ArrayList<>();
@@ -282,14 +272,11 @@ public abstract class BaseActivity extends AppCompatActivity {
             suggestionsList.add(new SearchItem("search3"));
 
             SearchAdapter searchAdapter = new SearchAdapter(this, suggestionsList);
-            searchAdapter.addOnItemClickListener(new SearchAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    TextView textView = (TextView) view.findViewById(R.id.textView_item_text);
-                    String query = textView.getText().toString();
-                    getData(query, position);
-                    mSearchView.close(false);
-                }
+            searchAdapter.addOnItemClickListener((view, position) -> {
+                TextView textView = (TextView) view.findViewById(R.id.textView_item_text);
+                String query = textView.getText().toString();
+                getData(query, position);
+                mSearchView.close(false);
             });
             mSearchView.setAdapter(searchAdapter);
 

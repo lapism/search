@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.lapism.searchview.SearchAdapter;
-import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
 import com.lapism.searchview.sample.base.BaseActivity;
 
@@ -35,11 +34,8 @@ public class HistoryActivity extends BaseActivity {
         mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
 
         setSearchView();
-        mSearchView.setOnMenuClickListener(new SearchView.OnMenuClickListener() {
-            @Override
-            public void onMenuClick() {
-                mDrawerLayout.openDrawer(GravityCompat.START); // finish();
-            }
+        mSearchView.setOnMenuClickListener(() -> {
+            mDrawerLayout.openDrawer(GravityCompat.START); // finish();
         });
         customSearchView();
 
