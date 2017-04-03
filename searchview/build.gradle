@@ -14,13 +14,15 @@ buildscript {
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 4
         versionName "4.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        // vectorDrawables.useSupportLibrary = true
+
+        vectorDrawables.useSupportLibrary = true
     }
     sourceSets {
         main.res.srcDirs 'res', 'res-public'
