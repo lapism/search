@@ -24,6 +24,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.CardView;
@@ -115,7 +116,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private ImageView mVoiceImageView;
     private ImageView mEmptyImageView;
     private FlexboxLayout mFiltersContainer;
-    private LinearLayout mLinearLayout;
+    private ConstraintLayout mLinearLayout;
     private CharSequence mOldQueryText;
     private CharSequence mUserQuery = "";
     private String mVoiceText = "Speak now";
@@ -221,7 +222,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private void initView() {
         LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
 
-        mLinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
+        mLinearLayout = (ConstraintLayout) findViewById(R.id.linearLayout);
         mCardView = (CardView) findViewById(R.id.cardView);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_result);
