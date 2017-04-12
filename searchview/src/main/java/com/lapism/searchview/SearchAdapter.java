@@ -65,10 +65,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                     history.addAll(mSuggestionsList);
 
                     for (SearchItem item : history) {
-                        String string = item.get_text().toString().toLowerCase(Locale.getDefault());
+                        String string = item.getText().toString().toLowerCase(Locale.getDefault());
                         if (string.contains(key)) {
                             results.add(item);
-                        }// TODO ADVANCED COMPARE METHOD
+                        } // TODO ADVANCED COMPARE METHOD
                     }
 
                     if (results.size() > 0) {
@@ -121,12 +121,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public void onBindViewHolder(ResultViewHolder viewHolder, int position) {
         SearchItem item = mResultList.get(position);
 
-        viewHolder.icon_left.setImageResource(item.get_icon());
+        viewHolder.icon_left.setImageResource(item.getIconResource());
         viewHolder.icon_left.setColorFilter(SearchView.getIconColor(), PorterDuff.Mode.SRC_IN);
         viewHolder.text.setTypeface((Typeface.create(SearchView.getTextFont(), SearchView.getTextStyle())));
         viewHolder.text.setTextColor(SearchView.getTextColor());
 
-        String itemText = item.get_text().toString();
+        String itemText = item.getText().toString();
         String itemTextLower = itemText.toLowerCase(Locale.getDefault());
 
         if (itemTextLower.contains(key) && !key.isEmpty()) {
@@ -134,10 +134,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             s.setSpan(new ForegroundColorSpan(SearchView.getTextHighlightColor()), itemTextLower.indexOf(key), itemTextLower.indexOf(key) + key.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
         } else {
-            viewHolder.text.setText(item.get_text());
+            viewHolder.text.setText(item.getText());
         }
 
-        viewHolder.id_tag = item.get_tag();
+        viewHolder.id_tag = item.getTag();
     }
 
     @Override

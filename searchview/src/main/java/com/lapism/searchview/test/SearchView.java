@@ -70,8 +70,7 @@ import android.widget.TextView.OnEditorActionListener;
 import java.lang.reflect.Method;
 import java.util.WeakHashMap;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-import static android.support.v7.widget.SuggestionsAdapter.getColumnString;
+//import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;@RestrictTo(LIBRARY_GROUP)
 
 
 public class SearchView extends LinearLayoutCompat implements CollapsibleActionView {
@@ -121,9 +120,8 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
     private int mCollapsedImeOptions;
     SearchableInfo mSearchable;
     private Bundle mAppSearchData;
-
+    private final WeakHashMap<String, Drawable.ConstantState> mOutsideDrawablesCache = new WeakHashMap<>();
     static final AutoCompleteTextViewReflector HIDDEN_METHOD_INVOKER = new AutoCompleteTextViewReflector();
-
     private final Runnable mShowImeRunnable = new Runnable() {
         @Override
         public void run() {
@@ -150,30 +148,7 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
         }
     };
 
-    private final WeakHashMap<String, Drawable.ConstantState> mOutsideDrawablesCache =
-            new WeakHashMap<>();
 
-    /**
-     * Callbacks for changes to the query text.
-     */
-    public interface OnQueryTextListener {
-
-        boolean onQueryTextSubmit(String query);
-
-        boolean onQueryTextChange(String newText);
-    }
-
-    public interface OnCloseListener {
-
-        boolean onClose();
-    }
-
-    public interface OnSuggestionListener {
-
-        boolean onSuggestionSelect(int position);
-
-        boolean onSuggestionClick(int position);
-    }
 
     public SearchView(Context context) {
         this(context, null);
@@ -186,12 +161,10 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
     public SearchView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        final TintTypedArray a = TintTypedArray.obtainStyledAttributes(context,
-                attrs, R.styleable.SearchView, defStyleAttr, 0);
+        final TintTypedArray a = TintTypedArray.obtainStyledAttributes(context, attrs, R.styleable.SearchView, defStyleAttr, 0);
 
         final LayoutInflater inflater = LayoutInflater.from(context);
-        final int layoutResId = a.getResourceId(
-                R.styleable.SearchView_layout, R.layout.abc_search_view);
+        final int layoutResId = a.getResourceId(R.styleable.SearchView_layout, R.layout.abc_search_view);
         inflater.inflate(layoutResId, this, true);
 
         mSearchSrcTextView = (SearchAutoComplete) findViewById(R.id.search_src_text);
@@ -218,15 +191,74 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
         mSuggestionRowLayout = a.getResourceId(R.styleable.SearchView_suggestionRowLayout, R.layout.abc_search_dropdown_item_icons_2line);
         mSuggestionCommitIconResId = a.getResourceId(R.styleable.SearchView_commitIcon, 0);
 
+        OnClickListener mOnClickListener = new OnClickListener() {//trida , impelemtns a nebo tohle
+            @Override
+            public void onClick(View v) {
+                if (v == mSearchButton) {
+                    onSearchClicked();
+                } else if (v == mCloseButton) {
+                    onCloseClicked();
+                } else if (v == mGoButton) {
+                    onSubmitQuery();
+                } else if (v == mVoiceButton) {
+                    onVoiceClicked();
+                } else if (v == mSearchSrcTextView) {
+                    forceSuggestionQuery();
+                }
+            }
+        };
         mSearchButton.setOnClickListener(mOnClickListener);
         mCloseButton.setOnClickListener(mOnClickListener);
         mGoButton.setOnClickListener(mOnClickListener);
         mVoiceButton.setOnClickListener(mOnClickListener);
         mSearchSrcTextView.setOnClickListener(mOnClickListener);
 
+        TextWatcher mTextWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int before, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int after) {
+                SearchView.this.onTextChanged(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        };
         mSearchSrcTextView.addTextChangedListener(mTextWatcher);
+        OnEditorActionListener mOnEditorActionListener = new OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                onSubmitQuery();
+                return true;
+            }
+        };
         mSearchSrcTextView.setOnEditorActionListener(mOnEditorActionListener);
+        OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (DBG) Log.d(LOG_TAG, "onItemClick() position " + position);
+                onItemClicked(position, KeyEvent.KEYCODE_UNKNOWN, null);
+            }
+        };
         mSearchSrcTextView.setOnItemClickListener(mOnItemClickListener);
+        OnItemSelectedListener mOnItemSelectedListener = new OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (DBG) Log.d(LOG_TAG, "onItemSelected() position " + position);
+                SearchView.this.onItemSelected(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                if (DBG)
+                    Log.d(LOG_TAG, "onNothingSelected()");
+            }
+        };
         mSearchSrcTextView.setOnItemSelectedListener(mOnItemSelectedListener);
         mSearchSrcTextView.setOnKeyListener(mTextKeyListener);
         mSearchSrcTextView.setOnFocusChangeListener(new OnFocusChangeListener() {
@@ -370,20 +402,10 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
         mOnQueryChangeListener = listener;
     }
 
-    /**
-     * Sets a listener to inform when the user closes the SearchView.
-     *
-     * @param listener the listener to call when the user closes the SearchView.
-     */
     public void setOnCloseListener(OnCloseListener listener) {
         mOnCloseListener = listener;
     }
 
-    /**
-     * Sets a listener to inform when the focus of the query text field changes.
-     *
-     * @param listener the listener to inform of focus changes.
-     */
     public void setOnQueryTextFocusChangeListener(OnFocusChangeListener listener) {
         mOnQueryTextFocusChangeListener = listener;
     }
@@ -461,13 +483,6 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
 
     public boolean isSubmitButtonEnabled() {
         return mSubmitButtonEnabled;
-    }
-
-    public void setQueryRefinementEnabled(boolean enable) {
-        mQueryRefinement = enable;
-        if (mSuggestionsAdapter instanceof SuggestionsAdapter) {
-            ((SuggestionsAdapter) mSuggestionsAdapter).setQueryRefinement(enable ? SuggestionsAdapter.REFINE_ALL : SuggestionsAdapter.REFINE_BY_ENTRY);
-        }
     }
 
     public boolean isQueryRefinementEnabled() {
@@ -692,23 +707,6 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
         setQuery(queryText);
     }
 
-    private final OnClickListener mOnClickListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (v == mSearchButton) {
-                onSearchClicked();
-            } else if (v == mCloseButton) {
-                onCloseClicked();
-            } else if (v == mGoButton) {
-                onSubmitQuery();
-            } else if (v == mVoiceButton) {
-                onVoiceClicked();
-            } else if (v == mSearchSrcTextView) {
-                forceSuggestionQuery();
-            }
-        }
-    };
-
     final View.OnKeyListener mTextKeyListener = new View.OnKeyListener() {
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -792,9 +790,6 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
         mSearchSrcTextView.setHint(getDecoratedHint(hint == null ? "" : hint));
     }
 
-    /**
-     * Updates the auto-complete text view.
-     */
     private void updateSearchAutoComplete() {
         mSearchSrcTextView.setThreshold(mSearchable.getSuggestThreshold());
         mSearchSrcTextView.setImeOptions(mSearchable.getImeOptions());
@@ -813,12 +808,8 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
         }
 
         if (mSearchable.getSuggestAuthority() != null) {
-            mSuggestionsAdapter = new SuggestionsAdapter(getContext(),
-                    this, mSearchable, mOutsideDrawablesCache);
+            mSuggestionsAdapter = new SuggestionsAdapter(getContext(), this, mSearchable, mOutsideDrawablesCache);
             mSearchSrcTextView.setAdapter(mSuggestionsAdapter);
-            ((SuggestionsAdapter) mSuggestionsAdapter).setQueryRefinement(
-                    mQueryRefinement ? SuggestionsAdapter.REFINE_ALL
-                            : SuggestionsAdapter.REFINE_BY_ENTRY);
         }
     }
 
@@ -830,14 +821,6 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
         }
         mVoiceButton.setVisibility(visibility);
     }
-
-    private final OnEditorActionListener mOnEditorActionListener = new OnEditorActionListener() {
-        @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-            onSubmitQuery();
-            return true;
-        }
-    };
 
     void onTextChanged(CharSequence newText) {
         CharSequence text = mSearchSrcTextView.getText();
@@ -952,14 +935,14 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
         setIconified(false);
     }
 
-    static class SavedState extends AbsSavedState {
+    private static class SavedState extends AbsSavedState {
         boolean isIconified;
 
         SavedState(Parcelable superState) {
             super(superState);
         }
 
-        public SavedState(Parcel source, ClassLoader loader) {
+        private SavedState(Parcel source, ClassLoader loader) {
             super(source, loader);
             isIconified = (Boolean) source.readValue(getClass().getClassLoader());
         }
@@ -1054,39 +1037,6 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
         }
         return false;
     }
-
-    private final OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
-
-        /**
-         * Implements OnItemClickListener
-         */
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (DBG) Log.d(LOG_TAG, "onItemClick() position " + position);
-            onItemClicked(position, KeyEvent.KEYCODE_UNKNOWN, null);
-        }
-    };
-
-    private final OnItemSelectedListener mOnItemSelectedListener = new OnItemSelectedListener() {
-
-        /**
-         * Implements OnItemSelectedListener
-         */
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            if (DBG) Log.d(LOG_TAG, "onItemSelected() position " + position);
-            SearchView.this.onItemSelected(position);
-        }
-
-        /**
-         * Implements OnItemSelectedListener
-         */
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-            if (DBG)
-                Log.d(LOG_TAG, "onNothingSelected()");
-        }
-    };
 
     private void rewriteQueryFromSuggestion(int position) {
         CharSequence oldQuery = mSearchSrcTextView.getText();
@@ -1265,21 +1215,6 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
                 == Configuration.ORIENTATION_LANDSCAPE;
     }
 
-    private final TextWatcher mTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int before, int after) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int after) {
-            SearchView.this.onTextChanged(s);
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-        }
-    };
-
     private static class UpdatableTouchDelegate extends TouchDelegate {
 
         private final View mDelegateView;
@@ -1289,7 +1224,7 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
         private final int mSlop;
         private boolean mDelegateTargeted;
 
-        public UpdatableTouchDelegate(Rect targetBounds, Rect actualBounds, View delegateView) {
+        UpdatableTouchDelegate(Rect targetBounds, Rect actualBounds, View delegateView) {
             super(targetBounds, delegateView);
             mSlop = ViewConfiguration.get(delegateView.getContext()).getScaledTouchSlop();
             mTargetBounds = new Rect();
@@ -1299,7 +1234,7 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
             mDelegateView = delegateView;
         }
 
-        public void setBounds(Rect desiredBounds, Rect actualBounds) {
+        void setBounds(Rect desiredBounds, Rect actualBounds) {
             mTargetBounds.set(desiredBounds);
             mSlopBounds.set(desiredBounds);
             mSlopBounds.inset(-mSlop, -mSlop);
@@ -1385,42 +1320,24 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
             mThreshold = threshold;
         }
 
-        /**
-         * Returns true if the text field is empty, or contains only whitespace.
-         */
         private boolean isEmpty() {
             return TextUtils.getTrimmedLength(getText()) == 0;
         }
 
-        /**
-         * We override this method to avoid replacing the query box text when a
-         * suggestion is clicked.
-         */
         @Override
         protected void replaceText(CharSequence text) {
         }
 
-        /**
-         * We override this method to avoid an extra onItemClick being called on
-         * the drop-down's OnItemClickListener by
-         * {@link AutoCompleteTextView#onKeyUp(int, KeyEvent)} when an item is
-         * clicked with the trackball.
-         */
         @Override
         public void performCompletion() {
         }
 
-        /**
-         * We override this method to be sure and show the soft keyboard if
-         * appropriate when the TextView has focus.
-         */
         @Override
         public void onWindowFocusChanged(boolean hasWindowFocus) {
             super.onWindowFocusChanged(hasWindowFocus);
 
             if (hasWindowFocus && mSearchView.hasFocus() && getVisibility() == VISIBLE) {
-                InputMethodManager inputManager = (InputMethodManager) getContext()
-                        .getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager inputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputManager.showSoftInput(this, 0);
                 if (isLandscapeMode(getContext())) {
                     HIDDEN_METHOD_INVOKER.ensureImeVisible(this, true);
@@ -1479,28 +1396,26 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
     }
 
     private static class AutoCompleteTextViewReflector {
+
         private Method doBeforeTextChanged, doAfterTextChanged;
         private Method ensureImeVisible;
         private Method showSoftInputUnchecked;
 
         AutoCompleteTextViewReflector() {
             try {
-                doBeforeTextChanged = AutoCompleteTextView.class
-                        .getDeclaredMethod("doBeforeTextChanged");
+                doBeforeTextChanged = AutoCompleteTextView.class.getDeclaredMethod("doBeforeTextChanged");
                 doBeforeTextChanged.setAccessible(true);
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }
             try {
-                doAfterTextChanged = AutoCompleteTextView.class
-                        .getDeclaredMethod("doAfterTextChanged");
+                doAfterTextChanged = AutoCompleteTextView.class.getDeclaredMethod("doAfterTextChanged");
                 doAfterTextChanged.setAccessible(true);
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }
             try {
-                ensureImeVisible = AutoCompleteTextView.class
-                        .getMethod("ensureImeVisible", boolean.class);
+                ensureImeVisible = AppCompatAutoCompleteTextView.class.getMethod("ensureImeVisible", boolean.class);
                 ensureImeVisible.setAccessible(true);
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
@@ -1558,5 +1473,22 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
         }
     }
 
+    public interface OnQueryTextListener {
+
+        boolean onQueryTextSubmit(String query);
+
+        boolean onQueryTextChange(String newText);
+    }
+
+    public interface OnCloseListener {
+
+        boolean onClose();
+    }
+
+    public interface OnSuggestionListener {
+
+        boolean onSuggestionSelect(int position);
+
+        boolean onSuggestionClick(int position);
+    }
 }
-*/
