@@ -1434,10 +1434,6 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
             mSearchView.onTextFocusChanged();
         }
 
-        /**
-         * We override this method so that we can allow a threshold of zero,
-         * which ACTV does not.
-         */
         @Override
         public boolean enoughToFilter() {
             return mThreshold <= 0 || super.enoughToFilter();
@@ -1467,9 +1463,6 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
             return super.onKeyPreIme(keyCode, event);
         }
 
-        /**
-         * Get minimum width of the search view text entry area.
-         */
         private int getSearchViewTextMinWidthDp() {
             final Configuration config = getResources().getConfiguration();
             final int widthDp = ConfigurationHelper.getScreenWidthDp(getResources());
@@ -1566,3 +1559,4 @@ public class SearchView extends LinearLayoutCompat implements CollapsibleActionV
     }
 
 }
+*/
