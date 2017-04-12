@@ -28,6 +28,8 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -58,8 +60,7 @@ import java.util.List;
 
 // todo to sedz napis
 // TODO cancel + shadow under, najit vsechny chyby, stin, klavesnice , divider, filtrovani
-@SuppressWarnings({"unused", "ConstantConditions", "UnusedAssignment", "UnusedReturnValue"})
-// @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
+
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public static final int VERSION_TOOLBAR = 1000;
@@ -228,9 +229,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_result);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setNestedScrollingEnabled(false);
-        //mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setVisibility(View.GONE);
-        //mRecyclerView.setItemAnimator(null);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
         //mRecyclerView.setLayoutTransition(getRecyclerViewLayoutTransition());
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @SuppressWarnings("StatementWithEmptyBody")
@@ -312,7 +313,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mBackImageView.setImageDrawable(mSearchArrow);
         mBackImageView.setOnClickListener(this);
 
-        setTheme(THEME_LIGHT); // TODO REMOVE IN FUTURE RELEASE
         setVoice(true);
     }
 
@@ -544,8 +544,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 checkBox.setTextSize(12);
                 checkBox.setTextColor(mTextColor);
                 checkBox.setChecked(filter.isChecked());
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 checkBox.setLayoutParams(lp);
                 checkBox.setTag(filter.getTagId());
                 mFiltersContainer.addView(checkBox);
@@ -556,11 +555,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return this;
     }
 
-    /**
-     * Get the current search filter
-     *
-     * @return a list containing the SearchFilters, or an empty list if there's none
-     */
     public List<SearchFilter> getSearchFilters() {
         if (mSearchFilters == null) {
             return new ArrayList<>();
@@ -580,7 +574,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     // TODO GET
     // ---------------------------------------------------------------------------------------------
-    public SearchView setHeight(float dp) {
+    public SearchView setHeightInDP(float dp) {
         int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
         ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
         params.height = height;
@@ -589,7 +583,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return this;
     }
 
-    public int getHeightDP() {
+    public int getHeightInDP() {
         ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
         return pxToDp(params.height);
     }
@@ -1004,7 +998,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public SearchView setGoogleIcons() {
-        // todo set ptropertzx
         mBackImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_logo));
         mVoiceImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic));
         return this;
@@ -1191,14 +1184,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         });
     }
 
-    /*private int getPreferredWidth() {
-        return getContext().getResources().getDimensionPixelSize(android.support.v7.appcompat.R.dimen.abc_search_view_preferred_width);
-    }
-
-    private int getPreferredHeight() {
-        return getContext().getResources().getDimensionPixelSize(android.support.v7.appcompat.R.dimen.abc_search_view_preferred_height);
-    }*/
-
     // ---------------------------------------------------------------------------------------------
     @Override
     public void onClick(View v) {
@@ -1333,7 +1318,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             source.readTypedList(searchFilters, SearchFilter.CREATOR);
         }
 
-        @TargetApi(24)
+        @TargetApi(Build.VERSION_CODES.N)
         SavedState(Parcel source, ClassLoader loader) {
             super(source, loader);
             this.query = source.readString();
@@ -1355,13 +1340,3 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
 }
-
-
-        /*if (mAdapter instanceof SearchAdapter) {
-            ((SearchAdapter) mAdapter).addOnItemClickListener(new SearchAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    dispatchFilters();
-                }
-            }, 0);
-        }*/

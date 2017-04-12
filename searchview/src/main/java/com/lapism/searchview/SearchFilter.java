@@ -64,7 +64,6 @@ public class SearchFilter implements Parcelable {
         return 0;
     }
 
-
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(mTitle);

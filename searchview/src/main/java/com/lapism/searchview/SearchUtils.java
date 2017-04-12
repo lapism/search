@@ -37,4 +37,6 @@ class SearchUtils {
         return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
+
+    // TODO JAK ZJISTIT LTR
 }
