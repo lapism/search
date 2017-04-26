@@ -2,20 +2,15 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
 
     defaultConfig {
         applicationId "com.lapism.searchview.sample"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 42
-        versionName "4.1"
+        versionCode 43
+        versionName "5.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-        jackOptions {
-            enabled true
-        }
-
         vectorDrawables.useSupportLibrary = true
     }
 

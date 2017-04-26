@@ -1,38 +1,44 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+// apply plugin: 'com.novoda.bintray-release'
 
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.novoda:bintray-release:0.4.0'
+        // classpath 'com.novoda:bintray-release:0.4.0'
         // https://github.com/novoda/bintray-release
     }
 }
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
 
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 4
-        versionName "4.1"
+        versionCode 5
+        versionName "5.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
         vectorDrawables.useSupportLibrary = true
     }
+
     sourceSets {
         main.res.srcDirs 'res', 'res-public'
         // main.res.srcDirs += 'src/main/res-public'
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -53,21 +59,20 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-publish {
+/*publish {
     userOrg = 'lapism'
     groupId = 'com.lapism'
     artifactId = 'searchview'
     publishVersion = '4.1'
     desc = 'SearchView Library'
     website = 'https://github.com/lapism/SearchView'
-}
+}*/
 
 // minifyEnabled true
 // shrinkResources true
 
-// Java SE Development Kit 8u112 !!!!
-// gradlew wrapper --gradle-version=3.4.1
-// gradle-3.4.1-all.zip
+// gradlew wrapper --gradle-version=3.5
+// gradle-3.5-all.zip
 
 // build first
 // gradlew clean build bintrayUpload -PbintrayUser=lapism -PbintrayKey= -PdryRun=false
