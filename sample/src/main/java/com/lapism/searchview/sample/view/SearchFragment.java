@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lapism.searchview.SearchDivider;
 import com.lapism.searchview.sample.R;
 
 import java.util.ArrayList;

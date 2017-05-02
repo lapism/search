@@ -666,9 +666,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public SearchView setDivider(boolean divider) {
         if (divider) {
-            mRecyclerView.addItemDecoration(new SearchDivider(mContext));
+            //mRecyclerView.addItemDecoration(new SearchDivider(mContext));
         } else {
-            mRecyclerView.removeItemDecoration(new SearchDivider(mContext));
+           // mRecyclerView.removeItemDecoration(new SearchDivider(mContext));
         }
         return this;
     }
@@ -982,8 +982,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public SearchView setGoogleIcons() {
-        mBackImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_logo));
-        mVoiceImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic));
+       // mBackImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_logo));
+       // mVoiceImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic));
         return this;
     }
 

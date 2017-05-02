@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.KeyEvent;
 
 
-class SearchEditText extends AppCompatEditText {
+public class SearchEditText extends AppCompatEditText {
 
     private SearchView mSearchView;
 

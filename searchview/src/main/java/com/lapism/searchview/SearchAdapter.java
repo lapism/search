@@ -31,9 +31,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     private String key = "";
     private List<SearchItem> mResultList = new ArrayList<>();
     private List<OnItemClickListener> mItemClickListeners;
-    /**
-     * backward compatibility
-     */
     private List<OnSearchItemClickListener> mSearchItemClickListeners;
 
     // ---------------------------------------------------------------------------------------------
