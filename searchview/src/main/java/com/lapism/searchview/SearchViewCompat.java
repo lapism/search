@@ -2,6 +2,7 @@ package com.lapism.searchview;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -9,7 +10,7 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 /**
- * Created by martinlapis on 12.4.17.
+ * SearchView version 5.0
  */
 
 @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
@@ -27,7 +28,7 @@ public class SearchViewCompat extends FrameLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    @TargetApi(21)
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public SearchViewCompat(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="SearchView">
+    <declare-styleable name="SearchViewAppCompat">
         <attr name="search_height" format="dimension" />
         <attr name="search_version" format="enum">
             <enum name="toolbar" value="1000" />

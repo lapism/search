@@ -31,10 +31,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     private String key = "";
     private List<SearchItem> mResultList = new ArrayList<>();
     private List<OnItemClickListener> mItemClickListeners;
-	/**
-	 *  backward compatibility
-	 */
-	private List<OnSearchItemClickListener> mSearchItemClickListeners;
+    /**
+     * backward compatibility
+     */
+    private List<OnSearchItemClickListener> mSearchItemClickListeners;
 
     // ---------------------------------------------------------------------------------------------
     public SearchAdapter(Context context) {
@@ -146,24 +146,21 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     }
 
     private View.OnClickListener bindSuggestionClickListener(final ResultViewHolder viewHolder, final int position) {
-    	return new View.OnClickListener() {
-		    @Override
-		    public void onClick(View v) {
-		    	final SearchItem item = mResultList.get(position);
-			    if (mItemClickListeners != null) {
-				    for (OnItemClickListener listener : mItemClickListeners) {
-					    viewHolder.itemView.setTag(item.getTag());
-					    listener.onItemClick(v, viewHolder.getLayoutPosition());
-				    }
-			    }
-			    if(mSearchItemClickListeners != null) {
-			    	for(OnSearchItemClickListener listener: mSearchItemClickListeners) {
-					    viewHolder.itemView.setTag(item.getTag());
-					    listener.onItemClick(v, viewHolder.getLayoutPosition(), item);
-				    }
-			    }
-		    }
-	    };
+        return v -> {
+            final SearchItem item = mResultList.get(position);
+            if (mItemClickListeners != null) {
+                for (OnItemClickListener listener : mItemClickListeners) {
+                    viewHolder.itemView.setTag(item.getTag());
+                    listener.onItemClick(v, viewHolder.getLayoutPosition());
+                }
+            }
+            if (mSearchItemClickListeners != null) {
+                for (OnSearchItemClickListener listener : mSearchItemClickListeners) {
+                    viewHolder.itemView.setTag(item.getTag());
+                    listener.onItemClick(v, viewHolder.getLayoutPosition(), item);
+                }
+            }
+        };
     }
 
     @Override
@@ -180,14 +177,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         return mSuggestionsList;
     }
 
-    public List<SearchItem> getResultList() {
-    	return mResultList;
-    }
-
     // ---------------------------------------------------------------------------------------------
     public void setSuggestionsList(List<SearchItem> suggestionsList) {
         mSuggestionsList = suggestionsList;
         mResultList = suggestionsList;
+    }
+
+    public List<SearchItem> getResultList() {
+        return mResultList;
     }
 
     public void setDatabaseKey(Integer key) {
@@ -204,25 +201,20 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         addOnItemClickListener(listener, null);
     }
 
-	/**
-	 * Use this if you need to get back SearchItem
-	 * @param listener
-	 * @see #addOnSearchItemClickListener(OnSearchItemClickListener, Integer)
-	 */
     public void addOnSearchItemClickListener(OnSearchItemClickListener listener) {
-    	addOnSearchItemClickListener(listener, null);
+        addOnSearchItemClickListener(listener, null);
     }
 
-	public void addOnSearchItemClickListener(OnSearchItemClickListener listener, @Nullable Integer position) {
-    	if(mSearchItemClickListeners == null) {
-    		mSearchItemClickListeners = new ArrayList<>();
-	    }
+    public void addOnSearchItemClickListener(OnSearchItemClickListener listener, @Nullable Integer position) {
+        if (mSearchItemClickListeners == null) {
+            mSearchItemClickListeners = new ArrayList<>();
+        }
 
-	    if(position == null) {
-    		mSearchItemClickListeners.add(listener);
-	    } else {
-    		mSearchItemClickListeners.add(position, listener);
-	    }
+        if (position == null) {
+            mSearchItemClickListeners.add(listener);
+        } else {
+            mSearchItemClickListeners.add(position, listener);
+        }
 
     }
 
@@ -266,7 +258,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     }
 
     public interface OnSearchItemClickListener {
-    	void onItemClick(View view, int position, SearchItem searchItem);
+        void onItemClick(View view, int position, SearchItem searchItem);
     }
 
     public class ResultViewHolder extends RecyclerView.ViewHolder {

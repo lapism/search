@@ -4,6 +4,7 @@
     android:layout_height="@dimen/box2"
     android:background="@color/cardview_light_background"
     android:clickable="true"
+    android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
     android:gravity="center_vertical"
     android:orientation="horizontal">

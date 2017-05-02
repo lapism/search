@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -15,36 +14,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.constraint.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.constraint.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/linearLayout"
-                android:layout_width="336dp"
-                android:layout_height="48dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/search_height"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:gravity="start|center_vertical"
                 android:orientation="horizontal"
-                tools:layout_editor_absoluteX="24dp"
-                tools:layout_editor_absoluteY="81dp">
+                android:paddingEnd="@dimen/search_key_line"
+                android:paddingLeft="@dimen/search_key_line"
+                android:paddingRight="@dimen/search_key_line"
+                android:paddingStart="@dimen/search_key_line">
 
                 <ImageView
                     android:id="@+id/imageView_arrow_back"
-                    android:layout_width="24dp"
-                    android:layout_height="32dp"
+                    android:layout_width="@dimen/search_icon"
+                    android:layout_height="match_parent"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:contentDescription="@string/search_app_name"
-                    tools:layout_editor_absoluteX="24dp"
-                    tools:layout_editor_absoluteY="8dp" />
+                    android:focusable="true" />
 
                 <com.lapism.searchview.SearchEditText
                     android:id="@+id/searchEditText_input"
                     android:layout_width="0dp"
-                    android:layout_height="32dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginEnd="@dimen/search_view_margin_text"
+                    android:layout_marginLeft="@dimen/search_view_margin_text"
+                    android:layout_marginRight="@dimen/search_view_margin_text"
+                    android:layout_marginStart="@dimen/search_view_margin_text"
+                    android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ems="10"
                     android:gravity="start|center_vertical"
@@ -53,9 +59,7 @@
                     android:maxLines="1"
                     android:privateImeOptions="nm"
                     android:textSize="@dimen/search_text_medium"
-                    android:windowSoftInputMode="stateAlwaysHidden"
-                    tools:layout_editor_absoluteX="72dp"
-                    tools:layout_editor_absoluteY="8dp">
+                    android:windowSoftInputMode="stateAlwaysHidden">
 
                     <requestFocus />
                 </com.lapism.searchview.SearchEditText>
@@ -71,66 +75,62 @@
                 <ProgressBar
                     android:id="@+id/progressBar"
                     style="?android:attr/indeterminateProgressStyle"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    tools:layout_editor_absoluteX="300dp"
-                    tools:layout_editor_absoluteY="8dp" />
+                    android:layout_width="@dimen/progress_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/progress_margin_end"
+                    android:layout_marginRight="@dimen/progress_margin_end" />
 
+                <FrameLayout
+                    android:layout_width="@dimen/search_icon"
+                    android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/imageView_mic"
-                    android:layout_width="24dp"
-                    android:layout_height="0dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:contentDescription="@string/search_app_name"
-                    tools:layout_editor_absoluteX="336dp"
-                    tools:layout_editor_absoluteY="8dp" />
+                    <ImageView
+                        android:id="@+id/imageView_mic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:contentDescription="@string/search_app_name"
+                        android:focusable="true" />
 
-                <ImageView
-                    android:id="@+id/imageView_clear"
-                    android:layout_width="0dp"
-                    android:layout_height="32dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:contentDescription="@string/search_app_name"
-                    tools:layout_conversion_absoluteHeight="48dp"
-                    tools:layout_conversion_absoluteWidth="24dp"
-                    tools:layout_conversion_absoluteX="336dp"
-                    tools:layout_conversion_absoluteY="0dp"
-                    tools:layout_editor_absoluteX="338dp"
-                    tools:layout_editor_absoluteY="8dp" />
+                    <ImageView
+                        android:id="@+id/imageView_clear"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:contentDescription="@string/search_app_name"
+                        android:focusable="true" />
 
+                </FrameLayout>
 
-            </android.support.constraint.ConstraintLayout>
+            </LinearLayout>
 
             <View
                 android:id="@+id/view_divider"
-                android:layout_width="368dp"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="129dp" />
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/search_divider"
+                android:background="?android:attr/listDivider" />
 
             <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/filters_container"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/filter_margin_start"
+                android:layout_marginLeft="@dimen/filter_margin_start"
+                android:layout_marginRight="@dimen/filter_margin_start"
+                android:layout_marginStart="@dimen/filter_margin_start"
                 android:divider="@drawable/filter_empty_divider"
                 android:orientation="horizontal"
                 android:showDividers="middle"
-                app:flexWrap="wrap"
-                tools:layout_editor_absoluteX="20dp"
-                tools:layout_editor_absoluteY="130dp" />
+                app:flexWrap="wrap" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView_result"
-                android:layout_width="368dp"
-                android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="130dp" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 
