@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <item name="ic_menu_search" type="drawable">@android:drawable/ic_menu_search</item>
-
-</resources>

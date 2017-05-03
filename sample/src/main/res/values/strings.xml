@@ -18,6 +18,8 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
 
+    <item name="ic_menu_search" type="drawable">@android:drawable/ic_menu_search</item>
+
 </resources>
 
 

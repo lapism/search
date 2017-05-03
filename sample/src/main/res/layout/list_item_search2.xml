@@ -9,6 +9,7 @@
     android:layout_marginStart="@dimen/key_line_8"
     android:layout_marginTop="@dimen/key_line_4"
     android:clickable="true"
+    android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
