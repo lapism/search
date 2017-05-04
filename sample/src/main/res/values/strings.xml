@@ -4,8 +4,6 @@
     <string name="app_name">SearchView Sample</string>
     <string name="version">Version: 4.1</string>
 
-    <string name="open">Open</string>
-    <string name="close">Close</string>
     <string name="search">Search</string>
 
     <!-- nav_items -->
@@ -16,6 +14,11 @@
 
     <string name="installed">Installed</string>
     <string name="all">All</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+    <item name="ic_menu_search" type="drawable">@android:drawable/ic_menu_search</item>
 
 </resources>
 
