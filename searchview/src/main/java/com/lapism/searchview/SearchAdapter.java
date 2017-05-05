@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Locale;
 
 
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
     private final SearchHistoryTable mHistoryDatabase;

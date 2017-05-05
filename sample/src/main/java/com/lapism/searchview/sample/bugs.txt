@@ -22,3 +22,4 @@ klavesnice , divider,
 filtrovani
 
 z appcompat verze ...
+BUGS Z MONITORU

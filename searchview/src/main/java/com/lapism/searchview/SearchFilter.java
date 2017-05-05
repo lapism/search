@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 
-@SuppressWarnings({"unused", "WeakerAccess"})
 public class SearchFilter implements Parcelable {
 
     public static final Creator<SearchFilter> CREATOR = new Creator<SearchFilter>() {

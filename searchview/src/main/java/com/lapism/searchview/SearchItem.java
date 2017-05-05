@@ -8,7 +8,6 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchItem implements Parcelable {
 
     public static final Creator<SearchItem> CREATOR = new Creator<SearchItem>() {
@@ -107,7 +106,8 @@ public class SearchItem implements Parcelable {
         dest.writeInt(this.resource);
         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
         dest.writeParcelable(bitmap, flags);
-        TextUtils.writeToParcel(this.text, dest, flags); // dest.writeValue(this.text);
+        TextUtils.writeToParcel(this.text, dest, flags);
+        // dest.writeValue(this.text);
         dest.writeString(this.tag);
     }
 
