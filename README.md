@@ -57,7 +57,7 @@ dependencies {
 **Code:**
 ```java
 // For both versions
-mSearchView = (SearchView) findViewById(R.id.searchView);
+SearchView mSearchView = (SearchView) findViewById(R.id.searchView);
 
 // Only for SearchView.VERSION_MENU_ITEM
 @Override
