@@ -1,4 +1,4 @@
-package com.lapism.searchview.sample.view;
+package com.lapism.searchview.sample.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lapism.searchview.sample.R;
+import com.lapism.searchview.sample.adapter.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

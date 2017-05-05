@@ -264,6 +264,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
         public ResultViewHolder(View view) {
             super(view);
+            // TODO CLICK
             icon_left = (ImageView) view.findViewById(R.id.imageView_item_icon_left);
             text = (TextView) view.findViewById(R.id.textView_item_text);
         }

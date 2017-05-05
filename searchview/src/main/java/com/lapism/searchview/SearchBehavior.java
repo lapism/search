@@ -34,13 +34,7 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
             mAppBarLayout = (AppBarLayout) dependency;
             CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                /*StateListAnimator stateListAnimator = new StateListAnimator();
-                stateListAnimator.addState(new int[0], ObjectAnimator.ofFloat(dependency, "elevation", 4));
-                mAppBarLayout.setStateListAnimator(stateListAnimator);*/
-                // A bug that makes the floating search view disappear
-                mAppBarLayout.setElevation(0);
-                // mAppBarLayout.setStateListAnimator(null);
-                // TODO no shadow
+                mAppBarLayout.setElevation(0);                 // TODO NO SHADOWS APPBAR
             }
             mAppBarLayoutBehavior = (AppBarLayout.Behavior) params.getBehavior();
             return true;
@@ -50,13 +44,6 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
 
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, SearchView child, View dependency) {
-        /*if (needsToAdjustSearchBar()) {
-            float offset = getMinExpandHeight() + appBarBehavior.getTopAndBottomOffset();
-            child.setY(offset);
-            return true;
-        }
-        return super.onDependentViewChanged(parent, child, dependency);*/
-        // boolean returnValue = super.onDependentViewChanged(parent, searchView, appbarLayout);
         if (dependency instanceof AppBarLayout) {
             mSearchView.setTranslationY(dependency.getY());
             return true;
@@ -74,12 +61,6 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
             int offset = getMinExpandHeight();
             getValueAnimator(-offset).start();
         }
-
-        /*public void setAppBarElevation(final boolean visible) {
-            if (appBar != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                appBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(this, (visible) ? R.animator.appbar_elevated : R.animator.appbar_not_elevated));
-            }
-        }*/
     }
 
     @Override

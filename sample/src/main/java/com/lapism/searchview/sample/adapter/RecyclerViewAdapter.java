@@ -1,4 +1,4 @@
-package com.lapism.searchview.sample.view;
+package com.lapism.searchview.sample.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

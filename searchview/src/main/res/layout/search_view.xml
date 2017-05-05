@@ -30,7 +30,7 @@
 
                 <ImageView
                     android:id="@+id/imageView_arrow_back"
-                    android:layout_width="40dp"
+                    android:layout_width="48dp"
                     android:layout_height="match_parent"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
@@ -78,7 +78,7 @@
                     android:layout_marginRight="@dimen/progress_margin_end" />
 
                 <FrameLayout
-                    android:layout_width="40dp"
+                    android:layout_width="48dp"
                     android:layout_height="match_parent">
 
                     <ImageView

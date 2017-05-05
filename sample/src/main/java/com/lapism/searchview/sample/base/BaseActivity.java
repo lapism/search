@@ -31,8 +31,8 @@ import com.lapism.searchview.sample.activity.menu.FiltersActivity;
 import com.lapism.searchview.sample.activity.menu.MenuItemActivity;
 import com.lapism.searchview.sample.activity.SearchActivity;
 import com.lapism.searchview.sample.activity.menu.ToolbarActivity;
-import com.lapism.searchview.sample.view.FragmentAdapter;
-import com.lapism.searchview.sample.view.SearchFragment;
+import com.lapism.searchview.sample.adapter.FragmentAdapter;
+import com.lapism.searchview.sample.fragment.SearchFragment;
 
 import java.util.ArrayList;
 import java.util.List;
