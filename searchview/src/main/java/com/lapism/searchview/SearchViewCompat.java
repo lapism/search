@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 /**
- * SearchView version 5.0
+ * preview for SearchView version 5.0
  */
 
 @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)

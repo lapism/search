@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="SearchViewAppCompat">
+    <declare-styleable name="SearchView">
         <attr name="search_height" format="dimension" />
         <attr name="search_version" format="enum">
             <enum name="toolbar" value="1000" />
@@ -30,7 +30,6 @@
         </attr>
         <attr name="search_hint" format="string" />
         <attr name="search_hint_color" format="color" />
-        <attr name="search_divider" format="boolean" />
         <attr name="search_voice" format="boolean" />
         <attr name="search_voice_text" format="string" />
         <attr name="search_animation_duration" format="integer" />
@@ -41,13 +40,6 @@
         <attr name="search_clear_on_close" format="boolean" />
         <attr name="search_hide_on_keyboard_close" format="boolean" />
         <attr name="search_cursor_drawable" format="integer" />
-    </declare-styleable>
-
-    <declare-styleable name="FlowLayout">
-        <attr name="android:gravity" />
-    </declare-styleable>
-    <declare-styleable name="FlowLayout_Layout">
-        <attr name="android:layout_gravity" />
     </declare-styleable>
 
 </resources>

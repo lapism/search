@@ -54,7 +54,6 @@ dependencies {
 
     // compile 'com.google.android:flexbox:0.3.0-alpha3'
     compile 'com.google.android:flexbox:0.2.6'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
     testCompile 'junit:junit:4.12'
 }

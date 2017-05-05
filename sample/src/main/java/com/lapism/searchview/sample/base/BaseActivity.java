@@ -27,10 +27,9 @@ import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
-import com.lapism.searchview.sample.activity.SearchActivity;
 import com.lapism.searchview.sample.activity.menu.FiltersActivity;
-import com.lapism.searchview.sample.activity.menu.HistoryActivity;
 import com.lapism.searchview.sample.activity.menu.MenuItemActivity;
+import com.lapism.searchview.sample.activity.SearchActivity;
 import com.lapism.searchview.sample.activity.menu.ToolbarActivity;
 import com.lapism.searchview.sample.view.FragmentAdapter;
 import com.lapism.searchview.sample.view.SearchFragment;
@@ -130,8 +129,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void setViewPager() {
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
+        adapter.addFragment(new SearchFragment(), getString(R.string.updates));
         adapter.addFragment(new SearchFragment(), getString(R.string.installed));
-        adapter.addFragment(new SearchFragment(), getString(R.string.all));
+        adapter.addFragment(new SearchFragment(), getString(R.string.library));
+        adapter.addFragment(new SearchFragment(), getString(R.string.beta));
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
@@ -195,19 +196,10 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }
 
                 if (id == R.id.nav_item_menu_item) {
+                    // Intent intent = new Intent(this, id == R.id.nav_toggle_versions ? ToggleActivity.class : HistoryActivity.class);
                     Intent intent = new Intent(BaseActivity.this, MenuItemActivity.class);
                     intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_MENU_ITEM);
                     intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_MENU_ITEM);
-                    intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
-                    startActivity(intent);
-                    finish();
-                }
-
-                if (id == R.id.nav_item_history) {
-                    // Intent intent = new Intent(this, id == R.id.nav_toggle_versions ? ToggleActivity.class : HistoryActivity.class);
-                    Intent intent = new Intent(BaseActivity.this, HistoryActivity.class);
-                    intent.putExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
-                    intent.putExtra(EXTRA_KEY_VERSION_MARGINS, SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
                     intent.putExtra(EXTRA_KEY_THEME, SearchView.THEME_LIGHT);
                     startActivity(intent);
                     finish();

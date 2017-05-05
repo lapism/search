@@ -9,11 +9,15 @@
     <!-- nav_items -->
     <string name="toolbar">Toolbar</string>
     <string name="menu_item">Menu item</string>
-    <string name="history">History</string>
     <string name="filters">Filters</string>
 
+    <string name="apps">Apps &amp; Games</string>
+    <string name="movies">Movies, Music, Boooks</string>
+
+    <string name="updates">Updates</string>
     <string name="installed">Installed</string>
-    <string name="all">All</string>
+    <string name="library">Library</string>
+    <string name="beta">Beta</string>
 
     <string name="open">Open</string>
     <string name="close">Close</string>

@@ -16,10 +16,6 @@
     <!-- android:id="@+id/group_menu_item" -->
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_item_history"
-            android:icon="@drawable/ic_menu_search"
-            android:title="@string/history" />
-        <item
             android:id="@+id/nav_item_filters"
             android:icon="@drawable/ic_menu_search"
             android:title="@string/filters" />

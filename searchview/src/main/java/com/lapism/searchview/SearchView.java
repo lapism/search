@@ -56,8 +56,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-// todo to sedz napis
-// TODO cancel + shadow under, najit vsechny chyby, stin, klavesnice , divider, filtrovani
 
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
@@ -71,7 +69,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public static final int THEME_LIGHT = 3000;
     public static final int THEME_DARK = 3001;
 
-    public static final int SPEECH_REQUEST_CODE = 4000;
+    public static final int SPEECH_REQUEST_CODE = 100;
     public static final int LAYOUT_TRANSITION_DURATION = 200;
     public static final int ANIMATION_DURATION = 300;
 
@@ -113,7 +111,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private ImageView mEmptyImageView;
     private FlexboxLayout mFiltersContainer;
     private LinearLayout mLinearLayout;
-    //private ConstraintLayout mLinearLayout;
     private CharSequence mOldQueryText;
     private CharSequence mUserQuery = "";
     private String mVoiceText = "Speak now";
@@ -228,17 +225,14 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mRecyclerView.setVisibility(View.GONE);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
-        //mRecyclerView.setLayoutTransition(getRecyclerViewLayoutTransition());
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @SuppressWarnings("StatementWithEmptyBody")
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    // mRecyclerView.setLayoutTransition(null);
                     hideKeyboard();
                 } else {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        //   mRecyclerView.setLayoutTransition(getRecyclerViewLayoutTransition());
                     }
                 }
             }
@@ -309,78 +303,75 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private void initStyle(AttributeSet attrs, int defStyleAttr) {
         final TypedArray attr = mContext.obtainStyledAttributes(attrs, R.styleable.SearchView, defStyleAttr, 0);
         if (attr != null) {
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_height)) {
-                setHeightInDP(attr.getDimension(R.styleable.SearchViewAppCompat_search_height, 0));
+            if (attr.hasValue(R.styleable.SearchView_search_height)) {
+                setHeightInDP(attr.getDimension(R.styleable.SearchView_search_height, 0));
                 // mContext.getResources().getDimension(R.dimen.search_height))
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_version)) {
-                setVersion(attr.getInt(R.styleable.SearchViewAppCompat_search_version, VERSION_TOOLBAR));
+            if (attr.hasValue(R.styleable.SearchView_search_version)) {
+                setVersion(attr.getInt(R.styleable.SearchView_search_version, VERSION_TOOLBAR));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_version_margins)) {
-                setVersionMargins(attr.getInt(R.styleable.SearchViewAppCompat_search_version_margins, VERSION_MARGINS_TOOLBAR_SMALL));
+            if (attr.hasValue(R.styleable.SearchView_search_version_margins)) {
+                setVersionMargins(attr.getInt(R.styleable.SearchView_search_version_margins, VERSION_MARGINS_TOOLBAR_SMALL));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_theme)) {
-                setTheme(attr.getInt(R.styleable.SearchViewAppCompat_search_theme, THEME_LIGHT));
+            if (attr.hasValue(R.styleable.SearchView_search_theme)) {
+                setTheme(attr.getInt(R.styleable.SearchView_search_theme, THEME_LIGHT));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_navigation_icon)) {
-                setNavigationIcon(attr.getResourceId(R.styleable.SearchViewAppCompat_search_navigation_icon, 0));
+            if (attr.hasValue(R.styleable.SearchView_search_navigation_icon)) {
+                setNavigationIcon(attr.getResourceId(R.styleable.SearchView_search_navigation_icon, 0));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_icon_color)) {
-                setIconColor(attr.getColor(R.styleable.SearchViewAppCompat_search_icon_color, 0));
+            if (attr.hasValue(R.styleable.SearchView_search_icon_color)) {
+                setIconColor(attr.getColor(R.styleable.SearchView_search_icon_color, 0));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_background_color)) {
-                setBackgroundColor(attr.getColor(R.styleable.SearchViewAppCompat_search_background_color, 0));
+            if (attr.hasValue(R.styleable.SearchView_search_background_color)) {
+                setBackgroundColor(attr.getColor(R.styleable.SearchView_search_background_color, 0));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_text_color)) {
-                setTextColor(attr.getColor(R.styleable.SearchViewAppCompat_search_text_color, 0));
+            if (attr.hasValue(R.styleable.SearchView_search_text_color)) {
+                setTextColor(attr.getColor(R.styleable.SearchView_search_text_color, 0));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_text_highlight_color)) {
-                setTextHighlightColor(attr.getColor(R.styleable.SearchViewAppCompat_search_text_highlight_color, 0));
+            if (attr.hasValue(R.styleable.SearchView_search_text_highlight_color)) {
+                setTextHighlightColor(attr.getColor(R.styleable.SearchView_search_text_highlight_color, 0));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_text_size)) {
-                setTextSize(attr.getDimension(R.styleable.SearchViewAppCompat_search_text_size, 0));
+            if (attr.hasValue(R.styleable.SearchView_search_text_size)) {
+                setTextSize(attr.getDimension(R.styleable.SearchView_search_text_size, 0));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_text_style)) {
-                setTextStyle(attr.getInt(R.styleable.SearchViewAppCompat_search_text_style, 0));
+            if (attr.hasValue(R.styleable.SearchView_search_text_style)) {
+                setTextStyle(attr.getInt(R.styleable.SearchView_search_text_style, 0));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_hint)) {
-                setHint(attr.getString(R.styleable.SearchViewAppCompat_search_hint));
+            if (attr.hasValue(R.styleable.SearchView_search_hint)) {
+                setHint(attr.getString(R.styleable.SearchView_search_hint));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_hint_color)) {
-                setHintColor(attr.getColor(R.styleable.SearchViewAppCompat_search_hint_color, 0));
+            if (attr.hasValue(R.styleable.SearchView_search_hint_color)) {
+                setHintColor(attr.getColor(R.styleable.SearchView_search_hint_color, 0));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_divider)) {
-                setDivider(attr.getBoolean(R.styleable.SearchViewAppCompat_search_divider, false));
+            if (attr.hasValue(R.styleable.SearchView_search_voice)) {
+                setVoice(attr.getBoolean(R.styleable.SearchView_search_voice, true));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_voice)) {
-                setVoice(attr.getBoolean(R.styleable.SearchViewAppCompat_search_voice, true));
+            if (attr.hasValue(R.styleable.SearchView_search_voice_text)) {
+                setVoiceText(attr.getString(R.styleable.SearchView_search_voice_text));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_voice_text)) {
-                setVoiceText(attr.getString(R.styleable.SearchViewAppCompat_search_voice_text));
+            if (attr.hasValue(R.styleable.SearchView_search_animation_duration)) {
+                setAnimationDuration(attr.getInteger(R.styleable.SearchView_search_animation_duration, mAnimationDuration));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_animation_duration)) {
-                setAnimationDuration(attr.getInteger(R.styleable.SearchViewAppCompat_search_animation_duration, mAnimationDuration));
+            if (attr.hasValue(R.styleable.SearchView_search_shadow)) {
+                setShadow(attr.getBoolean(R.styleable.SearchView_search_shadow, true));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_shadow)) {
-                setShadow(attr.getBoolean(R.styleable.SearchViewAppCompat_search_shadow, true));
+            if (attr.hasValue(R.styleable.SearchView_search_shadow_color)) {
+                setShadowColor(attr.getColor(R.styleable.SearchView_search_shadow_color, 0));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_shadow_color)) {
-                setShadowColor(attr.getColor(R.styleable.SearchViewAppCompat_search_shadow_color, 0));
+            if (attr.hasValue(R.styleable.SearchView_search_elevation)) {
+                setElevation(attr.getDimensionPixelSize(R.styleable.SearchView_search_elevation, 0));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_elevation)) {
-                setElevation(attr.getDimensionPixelSize(R.styleable.SearchViewAppCompat_search_elevation, 0));
+            if (attr.hasValue(R.styleable.SearchView_search_clear_on_open)) {
+                setShouldClearOnOpen(attr.getBoolean(R.styleable.SearchView_search_clear_on_open, false));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_clear_on_open)) {
-                setShouldClearOnOpen(attr.getBoolean(R.styleable.SearchViewAppCompat_search_clear_on_open, false));
+            if (attr.hasValue(R.styleable.SearchView_search_clear_on_close)) {
+                setShouldClearOnClose(attr.getBoolean(R.styleable.SearchView_search_clear_on_close, true));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_clear_on_close)) {
-                setShouldClearOnClose(attr.getBoolean(R.styleable.SearchViewAppCompat_search_clear_on_close, true));
+            if (attr.hasValue(R.styleable.SearchView_search_hide_on_keyboard_close)) {
+                setShouldHideOnKeyboardClose(attr.getBoolean(R.styleable.SearchView_search_hide_on_keyboard_close, true));
             }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_hide_on_keyboard_close)) {
-                setShouldHideOnKeyboardClose(attr.getBoolean(R.styleable.SearchViewAppCompat_search_hide_on_keyboard_close, true));
-            }
-            if (attr.hasValue(R.styleable.SearchViewAppCompat_search_cursor_drawable)) {
-                setCursorDrawable(attr.getResourceId(R.styleable.SearchViewAppCompat_search_cursor_drawable, 0));
+            if (attr.hasValue(R.styleable.SearchView_search_cursor_drawable)) {
+                setCursorDrawable(attr.getResourceId(R.styleable.SearchView_search_cursor_drawable, 0));
             }
             attr.recycle();
         }
@@ -551,6 +542,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
 
         dispatchFilters();
+
         List<SearchFilter> searchFilters = new ArrayList<>();
         for (SearchFilter filter : mSearchFilters) {
             searchFilters.add(new SearchFilter(filter.getTitle(), filter.isChecked(), filter.getTagId()));
@@ -664,12 +656,15 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return this;
     }
 
-    public SearchView setDivider(boolean divider) {
-        if (divider) {
-            //mRecyclerView.addItemDecoration(new SearchDivider(mContext));
-        } else {
-           // mRecyclerView.removeItemDecoration(new SearchDivider(mContext));
-        }
+    //new SearchDivider(mContext)
+    public SearchView addDivider(RecyclerView.ItemDecoration itemDecoration) {
+        mRecyclerView.addItemDecoration(itemDecoration);
+        return this;
+    }
+
+    // new SearchDivider(mContext)
+    public SearchView removeDivider(RecyclerView.ItemDecoration itemDecoration) {
+        mRecyclerView.removeItemDecoration(itemDecoration);
         return this;
     }
 
@@ -982,8 +977,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public SearchView setGoogleIcons() {
-       // mBackImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_logo));
-       // mVoiceImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic));
+        // mBackImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_logo));
+        // mVoiceImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic));
         return this;
     }
 

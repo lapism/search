@@ -23,7 +23,7 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        String[] strings = {getString(R.string.installed), getString(R.string.all)};
+        String[] strings = {getString(R.string.installed), "fixMe"};
 
         List<String> list = new ArrayList<>(30);
         Random random = new Random();
@@ -34,7 +34,7 @@ public class SearchFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        recyclerView.addItemDecoration(new SearchDivider(getActivity()));
+        //recyclerView.addItemDecoration(new SearchDivider(getActivity()));
         recyclerView.setAdapter(new RecyclerViewAdapter(list)); // getActivity(); getContext
         return recyclerView;
     }

@@ -36,10 +36,6 @@
             android:label="@string/app_name" />
 
         <activity
-            android:name=".activity.menu.HistoryActivity"
-            android:label="@string/app_name" />
-
-        <activity
             android:name=".activity.menu.FiltersActivity"
             android:label="@string/app_name" />
 

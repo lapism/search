@@ -2,3 +2,23 @@ NO DIVIDER
 NO KEYBOARD IN LANDSCAPE MODE
 FIX SEARCH BEHAVIOR + no shadow under AppbarLayout
 LINT
+
+LTRL
+tint
+trivialdrive
+paypal
+
+
+layout
+ikonky lapiicons
+adapter z tv upraveny
+
+
+// todo to sedz napis
+// TODO cancel
++ shadow under
+, najit vsechny chyby, stin,
+klavesnice , divider,
+filtrovani
+
+z appcompat verze ...

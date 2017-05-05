@@ -26,9 +26,9 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    /*lintOptions {
+    lintOptions {
         abortOnError false
-    }*/
+    }
 }
 
 dependencies {
@@ -49,10 +49,10 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 
-/* android.defaultConfig.vectorDrawables.useSupportLibrary = true
-// CONSTRAINT
+/*
 // minifyEnabled true
 // shrinkResources true
+
 lintOptions {
     checkReleaseBuilds false
     abortOnError true, gradlew assembleDebug
