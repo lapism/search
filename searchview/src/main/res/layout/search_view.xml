@@ -30,7 +30,7 @@
 
                 <ImageView
                     android:id="@+id/imageView_arrow_back"
-                    android:layout_width="48dp"
+                    android:layout_width="@dimen/search_icon"
                     android:layout_height="match_parent"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
@@ -43,12 +43,9 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="start|center_vertical"
-                    android:layout_marginEnd="@dimen/search_view_margin_text"
-                    android:layout_marginLeft="@dimen/search_view_margin_text"
-                    android:layout_marginRight="@dimen/search_view_margin_text"
-                    android:layout_marginStart="@dimen/search_view_margin_text"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
+                    android:ellipsize="end"
                     android:ems="10"
                     android:gravity="start|center_vertical"
                     android:imeOptions="actionSearch|flagNoExtractUi"
@@ -60,11 +57,11 @@
 
                     <requestFocus />
                 </com.lapism.searchview.SearchEditText>
-                <!--flagNoExtractUi
-                                    android:background="?android:attr/selectableItemBackgroundBorderless"
+
+                <!--
+                 android:background="?android:attr/selectableItemBackgroundBorderless"
                  android:background="?android:attr/listDivider"
                     @android:color/transparent red
-                 app:cardUseCompatPadding="true"
                  android:hint="Search"
                  android:imeOptions="actionSearch|flagNoFullscreen"
                  -->
@@ -72,13 +69,11 @@
                 <ProgressBar
                     android:id="@+id/progressBar"
                     style="?android:attr/indeterminateProgressStyle"
-                    android:layout_width="@dimen/progress_width"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/progress_margin_end"
-                    android:layout_marginRight="@dimen/progress_margin_end" />
+                    android:layout_width="@dimen/search_progress"
+                    android:layout_height="match_parent" />
 
                 <FrameLayout
-                    android:layout_width="48dp"
+                    android:layout_width="@dimen/search_icon"
                     android:layout_height="match_parent">
 
                     <ImageView

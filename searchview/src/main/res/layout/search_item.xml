@@ -7,16 +7,12 @@
     android:clickable="true"
     android:focusable="true"
     android:gravity="start|center_vertical"
-    android:orientation="horizontal"
-    android:paddingEnd="@dimen/search_key_line"
-    android:paddingLeft="@dimen/search_key_line"
-    android:paddingRight="@dimen/search_key_line"
-    android:paddingStart="@dimen/search_key_line">
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/imageView_item_icon_left"
         android:layout_width="@dimen/search_icon"
-        android:layout_height="@dimen/search_icon"
+        android:layout_height="match_parent"
         android:contentDescription="@string/search_app_name" />
 
     <TextView
@@ -24,11 +20,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="start|center_vertical"
-        android:layout_marginEnd="@dimen/search_item_margin_text"
-        android:layout_marginLeft="@dimen/search_item_margin_text"
-        android:layout_marginRight="@dimen/search_item_margin_text"
-        android:layout_marginStart="@dimen/search_item_margin_text"
         android:layout_weight="1"
+        android:ellipsize="end"
         android:gravity="start|center_vertical"
         android:maxLines="1"
         android:textIsSelectable="false"
@@ -37,7 +30,7 @@
     <ImageView
         android:id="@+id/imageView_item_icon_right"
         android:layout_width="@dimen/search_icon"
-        android:layout_height="@dimen/search_icon"
+        android:layout_height="match_parent"
         android:contentDescription="@string/search_app_name" />
 
 </LinearLayout>
