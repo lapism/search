@@ -56,11 +56,15 @@ dependencies {
 
 **Code:**
 ```java
+// For both versions
+mSearchView = (SearchView) findViewById(R.id.searchView);
+
+// Only for SearchView.VERSION_MENU_ITEM
 @Override
 public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
         case R.id.action_search: {
-            mSearchView.show(true/false); // animate, ONLY FOR MENU ITEM !
+            mSearchView.show(true/false); // enable/disable animation
             return true;
         }
         default:
@@ -77,9 +81,9 @@ public boolean onOptionsItemSelected(MenuItem item) {
     android:layout_height="match_parent" />
 ```
 
-**VERSION CODES**
+**Versions**
 
-SearchView identifies its layout style through versions. Currently, there are two values, namely `SearchView.VERSION_TOOLBAR` for the persistent view, and `SearchView.VERSION_MENU_ITEM` for the view that appears on a menuitem press. The version may be defined through `setVersion`
+SearchView identifies its layout style through versions. Currently, there are two values, namely `SearchView.VERSION_TOOLBAR` for the persistent view, and `SearchView.VERSION_MENU_ITEM` for the view that appears on a menuitem press. The version may be defined through `setVersion`.
 
 **Styling SearchView:**
 ```xml
@@ -111,7 +115,6 @@ SearchView identifies its layout style through versions. Currently, there are tw
 </attr>
 <attr name="search_hint" format="string" />
 <attr name="search_hint_color" format="color" />
-<attr name="search_divider" format="boolean" />
 <attr name="search_voice" format="boolean" />
 <attr name="search_voice_text" format="string" />
 <attr name="search_animation_duration" format="integer" />
