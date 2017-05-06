@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="search_shadow_layout">#50000000</color>
+    <color name="search_shadow_layout">#80000000</color>
 
     <!-- Light Theme -->
     <color name="search_light_background">#fffafafa</color>
@@ -16,5 +16,12 @@
     <color name="search_dark_text">#ffffffff</color>
     <color name="search_dark_hint">#80ffffff</color>
     <color name="search_dark_text_highlight">#62ffffff</color>
+
+    <!-- Play Store Theme -->
+    <color name="search_play_store_background">#ffffff</color>
+    <color name="search_play_store_icon">#616161</color>
+    <color name="search_play_store_text">#212121</color>
+    <color name="search_play_store_hint">#bdbdbd</color>
+    <color name="search_play_store_text_highlight">#9e9e9e</color>
 
 </resources>

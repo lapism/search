@@ -36,10 +36,6 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 [Lucidity - Lucid Dream Journal](https://play.google.com/store/apps/details?id=ch.b3nz.lucidity) <br />
 [Guide COC](https://play.google.com/store/apps/details?id=com.superguide.coc) <br />
 
- **Known bugs:**
- - no divider when SearchView starts.  
- - no keyboard when SearchView is in landscape mode.   
-
 ------------------------------------------------------------------------------------------------------------------------------
 
 # Usage

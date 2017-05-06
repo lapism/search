@@ -24,19 +24,24 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        String[] strings = {getString(R.string.installed), "fixMe"};
+        String[] strings = {
+                getString(R.string.apps),
+                getString(R.string.movies),
+                getString(R.string.updates),
+                getString(R.string.installed),
+                getString(R.string.library),
+                getString(R.string.beta)
+        };
 
         List<String> list = new ArrayList<>(30);
         Random random = new Random();
         while (list.size() < 30) {
-            //list.add(BaseActivity.sCheeseStrings[random.nextInt(BaseActivity.sCheeseStrings.length)]);
             list.add(strings[random.nextInt(strings.length)]);
         }
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        //recyclerView.addItemDecoration(new SearchDivider(getActivity()));
-        recyclerView.setAdapter(new RecyclerViewAdapter(list)); // getActivity(); getContext
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(new RecyclerViewAdapter(list));
         return recyclerView;
     }
 

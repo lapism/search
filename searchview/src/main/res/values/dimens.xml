@@ -3,12 +3,13 @@
 
     <dimen name="search_height">46dp</dimen>
 
-    <dimen name="search_key_line">8dp</dimen>
+    <dimen name="search_key_line_8">8dp</dimen>
+    <dimen name="search_key_line_16">16dp</dimen>
     <dimen name="search_divider">1dp</dimen>
 
     <dimen name="search_item_margin_text">24dp</dimen>
     <dimen name="search_item_height">56dp</dimen>
-    <dimen name="search_icon">64dp</dimen>
+    <dimen name="search_icon">56dp</dimen>
     <dimen name="search_progress">24dp</dimen>
     <dimen name="search_text_small">14sp</dimen>
     <dimen name="search_text_medium">16sp</dimen>
@@ -16,6 +17,5 @@
 
     <dimen name="filter_margin_start">12dp</dimen>
     <dimen name="filter_margin_top">8dp</dimen>
-    <dimen name="filter_spacing">5dp</dimen>
 
 </resources>

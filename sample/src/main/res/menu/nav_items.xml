@@ -5,11 +5,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_item_toolbar"
-            android:icon="@drawable/ic_menu_search"
+            android:icon="@drawable/ic_search_white_24dp"
             android:title="@string/toolbar" />
         <item
             android:id="@+id/nav_item_menu_item"
-            android:icon="@drawable/ic_menu_search"
+            android:icon="@drawable/ic_search_white_24dp"
             android:title="@string/menu_item" />
     </group>
 
@@ -17,7 +17,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_item_filters"
-            android:icon="@drawable/ic_menu_search"
+            android:icon="@drawable/ic_search_white_24dp"
             android:title="@string/filters" />
     </group>
 

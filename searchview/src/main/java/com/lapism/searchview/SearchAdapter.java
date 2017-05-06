@@ -138,7 +138,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             viewHolder.text.setText(item.getText());
         }
 
-        viewHolder.itemView.setOnClickListener(bindSuggestionClickListener(viewHolder, position));
+       // viewHolder.itemView.setOnClickListener(bindSuggestionClickListener(viewHolder, position));
     }
 
     private View.OnClickListener bindSuggestionClickListener(final ResultViewHolder viewHolder, final int position) {
@@ -265,8 +265,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         public ResultViewHolder(View view) {
             super(view);
             // TODO CLICK
-            icon_left = (ImageView) view.findViewById(R.id.imageView_item_icon_left);
-            text = (TextView) view.findViewById(R.id.textView_item_text);
+            icon_left = (ImageView) view.findViewById(R.id.imageView);
+            text = (TextView) view.findViewById(R.id.textView);
         }
     }
 

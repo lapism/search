@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">SearchView Sample</string>
-    <string name="version">Version: 4.1</string>
+    <string name="version">Version: 5.0</string>
 
     <string name="search">Search</string>
 
@@ -12,7 +12,7 @@
     <string name="filters">Filters</string>
 
     <string name="apps">Apps &amp; Games</string>
-    <string name="movies">Movies, Music, Boooks</string>
+    <string name="movies">Movies, Music, Books</string>
 
     <string name="updates">Updates</string>
     <string name="installed">Installed</string>

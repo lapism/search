@@ -25,4 +25,4 @@
         android:textAppearance="?attr/textAppearanceListItem"
         android:textIsSelectable="false" />
 
-</LinearLayout><!-- android:drawSelectorOnTop="true" selectableItemBackgroundBorderless -->
+</LinearLayout>

@@ -30,4 +30,6 @@ public class SearchViewCompat extends FrameLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
+    // work in progress ...
+
 }

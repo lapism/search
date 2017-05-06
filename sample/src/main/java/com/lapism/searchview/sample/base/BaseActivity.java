@@ -40,12 +40,10 @@ import java.util.List;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    @SuppressWarnings("WeakerAccess")
     protected static final int NAV_ITEM_INVALID = -1;
     protected static final int NAV_ITEM_TOOLBAR = 0;
     protected static final int NAV_ITEM_MENU_ITEM = 1;
-    protected static final int NAV_ITEM_HISTORY_TOGGLE = 2;
-    protected static final int NAV_ITEM_FILTERS = 3;
+    protected static final int NAV_ITEM_FILTERS = 2;
     protected static final String EXTRA_KEY_TEXT = "text";
     private static final String EXTRA_KEY_VERSION = "version";
     private static final String EXTRA_KEY_THEME = "theme";
@@ -133,6 +131,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         adapter.addFragment(new SearchFragment(), getString(R.string.installed));
         adapter.addFragment(new SearchFragment(), getString(R.string.library));
         adapter.addFragment(new SearchFragment(), getString(R.string.beta));
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager.setAdapter(adapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    protected void setMainViewPager() {
+        FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
+        adapter.addFragment(new SearchFragment(), getString(R.string.apps));
+        adapter.addFragment(new SearchFragment(), getString(R.string.movies));
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
@@ -265,7 +275,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
             SearchAdapter searchAdapter = new SearchAdapter(this, suggestionsList);
             searchAdapter.addOnItemClickListener((view, position) -> {
-                TextView textView = (TextView) view.findViewById(R.id.textView_item_text);
+                TextView textView = (TextView) view.findViewById(R.id.textView);
                 String query = textView.getText().toString();
                 getData(query, position);
                 mSearchView.close(false);

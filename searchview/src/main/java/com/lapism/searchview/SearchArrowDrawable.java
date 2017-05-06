@@ -2,6 +2,7 @@ package com.lapism.searchview;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.util.Property;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -25,6 +26,7 @@ class SearchArrowDrawable extends DrawerArrowDrawable {
 
     SearchArrowDrawable(Context context) {
         super(context);
+        setColor(ContextCompat.getColor(context, android.R.color.black));
     }
 
     void animate(float state, int duration) {

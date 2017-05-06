@@ -27,7 +27,7 @@ public class ToolbarActivity extends BaseActivity {
         setContentView(R.layout.activity_toolbar);
         setTitle(null); // ""
         setToolbar();
-        setViewPager();
+        setMainViewPager();
     }
 
     @Override

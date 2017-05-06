@@ -9,17 +9,29 @@ trivialdrive
 paypal
 
 
-layout
+
+ **Known bugs:**
+ - no divider when SearchView starts.
+ - no keyboard when SearchView is in landscape mode.
+
 ikonky lapiicons
 adapter z tv upraveny
-
-
+    android:background="?attr/selectableItemBackground"
+// getActivity(); getContext
+    FOREEGROUND
+    TINT
+<!-- android:drawSelectorOnTop="true" selectableItemBackgroundBorderless -->
 // todo to sedz napis
-// TODO cancel
+// TODOs
 + shadow under
 , najit vsechny chyby, stin,
 klavesnice , divider,
 filtrovani
 
 z appcompat verze ...
-BUGS Z MONITORU
+BUGS Z README
+
+cele prepsat
+click listener
+
+ikonky

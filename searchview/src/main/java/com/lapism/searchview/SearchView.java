@@ -27,7 +27,6 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -66,6 +65,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public static final int VERSION_MARGINS_TOOLBAR_BIG = 2001;
     public static final int VERSION_MARGINS_MENU_ITEM = 2002;
 
+    public static final int THEME_PLAY_STORE = 3002;// WHITE
     public static final int THEME_LIGHT = 3000;
     public static final int THEME_DARK = 3001;
 
@@ -219,20 +219,16 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mLinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         mCardView = (CardView) findViewById(R.id.cardView);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_result);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setVisibility(View.GONE);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
                     hideKeyboard();
-                } else {
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    }
                 }
             }
         });
@@ -245,7 +241,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mDividerView = findViewById(R.id.view_divider);
         mDividerView.setVisibility(View.GONE);
 
-        mFiltersContainer = (FlexboxLayout) findViewById(R.id.filters_container);
+        mFiltersContainer = (FlexboxLayout) findViewById(R.id.flexboxLayout);
         mFiltersContainer.setVisibility(View.GONE);
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -261,7 +257,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mEmptyImageView.setOnClickListener(this);
         mEmptyImageView.setVisibility(View.GONE);
 
-        mSearchEditText = (SearchEditText) findViewById(R.id.searchEditText_input);
+        mSearchEditText = (SearchEditText) findViewById(R.id.searchEditText);
         mSearchEditText.setSearchView(this);
         mSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -292,7 +288,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         setVersion(VERSION_TOOLBAR);
 
         mSearchArrow = new SearchArrowDrawable(mContext);
-        mBackImageView = (ImageView) findViewById(R.id.imageView_arrow_back);
+        mBackImageView = (ImageView) findViewById(R.id.imageView_arrow);
         mBackImageView.setImageDrawable(mSearchArrow);
         mBackImageView.setOnClickListener(this);
 
@@ -513,25 +509,30 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             params.bottomMargin = 0;
             mFiltersContainer.setLayoutParams(params);
         } else {
-            mSearchFiltersStates = new ArrayList<>();
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mFiltersContainer.getLayoutParams();
+            mSearchFiltersStates = new ArrayList<>();//todo
+            /*LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mFiltersContainer.getLayoutParams();
             params.topMargin = mContext.getResources().getDimensionPixelSize(R.dimen.filter_margin_top);
             params.bottomMargin = params.topMargin / 2;
-            mFiltersContainer.setLayoutParams(params);
+            mFiltersContainer.setLayoutParams(params);*/
+
             for (SearchFilter filter : filters) {
                 CheckBox checkBox = new CheckBox(mContext);
                 checkBox.setText(filter.getTitle());
                 checkBox.setTextSize(12);
                 checkBox.setTextColor(mTextColor);
                 checkBox.setChecked(filter.isChecked());
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                FlexboxLayout.LayoutParams lp = new FlexboxLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                lp.setMargins(36,12,24,12);// todo
+
                 checkBox.setLayoutParams(lp);
                 checkBox.setTag(filter.getTagId());
                 mFiltersContainer.addView(checkBox);
-                boolean isChecked = filter.isChecked();
-                mSearchFiltersStates.add(isChecked);
+                mSearchFiltersStates.add(filter.isChecked());
             }
         }
+        mDividerView.setVisibility(View.VISIBLE);
+        mFiltersContainer.setVisibility(View.VISIBLE);
         return this;
     }
 
@@ -628,6 +629,17 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_dark_text_highlight));
             }
         }
+
+        if (theme == THEME_PLAY_STORE) {
+            setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_play_store_background));
+            if (tint) {
+                setIconColor(ContextCompat.getColor(mContext, R.color.search_play_store_icon));
+                setHintColor(ContextCompat.getColor(mContext, R.color.search_play_store_hint));
+                setTextColor(ContextCompat.getColor(mContext, R.color.search_play_store_text));
+                setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_play_store_text_highlight));
+            }
+        }
+
         return this;
     }
 
@@ -655,7 +667,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return this;
     }
 
-    //new SearchDivider(mContext)
+    // new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL)
+    // new SearchDivider(mContext)
     public SearchView addDivider(RecyclerView.ItemDecoration itemDecoration) {
         mRecyclerView.addItemDecoration(itemDecoration);
         return this;
