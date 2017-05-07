@@ -1,6 +1,6 @@
 # SearchView
 
-I AM WORKING ON THIS PROJECT FINALLY AGAIN... Next version will be ASAP
+Next version 5.0 will be ASAP.
 
 Persistent SearchView Library like Play Store.  
 Check the [sample project](https://github.com/lapism/SearchView/tree/master/sample/src/main/java/com/lapism/searchview/sample) very thoroughly !!!  

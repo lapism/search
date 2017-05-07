@@ -15,6 +15,6 @@
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="toolbar_height2">64dp</dimen>
 
-    <dimen name="box2">80dp</dimen>
+    <dimen name="box">63dp</dimen>
 
 </resources>

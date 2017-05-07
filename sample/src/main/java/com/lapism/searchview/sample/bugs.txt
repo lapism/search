@@ -1,18 +1,24 @@
 NO DIVIDER
 NO KEYBOARD IN LANDSCAPE MODE
-FIX SEARCH BEHAVIOR + no shadow under AppbarLayout
-LINT
+no shadow under AppbarLayout
 
+LINT
 LTRL
+sedy obrazek
+ikonky
+drawer oppen bug
+
+ikoonkz
+giththub
+
+
 tint
+
+adds?
 trivialdrive
 paypal
 
 
-
- **Known bugs:**
- - no divider when SearchView starts.
- - no keyboard when SearchView is in landscape mode.
 
 ikonky lapiicons
 adapter z tv upraveny
@@ -35,3 +41,26 @@ cele prepsat
 click listener
 
 ikonky
+odstranit komenty
+
+
+<!-- android:drawSelectorOnTop="true" selectableItemBackgroundBorderless -->
+        <!--       exitUntilCollapsed     enterAlwaysCollapsed     app:layout_scrollFlags="scroll|enterAlways|snap"
+        android.support.v4.widget.NestedScrollView -->
+
+        <!--
+        android:stateListAnimator="@animator/appbar_always_elevated"
+        android:stateListAnimator="@null"
+        android:stateListAnimator="@animator/appbar_always_elevated"
+        android:fitsSystemWindows="false" -->
+
+    <!--
+         android:minHeight="?android:attr/actionBarSize"
+            <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true" />
+    "?attr/actionBarSize @string/bottom_sheet_behavior"
+?attr/actionBarSize@CoordinatorLayout.DefaultBehavior(FloatingActionButton.DoNotUseThis.class)
+    android.support.v4.widget.NestedScrollView -->
+

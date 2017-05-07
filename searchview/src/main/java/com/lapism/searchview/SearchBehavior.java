@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 // https://lab.getbase.com/nested-scrolling-with-coordinatorlayout-on-android/
-public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
+public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> { //FIXME
 
     private AppBarLayout mAppBarLayout;
     private AppBarLayout.Behavior mAppBarLayoutBehavior;

@@ -27,7 +27,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     private final SearchHistoryTable mHistoryDatabase;
     public Integer mDatabaseKey = null;
     private List<SearchItem> mSuggestionsList = new ArrayList<>();
-    private String key = "";
+    private String mKey = "";
     private List<SearchItem> mResultList = new ArrayList<>();
     private List<OnItemClickListener> mItemClickListeners;
     private List<OnSearchItemClickListener> mSearchItemClickListeners;
@@ -54,7 +54,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                 FilterResults filterResults = new FilterResults();
 
                 if (!TextUtils.isEmpty(constraint)) {
-                    key = constraint.toString().toLowerCase(Locale.getDefault());
+                    mKey = constraint.toString().toLowerCase(Locale.getDefault());
 
                     List<SearchItem> results = new ArrayList<>();
                     List<SearchItem> history = new ArrayList<>();
@@ -67,7 +67,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
                     for (SearchItem item : history) {
                         String string = item.getText().toString().toLowerCase(Locale.getDefault());
-                        if (string.contains(key)) {
+                        if (string.contains(mKey)) {
                             results.add(item);
                         } // TODO ADVANCED COMPARE METHOD
                     }
@@ -77,7 +77,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                         filterResults.count = results.size();
                     }
                 } else {
-                    key = "";
+                    mKey = "";
                 }
 
                 return filterResults;
@@ -95,7 +95,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                         }
                     }
                 } else {
-                    if (key.isEmpty()) {
+                    if (mKey.isEmpty()) {
                         if (!mSuggestionsList.isEmpty()) {
                             dataSet = mSuggestionsList;
                         } else {
@@ -103,6 +103,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                             if (!allItems.isEmpty()) {
                                 dataSet = allItems;
                             }
+                            /*
+                                                if (mKey.equals("")) {
+                        mResults.clear();
+                        notifyDataSetChanged();
+                    }
+                            */
                         }
                     }
                 }
@@ -130,9 +136,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         String itemText = item.getText().toString();
         String itemTextLower = itemText.toLowerCase(Locale.getDefault());
 
-        if (itemTextLower.contains(key) && !key.isEmpty()) {
+        if (itemTextLower.contains(mKey) && !mKey.isEmpty()) {
             SpannableString s = new SpannableString(itemText);
-            s.setSpan(new ForegroundColorSpan(SearchView.getTextHighlightColor()), itemTextLower.indexOf(key), itemTextLower.indexOf(key) + key.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            s.setSpan(new ForegroundColorSpan(SearchView.getTextHighlightColor()), itemTextLower.indexOf(mKey), itemTextLower.indexOf(mKey) + mKey.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
         } else {
             viewHolder.text.setText(item.getText());
@@ -252,6 +258,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
+    private OnItemClickListener mItemClickListener = null;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mItemClickListener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
 
     public interface OnSearchItemClickListener {
         void onItemClick(View view, int position, SearchItem searchItem);
@@ -264,7 +279,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
         public ResultViewHolder(View view) {
             super(view);
-            // TODO CLICK
+            /*view.setOnClickListener(v -> {
+                if (mItemClickListener != null) {
+                    mItemClickListener.onItemClick(v, getAdapterPosition());
+                }
+            });*/
             icon_left = (ImageView) view.findViewById(R.id.imageView);
             text = (TextView) view.findViewById(R.id.textView);
         }

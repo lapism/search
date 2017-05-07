@@ -146,6 +146,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public SearchView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         mContext = context;
+        //getContext();
         initView();
         initStyle(attrs, defStyleAttr);
     }
@@ -295,12 +296,12 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         setVoice(true);
     }
 
+    // mContext.getResources().getDimension(R.dimen.search_height)) todo
     private void initStyle(AttributeSet attrs, int defStyleAttr) {
         final TypedArray attr = mContext.obtainStyledAttributes(attrs, R.styleable.SearchView, defStyleAttr, 0);
         if (attr != null) {
             if (attr.hasValue(R.styleable.SearchView_search_height)) {
                 setHeightInDP(attr.getDimension(R.styleable.SearchView_search_height, 0));
-                // mContext.getResources().getDimension(R.dimen.search_height))
             }
             if (attr.hasValue(R.styleable.SearchView_search_version)) {
                 setVersion(attr.getInt(R.styleable.SearchView_search_version, VERSION_TOOLBAR));
@@ -523,7 +524,12 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 checkBox.setChecked(filter.isChecked());
 
                 FlexboxLayout.LayoutParams lp = new FlexboxLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                lp.setMargins(36,12,24,12);// todo
+                lp.setMargins(
+                        getResources().getDimensionPixelSize(R.dimen.search_filter_margin_start),
+                        getResources().getDimensionPixelSize(R.dimen.search_filter_margin_top),
+                        getResources().getDimensionPixelSize(R.dimen.search_filter_margin_top),
+                        getResources().getDimensionPixelSize(R.dimen.search_filter_margin_top)
+                );
 
                 checkBox.setLayoutParams(lp);
                 checkBox.setTag(filter.getTagId());
@@ -871,7 +877,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
         showKeyboard();
 
-        // TODO
         if (!TextUtils.isEmpty(mUserQuery)) {
             mEmptyImageView.setVisibility(View.VISIBLE);
             if (mVoice) {
@@ -901,7 +906,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
         hideKeyboard();
 
-        // TODO
         if (!TextUtils.isEmpty(mUserQuery)) {
             mEmptyImageView.setVisibility(View.GONE);
             if (mVoice) {
@@ -989,8 +993,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public SearchView setGoogleIcons() {
-        // mBackImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_logo));
-        // mVoiceImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic));
+        mBackImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_google_color_24dp));
+        // mVoiceImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic));// todo
         return this;
     }
 

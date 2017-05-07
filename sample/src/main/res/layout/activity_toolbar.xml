@@ -12,11 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--
-        android:stateListAnimator="@animator/appbar_always_elevated"
-        android:stateListAnimator="@null"
-        android:stateListAnimator="@animator/appbar_always_elevated"
-        android:fitsSystemWindows="false" -->
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,8 +35,6 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <!--       exitUntilCollapsed     enterAlwaysCollapsed     app:layout_scrollFlags="scroll|enterAlways|snap"
-        android.support.v4.widget.NestedScrollView -->
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"

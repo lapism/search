@@ -58,13 +58,3 @@
     <include layout="@layout/nav" />
 
 </android.support.v4.widget.DrawerLayout>
-
-    <!--
-         android:minHeight="?android:attr/actionBarSize"
-            <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true" />
-    "?attr/actionBarSize @string/bottom_sheet_behavior"
-?attr/actionBarSize@CoordinatorLayout.DefaultBehavior(FloatingActionButton.DoNotUseThis.class)
-    android.support.v4.widget.NestedScrollView -->
