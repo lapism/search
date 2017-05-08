@@ -42,11 +42,12 @@ public class SearchFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.search_fragment, container, false);
 
-        RecyclerView recyclerView = (RecyclerView)  view.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(new SearchAdapter(list));
-        return recyclerView;
+
+        return view;
     }
 
 }

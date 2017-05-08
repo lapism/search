@@ -26,7 +26,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,9 +38,11 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
 import android.widget.Filterable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -55,7 +56,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-// Preview of SearchView version 5.0
+
 @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
@@ -125,6 +126,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private boolean mShouldClearOnClose = false;
     private boolean mShouldHideOnKeyboardClose = true;
     // Boolean ha;
+    // getContext
+// mContext.getResources().getDimension(R.dimen.search_height))
+// @Nullable
+    private List<Boolean> mSearchFiltersStates = null;
+    private List<SearchFilter> mSearchFilters = null;
 
     private boolean mArrow = false;
 
@@ -154,6 +160,60 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         initStyle(attrs, defStyleAttr);
     }
 
+    public static int getIconColor() {
+        return mIconColor;
+    }
+
+    public void setIconColor(@ColorInt int color) {
+        mIconColor = color;
+        ColorFilter colorFilter = new PorterDuffColorFilter(mIconColor, PorterDuff.Mode.SRC_IN);
+
+        mImageViewArrow.setColorFilter(colorFilter);
+        mImageViewMic.setColorFilter(colorFilter);
+        mImageViewClear.setColorFilter(colorFilter);
+    }
+
+    public static int getTextColor() {
+        return mTextColor;
+    }
+
+    public void setTextColor(@ColorInt int color) {
+        mTextColor = color;
+        mSearchEditText.setTextColor(mTextColor);
+
+        for (int i = 0, n = mFlexboxLayout.getChildCount(); i < n; i++) {
+            View child = mFlexboxLayout.getChildAt(i);
+            if (child instanceof CheckBox)
+                ((CheckBox) child).setTextColor(mTextColor);
+        }
+    }
+
+    public static int getTextHighlightColor() {
+        return mTextHighlightColor;
+    }
+
+    public void setTextHighlightColor(@ColorInt int color) {
+        mTextHighlightColor = color;
+    }
+
+    public static Typeface getTextFont() {
+        return mTextFont;
+    }
+
+    public void setTextFont(Typeface font) {
+        mTextFont = font;
+        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
+    }
+
+    public static int getTextStyle() {
+        return mTextStyle;
+    }
+
+    public void setTextStyle(int style) {
+        mTextStyle = style;
+        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
+    }
+
     private void initView() {
         LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
 
@@ -172,6 +232,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         mImageViewArrow = (ImageView) findViewById(R.id.imageView_arrow);
         mImageViewArrow.setImageDrawable(mSearchArrow);
+        mImageViewArrow.clearFocus();
         mImageViewArrow.setOnClickListener(this);
 
         mImageViewMic = (ImageView) findViewById(R.id.imageView_mic);
@@ -231,7 +292,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 removeFocus();
             }
         });
-        mSearchEditText.clearFocus();
+
+        setVoice(true);
     }
 
     private void initStyle(AttributeSet attrs, int defStyleAttr) { // todo doplnit
@@ -331,10 +393,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         setTheme(theme, true);
     }
 
-    public void setHint(CharSequence hint) {
-        mSearchEditText.setHint(hint);
-    }
-
     public void setVoice(boolean voice) {
         if (voice && isVoiceAvailable()) {
             mImageViewMic.setVisibility(View.VISIBLE);
@@ -365,6 +423,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public CharSequence getHint() {
         return mSearchEditText.getHint();
+    }
+
+    public void setHint(CharSequence hint) {
+        mSearchEditText.setHint(hint);
     }
 
     public void setAnimationDuration(int animationDuration) {
@@ -435,7 +497,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    // INTDEF
+    // TODO INTDEF
     public void setTheme(int theme, boolean tint) {
         if (theme == THEME_LIGHT) {
             setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
@@ -466,60 +528,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_play_store_text_highlight));
             }
         }
-    }
-
-    public static int getIconColor() {
-        return mIconColor;
-    }
-
-    public void setIconColor(@ColorInt int color) {
-        mIconColor = color;
-        ColorFilter colorFilter = new PorterDuffColorFilter(mIconColor, PorterDuff.Mode.SRC_IN);
-
-        mImageViewArrow.setColorFilter(colorFilter);
-        mImageViewMic.setColorFilter(colorFilter);
-        mImageViewClear.setColorFilter(colorFilter);
-    }
-
-    public static int getTextColor() {
-        return mTextColor;
-    }
-
-    public void setTextColor(@ColorInt int color) {
-        mTextColor = color;
-        mSearchEditText.setTextColor(mTextColor);
-
-        /*for (int i = 0, n = mFiltersContainer.getChildCount(); i < n; i++) {
-            View child = mFiltersContainer.getChildAt(i);
-            if (child instanceof CheckBox)
-                ((CheckBox) child).setTextColor(mTextColor);
-        }*/
-    }
-
-    public static int getTextHighlightColor() {
-        return mTextHighlightColor;
-    }
-
-    public void setTextHighlightColor(@ColorInt int color) {
-        mTextHighlightColor = color;
-    }
-
-    public static Typeface getTextFont() {
-        return mTextFont;
-    }
-
-    public void setTextFont(Typeface font) {
-        mTextFont = font;
-        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
-    }
-
-    public static int getTextStyle() {
-        return mTextStyle;
-    }
-
-    public void setTextStyle(int style) {
-        mTextStyle = style;
-        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
     }
 
     public void setVersionMargins(int version) {
@@ -596,7 +604,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private void onSubmitQuery() {
         CharSequence query = mSearchEditText.getText();
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
-            //dispatchFilters();
+            dispatchFilters();
             if (mOnQueryChangeListener == null || !mOnQueryChangeListener.onQueryTextSubmit(query.toString())) {
                 mSearchEditText.setText(query);
             }
@@ -898,7 +906,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 mSearchArrow.animate(SearchArrowDrawable.STATE_ARROW, mAnimationDuration);
             }
         } else {
-           mSearchArrow.setProgress(SearchArrowDrawable.STATE_ARROW);
+            mSearchArrow.setProgress(SearchArrowDrawable.STATE_ARROW);
         }
         mArrow = true;
     }
@@ -960,7 +968,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
 
         if (mOnQueryChangeListener != null && !TextUtils.equals(newText, mOldQuery)) {
-            //dispatchFilters();
+            dispatchFilters();
             mOnQueryChangeListener.onQueryTextChange(text.toString());
         }
         mOldQuery = newText.toString();
@@ -972,7 +980,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             mSearchEditText.setSelection(mSearchEditText.length());
             mQuery = query;
         } else {
-            mSearchEditText.getText().clear(); // mSearchEditText.setText("");
+            mSearchEditText.getText().clear();
         }
     }
 
@@ -1037,31 +1045,100 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
+    public int getCustomHeight() {
+        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
+        return params.height;
+    }
+
+    public void setCustomHeight(int height) {
+        //int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
+        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
+        params.height = height;
+        params.width = LinearLayout.LayoutParams.MATCH_PARENT;
+        mLinearLayout.setLayoutParams(params);
+    }
+
+    public List<Boolean> getFiltersStates() {
+        return mSearchFiltersStates;
+    }
+
+    private void restoreFiltersState(List<Boolean> states) {
+        mSearchFiltersStates = states;
+        for (int i = 0, j = 0, n = mFlexboxLayout.getChildCount(); i < n; i++) {
+            View view = mFlexboxLayout.getChildAt(i);
+            if (view instanceof CheckBox) {
+                ((CheckBox) view).setChecked(mSearchFiltersStates.get(j++));
+            }
+        }
+    }
+
+    public void setFilters(@Nullable List<SearchFilter> filters) {
+        mSearchFilters = filters;
+        mFlexboxLayout.removeAllViews();
+        if (filters == null) {
+            mSearchFiltersStates = null;
+            FlexboxLayout.LayoutParams params = (FlexboxLayout.LayoutParams) mFlexboxLayout.getLayoutParams();
+            params.topMargin = 0;
+            params.bottomMargin = 0;
+            mFlexboxLayout.setLayoutParams(params);
+        } else {
+            mSearchFiltersStates = new ArrayList<>();
+            /*LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mFiltersContainer.getLayoutParams();
+            params.topMargin = mContext.getResources().getDimensionPixelSize(R.dimen.filter_margin_top);
+            params.bottomMargin = params.topMargin / 2;
+            mFlexboxLayout.setLayoutParams(params);*/
+
+            for (SearchFilter filter : filters) {
+                CheckBox checkBox = new CheckBox(mContext);
+                checkBox.setText(filter.getTitle());
+                checkBox.setTextSize(mContext.getResources().getDimension(R.dimen.search_text_medium));
+                checkBox.setTextColor(mTextColor);
+                checkBox.setChecked(filter.isChecked());
+
+                FlexboxLayout.LayoutParams lp = new FlexboxLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                lp.setMargins(getResources().getDimensionPixelSize(R.dimen.search_filter_margin_start), getResources().getDimensionPixelSize(R.dimen.search_filter_margin_top), getResources().getDimensionPixelSize(R.dimen.search_filter_margin_top), getResources().getDimensionPixelSize(R.dimen.search_filter_margin_top));
+
+                checkBox.setLayoutParams(lp);
+                checkBox.setTag(filter.getTagId());
+                mFlexboxLayout.addView(checkBox);
+                mSearchFiltersStates.add(filter.isChecked());
+            }
+        }
+    }
+
+    public List<SearchFilter> getSearchFilters() {
+        if (mSearchFilters == null) {
+            return new ArrayList<>();
+        }
+
+        dispatchFilters();
+
+        List<SearchFilter> searchFilters = new ArrayList<>();
+        for (SearchFilter filter : mSearchFilters) {
+            searchFilters.add(new SearchFilter(filter.getTitle(), filter.isChecked(), filter.getTagId()));
+        }
+        return searchFilters;
+    }
+
+    private void dispatchFilters() {
+        if (mSearchFiltersStates != null) {
+            for (int i = 0, j = 0, n = mFlexboxLayout.getChildCount(); i < n; i++) {
+                View view = mFlexboxLayout.getChildAt(i);
+                if (view instanceof CheckBox) {
+                    boolean isChecked = ((CheckBox) view).isChecked();
+                    mSearchFiltersStates.set(j, isChecked);
+                    mSearchFilters.get(j).setChecked(isChecked);
+                    j++;
+                }
+            }
+        }
+    }
+
     private void setInfo() {
         mVoice = isVoiceAvailable();
         if (mVoice) {
             mSearchEditText.setPrivateImeOptions("nm");
         }
-    }
-
-    public interface OnQueryTextListener {
-        boolean onQueryTextSubmit(String query);
-
-        boolean onQueryTextChange(String newText);
-    }
-
-    public interface OnOpenCloseListener {
-        boolean onClose();
-
-        boolean onOpen();
-    }
-
-    public interface OnMenuClickListener {
-        void onMenuClick();
-    }
-
-    public interface OnVoiceClickListener {
-        void onVoiceClick();
     }
 
     public void setOnQueryTextListener(OnQueryTextListener listener) {
@@ -1087,9 +1164,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         ss.query = mQuery != null ? mQuery.toString() : null;
         ss.isSearchOpen = getVisibility() == View.VISIBLE;
-        /*dispatchFilters();
+        dispatchFilters();
         ss.searchFiltersStates = mSearchFiltersStates;
-        ss.searchFilters = mSearchFilters;*/
+        ss.searchFilters = mSearchFilters;
 
         return ss;
     }
@@ -1104,14 +1181,40 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         SavedState ss = (SavedState) state;
         if (ss.isSearchOpen) {
             open(true);
-            setQueryWithoutSubmitting(ss.query); // TODO
+            setQueryWithoutSubmitting(ss.query);
             mSearchEditText.requestFocus();
         }
 
-        //restoreFiltersState(ss.searchFiltersStates);
-        //mSearchFilters = ss.searchFilters;
+        restoreFiltersState(ss.searchFiltersStates);
+        mSearchFilters = ss.searchFilters;
         super.onRestoreInstanceState(ss.getSuperState());
         requestLayout();
+    }
+
+    private int getCenterX(View view) {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        return location[0] + view.getWidth() / 2;
+    }
+
+    public interface OnQueryTextListener {
+        boolean onQueryTextSubmit(String query);
+
+        boolean onQueryTextChange(String newText);
+    }
+
+    public interface OnOpenCloseListener {
+        boolean onClose();
+
+        boolean onOpen();
+    }
+
+    public interface OnMenuClickListener {
+        void onMenuClick();
+    }
+
+    public interface OnVoiceClickListener {
+        void onVoiceClick();
     }
 
     private static class SavedState extends BaseSavedState {
@@ -1165,12 +1268,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             out.writeTypedList(searchFilters);
         }
 
-    }
-
-    private int getCenterX(View view) {
-        int[] location = new int[2];
-        view.getLocationOnScreen(location);
-        return location[0] + view.getWidth() / 2;
     }
 
 }

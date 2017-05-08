@@ -50,14 +50,14 @@ public class FiltersActivity extends BaseActivity {
         filters.add(new SearchFilter("Filter5", false));
         filters.add(new SearchFilter("Filter6", false));
 
-       // mSearchView.setFilters(filters);
+        mSearchView.setFilters(filters);
     }
 
     @Override
     protected void getData(String text, int position) {
         super.getData(text, position);
 
-       /* new Handler().postDelayed(() -> {
+        new Handler().postDelayed(() -> {
             String text1 = "Selected: ";
             List<Boolean> filtersState = mSearchView.getFiltersStates();
             int i = 0;
@@ -69,7 +69,7 @@ public class FiltersActivity extends BaseActivity {
             if (text1.equals("Selected: "))
                 text1 += "nothing";
             Toast.makeText(FiltersActivity.this, text1, Toast.LENGTH_SHORT).show();
-        }, 600);*/
+        }, 600);
     }
 
 }

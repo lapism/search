@@ -2,6 +2,7 @@ package com.lapism.searchview;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
 
@@ -21,6 +22,10 @@ class SearchUtils {
         // The view has LTR layout
         mSearchArrow.setDirection(SearchArrowDrawable.ARROW_DIRECTION_START);
     }*/
+
+    private static int pxToDp(int px) {
+        return (int) (px / Resources.getSystem().getDisplayMetrics().density);
+    }
 
     private static boolean isRTL(Locale locale) {
         final int directionality = Character.getDirectionality(locale.getDisplayName().charAt(0));

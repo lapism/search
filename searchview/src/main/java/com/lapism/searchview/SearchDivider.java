@@ -9,16 +9,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import java.security.MessageDigest;
-
 // TODO
 public class SearchDivider extends RecyclerView.ItemDecoration {
 
+    private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
     private Drawable mDivider;
     private int mDividerHeight;
     private int mDividerWidth;
-
-    private static final int[] ATTRS = new int[]{ android.R.attr.listDivider };
 
     public SearchDivider(Context context) {
         final TypedArray a = context.obtainStyledAttributes(ATTRS);

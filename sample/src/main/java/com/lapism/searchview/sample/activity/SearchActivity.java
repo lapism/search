@@ -8,8 +8,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
-import com.lapism.searchview.sample.base.BaseActivity;
 import com.lapism.searchview.sample.adapter.SearchAdapter;
+import com.lapism.searchview.sample.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;

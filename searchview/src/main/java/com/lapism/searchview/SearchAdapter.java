@@ -31,6 +31,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     private List<SearchItem> mResultList = new ArrayList<>();
     private List<OnItemClickListener> mItemClickListeners;
     private List<OnSearchItemClickListener> mSearchItemClickListeners;
+    private OnItemClickListener mItemClickListener = null;
 
     // ---------------------------------------------------------------------------------------------
     public SearchAdapter(Context context) {
@@ -144,7 +145,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             viewHolder.text.setText(item.getText());
         }
 
-       // viewHolder.itemView.setOnClickListener(bindSuggestionClickListener(viewHolder, position));
+        // viewHolder.itemView.setOnClickListener(bindSuggestionClickListener(viewHolder, position));
     }
 
     private View.OnClickListener bindSuggestionClickListener(final ResultViewHolder viewHolder, final int position) {
@@ -258,7 +259,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
-    private OnItemClickListener mItemClickListener = null;
 
     /*public void setOnItemClickListener(OnItemClickListener listener) {
         mItemClickListener = listener;

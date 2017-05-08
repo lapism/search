@@ -1,17 +1,26 @@
 NO DIVIDER
 NO KEYBOARD IN LANDSCAPE MODE
 no shadow under AppbarLayout
-
 LINT
 LTRL
-sedy obrazek
+
 ikonky
-drawer oppen bug
 
-ikoonkz
-giththub
-
+giththub issues
+vsehcnz komentz
 LAYOUUIT U ITEMU
+
+z appcompat verze ...
+BUGS Z README
+
+cele prepsat
+click listener
+
+vymenit v apce obrazky a ikonky
+
+
+
+
 tint
 
 adds?
@@ -37,15 +46,9 @@ adapter z tv upraveny
 klavesnice , divider,
 filtrovani
 
-z appcompat verze ...
-BUGS Z README
 
-cele prepsat
-click listener
 
 ikonky
-odstranit komenty
-
 
 <!-- android:drawSelectorOnTop="true" selectableItemBackgroundBorderless -->
         <!--       exitUntilCollapsed     enterAlwaysCollapsed     app:layout_scrollFlags="scroll|enterAlways|snap"
