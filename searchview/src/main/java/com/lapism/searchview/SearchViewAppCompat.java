@@ -1,6 +1,6 @@
 package com.lapism.searchview;
 
-import android.annotation.TargetApi;
+
 import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.app.SearchableInfo;
@@ -35,7 +35,6 @@ import android.support.v7.appcompat.R;
 import android.support.v7.view.CollapsibleActionView;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.LinearLayoutCompat;
-import android.support.v7.widget.SuggestionsAdapter;
 import android.support.v7.widget.TintTypedArray;
 import android.support.v7.widget.ViewUtils;
 import android.text.Editable;
@@ -70,11 +69,11 @@ import java.util.WeakHashMap;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-//import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;@RestrictTo(LIBRARY_GROUP)
 
-
+/*
 public class SearchViewAppCompat extends LinearLayoutCompat implements CollapsibleActionView {
 
+    //FrameLayoutCompat gfa;
     static final boolean DBG = false;
     static final String LOG_TAG = "SearchView";
 
@@ -106,7 +105,7 @@ public class SearchViewAppCompat extends LinearLayoutCompat implements Collapsib
     private OnSuggestionListener mOnSuggestionListener;
     private OnClickListener mOnSearchClickListener;
     private boolean mIconifiedByDefault;
-    private boolean mIconified;
+
     CursorAdapter mSuggestionsAdapter;
     private boolean mSubmitButtonEnabled;
     private CharSequence mQueryHint;
@@ -320,7 +319,6 @@ public class SearchViewAppCompat extends LinearLayoutCompat implements Collapsib
         updateViewsVisibility(isIconified());
     }
 
-    @RestrictTo(LIBRARY_GROUP)
     public void setAppSearchData(Bundle appSearchData) {
         mAppSearchData = appSearchData;
     }
@@ -339,30 +337,6 @@ public class SearchViewAppCompat extends LinearLayoutCompat implements Collapsib
 
     public int getInputType() {
         return mSearchSrcTextView.getInputType();
-    }
-
-    @Override
-    public boolean requestFocus(int direction, Rect previouslyFocusedRect) {
-        if (mClearingFocus) return false;
-        if (!isFocusable()) return false;
-        if (!isIconified()) {
-            boolean result = mSearchSrcTextView.requestFocus(direction, previouslyFocusedRect);
-            if (result) {
-                updateViewsVisibility(false);
-            }
-            return result;
-        } else {
-            return super.requestFocus(direction, previouslyFocusedRect);
-        }
-    }
-
-    @Override
-    public void clearFocus() {
-        mClearingFocus = true;
-        setImeVisibility(false);
-        super.clearFocus();
-        mSearchSrcTextView.clearFocus();
-        mClearingFocus = false;
     }
 
     public void setOnQueryTextListener(OnQueryTextListener listener) {
@@ -423,7 +397,7 @@ public class SearchViewAppCompat extends LinearLayoutCompat implements Collapsib
     public void setIconifiedByDefault(boolean iconified) {
         if (mIconifiedByDefault == iconified) return;
         mIconifiedByDefault = iconified;
-        updateViewsVisibility(iconified);
+
         updateQueryHint();
     }
 
@@ -439,13 +413,9 @@ public class SearchViewAppCompat extends LinearLayoutCompat implements Collapsib
         }
     }
 
-    public boolean isIconified() {
-        return mIconified;
-    }
 
     public void setSubmitButtonEnabled(boolean enabled) {
         mSubmitButtonEnabled = enabled;
-        updateViewsVisibility(isIconified());
     }
 
     public boolean isSubmitButtonEnabled() {
@@ -468,7 +438,6 @@ public class SearchViewAppCompat extends LinearLayoutCompat implements Collapsib
 
     public void setMaxWidth(int maxpixels) {
         mMaxWidth = maxpixels;
-
         requestLayout();
     }
 
@@ -476,71 +445,9 @@ public class SearchViewAppCompat extends LinearLayoutCompat implements Collapsib
         return mMaxWidth;
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (isIconified()) {
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-            return;
-        }
 
-        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-        int width = MeasureSpec.getSize(widthMeasureSpec);
-
-        switch (widthMode) {
-            case MeasureSpec.AT_MOST:
-                if (mMaxWidth > 0) {
-                    width = Math.min(mMaxWidth, width);
-                } else {
-                    width = Math.min(getPreferredWidth(), width);
-                }
-                break;
-            case MeasureSpec.EXACTLY:
-                if (mMaxWidth > 0) {
-                    width = Math.min(mMaxWidth, width);
-                }
-                break;
-            case MeasureSpec.UNSPECIFIED:
-                width = mMaxWidth > 0 ? mMaxWidth : getPreferredWidth();
-                break;
-        }
-        widthMode = MeasureSpec.EXACTLY;
-
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        int height = MeasureSpec.getSize(heightMeasureSpec);
-
-        switch (heightMode) {
-            case MeasureSpec.AT_MOST:
-                height = Math.min(getPreferredHeight(), height);
-                break;
-            case MeasureSpec.UNSPECIFIED:
-                height = getPreferredHeight();
-                break;
-            case MeasureSpec.EXACTLY:
-                break;
-        }
-        heightMode = MeasureSpec.EXACTLY;
-
-        super.onMeasure(MeasureSpec.makeMeasureSpec(width, widthMode),
-                MeasureSpec.makeMeasureSpec(height, heightMode));
-    }
-
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-
-        if (changed) {
-            // TODO 48dp.
-            getChildBoundsWithinSearchView(mSearchSrcTextView, mSearchSrcTextViewBounds);
-            mSearchSrtTextViewBoundsExpanded.set(
-                    mSearchSrcTextViewBounds.left, 0, mSearchSrcTextViewBounds.right, bottom - top);
-            if (mTouchDelegate == null) {
-                mTouchDelegate = new UpdatableTouchDelegate(mSearchSrtTextViewBoundsExpanded,
-                        mSearchSrcTextViewBounds, mSearchSrcTextView);
-                setTouchDelegate(mTouchDelegate);
-            } else {
-                mTouchDelegate.setBounds(mSearchSrtTextViewBoundsExpanded, mSearchSrcTextViewBounds);
-            }
-        }
+    protected void oAnMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        //MeasureSpec.AT_MOST:
     }
 
     private void getChildBoundsWithinSearchView(View view, Rect rect) {
@@ -551,16 +458,11 @@ public class SearchViewAppCompat extends LinearLayoutCompat implements Collapsib
         rect.set(left, top, left + view.getWidth(), top + view.getHeight());
     }
 
-    private int getPreferredWidth() {
-        return getContext().getResources().getDimensionPixelSize(R.dimen.abc_search_view_preferred_width);
-    }
-
     private int getPreferredHeight() {
         return getContext().getResources().getDimensionPixelSize(R.dimen.abc_search_view_preferred_height);
     }
 
     private void updateViewsVisibility(final boolean collapsed) {
-        mIconified = collapsed;
         final int visCollapsed = collapsed ? VISIBLE : GONE;
         final boolean hasText = !TextUtils.isEmpty(mSearchSrcTextView.getText());
 
@@ -598,28 +500,11 @@ public class SearchViewAppCompat extends LinearLayoutCompat implements Collapsib
         return false;
     }
 
-    private boolean isSubmitAreaEnabled() {
-        return (mSubmitButtonEnabled || mVoiceButtonEnabled) && !isIconified();
-    }
 
-    private void updateSubmitButton(boolean hasText) {
-        int visibility = GONE;
-        if (mSubmitButtonEnabled && isSubmitAreaEnabled() && hasFocus()
-                && (hasText || !mVoiceButtonEnabled)) {
-            visibility = VISIBLE;
-        }
-        mGoButton.setVisibility(visibility);
-    }
 
-    private void updateSubmitArea() {
-        int visibility = GONE;
-        if (isSubmitAreaEnabled()
-                && (mGoButton.getVisibility() == VISIBLE
-                || mVoiceButton.getVisibility() == VISIBLE)) {
-            visibility = VISIBLE;
-        }
-        mSubmitArea.setVisibility(visibility);
-    }
+
+
+
 
     private void updateCloseButton() {
         final boolean hasText = !TextUtils.isEmpty(mSearchSrcTextView.getText());
@@ -649,12 +534,7 @@ public class SearchViewAppCompat extends LinearLayoutCompat implements Collapsib
         invalidate();
     }
 
-    @Override
-    protected void onDetachedFromWindow() {
-        removeCallbacks(mUpdateDrawableStateRunnable);
-        post(mReleaseCursorRunnable);
-        super.onDetachedFromWindow();
-    }
+
 
     void setImeVisibility(final boolean visible) {
         if (visible) {
@@ -781,7 +661,7 @@ public class SearchViewAppCompat extends LinearLayoutCompat implements Collapsib
 
     private void updateVoiceButton(boolean empty) {
         int visibility = GONE;
-        if (mVoiceButtonEnabled && !isIconified() && empty) {
+        if (mVoiceButtonEnabled && empty) {
             visibility = VISIBLE;
             mGoButton.setVisibility(GONE);
         }
@@ -867,7 +747,6 @@ public class SearchViewAppCompat extends LinearLayoutCompat implements Collapsib
     }
 
     void onTextFocusChanged() {
-        updateViewsVisibility(isIconified());
         postUpdateFocusedState();
         if (mSearchSrcTextView.hasFocus()) {
             forceSuggestionQuery();
@@ -1083,8 +962,7 @@ public class SearchViewAppCompat extends LinearLayoutCompat implements Collapsib
     private Intent createVoiceWebSearchIntent(Intent baseIntent, SearchableInfo searchable) {
         Intent voiceIntent = new Intent(baseIntent);
         ComponentName searchActivity = searchable.getSearchActivity();
-        voiceIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, searchActivity == null ? null
-                : searchActivity.flattenToShortString());
+        voiceIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, searchActivity == null ? null : searchActivity.flattenToShortString());
         return voiceIntent;
     }
 
@@ -1177,79 +1055,14 @@ public class SearchViewAppCompat extends LinearLayoutCompat implements Collapsib
     }
 
     static boolean isLandscapeMode(Context context) {
-        return context.getResources().getConfiguration().orientation
-                == Configuration.ORIENTATION_LANDSCAPE;
+        // TouchDelegate
+        return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
-    private static class UpdatableTouchDelegate extends TouchDelegate {
 
-        private final View mDelegateView;
-        private final Rect mTargetBounds;
-        private final Rect mActualBounds;
-        private final Rect mSlopBounds;
-        private final int mSlop;
-        private boolean mDelegateTargeted;
 
-        UpdatableTouchDelegate(Rect targetBounds, Rect actualBounds, View delegateView) {
-            super(targetBounds, delegateView);
-            mSlop = ViewConfiguration.get(delegateView.getContext()).getScaledTouchSlop();
-            mTargetBounds = new Rect();
-            mSlopBounds = new Rect();
-            mActualBounds = new Rect();
-            setBounds(targetBounds, actualBounds);
-            mDelegateView = delegateView;
-        }
 
-        void setBounds(Rect desiredBounds, Rect actualBounds) {
-            mTargetBounds.set(desiredBounds);
-            mSlopBounds.set(desiredBounds);
-            mSlopBounds.inset(-mSlop, -mSlop);
-            mActualBounds.set(actualBounds);
-        }
 
-        @Override
-        public boolean onTouchEvent(MotionEvent event) {
-            final int x = (int) event.getX();
-            final int y = (int) event.getY();
-            boolean sendToDelegate = false;
-            boolean hit = true;
-            boolean handled = false;
-
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    if (mTargetBounds.contains(x, y)) {
-                        mDelegateTargeted = true;
-                        sendToDelegate = true;
-                    }
-                    break;
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_MOVE:
-                    sendToDelegate = mDelegateTargeted;
-                    if (sendToDelegate) {
-                        if (!mSlopBounds.contains(x, y)) {
-                            hit = false;
-                        }
-                    }
-                    break;
-                case MotionEvent.ACTION_CANCEL:
-                    sendToDelegate = mDelegateTargeted;
-                    mDelegateTargeted = false;
-                    break;
-            }
-            if (sendToDelegate) {
-                if (hit && !mActualBounds.contains(x, y)) {
-                    event.setLocation(mDelegateView.getWidth() / 2, mDelegateView.getHeight() / 2);
-                } else {
-                    event.setLocation(x - mActualBounds.left, y - mActualBounds.top);
-                }
-
-                handled = mDelegateView.dispatchTouchEvent(event);
-            }
-            return handled;
-        }
-    }
-
-    @RestrictTo(LIBRARY_GROUP)
     public static class SearchAutoComplete extends AppCompatAutoCompleteTextView {
 
         private int mThreshold;
@@ -1427,6 +1240,9 @@ public class SearchViewAppCompat extends LinearLayoutCompat implements Collapsib
         }
     }
 
+
+
+
     public interface OnQueryTextListener {
 
         boolean onQueryTextSubmit(String query);
@@ -1445,4 +1261,4 @@ public class SearchViewAppCompat extends LinearLayoutCompat implements Collapsib
 
         boolean onSuggestionClick(int position);
     }
-}
+}*/

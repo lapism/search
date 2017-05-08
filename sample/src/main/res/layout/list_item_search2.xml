@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/box2"
+    android:layout_height="@dimen/box"
     android:layout_marginBottom="@dimen/key_line_4"
     android:layout_marginEnd="@dimen/key_line_8"
     android:layout_marginLeft="@dimen/key_line_8"

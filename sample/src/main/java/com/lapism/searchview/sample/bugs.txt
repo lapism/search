@@ -11,7 +11,7 @@ drawer oppen bug
 ikoonkz
 giththub
 
-
+LAYOUUIT U ITEMU
 tint
 
 adds?
@@ -21,6 +21,9 @@ paypal
 
 
 ikonky lapiicons
+projit flathoc
+
+
 adapter z tv upraveny
     android:background="?attr/selectableItemBackground"
 // getActivity(); getContext

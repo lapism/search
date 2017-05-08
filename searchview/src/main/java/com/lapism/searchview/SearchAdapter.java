@@ -260,13 +260,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     }
     private OnItemClickListener mItemClickListener = null;
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    /*public void setOnItemClickListener(OnItemClickListener listener) {
         mItemClickListener = listener;
     }
 
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
-    }
+    }*/
 
     public interface OnSearchItemClickListener {
         void onItemClick(View view, int position, SearchItem searchItem);

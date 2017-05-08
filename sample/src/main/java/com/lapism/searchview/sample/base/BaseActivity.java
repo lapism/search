@@ -232,6 +232,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         mSearchView = (SearchView) findViewById(R.id.searchView);
         if (mSearchView != null) {
+            // mSearchView.setGoogleIcons();
             mSearchView.setHint(R.string.search);
             mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override

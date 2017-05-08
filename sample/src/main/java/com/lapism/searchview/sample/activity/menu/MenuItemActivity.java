@@ -24,7 +24,7 @@ public class MenuItemActivity extends BaseActivity {
         setContentView(R.layout.activity_menu_item);
         setToolbar();
         setViewPager();
-        // invalidateOptionsMenu();
+        // invalidateOptionsMenu(); supportActiobBar.setHome
         // int mCurrentVersion = getIntent().getIntExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
     }
 
