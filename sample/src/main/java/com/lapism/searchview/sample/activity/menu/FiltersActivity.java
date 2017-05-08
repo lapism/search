@@ -26,7 +26,7 @@ public class FiltersActivity extends BaseActivity {
         setTheme(R.style.AppThemeLight);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_toolbar);
-        setTitle(null); // ""
+        setTitle(null);
         setToolbar();
         setViewPager();
     }
