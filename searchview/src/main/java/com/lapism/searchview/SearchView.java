@@ -26,6 +26,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -167,6 +168,12 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mCardView = (CardView) findViewById(R.id.cardView);
         mLinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
 
+        mSearchArrow = new SearchArrowDrawable(mContext);
+
+        mImageViewArrow = (ImageView) findViewById(R.id.imageView_arrow);
+        mImageViewArrow.setImageDrawable(mSearchArrow);
+        mImageViewArrow.setOnClickListener(this);
+
         mImageViewMic = (ImageView) findViewById(R.id.imageView_mic);
         mImageViewMic.setImageResource(R.drawable.ic_mic_black_24dp);
         mImageViewMic.setOnClickListener(this);
@@ -224,6 +231,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 removeFocus();
             }
         });
+        mSearchEditText.clearFocus();
     }
 
     private void initStyle(AttributeSet attrs, int defStyleAttr) { // todo doplnit
@@ -890,7 +898,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 mSearchArrow.animate(SearchArrowDrawable.STATE_ARROW, mAnimationDuration);
             }
         } else {
-            mSearchArrow.setProgress(SearchArrowDrawable.STATE_ARROW);
+           mSearchArrow.setProgress(SearchArrowDrawable.STATE_ARROW);
         }
         mArrow = true;
     }
