@@ -43,6 +43,13 @@
             android:layout_height="match_parent"
             app:layout_behavior="com.lapism.searchview.SearchBehavior" />
 
+        <com.lapism.searchview.SearchView
+            app:search_theme="light"
+            app:search_icon_color="@android:color/holo_blue_dark"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.lapism.searchview.SearchBehavior" />
+
     </android.support.design.widget.CoordinatorLayout>
 
     <include layout="@layout/nav" />

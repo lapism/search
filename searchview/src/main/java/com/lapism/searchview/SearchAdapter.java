@@ -100,7 +100,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                         if (!mSuggestionsList.isEmpty()) {
                             dataSet = mSuggestionsList;
                         } else {
-                            List<SearchItem> allItems = mHistoryDatabase.getAllItems(mDatabaseKey);
+                            List<SearchItem> allItems = mHistoryDatabase.getAllItems(mDatabaseKey); // BUG TODO
                             if (!allItems.isEmpty()) {
                                 dataSet = allItems;
                             }
@@ -145,7 +145,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             viewHolder.text.setText(item.getText());
         }
 
-        // viewHolder.itemView.setOnClickListener(bindSuggestionClickListener(viewHolder, position));
+        viewHolder.itemView.setOnClickListener(bindSuggestionClickListener(viewHolder, position));
     }
 
     private View.OnClickListener bindSuggestionClickListener(final ResultViewHolder viewHolder, final int position) {

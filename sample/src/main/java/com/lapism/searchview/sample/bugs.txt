@@ -3,7 +3,9 @@ NO KEYBOARD IN LANDSCAPE MODE
 no shadow under AppbarLayout
 LINT
 LTRL
-
+adapter
+FAB SE NESCHOVAVA
+OTACENI searchDRAWABLE
 ikonky
 
 giththub issues
@@ -18,7 +20,7 @@ click listener
 
 vymenit v apce obrazky a ikonky
 
-
+TODOS
 
 
 tint
