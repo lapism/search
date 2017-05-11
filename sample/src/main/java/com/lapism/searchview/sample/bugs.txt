@@ -1,39 +1,29 @@
 NO DIVIDER
+CHECK WITH PLAY STORE
 NO KEYBOARD IN LANDSCAPE MODE
 no shadow under AppbarLayout
 LINT
-LTRL
-adapter
-FAB SE NESCHOVAVA
-OTACENI searchDRAWABLE
-ikonky
-
-giththub issues
-vsehcnz komentz
-LAYOUUIT U ITEMU
-
-z appcompat verze ...
-BUGS Z README
-
-cele prepsat
-click listener
-
-vymenit v apce obrazky a ikonky
-
+LTR LAYOUT
+REWRITE ADAPTER
+FAB IS NOT HIDING?
+ADD MIPMAP AND OTHERS ICONS
+GITHUB ISSUES
+REMOVE COMMENTS
+ITEM LAYOUT
+SEARCHVIEWAPPCOMPAT
+REWRITE WHOLE LIBRARY
 TODOS
 
-
-tint
-
+----------------------------------------------------------------------------------------------------
 adds?
 trivialdrive
-paypal
 
 
 
+TINT
 ikonky lapiicons
 projit flathoc
-
+// mLinearLayout.requestLayout();
 
 adapter z tv upraveny
     android:background="?attr/selectableItemBackground"

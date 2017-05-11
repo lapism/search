@@ -226,8 +226,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         mCardView = (CardView) findViewById(R.id.cardView);
         mLinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
-        // mLinearLayout.requestLayout();
-        mLinearLayout.requestFocus();
 
         mSearchArrow = new SearchArrowDrawable(mContext);
 
@@ -295,8 +293,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         setVoice(true);
     }
-
-    private void initStyle(AttributeSet attrs, int defStyleAttr) { // todo doplnit
+    // todo doplnit
+    private void initStyle(AttributeSet attrs, int defStyleAttr) {
         final TypedArray attr = mContext.obtainStyledAttributes(attrs, R.styleable.SearchView, defStyleAttr, 0);
         if (attr != null) {
             if (attr.hasValue(R.styleable.SearchView_search_height)) {
