@@ -1,4 +1,4 @@
-package com.lapism.searchview.sample.activity.menu;
+package com.lapism.searchview.sample.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,7 +25,7 @@ public class FiltersActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setTheme(R.style.AppThemeLight);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_toolbar);
+        setContentView(R.layout.activity_filters);
         setTitle(null);
         setToolbar();
         setViewPager();

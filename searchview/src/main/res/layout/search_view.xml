@@ -57,12 +57,9 @@
                     android:paddingStart="@dimen/search_key_line_8"
                     android:privateImeOptions="nm"
                     android:textSize="@dimen/search_text_medium"
-                    android:windowSoftInputMode="stateAlwaysHidden">
+                    android:windowSoftInputMode="stateAlwaysHidden" />
 
-                    <requestFocus />
-                </com.lapism.searchview.SearchEditText>
-
-                <!--
+                <!--      <requestFocus />
                  android:background="?android:attr/selectableItemBackgroundBorderless"
                  android:background="?android:attr/listDivider"
                     @android:color/transparent

@@ -226,12 +226,13 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         mCardView = (CardView) findViewById(R.id.cardView);
         mLinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
+        // mLinearLayout.requestLayout();
+        mLinearLayout.requestFocus();
 
         mSearchArrow = new SearchArrowDrawable(mContext);
 
         mImageViewArrow = (ImageView) findViewById(R.id.imageView_arrow);
         mImageViewArrow.setImageDrawable(mSearchArrow);
-        mImageViewArrow.clearFocus();
         mImageViewArrow.setOnClickListener(this);
 
         mImageViewMic = (ImageView) findViewById(R.id.imageView_mic);
@@ -826,7 +827,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         if (mArrow) {
             mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_ARROW;
         } else {
-            setArrow();
+            if (mSearchArrow != null) {
+                mSearchArrow.setVerticalMirror(false);
+                mSearchArrow.animate(SearchArrowDrawable.STATE_ARROW, mAnimationDuration);
+                mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_ARROW;
+            }
         }
 
         if (mShadow) {
@@ -858,7 +863,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         if (mArrow) {
             mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
         } else {
-            setHamburger();
+            if (mSearchArrow != null) {
+                mSearchArrow.setVerticalMirror(true);
+                mSearchArrow.animate(SearchArrowDrawable.STATE_HAMBURGER, mAnimationDuration);
+                mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
+            }
         }
 
         if (mShadow) {
@@ -993,22 +1002,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             mQuery = query;
         } else {
             mSearchEditText.getText().clear();
-        }
-    }
-
-    private void setArrow() {
-        if (mSearchArrow != null) {
-            mSearchArrow.setVerticalMirror(false);
-            mSearchArrow.animate(SearchArrowDrawable.STATE_ARROW, mAnimationDuration);
-            mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_ARROW;
-        }
-    }
-
-    private void setHamburger() {
-        if (mSearchArrow != null) {
-            mSearchArrow.setVerticalMirror(true);
-            mSearchArrow.animate(SearchArrowDrawable.STATE_HAMBURGER, mAnimationDuration);
-            mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
         }
     }
 

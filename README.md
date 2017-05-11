@@ -21,6 +21,11 @@ Because I have done firstly this library as a private project,
 I would like to know if someone of you use my library in your application. 
 If yes, please send me a name of your app and link to Play Store and I will promote your app in Readme.
 
+**Donations:**
+
+Please support me if you want.
+[Donate in €](paypal.me/lapism) <br />
+
 **Apps using this library:**
 
 [Service Notes](https://play.google.com/store/apps/details?id=notes.service.com.servicenotes)  
