@@ -1257,8 +1257,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             super(source);
             this.query = source.readString();
             this.isSearchOpen = source.readInt() == 1;
-            source.readList(searchFiltersStates, List.class.getClassLoader()); //TODO BUG
+            searchFiltersStates = new ArrayList<>();
             searchFilters = new ArrayList<>();
+            source.readList(searchFiltersStates, List.class.getClassLoader());
             source.readTypedList(searchFilters, SearchFilter.CREATOR);
         }
 
@@ -1267,8 +1268,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             super(source, loader);
             this.query = source.readString();
             this.isSearchOpen = source.readInt() == 1;
-            source.readList(searchFiltersStates, List.class.getClassLoader()); //TODO BUG
+            searchFiltersStates = new ArrayList<>();
             searchFilters = new ArrayList<>();
+            source.readList(searchFiltersStates, List.class.getClassLoader());
             source.readTypedList(searchFilters, SearchFilter.CREATOR);
         }
 

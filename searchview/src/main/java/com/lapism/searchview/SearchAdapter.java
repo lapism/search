@@ -42,7 +42,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public SearchAdapter(Context context, List<SearchItem> suggestionsList) {
         mSuggestionsList = suggestionsList;
         mResultList = suggestionsList;
-        mHistoryDatabase = new SearchHistoryTable(context);// TODO PUT DB IN VIEW
+        mHistoryDatabase = new SearchHistoryTable(context);
         getFilter().filter("");
     }
 
@@ -70,7 +70,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                         String string = item.getText().toString().toLowerCase(Locale.getDefault());
                         if (string.contains(mKey)) {
                             results.add(item);
-                        } // TODO ADVANCED COMPARE METHOD
+                        }
                     }
 
                     if (results.size() > 0) {
@@ -105,10 +105,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                                 dataSet = allItems;
                             }
                             /*
-                                                if (mKey.equals("")) {
+                        if (mKey.equals("")) {
                         mResults.clear();
                         notifyDataSetChanged();
-                    }
+                        }
                             */
                         }
                     }

@@ -40,6 +40,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -62,7 +66,7 @@ publish {
     userOrg = 'lapism'
     groupId = 'com.lapism'
     artifactId = 'searchview'
-    publishVersion = '5.0'
+    publishVersion = '5.0-alpha1'
     desc = 'SearchView Library'
     website = 'https://github.com/lapism/SearchView'
 }
