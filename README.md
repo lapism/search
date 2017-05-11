@@ -1,6 +1,6 @@
 # SearchView
 
-Next version 5.0 will be ASAP. Some fixes are available in 4.1.
+Next version 5.0 will be ASAP on jCenter.
 
 Persistent SearchView Library like Play Store.  
 Check the [sample project](https://github.com/lapism/SearchView/tree/master/sample/src/main/java/com/lapism/searchview/sample) very thoroughly !!!  
@@ -23,8 +23,8 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 
 **Donations:**
 
-Please support me if you want.
-[Donate in €](paypal.me/lapism) <br />
+Please support me if you want.  
+[Donate €](paypal.me/lapism) <br />
 
 **Apps using this library:**
 
@@ -47,7 +47,7 @@ Please support me if you want.
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-    compile 'com.lapism:searchview:4.1'
+    compile 'com.lapism:searchview:4.0'
 }
 ```
 
