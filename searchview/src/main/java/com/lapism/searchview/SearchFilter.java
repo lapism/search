@@ -33,9 +33,9 @@ public class SearchFilter implements Parcelable {
     }
 
     SearchFilter(Parcel source) {
-        this.mTitle = source.readString();
-        this.mIsChecked = source.readByte() != 0;
-        this.mTagId = source.readString();
+        mTitle = source.readString();
+        mIsChecked = source.readByte() != 0;
+        mTagId = source.readString();
     }
 
     public String getTitle() {
@@ -55,7 +55,7 @@ public class SearchFilter implements Parcelable {
     }
 
     public void setTagId(String tagId) {
-        this.mTagId = tagId;
+        mTagId = tagId;
     }
 
     @Override

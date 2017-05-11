@@ -1,4 +1,4 @@
-package com.lapism.searchview.sample.activity.menu;
+package com.lapism.searchview.sample.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,7 +24,7 @@ public class MenuItemActivity extends BaseActivity {
         setContentView(R.layout.activity_menu_item);
         setToolbar();
         setViewPager();
-        // invalidateOptionsMenu();
+        // invalidateOptionsMenu(); supportActiobBar.setHome
         // int mCurrentVersion = getIntent().getIntExtra(EXTRA_KEY_VERSION, SearchView.VERSION_TOOLBAR);
     }
 
@@ -39,7 +39,6 @@ public class MenuItemActivity extends BaseActivity {
 
         setSearchView();
         mSearchView.setArrowOnly(false);
-        // mSearchView.setGoogleIcons();
         customSearchView();
     }
 

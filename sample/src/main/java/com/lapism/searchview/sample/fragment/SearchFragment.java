@@ -2,6 +2,7 @@ package com.lapism.searchview.sample.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lapism.searchview.sample.R;
-import com.lapism.searchview.sample.adapter.RecyclerViewAdapter;
+import com.lapism.searchview.sample.adapter.SearchAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +40,14 @@ public class SearchFragment extends Fragment {
             list.add(strings[random.nextInt(strings.length)]);
         }
 
-        RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
+        View view = inflater.inflate(R.layout.search_fragment, container, false);
+
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(new RecyclerViewAdapter(list));
-        return recyclerView;
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        recyclerView.setAdapter(new SearchAdapter(list));
+
+        return view;
     }
 
 }

@@ -27,10 +27,10 @@ import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
-import com.lapism.searchview.sample.activity.menu.FiltersActivity;
-import com.lapism.searchview.sample.activity.menu.MenuItemActivity;
 import com.lapism.searchview.sample.activity.SearchActivity;
-import com.lapism.searchview.sample.activity.menu.ToolbarActivity;
+import com.lapism.searchview.sample.activity.FiltersActivity;
+import com.lapism.searchview.sample.activity.MenuItemActivity;
+import com.lapism.searchview.sample.activity.ToolbarActivity;
 import com.lapism.searchview.sample.adapter.FragmentAdapter;
 import com.lapism.searchview.sample.fragment.SearchFragment;
 
@@ -232,6 +232,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         mSearchView = (SearchView) findViewById(R.id.searchView);
         if (mSearchView != null) {
+            // mSearchView.setGoogleIcons();
             mSearchView.setHint(R.string.search);
             mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override

@@ -1,6 +1,6 @@
 # SearchView
 
-I AM WORKING ON THIS PROJECT FINALLY AGAIN... Next version will be ASAP
+Next version 5.0 will be ASAP. Some fixes are available in 4.1.
 
 Persistent SearchView Library like Play Store.  
 Check the [sample project](https://github.com/lapism/SearchView/tree/master/sample/src/main/java/com/lapism/searchview/sample) very thoroughly !!!  
@@ -20,6 +20,11 @@ Sample application on:
 Because I have done firstly this library as a private project, 
 I would like to know if someone of you use my library in your application. 
 If yes, please send me a name of your app and link to Play Store and I will promote your app in Readme.
+
+**Donations:**
+
+Please support me if you want.
+[Donate in €](paypal.me/lapism) <br />
 
 **Apps using this library:**
 
@@ -42,7 +47,7 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-    compile 'com.lapism:searchview:4.0'
+    compile 'com.lapism:searchview:4.1'
 }
 ```
 
@@ -83,7 +88,6 @@ SearchView identifies its layout style through versions. Currently, there are tw
 
 **Styling SearchView:**
 ```xml
-<attr name="search_height" format="dimension" />
 <attr name="search_version" format="enum">
     <enum name="toolbar" value="1000" />
     <enum name="menu_item" value="1001" />
@@ -96,7 +100,9 @@ SearchView identifies its layout style through versions. Currently, there are tw
 <attr name="search_theme" format="enum">
     <enum name="light" value="3000" />
     <enum name="dark" value="3001" />
+    <enum name="play_store" value="3002" />
 </attr>
+<attr name="search_height" format="dimension" />
 <attr name="search_navigation_icon" format="integer" />
 <attr name="search_icon_color" format="color" />
 <attr name="search_background_color" format="color" />

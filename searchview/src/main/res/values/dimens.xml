@@ -15,7 +15,7 @@
     <dimen name="search_text_medium">16sp</dimen>
     <dimen name="search_reveal">24dp</dimen>
 
-    <dimen name="filter_margin_start">12dp</dimen>
-    <dimen name="filter_margin_top">8dp</dimen>
+    <dimen name="search_filter_margin_top">4dp</dimen>
+    <dimen name="search_filter_margin_start">12dp</dimen>
 
 </resources>

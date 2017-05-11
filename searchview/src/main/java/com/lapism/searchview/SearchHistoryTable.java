@@ -113,7 +113,7 @@ public class SearchHistoryTable {
         selectQuery += " ORDER BY " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " DESC LIMIT " + mHistorySize;
 
         open();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = db.rawQuery(selectQuery, null);// TODO BUG
         if (cursor.moveToFirst()) {
             do {
                 SearchItem item = new SearchItem();

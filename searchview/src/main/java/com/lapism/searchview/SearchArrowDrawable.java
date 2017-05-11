@@ -10,8 +10,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 
 class SearchArrowDrawable extends DrawerArrowDrawable {
 
-    static final float STATE_ARROW = 0.0f;
-    static final float STATE_HAMBURGER = 1.0f;
+    static final float STATE_HAMBURGER = 0.0f;
+    static final float STATE_ARROW = 1.0f;
     private static final Property<SearchArrowDrawable, Float> PROGRESS = new Property<SearchArrowDrawable, Float>(Float.class, "progress") {
         @Override
         public void set(SearchArrowDrawable object, Float value) {
@@ -32,9 +32,9 @@ class SearchArrowDrawable extends DrawerArrowDrawable {
     void animate(float state, int duration) {
         ObjectAnimator anim;
         if (state == STATE_ARROW) {
-            anim = ObjectAnimator.ofFloat(this, PROGRESS, state, STATE_HAMBURGER);
+            anim = ObjectAnimator.ofFloat(this, PROGRESS, STATE_HAMBURGER, state);
         } else {
-            anim = ObjectAnimator.ofFloat(this, PROGRESS, state, STATE_ARROW);
+            anim = ObjectAnimator.ofFloat(this, PROGRESS, STATE_ARROW, state);
         }
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(duration);

@@ -8,8 +8,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
+import com.lapism.searchview.sample.adapter.SearchAdapter;
 import com.lapism.searchview.sample.base.BaseActivity;
-import com.lapism.searchview.sample.adapter.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class SearchActivity extends BaseActivity {
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new RecyclerViewAdapter(list));
+        recyclerView.setAdapter(new SearchAdapter(list));
     }
 
     @Override

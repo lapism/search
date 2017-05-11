@@ -12,25 +12,26 @@ import android.view.View;
 
 public class SearchDivider extends RecyclerView.ItemDecoration {
 
-    private Drawable divider;
-    private int dividerHeight;
-    private int dividerWidth;
+    private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
+    private Drawable mDivider;
+    private int mDividerHeight;
+    private int mDividerWidth;
 
     public SearchDivider(Context context) {
-        final TypedArray a = context.obtainStyledAttributes(null, new int[]{android.R.attr.listDivider});
+        final TypedArray a = context.obtainStyledAttributes(ATTRS);
         setDivider(a.getDrawable(0));
         a.recycle();
     }
 
     public void setDivider(Drawable divider) {
-        this.divider = divider;
-        this.dividerHeight = divider == null ? 0 : divider.getIntrinsicHeight();
-        this.dividerWidth = divider == null ? 0 : divider.getIntrinsicWidth();
+        mDivider = divider;
+        mDividerHeight = divider == null ? 0 : divider.getIntrinsicHeight();
+        mDividerWidth = divider == null ? 0 : divider.getIntrinsicWidth();
     }
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        if (divider == null) {
+        if (mDivider == null) {
             super.getItemOffsets(outRect, view, parent, state);
             return;
         }
@@ -40,17 +41,17 @@ public class SearchDivider extends RecyclerView.ItemDecoration {
         final boolean dividerBefore = !firstItem;
 
         if (getOrientation(parent) == LinearLayoutManager.VERTICAL) {
-            outRect.top = dividerBefore ? dividerHeight : 0;
+            outRect.top = dividerBefore ? mDividerHeight : 0;
             outRect.bottom = 0;
         } else {
-            outRect.left = dividerBefore ? dividerWidth : 0;
+            outRect.left = dividerBefore ? mDividerWidth : 0;
             outRect.right = 0;
         }
     }
 
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-        if (divider == null) {
+        if (mDivider == null) {
             super.onDraw(c, parent, state);
             return;
         }
@@ -66,11 +67,11 @@ public class SearchDivider extends RecyclerView.ItemDecoration {
         final boolean vertical = orientation == LinearLayoutManager.VERTICAL;
         final int size;
         if (vertical) {
-            size = dividerHeight;
+            size = mDividerHeight;
             left = parent.getPaddingLeft();
             right = parent.getWidth() - parent.getPaddingRight();
         } else {
-            size = dividerWidth;
+            size = mDividerWidth;
             top = parent.getPaddingTop();
             bottom = parent.getHeight() - parent.getPaddingBottom();
         }
@@ -89,8 +90,8 @@ public class SearchDivider extends RecyclerView.ItemDecoration {
                 left = child.getLeft() - params.leftMargin - size;
                 right = left + size;
             }
-            divider.setBounds(left, top, right, bottom);
-            divider.draw(c);
+            mDivider.setBounds(left, top, right, bottom);
+            mDivider.draw(c);
         }
     }
 

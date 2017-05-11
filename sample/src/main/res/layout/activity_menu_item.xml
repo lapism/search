@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activity.menu.MenuItemActivity">
+    tools:context=".activity.MenuItemActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -23,7 +23,9 @@
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:layout_marginLeft="@dimen/key_line_tab"
+                android:layout_marginRight="8dp"
                 android:layout_marginStart="@dimen/key_line_tab"
                 app:tabIndicatorColor="@android:color/white"
                 app:tabMode="scrollable" />
@@ -58,13 +60,3 @@
     <include layout="@layout/nav" />
 
 </android.support.v4.widget.DrawerLayout>
-
-    <!--
-         android:minHeight="?android:attr/actionBarSize"
-            <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true" />
-    "?attr/actionBarSize @string/bottom_sheet_behavior"
-?attr/actionBarSize@CoordinatorLayout.DefaultBehavior(FloatingActionButton.DoNotUseThis.class)
-    android.support.v4.widget.NestedScrollView -->
