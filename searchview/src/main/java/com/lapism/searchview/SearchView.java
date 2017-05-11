@@ -124,10 +124,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private boolean mShouldClearOnOpen = false;
     private boolean mShouldClearOnClose = false;
     private boolean mShouldHideOnKeyboardClose = true;
-    // Boolean ha;
-    // getContext
-// mContext.getResources().getDimension(R.dimen.search_height))
-// @Nullable
+
     private List<Boolean> mSearchFiltersStates = null;
     private List<SearchFilter> mSearchFilters = null;
 
@@ -293,12 +290,13 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         setVoice(true);
     }
-    // todo doplnit
+
+    // TODO ADD PARAMETERS
     private void initStyle(AttributeSet attrs, int defStyleAttr) {
         final TypedArray attr = mContext.obtainStyledAttributes(attrs, R.styleable.SearchView, defStyleAttr, 0);
         if (attr != null) {
             if (attr.hasValue(R.styleable.SearchView_search_height)) {
-                //  setHeightInDP(attr.getDimension(R.styleable.SearchView_search_height, 0));
+                setCustomHeight(attr.getDimensionPixelSize(R.styleable.SearchView_search_height, 0));
             }
             if (attr.hasValue(R.styleable.SearchView_search_version)) {
                 setVersion(attr.getInt(R.styleable.SearchView_search_version, VERSION_TOOLBAR));
@@ -382,7 +380,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mSearchEditText.setText(text);
     }
 
-    // TODO GETY A SETY CHECK A STRING RES ATD
+    // TODO COUNT OF GETS SETS, STRINGRES ETC
     public void setHint(@StringRes int hint) {
         mSearchEditText.setHint(hint);
     }
@@ -621,15 +619,15 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mImageViewArrow.setOnClickListener(listener);
     }
 
-    // new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL)
-    // new SearchDivider(mContext)
+    /* new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL)
+       new SearchDivider(mContext)*/
     public void addDivider(RecyclerView.ItemDecoration itemDecoration) {
         mRecyclerView.addItemDecoration(itemDecoration);
 
     }
 
-    // new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL)
-    // new SearchDivider(mContext)
+    /* new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL)
+       new SearchDivider(mContext)*/
     public void removeDivider(RecyclerView.ItemDecoration itemDecoration) {
         mRecyclerView.removeItemDecoration(itemDecoration);
 
@@ -664,11 +662,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
+    // TODO ?
     @Override
     public void setElevation(float elevation) {
         mCardView.setMaxCardElevation(elevation);
         mCardView.setCardElevation(elevation);
-        //invalidate();reqwuestLayout
     }
 
     @Override
@@ -893,7 +891,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void showSuggestions() {
-        if (mAdapter != null && mAdapter.getItemCount() > 0) { // ||
+        if (mAdapter != null && mAdapter.getItemCount() > 0) {
             mViewDivider.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.VISIBLE);
             SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
@@ -1054,7 +1052,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void setCustomHeight(int height) {
-        //int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
         ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
         params.height = height;
         params.width = LinearLayout.LayoutParams.MATCH_PARENT;

@@ -62,3 +62,11 @@ ikonky
 ?attr/actionBarSize@CoordinatorLayout.DefaultBehavior(FloatingActionButton.DoNotUseThis.class)
     android.support.v4.widget.NestedScrollView -->
 
+        //int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
+ // ||
+    // Boolean ha;
+    // getContext
+// mContext.getResources().getDimension(R.dimen.search_height))
+// @Nullable
+        //invalidate();reqwuestLayout
+
