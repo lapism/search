@@ -28,7 +28,7 @@ public class FiltersActivity extends BaseActivity {
         setContentView(R.layout.activity_filters);
         setTitle(null);
         setToolbar();
-        setViewPager();
+        setMainViewPager();
     }
 
     @Override

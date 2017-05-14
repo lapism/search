@@ -57,7 +57,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
+// @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public static final String LOG_TAG = "SearchView";
@@ -480,13 +480,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return mVersion;
     }
 
+    // TODO INTDEF
     public void setVersion(int version) {
         mVersion = version;
-
-        if (mVersion == VERSION_TOOLBAR) {
-            setVisibility(View.VISIBLE);
-            mSearchEditText.clearFocus();
-        }
 
         if (mVersion == VERSION_MENU_ITEM) {
             setVisibility(View.GONE);
@@ -620,14 +616,14 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     /* new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL)
-       new SearchDivider(mContext)*/
+       new SearchDivider(mContext) */
     public void addDivider(RecyclerView.ItemDecoration itemDecoration) {
         mRecyclerView.addItemDecoration(itemDecoration);
 
     }
 
     /* new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL)
-       new SearchDivider(mContext)*/
+       new SearchDivider(mContext) */
     public void removeDivider(RecyclerView.ItemDecoration itemDecoration) {
         mRecyclerView.removeItemDecoration(itemDecoration);
 
@@ -739,6 +735,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 mSearchEditText.requestFocus();
             }
         }
+
         if (mVersion == VERSION_TOOLBAR) {
             if (mShouldClearOnOpen && mSearchEditText.length() > 0) {
                 mSearchEditText.getText().clear();

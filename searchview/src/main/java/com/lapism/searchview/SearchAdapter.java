@@ -193,7 +193,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         mDatabaseKey = key;
     }
 
-    // @Nullable Integer position) {
+    // @Nullable Integer position)
 
     public void setOnSearchItemClickListener(OnSearchItemClickListener listener) {
         mListener = listener;
@@ -214,7 +214,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             view.setOnClickListener(v -> {
                 if (mListener != null) {
                     mListener.onSearchItemClick(v, getAdapterPosition());
-                    // pridat DB
+                    // add DB
                 }
             });
             icon = (ImageView) view.findViewById(R.id.imageView);

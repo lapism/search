@@ -23,7 +23,7 @@ public class SearchActivity extends BaseActivity {
         setContentView(R.layout.activity_search);
 
         Bundle extras = getIntent().getExtras();
-        String string = "Test";
+        String string = "Search";
 
         if (extras != null && mSearchView != null) {
             string = extras.getString(EXTRA_KEY_TEXT);
@@ -56,7 +56,7 @@ public class SearchActivity extends BaseActivity {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            finish();// NAV UTILS
+            finish();
         }
     }
 
