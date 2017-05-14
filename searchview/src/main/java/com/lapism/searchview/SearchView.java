@@ -967,15 +967,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     private void onTextChanged(CharSequence newText) {
-        if (newText.equals(mOldQuery)) {
-            return;
-        }
 
-        CharSequence text = mSearchEditText.getText();
-        mQuery = text;
+        mQuery = newText;
 
         if (mAdapter != null && mAdapter instanceof Filterable) {
-            ((Filterable) mAdapter).getFilter().filter(text);
+            ((Filterable) mAdapter).getFilter().filter(mQuery);
         }
 
         if (!TextUtils.isEmpty(mQuery)) {
@@ -992,12 +988,12 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             }
         }
 
-        if (mOnQueryChangeListener != null && !TextUtils.equals(newText, mOldQuery)) {
+        if (mOnQueryChangeListener != null && !TextUtils.equals(mQuery, mOldQuery)) {
             dispatchFilters();
-            mOnQueryChangeListener.onQueryTextChange(text.toString());
+            mOnQueryChangeListener.onQueryTextChange(mQuery.toString());
         }
 
-        mOldQuery = newText.toString();
+        mOldQuery = mQuery.toString();
     }
 
     private void setQueryWithoutSubmitting(CharSequence query) {
