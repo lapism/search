@@ -4,8 +4,7 @@ NO KEYBOARD IN LANDSCAPE MODE
 no shadow under AppbarLayout
 LINT
 LTR LAYOUT
-REWRITE ADAPTER
-FAB IS NOT HIDING?
+ADAPTER
 * ADD MIPMAP AND OTHERS ICONS
 GITHUB ISSUES
 REMOVE COMMENTS
@@ -13,6 +12,8 @@ ITEM LAYOUT
 SEARCHVIEWAPPCOMPAT
 REWRITE WHOLE LIBRARY
 TODOS
+
+
 
 ----------------------------------------------------------------------------------------------------
 adds?

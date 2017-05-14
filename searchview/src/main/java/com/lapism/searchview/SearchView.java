@@ -891,28 +891,28 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void showSuggestions() {
+        if (mFlexboxLayout.getChildCount() > 0 && mFlexboxLayout.getVisibility() == View.GONE) {
+            mViewDivider.setVisibility(View.VISIBLE);
+            mFlexboxLayout.setVisibility(View.VISIBLE);
+        }
+
         if (mAdapter != null && mAdapter.getItemCount() > 0) {
             mViewDivider.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.VISIBLE);
             SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
         }
-
-        if (mFlexboxLayout.getChildCount() > 0 && mFlexboxLayout.getVisibility() == View.GONE) {
-            mViewDivider.setVisibility(View.VISIBLE);
-            mFlexboxLayout.setVisibility(View.VISIBLE);
-        }
     }
 
     public void hideSuggestions() {
+        if (mFlexboxLayout.getVisibility() == View.VISIBLE) {
+            mViewDivider.setVisibility(View.GONE);
+            mFlexboxLayout.setVisibility(View.GONE);
+        }
+
         if (mAdapter != null) {
             mViewDivider.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.GONE);
             SearchAnimator.fadeOut(mRecyclerView, mAnimationDuration);
-        }
-
-        if (mFlexboxLayout.getVisibility() == View.VISIBLE) {
-            mViewDivider.setVisibility(View.GONE);
-            mFlexboxLayout.setVisibility(View.GONE);
         }
     }
 
@@ -1119,6 +1119,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         for (SearchFilter filter : mSearchFilters) {
             searchFilters.add(new SearchFilter(filter.getTitle(), filter.isChecked(), filter.getTagId()));
         }
+
         return searchFilters;
     }
 
@@ -1161,7 +1162,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public void setSuggestionsList(List<SearchItem> suggestionsList) {
         if (mAdapter instanceof SearchAdapter) {
-            // staticka promenna a prepsat adapter
             ((SearchAdapter) mAdapter).setSuggestionsList(suggestionsList);
         }
     }

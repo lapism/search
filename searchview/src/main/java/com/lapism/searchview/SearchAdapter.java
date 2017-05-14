@@ -23,7 +23,7 @@ import java.util.Locale;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
-    private final SearchHistoryTable mHistoryDatabase;
+    private SearchHistoryTable mHistoryDatabase;
     private Integer mDatabaseKey = null;
     private String mKey = "";
     private List<SearchItem> mSuggestionsList = new ArrayList<>();
@@ -37,7 +37,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public SearchAdapter(Context context, List<SearchItem> suggestionsList) {
         mHistoryDatabase = new SearchHistoryTable(context);
         mSuggestionsList = suggestionsList;
-        mResultList = mSuggestionsList;
     }
 
     @Override
@@ -98,26 +97,43 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                         if (!allItems.isEmpty()) {
                             dataSet = allItems;
                         }
-
-                        /*
-                        if (!mSuggestionsList.isEmpty()){
-                            dataset = mSuggestionsList;
-                        }else{
-                            List<SearchItem> allItems = mHistoryDatabase.getAllItems(mDatabaseKey);
-                            if (!allItems.isEmpty()) {
-                                dataSet = allItems;
-                        }
-                        */
                     }
                 }
 
                 if (!dataSet.isEmpty()) {
-                    //mResultList.clear();
-                    //mResultList.addAll(dataSet);
+                    // mResultList.clear();
+                    // mResultList.addAll(dataSet);
                     setData(dataSet);
                 }
             }
         };
+    }
+
+    private void setData(List<SearchItem> data) {
+        if (mResultList.size() == 0) {
+            mResultList = data;
+            // notifyDataSetChanged();
+            if (data.size() != 0) {
+                notifyItemRangeInserted(0, mResultList.size());
+            }
+        } else {
+            int previousSize = mResultList.size();
+            int nextSize = data.size();
+            mResultList = data;
+            if (previousSize == nextSize && nextSize != 0)
+                notifyItemRangeChanged(0, previousSize);
+            else if (previousSize > nextSize) {
+                if (nextSize == 0)
+                    notifyItemRangeRemoved(0, previousSize);
+                else {
+                    notifyItemRangeChanged(0, nextSize);
+                    notifyItemRangeRemoved(nextSize - 1, previousSize);
+                }
+            } else {
+                notifyItemRangeChanged(0, previousSize);
+                notifyItemRangeInserted(previousSize, nextSize - previousSize);
+            }
+        }
     }
 
     @Override
@@ -178,33 +194,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     }
 
     // @Nullable Integer position) {
-
-    private void setData(List<SearchItem> data) {
-        if (mResultList.size() == 0) {
-            mResultList = data;
-            notifyDataSetChanged();
-            /*if (data.size() != 0) {
-                notifyItemRangeInserted(0, data.size());
-            }*/
-        } else {
-            int previousSize = mResultList.size();
-            int nextSize = data.size();
-            mResultList = data;
-            if (previousSize == nextSize && nextSize != 0)
-                notifyItemRangeChanged(0, previousSize);
-            else if (previousSize > nextSize) {
-                if (nextSize == 0)
-                    notifyItemRangeRemoved(0, previousSize);
-                else {
-                    notifyItemRangeChanged(0, nextSize);
-                    notifyItemRangeRemoved(nextSize - 1, previousSize);
-                }
-            } else {
-                notifyItemRangeChanged(0, previousSize);
-                notifyItemRangeInserted(previousSize, nextSize - previousSize);
-            }
-        }
-    }
 
     public void setOnSearchItemClickListener(OnSearchItemClickListener listener) {
         mListener = listener;

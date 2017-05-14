@@ -54,9 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/key_line"
-            android:tint="@android:color/white"
-            app:layout_behavior="com.lapism.searchview.sample.widget.FabBehavior"
             app:srcCompat="@drawable/ic_delete_white_24dp" />
+        <!--app:layout_behavior="com.lapism.searchview.sample.widget.FabBehavior"-->
 
     </android.support.design.widget.CoordinatorLayout>
 
@@ -71,5 +70,5 @@
             android:layout_height="match_parent"
             android:fillViewport="true" />
     "?attr/actionBarSize @string/bottom_sheet_behavior"
-?attr/actionBarSize@CoordinatorLayout.DefaultBehavior(FloatingActionButton.DoNotUseThis.class)
+    ?attr/actionBarSize@CoordinatorLayout.DefaultBehavior(FloatingActionButton.DoNotUseThis.class)
     android.support.v4.widget.NestedScrollView -->

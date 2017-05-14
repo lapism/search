@@ -8,7 +8,7 @@ import android.view.KeyEvent;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-@RestrictTo(LIBRARY_GROUP)
+// @RestrictTo(LIBRARY_GROUP)
 public class SearchEditText extends AppCompatEditText {
 
     private SearchView mSearchView;
