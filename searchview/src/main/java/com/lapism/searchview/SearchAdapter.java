@@ -25,9 +25,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     private SearchHistoryTable mHistoryDatabase;
     private Integer mDatabaseKey = null;
-    private String mKey = "";
+    private CharSequence mKey = "";
     private List<SearchItem> mSuggestionsList = new ArrayList<>();
-    private List<SearchItem> mResultList = new ArrayList<>();
+    private List<SearchItem> mResultsList = new ArrayList<>();
     private OnSearchItemClickListener mListener;
 
     public SearchAdapter(Context context) {
@@ -46,15 +46,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
 
-                if (!TextUtils.isEmpty(constraint)) {
+                List<SearchItem> results = new ArrayList<>();
+
+                List<SearchItem> database = mHistoryDatabase.getAllItems(mDatabaseKey);
+
+                mKey = constraint;
+
+                if (!TextUtils.isEmpty(mKey)) {
                     mKey = constraint.toString().toLowerCase(Locale.getDefault());
 
-                    List<SearchItem> results = new ArrayList<>();
                     List<SearchItem> history = new ArrayList<>();
-                    List<SearchItem> databaseAllItems = mHistoryDatabase.getAllItems(mDatabaseKey);
 
-                    if (!databaseAllItems.isEmpty()) {
-                        history.addAll(databaseAllItems);
+                    if (!database.isEmpty()) {
+                        history.addAll(database);
                     }
                     if (!mSuggestionsList.isEmpty()) {
                         history.addAll(mSuggestionsList);
@@ -68,58 +72,51 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                             }
                         }
                     }
-
-                    if (results.size() > 0) {
-                        filterResults.values = results;
-                        filterResults.count = results.size();
-                    }
                 } else {
-                    mKey = "";
+                    if (!database.isEmpty()) {
+                        results = database;
+                    }
                 }
+
+                filterResults.values = results;
+                filterResults.count = results.size();
 
                 return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                List<SearchItem> dataSet = new ArrayList<>();
+
+                mResultsList.clear();
 
                 if (results.count > 0) {
                     List<?> result = (ArrayList<?>) results.values;
                     for (Object object : result) {
                         if (object instanceof SearchItem) {
-                            dataSet.add((SearchItem) object);
-                        }
-                    }
-                } else {
-                    if (mKey.isEmpty()) {
-                        List<SearchItem> allItems = mHistoryDatabase.getAllItems(mDatabaseKey);
-                        if (!allItems.isEmpty()) {
-                            dataSet = allItems;
+                            mResultsList.add((SearchItem) object);
                         }
                     }
                 }
 
-                if (!dataSet.isEmpty()) {
-                    // mResultList.clear();
-                    // mResultList.addAll(dataSet);
-                    setData(dataSet);
+                if (!mResultsList.isEmpty()) {
+                    notifyDataSetChanged();
+                    // setData(dataSet);
                 }
             }
         };
     }
 
     private void setData(List<SearchItem> data) {
-        if (mResultList.size() == 0) {
-            mResultList = data;
+        if (mResultsList.size() == 0) {
+            mResultsList = data;
             // notifyDataSetChanged();
             if (data.size() != 0) {
-                notifyItemRangeInserted(0, mResultList.size());
+                notifyItemRangeInserted(0, mResultsList.size());
             }
         } else {
-            int previousSize = mResultList.size();
+            int previousSize = mResultsList.size();
             int nextSize = data.size();
-            mResultList = data;
+            mResultsList = data;
             if (previousSize == nextSize && nextSize != 0)
                 notifyItemRangeChanged(0, previousSize);
             else if (previousSize > nextSize) {
@@ -145,7 +142,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     @Override
     public void onBindViewHolder(final ResultViewHolder viewHolder, int position) {
-        final SearchItem item = mResultList.get(position);
+        final SearchItem item = mResultsList.get(position);
 
         viewHolder.icon.setImageResource(item.getIconResource());
         viewHolder.icon.setColorFilter(SearchView.getIconColor(), PorterDuff.Mode.SRC_IN);
@@ -155,20 +152,20 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         String itemText = item.getText().toString();
         String itemTextLower = itemText.toLowerCase(Locale.getDefault());
 
-        if (itemTextLower.contains(mKey) && !mKey.isEmpty()) {
+        if (itemTextLower.contains(mKey) && !mKey.toString().isEmpty()) {
             SpannableString s = new SpannableString(itemText);
-            s.setSpan(new ForegroundColorSpan(SearchView.getTextHighlightColor()), itemTextLower.indexOf(mKey), itemTextLower.indexOf(mKey) + mKey.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            s.setSpan(new ForegroundColorSpan(SearchView.getTextHighlightColor()), itemTextLower.indexOf(mKey.toString()), itemTextLower.indexOf(mKey.toString()) + mKey.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
         } else {
             viewHolder.text.setText(item.getText());
         }
 
-        // viewHolder.itemView.setOnClickListener(bindSuggestionClickListener(viewHolder, position));
+        // viewHolder.itemView.setOnClickListener
     }
 
     @Override
     public int getItemCount() {
-        return mResultList.size();
+        return mResultsList.size();
     }
 
     @Override
@@ -182,18 +179,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     public void setSuggestionsList(List<SearchItem> suggestionsList) {
         mSuggestionsList = suggestionsList;
-        mResultList = suggestionsList;
     }
 
     public List<SearchItem> getResultList() {
-        return mResultList;
+        return mResultsList;
     }
 
     public void setDatabaseKey(Integer key) {
         mDatabaseKey = key;
     }
-
-    // @Nullable Integer position)
 
     public void setOnSearchItemClickListener(OnSearchItemClickListener listener) {
         mListener = listener;
@@ -204,6 +198,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     }
 
     // static
+    // @Nullable Integer position)
     class ResultViewHolder extends RecyclerView.ViewHolder {
 
         final ImageView icon;

@@ -1,5 +1,8 @@
 package com.lapism.searchview.sample.adapter;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,12 +34,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mTextView.setText(mValues.get(position));
-        holder.itemView.setOnClickListener(v -> {
-                /*Context context = v.getContext();
+        /*holder.itemView.setOnClickListener(v -> {
+                Context context = v.getContext();
                 Intent intent = news Intent(context, ExampleDetailActivity.class);
                 intent.putExtra(ExampleDetailActivity.EXTRA_NAME, holder.mBoundString);
-                context.startActivity(intent);*/
-        });
+                context.startActivity(intent);
+        });*/
 
         //holder.mImageView.getContext())
         //Cheeses2.getRandomCheeseDrawable
@@ -47,6 +50,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         return mValues.size();
     }
 
+    // static
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         final TextView mTextView;
@@ -56,7 +60,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Context context = v.getContext();
 
+                    String url = "https://www.paypal.me/lapism";
+
+                    // Intent i = new Intent(v.getContext(), SearchAdapter.class);
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.setData(Uri.parse(url));
+
+                    context.startActivity(i);
                 }
             });
             mTextView = (TextView) view.findViewById(R.id.text);

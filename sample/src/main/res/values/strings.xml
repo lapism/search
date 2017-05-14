@@ -24,6 +24,8 @@
 
     <item name="ic_menu_search" type="drawable">@android:drawable/ic_menu_search</item>
 
+    <string name="donate">Donate</string>
+
 </resources>
 
 

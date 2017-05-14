@@ -24,7 +24,6 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -476,6 +475,23 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    public void setVoiceIcon(@DrawableRes int resource) {
+        mImageViewMic.setImageResource(resource);
+    }
+
+    public void setVoiceIcon(Drawable drawable) {
+        if (drawable == null) {
+            mImageViewMic.setVisibility(View.GONE);
+        } else {
+            mImageViewMic.setImageDrawable(drawable);
+        }
+    }
+
+    public void setVoiceListener(View.OnClickListener listener) {
+        mImageViewMic.setOnClickListener(listener);
+    }
+
+
     public int getVersion() {
         return mVersion;
     }
@@ -619,19 +635,16 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
        new SearchDivider(mContext) */
     public void addDivider(RecyclerView.ItemDecoration itemDecoration) {
         mRecyclerView.addItemDecoration(itemDecoration);
-
     }
 
     /* new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL)
        new SearchDivider(mContext) */
     public void removeDivider(RecyclerView.ItemDecoration itemDecoration) {
         mRecyclerView.removeItemDecoration(itemDecoration);
-
     }
 
     public void setShadowColor(@ColorInt int color) {
         mViewShadow.setBackgroundColor(color);
-
     }
 
     private boolean isVoiceAvailable() {
@@ -748,27 +761,24 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return mShouldClearOnClose;
     }
 
-    public SearchView setShouldClearOnClose(boolean shouldClearOnClose) {
+    public void setShouldClearOnClose(boolean shouldClearOnClose) {
         mShouldClearOnClose = shouldClearOnClose;
-        return this;
     }
 
     public boolean getShouldClearOnOpen() {
         return mShouldClearOnOpen;
     }
 
-    public SearchView setShouldClearOnOpen(boolean shouldClearOnOpen) {
+    public void setShouldClearOnOpen(boolean shouldClearOnOpen) {
         mShouldClearOnOpen = shouldClearOnOpen;
-        return this;
     }
 
     public boolean getShouldHideOnKeyboardClose() {
         return mShouldHideOnKeyboardClose;
     }
 
-    public SearchView setShouldHideOnKeyboardClose(boolean shouldHideOnKeyboardClose) {
+    public void setShouldHideOnKeyboardClose(boolean shouldHideOnKeyboardClose) {
         mShouldHideOnKeyboardClose = shouldHideOnKeyboardClose;
-        return this;
     }
 
     public void close(boolean animate) {
@@ -956,11 +966,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return mProgressBar.getVisibility() == View.VISIBLE;
     }
 
-    // TODO
     private void onTextChanged(CharSequence newText) {
         if (newText.equals(mOldQuery)) {
             return;
         }
+
         CharSequence text = mSearchEditText.getText();
         mQuery = text;
 
@@ -986,6 +996,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             dispatchFilters();
             mOnQueryChangeListener.onQueryTextChange(text.toString());
         }
+
         mOldQuery = newText.toString();
     }
 
