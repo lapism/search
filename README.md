@@ -20,7 +20,7 @@ Sample application on:
 # Donations:
 
 Please support me if you want.  
-[Donate €](https://www.paypal.me/lapism) <br />
+[Paypal](https://www.paypal.me/lapism) <br />
 
 **Apps using this library:**
 

@@ -959,6 +959,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return mProgressBar.getVisibility() == View.VISIBLE;
     }
 
+    // TODO
     private void onTextChanged(CharSequence newText) {
         if (newText.equals(mOldQuery)) {
             return;
@@ -1156,6 +1157,13 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public void setOnVoiceClickListener(OnVoiceClickListener listener) {
         mOnVoiceClickListener = listener;
+    }
+
+    public void setSuggestionsList(List<SearchItem> suggestionsList) {
+        if (mAdapter instanceof SearchAdapter) {
+            // staticka promenna a prepsat adapter
+            ((SearchAdapter) mAdapter).setSuggestionsList(suggestionsList);
+        }
     }
 
     @Override

@@ -27,9 +27,9 @@ import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
-import com.lapism.searchview.sample.activity.SearchActivity;
 import com.lapism.searchview.sample.activity.FiltersActivity;
 import com.lapism.searchview.sample.activity.MenuItemActivity;
+import com.lapism.searchview.sample.activity.SearchActivity;
 import com.lapism.searchview.sample.activity.ToolbarActivity;
 import com.lapism.searchview.sample.adapter.FragmentAdapter;
 import com.lapism.searchview.sample.fragment.SearchFragment;
@@ -275,7 +275,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             suggestionsList.add(new SearchItem("search3"));
 
             SearchAdapter searchAdapter = new SearchAdapter(this, suggestionsList);
-            searchAdapter.addOnItemClickListener((view, position) -> {
+            searchAdapter.setOnSearchItemClickListener((view, position) -> {
                 TextView textView = (TextView) view.findViewById(R.id.textView);
                 String query = textView.getText().toString();
                 getData(query, position);
