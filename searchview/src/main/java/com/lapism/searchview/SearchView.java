@@ -967,14 +967,17 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     private void onTextChanged(CharSequence newText) {
+        if (mQuery == newText) {
+            return;
+        }
 
         mQuery = newText;
 
         if (mAdapter != null && mAdapter instanceof Filterable) {
-            ((Filterable) mAdapter).getFilter().filter(mQuery);
+            ((Filterable) mAdapter).getFilter().filter(newText);
         }
 
-        if (!TextUtils.isEmpty(mQuery)) {
+        if (!TextUtils.isEmpty(newText)) {
             showSuggestions();
             mImageViewClear.setVisibility(View.VISIBLE);
             if (mVoice) {
@@ -988,12 +991,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             }
         }
 
-        if (mOnQueryChangeListener != null && !TextUtils.equals(mQuery, mOldQuery)) {
+        //  && !TextUtils.equals(newText, mOldQuery)
+        if (mOnQueryChangeListener != null) {
             dispatchFilters();
-            mOnQueryChangeListener.onQueryTextChange(mQuery.toString());
+            mOnQueryChangeListener.onQueryTextChange(newText.toString());
         }
-
-        mOldQuery = mQuery.toString();
     }
 
     private void setQueryWithoutSubmitting(CharSequence query) {

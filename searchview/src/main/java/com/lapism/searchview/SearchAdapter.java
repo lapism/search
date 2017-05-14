@@ -87,20 +87,20 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
 
-                mResultsList.clear();
-
                 if (results.count > 0) {
+                    mResultsList.clear();
+
                     List<?> result = (ArrayList<?>) results.values;
                     for (Object object : result) {
                         if (object instanceof SearchItem) {
                             mResultsList.add((SearchItem) object);
                         }
                     }
-                }
 
-                if (!mResultsList.isEmpty()) {
-                    notifyDataSetChanged();
-                    // setData(dataSet);
+                    if (!mResultsList.isEmpty()) {
+                        notifyDataSetChanged();
+                        // setData(dataSet);
+                    }
                 }
             }
         };

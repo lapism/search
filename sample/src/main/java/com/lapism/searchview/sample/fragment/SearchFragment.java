@@ -26,7 +26,7 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         String[] strings = {
-                getString(R.string.donate)
+                getString(R.string.donation)
         };
 
         List<String> list = new ArrayList<>(30);
