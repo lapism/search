@@ -42,7 +42,6 @@ import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
-import android.widget.Filterable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -116,7 +115,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private int mAnimationDuration = ANIMATION_DURATION;
     private float mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
     private String mVoiceText = "";
-    private CharSequence mOldQuery = "";
     private CharSequence mQuery = "";
     private boolean mShadow = true;
     private boolean mVoice = true;
@@ -250,9 +248,15 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
                     hideKeyboard();
                 }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
             }
         });
 
@@ -263,16 +267,18 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mSearchEditText.setSearchView(this);
         mSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                SearchView.this.onTextChanged(charSequence);
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                SearchView.this.onTextChanged(s);
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
+            public void afterTextChanged(Editable s) {
+
             }
         });
         mSearchEditText.setOnEditorActionListener((textView, i, keyEvent) -> {
@@ -967,14 +973,26 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     private void onTextChanged(CharSequence newText) {
-        if (mQuery == newText) {
+        if (newText == mQuery) {
+            return;
+        }
+        /*        if (mQuery.equals(newText)) {
             return;
         }
 
+                if (mQuery == newText)) {
+            return;
+        }//TextUtil.equals
+        isEmptz
+                 if (!mQuery.equals(newText)) {
+            return;
+        }
+        */
+
         mQuery = newText;
 
-        if (mAdapter != null && mAdapter instanceof Filterable) {
-            ((Filterable) mAdapter).getFilter().filter(newText);
+        if (mAdapter != null) {
+            ((SearchAdapter) mAdapter).getFilter(newText);
         }
 
         if (!TextUtils.isEmpty(newText)) {

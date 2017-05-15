@@ -11,8 +11,6 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +19,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> {
 
     private SearchHistoryTable mHistoryDatabase;
     private Integer mDatabaseKey = null;
@@ -39,72 +37,54 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         mSuggestionsList = suggestionsList;
     }
 
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                FilterResults filterResults = new FilterResults();
+    void getFilter(CharSequence s) {
+        mResultsList.clear();
 
-                List<SearchItem> results = new ArrayList<>();
+        List<SearchItem> database = mHistoryDatabase.getAllItems(mDatabaseKey);
 
-                List<SearchItem> database = mHistoryDatabase.getAllItems(mDatabaseKey);
+        mKey = s;
 
-                mKey = constraint;
+        if (!TextUtils.isEmpty(mKey)) {
+            mKey = s.toString().toLowerCase(Locale.getDefault());
 
-                if (!TextUtils.isEmpty(mKey)) {
-                    mKey = constraint.toString().toLowerCase(Locale.getDefault());
+            List<SearchItem> results = new ArrayList<>();
 
-                    List<SearchItem> history = new ArrayList<>();
-
-                    if (!database.isEmpty()) {
-                        history.addAll(database);
-                    }
-                    if (!mSuggestionsList.isEmpty()) {
-                        history.addAll(mSuggestionsList);
-                    }
-
-                    if (!history.isEmpty()) {
-                        for (SearchItem item : history) {
-                            String string = item.getText().toString().toLowerCase(Locale.getDefault());
-                            if (string.contains(mKey)) {
-                                results.add(item);
-                            }
-                        }
-                    }
-                } else {
-                    if (!database.isEmpty()) {
-                        results = database;
-                    }
-                }
-
-                filterResults.values = results;
-                filterResults.count = results.size();
-
-                return filterResults;
+            if (!database.isEmpty()) {
+                results.addAll(database);
+            }
+            if (!mSuggestionsList.isEmpty()) {
+                results.addAll(mSuggestionsList);
             }
 
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-
-                if (results.count > 0) {
-                    mResultsList.clear();
-
-                    List<?> result = (ArrayList<?>) results.values;
-                    for (Object object : result) {
-                        if (object instanceof SearchItem) {
-                            mResultsList.add((SearchItem) object);
-                        }
-                    }
-
-                    if (!mResultsList.isEmpty()) {
-                        notifyDataSetChanged();
-                        // setData(dataSet);
+            if (!results.isEmpty()) {
+                for (SearchItem item : results) {
+                    String string = item.getText().toString().toLowerCase(Locale.getDefault());
+                    if (string.contains(mKey)) {
+                        mResultsList.add(item);
                     }
                 }
             }
-        };
+        } else {
+            database = mHistoryDatabase.getAllItems(mDatabaseKey);
+
+            if (!database.isEmpty()) {
+                mResultsList = database;
+            }
+        }
+
+
+        if (!mResultsList.isEmpty() && mResultsList.size() > 0) {
+            notifyDataSetChanged();
+            // setData(dataSet);
+        }
     }
+
+                /*List<?> result = (ArrayList<?>) results.values;
+            for (Object object : result) {
+                if (object instanceof SearchItem) {
+                    mResultsList.add((SearchItem) object);
+                }
+            }*/
 
     private void setData(List<SearchItem> data) {
         if (mResultsList.size() == 0) {
