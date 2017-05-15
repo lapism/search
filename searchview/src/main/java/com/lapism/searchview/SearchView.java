@@ -23,6 +23,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -42,6 +43,7 @@ import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
+import android.widget.Filterable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -273,7 +275,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SearchView.this.onTextChanged(s);
+               SearchView.this.onTextChanged(s);
             }
 
             @Override
@@ -496,7 +498,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public void setVoiceListener(View.OnClickListener listener) {
         mImageViewMic.setOnClickListener(listener);
     }
-
 
     public int getVersion() {
         return mVersion;
@@ -972,11 +973,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return mProgressBar.getVisibility() == View.VISIBLE;
     }
 
-    private void onTextChanged(CharSequence newText) {
-        if (newText == mQuery) {
-            return;
-        }
-        /*        if (mQuery.equals(newText)) {
+            /*        if (mQuery.equals(newText)) {
             return;
         }
 
@@ -989,10 +986,14 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
         */
 
+
+    private void onTextChanged(CharSequence newText) {
+
         mQuery = newText;
 
         if (mAdapter != null) {
-            ((SearchAdapter) mAdapter).getFilter(newText);
+            // ((SearchAdapter) mAdapter).getFilter().filter(s);
+            ((SearchAdapter) mAdapter).filter(newText);
         }
 
         if (!TextUtils.isEmpty(newText)) {
@@ -1248,6 +1249,24 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public interface OnVoiceClickListener {
         void onVoiceClick();
+    }
+
+    private static class Saved extends BaseSavedState {
+
+        public Saved(Parcel source) {
+            super(source);
+        }
+
+        // @RequiresApi(api = Build.VERSION_CODES.N)
+        @TargetApi(Build.VERSION_CODES.N)
+        public Saved(Parcel source, ClassLoader loader) {
+            super(source, loader);
+        }
+
+        public Saved(Parcelable superState) {
+            super(superState);
+        }
+
     }
 
     private static class SavedState extends BaseSavedState {
