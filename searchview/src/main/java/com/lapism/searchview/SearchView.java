@@ -99,6 +99,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private OnOpenCloseListener mOnOpenCloseListener = null;
     private OnMenuClickListener mOnMenuClickListener = null;
     private OnVoiceClickListener mOnVoiceClickListener = null;
+    private List<Boolean> mSearchFiltersStates = null;
+    private List<SearchFilter> mSearchFilters = null;
 
     private View mViewShadow;
     private View mViewDivider;
@@ -118,16 +120,12 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private float mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
     private String mVoiceText = "";
     private CharSequence mQuery = "";
+    private boolean mArrow = false;
     private boolean mShadow = true;
     private boolean mVoice = true;
     private boolean mShouldClearOnOpen = false;
     private boolean mShouldClearOnClose = false;
     private boolean mShouldHideOnKeyboardClose = true;
-
-    private List<Boolean> mSearchFiltersStates = null;
-    private List<SearchFilter> mSearchFilters = null;
-
-    private boolean mArrow = false;
 
     public SearchView(@NonNull Context context) {
         // super(context);
@@ -137,7 +135,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public SearchView(@NonNull Context context, @Nullable AttributeSet attrs) {
         // super(context, attrs);
         this(context, attrs, 0);
-        // this(context, attrs, android.support.v7.appcompat.R.attr.searchViewStyle);
+        // this(context, attrs, R.attr.searchViewStyle);
     }
 
     public SearchView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -290,6 +288,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mSearchEditText.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 addFocus();
+                // mAdapter po kazdem kliku databaze a vracet do ni kdyz je empty
             } else {
                 removeFocus();
             }
@@ -833,7 +832,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void addFocus() {
-
         if (mArrow) {
             mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_ARROW;
         } else {
@@ -991,9 +989,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         mQuery = newText;
 
-        if (mAdapter != null) {
-            // ((SearchAdapter) mAdapter).getFilter().filter(s);
-            ((SearchAdapter) mAdapter).filter(newText);
+        if (mAdapter != null && mAdapter instanceof Filterable) {
+            ((SearchAdapter2) mAdapter).getFilter().filter(newText);
+            //((SearchAdapter2) mAdapter).filter(newText);
         }
 
         if (!TextUtils.isEmpty(newText)) {
