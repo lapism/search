@@ -145,6 +145,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         initStyle(attrs, defStyleAttr);
     }
 
+    // @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    //@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public SearchView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);

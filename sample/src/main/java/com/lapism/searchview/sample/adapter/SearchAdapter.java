@@ -57,20 +57,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
         ViewHolder(View view) {
             super(view);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Context context = v.getContext();
+            view.setOnClickListener(v -> {
+                Context context = v.getContext();
 
-                    String url = "https://www.paypal.me/lapism";
+                String url = "https://www.paypal.me/lapism";
 
-                    // Intent i = new Intent(v.getContext(), SearchAdapter.class);
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    i.setData(Uri.parse(url));
+                // Intent i = new Intent(v.getContext(), SearchAdapter.class);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.setData(Uri.parse(url));
 
-                    context.startActivity(i);
-                }
+                context.startActivity(i);
             });
             mTextView = (TextView) view.findViewById(R.id.text);
         }

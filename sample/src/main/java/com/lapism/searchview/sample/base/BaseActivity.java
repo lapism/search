@@ -22,7 +22,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lapism.searchview.SearchAdapter;
 import com.lapism.searchview.SearchAdapter2;
 import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;

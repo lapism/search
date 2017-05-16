@@ -23,7 +23,7 @@ import java.util.Locale;
 
 public class SearchAdapter2 extends RecyclerView.Adapter<SearchAdapter2.ResultViewHolder> implements Filterable {
 
-    private SearchHistoryTable mHistoryDatabase;
+    private final SearchHistoryTable mHistoryDatabase;
     public Integer mDatabaseKey = null;
     private CharSequence mKey = "";
     private List<SearchItem> mSuggestions = new ArrayList<>();
