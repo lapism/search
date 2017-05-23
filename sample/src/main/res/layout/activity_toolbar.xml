@@ -54,8 +54,7 @@
             android:layout_margin="@dimen/key_line"
             app:layout_behavior="com.lapism.searchview.sample.widget.FabBehavior"
             app:srcCompat="@drawable/ic_delete_white_24dp" />
-        <!--   android:tint="@android:color/white"
-        app:layout_behavior="com.lapism.searchview.sample.widget.FabBehavior"-->
+        <!--   android:tint="@android:color/white"-->
 
     </android.support.design.widget.CoordinatorLayout>
 

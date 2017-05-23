@@ -7,6 +7,7 @@ import android.support.v4.view.GravityCompat;
 import android.widget.Toast;
 
 import com.lapism.searchview.SearchFilter;
+import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
 import com.lapism.searchview.sample.base.BaseActivity;
 
@@ -37,7 +38,7 @@ public class FiltersActivity extends BaseActivity {
         mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
 
         setSearchView();
-        mSearchView.setOnMenuClickListener(() -> {
+        mSearchView.setOnNavigationIconClickListener(state -> {
             mDrawerLayout.openDrawer(GravityCompat.START); // finish();
         });
         customSearchView();

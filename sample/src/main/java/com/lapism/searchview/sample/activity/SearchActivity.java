@@ -43,9 +43,9 @@ public class SearchActivity extends BaseActivity {
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         setSearchView();
-        mSearchView.setArrowOnly(true);
+        mSearchView.setNavigationIconAnimation(true);
         // mSearchView.setTextOnly(R.string.search);
-        mSearchView.setOnMenuClickListener(this::finish);
+        mSearchView.setOnNavigationIconClickListener(state -> finish());
         customSearchView();
         mSearchView.setVersionMargins(SearchView.VERSION_MARGINS_TOOLBAR_SMALL);
         // mSearchView.setShouldClearOnOpen(true);

@@ -22,7 +22,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lapism.searchview.SearchAdapter2;
+import com.lapism.searchview.SearchAdapter;
 import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
@@ -274,7 +274,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             suggestionsList.add(new SearchItem("search2"));
             suggestionsList.add(new SearchItem("search3"));
 
-            SearchAdapter2 searchAdapter = new SearchAdapter2(this, suggestionsList);
+            SearchAdapter searchAdapter = new SearchAdapter(this, suggestionsList);
             searchAdapter.setOnSearchItemClickListener((view, position) -> {
                 TextView textView = (TextView) view.findViewById(R.id.textView);
                 String query = textView.getText().toString();

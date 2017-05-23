@@ -12,6 +12,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <com.lapism.searchview.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.lapism.searchview.SearchBehavior" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/key_line"
+            app:layout_behavior="com.lapism.searchview.sample.widget.FabBehavior"
+            app:srcCompat="@drawable/ic_delete_white_24dp" />
+
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,28 +55,6 @@
                 app:tabIndicatorColor="@android:color/white" />
 
         </android.support.design.widget.AppBarLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-        <com.lapism.searchview.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="com.lapism.searchview.SearchBehavior" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/key_line"
-            app:layout_behavior="com.lapism.searchview.sample.widget.FabBehavior"
-            app:srcCompat="@drawable/ic_delete_white_24dp" />
-        <!--app:layout_behavior="com.lapism.searchview.sample.widget.FabBehavior"-->
 
     </android.support.design.widget.CoordinatorLayout>
 

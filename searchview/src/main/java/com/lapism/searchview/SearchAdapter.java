@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable{
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
     private final SearchHistoryTable mHistoryDatabase;
     public Integer mDatabaseKey = null;
@@ -33,12 +33,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     public SearchAdapter(Context context) {
         mHistoryDatabase = new SearchHistoryTable(context);
+        getFilter().filter("");
     }
 
     public SearchAdapter(Context context, List<SearchItem> suggestions) {
         mSuggestions = suggestions;
         mHistoryDatabase = new SearchHistoryTable(context);
         mDatabase = mHistoryDatabase.getAllItems(mDatabaseKey);
+        getFilter().filter("");
     }
 
     @Override
@@ -93,6 +95,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     public void setDatabaseKey(Integer key) {
         mDatabaseKey = key;
+        getFilter().filter("");
     }
 
     public void setData(List<SearchItem> data) {
@@ -130,7 +133,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         void onSearchItemClick(View view, int position);
     }
 
-    public class ResultViewHolder extends RecyclerView.ViewHolder {
+    public class ResultViewHolder extends RecyclerView.ViewHolder{ //implements View.OnClickListener {
 
         final ImageView icon;
         final TextView text;
@@ -144,6 +147,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             });
             icon = (ImageView) view.findViewById(R.id.imageView);
             text = (TextView) view.findViewById(R.id.textView);
+            // view.setOnClickListener(this);
         }
     }
 
@@ -152,13 +156,58 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
-                // FilterResults filterResults = new FilterResults();
-                return null;
+                FilterResults filterResults = new FilterResults();
+
+                mKey = constraint;
+
+                if (!TextUtils.isEmpty(constraint)) {
+                    mKey = constraint.toString().toLowerCase(Locale.getDefault());
+
+                    List<SearchItem> results = new ArrayList<>();
+                    List<SearchItem> history = new ArrayList<>();
+                    List<SearchItem> databaseAllItems = mHistoryDatabase.getAllItems(mDatabaseKey);
+
+                    if (!databaseAllItems.isEmpty()) {
+                        history.addAll(databaseAllItems);
+                    }
+                    history.addAll(mSuggestions);
+
+                    for (SearchItem item : history) {
+                        String string = item.getText().toString().toLowerCase(Locale.getDefault());
+                        if (string.contains(mKey)) {
+                            results.add(item);
+                        }
+                    }
+
+                    if (results.size() > 0) {
+                        filterResults.values = results;
+                        filterResults.count = results.size();
+                    }
+                }
+
+                return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
+                List<SearchItem> dataSet = new ArrayList<>();
 
+                if (results.count > 0) {
+                    List<?> result = (ArrayList<?>) results.values;
+                    for (Object object : result) {
+                        if (object instanceof SearchItem) {
+                            dataSet.add((SearchItem) object);
+                        }
+                    }
+                } else {
+                    if (TextUtils.isEmpty(mKey)) {
+                        List<SearchItem> allItems = mHistoryDatabase.getAllItems(mDatabaseKey);
+                        if (!allItems.isEmpty()) {
+                            dataSet = allItems;
+                        }
+                    }
+                }//deoprecated
+                setData(dataSet);
             }
         };
     }

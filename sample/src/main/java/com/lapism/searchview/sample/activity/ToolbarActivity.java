@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 
+import com.lapism.searchview.SearchView;
 import com.lapism.searchview.sample.R;
 import com.lapism.searchview.sample.base.BaseActivity;
 
@@ -36,7 +37,7 @@ public class ToolbarActivity extends BaseActivity {
         mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
 
         setSearchView();
-        mSearchView.setOnMenuClickListener(() -> {
+        mSearchView.setOnNavigationIconClickListener(state -> {
             mDrawerLayout.openDrawer(GravityCompat.START); // finish();
         });
         customSearchView();
