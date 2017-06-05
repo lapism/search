@@ -42,6 +42,7 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> { //F
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, SearchView child, View dependency) {
         if (dependency instanceof AppBarLayout) {
+            mSearchView.setTranslationY(dependency.getY());
             ViewCompat.setElevation(mSearchView, ViewCompat.getElevation(dependency));
             return true;
         }
