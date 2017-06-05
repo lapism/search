@@ -10,7 +10,7 @@ ITEM LAYOUT u
 SEARCHVIEWAPPCOMPAT
 REWRITE searhview a adapter
 TODOS
-
+layout jako u play storu
 
 
 ----------------------------------------------------------------------------------------------------
