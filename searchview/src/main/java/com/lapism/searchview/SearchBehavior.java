@@ -33,9 +33,6 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> { //F
             mSearchView = child;
             mAppBarLayout = (AppBarLayout) dependency;
             CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mAppBarLayout.setElevation(0); // TODO NO SHADOWS APPBAR
-            }
             mAppBarLayoutBehavior = (AppBarLayout.Behavior) params.getBehavior();
             return true;
         }
@@ -45,7 +42,7 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> { //F
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, SearchView child, View dependency) {
         if (dependency instanceof AppBarLayout) {
-            mSearchView.setTranslationY(dependency.getY());
+            ViewCompat.setElevation(mSearchView, ViewCompat.getElevation(dependency));
             return true;
         }
         return super.onDependentViewChanged(parent, child, dependency);

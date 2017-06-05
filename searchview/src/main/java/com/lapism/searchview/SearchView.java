@@ -678,13 +678,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    // TODO ?
-    @Override
-    public void setElevation(float elevation) {
-        mCardView.setMaxCardElevation(elevation);
-        mCardView.setCardElevation(elevation);
-    }
-
     @Override
     public void setBackgroundColor(@ColorInt int color) {
         mCardView.setCardBackgroundColor(color);
