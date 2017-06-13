@@ -3,14 +3,13 @@ NO KEYBOARD IN LANDSCAPE MODE
 LINT
 LTR LAYOUT
 ADAPTER
-* ADD MIPMAP AND OTHERS ICONS
+* ADD MIPMAP AND OTHERS ICONS and shadows searchview
 GITHUB ISSUES
 REMOVE COMMENTS
-ITEM LAYOUT u
 SEARCHVIEWAPPCOMPAT
 REWRITE searhview a adapter
 TODOS
-layout jako u play storu
+item layout jako u play storu
 
 
 ----------------------------------------------------------------------------------------------------

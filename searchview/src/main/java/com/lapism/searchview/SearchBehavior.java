@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -26,9 +27,9 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
     public boolean layoutDependsOn(CoordinatorLayout parent, SearchView child, View dependency) {
         if (dependency instanceof AppBarLayout) {
             //AppBarLayout mAppBarLayout = (AppBarLayout) dependency;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 dependency.setElevation(0);
-            }
+            }*/
             return true;
         }
         return super.layoutDependsOn(parent, child, dependency);
@@ -38,6 +39,8 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
     public boolean onDependentViewChanged(CoordinatorLayout parent, SearchView child, View dependency) {
         if (dependency instanceof AppBarLayout) {
             child.setTranslationY(dependency.getY());
+            // ViewCompat.setElevation(mSearchView, ViewCompat.getElevation(dependency));
+            ViewCompat.setElevation(dependency, ViewCompat.getElevation(dependency));
             return true;
         }
         return super.onDependentViewChanged(parent, child, dependency);
