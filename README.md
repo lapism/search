@@ -4,18 +4,16 @@ Next version 5.0 will be ASAP on jCenter.
 
 Persistent SearchView Library like Play Store.  
 Check the [sample project](https://github.com/lapism/SearchView/tree/master/sample/src/main/java/com/lapism/searchview/sample) very thoroughly !!!  
+
+
+
 Features: Material Design, Toolbar / Menu item version, History, Styling.  
 Google Material Design Pattern:  
 https://www.google.com/design/spec/patterns/search.html  
 Version history here:  
 https://bintray.com/lapism/maven/searchview/view  
 Material colors in the project:  
-https://gist.github.com/lapism/3b417142300d9dbde3b4  
-Sample application on:  
-<a href="https://play.google.com/store/apps/details?id=com.lapism.searchview.sample">
-  <img alt="Get it on Google Play"
-       src="https://github.com/lapism/SearchView/blob/master/images/google-play-badge.png" />
-</a>
+https://gist.github.com/lapism/3b417142300d9dbde3b4
 
 # Donations:
 
@@ -53,7 +51,6 @@ dependencies {
 
 ![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)
 ![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/image_2.png)
-![Screenshot 3](https://github.com/lapism/SearchView/blob/master/images/image_3.png)
 
 **Code:**
 ```java
@@ -128,3 +125,10 @@ SearchView identifies its layout style through versions. Currently, there are tw
 <attr name="search_hide_on_keyboard_close" format="boolean" />
 <attr name="search_cursor_drawable" format="integer" />
 ```
+
+
+Sample application on:
+<a href="https://play.google.com/store/apps/details?id=com.lapism.searchview.sample">
+  <img alt="Get it on Google Play"
+       src="https://github.com/lapism/SearchView/blob/master/images/google-play-badge.png" />
+</a>
