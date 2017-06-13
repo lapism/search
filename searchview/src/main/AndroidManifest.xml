@@ -1,6 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lapism.searchview">
-
-    <application android:supportsRtl="true" />
-
-</manifest>
+<manifest package="com.lapism.searchview"/>

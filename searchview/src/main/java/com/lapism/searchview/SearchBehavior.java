@@ -1,11 +1,6 @@
 package com.lapism.searchview;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
-import android.animation.StateListAnimator;
-import android.animation.TimeInterpolator;
 import android.content.Context;
-import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewCompat;
