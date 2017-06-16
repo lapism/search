@@ -47,7 +47,6 @@ public class SearchView extends FrameLayout{
     /*
     public void setProgress(@FloatRange(from = 0.0, to = 1.0) f
     loat progress) {
-
     @FloatRange(from = 0.0, to = 1.0)
     public float getProgress() {
         return mProgress;
@@ -67,7 +66,6 @@ public class SearchView extends FrameLayout{
             /*        if (mQuery.equals(newText)) {
             return;
         }
-
                 if (mQuery == newText)) {
             return;
         }//TextUtil.equals
