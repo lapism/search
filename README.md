@@ -6,7 +6,7 @@ Persistent SearchView Library from Play Store.
 
 Features: Material Design, Toolbar / Menu item version, History, Styling.  
 Google Material Design Pattern:  
-https://www.google.com/design/spec/patterns/search.html  
+https://material.io/guidelines/patterns/search.html
 Version history here:  
 https://bintray.com/lapism/maven/searchview/view  
 Material colors in the project:  
