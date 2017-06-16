@@ -10,7 +10,7 @@ import java.util.Locale;
 
 
 class SearchUtils {
-
+// TODO JAK ZJISTIT LTR
     static boolean isRTL() {
         return isRTL(Locale.getDefault());
     }
@@ -41,6 +41,4 @@ class SearchUtils {
         return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
-
-    // TODO JAK ZJISTIT LTR
 }
