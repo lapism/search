@@ -58,15 +58,15 @@ dependencies {
     implementation 'com.android.support:cardview-v7:26.+'
     implementation 'com.android.support:design:26.+'
 
-    implementation 'com.google.android:flexbox:0.2.6'
-    // implementation 'com.google.android:flexbox:0.3.0-alpha3'
+    implementation 'com.google.android:flexbox:0.2.7'
+    // implementation 'com.google.android:flexbox:0.3.0-alpha4'
 }
 
 publish {
     userOrg = 'lapism'
     groupId = 'com.lapism'
     artifactId = 'searchview'
-    publishVersion = '5.0-alpha1'
+    publishVersion = '5.0-alpha2'
     desc = 'SearchView Library'
     website = 'https://github.com/lapism/SearchView'
 }

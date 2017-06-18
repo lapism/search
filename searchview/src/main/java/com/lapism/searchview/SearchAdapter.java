@@ -145,8 +145,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                     mListener.onSearchItemClick(v, getAdapterPosition());
                 }
             });
-            icon = (ImageView) view.findViewById(R.id.imageView);
-            text = (TextView) view.findViewById(R.id.textView);
+            icon = view.findViewById(R.id.imageView);
+            text = view.findViewById(R.id.textView);
             // view.setOnClickListener(this);
         }
     }
@@ -206,7 +206,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                             dataSet = allItems;
                         }
                     }
-                }//deoprecated
+                }//deprecated
                 setData(dataSet);
             }
         };
