@@ -21,14 +21,18 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
 
     @Override
     public boolean layoutDependsOn(CoordinatorLayout parent, SearchView child, View dependency) {
-        return dependency instanceof AppBarLayout || super.layoutDependsOn(parent, child, dependency);
+        if (dependency instanceof AppBarLayout) {
+            ViewCompat.setElevation(child, ViewCompat.getElevation(dependency));
+            return true;
+        }
+
+        return super.layoutDependsOn(parent, child, dependency);
     }
 
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, SearchView child, View dependency) {
         if (dependency instanceof AppBarLayout) {
             child.setTranslationY(dependency.getY());
-            ViewCompat.setElevation(child, ViewCompat.getElevation(dependency));
             return true;
         }
         return super.onDependentViewChanged(parent, child, dependency);
