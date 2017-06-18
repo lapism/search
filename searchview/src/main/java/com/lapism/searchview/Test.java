@@ -1,6 +1,4 @@
-
-
-        // appcompat searchgvei a snioppet
+// appcompat searchgvei a snioppet
 
     /*
     public void setProgress(@FloatRange(from = 0.0, to = 1.0) f

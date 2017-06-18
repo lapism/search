@@ -129,28 +129,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         mListener = listener;
     }
 
-    public interface OnSearchItemClickListener {
-        void onSearchItemClick(View view, int position);
-    }
-
-    public class ResultViewHolder extends RecyclerView.ViewHolder{ //implements View.OnClickListener {
-
-        final ImageView icon;
-        final TextView text;
-
-        public ResultViewHolder(View view) {
-            super(view);
-            view.setOnClickListener(v -> {
-                if (mListener != null) {
-                    mListener.onSearchItemClick(v, getAdapterPosition());
-                }
-            });
-            icon = view.findViewById(R.id.imageView);
-            text = view.findViewById(R.id.textView);
-            // view.setOnClickListener(this);
-        }
-    }
-
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -249,6 +227,28 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             mResults = results;
             notifyDataSetChanged();
             // setData(results);
+        }
+    }
+
+    public interface OnSearchItemClickListener {
+        void onSearchItemClick(View view, int position);
+    }
+
+    public class ResultViewHolder extends RecyclerView.ViewHolder { //implements View.OnClickListener {
+
+        final ImageView icon;
+        final TextView text;
+
+        public ResultViewHolder(View view) {
+            super(view);
+            view.setOnClickListener(v -> {
+                if (mListener != null) {
+                    mListener.onSearchItemClick(v, getAdapterPosition());
+                }
+            });
+            icon = view.findViewById(R.id.imageView);
+            text = view.findViewById(R.id.textView);
+            // view.setOnClickListener(this);
         }
     }
 }

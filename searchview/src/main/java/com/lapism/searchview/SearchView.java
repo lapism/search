@@ -65,58 +65,29 @@ import java.util.List;
 // @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
-    @IntDef({VERSION_TOOLBAR, VERSION_MENU_ITEM})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Version {
-    }
-
-    @IntDef({VERSION_MARGINS_TOOLBAR_SMALL, VERSION_MARGINS_TOOLBAR_BIG, VERSION_MARGINS_MENU_ITEM})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface VersionMargins {
-    }
-
-    @IntDef({THEME_LIGHT, THEME_DARK, THEME_PLAY_STORE})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Theme {
-    }
-
-    @IntDef({TEXT_STYLE_NORMAL, TEXT_STYLE_BOLD, TEXT_STYLE_ITALIC, TEXT_STYLE_BOLD_ITALIC})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface TextStyle {
-    }
-
     public static final String TAG = "SearchView";
-
     public static final int TEXT_STYLE_NORMAL = 0;
     public static final int TEXT_STYLE_BOLD = 1;
     public static final int TEXT_STYLE_ITALIC = 2;
     public static final int TEXT_STYLE_BOLD_ITALIC = 3;
-
     public static final int VERSION_TOOLBAR = 1000;
     public static final int VERSION_MENU_ITEM = 1001;
-
     public static final int VERSION_MARGINS_TOOLBAR_SMALL = 2000;
     public static final int VERSION_MARGINS_TOOLBAR_BIG = 2001;
     public static final int VERSION_MARGINS_MENU_ITEM = 2002;
-
     public static final int THEME_LIGHT = 3000;
     public static final int THEME_DARK = 3001;
     public static final int THEME_PLAY_STORE = 3002;
-
     public static final int SPEECH_REQUEST_CODE = 100;
     public static final int ANIMATION_DURATION = 300;
-
     private static int mIconColor = Color.BLACK;
     private static int mTextColor = Color.BLACK;
     private static int mTextHighlightColor = Color.BLACK;
     private static int mTextStyle = Typeface.NORMAL;
     private static Typeface mTextFont = Typeface.DEFAULT;
-
     private final Context mContext;
     private SearchArrowDrawable mSearchArrowDrawable;
-
     private View mMenuItemView = null;
-
     private FragmentActivity activity;
     private Activity mActivity = null;
     private AppCompatActivity mAppCompatActivity = null;
@@ -129,7 +100,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private OnVoiceIconClickListener mOnVoiceIconClickListener = null;
     private List<Boolean> mSearchFiltersStates = null;
     private List<SearchFilter> mSearchFilters = null;
-
     private View mViewShadow;
     private View mViewDivider;
     private CardView mCardView;
@@ -141,7 +111,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private RecyclerView mRecyclerView;
     private FlexboxLayout mFlexboxLayout;
     private SearchEditText mSearchEditText;
-
     private int mMenuItemCx = -1;
     private int mVersion = VERSION_TOOLBAR;
     private int mTheme = THEME_LIGHT;
@@ -155,7 +124,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private boolean mShouldClearOnOpen = false;
     private boolean mShouldClearOnClose = false;
     private boolean mShouldHideOnKeyboardClose = true;
-
     // ---------------------------------------------------------------------------------------------
     public SearchView(@NonNull Context context) {
         super(context);
@@ -165,7 +133,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         // this(context, null);
     }
-
     public SearchView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
@@ -175,14 +142,12 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         // this(context, attrs, 0);
         // this(context, attrs, R.attr.searchViewStyle);
     }
-
     public SearchView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mContext = context;
         initView();
         initStyle(attrs, defStyleAttr);
     }
-
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public SearchView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -190,6 +155,60 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mContext = context;
         initView();
         initStyle(attrs, defStyleAttr);
+    }
+
+    public static int getIconColor() {
+        return mIconColor;
+    }
+
+    public void setIconColor(@ColorInt int color) {
+        mIconColor = color;
+        ColorFilter colorFilter = new PorterDuffColorFilter(mIconColor, PorterDuff.Mode.SRC_IN);
+
+        mImageViewArrow.setColorFilter(colorFilter);
+        mImageViewMic.setColorFilter(colorFilter);
+        mImageViewClear.setColorFilter(colorFilter);
+    }
+
+    public static int getTextColor() {
+        return mTextColor;
+    }
+
+    public void setTextColor(@ColorInt int color) {
+        mTextColor = color;
+        mSearchEditText.setTextColor(mTextColor);
+
+        for (int i = 0, n = mFlexboxLayout.getChildCount(); i < n; i++) {
+            View child = mFlexboxLayout.getChildAt(i);
+            if (child instanceof CheckBox)
+                ((CheckBox) child).setTextColor(mTextColor);
+        }
+    }
+
+    public static int getTextHighlightColor() {
+        return mTextHighlightColor;
+    }
+
+    public void setTextHighlightColor(@ColorInt int color) {
+        mTextHighlightColor = color;
+    }
+
+    public static Typeface getTextFont() {
+        return mTextFont;
+    }
+
+    public void setTextFont(Typeface font) {
+        mTextFont = font;
+        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
+    }
+
+    public static int getTextStyle() {
+        return mTextStyle;
+    }
+
+    public void setTextStyle(int style) {
+        mTextStyle = style;
+        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -359,12 +378,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    // TODO ANOTACE A GETY, 1.SET, PAK GET
-    // ---------------------------------------------------------------------------------------------
-    public void setTheme(@Theme int theme) {
-        setTheme(theme, true);
-    }
-
     public void setTheme(@Theme int theme, boolean tint) {
         mTheme = theme;
 
@@ -404,6 +417,17 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return mTheme;
     }
 
+    // TODO ANOTACE A GETY, 1.SET, PAK GET
+    // ---------------------------------------------------------------------------------------------
+    public void setTheme(@Theme int theme) {
+        setTheme(theme, true);
+    }
+
+    @Version
+    public int getVersion() {
+        return mVersion;
+    }
+
     // ---------------------------------------------------------------------------------------------
     public void setVersion(@Version int version) {
         mVersion = version;
@@ -411,11 +435,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         if (mVersion == VERSION_MENU_ITEM) {
             setVisibility(View.GONE);
         }
-    }
-
-    @Version
-    public int getVersion() {
-        return mVersion;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -469,7 +488,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mImageViewMic.setOnClickListener(listener);
     }
 
-
     public void setOnVoiceClickListener(OnVoiceIconClickListener listener) {
         mOnVoiceIconClickListener = listener;
     }
@@ -489,6 +507,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mSupportFragment = context;
         setVoice(voice);
     }
+
+    // ---------------------------------------------------------------------------------------------
+
+
+    // ---------------------------------------------------------------------------------------------
 
     public void setVoice(boolean voice) {
         if (voice && isVoiceAvailable()) {
@@ -516,21 +539,15 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mViewShadow.setBackgroundColor(color);
     }
 
-    // ---------------------------------------------------------------------------------------------
-    public void setAdapter(RecyclerView.Adapter adapter) {
-        mAdapter = adapter;
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
     public RecyclerView.Adapter getAdapter() {
         return mRecyclerView.getAdapter();
     }
 
     // ---------------------------------------------------------------------------------------------
-
-
-    // ---------------------------------------------------------------------------------------------
-
+    public void setAdapter(RecyclerView.Adapter adapter) {
+        mAdapter = adapter;
+        mRecyclerView.setAdapter(mAdapter);
+    }
 
     // ---------------------------------------------------------------------------------------------
     /* new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL)
@@ -737,27 +754,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     // ---------------------------------------------------------------------------------------------
-    public interface OnQueryTextListener {
-        boolean onQueryTextSubmit(String query);
-
-        boolean onQueryTextChange(String newText);
-    }
-
-    public interface OnOpenCloseListener {
-        boolean onClose();
-
-        boolean onOpen();
-    }
-
-    public interface OnNavigationIconClickListener {
-        void onNavigationIconClick(float state);
-    }
-
-    public interface OnVoiceIconClickListener {
-        void onVoiceIconClick();
-    }
-
-    // ---------------------------------------------------------------------------------------------
     public void showKeyboard() {
         if (!isInEditMode()) {
             InputMethodManager inputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -901,7 +897,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public boolean isShowingProgress() {
         return mProgressBar.getVisibility() == View.VISIBLE;
     }
-
 
     public void showSuggestions() {
         if (mFlexboxLayout.getChildCount() > 0 && mFlexboxLayout.getVisibility() == View.GONE) {
@@ -1070,66 +1065,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    public static int getIconColor() {
-        return mIconColor;
-    }
-
-    public void setIconColor(@ColorInt int color) {
-        mIconColor = color;
-        ColorFilter colorFilter = new PorterDuffColorFilter(mIconColor, PorterDuff.Mode.SRC_IN);
-
-        mImageViewArrow.setColorFilter(colorFilter);
-        mImageViewMic.setColorFilter(colorFilter);
-        mImageViewClear.setColorFilter(colorFilter);
-    }
-
-    public static int getTextColor() {
-        return mTextColor;
-    }
-
-    public void setTextColor(@ColorInt int color) {
-        mTextColor = color;
-        mSearchEditText.setTextColor(mTextColor);
-
-        for (int i = 0, n = mFlexboxLayout.getChildCount(); i < n; i++) {
-            View child = mFlexboxLayout.getChildAt(i);
-            if (child instanceof CheckBox)
-                ((CheckBox) child).setTextColor(mTextColor);
-        }
-    }
-
-    public static int getTextHighlightColor() {
-        return mTextHighlightColor;
-    }
-
-    public void setTextHighlightColor(@ColorInt int color) {
-        mTextHighlightColor = color;
-    }
-
-    public static Typeface getTextFont() {
-        return mTextFont;
-    }
-
-    public void setTextFont(Typeface font) {
-        mTextFont = font;
-        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
-    }
-
-    public static int getTextStyle() {
-        return mTextStyle;
-    }
-
-    public void setTextStyle(int style) {
-        mTextStyle = style;
-        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
-    }
-
     // TODO COUNT OF GETS SETS, STRINGRES ETC
     public void setTextOnly(CharSequence text) {
-        mSearchEditText.setText(text);
-    }
-
-    public void setTextOnly(@StringRes int text) {
         mSearchEditText.setText(text);
     }
 
@@ -1137,11 +1074,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return mSearchEditText.getText();
     }
 
-    public void setHint(@StringRes int hint) {
-        mSearchEditText.setHint(hint);
+    public void setTextOnly(@StringRes int text) {
+        mSearchEditText.setText(text);
     }
 
-    public void setHint(CharSequence hint) {
+    public void setHint(@StringRes int hint) {
         mSearchEditText.setHint(hint);
     }
 
@@ -1151,6 +1088,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public CharSequence getHint() {
         return mSearchEditText.getHint();
+    }
+
+    public void setHint(CharSequence hint) {
+        mSearchEditText.setHint(hint);
     }
 
     public void setAnimationDuration(int animationDuration) {
@@ -1195,6 +1136,47 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         int[] location = new int[2];
         view.getLocationOnScreen(location);
         return location[0] + view.getWidth() / 2;
+    }
+
+    @IntDef({VERSION_TOOLBAR, VERSION_MENU_ITEM})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Version {
+    }
+
+    @IntDef({VERSION_MARGINS_TOOLBAR_SMALL, VERSION_MARGINS_TOOLBAR_BIG, VERSION_MARGINS_MENU_ITEM})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface VersionMargins {
+    }
+
+    @IntDef({THEME_LIGHT, THEME_DARK, THEME_PLAY_STORE})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Theme {
+    }
+
+    @IntDef({TEXT_STYLE_NORMAL, TEXT_STYLE_BOLD, TEXT_STYLE_ITALIC, TEXT_STYLE_BOLD_ITALIC})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface TextStyle {
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    public interface OnQueryTextListener {
+        boolean onQueryTextSubmit(String query);
+
+        boolean onQueryTextChange(String newText);
+    }
+
+    public interface OnOpenCloseListener {
+        boolean onClose();
+
+        boolean onOpen();
+    }
+
+    public interface OnNavigationIconClickListener {
+        void onNavigationIconClick(float state);
+    }
+
+    public interface OnVoiceIconClickListener {
+        void onVoiceIconClick();
     }
 
     // WeakReference

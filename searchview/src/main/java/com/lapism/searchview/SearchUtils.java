@@ -10,7 +10,7 @@ import java.util.Locale;
 
 
 class SearchUtils {
-// TODO JAK ZJISTIT LTR
+    // TODO JAK ZJISTIT LTR
     static boolean isRTL() {
         return isRTL(Locale.getDefault());
     }

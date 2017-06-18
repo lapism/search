@@ -25,7 +25,6 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
             ViewCompat.setElevation(child, ViewCompat.getElevation(dependency));
             return true;
         }
-
         return super.layoutDependsOn(parent, child, dependency);
     }
 
