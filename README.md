@@ -19,7 +19,7 @@ Please support me !
 <a href="https://www.paypal.me/lapism">
   <img alt="Get it on Google Play"
        src="https://github.com/lapism/SearchView/blob/master/images/donate.png" />
-</a>
+</a></br>
   
 **Apps using this library:**
 
