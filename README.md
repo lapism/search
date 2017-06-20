@@ -3,8 +3,8 @@
 Do not fork it. It will be changed to working version 5.0 in few days !!!
 
 Persistent SearchView Library from Play Store.  
-
 Features: Material Design, Toolbar / Menu item version, History, Styling.  
+
 Google Material Design Pattern:  
 https://material.io/guidelines/patterns/search.html  
 Version history here:  
