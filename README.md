@@ -15,6 +15,7 @@ https://gist.github.com/lapism/3b417142300d9dbde3b4
 # Donations:
 
 Please support me !  
+
 <a href="https://www.paypal.me/lapism">
   <img alt="Get it on Google Play"
        src="https://github.com/lapism/SearchView/blob/master/images/donate.png" />
