@@ -48,9 +48,8 @@ dependencies {
     implementation 'com.lapism:searchview:4.0'
 }
 ```
-
-![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)
-![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/image_2.png)
+![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)  
+![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/image_2.png)  
 
 **Code:**
 ```java
