@@ -20,7 +20,8 @@ Please support me !
   <img alt="Get it on Google Play"
        src="https://github.com/lapism/SearchView/blob/master/images/donate.png" />
 </a>  
-
+  
+  
 **Apps using this library:**
 
 Because I have done firstly this library as a private project, 
