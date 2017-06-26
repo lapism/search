@@ -61,7 +61,7 @@ SearchView mSearchView = (SearchView) findViewById(R.id.searchView);
 public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
         case R.id.action_search: {
-            mSearchView.show(true/false); // enable or disable animation
+            mSearchView.open(true/false); // enable or disable animation
             return true;
         }
         default:
