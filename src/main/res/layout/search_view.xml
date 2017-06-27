@@ -32,10 +32,10 @@
                     android:id="@+id/imageView_arrow"
                     android:layout_width="@dimen/search_icon"
                     android:layout_height="match_parent"
-                    android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:contentDescription="@string/search_app_name"
                     android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:scaleType="centerInside" />
 
                 <com.lapism.searchview.SearchEditText
@@ -81,20 +81,20 @@
                         android:id="@+id/imageView_mic"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="?android:attr/selectableItemBackground"
                         android:clickable="true"
                         android:contentDescription="@string/search_app_name"
                         android:focusable="true"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:scaleType="center" />
 
                     <ImageView
                         android:id="@+id/imageView_clear"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="?android:attr/selectableItemBackground"
                         android:clickable="true"
                         android:contentDescription="@string/search_app_name"
                         android:focusable="true"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:scaleType="center" />
 
                 </FrameLayout>
@@ -124,3 +124,10 @@
     </android.support.v7.widget.CardView>
 
 </merge>
+
+    <!-- background
+    ?android:attr/selectableItemBackgroundBorderless
+    ?android:attr/selectableItemBackground
+    ?android:attr/selectableItemBackgroundBorderless
+      ?android:attr/selectableItemBackgroundBorderless
+    android:background="?attr/selectableItemBackground"-->

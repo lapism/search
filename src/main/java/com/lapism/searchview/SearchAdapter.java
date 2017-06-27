@@ -184,7 +184,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                             dataSet = allItems;
                         }
                     }
-                }//deprecated
+                }
                 setData(dataSet);
             }
         };
