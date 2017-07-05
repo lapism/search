@@ -65,6 +65,26 @@ import java.util.List;
 // @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
+    @IntDef({VERSION_TOOLBAR, VERSION_MENU_ITEM})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Version {
+    }
+
+    @IntDef({VERSION_MARGINS_TOOLBAR_SMALL, VERSION_MARGINS_TOOLBAR_BIG, VERSION_MARGINS_MENU_ITEM})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface VersionMargins {
+    }
+
+    @IntDef({THEME_LIGHT, THEME_DARK, THEME_PLAY_STORE})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Theme {
+    }
+
+    @IntDef({TEXT_STYLE_NORMAL, TEXT_STYLE_BOLD, TEXT_STYLE_ITALIC, TEXT_STYLE_BOLD_ITALIC})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface TextStyle {
+    }
+
     public static final String TAG = "SearchView";
     public static final int TEXT_STYLE_NORMAL = 0;
     public static final int TEXT_STYLE_BOLD = 1;
@@ -88,7 +108,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private final Context mContext;
     private SearchArrowDrawable mSearchArrowDrawable;
     private View mMenuItemView = null;
-    private FragmentActivity activity;
+    private FragmentActivity activity = null;
     private Activity mActivity = null;
     private AppCompatActivity mAppCompatActivity = null;
     private Fragment mFragment = null;
@@ -124,6 +144,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private boolean mShouldClearOnOpen = false;
     private boolean mShouldClearOnClose = false;
     private boolean mShouldHideOnKeyboardClose = true;
+
     // ---------------------------------------------------------------------------------------------
     public SearchView(@NonNull Context context) {
         super(context);
@@ -133,6 +154,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         // this(context, null);
     }
+
     public SearchView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
@@ -142,12 +164,14 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         // this(context, attrs, 0);
         // this(context, attrs, R.attr.searchViewStyle);
     }
+
     public SearchView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mContext = context;
         initView();
         initStyle(attrs, defStyleAttr);
     }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public SearchView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -157,6 +181,25 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         initStyle(attrs, defStyleAttr);
     }
 
+    // ---------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @ColorInt
     public static int getIconColor() {
         return mIconColor;
     }
@@ -170,6 +213,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mImageViewClear.setColorFilter(colorFilter);
     }
 
+    @ColorInt
     public static int getTextColor() {
         return mTextColor;
     }
@@ -185,6 +229,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
+    @ColorInt
     public static int getTextHighlightColor() {
         return mTextHighlightColor;
     }
@@ -509,7 +554,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     // ---------------------------------------------------------------------------------------------
-
+    // ButtonBarLayout, CheckedTexvView
 
     // ---------------------------------------------------------------------------------------------
 
@@ -654,7 +699,14 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                                 mCardView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                             }
-                            SearchAnimator.revealOpen(mCardView, mMenuItemCx, mAnimationDuration, mContext, mSearchEditText, mShouldClearOnOpen, mOnOpenCloseListener);
+                            SearchAnimator.revealOpen(
+                                    mCardView,
+                                    mMenuItemCx,
+                                    mAnimationDuration,
+                                    mContext,
+                                    mSearchEditText,
+                                    mShouldClearOnOpen,
+                                    mOnOpenCloseListener);
                         }
                     });
                 } else {
@@ -1098,7 +1150,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mAnimationDuration = animationDuration;
     }
 
-    // @MenuRes
+
     public void setShadow(boolean shadow) {
         if (shadow) {
             mViewShadow.setVisibility(View.VISIBLE);
@@ -1138,25 +1190,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return location[0] + view.getWidth() / 2;
     }
 
-    @IntDef({VERSION_TOOLBAR, VERSION_MENU_ITEM})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Version {
-    }
 
-    @IntDef({VERSION_MARGINS_TOOLBAR_SMALL, VERSION_MARGINS_TOOLBAR_BIG, VERSION_MARGINS_MENU_ITEM})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface VersionMargins {
-    }
-
-    @IntDef({THEME_LIGHT, THEME_DARK, THEME_PLAY_STORE})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Theme {
-    }
-
-    @IntDef({TEXT_STYLE_NORMAL, TEXT_STYLE_BOLD, TEXT_STYLE_ITALIC, TEXT_STYLE_BOLD_ITALIC})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface TextStyle {
-    }
 
     // ---------------------------------------------------------------------------------------------
     public interface OnQueryTextListener {
@@ -1179,23 +1213,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         void onVoiceIconClick();
     }
 
-    // WeakReference
-    private static class SavedState2 extends BaseSavedState {
+    // WeakReference, WEAKHASHMAP     // @MenuRes
 
-        public SavedState2(Parcel source) {
-            super(source);
-        }
 
-        @TargetApi(Build.VERSION_CODES.N)
-        @RequiresApi(api = Build.VERSION_CODES.N)
-        public SavedState2(Parcel source, ClassLoader loader) {
-            super(source, loader);
-        }
 
-        public SavedState2(Parcelable superState) {
-            super(superState);
-        }
-    }
 
     private static class SavedState extends BaseSavedState {
 
@@ -1231,6 +1252,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
 
         @TargetApi(Build.VERSION_CODES.N)
+        @RequiresApi(api = Build.VERSION_CODES.N)
         SavedState(Parcel source, ClassLoader loader) {
             super(source, loader);
             this.query = source.readString();
