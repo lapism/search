@@ -78,7 +78,8 @@ public boolean onOptionsItemSelected(MenuItem item) {
     android:layout_height="match_parent" />
 ```
 
-**Versions:**
+**Versions:**  
+  
 SearchView identifies its layout style through versions. Currently, there are two values, namely `SearchView.VERSION_TOOLBAR` for the persistent view, and `SearchView.VERSION_MENU_ITEM` for the view that appears on a menuitem press. The version may be defined through `setVersion`.
 
 **Styling SearchView:**
