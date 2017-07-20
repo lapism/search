@@ -65,26 +65,6 @@ import java.util.List;
 // @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
-    @IntDef({VERSION_TOOLBAR, VERSION_MENU_ITEM})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Version {
-    }
-
-    @IntDef({VERSION_MARGINS_TOOLBAR_SMALL, VERSION_MARGINS_TOOLBAR_BIG, VERSION_MARGINS_MENU_ITEM})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface VersionMargins {
-    }
-
-    @IntDef({THEME_LIGHT, THEME_DARK, THEME_PLAY_STORE})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Theme {
-    }
-
-    @IntDef({TEXT_STYLE_NORMAL, TEXT_STYLE_BOLD, TEXT_STYLE_ITALIC, TEXT_STYLE_BOLD_ITALIC})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface TextStyle {
-    }
-
     public static final String TAG = "SearchView";
     public static final int TEXT_STYLE_NORMAL = 0;
     public static final int TEXT_STYLE_BOLD = 1;
@@ -181,24 +161,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         initStyle(attrs, defStyleAttr);
     }
 
-    // ---------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @ColorInt
     public static int getIconColor() {
         return mIconColor;
@@ -228,6 +190,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 ((CheckBox) child).setTextColor(mTextColor);
         }
     }
+
+    // ---------------------------------------------------------------------------------------------
 
     @ColorInt
     public static int getTextHighlightColor() {
@@ -553,11 +517,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         setVoice(voice);
     }
 
-    // ---------------------------------------------------------------------------------------------
-    // ButtonBarLayout, CheckedTexvView
-
-    // ---------------------------------------------------------------------------------------------
-
     public void setVoice(boolean voice) {
         if (voice && isVoiceAvailable()) {
             mImageViewMic.setVisibility(View.VISIBLE);
@@ -583,6 +542,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public void setShadowColor(@ColorInt int color) {
         mViewShadow.setBackgroundColor(color);
     }
+
+    // ---------------------------------------------------------------------------------------------
+    // ButtonBarLayout, CheckedTexvView
+
+    // ---------------------------------------------------------------------------------------------
 
     public RecyclerView.Adapter getAdapter() {
         return mRecyclerView.getAdapter();
@@ -1150,7 +1114,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mAnimationDuration = animationDuration;
     }
 
-
     public void setShadow(boolean shadow) {
         if (shadow) {
             mViewShadow.setVisibility(View.VISIBLE);
@@ -1190,7 +1153,25 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return location[0] + view.getWidth() / 2;
     }
 
+    @IntDef({VERSION_TOOLBAR, VERSION_MENU_ITEM})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Version {
+    }
 
+    @IntDef({VERSION_MARGINS_TOOLBAR_SMALL, VERSION_MARGINS_TOOLBAR_BIG, VERSION_MARGINS_MENU_ITEM})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface VersionMargins {
+    }
+
+    @IntDef({THEME_LIGHT, THEME_DARK, THEME_PLAY_STORE})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Theme {
+    }
+
+    @IntDef({TEXT_STYLE_NORMAL, TEXT_STYLE_BOLD, TEXT_STYLE_ITALIC, TEXT_STYLE_BOLD_ITALIC})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface TextStyle {
+    }
 
     // ---------------------------------------------------------------------------------------------
     public interface OnQueryTextListener {
@@ -1212,8 +1193,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public interface OnVoiceIconClickListener {
         void onVoiceIconClick();
     }
-
-    // WeakReference, WEAKHASHMAP     // @MenuRes
 
 
 
@@ -1275,3 +1254,4 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
 }
+// WeakReference, WEAKHASHMAP     // @MenuRes
