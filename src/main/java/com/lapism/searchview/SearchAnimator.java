@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.WindowManager;
@@ -69,7 +70,7 @@ class SearchAnimator {
 
         if (cx <= 0) {
             int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
-            if (SearchUtils.isRtlLayout(context))
+            if (isRtlLayout(context))
                 cx = padding;
             else
                 cx = view.getWidth() - padding;
@@ -123,7 +124,7 @@ class SearchAnimator {
 
         if (cx <= 0) {
             int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
-            if (SearchUtils.isRtlLayout(context))
+            if (isRtlLayout(context))
                 cx = padding;
             else
                 cx = view.getWidth() - padding;
@@ -229,6 +230,10 @@ class SearchAnimator {
 
         view.setAnimation(anim);
         view.setVisibility(View.GONE);
+    }
+
+    private static boolean isRtlLayout(Context context) {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && context.getResources().getConfiguration().getLayoutDirection() == ViewCompat.LAYOUT_DIRECTION_RTL;
     }
 
 }

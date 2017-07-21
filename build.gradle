@@ -65,7 +65,7 @@ publish {
     userOrg = 'lapism'
     groupId = 'com.lapism'
     artifactId = 'searchview'
-    publishVersion = '5.0-alpha2'
+    publishVersion = '5.0-alpha1'
     desc = 'SearchView Library'
     website = 'https://github.com/lapism/SearchView'
 }

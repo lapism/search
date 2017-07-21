@@ -7,7 +7,6 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
-
 // https://lab.getbase.com/nested-scrolling-with-coordinatorlayout-on-android/
 public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
 

@@ -1,4 +1,4 @@
-**5.0**
+**5.0-alpha1**
  - vector drawables support
  - Java8 support
  - fixes
