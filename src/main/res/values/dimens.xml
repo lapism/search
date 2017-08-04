@@ -7,7 +7,6 @@
     <dimen name="search_key_line_16">16dp</dimen>
     <dimen name="search_divider">1dp</dimen>
 
-    <dimen name="search_item_margin_text">24dp</dimen>
     <dimen name="search_item_height">56dp</dimen>
     <dimen name="search_icon">56dp</dimen>
     <dimen name="search_progress">24dp</dimen>

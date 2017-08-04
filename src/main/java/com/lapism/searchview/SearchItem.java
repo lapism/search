@@ -5,6 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "unused"})
 public class SearchItem implements Parcelable {
 
     public static final Creator<SearchItem> CREATOR = new Creator<SearchItem>() {

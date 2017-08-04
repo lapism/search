@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "unused"})
 public class SearchHistoryTable {
 
     private static int mHistorySize = 2;
@@ -113,7 +114,7 @@ public class SearchHistoryTable {
         selectQuery += " ORDER BY " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " DESC LIMIT " + mHistorySize;
 
         open();
-        Cursor cursor = db.rawQuery(selectQuery, null);// TODO BUG
+        Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
                 SearchItem item = new SearchItem();

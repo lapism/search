@@ -5,7 +5,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 
-// @RestrictTo(LIBRARY_GROUP)
+
 public class SearchEditText extends AppCompatEditText {
 
     private SearchView mSearchView;
@@ -30,7 +30,7 @@ public class SearchEditText extends AppCompatEditText {
     public boolean onKeyPreIme(int keyCode, KeyEvent event) {
         if (mSearchView.getShouldHideOnKeyboardClose()) {
             if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-                if (mSearchView != null && mSearchView.isSearchOpen()) {
+                if (mSearchView != null && mSearchView.isOpen()) {
                     mSearchView.close(true);
                     return true;
                 }

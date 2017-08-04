@@ -1,5 +1,4 @@
 # SearchView
-Do not fork it. It will be changed to working version 5.0 in few days !!!
 
 Persistent SearchView Library from Play Store.  
 Features: Material Design, Toolbar / Menu item version, History, Styling.  
@@ -45,7 +44,7 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-    implementation 'com.lapism:searchview:4.0'
+    implementation 'com.lapism:searchview:5.0.0-alpha1'
 }
 ```
 ![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)  
@@ -53,10 +52,10 @@ dependencies {
 
 **Code:**
 ```java
-// For both versions
+// For SearchView.Version.MENU_ITEM and SearchView.Version.TOOLBAR
 SearchView mSearchView = (SearchView) findViewById(R.id.searchView);
 
-// Only for SearchView.VERSION_MENU_ITEM
+// Only for SearchView.Version.MENU_ITEM
 @Override
 public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
@@ -78,9 +77,18 @@ public boolean onOptionsItemSelected(MenuItem item) {
     android:layout_height="match_parent" />
 ```
 
+**XML with CoordinatorLayout:** 
+ ```xml
+ <com.lapism.searchview.SearchView
+     android:id="@+id/searchView"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent" 
+     app:layout_behavior="com.lapism.searchview.SearchBehavior" />
+ ```
+
 **Versions:**  
   
-SearchView identifies its layout style through versions. Currently, there are two values, namely `SearchView.VERSION_TOOLBAR` for the persistent view, and `SearchView.VERSION_MENU_ITEM` for the view that appears on a menuitem press. The version may be defined through `setVersion`.
+SearchView identifies its layout style through versions. Currently, there are two values, namely `SearchView.Version.TOOLBAR` for the persistent view, and `SearchView.Version.MENU_ITEM` for the view that appears on a menuitem press. The version may be defined through `setVersion`.
 
 **Styling SearchView:**
 ```xml

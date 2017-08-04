@@ -4,21 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 
+@SuppressWarnings("unused")
 public class SearchFilter implements Parcelable {
 
-    public static final Creator<SearchFilter> CREATOR = new Creator<SearchFilter>() {
-        @Override
-        public SearchFilter createFromParcel(Parcel in) {
-            return new SearchFilter(in);
-        }
-
-        @Override
-        public SearchFilter[] newArray(int size) {
-            return new SearchFilter[size];
-        }
-    };
-
-    private final String mTitle;
+    private String mTitle;
     private boolean mIsChecked;
     private String mTagId;
 
@@ -32,10 +21,38 @@ public class SearchFilter implements Parcelable {
         mTagId = tagId;
     }
 
-    SearchFilter(Parcel source) {
-        mTitle = source.readString();
-        mIsChecked = source.readByte() != 0;
-        mTagId = source.readString();
+    protected SearchFilter(Parcel in) {
+        mTitle = in.readString();
+        mIsChecked = in.readByte() != 0;
+        mTagId = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mTitle);
+        dest.writeByte((byte) (mIsChecked ? 1 : 0));
+        dest.writeString(mTagId);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<SearchFilter> CREATOR = new Creator<SearchFilter>() {
+        @Override
+        public SearchFilter createFromParcel(Parcel in) {
+            return new SearchFilter(in);
+        }
+
+        @Override
+        public SearchFilter[] newArray(int size) {
+            return new SearchFilter[size];
+        }
+    };
+
+    public void setTitle(String title) {
+        mTitle = title;
     }
 
     public String getTitle() {
@@ -56,18 +73,6 @@ public class SearchFilter implements Parcelable {
 
     public void setTagId(String tagId) {
         mTagId = tagId;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(mTitle);
-        parcel.writeByte((byte) (mIsChecked ? 1 : 0));
-        parcel.writeString(mTagId);
     }
 
 }

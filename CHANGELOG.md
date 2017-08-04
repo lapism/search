@@ -1,4 +1,4 @@
-**5.0-alpha1**
+**5.0.0-alpha1**
  - vector drawables support
  - Java8 support
  - fixes
@@ -10,7 +10,7 @@ Added methods:
  - SearchView.setNavigationIconListener(View.OnClickListener listener)
  
 
-**4.0**  
+**4.0.0**  
 News:
  - fixed many issues and bugs.
  - added SearchBehavior for work in CoordinatorLayout.
