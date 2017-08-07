@@ -1,17 +1,48 @@
-*.class
+#Android generated
+bin
+gen
+lint.xml
+lint
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+#Eclipse
+.project
+.classpath
+.settings
+.checkstyle
 
-# Package Files #
-*.war
-*.ear
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-
-local.properties
-build/
-.gradle/
+#IntelliJ IDEA
 .idea
 *.iml
+*.ipr
+*.iws
+classes
+gen-external-apklibs
+
+#gradle
+.gradle/
+local.properties
+build/
+
+#vi
+*.swp
+
+#other editors
+*.bak
+
+#Maven
+target
+release.properties
+pom.xml.*
+
+#Ant
+build.xml
+ant.properties
+proguard.cfg
+proguard-project.txt
+
+#Other
+.DS_Store
+Thumbs.db
+tmp
+*.tgz
+*.lck
