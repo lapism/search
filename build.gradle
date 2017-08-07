@@ -1,15 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.novoda:bintray-release:0.5.0'
-        // https://github.com/novoda/bintray-release
-    }
-}
 
 android {
     compileSdkVersion 26
@@ -66,14 +55,14 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
 }
 
-publish {
+/*publish {
     userOrg = 'lapism'
     groupId = 'com.lapism'
     artifactId = 'searchview'
     publishVersion = '5.0.0-alpha1'
     desc = 'SearchView Library'
     website = 'https://github.com/lapism/SearchView'
-}
+}*/
 
 // minifyEnabled true
 // shrinkResources true
