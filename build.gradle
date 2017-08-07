@@ -67,7 +67,4 @@ dependencies {
 // minifyEnabled true
 // shrinkResources true
 
-// gradle-4.1-milestone-1
-
-// build first
-// gradlew clean build bintrayUpload -PbintrayUser=lapism -PbintrayKey= -PdryRun=false
+// web
