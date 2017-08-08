@@ -277,7 +277,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 /*
             if (mAdapter != null && mAdapter instanceof Filterable) {
             ((Filterable) mAdapter).getFilter().filter(getQuery());
-        }
+            }
                 * */
             } else {
                 removeFocus();

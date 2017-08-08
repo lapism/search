@@ -1,4 +1,9 @@
 apply plugin: 'com.android.library'
+apply plugin: "com.jfrog.bintray"
+//apply plugin: 'com.jfrog.bintray'
+//apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 
 android {
     compileSdkVersion 26
@@ -11,6 +16,11 @@ android {
         ]
     }
 
+    /*sourceSets {
+    main.res.srcDirs 'res', 'res-public'
+    // main.res.srcDirs += 'src/main/res-public'
+    }*/
+
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 26
@@ -19,11 +29,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
-
-    /*sourceSets {
-        main.res.srcDirs 'res', 'res-public'
-        // main.res.srcDirs += 'src/main/res-public'
-    }*/
 
     buildTypes {
         release {
@@ -55,16 +60,40 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
 }
 
-/*publish {
-    userOrg = 'lapism'
-    groupId = 'com.lapism'
-    artifactId = 'searchview'
-    publishVersion = '5.0.0-alpha1'
-    desc = 'SearchView Library'
-    website = 'https://github.com/lapism/SearchView'
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'searchview'
+
+    publishedGroupId = 'com.lapism.searchview'
+    libraryName = 'SearchView'
+    artifact = 'searchview'
+
+    libraryDescription = 'Persistent SearchView Library in Material Design.'
+
+    siteUrl = 'https://github.com/lapism/SearchView'
+    gitUrl = 'https://github.com/lapism/SearchView.git'
+
+    libraryVersion = '5.0.0-alpha1'
+
+    developerId = 'lapism'
+    developerName = 'Martin Lapiš'
+    developerEmail = 'lapis.martin@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
+apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'
+
+
+        /*./gradlew install./gradlew bintrayUpload
+gradlew install
+gradlew bintrayUpload
 }*/
 
 // minifyEnabled true
 // shrinkResources true
 
-// web
+// https://services.gradle.org/distributions/
