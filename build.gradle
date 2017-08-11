@@ -22,7 +22,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 5
-        versionName "5.0.0-alpha2"
+        versionName "5.0.0-alpha3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -70,7 +70,7 @@ ext {
     siteUrl = 'https://github.com/lapism/SearchView'
     gitUrl = 'https://github.com/lapism/SearchView.git'
 
-    libraryVersion = '5.0.0-alpha2'
+    libraryVersion = '5.0.0-alpha3'
 
     developerId = 'lapism'
     developerName = 'Martin Lapiš'
