@@ -22,7 +22,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 5
-        versionName "5.0.0-alpha1"
+        versionName "5.0.0-alpha2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -61,8 +61,8 @@ ext {
     bintrayRepo = 'maven'
     bintrayName = 'searchview'
 
-    publishedGroupId = 'com.lapism.searchview'
-    libraryName = 'searchview'
+    publishedGroupId = 'com.lapism'
+    libraryName = 'SearchView'
     artifact = 'searchview'
 
     libraryDescription = 'Persistent SearchView Library in Material Design.'
@@ -70,7 +70,7 @@ ext {
     siteUrl = 'https://github.com/lapism/SearchView'
     gitUrl = 'https://github.com/lapism/SearchView.git'
 
-    libraryVersion = '5.0.0-alpha1'
+    libraryVersion = '5.0.0-alpha2'
 
     developerId = 'lapism'
     developerName = 'Martin Lapiš'
@@ -81,9 +81,8 @@ ext {
     allLicenses = ["Apache-2.0"]
 }
 
-apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
-apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'
-
+apply from: './install.gradle'
+apply from: './bintray.gradle'
 
 /*./gradlew install./gradlew bintrayUpload
 gradlew install
