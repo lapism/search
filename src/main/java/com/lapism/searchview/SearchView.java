@@ -924,7 +924,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             mSearchArrowDrawable.setProgress(SearchArrowDrawable.STATE_ARROW);
         }
 
-        mArrow = true;
+        mArrow = !animate;
     }
 
     public void setVoiceIcon(@DrawableRes int resource) {
