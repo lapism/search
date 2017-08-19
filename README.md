@@ -44,12 +44,9 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-    implementation 'com.lapism:searchview:5.0.0-alpha3'
-}
-
-compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
+    compile 'com.lapism:searchview:5.0.0-alpha3'
+    compile 'com.android.support:cardview-v7:26.0.1'
+    compile 'com.google.android:flexbox:0.3.0'
 }
 ```
 ![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)  
