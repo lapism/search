@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
@@ -242,9 +241,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
         public ResultViewHolder(View view) {
             super(view);
-            view.setOnClickListener(v -> {
-                if (mListener != null) {
-                    mListener.onSearchItemClick(v, getAdapterPosition());
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mListener != null) {
+                        mListener.onSearchItemClick(v, getAdapterPosition());
+                    }
                 }
             });
             icon = view.findViewById(R.id.imageView);
