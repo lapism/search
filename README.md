@@ -62,7 +62,7 @@ dependencies {
             mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-                    getData(query, 0);
+                    mHistoryDatabase.addItem(new SearchItem(query));
                     mSearchView.close(false);
                     return true;
                 }
@@ -103,7 +103,7 @@ dependencies {
             searchAdapter.setOnSearchItemClickListener((view, position) -> {
                 TextView textView = (TextView) view.findViewById(R.id.textView);
                 String query = textView.getText().toString();
-                getData(query, position);
+                mHistoryDatabase.addItem(new SearchItem(text));
                 mSearchView.close(false);
             });
             mSearchView.setAdapter(searchAdapter);

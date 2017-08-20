@@ -24,17 +24,11 @@ public class SearchHistoryTable {
 
     // FOR onResume AND onPause
     public void open() throws SQLException {
-        if (mConnectionCount == 0) {
-            db = dbHelper.getWritableDatabase();
-        }
-        mConnectionCount++;
+        db = dbHelper.getWritableDatabase();
     }
 
     public void close() {
-        mConnectionCount--;
-        if (mConnectionCount == 0) {
-            dbHelper.close();
-        }
+        dbHelper.close();
     }
 
     public void addItem(SearchItem item) {
