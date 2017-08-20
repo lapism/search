@@ -50,10 +50,9 @@ dependencies {
 ![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)  
 ![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/image_2.png)  
 
-**Code:**
+**SearchView.Version.MENU_ITEM and SearchView.Version.TOOLBAR:**
 ```java
-// For SearchView.Version.MENU_ITEM and SearchView.Version.TOOLBAR
-        mHistoryDatabase = new SearchHistoryTable(this);
+        SearchHistoryTable mHistoryDatabase = new SearchHistoryTable(this);
 
         SearchView mSearchView = (SearchView) findViewById(R.id.searchView); // to API 25
         SearchView mSearchView = findViewById(R.id.searchView); // from API 26
@@ -120,7 +119,10 @@ dependencies {
             mSearchView.setFilters(filter);
             //use mSearchView.getFiltersStates() to consider filter when performing search
         }
+```
 
+**SearchView.Version.MENU_ITEM:**
+```java
 // Only for SearchView.Version.MENU_ITEM
 @Override
 public boolean onOptionsItemSelected(MenuItem item) {
