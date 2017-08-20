@@ -13,7 +13,6 @@ import java.util.List;
 public class SearchHistoryTable {
 
     private static int mHistorySize = 2;
-    private static int mConnectionCount = 0;
     private static Integer mCurrentDatabaseKey = null;
     private final SearchHistoryDatabase dbHelper;
     private SQLiteDatabase db;

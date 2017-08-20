@@ -1,5 +1,7 @@
 package com.lapism.searchview;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -62,8 +64,13 @@ public class SearchItem implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(resource);
-        dest.writeString(tag);
+        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+        dest.writeParcelable(bitmap, flags);
+        dest.writeString(this.tag);
+        dest.writeString(this.text.toString());
+        dest.writeInt(this.resource);
+        // TextUtils.writeToParcel(this.text, dest, flags);
+        // writeValue
     }
 
     @Override
@@ -102,21 +109,5 @@ public class SearchItem implements Parcelable {
     public void setTag(String tag) {
         this.tag = tag;
     }
-
-    /*@Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.resource);
-        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-        dest.writeParcelable(bitmap, flags);
-        //TextUtils.writeToParcel(this.text, dest, flags);
-        // writeValue
-        dest.writeString(this.text.toString());
-        dest.writeString(this.tag);
-    }*/
 
 }

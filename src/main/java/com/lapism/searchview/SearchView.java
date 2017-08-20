@@ -295,6 +295,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         setVoice(true);
     }
 
+    // todo
     private void initStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final TypedArray attr = mContext.obtainStyledAttributes(attrs, R.styleable.SearchView, defStyleAttr, defStyleRes);
         if (attr != null) {
@@ -928,7 +929,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             mSearchArrowDrawable.setProgress(SearchArrowDrawable.STATE_ARROW);
         }
 
-        mArrow = true;
+        mArrow = true; // todo init plus !animate
     }
 
     public void setVoiceIcon(@DrawableRes int resource) {
