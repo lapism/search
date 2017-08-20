@@ -123,18 +123,17 @@ dependencies {
 
 **SearchView.Version.MENU_ITEM:**
 ```java
-// Only for SearchView.Version.MENU_ITEM
-@Override
-public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-        case R.id.action_search: {
-            mSearchView.open(true/false); // enable or disable animation
-            return true;
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_search: {
+                    mSearchView.open(true/false); // enable or disable animation
+                    return true;
+                }
+                default:
+                    return super.onOptionsItemSelected(item);
+            }
         }
-        default:
-            return super.onOptionsItemSelected(item);
-    }
-}
 ```
 
 **XML:**
