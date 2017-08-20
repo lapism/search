@@ -4,9 +4,19 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 
-@SuppressWarnings("unused")
 public class SearchFilter implements Parcelable {
 
+    public static final Creator<SearchFilter> CREATOR = new Creator<SearchFilter>() {
+        @Override
+        public SearchFilter createFromParcel(Parcel in) {
+            return new SearchFilter(in);
+        }
+
+        @Override
+        public SearchFilter[] newArray(int size) {
+            return new SearchFilter[size];
+        }
+    };
     private String mTitle;
     private boolean mIsChecked;
     private String mTagId;
@@ -39,24 +49,12 @@ public class SearchFilter implements Parcelable {
         return 0;
     }
 
-    public static final Creator<SearchFilter> CREATOR = new Creator<SearchFilter>() {
-        @Override
-        public SearchFilter createFromParcel(Parcel in) {
-            return new SearchFilter(in);
-        }
-
-        @Override
-        public SearchFilter[] newArray(int size) {
-            return new SearchFilter[size];
-        }
-    };
+    public String getTitle() {
+        return mTitle;
+    }
 
     public void setTitle(String title) {
         mTitle = title;
-    }
-
-    public String getTitle() {
-        return mTitle;
     }
 
     public boolean isChecked() {

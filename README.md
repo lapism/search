@@ -44,12 +44,7 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-    implementation 'com.lapism:searchview:5.0.0-alpha3'
-}
-
-compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
+    implementation 'com.lapism:searchview:5.0.0-alpha4'
 }
 ```
 ![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)  
@@ -58,7 +53,73 @@ compileOptions {
 **Code:**
 ```java
 // For SearchView.Version.MENU_ITEM and SearchView.Version.TOOLBAR
-SearchView mSearchView = (SearchView) findViewById(R.id.searchView);
+        mHistoryDatabase = new SearchHistoryTable(this);
+
+        SearchView mSearchView = (SearchView) findViewById(R.id.searchView); // to API 25
+        SearchView mSearchView = findViewById(R.id.searchView); // from API 26
+        if (mSearchView != null) {
+            mSearchView.setVersionMargins(SearchView.VersionMargins.TOOLBAR_SMALL);
+            mSearchView.setHint(R.string.search);
+            mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    getData(query, 0);
+                    mSearchView.close(false);
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return false;
+                }
+            });
+            mSearchView.setOnOpenCloseListener(new SearchView.OnOpenCloseListener() {
+                @Override
+                public boolean onOpen() {
+                    if (mFab != null) {
+                        mFab.hide();
+                    }
+                    return true;
+                }
+
+                @Override
+                public boolean onClose() {
+                    if (mFab != null && !mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        mFab.show();
+                    }
+                    return true;
+                }
+            });
+            mSearchView.setVoiceText("Set permission on Android 6.0+ !");
+            mSearchView.setOnVoiceIconClickListener(() -> {
+                // permission
+            });
+
+            List<SearchItem> suggestionsList = new ArrayList<>();
+            suggestionsList.add(new SearchItem("search1"));
+            suggestionsList.add(new SearchItem("search2"));
+            suggestionsList.add(new SearchItem("search3"));
+
+            SearchAdapter searchAdapter = new SearchAdapter(this, suggestionsList);
+            searchAdapter.setOnSearchItemClickListener((view, position) -> {
+                TextView textView = (TextView) view.findViewById(R.id.textView);
+                String query = textView.getText().toString();
+                getData(query, position);
+                mSearchView.close(false);
+            });
+            mSearchView.setAdapter(searchAdapter);
+
+            suggestionsList.add(new SearchItem("search1"));
+            suggestionsList.add(new SearchItem("search2"));
+            suggestionsList.add(new SearchItem("search3"));
+            searchAdapter.notifyDataSetChanged();*/
+            
+            List<SearchFilter> filter = new ArrayList<>();
+            filter.add(new SearchFilter("Filter1", true));
+            filter.add(new SearchFilter("Filter2", true));
+            mSearchView.setFilters(filter);
+            //use mSearchView.getFiltersStates() to consider filter when performing search
+        }
 
 // Only for SearchView.Version.MENU_ITEM
 @Override

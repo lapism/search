@@ -1,12 +1,12 @@
 **5.0.0**
  - vector drawables support
- - Java8 support
  - bugfixes
 
 Added methods:
  
  - SearchView.addDivider(RecyclerView.ItemDecoration itemDecoration)
  - SearchView.removeDivider(RecyclerView.ItemDecoration itemDecoration)
+ 
  - SearchView.setNavigationIconListener(View.OnClickListener listener)
  
 

@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Locale;
 
 
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
     private final SearchHistoryTable mHistoryDatabase;
@@ -235,33 +234,23 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         void onSearchItemClick(View view, int position);
     }
 
-    public class ResultViewHolder extends RecyclerView.ViewHolder { //implements View.OnClickListener {
+    public class ResultViewHolder extends RecyclerView.ViewHolder {
 
         final ImageView icon;
         final TextView text;
 
         public ResultViewHolder(View view) {
             super(view);
-            view.setOnClickListener(v -> {
-                if (mListener != null) {
-                    mListener.onSearchItemClick(v, getAdapterPosition());
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mListener != null) {
+                        mListener.onSearchItemClick(view, getAdapterPosition());// getLayoutPosition
+                    }
                 }
             });
             icon = view.findViewById(R.id.imageView);
             text = view.findViewById(R.id.textView);
-            // view.setOnClickListener(this);
         }
     }
 }
-
-// static
-// @Nullable Integer position)
-
-    /*List<?> result = (ArrayList<?>) results.values;
-    for (Object object : result) {
-        if (object instanceof SearchItem) {
-            mResults.add((SearchItem) object);
-        }
-    }*/
-
-// viewHolder.itemView.setOnClickListener

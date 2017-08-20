@@ -17,7 +17,7 @@ import android.view.animation.Animation;
 
 class SearchAnimator {
 
-    static void fadeIn(View view, int duration) {
+    static void fadeIn(final View view, int duration) {
         Animation anim = new AlphaAnimation(0.0f, 1.0f);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(duration);
@@ -41,7 +41,7 @@ class SearchAnimator {
         view.setAnimation(anim);
     }
 
-    static void fadeOut(View view, int duration) {
+    static void fadeOut(final View view, int duration) {
         Animation anim = new AlphaAnimation(1.0f, 0.0f);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(duration);
@@ -80,7 +80,10 @@ class SearchAnimator {
 
         if (cx != 0 && cy != 0) {
             Point displaySize = new Point();
-            ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getSize(displaySize);
+            WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            if (windowManager != null) {
+                windowManager.getDefaultDisplay().getSize(displaySize);
+            }
             float finalRadius = (float) Math.hypot(Math.max(cx, displaySize.x - cx), cy);
 
             Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0.0f, finalRadius);
@@ -134,7 +137,10 @@ class SearchAnimator {
 
         if (cx != 0 && cy != 0) {
             Point displaySize = new Point();
-            ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getSize(displaySize);
+            WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            if (windowManager != null) {
+                windowManager.getDefaultDisplay().getSize(displaySize);
+            }
             float initialRadius = (float) Math.hypot(Math.max(cx, displaySize.x - cx), cy);
 
             Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, initialRadius, 0.0f);

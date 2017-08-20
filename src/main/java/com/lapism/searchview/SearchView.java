@@ -27,7 +27,6 @@ import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -35,6 +34,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,7 +59,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public static final String TAG = "SearchView";
@@ -235,7 +234,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setVisibility(View.GONE);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        // mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -267,20 +266,26 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
             }
         });
-        mSearchEditText.setOnEditorActionListener((textView, i, keyEvent) -> {
-            onSubmitQuery();
-            return true;
+        mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                onSubmitQuery();
+                return true;
+            }
         });
-        mSearchEditText.setOnFocusChangeListener((view, b) -> {
-            if (b) {
-                addFocus();
+        mSearchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    addFocus();
             /*
         if (mAdapter != null && mAdapter instanceof Filterable) {
         ((Filterable) mAdapter).getFilter().filter(getQuery());
         }
             * */
-            } else {
-                removeFocus();
+                } else {
+                    removeFocus();
+                }
             }
         });
 
@@ -511,11 +516,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return mSearchEditText.getHint();
     }
 
-    public void setHint(CharSequence hint) {
+    public void setHint(@StringRes int hint) {
         mSearchEditText.setHint(hint);
     }
 
-    public void setHint(@StringRes int hint) {
+    public void setHint(CharSequence hint) {
         mSearchEditText.setHint(hint);
     }
 
@@ -782,9 +787,12 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         showSuggestions();
 
         if (mVersion == Version.TOOLBAR) {
-            postDelayed(() -> {
-                if (mOnOpenCloseListener != null) {
-                    mOnOpenCloseListener.onOpen();
+            postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (mOnOpenCloseListener != null) {
+                        mOnOpenCloseListener.onOpen();
+                    }
                 }
             }, mAnimationDuration);
         }
@@ -816,9 +824,12 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         hideSuggestions();
 
         if (mVersion == Version.TOOLBAR) {
-            postDelayed(() -> {
-                if (mOnOpenCloseListener != null) {
-                    mOnOpenCloseListener.onClose();
+            postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (mOnOpenCloseListener != null) {
+                        mOnOpenCloseListener.onClose();
+                    }
                 }
             }, mAnimationDuration);
         }
@@ -1221,14 +1232,12 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     // ---------------------------------------------------------------------------------------------
-    @SuppressWarnings("UnusedReturnValue")
     public interface OnQueryTextListener {
         boolean onQueryTextChange(String newText);
 
         boolean onQueryTextSubmit(String query);
     }
 
-    @SuppressWarnings("UnusedReturnValue")
     public interface OnOpenCloseListener {
         boolean onClose();
 
@@ -1280,4 +1289,3 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
 }
-

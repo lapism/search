@@ -5,7 +5,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 
-@SuppressWarnings({"SameParameterValue", "WeakerAccess", "unused"})
 public class SearchItem implements Parcelable {
 
     public static final Creator<SearchItem> CREATOR = new Creator<SearchItem>() {
@@ -61,6 +60,17 @@ public class SearchItem implements Parcelable {
         this.tag = in.readString();
     }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(resource);
+        dest.writeString(tag);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
     public int getIconResource() {
         return this.resource;
     }
@@ -91,17 +101,6 @@ public class SearchItem implements Parcelable {
 
     public void setTag(String tag) {
         this.tag = tag;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(resource);
-        dest.writeString(tag);
     }
 
     /*@Override
