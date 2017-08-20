@@ -22,7 +22,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 5
-        versionName "5.0.0-alpha3"
+        versionName "5.0.0-alpha4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -34,10 +34,10 @@ android {
         }
     }
 
-    compileOptions {
+    /*compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-    }
+    }*/
 
     lintOptions {
         abortOnError false
@@ -70,7 +70,7 @@ ext {
     siteUrl = 'https://github.com/lapism/SearchView'
     gitUrl = 'https://github.com/lapism/SearchView.git'
 
-    libraryVersion = '5.0.0-alpha3'
+    libraryVersion = '5.0.0-alpha4'
 
     developerId = 'lapism'
     developerName = 'Martin Lapiš'

@@ -35,7 +35,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -268,26 +267,20 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
             }
         });
-        mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                onSubmitQuery();
-                return true;
-            }
+        mSearchEditText.setOnEditorActionListener((textView, i, keyEvent) -> {
+            onSubmitQuery();
+            return true;
         });
-        mSearchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) {
-                    addFocus();
-                /*
-            if (mAdapter != null && mAdapter instanceof Filterable) {
-            ((Filterable) mAdapter).getFilter().filter(getQuery());
-            }
-                * */
-                } else {
-                    removeFocus();
-                }
+        mSearchEditText.setOnFocusChangeListener((view, b) -> {
+            if (b) {
+                addFocus();
+            /*
+        if (mAdapter != null && mAdapter instanceof Filterable) {
+        ((Filterable) mAdapter).getFilter().filter(getQuery());
+        }
+            * */
+            } else {
+                removeFocus();
             }
         });
 
