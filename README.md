@@ -46,6 +46,11 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 dependencies {
     implementation 'com.lapism:searchview:5.0.0-alpha3'
 }
+
+compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+}
 ```
 ![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)  
 ![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/image_2.png)  
