@@ -37,10 +37,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     public SearchAdapter(Context context, List<SearchItem> suggestions) {
         mSuggestions = suggestions;
+        mResults = suggestions;
         mHistoryDatabase = new SearchHistoryTable(context);
         getFilter().filter("");
     }
 
+    // ---------------------------------------------------------------------------------------------
     @Override
     public ResultViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -60,7 +62,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         String itemText = item.getText().toString();
         String itemTextLower = itemText.toLowerCase(Locale.getDefault());
 
-        if (itemTextLower.contains(mKey) && !mKey.toString().isEmpty()) {
+        if (itemTextLower.contains(mKey) && !TextUtils.isEmpty(mKey)) {
             SpannableString s = new SpannableString(itemText);
             s.setSpan(new ForegroundColorSpan(SearchView.getTextHighlightColor()), itemTextLower.indexOf(mKey.toString()), itemTextLower.indexOf(mKey.toString()) + mKey.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
@@ -79,12 +81,80 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         return position;
     }
 
+    // ---------------------------------------------------------------------------------------------
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults filterResults = new FilterResults();
+
+                //mKey = constraint;
+
+                if (!TextUtils.isEmpty(constraint)) {
+                    mKey = constraint.toString().toLowerCase(Locale.getDefault());
+
+                    List<SearchItem> results = new ArrayList<>();
+                    List<SearchItem> history = new ArrayList<>();
+                    List<SearchItem> databaseAllItems = mHistoryDatabase.getAllItems(mDatabaseKey);
+
+                    if (!databaseAllItems.isEmpty()) {
+                        history.addAll(databaseAllItems);
+                    }
+                    history.addAll(mSuggestions);
+
+                    for (SearchItem item : history) {
+                        String string = item.getText().toString().toLowerCase(Locale.getDefault());
+                        if (string.contains(mKey)) {
+                            results.add(item);
+                        }
+                    }
+
+                    if (results.size() > 0) {
+                        filterResults.values = results;
+                        filterResults.count = results.size();
+                    }
+                }
+                /*} else {
+                    mKey = "";
+                }*/
+
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                List<SearchItem> dataSet = new ArrayList<>();
+
+                if (results.count > 0) {
+                    List<?> result = (ArrayList<?>) results.values;
+                    for (Object object : result) {
+                        if (object instanceof SearchItem) {
+                            dataSet.add((SearchItem) object);
+                        }
+                    }
+                } else {
+                    if (TextUtils.isEmpty(mKey)) {
+                        List<SearchItem> allItems = mHistoryDatabase.getAllItems(mDatabaseKey);
+                        if (!allItems.isEmpty()) {
+                            dataSet = allItems;
+                        }
+                    }
+                }
+
+                setData(dataSet);
+            }
+        };
+    }
+
+    // ---------------------------------------------------------------------------------------------
     public List<SearchItem> getSuggestionsList() {
         return mSuggestions;
     }
 
     public void setSuggestionsList(List<SearchItem> suggestionsList) {
         mSuggestions = suggestionsList;
+        mResults = suggestionsList;
     }
 
     public List<SearchItem> getResultList() {
@@ -127,76 +197,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         mListener = listener;
     }
 
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                FilterResults filterResults = new FilterResults();
-
-                mKey = constraint;
-
-                if (!TextUtils.isEmpty(constraint)) {
-                    mKey = constraint.toString().toLowerCase(Locale.getDefault());
-
-                    List<SearchItem> results = new ArrayList<>();
-                    List<SearchItem> history = new ArrayList<>();
-                    List<SearchItem> databaseAllItems = mHistoryDatabase.getAllItems(mDatabaseKey);
-
-                    if (!databaseAllItems.isEmpty()) {
-                        history.addAll(databaseAllItems);
-                    }
-                    history.addAll(mSuggestions);
-
-                    for (SearchItem item : history) {
-                        String string = item.getText().toString().toLowerCase(Locale.getDefault());
-                        if (string.contains(mKey)) {
-                            results.add(item);
-                        }
-                    }
-
-                    if (results.size() > 0) {
-                        filterResults.values = results;
-                        filterResults.count = results.size();
-                    }
-                }
-
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                List<SearchItem> dataSet = new ArrayList<>();
-
-                if (results.count > 0) {
-                    List<?> result = (ArrayList<?>) results.values;
-                    for (Object object : result) {
-                        if (object instanceof SearchItem) {
-                            dataSet.add((SearchItem) object);
-                        }
-                    }
-                } else {
-                    if (TextUtils.isEmpty(mKey)) {
-                        List<SearchItem> allItems = mHistoryDatabase.getAllItems(mDatabaseKey);
-                        if (!allItems.isEmpty()) {
-                            dataSet = allItems;
-                        }
-                    }
-                }
-
-                setData(dataSet);
-            }
-        };
-    }
-
     public interface OnSearchItemClickListener {
         void onSearchItemClick(View view, int position);
     }
 
     public class ResultViewHolder extends RecyclerView.ViewHolder {
 
-        final ImageView icon;
-        final TextView text;
+        protected ImageView icon;
+        protected TextView text;
 
         public ResultViewHolder(View view) {
             super(view);
@@ -204,12 +212,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                 @Override
                 public void onClick(View view) {
                     if (mListener != null) {
-                        mListener.onSearchItemClick(view, getAdapterPosition());// getLayoutPosition
+                        mListener.onSearchItemClick(view, getLayoutPosition());// getAdPosition
                     }
                 }
             });
-            icon = view.findViewById(R.id.imageView);
-            text = view.findViewById(R.id.textView);
+            icon = view.findViewById(R.id.search_icon);
+            text = view.findViewById(R.id.search_text);
         }
-    }
+    } // check CHARSEQUENCES
+
 }
+
+// this impelemtntes

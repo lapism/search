@@ -5,12 +5,12 @@
     android:layout_height="wrap_content">
 
     <View
-        android:id="@+id/view_shadow"
+        android:id="@+id/search_view_shadow"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/search_cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -20,7 +20,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/linearLayout"
+                android:id="@+id/search_linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/search_height"
                 android:focusable="true"
@@ -29,7 +29,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imageView_arrow"
+                    android:id="@+id/search_imageView_arrow"
                     android:layout_width="@dimen/search_icon"
                     android:layout_height="match_parent"
                     android:clickable="true"
@@ -39,7 +39,7 @@
                     android:scaleType="centerInside" />
 
                 <com.lapism.searchview.SearchEditText
-                    android:id="@+id/searchEditText"
+                    android:id="@+id/search_searchEditText"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="start|center_vertical"
@@ -60,7 +60,7 @@
                     android:windowSoftInputMode="stateAlwaysHidden" />
 
                 <ProgressBar
-                    android:id="@+id/progressBar"
+                    android:id="@+id/search_progressBar"
                     style="?android:attr/indeterminateProgressStyle"
                     android:layout_width="@dimen/search_progress"
                     android:layout_height="match_parent" />
@@ -70,7 +70,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/imageView_mic"
+                        android:id="@+id/search_imageView_mic"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:clickable="true"
@@ -80,7 +80,7 @@
                         android:scaleType="center" />
 
                     <ImageView
-                        android:id="@+id/imageView_clear"
+                        android:id="@+id/search_imageView_clear"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:clickable="true"
@@ -94,19 +94,19 @@
             </LinearLayout>
 
             <View
-                android:id="@+id/view_divider"
+                android:id="@+id/search_view_divider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/search_divider"
                 android:background="?android:attr/listDivider" />
 
             <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/flexboxLayout"
+                android:id="@+id/search_flexboxLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:flexWrap="wrap" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/search_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:overScrollMode="never" />

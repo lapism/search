@@ -9,14 +9,14 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/search_imageView"
+        android:id="@+id/search_icon"
         android:layout_width="@dimen/search_icon"
         android:layout_height="match_parent"
         android:contentDescription="@string/search_app_name"
         android:scaleType="center" />
 
     <TextView
-        android:id="@+id/search_textView"
+        android:id="@+id/search_text"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="start|center_vertical"
