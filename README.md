@@ -53,6 +53,10 @@ dependencies {
 ![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)  
 ![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/image_2.png)  
 
+**Versions:**  
+  
+SearchView identifies its layout style through versions. Currently, there are two values, namely `SearchView.Version.TOOLBAR` for the persistent view, and `SearchView.Version.MENU_ITEM` for the view that appears on a menuitem press. The version may be defined through `setVersion`.
+
 **SearchView.Version.MENU_ITEM and SearchView.Version.TOOLBAR:**
 ```java
         SearchHistoryTable mHistoryDatabase = new SearchHistoryTable(this);
@@ -114,7 +118,7 @@ dependencies {
             suggestionsList.add(new SearchItem("search1"));
             suggestionsList.add(new SearchItem("search2"));
             suggestionsList.add(new SearchItem("search3"));
-            searchAdapter.notifyDataSetChanged();*/
+            searchAdapter.notifyDataSetChanged();
             
             List<SearchFilter> filter = new ArrayList<>();
             filter.add(new SearchFilter("Filter1", true));
@@ -155,10 +159,6 @@ dependencies {
      android:layout_height="match_parent" 
      app:layout_behavior="com.lapism.searchview.SearchBehavior" />
  ```
-
-**Versions:**  
-  
-SearchView identifies its layout style through versions. Currently, there are two values, namely `SearchView.Version.TOOLBAR` for the persistent view, and `SearchView.Version.MENU_ITEM` for the view that appears on a menuitem press. The version may be defined through `setVersion`.
 
 **Styling SearchView:**
 ```xml
