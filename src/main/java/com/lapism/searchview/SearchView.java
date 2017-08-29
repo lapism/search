@@ -61,6 +61,7 @@ import java.util.List;
 
 // @RestrictTo(LIBRARY_GROUP)
 // @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
+@SuppressWarnings({"WeakerAccess", "SameParameterValue", "unused"})
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public static final String TAG = "SearchView";
@@ -1234,12 +1235,14 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     // ---------------------------------------------------------------------------------------------
+    @SuppressWarnings("UnusedReturnValue")
     public interface OnQueryTextListener {
         boolean onQueryTextChange(String newText);
 
         boolean onQueryTextSubmit(String query);
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public interface OnOpenCloseListener {
         boolean onClose();
 
