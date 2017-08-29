@@ -45,6 +45,9 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 ```javascript
 dependencies {
     implementation 'com.lapism:searchview:5.0.0-alpha4'
+    
+    implementation 'com.android.support:cardview-v7:26.0.1'
+    implementation 'com.google.android:flexbox:0.3.0'
 }
 ```
 ![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)  

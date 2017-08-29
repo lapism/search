@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/search_item_height"
     android:clickable="true"
@@ -10,14 +9,14 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/search_imageView"
         android:layout_width="@dimen/search_icon"
         android:layout_height="match_parent"
         android:contentDescription="@string/search_app_name"
         android:scaleType="center" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/search_textView"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="start|center_vertical"

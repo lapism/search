@@ -26,6 +26,7 @@ import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,7 +43,6 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.CheckBox;
 import android.widget.Filterable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -162,8 +162,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         for (int i = 0, n = mFlexboxLayout.getChildCount(); i < n; i++) {
             View child = mFlexboxLayout.getChildAt(i);
-            if (child instanceof CheckBox)
-                ((CheckBox) child).setTextColor(mTextColor);
+            if (child instanceof AppCompatCheckBox)
+                ((AppCompatCheckBox) child).setTextColor(mTextColor);
         }
     }
 
@@ -726,7 +726,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         } else {
             mSearchFiltersStates = new ArrayList<>();
             for (SearchFilter filter : filters) {
-                CheckBox checkBox = new CheckBox(mContext);
+                AppCompatCheckBox checkBox = new AppCompatCheckBox(mContext);
                 checkBox.setText(filter.getTitle());
                 checkBox.setTextSize(12);
                 checkBox.setTextColor(mTextColor);
@@ -1022,8 +1022,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mSearchFiltersStates = states;
         for (int i = 0, j = 0, n = mFlexboxLayout.getChildCount(); i < n; i++) {
             View view = mFlexboxLayout.getChildAt(i);
-            if (view instanceof CheckBox) {
-                ((CheckBox) view).setChecked(mSearchFiltersStates.get(j++));
+            if (view instanceof AppCompatCheckBox) {
+                ((AppCompatCheckBox) view).setChecked(mSearchFiltersStates.get(j++));
             }
         }
     }
@@ -1125,8 +1125,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         if (mSearchFiltersStates != null) {
             for (int i = 0, j = 0, n = mFlexboxLayout.getChildCount(); i < n; i++) {
                 View view = mFlexboxLayout.getChildAt(i);
-                if (view instanceof CheckBox) {
-                    boolean isChecked = ((CheckBox) view).isChecked();
+                if (view instanceof AppCompatCheckBox) {
+                    boolean isChecked = ((AppCompatCheckBox) view).isChecked();
                     mSearchFiltersStates.set(j, isChecked);
                     mSearchFilters.get(j).setChecked(isChecked);
                     j++;

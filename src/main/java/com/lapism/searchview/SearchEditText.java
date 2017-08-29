@@ -5,7 +5,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 
-
+// TODO LOCAL
 public class SearchEditText extends AppCompatEditText {
 
     private SearchView mSearchView;
