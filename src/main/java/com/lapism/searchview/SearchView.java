@@ -736,7 +736,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    public void setNavigationIconClickListener(View.OnClickListener listener) {
+    public void setNavigationIconClickListener(OnClickListener listener) {
         mImageViewArrow.setOnClickListener(listener);
     }
 
@@ -769,7 +769,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    public void setVoiceIconClickListener(View.OnClickListener listener) {
+    public void setVoiceIconClickListener(OnClickListener listener) {
         mImageViewMic.setOnClickListener(listener);
     }
 
