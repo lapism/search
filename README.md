@@ -44,9 +44,9 @@ If yes, please send me a name of your app and link to Play Store and I will prom
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-    implementation 'com.lapism:searchview:5.0.0-alpha4'
+    implementation 'com.lapism:searchview:5.0.0-alpha5'
     
-    implementation 'com.android.support:cardview-v7:26.0.1'
+    implementation 'com.android.support:cardview-v7:26.0.2'
     implementation 'com.google.android:flexbox:0.3.0'
 }
 ```

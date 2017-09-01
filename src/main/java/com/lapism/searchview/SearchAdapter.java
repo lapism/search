@@ -90,7 +90,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
 
-                //mKey = constraint; je prazdny nebo null?
+                mKey = constraint;
 
                 if (!TextUtils.isEmpty(constraint)) {
                     mKey = constraint.toString().toLowerCase(Locale.getDefault());
@@ -116,9 +116,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                         filterResults.count = results.size();
                     }
                 }
-                /*} else {
-                    mKey = "";
-                }*/
 
                 return filterResults;
             }
