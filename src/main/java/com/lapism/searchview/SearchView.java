@@ -675,8 +675,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             mFlexboxLayout.setVisibility(View.VISIBLE);
         }
 
-        if (mRecyclerViewAdapter != null && mRecyclerViewAdapter.getItemCount() > 0) {
-            mViewDivider.setVisibility(View.VISIBLE);
+        if (mRecyclerViewAdapter != null) {
+            if (mRecyclerViewAdapter.getItemCount() > 0) {
+                mViewDivider.setVisibility(View.VISIBLE);
+            }
             mRecyclerView.setVisibility(View.VISIBLE);
             SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
         }
