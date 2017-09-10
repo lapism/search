@@ -198,17 +198,21 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     // ---------------------------------------------------------------------------------------------
-    @Version
-    public int getVersion() {
-        return mVersion;
-    }
-
     public void setVersion(@Version int version) {
         mVersion = version;
 
         if (mVersion == Version.MENU_ITEM) {
             setVisibility(View.GONE);
         }
+    }
+
+    @Version
+    public int getVersion() {
+        return mVersion;
+    }
+
+    public void setTheme(@Theme int theme) {
+        setTheme(theme, true);
     }
 
     public void setTheme(@Theme int theme, boolean tint) {
@@ -250,15 +254,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return mTheme;
     }
 
-    public void setTheme(@Theme int theme) {
-        setTheme(theme, true);
-    }
-
-    @VersionMargins
-    public int getVersionMargins() {
-        return mVersionMargins;
-    }
-
     public void setVersionMargins(@VersionMargins int versionMargins) {
         mVersionMargins = versionMargins;
 
@@ -293,6 +288,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
 
         mCardView.setLayoutParams(params);
+    }
+
+    @VersionMargins
+    public int getVersionMargins() {
+        return mVersionMargins;
     }
 
     public int getCustomHeight() {
