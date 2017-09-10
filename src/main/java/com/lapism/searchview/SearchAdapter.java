@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
@@ -167,7 +166,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public void setData(List<SearchItem> data) {
         if (mResults.isEmpty()) {
             mResults = data;
-            // notifyDataSetChanged();
             if (data.size() != 0) {
                 notifyItemRangeInserted(0, data.size());
             }
@@ -175,12 +173,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             int previousSize = mResults.size();
             int nextSize = data.size();
             mResults = data;
-            if (previousSize == nextSize && nextSize != 0)
+            if (previousSize == nextSize && nextSize != 0) {
                 notifyItemRangeChanged(0, previousSize);
-            else if (previousSize > nextSize) {
-                if (nextSize == 0)
+            } else if (previousSize > nextSize) {
+                if (nextSize == 0) {
                     notifyItemRangeRemoved(0, previousSize);
-                else {
+                } else {
                     notifyItemRangeChanged(0, nextSize);
                     notifyItemRangeRemoved(nextSize - 1, previousSize);
                 }
@@ -218,5 +216,4 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             text = view.findViewById(R.id.search_text);
         }
     }
-
 }
