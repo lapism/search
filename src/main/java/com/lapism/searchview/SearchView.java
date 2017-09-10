@@ -745,16 +745,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void setNavigationIconAnimation(boolean animate) {
-        if (animate) {
-            if (mSearchArrowDrawable != null) {
-                mSearchArrowDrawable.setVerticalMirror(false);
-                mSearchArrowDrawable.animate(SearchArrowDrawable.STATE_ARROW, mAnimationDuration);
-            }
-        } else {
+        if (!animate) {
             mSearchArrowDrawable.setProgress(SearchArrowDrawable.STATE_ARROW);
         }
-
-        mArrow = true; // todo init plus !animate + anotace
+        mArrow = !animate;
     }
 
     public void setVoiceIcon(@DrawableRes int resource) {
