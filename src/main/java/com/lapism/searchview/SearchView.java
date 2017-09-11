@@ -106,6 +106,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private boolean mShouldClearOnOpen = false;
     private boolean mShouldClearOnClose = false;
     private boolean mShouldHideOnKeyboardClose = true;
+    private boolean mShouldShowProgress = false;
     private CharSequence mQuery = "";
     private String mVoiceText = "";
 
@@ -390,6 +391,14 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public void setShouldHideOnKeyboardClose(boolean shouldHideOnKeyboardClose) {
         mShouldHideOnKeyboardClose = shouldHideOnKeyboardClose;
+    }
+
+    public boolean getShouldShowProgress() {
+        return mShouldShowProgress;
+    }
+
+    public void setShouldShowProgress(boolean shouldShowProgress) {
+        mShouldShowProgress = shouldShowProgress;
     }
 
     public RecyclerView.Adapter getAdapter() {
@@ -1004,6 +1013,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             if (attr.hasValue(R.styleable.SearchView_search_hide_on_keyboard_close)) {
                 setShouldHideOnKeyboardClose(attr.getBoolean(R.styleable.SearchView_search_hide_on_keyboard_close, true));
             }
+            if (attr.hasValue(R.styleable.SearchView_search_show_progress)) {
+                setShouldShowProgress(attr.getBoolean(R.styleable.SearchView_search_show_progress, false));
+            }
             if (attr.hasValue(R.styleable.SearchView_search_cursor_drawable)) {
                 setCursorDrawable(attr.getResourceId(R.styleable.SearchView_search_cursor_drawable, R.drawable.custom_cursor));
             }
@@ -1072,10 +1084,17 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private void onTextChanged(CharSequence newText) {
         mQuery = newText;
 
+        if (mShouldShowProgress) {
+            showProgress();
+        }
+
         if (mRecyclerViewAdapter != null && mRecyclerViewAdapter instanceof Filterable) {
             ((SearchAdapter) mRecyclerViewAdapter).getFilter().filter(newText, new Filter.FilterListener() {
                 @Override
                 public void onFilterComplete(int i) {
+                    if (mShouldShowProgress) {
+                        hideProgress();
+                    }
                     if (i > 0) {
                         if (mRecyclerView.getVisibility() == View.GONE) {
                             mViewDivider.setVisibility(View.VISIBLE);
