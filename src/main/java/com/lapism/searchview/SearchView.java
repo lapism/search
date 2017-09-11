@@ -44,6 +44,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -165,8 +166,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         for (int i = 0, n = mFlexboxLayout.getChildCount(); i < n; i++) {
             View child = mFlexboxLayout.getChildAt(i);
-            if (child instanceof AppCompatCheckBox)
+            if (child instanceof AppCompatCheckBox) {
                 ((AppCompatCheckBox) child).setTextColor(mTextColor);
+            }
         }
     }
 
@@ -218,34 +220,34 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     public void setTheme(@Theme int theme, boolean tint) {
         mTheme = theme;
 
-        if (theme == Theme.LIGHT) {
-            setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
-            if (tint) {
-                setIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
-                setHintColor(ContextCompat.getColor(mContext, R.color.search_light_hint));
-                setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
-                setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_light_text_highlight));
-            }
-        }
-
-        if (theme == Theme.DARK) {
-            setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
-            if (tint) {
-                setIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
-                setHintColor(ContextCompat.getColor(mContext, R.color.search_dark_hint));
-                setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
-                setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_dark_text_highlight));
-            }
-        }
-
-        if (theme == Theme.PLAY_STORE) {
-            setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_play_store_background));
-            if (tint) {
-                setIconColor(ContextCompat.getColor(mContext, R.color.search_play_store_icon));
-                setHintColor(ContextCompat.getColor(mContext, R.color.search_play_store_hint));
-                setTextColor(ContextCompat.getColor(mContext, R.color.search_play_store_text));
-                setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_play_store_text_highlight));
-            }
+        switch (theme) {
+            case Theme.LIGHT:
+                setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
+                if (tint) {
+                    setIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
+                    setHintColor(ContextCompat.getColor(mContext, R.color.search_light_hint));
+                    setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
+                    setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_light_text_highlight));
+                }
+                break;
+            case Theme.DARK:
+                setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
+                if (tint) {
+                    setIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+                    setHintColor(ContextCompat.getColor(mContext, R.color.search_dark_hint));
+                    setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
+                    setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_dark_text_highlight));
+                }
+                break;
+            case Theme.PLAY_STORE:
+                setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_play_store_background));
+                if (tint) {
+                    setIconColor(ContextCompat.getColor(mContext, R.color.search_play_store_icon));
+                    setHintColor(ContextCompat.getColor(mContext, R.color.search_play_store_hint));
+                    setTextColor(ContextCompat.getColor(mContext, R.color.search_play_store_text));
+                    setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_play_store_text_highlight));
+                }
+                break;
         }
     }
 
@@ -496,49 +498,49 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void close(boolean animate, MenuItem menuItem) {
-        if (mVersion == Version.MENU_ITEM) {
-
-            if (animate) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    if (menuItem != null) {
-                        getMenuItemPosition(menuItem.getItemId());
+        switch (mVersion) {
+            case Version.MENU_ITEM:
+                if (animate) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        if (menuItem != null) {
+                            getMenuItemPosition(menuItem.getItemId());
+                        }
+                        SearchAnimator.revealClose(
+                                mCardView,
+                                mMenuItemCx,
+                                mAnimationDuration,
+                                mContext,
+                                mSearchEditText,
+                                mShouldClearOnClose,
+                                this,
+                                mOnOpenCloseListener);
+                    } else {
+                        SearchAnimator.fadeClose(
+                                mCardView,
+                                mAnimationDuration,
+                                mSearchEditText,
+                                mShouldClearOnClose,
+                                this,
+                                mOnOpenCloseListener);
                     }
-                    SearchAnimator.revealClose(
-                            mCardView,
-                            mMenuItemCx,
-                            mAnimationDuration,
-                            mContext,
-                            mSearchEditText,
-                            mShouldClearOnClose,
-                            this,
-                            mOnOpenCloseListener);
                 } else {
-                    SearchAnimator.fadeClose(
-                            mCardView,
-                            mAnimationDuration,
-                            mSearchEditText,
-                            mShouldClearOnClose,
-                            this,
-                            mOnOpenCloseListener);
+                    if (mShouldClearOnClose && mSearchEditText.length() > 0) {
+                        mSearchEditText.getText().clear();
+                    }
+                    mSearchEditText.clearFocus();
+                    mCardView.setVisibility(View.GONE);
+                    setVisibility(View.GONE);
+                    if (mOnOpenCloseListener != null) {
+                        mOnOpenCloseListener.onClose();
+                    }
                 }
-            } else {
+                break;
+            case Version.TOOLBAR:
                 if (mShouldClearOnClose && mSearchEditText.length() > 0) {
                     mSearchEditText.getText().clear();
                 }
                 mSearchEditText.clearFocus();
-                mCardView.setVisibility(View.GONE);
-                setVisibility(View.GONE);
-                if (mOnOpenCloseListener != null) {
-                    mOnOpenCloseListener.onClose();
-                }
-            }
-        }
-
-        if (mVersion == Version.TOOLBAR) {
-            if (mShouldClearOnClose && mSearchEditText.length() > 0) {
-                mSearchEditText.getText().clear();
-            }
-            mSearchEditText.clearFocus();
+                break;
         }
     }
 
@@ -675,10 +677,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             mFlexboxLayout.setVisibility(View.VISIBLE);
         }
 
-        if (mRecyclerViewAdapter != null) {
-            if (mRecyclerViewAdapter.getItemCount() > 0) {
-                mViewDivider.setVisibility(View.VISIBLE);
-            }
+        if (mRecyclerViewAdapter != null && mRecyclerViewAdapter.getItemCount() > 0) {
+            mViewDivider.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.VISIBLE);
             SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
         }
@@ -922,11 +922,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             public void onFocusChange(View view, boolean b) {
                 if (b) {
                     addFocus();
-            /*
-        if (mAdapter != null && mAdapter instanceof Filterable) {
-        ((Filterable) mAdapter).getFilter().filter(getQuery());
-        }
-            * */
                 } else {
                     removeFocus();
                 }
@@ -1078,7 +1073,24 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mQuery = newText;
 
         if (mRecyclerViewAdapter != null && mRecyclerViewAdapter instanceof Filterable) {
-            ((SearchAdapter) mRecyclerViewAdapter).getFilter().filter(newText);
+            ((SearchAdapter) mRecyclerViewAdapter).getFilter().filter(newText, new Filter.FilterListener() {
+                @Override
+                public void onFilterComplete(int i) {
+                    if (i > 0) {
+                        if (mRecyclerView.getVisibility() == View.GONE) {
+                            mViewDivider.setVisibility(View.VISIBLE);
+                            mRecyclerView.setVisibility(View.VISIBLE);
+                            SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
+                        }
+                    } else {
+                        if (mRecyclerView.getVisibility() == View.VISIBLE) {
+                            mViewDivider.setVisibility(View.GONE);
+                            mRecyclerView.setVisibility(View.GONE);
+                            SearchAnimator.fadeOut(mRecyclerView, mAnimationDuration);
+                        }
+                    }
+                }
+            });
         }
 
         if (!TextUtils.isEmpty(newText)) {
@@ -1194,7 +1206,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         restoreFiltersState(ss.searchFiltersStates);
         mSearchFilters = ss.searchFilters;
         super.onRestoreInstanceState(ss.getSuperState());
-        requestLayout();// todo
+        requestLayout(); // todo
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -1286,7 +1298,5 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         SavedState(Parcelable superState) {
             super(superState);
         }
-
     }
-
 }
