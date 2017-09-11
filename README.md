@@ -108,7 +108,7 @@ SearchView identifies its layout style through versions. Currently, there are tw
 
             SearchAdapter searchAdapter = new SearchAdapter(this, suggestionsList);
             searchAdapter.setOnSearchItemClickListener((view, position) -> {
-                TextView textView = (TextView) view.findViewById(R.id.textView);
+                TextView textView = (TextView) view.findViewById(R.id.search_text);
                 String query = textView.getText().toString();
                 mHistoryDatabase.addItem(new SearchItem(text));
                 mSearchView.close(false);
