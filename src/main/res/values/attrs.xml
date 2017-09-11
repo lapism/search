@@ -40,6 +40,7 @@
         <attr name="search_clear_on_open" format="boolean" />
         <attr name="search_clear_on_close" format="boolean" />
         <attr name="search_hide_on_keyboard_close" format="boolean" />
+        <attr name="search_show_progress" format="boolean" />
         <attr name="search_cursor_drawable" format="integer" />
     </declare-styleable>
 
