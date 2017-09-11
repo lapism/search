@@ -208,12 +208,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                 @Override
                 public void onClick(View view) {
                     if (mListener != null) {
-                        mListener.onSearchItemClick(view, getLayoutPosition());// getAdPosition
+                        mListener.onSearchItemClick(view, getLayoutPosition());//getetxt
                     }
                 }
             });
             icon = view.findViewById(R.id.search_icon);
             text = view.findViewById(R.id.search_text);
+            // add second text
         }
     }
 }
