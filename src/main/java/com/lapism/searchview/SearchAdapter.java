@@ -216,6 +216,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             text = view.findViewById(R.id.search_text);
             // add second text
         }
+
     }
 
 }
