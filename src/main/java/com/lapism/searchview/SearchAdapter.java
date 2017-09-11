@@ -217,4 +217,5 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             // add second text
         }
     }
+
 }
