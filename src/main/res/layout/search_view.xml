@@ -42,7 +42,6 @@
                     android:id="@+id/search_searchEditText"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_gravity="start|center_vertical"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
@@ -51,10 +50,6 @@
                     android:imeOptions="actionSearch|flagNoExtractUi"
                     android:inputType="textNoSuggestions"
                     android:maxLines="1"
-                    android:paddingEnd="@dimen/search_key_line_16"
-                    android:paddingLeft="@dimen/search_key_line_8"
-                    android:paddingRight="@dimen/search_key_line_16"
-                    android:paddingStart="@dimen/search_key_line_8"
                     android:privateImeOptions="nm"
                     android:textSize="@dimen/search_text_medium"
                     android:windowSoftInputMode="stateAlwaysHidden" />
@@ -63,7 +58,11 @@
                     android:id="@+id/search_progressBar"
                     style="?android:attr/indeterminateProgressStyle"
                     android:layout_width="@dimen/search_progress"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginLeft="@dimen/search_key_line_16"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginStart="@dimen/search_key_line_16" />
 
                 <FrameLayout
                     android:layout_width="48dp"
