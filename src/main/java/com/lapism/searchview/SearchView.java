@@ -59,6 +59,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 // @RestrictTo(LIBRARY_GROUP)
 // @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
@@ -847,6 +848,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mAnimationDuration = animationDuration;
     }
 
+    public void setSearchItemAnimator(RecyclerView.ItemAnimator itemAnimator) {
+        mRecyclerView.setItemAnimator(itemAnimator);
+    }
+
     // ---------------------------------------------------------------------------------------------
     private void initView() {
         LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
@@ -1089,23 +1094,26 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
 
         if (mRecyclerViewAdapter != null && mRecyclerViewAdapter instanceof Filterable) {
+            final CharSequence mFilterKey = newText.toString().toLowerCase(Locale.getDefault());
             ((SearchAdapter) mRecyclerViewAdapter).getFilter().filter(newText, new Filter.FilterListener() {
                 @Override
                 public void onFilterComplete(int i) {
-                    if (mShouldShowProgress) {
-                        hideProgress();
-                    }
-                    if (i > 0) {
-                        if (mRecyclerView.getVisibility() == View.GONE) {
-                            mViewDivider.setVisibility(View.VISIBLE);
-                            mRecyclerView.setVisibility(View.VISIBLE);
-                            SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
+                    if (mFilterKey.equals(((SearchAdapter) mRecyclerViewAdapter).getKey())) {
+                        if (mShouldShowProgress) {
+                            hideProgress();
                         }
-                    } else {
-                        if (mRecyclerView.getVisibility() == View.VISIBLE) {
-                            mViewDivider.setVisibility(View.GONE);
-                            mRecyclerView.setVisibility(View.GONE);
-                            SearchAnimator.fadeOut(mRecyclerView, mAnimationDuration);
+                        if (i > 0) {
+                            if (mRecyclerView.getVisibility() == View.GONE) {
+                                mViewDivider.setVisibility(View.VISIBLE);
+                                mRecyclerView.setVisibility(View.VISIBLE);
+                                SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
+                            }
+                        } else {
+                            if (mRecyclerView.getVisibility() == View.VISIBLE) {
+                                mViewDivider.setVisibility(View.GONE);
+                                mRecyclerView.setVisibility(View.GONE);
+                                SearchAnimator.fadeOut(mRecyclerView, mAnimationDuration);
+                            }
                         }
                     }
                 }
