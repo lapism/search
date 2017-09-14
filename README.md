@@ -55,7 +55,7 @@ dependencies {
 
 **Versions:**  
   
-SearchView identifies its layout style through versions. Currently, there are two values, namely `SearchView.Version.TOOLBAR` for the persistent view, and `SearchView.Version.MENU_ITEM` for the view that appears on a MenuItem press. The version can be defined through `setVersion()`.
+SearchView identifies its layout style through versions. Currently, there are two values, namely `SearchView.Version.TOOLBAR` for the persistent view, and `SearchView.Version.MENU_ITEM` for the view that appears on a MenuItem press. The version can be defined through `setVersion`.
 
 **SearchView.Version.MENU_ITEM and SearchView.Version.TOOLBAR:**
 ```java
@@ -112,9 +112,7 @@ if (mSearchView != null) {
     SearchAdapter searchAdapter = new SearchAdapter(this, suggestionsList);
     searchAdapter.setOnSearchItemClickListener(new SearchAdapter.OnSearchItemClickListener() {
         @Override
-        public void onSearchItemClick(View view, int position) {
-            TextView textView = (TextView) view.findViewById(R.id.search_text);
-            String query = textView.getText().toString();
+        public void onSearchItemClick(View view, int position, String text) {
             mHistoryDatabase.addItem(new SearchItem(text));
             mSearchView.close(false);
         }
