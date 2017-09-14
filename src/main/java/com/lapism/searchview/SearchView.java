@@ -738,13 +738,23 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public void setNavigationIcon(@DrawableRes int resource) {
         mImageViewArrow.setImageResource(resource);
+        if (resource == 0) {
+            mImageViewArrow.setVisibility(View.GONE);
+            mSearchEditText.setPadding((int) getResources().getDimension(R.dimen.search_key_line_16), 0, 0, 0);
+        } else {
+            mImageViewArrow.setVisibility(View.VISIBLE);
+            mSearchEditText.setPadding(0, 0, 0, 0);
+        }
     }
 
     public void setNavigationIcon(@Nullable Drawable drawable) {
+        mImageViewArrow.setImageDrawable(drawable);
         if (drawable == null) {
             mImageViewArrow.setVisibility(View.GONE);
+            mSearchEditText.setPadding((int) getResources().getDimension(R.dimen.search_key_line_16), 0, 0, 0);
         } else {
-            mImageViewArrow.setImageDrawable(drawable);
+            mImageViewArrow.setVisibility(View.VISIBLE);
+            mSearchEditText.setPadding(0, 0, 0, 0);
         }
     }
 
