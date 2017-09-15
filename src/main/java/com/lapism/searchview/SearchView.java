@@ -775,13 +775,19 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public void setVoiceIcon(@DrawableRes int resource) {
         mImageViewMic.setImageResource(resource);
+        if (resource == 0) {
+            mImageViewMic.setVisibility(View.GONE);
+        } else {
+            mImageViewMic.setVisibility(View.VISIBLE);
+        }
     }
 
     public void setVoiceIcon(@Nullable Drawable drawable) {
+        mImageViewMic.setImageDrawable(drawable);
         if (drawable == null) {
             mImageViewMic.setVisibility(View.GONE);
         } else {
-            mImageViewMic.setImageDrawable(drawable);
+            mImageViewMic.setVisibility(View.VISIBLE);
         }
     }
 
