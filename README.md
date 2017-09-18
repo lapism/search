@@ -44,9 +44,9 @@ If yes, please send me the name of your app and the link to Play Store and I wil
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-    implementation 'com.lapism:searchview:5.0.0-alpha6'
+    implementation 'com.lapism:searchview:5.0.0-alpha6' /7
     
-    implementation 'com.android.support:cardview-v7:26.0.2'
+    implementation 'com.android.support:cardview-v7:26.1.0'
     implementation 'com.google.android:flexbox:0.3.0'
 }
 ```
@@ -155,6 +155,8 @@ public boolean onOptionsItemSelected(MenuItem item) {
     android:id="@+id/searchView"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
+    
+    // will be new
 ```
 
 **XML with CoordinatorLayout:** 
@@ -164,6 +166,8 @@ public boolean onOptionsItemSelected(MenuItem item) {
      android:layout_width="match_parent"
      android:layout_height="match_parent" 
      app:layout_behavior="com.lapism.searchview.SearchBehavior" />
+     
+    // will be new
  ```
 
 **Styling SearchView:**
