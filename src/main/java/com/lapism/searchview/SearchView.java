@@ -312,16 +312,23 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void setQuery(CharSequence query, boolean submit) {
-        setQueryWithoutSubmitting(query);
+        mQuery = query;
+        mSearchEditText.setText(query);
+        mSearchEditText.setSelection(mSearchEditText.length());
 
         if (!TextUtils.isEmpty(mQuery)) {
+            mImageViewClear.setVisibility(View.VISIBLE);
+            if (mVoice) {
+                mImageViewMic.setVisibility(View.GONE);
+            }
+        } else {
             mImageViewClear.setVisibility(View.GONE);
             if (mVoice) {
                 mImageViewMic.setVisibility(View.VISIBLE);
             }
         }
 
-        if (submit && !TextUtils.isEmpty(query)) {
+        if (submit) {
             onSubmitQuery();
         }
     }
@@ -651,7 +658,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             SearchAnimator.fadeOut(mViewShadow, mAnimationDuration);
         }
 
-        if (!TextUtils.isEmpty(mQuery)) {
+        if (TextUtils.isEmpty(mQuery)) {
             mImageViewClear.setVisibility(View.GONE);
             if (mVoice) {
                 mImageViewMic.setVisibility(View.VISIBLE);
@@ -1154,16 +1161,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    private void setQueryWithoutSubmitting(CharSequence query) {
-        mSearchEditText.setText(query);
-        if (query != null) {
-            mSearchEditText.setSelection(mSearchEditText.length());
-            mQuery = query;
-        } else {
-            mSearchEditText.getText().clear();
-        }
-    }
-
     private void onSubmitQuery() {
         CharSequence query = mSearchEditText.getText();
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
@@ -1242,7 +1239,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         SavedState ss = (SavedState) state;
         if (ss.isSearchOpen) {
             open(true);
-            setQueryWithoutSubmitting(ss.query);
+            setQuery(ss.query, false);
             mSearchEditText.requestFocus();
         }
 
