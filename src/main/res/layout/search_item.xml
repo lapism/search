@@ -19,15 +19,14 @@
         android:id="@+id/search_text"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_gravity="start|center_vertical"
         android:layout_weight="1"
         android:ellipsize="end"
         android:gravity="start|center_vertical"
         android:maxLines="1"
         android:paddingEnd="@dimen/search_key_line_16"
-        android:paddingLeft="@dimen/search_key_line_8"
+        android:paddingLeft="0dp"
         android:paddingRight="@dimen/search_key_line_16"
-        android:paddingStart="@dimen/search_key_line_8"
+        android:paddingStart="0dp"
         android:textIsSelectable="false"
         android:textSize="@dimen/search_text_small" />
 
