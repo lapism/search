@@ -14,7 +14,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Parcel;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.speech.RecognizerIntent;
 import android.support.annotation.ColorInt;
@@ -1217,36 +1217,59 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     @Override
     protected Parcelable onSaveInstanceState() {
-        Parcelable superState = super.onSaveInstanceState();
-        SavedState ss = new SavedState(superState);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("superState", super.onSaveInstanceState());
 
-        ss.query = mQuery != null ? mQuery.toString() : null;
-        ss.isSearchOpen = getVisibility() == View.VISIBLE;
+        bundle.putCharSequence("query", mQuery);
+        bundle.putBoolean("isSearchOpen", getVisibility() == View.VISIBLE);
+
         dispatchFilters();
-        ss.searchFiltersStates = mSearchFiltersStates;
-        ss.searchFilters = mSearchFilters;
+        ArrayList<Integer> searchFiltersStatesInt = null;
+        if (mSearchFiltersStates != null) {
+            searchFiltersStatesInt = new ArrayList<>();
+            for (Boolean bool : mSearchFiltersStates) {
+                searchFiltersStatesInt.add((bool) ? 1 : 0);
+            }
+        }
+        bundle.putIntegerArrayList("searchFiltersStates", searchFiltersStatesInt);
 
-        return ss;
+        ArrayList<SearchFilter> searchFilters = null;
+        if (mSearchFilters != null) {
+            searchFilters = new ArrayList<>();
+            searchFilters.addAll(mSearchFilters);
+        }
+        bundle.putParcelableArrayList("searchFilters", searchFilters);
+
+        return bundle;
     }
 
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
-        if (!(state instanceof SavedState)) {
-            super.onRestoreInstanceState(state);
-            return;
-        }
+        if (state instanceof Bundle) {
+            Bundle bundle = (Bundle) state;
 
-        SavedState ss = (SavedState) state;
-        if (ss.isSearchOpen) {
-            open(true);
-            setQuery(ss.query, false);
-            mSearchEditText.requestFocus();
-        }
+            mQuery = bundle.getCharSequence("query");
+            if (bundle.getBoolean("isSearchOpen")) {
+                open(true);
+                setQuery(mQuery, false);
+                mSearchEditText.requestFocus();
+            }
 
-        restoreFiltersState(ss.searchFiltersStates);
-        mSearchFilters = ss.searchFilters;
-        super.onRestoreInstanceState(ss.getSuperState());
-        requestLayout(); // todo
+            ArrayList<Integer> searchFiltersStatesInt = bundle.getIntegerArrayList("searchFiltersStates");
+            ArrayList<Boolean> searchFiltersStatesBool = null;
+            if (searchFiltersStatesInt != null) {
+                searchFiltersStatesBool = new ArrayList<>();
+                for (Integer value : searchFiltersStatesInt) {
+                    searchFiltersStatesBool.add(value == 1);
+                }
+            }
+            restoreFiltersState(searchFiltersStatesBool);
+
+            mSearchFilters = bundle.getParcelableArrayList("searchFilters");
+
+            state = bundle.getParcelable("superState");
+        }
+        super.onRestoreInstanceState(state);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -1303,42 +1326,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public interface OnVoiceIconClickListener {
         void onVoiceIconClick();
-    }
-
-    // ---------------------------------------------------------------------------------------------
-    private static class SavedState extends BaseSavedState {
-
-        public String query;
-        public boolean isSearchOpen;
-        public List<Boolean> searchFiltersStates;
-        public List<SearchFilter> searchFilters;
-
-        public SavedState(Parcel source) {
-            super(source);
-            this.query = source.readString();
-            this.isSearchOpen = source.readInt() == 1;
-            searchFiltersStates = new ArrayList<>();
-            searchFilters = new ArrayList<>();
-            source.readList(searchFiltersStates, List.class.getClassLoader());
-            source.readTypedList(searchFilters, SearchFilter.CREATOR);
-        }
-
-        @TargetApi(Build.VERSION_CODES.N)
-        @RequiresApi(api = Build.VERSION_CODES.N)
-        public SavedState(Parcel source, ClassLoader loader) {
-            super(source, loader);
-            this.query = source.readString();
-            this.isSearchOpen = source.readInt() == 1;
-            searchFiltersStates = new ArrayList<>();
-            searchFilters = new ArrayList<>();
-            source.readList(searchFiltersStates, List.class.getClassLoader());
-            source.readTypedList(searchFilters, SearchFilter.CREATOR);
-        }
-
-        SavedState(Parcelable superState) {
-            super(superState);
-        }
-
     }
 
 }
