@@ -1,6 +1,7 @@
 package com.lapism.searchview;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Point;
@@ -14,7 +15,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
-
 class SearchAnimator {
 
     static void fadeIn(final View view, int duration) {
@@ -24,12 +24,12 @@ class SearchAnimator {
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
+                view.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                view.setVisibility(View.VISIBLE);
+
             }
 
             @Override
@@ -37,8 +37,7 @@ class SearchAnimator {
 
             }
         });
-
-        view.setAnimation(anim);
+        view.startAnimation(anim);
     }
 
     static void fadeOut(final View view, int duration) {
@@ -61,19 +60,19 @@ class SearchAnimator {
 
             }
         });
-
-        view.setAnimation(anim);
+        view.startAnimation(anim);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    static void revealOpen(View view, int cx, int duration, Context context, final SearchEditText editText, final boolean shouldClearOnOpen, final SearchView.OnOpenCloseListener listener) {
+    static void revealOpen(final View view, int cx, int duration, Context context, final SearchEditText editText, final boolean shouldClearOnOpen, final SearchView.OnOpenCloseListener listener) {
 
         if (cx <= 0) {
             int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
-            if (isRtlLayout(context))
+            if (isRtlLayout(context)) {
                 cx = padding;
-            else
+            } else {
                 cx = view.getWidth() - padding;
+            }
         }
 
         int cy = context.getResources().getDimensionPixelSize(R.dimen.search_height) / 2;
@@ -89,16 +88,10 @@ class SearchAnimator {
             Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0.0f, finalRadius);
             anim.setInterpolator(new AccelerateDecelerateInterpolator());
             anim.setDuration(duration);
-            anim.addListener(new Animator.AnimatorListener() { // new AnimatorListenerAdapter()
-                @Override
-                public void onAnimationStart(Animator animation) {
-                    if (listener != null) {
-                        listener.onOpen();
-                    }
-                }
-
+            anim.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
                     if (shouldClearOnOpen && editText.length() > 0) {
                         editText.getText().clear();
                     }
@@ -106,17 +99,14 @@ class SearchAnimator {
                 }
 
                 @Override
-                public void onAnimationCancel(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
+                public void onAnimationStart(Animator animation) {
+                    super.onAnimationStart(animation);
+                    view.setVisibility(View.VISIBLE);
+                    if (listener != null) {
+                        listener.onOpen();
+                    }
                 }
             });
-
-            view.setVisibility(View.VISIBLE);
             anim.start();
         }
     }
@@ -127,10 +117,11 @@ class SearchAnimator {
 
         if (cx <= 0) {
             int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
-            if (isRtlLayout(context))
+            if (isRtlLayout(context)) {
                 cx = padding;
-            else
+            } else {
                 cx = view.getWidth() - padding;
+            }
         }
 
         int cy = context.getResources().getDimensionPixelSize(R.dimen.search_height) / 2;
@@ -146,17 +137,10 @@ class SearchAnimator {
             Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, initialRadius, 0.0f);
             anim.setInterpolator(new AccelerateDecelerateInterpolator());
             anim.setDuration(duration);
-            anim.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-                    if (shouldClearOnClose && editText.length() > 0) {
-                        editText.getText().clear();
-                    }
-                    editText.clearFocus();
-                }
-
+            anim.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
                     view.setVisibility(View.GONE);
                     searchView.setVisibility(View.GONE);
                     if (listener != null) {
@@ -165,26 +149,26 @@ class SearchAnimator {
                 }
 
                 @Override
-                public void onAnimationCancel(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
+                public void onAnimationStart(Animator animation) {
+                    super.onAnimationStart(animation);
+                    if (shouldClearOnClose && editText.length() > 0) {
+                        editText.getText().clear();
+                    }
+                    editText.clearFocus();
                 }
             });
             anim.start();
         }
     }
 
-    static void fadeOpen(View view, int duration, final SearchEditText editText, final boolean shouldClearOnOpen, final SearchView.OnOpenCloseListener listener) {
+    static void fadeOpen(final View view, int duration, final SearchEditText editText, final boolean shouldClearOnOpen, final SearchView.OnOpenCloseListener listener) {
         Animation anim = new AlphaAnimation(0.0f, 1.0f);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(duration);
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
+                view.setVisibility(View.VISIBLE);
                 if (listener != null) {
                     listener.onOpen();
                 }
@@ -200,11 +184,10 @@ class SearchAnimator {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
+
             }
         });
-
-        view.setAnimation(anim);
-        view.setVisibility(View.VISIBLE);
+        view.startAnimation(anim);
     }
 
     static void fadeClose(final View view, int duration, final SearchEditText editText, final boolean shouldClearOnClose, final SearchView searchView, final SearchView.OnOpenCloseListener listener) {
@@ -231,11 +214,10 @@ class SearchAnimator {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
+
             }
         });
-
-        view.setAnimation(anim);
-        view.setVisibility(View.GONE);
+        view.startAnimation(anim);
     }
 
     private static boolean isRtlLayout(Context context) {
