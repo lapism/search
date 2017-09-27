@@ -47,7 +47,7 @@ dependencies {
     implementation 'com.lapism:searchview:5.0.0-alpha7'
     
     implementation 'com.android.support:cardview-v7:26.1.0'
-    implementation 'com.google.android:flexbox:0.3.0'
+    implementation 'com.google.android:flexbox:0.3.1'
 }
 ```
 ![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)
