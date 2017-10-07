@@ -1,17 +1,19 @@
 # SearchView
 
 Persistent SearchView Library from Play Store.  
-Features: Material Design, Toolbar / Menu item version, History, Styling.  
+Features: Material Design, Toolbar/MenuItem version, History, Styling.
 
 Google Material Design Pattern:  
-https://material.io/guidelines/patterns/search.html  
-Version history here:  
-https://bintray.com/lapism/maven/searchview/view  
+https://material.io/guidelines/patterns/search.html
+
+Version History:  
+https://bintray.com/lapism/maven/searchview/view
+
 Material colors in the project:  
 https://gist.github.com/lapism/3b417142300d9dbde3b4
 
 # Donations:
-Please support me !  
+Please support me!
 
 <a href="https://www.paypal.me/lapism">
   <img alt="Get it on Google Play"
@@ -21,22 +23,20 @@ Please support me !
 ------------------------------------------------------------------------------------------------------------------------------
 
 **Apps using this library:**  
-Because I have done firstly this library as a private project, 
-I would like to know if someone of you use my library in your application. 
-If yes, please send me the name of your app and the link to Play Store and I will promote your app in ReadMe.
+Because I have done firstly this library as a private project, I would like to know if someone of you use my library in your application. If yes, please send me the name of your app and the link to Play Store and I will promote your app in ReadMe.
 
 [Service Notes](https://play.google.com/store/apps/details?id=notes.service.com.servicenotes)  
-[Business Card Reader](https://play.google.com/store/apps/details?id=com.iac.bcreader) <br />
-[Toiletto](https://play.google.com/store/apps/details?id=org.super8.lastbastion) <br />
-[Zikobot](https://play.google.com/store/apps/details?id=com.startogamu.zikobot) <br />
-[AllWeather](https://play.google.com/store/apps/details?id=com.dev.nicola.allweather) <br />
-[Karaoke Online Sing & Record](https://play.google.com/store/apps/details?id=com.anhlt.karaokeonline) <br />
-[Playbuzz](https://play.google.com/store/apps/details?id=com.playbuzz.android.app) <br />
-[MovieTracker](https://play.google.com/store/apps/details?id=jacobs.yen.movietracker) <br />
-[MaxTorz](https://play.google.com/store/apps/details?id=com.maxxsol.maxtorz) <br />
-[RealTime Subscriber YouTube](https://play.google.com/store/apps/details?id=vulcanweblabs.realtimeyoutube) <br />
-[Lucidity - Lucid Dream Journal](https://play.google.com/store/apps/details?id=ch.b3nz.lucidity) <br />
-[Guide COC](https://play.google.com/store/apps/details?id=com.superguide.coc) <br />
+[Business Card Reader](https://play.google.com/store/apps/details?id=com.iac.bcreader)  
+[Toiletto](https://play.google.com/store/apps/details?id=org.super8.lastbastion)  
+[Zikobot](https://play.google.com/store/apps/details?id=com.startogamu.zikobot)  
+[AllWeather](https://play.google.com/store/apps/details?id=com.dev.nicola.allweather)  
+[Karaoke Online Sing & Record](https://play.google.com/store/apps/details?id=com.anhlt.karaokeonline)  
+[Playbuzz](https://play.google.com/store/apps/details?id=com.playbuzz.android.app)  
+[MovieTracker](https://play.google.com/store/apps/details?id=jacobs.yen.movietracker)  
+[MaxTorz](https://play.google.com/store/apps/details?id=com.maxxsol.maxtorz)  
+[RealTime Subscriber YouTube](https://play.google.com/store/apps/details?id=vulcanweblabs.realtimeyoutube)  
+[Lucidity - Lucid Dream Journal](https://play.google.com/store/apps/details?id=ch.b3nz.lucidity)  
+[Guide COC](https://play.google.com/store/apps/details?id=com.superguide.coc)
 
 ------------------------------------------------------------------------------------------------------------------------------
 
@@ -44,14 +44,14 @@ If yes, please send me the name of your app and the link to Play Store and I wil
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-    implementation 'com.lapism:searchview:5.0.0-alpha6' /7
+    implementation 'com.lapism:searchview:5.0.0-alpha7'
     
     implementation 'com.android.support:cardview-v7:26.1.0'
-    implementation 'com.google.android:flexbox:0.3.0'
+    implementation 'com.google.android:flexbox:0.3.1'
 }
 ```
-![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)  
-![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/image_2.png)  
+![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)
+![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/image_2.png)
 
 **Versions:**  
   
