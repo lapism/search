@@ -44,10 +44,7 @@ Because I have done firstly this library as a private project, I would like to k
 **Add the dependencies to your gradle file:**
 ```javascript
 dependencies {
-    implementation 'com.lapism:searchview:5.0.0-alpha7'
-    
-    implementation 'com.android.support:cardview-v7:26.1.0'
-    implementation 'com.google.android:flexbox:0.3.1'
+    implementation 'com.lapism:searchview:5.0.0-beta1'
 }
 ```
 ![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)
