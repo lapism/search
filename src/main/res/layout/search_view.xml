@@ -51,18 +51,8 @@
                     android:inputType="textNoSuggestions"
                     android:maxLines="1"
                     android:privateImeOptions="nm"
-                    android:textSize="@dimen/search_text_medium"
+                    android:textSize="@dimen/search_text_16"
                     android:windowSoftInputMode="stateAlwaysHidden" />
-
-                <ProgressBar
-                    android:id="@+id/search_progressBar"
-                    style="?android:attr/indeterminateProgressStyle"
-                    android:layout_width="@dimen/search_progress"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginLeft="@dimen/search_key_line_16"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginStart="@dimen/search_key_line_16" />
 
                 <FrameLayout
                     android:layout_width="48dp"
@@ -104,11 +94,27 @@
                 android:layout_height="wrap_content"
                 app:flexWrap="wrap" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/search_recyclerView"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never" />
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/search_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never" />
+
+                <ProgressBar
+                    android:id="@+id/search_progressBar"
+                    style="?android:attr/indeterminateProgressStyle"
+                    android:layout_width="@dimen/search_progress"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginLeft="@dimen/search_key_line_16"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginStart="@dimen/search_key_line_16" />
+
+            </FrameLayout>
 
         </LinearLayout>
 

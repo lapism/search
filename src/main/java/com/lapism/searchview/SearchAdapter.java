@@ -56,8 +56,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
         viewHolder.icon.setImageResource(item.getIconResource());
         viewHolder.icon.setColorFilter(SearchView.getIconColor(), PorterDuff.Mode.SRC_IN);
-        viewHolder.text.setTypeface((Typeface.create(SearchView.getTextFont(), SearchView.getTextStyle())));
-        viewHolder.text.setTextColor(SearchView.getTextColor());
+
+        viewHolder.title.setTypeface((Typeface.create(SearchView.getTextFont(), SearchView.getTextStyle())));
+        viewHolder.title.setTextColor(SearchView.getTextColor());
+
+        viewHolder.subtitle.setTypeface((Typeface.create(SearchView.getTextFont(), SearchView.getTextStyle())));
+        viewHolder.subtitle.setTextColor(SearchView.getTextColor());
 
         String itemText = item.getText().toString();
         String itemTextLower = itemText.toLowerCase(Locale.getDefault());
@@ -65,10 +69,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         if (itemTextLower.contains(mKey) && !TextUtils.isEmpty(mKey)) {
             SpannableString s = new SpannableString(itemText);
             s.setSpan(new ForegroundColorSpan(SearchView.getTextHighlightColor()), itemTextLower.indexOf(mKey.toString()), itemTextLower.indexOf(mKey.toString()) + mKey.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            viewHolder.text.setText(s, TextView.BufferType.SPANNABLE);
+            viewHolder.title.setText(s, TextView.BufferType.SPANNABLE);
         } else {
-            viewHolder.text.setText(item.getText());
+            viewHolder.title.setText(item.getText());
         }
+
+        //ColorUtils.setAlpha
+        // View.GONE if empty
     }
 
     @Override
@@ -201,24 +208,25 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     }
 
     public interface OnSearchItemClickListener {
-        void onSearchItemClick(View view, int position, String text);
+        void onSearchItemClick(View view, int position, String title, String subtitle);
     }
 
     public class ResultViewHolder extends RecyclerView.ViewHolder {
 
         protected final ImageView icon;
-        protected final TextView text;
+        protected final TextView title;
+        protected final TextView subtitle;
 
         public ResultViewHolder(View view) {
             super(view);
             icon = view.findViewById(R.id.search_icon);
-            text = view.findViewById(R.id.search_text);
-            // add second text
+            title = view.findViewById(R.id.search_title);
+            subtitle = view.findViewById(R.id.search_subtitle);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (mListener != null) {
-                        mListener.onSearchItemClick(view, getLayoutPosition(), text.getText().toString());
+                        mListener.onSearchItemClick(view, getLayoutPosition(), title.getText().toString(), subtitle.getText().toString());
                     }
                 }
             });

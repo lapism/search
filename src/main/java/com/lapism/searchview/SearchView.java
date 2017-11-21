@@ -61,6 +61,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+// to Kotlin + NULLABLE
 // @RestrictTo(LIBRARY_GROUP)
 // @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 @SuppressWarnings({"WeakerAccess", "SameParameterValue", "unused"})
@@ -723,6 +724,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_color_24dp));
     }
 
+    public void setCornerRadius(float radius){
+        mCardView.setRadius(radius);
+    }
+
     public void setVoiceText(String text) {
         mVoiceText = text;
     }
@@ -1003,7 +1008,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 setTextHighlightColor(attr.getColor(R.styleable.SearchView_search_text_highlight_color, Color.GRAY));
             }
             if (attr.hasValue(R.styleable.SearchView_search_text_size)) {
-                setTextSize(attr.getDimension(R.styleable.SearchView_search_text_size, mContext.getResources().getDimension(R.dimen.search_text_medium)));
+                setTextSize(attr.getDimension(R.styleable.SearchView_search_text_size, mContext.getResources().getDimension(R.dimen.search_text_16)));
             }
             if (attr.hasValue(R.styleable.SearchView_search_text_style)) {
                 setTextStyle(attr.getInt(R.styleable.SearchView_search_text_style, TextStyle.NORMAL));

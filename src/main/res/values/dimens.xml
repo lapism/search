@@ -10,8 +10,8 @@
     <dimen name="search_item_height">56dp</dimen>
     <dimen name="search_icon">56dp</dimen>
     <dimen name="search_progress">24dp</dimen>
-    <dimen name="search_text_small">14sp</dimen>
-    <dimen name="search_text_medium">16sp</dimen>
+    <dimen name="search_text_14">14sp</dimen>
+    <dimen name="search_text_16">16sp</dimen>
     <dimen name="search_reveal">24dp</dimen>
 
     <dimen name="search_filter_margin_top">4dp</dimen>
