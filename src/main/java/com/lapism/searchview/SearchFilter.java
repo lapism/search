@@ -20,7 +20,7 @@ public class SearchFilter implements Parcelable {
     };
     private String mTitle;
     private boolean mIsChecked;
-    private String mTagId;
+    private String mTag;
 
     public SearchFilter(String title, boolean checked) {
         this(title, checked, null);
@@ -29,20 +29,20 @@ public class SearchFilter implements Parcelable {
     public SearchFilter(String title, boolean checked, String tagId) {
         mTitle = title;
         mIsChecked = checked;
-        mTagId = tagId;
+        mTag = tagId;
     }
 
     protected SearchFilter(Parcel in) {
         mTitle = in.readString();
         mIsChecked = in.readByte() != 0;
-        mTagId = in.readString();
+        mTag = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mTitle);
         dest.writeByte((byte) (mIsChecked ? 1 : 0));
-        dest.writeString(mTagId);
+        dest.writeString(mTag);
     }
 
     @Override
@@ -67,11 +67,11 @@ public class SearchFilter implements Parcelable {
     }
 
     public String getTagId() {
-        return mTagId;
-    }
+        return mTag;
+    }// todo remove ID
 
-    public void setTagId(String tagId) {
-        mTagId = tagId;
+    public void setTagId(String tag) {
+        mTag = tag;
     }
 
 }

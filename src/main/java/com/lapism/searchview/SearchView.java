@@ -61,10 +61,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-// to Kotlin + NULLABLE
+// Kotlinize + NULLABLE
+// todo konstruktory vsude + nullable
 // @RestrictTo(LIBRARY_GROUP)
 // @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
-@SuppressWarnings({"WeakerAccess", "SameParameterValue", "unused"})
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public static final String TAG = "SearchView";
@@ -354,11 +354,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return mSearchEditText.getHint();
     }
 
-    public void setHint(CharSequence hint) {
+    public void setHint(@StringRes int hint) {
         mSearchEditText.setHint(hint);
     }
 
-    public void setHint(@StringRes int hint) {
+    public void setHint(CharSequence hint) {
         mSearchEditText.setHint(hint);
     }
 
@@ -473,14 +473,16 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                                 mCardView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                             }
-                            SearchAnimator.revealOpen(
-                                    mCardView,
-                                    mMenuItemCx,
-                                    mAnimationDuration,
-                                    mContext,
-                                    mSearchEditText,
-                                    mShouldClearOnOpen,
-                                    mOnOpenCloseListener);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                SearchAnimator.revealOpen(
+                                        mCardView,
+                                        mMenuItemCx,
+                                        mAnimationDuration,
+                                        mContext,
+                                        mSearchEditText,
+                                        mShouldClearOnOpen,
+                                        mOnOpenCloseListener);
+                            }
                         }
                     });
                 } else {
@@ -724,7 +726,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_color_24dp));
     }
 
-    public void setCornerRadius(float radius){
+    public void setCornerRadius(float radius) {
         mCardView.setRadius(radius);
     }
 

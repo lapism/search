@@ -74,8 +74,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             viewHolder.title.setText(item.getText());
         }
 
-        //ColorUtils.setAlpha
-        // View.GONE if empty
+        // todo
+        if (!TextUtils.isEmpty(item.getText())) {
+            viewHolder.subtitle.setText(item.getText());
+            viewHolder.subtitle.setAlpha(0.2f);
+            // int color = ColorUtils.setAlphaComponent()
+        } else {
+            viewHolder.subtitle.setVisibility(View.GONE);
+        }
     }
 
     @Override

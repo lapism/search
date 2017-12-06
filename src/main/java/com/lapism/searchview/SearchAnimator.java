@@ -15,6 +15,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
+
 class SearchAnimator {
 
     static void fadeIn(final View view, int duration) {
