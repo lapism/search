@@ -64,6 +64,7 @@ class SearchAnimator {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     static void revealOpen(final View view, int cx, int duration, Context context, final SearchEditText editText, final boolean shouldClearOnOpen, final SearchView.OnOpenCloseListener listener) {
 
         if (cx <= 0) {
