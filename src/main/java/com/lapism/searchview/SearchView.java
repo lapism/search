@@ -726,8 +726,15 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_color_24dp));
     }
 
-    public void setCornerRadius(float radius) {
-        mCardView.setRadius(radius);
+    public void setRoundCorners(boolean roundCorners) {
+        if(roundCorners) {
+            mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_height));
+            mCardView.setPreventCornerOverlap(false);
+            mCardView.setBackgroundResource(R.drawable.round_background);
+        }
+        else {
+
+        }
     }
 
     public void setVoiceText(String text) {
@@ -1333,6 +1340,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public interface OnVoiceIconClickListener {
         void onVoiceIconClick();
+    }
+
+    public interface OnMenuIconClickListener {
+        void onMenuIconClick();
     }
 
 }

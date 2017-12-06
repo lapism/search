@@ -48,7 +48,7 @@
             android:paddingRight="@dimen/search_key_line_16"
             android:paddingStart="0dp"
             android:textIsSelectable="false"
-            android:textSize="@dimen/search_text_14" />
+            android:textSize="@dimen/search_text_12" />
 
     </LinearLayout>
 

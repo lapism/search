@@ -33,7 +33,7 @@
                     android:layout_width="@dimen/search_icon"
                     android:layout_height="match_parent"
                     android:clickable="true"
-                    android:contentDescription="@string/search_app_name"
+                    android:contentDescription=""
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:scaleType="centerInside" />
@@ -54,31 +54,25 @@
                     android:textSize="@dimen/search_text_16"
                     android:windowSoftInputMode="stateAlwaysHidden" />
 
-                <FrameLayout
+                <ImageView
+                    android:id="@+id/search_imageView_mic_clear"
                     android:layout_width="48dp"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:contentDescription=""
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="center" />
 
-                    <ImageView
-                        android:id="@+id/search_imageView_mic"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:clickable="true"
-                        android:contentDescription="@string/search_app_name"
-                        android:focusable="true"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
-                        android:scaleType="center" />
-
-                    <ImageView
-                        android:id="@+id/search_imageView_clear"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:clickable="true"
-                        android:contentDescription="@string/search_app_name"
-                        android:focusable="true"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
-                        android:scaleType="center" />
-
-                </FrameLayout>
+                <ImageView
+                    android:id="@+id/search_imageView_menu"
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:contentDescription=""
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="center" />
 
             </LinearLayout>
 
@@ -94,27 +88,11 @@
                 android:layout_height="wrap_content"
                 app:flexWrap="wrap" />
 
-            <FrameLayout
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/search_recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/search_recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:overScrollMode="never" />
-
-                <ProgressBar
-                    android:id="@+id/search_progressBar"
-                    style="?android:attr/indeterminateProgressStyle"
-                    android:layout_width="@dimen/search_progress"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginLeft="@dimen/search_key_line_16"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginStart="@dimen/search_key_line_16" />
-
-            </FrameLayout>
+                android:layout_height="wrap_content"
+                android:overScrollMode="never" />
 
         </LinearLayout>
 
