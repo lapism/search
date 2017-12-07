@@ -33,7 +33,7 @@
                     android:layout_width="@dimen/search_icon"
                     android:layout_height="match_parent"
                     android:clickable="true"
-                    android:contentDescription=""
+                    android:contentDescription="@string/search_app_name"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:scaleType="centerInside" />
@@ -48,18 +48,18 @@
                     android:ems="10"
                     android:gravity="start|center_vertical"
                     android:imeOptions="actionSearch|flagNoExtractUi"
-                    android:inputType="textNoSuggestions"
+                    android:inputType="textNoSuggestions|text"
                     android:maxLines="1"
                     android:privateImeOptions="nm"
                     android:textSize="@dimen/search_text_16"
                     android:windowSoftInputMode="stateAlwaysHidden" />
 
                 <ImageView
-                    android:id="@+id/search_imageView_mic_clear"
+                    android:id="@+id/search_imageView_clear_mic"
                     android:layout_width="48dp"
                     android:layout_height="match_parent"
                     android:clickable="true"
-                    android:contentDescription=""
+                    android:contentDescription="@string/search_app_name"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:scaleType="center" />
@@ -69,7 +69,7 @@
                     android:layout_width="48dp"
                     android:layout_height="match_parent"
                     android:clickable="true"
-                    android:contentDescription=""
+                    android:contentDescription="@string/search_app_name"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:scaleType="center" />

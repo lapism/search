@@ -4,12 +4,13 @@
     android:layout_height="@dimen/search_item_height"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?attr/selectableItemBackgroundBorderless"
+    android:foreground="?attr/selectableItemBackground"
     android:gravity="start|center_vertical"
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/search_icon"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:id="@+id/search_icon_1"
         android:layout_width="@dimen/search_icon"
         android:layout_height="match_parent"
         android:contentDescription="@string/search_app_name"
@@ -52,5 +53,13 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:id="@+id/search_icon_2"
+        android:layout_width="@dimen/search_icon"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/search_app_name"
+
+        android:scaleType="center" />
 
 </LinearLayout>

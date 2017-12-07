@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchFilter implements Parcelable {
 
     public static final Creator<SearchFilter> CREATOR = new Creator<SearchFilter>() {
@@ -18,31 +17,31 @@ public class SearchFilter implements Parcelable {
             return new SearchFilter[size];
         }
     };
-    private String mTitle;
-    private boolean mIsChecked;
-    private String mTag;
+    private String title;
+    private boolean isChecked;
+    private String tag;
 
     public SearchFilter(String title, boolean checked) {
         this(title, checked, null);
     }
 
     public SearchFilter(String title, boolean checked, String tagId) {
-        mTitle = title;
-        mIsChecked = checked;
-        mTag = tagId;
+        this.title = title;
+        this.isChecked = checked;
+        this.tag = tagId;
     }
 
     protected SearchFilter(Parcel in) {
-        mTitle = in.readString();
-        mIsChecked = in.readByte() != 0;
-        mTag = in.readString();
+        this.title = in.readString();
+        this.isChecked = in.readByte() != 0;
+        this.tag = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mTitle);
-        dest.writeByte((byte) (mIsChecked ? 1 : 0));
-        dest.writeString(mTag);
+        dest.writeString(this.title);
+        dest.writeByte((byte) (this.isChecked ? 1 : 0));
+        dest.writeString(this.tag);
     }
 
     @Override
@@ -51,27 +50,27 @@ public class SearchFilter implements Parcelable {
     }
 
     public String getTitle() {
-        return mTitle;
+        return this.title;
     }
 
     public void setTitle(String title) {
-        mTitle = title;
+        this.title = title;
     }
 
     public boolean isChecked() {
-        return mIsChecked;
+        return this.isChecked;
     }
 
     public void setChecked(boolean checked) {
-        mIsChecked = checked;
+        this.isChecked = checked;
     }
 
     public String getTagId() {
-        return mTag;
-    }// todo remove ID
+        return this.tag;
+    }
 
     public void setTagId(String tag) {
-        mTag = tag;
+        this.tag = tag;
     }
 
 }

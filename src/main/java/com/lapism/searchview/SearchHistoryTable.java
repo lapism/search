@@ -10,15 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@SuppressWarnings({"WeakerAccess", "SameParameterValue", "unused"})
 public class SearchHistoryTable {
 
     private static int mHistorySize = 2;
     private static Integer mCurrentDatabaseKey = null;
     private final SearchHistoryDatabase dbHelper;
     private SQLiteDatabase db;
+    private Context mContext;
 
-    public SearchHistoryTable(Context mContext) {
+    public SearchHistoryTable(Context context) {
+        mContext = context;
         dbHelper = new SearchHistoryDatabase(mContext);
     }
 
@@ -37,8 +38,8 @@ public class SearchHistoryTable {
 
     public void addItem(SearchItem item, Integer databaseKey) {
         ContentValues values = new ContentValues();
-        if (!checkText(item.getText().toString())) {
-            values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TEXT, item.getText().toString());
+        if (!checkText(item.getTitle().toString())) {
+            values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TEXT, item.getTitle().toString());
             if (databaseKey != null) {
                 values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_KEY, databaseKey);
             }
@@ -58,7 +59,7 @@ public class SearchHistoryTable {
         String query = "SELECT " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID +
                 " FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE +
                 " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TEXT + " = ?";
-        Cursor res = db.rawQuery(query, new String[]{item.getText().toString()});
+        Cursor res = db.rawQuery(query, new String[]{item.getTitle().toString()});
         res.moveToFirst();
         int id = res.getInt(0);
         close();
@@ -110,9 +111,8 @@ public class SearchHistoryTable {
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                SearchItem item = new SearchItem();
-                item.setIconResource(R.drawable.ic_history_black_24dp);
-                item.setText(cursor.getString(1));
+                SearchItem item = new SearchItem(mContext);
+                item.setTitle(cursor.getString(0));
                 list.add(item);
             } while (cursor.moveToNext());
         }
