@@ -9,11 +9,12 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:foreground="?attr/selectableItemBackgroundBorderless"
         android:id="@+id/search_icon_1"
         android:layout_width="@dimen/search_icon"
         android:layout_height="match_parent"
         android:contentDescription="@string/search_app_name"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+
         android:scaleType="center" />
 
     <LinearLayout
@@ -24,42 +25,30 @@
         <TextView
             android:id="@+id/search_title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ellipsize="end"
-            android:gravity="start|center_vertical"
             android:maxLines="1"
-            android:paddingEnd="@dimen/search_key_line_16"
-            android:paddingLeft="0dp"
-            android:paddingRight="@dimen/search_key_line_16"
-            android:paddingStart="0dp"
             android:textIsSelectable="false"
             android:textSize="@dimen/search_text_14" />
 
         <TextView
             android:id="@+id/search_subtitle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ellipsize="end"
-            android:gravity="start|center_vertical"
             android:maxLines="1"
-            android:paddingEnd="@dimen/search_key_line_16"
-            android:paddingLeft="0dp"
-            android:paddingRight="@dimen/search_key_line_16"
-            android:paddingStart="0dp"
             android:textIsSelectable="false"
             android:textSize="@dimen/search_text_12" />
 
     </LinearLayout>
 
     <ImageView
-        android:foreground="?attr/selectableItemBackgroundBorderless"
         android:id="@+id/search_icon_2"
         android:layout_width="@dimen/search_icon"
         android:layout_height="match_parent"
         android:contentDescription="@string/search_app_name"
-
-        android:scaleType="center" />
+        android:foreground="?attr/selectableItemBackgroundBorderless" />
 
 </LinearLayout>

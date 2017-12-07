@@ -35,8 +35,7 @@
                     android:clickable="true"
                     android:contentDescription="@string/search_app_name"
                     android:focusable="true"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
-                    android:scaleType="centerInside" />
+                    android:foreground="?attr/selectableItemBackgroundBorderless" />
 
                 <com.lapism.searchview.SearchEditText
                     android:id="@+id/search_searchEditText"
@@ -56,23 +55,21 @@
 
                 <ImageView
                     android:id="@+id/search_imageView_clear_mic"
-                    android:layout_width="48dp"
+                    android:layout_width="@dimen/search_icon"
                     android:layout_height="match_parent"
                     android:clickable="true"
                     android:contentDescription="@string/search_app_name"
                     android:focusable="true"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
-                    android:scaleType="center" />
+                    android:foreground="?attr/selectableItemBackgroundBorderless" />
 
                 <ImageView
                     android:id="@+id/search_imageView_menu"
-                    android:layout_width="48dp"
+                    android:layout_width="@dimen/search_icon"
                     android:layout_height="match_parent"
                     android:clickable="true"
                     android:contentDescription="@string/search_app_name"
                     android:focusable="true"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
-                    android:scaleType="center" />
+                    android:foreground="?attr/selectableItemBackgroundBorderless" />
 
             </LinearLayout>
 
