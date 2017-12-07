@@ -718,9 +718,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public void setGoogleIcons() {
         //mImageViewArrow.setImageResource(R.drawable.ic_google_color_24dp);
-
-
-       // mImageViewClearMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_color_24dp));
+        //mImageViewClearMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_color_24dp));
     }
 
     //todo
