@@ -33,6 +33,29 @@ public class SearchItem implements Parcelable {
     private String tag;
     private Context context;
 
+    public SearchItem(Context context) {
+        this.context = context;
+        this.icon_1_resource = 0;
+        this.icon_2_resource = 0;
+        this.icon_1_drawable = ContextCompat.getDrawable(this.context, R.drawable.ic_search_black_24dp);
+        this.icon_2_drawable = null;
+    }
+
+    protected SearchItem(Parcel in) {
+        Bitmap bitmap_1 = in.readParcelable(getClass().getClassLoader());
+        this.icon_1_drawable = new BitmapDrawable(this.context.getResources(), bitmap_1);
+        Bitmap bitmap_2 = in.readParcelable(getClass().getClassLoader());
+        this.icon_2_drawable = new BitmapDrawable(this.context.getResources(), bitmap_2);
+
+        this.icon_1_resource = in.readInt();
+        this.icon_2_resource = in.readInt();
+
+        this.title = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
+        this.subtitle = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
+
+        this.tag = in.readString();
+    }
+
     public Drawable getIcon_1_drawable() {
         return this.icon_1_drawable;
     }
@@ -87,29 +110,6 @@ public class SearchItem implements Parcelable {
 
     public void setTag(String tag) {
         this.tag = tag;
-    }
-
-    public SearchItem(Context context) {
-        this.context = context;
-        this.icon_1_resource = 0;
-        this.icon_2_resource = 0;
-        this.icon_1_drawable = ContextCompat.getDrawable(this.context, R.drawable.ic_search_black_24dp);
-        this.icon_2_drawable = null;
-    }
-
-    protected SearchItem(Parcel in) {
-        Bitmap bitmap_1 = in.readParcelable(getClass().getClassLoader());
-        this.icon_1_drawable = new BitmapDrawable(this.context.getResources(), bitmap_1);
-        Bitmap bitmap_2 = in.readParcelable(getClass().getClassLoader());
-        this.icon_2_drawable = new BitmapDrawable(this.context.getResources(), bitmap_2);
-
-        this.icon_1_resource = in.readInt();
-        this.icon_2_resource = in.readInt();
-
-        this.title = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
-        this.subtitle = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
-
-        this.tag = in.readString();
     }
 
     @Override

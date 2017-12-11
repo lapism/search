@@ -106,9 +106,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private CharSequence mQuery = "";
 
 
-
-
-
     private ImageView mImageViewNavigation;
     private ImageView mImageViewMic;
     private ImageView mImageViewMenu;
@@ -363,11 +360,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return mSearchEditText.getHint();
     }
 
-    public void setHint(@StringRes int hint) {
+    public void setHint(CharSequence hint) {
         mSearchEditText.setHint(hint);
     }
 
-    public void setHint(CharSequence hint) {
+    public void setHint(@StringRes int hint) {
         mSearchEditText.setHint(hint);
     }
 
@@ -817,15 +814,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         inflater.inflate(layoutResId, this, true);*/
 
 
-
-
-
-
-
-
-
-
-
         mAnimationDuration = mContext.getResources().getInteger(R.integer.search_animation_duration);
 
         mSearchArrowDrawable = new SearchArrowDrawable(mContext);
@@ -849,8 +837,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
         mImageViewMenu = findViewById(R.id.search_imageView_menu);
         mImageViewMenu.setVisibility(View.GONE);
-
-
 
 
         mRecyclerView = findViewById(R.id.search_recyclerView);
@@ -911,9 +897,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                 }
             }
         });
-
-
-
 
 
         setVersion(Version.TOOLBAR);
@@ -1201,18 +1184,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     // ---------------------------------------------------------------------------------------------
     public void setNavigationIcon(@DrawableRes int resource) {
         mImageViewNavigation.setImageResource(resource);
@@ -1240,14 +1211,14 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mImageViewMic.setImageDrawable(drawable);
     }
 
+    public RecyclerView.Adapter getAdapter() {
+        return mRecyclerView.getAdapter();
+    }
+
     // ---------------------------------------------------------------------------------------------
     public void setAdapter(RecyclerView.Adapter adapter) {
         mRecyclerViewAdapter = adapter;
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
-    }
-
-    public RecyclerView.Adapter getAdapter() {
-        return mRecyclerView.getAdapter();
     }
 
     /**
@@ -1288,7 +1259,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mImageViewMenu.setImageResource(R.drawable.ic_menu_black_24dp);
         mImageViewMenu.setOnClickListener(this);
         mImageViewMenu.setVisibility(View.VISIBLE);
-        
+
         mOnMenuClickListener = listener;
     }
 
