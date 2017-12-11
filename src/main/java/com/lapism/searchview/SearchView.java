@@ -1,11 +1,7 @@
 package com.lapism.searchview;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -16,16 +12,13 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.speech.RecognizerIntent;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
-import android.support.annotation.IntegerRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.CardView;
@@ -54,6 +47,8 @@ import android.widget.TextView;
 
 import com.google.android.flexbox.FlexboxLayout;
 
+import org.jetbrains.annotations.Contract;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
@@ -72,8 +67,7 @@ sorry for my poor English，pardon me
 // @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
-    public static final String TAG = "SearchView";
-    public static final int SPEECH_REQUEST_CODE = 100;
+    public static final String TAG = SearchView.class.getName();
 
     private static int mIconColor = Color.BLACK;
     private static int mTextColor = Color.BLACK;
@@ -89,9 +83,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private View mMenuItemView;
     private CardView mCardView;
     private LinearLayout mLinearLayout;
-    private ImageView mImageViewNavigation;
-    private ImageView mImageViewClearMic;
-    private ImageView mImageViewMenu;
+
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mRecyclerViewAdapter;
     private FlexboxLayout mFlexboxLayout;
@@ -106,17 +98,20 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private float mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
     private boolean mArrow = false;
     private boolean mShadow = true;
-    private boolean mVoice = true;
+
     private boolean mShouldClearOnOpen = false;
     private boolean mShouldClearOnClose = false;
     private boolean mShouldHideOnKeyboardClose = true;
     private boolean mShouldShowProgress = false;
     private CharSequence mQuery = "";
-    private String mVoiceText = "";
 
 
 
 
+
+    private ImageView mImageViewNavigation;
+    private ImageView mImageViewMic;
+    private ImageView mImageViewMenu;
 
     private OnQueryTextListener mOnQueryTextListener;
     private OnOpenCloseListener mOnOpenCloseListener;
@@ -124,12 +119,15 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private OnMicClickListener mOnMicClickListener;
     private OnMenuClickListener mOnMenuClickListener;
 
+    private boolean mGoogle = false;
+
     // ---------------------------------------------------------------------------------------------
     public SearchView(@NonNull Context context) {
         super(context);
         mContext = context;
         initView();
         initStyle(null, 0, 0);
+        // this(context, null);
     }
 
     public SearchView(@NonNull Context context, @Nullable AttributeSet attrs) {
@@ -156,6 +154,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     // ---------------------------------------------------------------------------------------------
+    @Contract(pure = true)
     @ColorInt
     public static int getIconColor() {
         return mIconColor;
@@ -166,10 +165,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         ColorFilter colorFilter = new PorterDuffColorFilter(mIconColor, PorterDuff.Mode.SRC_IN);
 
         mImageViewNavigation.setColorFilter(colorFilter);
-        mImageViewClearMic.setColorFilter(colorFilter);
+        mImageViewMic.setColorFilter(colorFilter);
         mImageViewMenu.setColorFilter(colorFilter);
     }
 
+    @Contract(pure = true)
     @ColorInt
     public static int getTextColor() {
         return mTextColor;
@@ -187,6 +187,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
+    @Contract(pure = true)
     public static Typeface getTextFont() {
         return mTextFont;
     }
@@ -196,6 +197,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
     }
 
+    @Contract(pure = true)
     @ColorInt
     public static int getTextHighlightColor() {
         return mTextHighlightColor;
@@ -205,6 +207,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mTextHighlightColor = color;
     }
 
+    @Contract(pure = true)
     public static int getTextStyle() {
         return mTextStyle;
     }
@@ -330,15 +333,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mSearchEditText.setSelection(mSearchEditText.length());
 
         if (!TextUtils.isEmpty(mQuery)) {
-            mImageViewClearMic.setVisibility(View.VISIBLE);
-            if (mVoice) {
-                mImageViewClearMic.setVisibility(View.GONE);
-            }
+            mImageViewMic.setVisibility(View.VISIBLE);
         } else {
-            mImageViewClearMic.setVisibility(View.GONE);
-            if (mVoice) {
-                mImageViewClearMic.setVisibility(View.VISIBLE);
-            }
+            mImageViewMic.setVisibility(View.GONE);
         }
 
         if (submit) {
@@ -420,31 +417,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
     public void setShouldShowProgress(boolean shouldShowProgress) {
         mShouldShowProgress = shouldShowProgress;
-    }
-
-    public RecyclerView.Adapter getAdapter() {
-        return mRecyclerView.getAdapter();
-    }
-
-    public void setAdapter(RecyclerView.Adapter adapter) {
-        mRecyclerViewAdapter = adapter;
-        mRecyclerView.setAdapter(mRecyclerViewAdapter);
-    }
-
-    /**
-     * new SearchDivider(Context)
-     * new DividerItemDecoration(Context, DividerItemDecoration.VERTICAL)
-     */
-    public void addDivider(RecyclerView.ItemDecoration itemDecoration) {
-        mRecyclerView.addItemDecoration(itemDecoration);
-    }
-
-    /**
-     * new SearchDivider(Context)
-     * new DividerItemDecoration(Context, DividerItemDecoration.VERTICAL)
-     */
-    public void removeDivider(RecyclerView.ItemDecoration itemDecoration) {
-        mRecyclerView.removeItemDecoration(itemDecoration);
     }
 
     public void showKeyboard() {
@@ -637,10 +609,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
 
         if (!TextUtils.isEmpty(mQuery)) {
-            mImageViewClearMic.setVisibility(View.VISIBLE);
-            if (mVoice) {
-                mImageViewClearMic.setVisibility(View.GONE);
-            }
+            mImageViewMic.setVisibility(View.VISIBLE);
         }
 
         showKeyboard();
@@ -674,10 +643,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
 
         if (TextUtils.isEmpty(mQuery)) {
-            mImageViewClearMic.setVisibility(View.GONE);
-            if (mVoice) {
-                mImageViewClearMic.setVisibility(View.VISIBLE);
-            }
+            mImageViewMic.setVisibility(View.GONE);
+            mImageViewMic.setVisibility(View.VISIBLE);
         }
 
         hideKeyboard();
@@ -725,10 +692,17 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mViewShadow.setBackgroundColor(color);
     }
 
-    public void setGoogleIcons() {
-        mImageViewNavigation.setImageResource(R.drawable.ic_google_color_24dp);
-        mImageViewClearMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_color_24dp));
-        mImageViewMenu.setColorFilter(null);
+    public void setGoogleIcons(boolean google) {
+        mGoogle = google;
+
+        if (mGoogle) {
+            mImageViewNavigation.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_google_color_24dp));
+            mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_color_24dp));
+            // mImageViewMenu.setColorFilter(null);
+        } else {
+            mImageViewNavigation.setImageDrawable(mSearchArrowDrawable);
+            mImageViewMic.setImageResource(R.drawable.ic_mic_black_24dp);
+        }
     }
 
     //todo
@@ -742,9 +716,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    public void setVoiceText(String text) {
-        mVoiceText = text;
-    }
 
     public void setTextSize(float size) {
         mSearchEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
@@ -755,9 +726,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
 
-
-
-
     public void setNavigationIconAnimation(boolean animate) {
         if (!animate) {
             mSearchArrowDrawable.setProgress(SearchArrowDrawable.STATE_ARROW);
@@ -766,21 +734,17 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void setVoiceIcon(@DrawableRes int resource) {
-        mImageViewClearMic.setImageResource(resource);
+        mImageViewMic.setImageResource(resource);
         if (resource == 0) {
-            mImageViewClearMic.setVisibility(View.GONE);
+            mImageViewMic.setVisibility(View.GONE);
         } else {
-            mImageViewClearMic.setVisibility(View.VISIBLE);
+            mImageViewMic.setVisibility(View.VISIBLE);
         }
     }
 
-    public void setVoice(boolean voice) {
-        if (voice && isVoiceAvailable()) {
-            mImageViewClearMic.setVisibility(View.VISIBLE);
-        } else {
-            mImageViewClearMic.setVisibility(View.GONE);
-        }
-        mVoice = voice;
+    //todo
+    public void setMicIcon(boolean voice) {
+        mImageViewMic.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -847,34 +811,47 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private void initView() {
         LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
 
+
+        /*final LayoutInflater inflater = LayoutInflater.from(context);
+        final int layoutResId = a.getResourceId(R.styleable.SearchView_layout, R.layout.abc_search_view);
+        inflater.inflate(layoutResId, this, true);*/
+
+
+
+
+
+
+
+
+
+
+
         mAnimationDuration = mContext.getResources().getInteger(R.integer.search_animation_duration);
+
+        mSearchArrowDrawable = new SearchArrowDrawable(mContext);
+
+        mViewDivider = findViewById(R.id.search_view_divider);
+        mViewDivider.setVisibility(View.GONE);
 
         mViewShadow = findViewById(R.id.search_view_shadow);
         mViewShadow.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_shadow_layout));
         mViewShadow.setOnClickListener(this);
         mViewShadow.setVisibility(View.GONE);
 
-        mViewDivider = findViewById(R.id.search_view_divider);
-        mViewDivider.setVisibility(View.GONE);
-
         mCardView = findViewById(R.id.search_cardView);
         mLinearLayout = findViewById(R.id.search_linearLayout);
 
-        mSearchArrowDrawable = new SearchArrowDrawable(mContext);
-
         mImageViewNavigation = findViewById(R.id.search_imageView_navigation);
-        mImageViewNavigation.setImageDrawable(mSearchArrowDrawable);
         mImageViewNavigation.setOnClickListener(this);
 
-        mImageViewClearMic = findViewById(R.id.search_imageView_clear_mic);
-        mImageViewClearMic.setImageResource(R.drawable.ic_mic_black_24dp);
-        mImageViewClearMic.setOnClickListener(this);
-        mImageViewClearMic.setVisibility(View.GONE);
+        mImageViewMic = findViewById(R.id.search_imageView_mic);
+        mImageViewMic.setOnClickListener(this);
 
         mImageViewMenu = findViewById(R.id.search_imageView_menu);
-        mImageViewMenu.setImageResource(R.drawable.ic_menu_black_24dp);
-        mImageViewMenu.setOnClickListener(this);
         mImageViewMenu.setVisibility(View.GONE);
+
+
+
 
         mRecyclerView = findViewById(R.id.search_recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
@@ -889,6 +866,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                     hideKeyboard();
                 }
             }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
         });
 
         mFlexboxLayout = findViewById(R.id.search_flexboxLayout);
@@ -898,17 +880,17 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mSearchEditText.setSearchView(this);
         mSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SearchView.this.onTextChanged(s);
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                SearchView.this.onTextChanged(charSequence);
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable editable) {
 
             }
         });
@@ -930,14 +912,14 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             }
         });
 
+
+
+
+
         setVersion(Version.TOOLBAR);
-
-        setGoogleIcons();
-
+        setGoogleIcons(true);
         setVersionMargins(VersionMargins.TOOLBAR_SMALL);
         setTheme(Theme.LIGHT, false);
-        setVoice(true);
-
         setRoundCorners(true);
     }
 
@@ -983,12 +965,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             }
             if (attr.hasValue(R.styleable.SearchView_search_hint_color)) {
                 setHintColor(attr.getColor(R.styleable.SearchView_search_hint_color, Color.BLACK));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_voice)) {
-                setVoice(attr.getBoolean(R.styleable.SearchView_search_voice, true));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_voice_text)) {
-                setVoiceText(attr.getString(R.styleable.SearchView_search_voice_text));
             }
             if (attr.hasValue(R.styleable.SearchView_search_animation_duration)) {
                 setAnimationDuration(attr.getInteger(R.styleable.SearchView_search_animation_duration, mAnimationDuration));
@@ -1054,29 +1030,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return location[0] + view.getWidth() / 2;
     }
 
-    private void onVoiceClicked() {
-        if (mOnMicClickListener != null) {
-            mOnMicClickListener.onMicClick();
-        }
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, mVoiceText);
-        intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
-
-        if (mContext instanceof FragmentActivity) {
-            ((FragmentActivity) mContext).startActivityForResult(intent, SPEECH_REQUEST_CODE);
-        } else if (mContext instanceof Activity) {
-            ((Activity) mContext).startActivityForResult(intent, SPEECH_REQUEST_CODE);
-        }
-    }
-
-    private boolean isVoiceAvailable() {
+    private void isVoiceAvailable() {
         if (isInEditMode()) {
-            return true;
+            return;
         }
-        PackageManager pm = mContext.getPackageManager();
-        List<ResolveInfo> activities = pm.queryIntentActivities(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
-        return activities.size() != 0;
     }
 
     private void onTextChanged(CharSequence newText) {
@@ -1107,14 +1064,13 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
 
         if (!TextUtils.isEmpty(newText)) {
-            mImageViewClearMic.setVisibility(View.VISIBLE);
-            if (mVoice) {
-                mImageViewClearMic.setVisibility(View.GONE);
-            }
+            mImageViewMic.setImageResource(R.drawable.ic_clear_black_24dp);
         } else {
-            mImageViewClearMic.setVisibility(View.GONE);
-            if (mVoice) {
-                mImageViewClearMic.setVisibility(View.VISIBLE);
+            if (mGoogle) {
+                mImageViewMic.setImageResource(R.drawable.ic_mic_color_24dp);
+            } else {
+                mImageViewMic.setImageResource(R.drawable.ic_mic_black_24dp);
+                // TODO BARVY
             }
         }
 
@@ -1151,7 +1107,11 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     // ---------------------------------------------------------------------------------------------
     @Override
     public void onClick(View view) {
-        // int v = view.getId();
+        // int id = view.getId();
+
+        /*switch (id){
+            case mImageViewMenu
+        }*/
 
         if (view == mImageViewNavigation) {
             if (mSearchArrowDrawable != null && mIsSearchArrowHamburgerState == SearchArrowDrawable.STATE_ARROW) {
@@ -1161,16 +1121,24 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                     mOnNavigationClickListener.onNavigationClick(mIsSearchArrowHamburgerState);
                 }
             }
-        } else if (view == mImageViewClearMic) {
-            onVoiceClicked();
+        }
+
+        if (view == mImageViewMic) {
+            if (mOnMicClickListener != null) {
+                mOnMicClickListener.onMicClick();
+            }
             if (mSearchEditText.length() > 0) {
                 mSearchEditText.getText().clear();
             }
-        } else if (view == mImageViewMenu) {
+        }
+
+        if (view == mImageViewMenu) {
             if (mOnNavigationClickListener != null) {
                 mOnNavigationClickListener.onNavigationClick(mIsSearchArrowHamburgerState);
             }
-        } else if (view == mViewShadow) {
+        }
+
+        if (view == mViewShadow) {
             close(true);
         }
     }
@@ -1245,8 +1213,84 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
 
 
+    // ---------------------------------------------------------------------------------------------
+    public void setNavigationIcon(@DrawableRes int resource) {
+        mImageViewNavigation.setImageResource(resource);
+    }
 
+    public void setNavigationIcon(@Nullable Drawable drawable) {
+        mImageViewNavigation.setImageDrawable(drawable);
+    }
 
+    // ---------------------------------------------------------------------------------------------
+    public void setMenuIcon(@DrawableRes int resource) {
+        mImageViewMenu.setImageResource(resource);
+    }
+
+    public void setMenuIcon(@Nullable Drawable drawable) {
+        mImageViewMenu.setImageDrawable(drawable);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    public void setMicIcon(@DrawableRes int resource) {
+        mImageViewMic.setImageResource(resource);
+    }
+
+    public void setMicIcon(@Nullable Drawable drawable) {
+        mImageViewMic.setImageDrawable(drawable);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    public void setAdapter(RecyclerView.Adapter adapter) {
+        mRecyclerViewAdapter = adapter;
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
+    }
+
+    public RecyclerView.Adapter getAdapter() {
+        return mRecyclerView.getAdapter();
+    }
+
+    /**
+     * new SearchDivider(Context)
+     * new DividerItemDecoration(Context, DividerItemDecoration.VERTICAL)
+     */
+    public void addDivider(RecyclerView.ItemDecoration itemDecoration) {
+        mRecyclerView.addItemDecoration(itemDecoration);
+    }
+
+    /**
+     * new SearchDivider(Context)
+     * new DividerItemDecoration(Context, DividerItemDecoration.VERTICAL)
+     */
+    public void removeDivider(RecyclerView.ItemDecoration itemDecoration) {
+        mRecyclerView.removeItemDecoration(itemDecoration);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    public void setOnQueryTextListener(OnQueryTextListener listener) {
+        mOnQueryTextListener = listener;
+    }
+
+    public void setOnOpenCloseListener(OnOpenCloseListener listener) {
+        mOnOpenCloseListener = listener;
+    }
+
+    public void setOnNavigationClickListener(OnNavigationClickListener listener) {
+        mOnNavigationClickListener = listener;
+        // mImageViewNavigation.setVisibility(View.VISIBLE);
+    }
+
+    public void setOnMicClickListener(OnMicClickListener listener) {
+        mOnMicClickListener = listener;
+    }
+
+    public void setOnMenuClickListener(OnMenuClickListener listener) {
+        mImageViewMenu.setImageResource(R.drawable.ic_menu_black_24dp);
+        mImageViewMenu.setOnClickListener(this);
+        mImageViewMenu.setVisibility(View.VISIBLE);
+        
+        mOnMenuClickListener = listener;
+    }
 
     // ---------------------------------------------------------------------------------------------
     @IntDef({Version.TOOLBAR, Version.MENU_ITEM})
@@ -1279,55 +1323,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         int BOLD = 1;
         int ITALIC = 2;
         int BOLD_ITALIC = 3;
-    }
-
-    // ---------------------------------------------------------------------------------------------
-    public void setNavigationIcon(@Nullable Drawable drawable){
-        mImageViewNavigation.setImageDrawable(drawable);
-    }
-
-    public void setMenuIcon(@Nullable Drawable drawable){
-        mImageViewMenu.setImageDrawable(drawable);
-    }
-
-    public void setMicIcon(@Nullable Drawable drawable){
-        mImageViewClearMic.setImageDrawable(drawable);
-    }
-
-    public void setNavigationIcon(@DrawableRes int resource){
-        mImageViewNavigation.setImageResource(resource);;
-    }
-
-    public void setMenuIcon(@DrawableRes int resource){
-        mImageViewMenu.setImageResource(resource);;
-    }
-
-    public void setMicIcon(@DrawableRes int resource){
-        mImageViewClearMic.setImageResource(resource);;
-    }
-
-    // ---------------------------------------------------------------------------------------------
-    public void setOnQueryTextListener(OnQueryTextListener listener) {
-        mOnQueryTextListener = listener;
-    }
-
-    public void setOnOpenCloseListener(OnOpenCloseListener listener) {
-        mOnOpenCloseListener = listener;
-    }
-
-    public void setOnNavigationClickListener(OnNavigationClickListener listener) {
-        mOnNavigationClickListener = listener;
-        // mImageViewNavigation.setVisibility(View.VISIBLE);
-    }
-
-    public void setOnMicClickListener(OnMicClickListener listener) {
-        mOnMicClickListener = listener;
-        mImageViewClearMic.setVisibility(View.VISIBLE);
-    }
-
-    public void setOnMenuClickListener(OnMenuClickListener listener) {
-        mOnMenuClickListener = listener;
-        mImageViewMenu.setVisibility(View.VISIBLE);
     }
 
     // ---------------------------------------------------------------------------------------------

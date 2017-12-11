@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchItem implements Parcelable {
 
     public static final Creator<SearchItem> CREATOR = new Creator<SearchItem>() {

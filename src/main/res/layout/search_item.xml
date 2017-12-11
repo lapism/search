@@ -30,7 +30,6 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="testata"
             android:textIsSelectable="false"
             android:textSize="@dimen/search_text_14" />
 
@@ -40,7 +39,6 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="agege"
             android:textIsSelectable="false"
             android:textSize="@dimen/search_text_12" />
 

@@ -31,8 +31,6 @@
         </attr>
         <attr name="search_hint" format="string" />
         <attr name="search_hint_color" format="color" />
-        <attr name="search_voice" format="boolean" />
-        <attr name="search_voice_text" format="string" />
         <attr name="search_animation_duration" format="integer" />
         <attr name="search_shadow" format="boolean" />
         <attr name="search_shadow_color" format="boolean" />

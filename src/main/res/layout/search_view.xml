@@ -36,7 +36,6 @@
                     android:scaleType="center" />
 
                 <!--
-                 android:inputType="text|textAutoComplete|textNoSuggestions"
                 android:background="@android:color/transparent"
                 zkontorlovat vsechny attrutbt todo foreground-->
                 <com.lapism.searchview.SearchEditText
@@ -54,7 +53,7 @@
                     android:windowSoftInputMode="stateAlwaysHidden" />
 
                 <ImageView
-                    android:id="@+id/search_imageView_clear_mic"
+                    android:id="@+id/search_imageView_mic"
                     android:layout_width="@dimen/search_icon"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/search_app_name"
