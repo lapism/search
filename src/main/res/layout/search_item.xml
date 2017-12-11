@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/search_item_height"
+
     android:clickable="true"
     android:focusable="true"
+
     android:foreground="?attr/selectableItemBackground"
-    android:gravity="start|center_vertical"
     android:orientation="horizontal">
 
     <ImageView
@@ -13,22 +14,23 @@
         android:layout_width="@dimen/search_icon"
         android:layout_height="match_parent"
         android:contentDescription="@string/search_app_name"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:scaleType="center" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/search_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
+            android:text="testata"
             android:textIsSelectable="false"
             android:textSize="@dimen/search_text_14" />
 
@@ -36,9 +38,9 @@
             android:id="@+id/search_subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
+            android:text="agege"
             android:textIsSelectable="false"
             android:textSize="@dimen/search_text_12" />
 
@@ -49,6 +51,7 @@
         android:layout_width="@dimen/search_icon"
         android:layout_height="match_parent"
         android:contentDescription="@string/search_app_name"
-        android:foreground="?attr/selectableItemBackgroundBorderless" />
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:scaleType="center" />
 
 </LinearLayout>

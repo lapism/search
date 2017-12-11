@@ -14,17 +14,18 @@ public class SearchHistoryTable {
 
     private static int mHistorySize = 2;
     private static Integer mCurrentDatabaseKey = null;
-    private final SearchHistoryDatabase dbHelper;
+    private SearchHistoryDatabase dbHelper;
     private SQLiteDatabase db;
     private Context mContext;
 
     public SearchHistoryTable(Context context) {
         mContext = context;
-        dbHelper = new SearchHistoryDatabase(mContext);
+        // dbHelper = new SearchHistoryDatabase(mContext);
     }
 
     // FOR onResume AND onPause
-    public void open() throws SQLException {
+    public void open() throws SQLException { // todo
+        dbHelper = new SearchHistoryDatabase(mContext);
         db = dbHelper.getWritableDatabase();
     }
 
@@ -112,7 +113,7 @@ public class SearchHistoryTable {
         if (cursor.moveToFirst()) {
             do {
                 SearchItem item = new SearchItem(mContext);
-                item.setTitle(cursor.getString(0));
+                item.setTitle(cursor.getString(0));// todo 1
                 list.add(item);
             } while (cursor.moveToNext());
         }
