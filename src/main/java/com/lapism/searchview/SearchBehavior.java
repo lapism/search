@@ -22,6 +22,7 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
     public boolean layoutDependsOn(CoordinatorLayout parent, SearchView child, View dependency) {
         if (dependency instanceof AppBarLayout) {
             ViewCompat.setElevation(child, ViewCompat.getElevation(dependency));
+            ViewCompat.setZ(child, ViewCompat.getZ(dependency) + 1);
             return true;
         }
         return super.layoutDependsOn(parent, child, dependency);

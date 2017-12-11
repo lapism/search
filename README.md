@@ -49,6 +49,10 @@ dependencies {
 ```
 ![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)
 ![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/image_2.png)
+![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)
+![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/image_2.png)
+![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)
+![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/image_2.png)
 
 **Versions:**  
   
@@ -96,7 +100,7 @@ if (mSearchView != null) {
     mSearchView.setVoiceText("Set permission on Android 6.0+ !");
     searchView.setOnVoiceIconClickListener(new SearchView.OnVoiceIconClickListener() {
         @Override
-        public void onVoiceIconClick() {
+        public void onMicIconClick() {
             // permission
         }
     });
