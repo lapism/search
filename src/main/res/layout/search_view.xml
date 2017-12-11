@@ -35,17 +35,19 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:scaleType="center" />
 
-                <!-- check attr todo foreground-->
+                <!--
+                 android:inputType="text|textAutoComplete|textNoSuggestions"
+                android:background="@android:color/transparent"
+                zkontorlovat vsechny attrutbt todo foreground-->
                 <com.lapism.searchview.SearchEditText
                     android:id="@+id/search_searchEditText"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@android:color/transparent"
+                    android:background="@null"
                     android:ellipsize="end"
-                    android:ems="10"
                     android:imeOptions="actionSearch|flagNoExtractUi"
-                    android:inputType="textNoSuggestions|text"
+                    android:inputType="text|textNoSuggestions"
                     android:maxLines="1"
                     android:privateImeOptions="nm"
                     android:textSize="@dimen/search_text_16"

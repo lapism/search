@@ -81,7 +81,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         String itemText = item.getTitle().toString();
         String itemTextLower = itemText.toLowerCase(Locale.getDefault());
 
-        // todo fix
+        // todo fix nezobrazuje se + spannable string cannto be 0
         if (itemTextLower.contains(mKey) && !TextUtils.isEmpty(mKey) && !itemText.isEmpty()) {
             SpannableString s = new SpannableString(itemText);
             s.setSpan(new ForegroundColorSpan(SearchView.getTextHighlightColor()), itemTextLower.indexOf(mKey.toString()), itemTextLower.indexOf(mKey.toString()) + mKey.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -113,7 +113,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     @Override
     public Filter getFilter() {
         return new Filter() {
-            protected CharSequence mFilterKey;
+            CharSequence mFilterKey;
 
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {

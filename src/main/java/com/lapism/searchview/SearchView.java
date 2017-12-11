@@ -63,6 +63,11 @@ import java.util.Locale;
 
 // Kotlinize + NULLABLE
 // todo konstruktory vsude + nullable
+/*
+todo
+or a onFilterClickListener method is fine，thanks
+sorry for my poor English，pardon me
+*/
 // @RestrictTo(LIBRARY_GROUP)
 // @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 public class SearchView extends FrameLayout implements View.OnClickListener {
