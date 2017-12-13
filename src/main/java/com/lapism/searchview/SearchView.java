@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.FontRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -52,115 +51,28 @@ import org.jetbrains.annotations.Contract;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 // Kotlinize + NULLABLE
-// todo konstruktory vsude + nullable
 /*
 todo
-or a onFilterClickListener method is fine，thanks
-sorry for my poor English，pardon me
-*/
+or a onFilterClickListener method is fine
+*/// int id = view.getId();
 // this(context, null);
 // @RestrictTo(LIBRARY_GROUP)
 // @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 public class SearchView extends FrameLayout implements View.OnClickListener {
 
-    public static final String TAG = SearchView.class.getName();
-
-    private static int mIconColor = Color.BLACK;
-    private static int mTextColor = Color.BLACK;
-    private static int mTextHighlightColor = Color.BLACK;
-    private static int mTextStyle = Typeface.NORMAL;
-    private static Typeface mTextFont = Typeface.DEFAULT;
-
-    private final Context mContext;
-    private SearchArrowDrawable mSearchArrowDrawable;
-    private View mViewShadow;
-    private View mViewDivider;
     private View mMenuItemView;
-    private CardView mCardView;
-    private LinearLayout mLinearLayout;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mRecyclerViewAdapter;
-    private FlexboxLayout mFlexboxLayout;
-    private SearchEditText mSearchEditText;
-    private List<Boolean> mSearchFiltersStates;
-    private List<SearchFilter> mSearchFilters;
-
-
-
     private int mMenuItemCx = -1;
-
     private float mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
-    private boolean mArrow = false;
-    private boolean mShadow = true;
     private CharSequence mQuery = "";
 
 
-    // todo fix
-    public void setTypeFace(){
-        mSearchEditText.setTypeface();
-    }
-
-    private ImageView mImageViewNavigation;
-    private ImageView mImageViewMic;
-    private ImageView mImageViewMenu;
-
-    private OnQueryTextListener mOnQueryTextListener;
-    private OnOpenCloseListener mOnOpenCloseListener;
-    private OnNavigationClickListener mOnNavigationClickListener;
-    private OnMicClickListener mOnMicClickListener;
-    private OnMenuClickListener mOnMenuClickListener;
-
-    private boolean mGoogle = false;
-    private int mVersion = Version.TOOLBAR;
-    private int mVersionMargins = VersionMargins.TOOLBAR_SMALL;
-    private int mTheme = Theme.LIGHT;
-    // todo textstyle or typface
-
-    private long mAnimationDuration; // kontrola
-
     // ---------------------------------------------------------------------------------------------
-    public SearchView(@NonNull Context context) {
-        super(context);
-        mContext = context;
-        initView();
-        initStyle(null, 0, 0);
-    }
 
-    public SearchView(@NonNull Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        mContext = context;
-        initView();
-        initStyle(attrs, 0, 0);
-    }
-
-    public SearchView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        mContext = context;
-        initView();
-        initStyle(attrs, defStyleAttr, 0);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public SearchView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        mContext = context;
-        initView();
-        initStyle(attrs, defStyleAttr, defStyleRes);
-    }
-
-    // ---------------------------------------------------------------------------------------------
-    @Contract(pure = true)
-    @ColorInt
-    public static int getIconColor() {
-        return mIconColor;
-    }
 
     public void setIconColor(@ColorInt int color) {
         mIconColor = color;
@@ -171,11 +83,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mImageViewMenu.setColorFilter(colorFilter);
     }
 
-    @Contract(pure = true)
-    @ColorInt
-    public static int getTextColor() {
-        return mTextColor;
-    }
+
 
     public void setTextColor(@ColorInt int color) {
         mTextColor = color;
@@ -190,41 +98,20 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }*/
 
 
-    @Contract(pure = true)
-    // todo
-    public static Typeface getTextFont() {
-        return mTextFont;
-    }
 
-    public void setTextFont(Typeface font) {
-        mTextFont = font;
-        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
-    }
 
-    @Contract(pure = true)
-    @ColorInt
-    public static int getTextHighlightColor() {
-        return mTextHighlightColor;
-    }
+
+
 
     public void setTextHighlightColor(@ColorInt int color) {
         mTextHighlightColor = color;
     }
 
-    @Contract(pure = true)
-    public static int getTextStyle() {
-        return mTextStyle;
-    }
 
-    public void setTextStyle(int style) {
-        mTextStyle = style;
-        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
-    }
 
-    @Version
-    public int getVersion() {
-        return mVersion;
-    }
+
+
+
 
     public void setVersion(@Version int version) {
         mVersion = version;
@@ -268,10 +155,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    @Theme
-    public int getTheme() {
-        return mTheme;
-    }
+
 
     public void setTheme(@Theme int theme) {
         setTheme(theme, true);
@@ -306,19 +190,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             onSubmitQuery();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public void open(boolean animate) {
@@ -567,9 +438,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    public void setShadowColor(@ColorInt int color) {
-        mViewShadow.setBackgroundColor(color);
-    }
+
 
     public void setGoogleIcons(boolean google) {
         mGoogle = google;
@@ -638,118 +507,31 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         return mProgressBar.getVisibility() == View.VISIBLE;
     }*/
 
-    public void setShadow(boolean shadow) {
-        if (shadow) {
-            mViewShadow.setVisibility(View.VISIBLE);
-        } else {
-            mViewShadow.setVisibility(View.GONE);
-        }
-        mShadow = shadow;
-    }
-
-    public void setAnimationDuration(int animationDuration) {
-        mAnimationDuration = animationDuration;
-    }
-
 
 
     // ---------------------------------------------------------------------------------------------
     private void initView() {
-        LayoutInflater.from(mContext).inflate((R.layout.search_view), this, true);
-
+        //krishkapil filter  listener
         /*final LayoutInflater inflater = LayoutInflater.from(context);
         final int layoutResId = a.getResourceId(R.styleable.SearchView_layout, R.layout.abc_search_view);
         inflater.inflate(layoutResId, this, true);*/
 
-        mAnimationDuration = mContext.getResources().getInteger(R.integer.search_animation_duration);
-
-        mSearchArrowDrawable = new SearchArrowDrawable(mContext);
-
-        mViewDivider = findViewById(R.id.search_view_divider);
-        mViewDivider.setVisibility(View.GONE);
-
-        mViewShadow = findViewById(R.id.search_view_shadow);
-        mViewShadow.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_shadow_layout));
-        mViewShadow.setOnClickListener(this);
-        mViewShadow.setVisibility(View.GONE);
-
-        mCardView = findViewById(R.id.search_cardView);
-        mLinearLayout = findViewById(R.id.search_linearLayout);
-
-        mImageViewNavigation = findViewById(R.id.search_imageView_navigation);
-        mImageViewNavigation.setOnClickListener(this);
-
-        mImageViewMic = findViewById(R.id.search_imageView_mic);
-        mImageViewMic.setOnClickListener(this);
-
-        mImageViewMenu = findViewById(R.id.search_imageView_menu);
-        mImageViewMenu.setVisibility(View.GONE);
-
-        mRecyclerView = findViewById(R.id.search_recyclerView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        mRecyclerView.setNestedScrollingEnabled(false);
-        mRecyclerView.setVisibility(View.GONE);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    hideKeyboard();
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
-
-        mFlexboxLayout = findViewById(R.id.search_flexboxLayout);
-        mFlexboxLayout.setVisibility(View.GONE);
-
-        mSearchEditText = findViewById(R.id.search_searchEditText);
-        mSearchEditText.setSearchView(this);
-        mSearchEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                SearchView.this.onTextChanged(charSequence);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                onSubmitQuery();
-                return true;
-            }
-        });
-        mSearchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) {
-                    addFocus();
-                } else {
-                    removeFocus();
-                }
-            }
-        });
 
 
-        setVersion(Version.TOOLBAR);
-        setGoogleIcons(true);
-        setVersionMargins(VersionMargins.TOOLBAR_SMALL);
-        setTheme(Theme.LIGHT, false);
-        setRoundCorners(true);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     // todo annotation
@@ -921,12 +703,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     // ---------------------------------------------------------------------------------------------
     @Override
     public void onClick(View view) {
-        // int id = view.getId();
-
-        /*switch (id){
-            case mImageViewMenu
-        }*/
-
         if (view == mImageViewNavigation) {
             if (mSearchArrowDrawable != null && mIsSearchArrowHamburgerState == SearchArrowDrawable.STATE_ARROW) {
                 close(true);
@@ -937,25 +713,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             }
         }
 
-        if (view == mImageViewMic) {
-            if (mOnMicClickListener != null) {
-                mOnMicClickListener.onMicClick();
-            }
-            if (mSearchEditText.length() > 0) {
-                mSearchEditText.getText().clear();
-            }
-        }
-
-        if (view == mImageViewMenu) {
-            if (mOnNavigationClickListener != null) {
-                mOnNavigationClickListener.onNavigationClick(mIsSearchArrowHamburgerState);
-            }
-        }
-
-        if (view == mViewShadow) {
-            close(true);
-        }
     }
+
+    // aj
 
     @Override
     protected Parcelable onSaveInstanceState() {
@@ -1021,256 +781,5 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // ---------------------------------------------------------------------------------------------
-    public void showKeyboard() {
-        if (!isInEditMode()) {
-            InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (inputMethodManager != null) {
-                inputMethodManager.showSoftInput(mSearchEditText, 0);
-                inputMethodManager.showSoftInput(this, 0);
-            }
-        }
-    }
-
-    public void hideKeyboard() {
-        if (!isInEditMode()) {
-            InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (inputMethodManager != null) {
-                inputMethodManager.hideSoftInputFromWindow(getWindowToken(), 0);
-            }
-        }
-    }
-
-    // ---------------------------------------------------------------------------------------------
-    @VersionMargins
-    public int getVersionMargins() {
-        return mVersionMargins;
-    }
-
-    public void setVersionMargins(@VersionMargins int versionMargins) {
-        mVersionMargins = versionMargins;
-
-        if (mVersionMargins == VersionMargins.TOOLBAR_SMALL) {
-            int top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
-            int leftRight = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_small_left_right);
-            int bottom = 0;
-
-            LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-            params.setMargins(leftRight, top, leftRight, bottom);
-
-            mCardView.setLayoutParams(params);
-        }
-
-        if (mVersionMargins == VersionMargins.TOOLBAR_BIG) {
-            int top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
-            int leftRight = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_big_left_right);
-            int bottom = 0;
-
-            LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-            params.setMargins(leftRight, top, leftRight, bottom);
-
-            mCardView.setLayoutParams(params);
-        }
-
-        if (mVersionMargins == VersionMargins.MENU_ITEM) {
-            int top = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
-            int leftRight = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_left_right);
-            int bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
-
-            LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-            params.setMargins(leftRight, top, leftRight, bottom);
-
-            mCardView.setLayoutParams(params);
-        }
-    }
-
-    @Override
-    public void setBackgroundColor(@ColorInt int color) {
-        mCardView.setCardBackgroundColor(color);
-    }
-
-    public void setHintColor(@ColorInt int color) {
-        mSearchEditText.setHintTextColor(color);
-    }
-
-    public Editable getText() {
-        return mSearchEditText.getText();
-    }
-
-    public void setText(CharSequence text) {
-        mSearchEditText.setText(text);
-    }
-
-    public void setText(@StringRes int text) {
-        mSearchEditText.setText(text);
-    }
-
-    public void setHint(CharSequence hint) {
-        mSearchEditText.setHint(hint);
-    }
-
-    public void setHint(@StringRes int hint) {
-        mSearchEditText.setHint(hint);
-    }
-
-    public void setImeOptions(int imeOptions) {
-        mSearchEditText.setImeOptions(imeOptions);
-    }
-
-    public void setInputType(int inputType) {
-        mSearchEditText.setInputType(inputType);
-    }
-
-    public void setNavigationIcon(@DrawableRes int resource) {
-        mImageViewNavigation.setImageResource(resource);
-    }
-
-    public void setNavigationIcon(@Nullable Drawable drawable) {
-        mImageViewNavigation.setImageDrawable(drawable);
-    }
-
-    public void setMenuIcon(@DrawableRes int resource) {
-        mImageViewMenu.setImageResource(resource);
-    }
-
-    public void setMenuIcon(@Nullable Drawable drawable) {
-        mImageViewMenu.setImageDrawable(drawable);
-    }
-
-    public void setMicIcon(@DrawableRes int resource) {
-        mImageViewMic.setImageResource(resource);
-    }
-
-    public void setMicIcon(@Nullable Drawable drawable) {
-        mImageViewMic.setImageDrawable(drawable);
-    }
-
-    public void setSearchItemAnimator(RecyclerView.ItemAnimator itemAnimator) {
-        mRecyclerView.setItemAnimator(itemAnimator);
-    }
-
-    public RecyclerView.Adapter getAdapter() {
-        return mRecyclerView.getAdapter();
-    }
-
-    public void setAdapter(RecyclerView.Adapter adapter) {
-        mRecyclerViewAdapter = adapter;
-        mRecyclerView.setAdapter(mRecyclerViewAdapter);
-    }
-
-    /**
-     * new SearchDivider(Context)
-     * new DividerItemDecoration(Context, DividerItemDecoration.VERTICAL)
-     */
-    public void addDivider(RecyclerView.ItemDecoration itemDecoration) {
-        mRecyclerView.addItemDecoration(itemDecoration);
-    }
-
-    /**
-     * new SearchDivider(Context)
-     * new DividerItemDecoration(Context, DividerItemDecoration.VERTICAL)
-     */
-    public void removeDivider(RecyclerView.ItemDecoration itemDecoration) {
-        mRecyclerView.removeItemDecoration(itemDecoration);
-    }
-
-    public void setOnQueryTextListener(OnQueryTextListener listener) {
-        mOnQueryTextListener = listener;
-    }
-
-    public void setOnOpenCloseListener(OnOpenCloseListener listener) {
-        mOnOpenCloseListener = listener;
-    }
-
-    public void setOnNavigationClickListener(OnNavigationClickListener listener) {
-        mOnNavigationClickListener = listener;
-    }
-
-    public void setOnMicClickListener(OnMicClickListener listener) {
-        mOnMicClickListener = listener;
-    }
-
-    public void setOnMenuClickListener(OnMenuClickListener listener) {
-        if(listener != null) {
-            mImageViewMenu.setImageResource(R.drawable.ic_menu_black_24dp);
-            mImageViewMenu.setOnClickListener(this);
-            mImageViewMenu.setVisibility(View.VISIBLE);
-        }
-
-        mOnMenuClickListener = listener;
-    }
-
-    // ---------------------------------------------------------------------------------------------
-    @IntDef({Version.TOOLBAR, Version.MENU_ITEM})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Version {
-        int TOOLBAR = 1000;
-        int MENU_ITEM = 1001;
-    }
-
-    @IntDef({VersionMargins.TOOLBAR_SMALL, VersionMargins.TOOLBAR_BIG, VersionMargins.MENU_ITEM})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface VersionMargins {
-        int TOOLBAR_SMALL = 2000;
-        int TOOLBAR_BIG = 2001;
-        int MENU_ITEM = 2002;
-    }
-
-    @IntDef({Theme.LIGHT, Theme.DARK, Theme.PLAY_STORE})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Theme {
-        int LIGHT = 3000;
-        int DARK = 3001;
-        int PLAY_STORE = 3002;
-    }
-
-    @IntDef({TextStyle.NORMAL, TextStyle.BOLD, TextStyle.ITALIC, TextStyle.BOLD_ITALIC})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface TextStyle {
-        int NORMAL = Typeface.NORMAL;
-        int BOLD = Typeface.BOLD;
-        int ITALIC = Typeface.ITALIC;
-        int BOLD_ITALIC = Typeface.BOLD_ITALIC;
-    }
-
-    // ---------------------------------------------------------------------------------------------
-    public interface OnQueryTextListener {
-        boolean onQueryTextChange(String newText);
-
-        boolean onQueryTextSubmit(String query);
-    }
-
-    public interface OnOpenCloseListener {
-        boolean onClose();
-
-        boolean onOpen();
-    }
-
-    public interface OnNavigationClickListener {
-        void onNavigationClick(float state);
-    }
-
-    public interface OnMicClickListener {
-        void onMicClick();
-    }
-
-    public interface OnMenuClickListener {
-        void onMenuClick();
-    }
 
 }

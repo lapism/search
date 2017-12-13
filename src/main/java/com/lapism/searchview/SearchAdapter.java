@@ -61,9 +61,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         } else if (item.getIcon_1_drawable() != null) {
             viewHolder.icon_1.setImageDrawable(item.getIcon_1_drawable());
             viewHolder.icon_1.setColorFilter(SearchView.getIconColor(), PorterDuff.Mode.SRC_IN);
-        } else {
-            viewHolder.icon_1.setVisibility(View.GONE);
         }
+
+        /*else {
+            viewHolder.icon_1.setVisibility(View.GONE);
+        }*/
 
         if (item.getIcon_2_resource() != 0) {
             viewHolder.icon_2.setImageResource(item.getIcon_2_resource());
@@ -71,9 +73,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         } else if (item.getIcon_2_drawable() != null) {
             viewHolder.icon_2.setImageDrawable(item.getIcon_2_drawable());
             viewHolder.icon_2.setColorFilter(ColorUtils.setAlphaComponent(SearchView.getIconColor(), 0x33), PorterDuff.Mode.SRC_IN);
-        } else {
-            viewHolder.icon_2.setVisibility(View.GONE);
         }
+
+        /*else {
+            viewHolder.icon_2.setVisibility(View.GONE);
+        }*/
 
         viewHolder.title.setTypeface((Typeface.create(SearchView.getTextFont(), SearchView.getTextStyle())));
         viewHolder.title.setTextColor(SearchView.getTextColor());

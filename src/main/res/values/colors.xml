@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="search_shadow_layout">#80000000</color>
+    <color name="search_shadow">#80000000</color>
 
     <!-- Light Theme -->
     <color name="search_light_background">#fffafafa</color>
