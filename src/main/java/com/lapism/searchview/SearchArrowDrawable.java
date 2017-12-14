@@ -2,22 +2,31 @@ package com.lapism.searchview;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.support.annotation.FloatRange;
+import android.support.annotation.HalfFloat;
+import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.util.Property;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 
 class SearchArrowDrawable extends DrawerArrowDrawable {
 
-    static final float STATE_HAMBURGER = 0.0f;
-    static final float STATE_ARROW = 1.0f;
+    public static final float STATE_HAMBURGER = 0.0f;
+    public static final float STATE_ARROW = 1.0f;
+
     private static final Property<SearchArrowDrawable, Float> PROGRESS = new Property<SearchArrowDrawable, Float>(Float.class, "progress") {
         @Override
         public void set(SearchArrowDrawable object, Float value) {
             object.setProgress(value);
         }
 
+        @NonNull
         @Override
         public Float get(SearchArrowDrawable object) {
             return object.getProgress();

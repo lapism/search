@@ -2,16 +2,22 @@ package com.lapism.searchview;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+
+import org.jetbrains.annotations.Contract;
 
 
 public class SearchFilter implements Parcelable {
 
     public static final Creator<SearchFilter> CREATOR = new Creator<SearchFilter>() {
+        @NonNull
         @Override
         public SearchFilter createFromParcel(Parcel in) {
             return new SearchFilter(in);
         }
 
+        @NonNull
+        @Contract(pure = true)
         @Override
         public SearchFilter[] newArray(int size) {
             return new SearchFilter[size];

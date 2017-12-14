@@ -2,12 +2,14 @@ package com.lapism.searchview;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.FloatRange;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,11 +21,13 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -39,21 +43,30 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 
 
+// @RestrictTo(LIBRARY_GROUP)
+// @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 public class SearchView5beta1 extends FrameLayout implements View.OnClickListener {
 
     public static final String TAG = SearchView5beta1.class.getName();
 
-    private static int mIconColor = Color.BLACK;
+    private static int mIconColor = Color.DKGRAY;
     private static int mTextColor = Color.BLACK;
-    private static int mTextHighlightColor = Color.BLACK;
+    private static int mTextHighlightColor = Color.GRAY;
     private static int mTextStyle = Typeface.NORMAL;
     private static Typeface mTextFont = Typeface.DEFAULT;
 
+    @Version
     private int mVersion = Version.TOOLBAR;
+
+    @VersionMargins
     private int mVersionMargins = VersionMargins.TOOLBAR_SMALL;
+
+    @Theme
     private int mTheme = Theme.LIGHT;
 
-    private float mNavigationState = SearchArrowDrawable.STATE_HAMBURGER;
+    @FloatRange(from = SearchArrowDrawable.STATE_HAMBURGER, to = SearchArrowDrawable.STATE_ARROW)
+    private float mIsSearchArrowState = SearchArrowDrawable.STATE_HAMBURGER;
+
     private boolean mGoogle = false;
 
     private long mAnimationDuration;
@@ -79,33 +92,31 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
     private List<Boolean> mSearchFiltersStates;
     private List<SearchFilter> mSearchFilters;
 
-    private final Context mContext;
+    private Context mContext;
 
+    // https://stackoverflow.com/questions/35625247/android-is-it-ok-to-put-intdef-values-inside-interface
+    // https://developer.android.com/reference/android/support/annotation/FloatRange.html
     // ---------------------------------------------------------------------------------------------
     public SearchView5beta1(@NonNull Context context) {
         super(context);
-        mContext = context;
-        init(null, 0, 0);
+        init(context, null, 0, 0);
     }
 
     public SearchView5beta1(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        mContext = context;
-        init(attrs, 0, 0);
+        init(context, attrs, 0, 0);
     }
 
     public SearchView5beta1(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mContext = context;
-        init(attrs, defStyleAttr, 0);
+        init(context, attrs, defStyleAttr, 0);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public SearchView5beta1(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        mContext = context;
-        init(attrs, defStyleAttr, defStyleRes);
+        init(context, attrs, defStyleAttr, defStyleRes);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -160,26 +171,21 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
         mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
     }
 
+    // ViewCompat.setBackground
+    // mSearchButton.setImageDrawable(a.getDrawable(R.styleable.SearchView_searchIcon));
     // ---------------------------------------------------------------------------------------------
-    private void init(@Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        /*
-                final TintTypedArray a = TintTypedArray.obtainStyledAttributes(context,
-                attrs, R.styleable.SearchView, defStyleAttr, 0);
-
-        final LayoutInflater inflater = LayoutInflater.from(context);
-        final int layoutResId = a.getResourceId(
-                R.styleable.SearchView_layout, R.layout.abc_search_view);
-        inflater.inflate(layoutResId, this, true);
-        */
-
-        int layoutResId = R.layout.search_view;
-
-        final LayoutInflater inflater = LayoutInflater.from(mContext);
-        inflater.inflate(layoutResId, this, true);
+    private void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        mContext = context;
 
         mAnimationDuration = mContext.getResources().getInteger(R.integer.search_animation_duration);
 
         mSearchArrowDrawable = new SearchArrowDrawable(mContext);
+
+        final TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.SearchView, defStyleAttr, defStyleRes);
+        final int layoutResId = a.getResourceId(R.styleable.SearchView_layout, R.layout.search_view);
+
+        final LayoutInflater inflater = LayoutInflater.from(mContext);
+        inflater.inflate(layoutResId, this, true);
 
         mViewShadow = findViewById(R.id.search_view_shadow);
         mViewShadow.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_shadow));
@@ -198,34 +204,36 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
         mImageViewMenu.setVisibility(View.GONE);
 
         mSearchEditText = findViewById(R.id.search_searchEditText);
-        mSearchEditText.setSearchView(this);
+        // mSearchEditText.setSearchView(this);
+
+        // init + kotlin 1.2.1 + 4.4 + glide
         mSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                SearchView.this.onTextChanged(charSequence);
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                SearchView5beta1.this.onTextChanged(s);
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
+            public void afterTextChanged(Editable s) {
 
             }
         });
         mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 onSubmitQuery();
                 return true;
             }
         });
         mSearchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
                     addFocus();
                 } else {
                     removeFocus();
@@ -258,14 +266,36 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
+        // null check
+        a.recycle();
     }
 
     // ---------------------------------------------------------------------------------------------
+    public void onTextChanged(CharSequence s){
+
+    }
+
+    public void onSubmitQuery() {
+        CharSequence query = "";
+        if (!TextUtils.isEmpty(query)) {
+            //onSubmitQuery();
+            // kontrola vsech listeneru podle nazvu
+        }
+    }
+
+    public void addFocus() {
+
+    }
+
+    public void removeFocus() {
+
+    }
+
     public void showKeyboard() {
         if (!isInEditMode()) {
             InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
             if (inputMethodManager != null) {
-                inputMethodManager.showSoftInput(mSearchEditText, 0);
+                inputMethodManager.showSoftInput(mSearchEditText, 0); // todo this or edittext
                 inputMethodManager.showSoftInput(this, 0);
             }
         }
@@ -294,43 +324,55 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
     public void setVersionMargins(@VersionMargins int versionMargins) {
         mVersionMargins = versionMargins;
 
-        if (mVersionMargins == VersionMargins.TOOLBAR_SMALL) {
-            int top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
-            int leftRight = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_small_left_right);
-            int bottom = 0;
+        switch (mVersionMargins) {
+            case VersionMargins.TOOLBAR_SMALL:
+                int top_small = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
+                int leftRight_small = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_small_left_right);
+                int bottom_small = 0;
 
-            LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-            params.setMargins(leftRight, top, leftRight, bottom);
+                LayoutParams params_small = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+                params_small.setMargins(leftRight_small, top_small, leftRight_small, bottom_small);
 
-            mCardView.setLayoutParams(params);
-        }
+                mCardView.setLayoutParams(params_small);
+                break;
+            case VersionMargins.TOOLBAR_BIG:
+                int top_big = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
+                int leftRight_big = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_big_left_right);
+                int bottom_big = 0;
 
-        if (mVersionMargins == VersionMargins.TOOLBAR_BIG) {
-            int top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
-            int leftRight = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_big_left_right);
-            int bottom = 0;
+                LayoutParams params_big = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+                params_big.setMargins(leftRight_big, top_big, leftRight_big, bottom_big);
 
-            LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-            params.setMargins(leftRight, top, leftRight, bottom);
+                mCardView.setLayoutParams(params_big);
+                break;
+            case VersionMargins.MENU_ITEM:
+                int top_menu = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
+                int leftRight_menu = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_left_right);
+                int bottom_menu = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
 
-            mCardView.setLayoutParams(params);
-        }
+                LayoutParams params_menu = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+                params_menu.setMargins(leftRight_menu, top_menu, leftRight_menu, bottom_menu);
 
-        if (mVersionMargins == VersionMargins.MENU_ITEM) {
-            int top = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
-            int leftRight = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_left_right);
-            int bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
-
-            LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-            params.setMargins(leftRight, top, leftRight, bottom);
-
-            mCardView.setLayoutParams(params);
+                mCardView.setLayoutParams(params_menu);
+                break;
         }
     }
 
     @Theme
     public int getTheme() {
         return mTheme;
+    }
+
+    public int getCustomHeight() {
+        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
+        return params.height;
+    }
+
+    public void setCustomHeight(int height) {
+        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
+        params.height = height;
+        params.width = LinearLayout.LayoutParams.MATCH_PARENT;
+        mLinearLayout.setLayoutParams(params);
     }
 
     public void setHintColor(@ColorInt int color) {
@@ -461,22 +503,42 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
     }
 
     @Override
+    public void setElevation(float elevation) {
+        mCardView.setMaxCardElevation(elevation);
+        mCardView.setCardElevation(elevation);
+    }
+
+    @Override
     public void setBackgroundColor(@ColorInt int color) {
         mCardView.setCardBackgroundColor(color);
     }
 
+    public boolean isOpen() {
+        return getVisibility() == View.VISIBLE;
+    }
+
+    /*
+     tried card_view:cardUseCompatPadding="true" but no avail. Didn't work!
+
+Then I discovered from a stackoverflow post this card_view:cardPreventCornerOverlap="false"
+    */
+
     @Override
-    public void onClick(View view) {
-        if (view == mImageViewNavigation) {
-            if (mOnNavigationClickListener != null) {
-                mOnNavigationClickListener.onNavigationClick(mNavigationState);
+    public void onClick(View v) {
+        if (v == mImageViewNavigation) {
+            if (mSearchArrowDrawable != null && mIsSearchArrowState == SearchArrowDrawable.STATE_ARROW) {
+                // close(true);
+            } else {
+                if (mOnNavigationClickListener != null) {
+                    mOnNavigationClickListener.onNavigationClick(mIsSearchArrowState);
+                }
             }
         }
 
-        if (view == mImageViewMic) {
+        if (v == mImageViewMic) {
             if (mOnMicClickListener != null) {
                 mOnMicClickListener.onMicClick();
-                if(mNavigationState == SearchArrowDrawable.STATE_ARROW){
+                if (mIsSearchArrowState == SearchArrowDrawable.STATE_ARROW) {
 
                 } else {
                     if (mSearchEditText.length() > 0) {
@@ -486,13 +548,13 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
             }
         }
 
-        if (view == mImageViewMenu) {
+        if (v == mImageViewMenu) {
             if (mOnMenuClickListener != null) {
                 mOnMenuClickListener.onMenuClick();
             }
         }
 
-        if (view == mViewShadow) {
+        if (v == mViewShadow) {
             //close true
         }
     }
@@ -535,7 +597,7 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
     }
 
     public interface OnNavigationClickListener {
-        void onNavigationClick(float state);
+        void onNavigationClick(@FloatRange(from = SearchArrowDrawable.STATE_HAMBURGER, to = SearchArrowDrawable.STATE_ARROW) float state);
     }
 
     public interface OnMicClickListener {

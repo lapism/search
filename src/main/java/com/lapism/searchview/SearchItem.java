@@ -6,19 +6,25 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+
+import org.jetbrains.annotations.Contract;
 
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchItem implements Parcelable {
 
     public static final Creator<SearchItem> CREATOR = new Creator<SearchItem>() {
+        @NonNull
         @Override
         public SearchItem createFromParcel(Parcel in) {
             return new SearchItem(in);
         }
 
+        @NonNull
+        @Contract(pure = true)
         @Override
         public SearchItem[] newArray(int size) {
             return new SearchItem[size];

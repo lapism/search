@@ -61,14 +61,74 @@ todo
 or a onFilterClickListener method is fine
 */// int id = view.getId();
 // this(context, null);
-// @RestrictTo(LIBRARY_GROUP)
-// @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
-public class SearchView extends FrameLayout implements View.OnClickListener {
+public class SearchView extends FrameLayout {
 
     private View mMenuItemView;
     private int mMenuItemCx = -1;
     private float mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
     private CharSequence mQuery = "";
+
+    private Context mContext;
+
+    // todo doplnit hodnoty
+    private void initStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        final TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.SearchView, defStyleAttr, defStyleRes);
+        if (a != null) {
+            if (a.hasValue(R.styleable.SearchView_search_custom_height)) {
+                setCustomHeight(a.getDimensionPixelSize(R.styleable.SearchView_search_custom_height, mContext.getResources().getDimensionPixelSize(R.dimen.search_height)));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_version)) {
+                setVersion(a.getInt(R.styleable.SearchView_search_version, Version.TOOLBAR));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_version_margins)) {
+                setVersionMargins(a.getInt(R.styleable.SearchView_search_version_margins, VersionMargins.TOOLBAR_SMALL));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_theme)) {
+                setTheme(a.getInt(R.styleable.SearchView_search_theme, Theme.LIGHT));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_navigation_icon)) {
+                setNavigationIcon(a.getResourceId(R.styleable.SearchView_search_navigation_icon, 0));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_icon_color)) {
+                setIconColor(a.getColor(R.styleable.SearchView_search_icon_color, Color.BLACK));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_background_color)) {
+                setBackgroundColor(a.getColor(R.styleable.SearchView_search_background_color, Color.WHITE));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_text_color)) {
+                setTextColor(a.getColor(R.styleable.SearchView_search_text_color, Color.BLACK));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_text_highlight_color)) {
+                setTextHighlightColor(a.getColor(R.styleable.SearchView_search_text_highlight_color, Color.GRAY));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_text_size)) {
+                setTextSize(a.getDimension(R.styleable.SearchView_search_text_size, mContext.getResources().getDimension(R.dimen.search_text_16)));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_text_style)) {
+                setTextStyle(agetInt(R.styleable.SearchView_search_text_style, Typeface.NORMAL));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_hint)) {
+                setHint(a.getString(R.styleable.SearchView_search_hint));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_hint_color)) {
+                setHintColor(a.getColor(R.styleable.SearchView_search_hint_color, Color.BLACK));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_animation_duration)) {
+                setAnimationDuration(a.getInteger(R.styleable.SearchView_search_animation_duration, mAnimationDuration));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_shadow)) {
+                setShadow(a.getBoolean(R.styleable.SearchView_search_shadow, true));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_shadow_color)) {
+                setShadowColor(a.getColor(R.styleable.SearchView_search_shadow_color, mContext.getResources().getColor(R.color.search_shadow)));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_elevation)) {
+                setElevation(a.getDimensionPixelSize(R.styleable.SearchView_search_elevation, mContext.getResources().getDimensionPixelSize(R.dimen.search_elevation));
+            }
+            a.recycle();
+        }
+    }
+
 
 
     // ---------------------------------------------------------------------------------------------
@@ -83,8 +143,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mImageViewMenu.setColorFilter(colorFilter);
     }
 
-
-
     public void setTextColor(@ColorInt int color) {
         mTextColor = color;
         mSearchEditText.setTextColor(mTextColor);
@@ -97,21 +155,9 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
             }
         }*/
 
-
-
-
-
-
-
     public void setTextHighlightColor(@ColorInt int color) {
         mTextHighlightColor = color;
     }
-
-
-
-
-
-
 
     public void setVersion(@Version int version) {
         mVersion = version;
@@ -155,25 +201,13 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-
-
     public void setTheme(@Theme int theme) {
         setTheme(theme, true);
     }
 
 
 
-    public int getCustomHeight() {
-        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
-        return params.height;
-    }
 
-    public void setCustomHeight(int height) {
-        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
-        params.height = height;
-        params.width = LinearLayout.LayoutParams.MATCH_PARENT;
-        mLinearLayout.setLayoutParams(params);
-    }
 
     public void setQuery(CharSequence query, boolean submit) {
         mQuery = query;
@@ -484,12 +518,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
 
 
-    @Override
-    public void setElevation(float elevation) {
-        // todo
-        mCardView.setMaxCardElevation(elevation);
-        mCardView.setCardElevation(elevation);
-    }
+
 
     public void setSuggestionsList(List<SearchItem> suggestionsList) {
         if (mRecyclerViewAdapter instanceof SearchAdapter) {
@@ -499,98 +528,16 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
 
 
 
-    public boolean isOpen() {
-        return getVisibility() == View.VISIBLE;
-    }
 
-    /*public boolean isShowingProgress() {
-        return mProgressBar.getVisibility() == View.VISIBLE;
-    }*/
+
+
 
 
 
     // ---------------------------------------------------------------------------------------------
     private void initView() {
         //krishkapil filter  listener
-        /*final LayoutInflater inflater = LayoutInflater.from(context);
-        final int layoutResId = a.getResourceId(R.styleable.SearchView_layout, R.layout.abc_search_view);
-        inflater.inflate(layoutResId, this, true);*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
-
-    // todo annotation
-    private void initStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        final TypedArray attr = mContext.obtainStyledAttributes(attrs, R.styleable.SearchView, defStyleAttr, defStyleRes);
-        if (attr != null) {
-            if (attr.hasValue(R.styleable.SearchView_search_height)) {
-                setCustomHeight(attr.getDimensionPixelSize(R.styleable.SearchView_search_height, mContext.getResources().getDimensionPixelSize(R.dimen.search_height)));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_version)) {
-                setVersion(attr.getInt(R.styleable.SearchView_search_version, Version.TOOLBAR));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_version_margins)) {
-                setVersionMargins(attr.getInt(R.styleable.SearchView_search_version_margins, VersionMargins.TOOLBAR_SMALL));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_theme)) {
-                setTheme(attr.getInt(R.styleable.SearchView_search_theme, Theme.LIGHT));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_navigation_icon)) {
-                setNavigationIcon(attr.getResourceId(R.styleable.SearchView_search_navigation_icon, 0));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_icon_color)) {
-                setIconColor(attr.getColor(R.styleable.SearchView_search_icon_color, Color.BLACK));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_background_color)) {
-                setBackgroundColor(attr.getColor(R.styleable.SearchView_search_background_color, Color.WHITE));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_text_color)) {
-                setTextColor(attr.getColor(R.styleable.SearchView_search_text_color, Color.BLACK));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_text_highlight_color)) {
-                setTextHighlightColor(attr.getColor(R.styleable.SearchView_search_text_highlight_color, Color.GRAY));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_text_size)) {
-                setTextSize(attr.getDimension(R.styleable.SearchView_search_text_size, mContext.getResources().getDimension(R.dimen.search_text_16)));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_text_style)) {
-                setTextStyle(attr.getInt(R.styleable.SearchView_search_text_style, TextStyle.NORMAL));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_hint)) {
-                setHint(attr.getString(R.styleable.SearchView_search_hint));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_hint_color)) {
-                setHintColor(attr.getColor(R.styleable.SearchView_search_hint_color, Color.BLACK));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_animation_duration)) {
-                setAnimationDuration(attr.getInteger(R.styleable.SearchView_search_animation_duration, mAnimationDuration));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_shadow)) {
-                setShadow(attr.getBoolean(R.styleable.SearchView_search_shadow, true));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_shadow_color)) {
-                setShadowColor(attr.getColor(R.styleable.SearchView_search_shadow_color, Color.TRANSPARENT));
-            }
-            if (attr.hasValue(R.styleable.SearchView_search_elevation)) {
-                setElevation(attr.getDimensionPixelSize(R.styleable.SearchView_search_elevation, 0));
-            }
-            attr.recycle();
-        }
     }
 
     private void restoreFiltersState(List<Boolean> states) {
@@ -700,21 +647,6 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
     }
 
-    // ---------------------------------------------------------------------------------------------
-    @Override
-    public void onClick(View view) {
-        if (view == mImageViewNavigation) {
-            if (mSearchArrowDrawable != null && mIsSearchArrowHamburgerState == SearchArrowDrawable.STATE_ARROW) {
-                close(true);
-            } else {
-                if (mOnNavigationClickListener != null) {
-                    mOnNavigationClickListener.onNavigationClick(mIsSearchArrowHamburgerState);
-                }
-            }
-        }
-
-    }
-
     // aj
 
     @Override
@@ -773,13 +705,5 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         }
         super.onRestoreInstanceState(state);
     }
-
-
-
-
-
-
-
-
 
 }

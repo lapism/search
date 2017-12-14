@@ -28,12 +28,10 @@ public class SearchEditText extends AppCompatEditText {
 
     @Override
     public boolean onKeyPreIme(int keyCode, KeyEvent event) {
-        if (mSearchView.getShouldHideOnKeyboardClose()) {
-            if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-                if (mSearchView != null && mSearchView.isOpen()) {
-                    mSearchView.close(true);
-                    return true;
-                }
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+            if (mSearchView != null && mSearchView.isOpen()) {
+                mSearchView.close(true);
+                return true;
             }
         }
         return super.onKeyPreIme(keyCode, event);

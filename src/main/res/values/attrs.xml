@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- todo kontrola -->
     <declare-styleable name="SearchView">
+        <attr name="layout" format="reference" />
+        <attr name="search_custom_height" format="dimension" />
         <attr name="search_version" format="enum">
             <enum name="toolbar" value="1000" />
             <enum name="menu_item" value="1001" />
@@ -16,7 +19,6 @@
             <enum name="dark" value="3001" />
             <enum name="play_store" value="3002" />
         </attr>
-        <attr name="search_height" format="dimension" />
         <attr name="search_navigation_icon" format="integer" />
         <attr name="search_icon_color" format="color" />
         <attr name="search_background_color" format="color" />
@@ -36,5 +38,28 @@
         <attr name="search_shadow_color" format="boolean" />
         <attr name="search_elevation" format="dimension" />
     </declare-styleable>
+
+
+    <declare-styleable name="SearchView2">
+        <attr name="layout" format="reference" />
+        <attr name="android:maxWidth" />
+
+        <attr name="queryHint" format="string" />
+        <attr name="defaultQueryHint" format="string" />
+
+        <attr name="android:imeOptions" />
+        <attr name="android:inputType" />
+        <attr name="closeIcon" format="reference" />
+        <attr name="goIcon" format="reference" />
+        <attr name="searchIcon" format="reference" />
+        <attr name="searchHintIcon" format="reference" />
+        <attr name="voiceIcon" format="reference" />
+        <attr name="commitIcon" format="reference" />
+        <attr name="suggestionRowLayout" format="reference" />
+        <attr name="queryBackground" format="reference" />
+        <attr name="submitBackground" format="reference" />
+        <attr name="android:focusable" />
+    </declare-styleable>
+
 
 </resources>

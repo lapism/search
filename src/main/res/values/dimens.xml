@@ -19,4 +19,6 @@
     <dimen name="search_filter_margin_top">4dp</dimen>
     <dimen name="search_filter_margin_start">12dp</dimen>
 
+    <dimen name="search_elevation">@dimen/cardview_default_elevation</dimen>
+
 </resources>
