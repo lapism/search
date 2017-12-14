@@ -32,7 +32,7 @@
 
 
 
-    
+
 
     <color name="foreground_material_dark">@android:color/white</color>
     <color name="foreground_material_light">@android:color/black</color>

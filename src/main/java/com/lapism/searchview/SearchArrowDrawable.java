@@ -2,17 +2,11 @@ package com.lapism.searchview;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.support.annotation.FloatRange;
-import android.support.annotation.HalfFloat;
-import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.util.Property;
 import android.view.animation.AccelerateDecelerateInterpolator;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 
 class SearchArrowDrawable extends DrawerArrowDrawable {
@@ -47,7 +41,7 @@ class SearchArrowDrawable extends DrawerArrowDrawable {
         }
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(duration);
-        anim.start();
+        anim.start();//callsuper
     }
 
 }

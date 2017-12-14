@@ -1,6 +1,5 @@
 package com.lapism.searchview;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -8,49 +7,27 @@ import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.ViewTreeObserver;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.android.flexbox.FlexboxLayout;
 
-import org.jetbrains.annotations.Contract;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -130,7 +107,6 @@ public class SearchView extends FrameLayout {
     }
 
 
-
     // ---------------------------------------------------------------------------------------------
 
 
@@ -204,9 +180,6 @@ public class SearchView extends FrameLayout {
     public void setTheme(@Theme int theme) {
         setTheme(theme, true);
     }
-
-
-
 
 
     public void setQuery(CharSequence query, boolean submit) {
@@ -473,7 +446,6 @@ public class SearchView extends FrameLayout {
     }
 
 
-
     public void setGoogleIcons(boolean google) {
         mGoogle = google;
 
@@ -504,8 +476,6 @@ public class SearchView extends FrameLayout {
     }
 
 
-
-
     public void setNavigationIconAnimation(boolean animate) {
         if (!animate) {
             mSearchArrowDrawable.setProgress(SearchArrowDrawable.STATE_ARROW);
@@ -514,24 +484,11 @@ public class SearchView extends FrameLayout {
     }
 
 
-
-
-
-
-
-
     public void setSuggestionsList(List<SearchItem> suggestionsList) {
         if (mRecyclerViewAdapter instanceof SearchAdapter) {
             ((SearchAdapter) mRecyclerViewAdapter).setSuggestionsList(suggestionsList);
         }
     }
-
-
-
-
-
-
-
 
 
     // ---------------------------------------------------------------------------------------------
