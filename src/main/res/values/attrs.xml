@@ -37,11 +37,16 @@
         <attr name="search_shadow" format="boolean" />
         <attr name="search_shadow_color" format="boolean" />
         <attr name="search_elevation" format="dimension" />
+        <attr name="search_google_icons" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="SearchWidget">
+        <attr name="layout1" format="reference" />
     </declare-styleable>
 
 
     <declare-styleable name="SearchView2">
-        <attr name="layout" format="reference" />
+        <attr name="layout2" format="reference" />
         <attr name="android:maxWidth" />
 
         <attr name="queryHint" format="string" />

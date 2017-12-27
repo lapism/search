@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="search_logo_padding_left">14dp</dimen>
+    <dimen name="search_logo_padding_right">4dp</dimen>
+
+    <dimen name="search_height_widget">40dp</dimen>
     <dimen name="search_height">46dp</dimen>
 
     <dimen name="search_key_line_8">8dp</dimen>

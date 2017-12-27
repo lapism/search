@@ -38,7 +38,7 @@ todo
 or a onFilterClickListener method is fine
 */// int id = view.getId();
 // this(context, null);
-public class SearchView extends FrameLayout {
+/*public class SearchView extends FrameLayout {
 
     private View mMenuItemView;
     private int mMenuItemCx = -1;
@@ -50,7 +50,7 @@ public class SearchView extends FrameLayout {
     // todo doplnit hodnoty
     private void initStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.SearchView, defStyleAttr, defStyleRes);
-        if (a != null) {
+        if (a != null) {/// todo
             if (a.hasValue(R.styleable.SearchView_search_custom_height)) {
                 setCustomHeight(a.getDimensionPixelSize(R.styleable.SearchView_search_custom_height, mContext.getResources().getDimensionPixelSize(R.dimen.search_height)));
             }
@@ -102,6 +102,9 @@ public class SearchView extends FrameLayout {
             if (a.hasValue(R.styleable.SearchView_search_elevation)) {
                 setElevation(a.getDimensionPixelSize(R.styleable.SearchView_search_elevation, mContext.getResources().getDimensionPixelSize(R.dimen.search_elevation));
             }
+            if (a.hasValue(R.styleable.SearchView_search_google_icons) {
+                setGoogleIcons(a.getBoolean(R.styleable.SearchView_search_google_icons, true));
+            }
             a.recycle();
         }
     }
@@ -110,30 +113,16 @@ public class SearchView extends FrameLayout {
     // ---------------------------------------------------------------------------------------------
 
 
-    public void setIconColor(@ColorInt int color) {
-        mIconColor = color;
-        ColorFilter colorFilter = new PorterDuffColorFilter(mIconColor, PorterDuff.Mode.SRC_IN);
 
-        mImageViewNavigation.setColorFilter(colorFilter);
-        mImageViewMic.setColorFilter(colorFilter);
-        mImageViewMenu.setColorFilter(colorFilter);
-    }
 
-    public void setTextColor(@ColorInt int color) {
-        mTextColor = color;
-        mSearchEditText.setTextColor(mTextColor);
-    }
 
             /*for (int i = 0, n = mFlexboxLayout.getChildCount(); i < n; i++) {
             View child = mFlexboxLayout.getChildAt(i);
             if (child instanceof AppCompatCheckBox) {
                 ((AppCompatCheckBox) child).setTextColor(mTextColor);
             }
-        }*/
+        }
 
-    public void setTextHighlightColor(@ColorInt int color) {
-        mTextHighlightColor = color;
-    }
 
     public void setVersion(@Version int version) {
         mVersion = version;
@@ -143,43 +132,9 @@ public class SearchView extends FrameLayout {
         }
     }
 
-    public void setTheme(@Theme int theme, boolean tint) {
-        mTheme = theme;
 
-        switch (mTheme) {
-            case Theme.LIGHT:
-                setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
-                if (tint) {
-                    setIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
-                    setHintColor(ContextCompat.getColor(mContext, R.color.search_light_hint));
-                    setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
-                    setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_light_text_highlight));
-                }
-                break;
-            case Theme.DARK:
-                setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
-                if (tint) {
-                    setIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
-                    setHintColor(ContextCompat.getColor(mContext, R.color.search_dark_hint));
-                    setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
-                    setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_dark_text_highlight));
-                }
-                break;
-            case Theme.PLAY_STORE:
-                setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_play_store_background));
-                if (tint) {
-                    setIconColor(ContextCompat.getColor(mContext, R.color.search_play_store_icon));
-                    setHintColor(ContextCompat.getColor(mContext, R.color.search_play_store_hint));
-                    setTextColor(ContextCompat.getColor(mContext, R.color.search_play_store_text));
-                    setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_play_store_text_highlight));
-                }
-                break;
-        }
-    }
 
-    public void setTheme(@Theme int theme) {
-        setTheme(theme, true);
-    }
+
 
 
     public void setQuery(CharSequence query, boolean submit) {
@@ -254,6 +209,10 @@ public class SearchView extends FrameLayout {
             }
             mSearchEditText.requestFocus();
         }
+    }
+
+    public void open(boolean animate) {
+        open(animate, null);
     }
 
     public void close(boolean animate) {
@@ -450,7 +409,7 @@ public class SearchView extends FrameLayout {
         mGoogle = google;
 
         if (mGoogle) {
-            mImageViewNavigation.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_google_color_24dp));
+            mImageViewNavigation.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_g_color_24dp));
             mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_color_24dp));
             // mImageViewMenu.setColorFilter(null);
         } else {
@@ -459,16 +418,7 @@ public class SearchView extends FrameLayout {
         }
     }
 
-    //todo
-    public void setRoundCorners(boolean roundCorners) {
-        if (roundCorners) {
-            //  mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_height));
-            mCardView.setPreventCornerOverlap(false);
-            mCardView.setBackgroundResource(R.drawable.round_background);
-        } else {
 
-        }
-    }
 
 
     public void setTextSize(float size) {
@@ -480,7 +430,6 @@ public class SearchView extends FrameLayout {
         if (!animate) {
             mSearchArrowDrawable.setProgress(SearchArrowDrawable.STATE_ARROW);
         }
-        mArrow = !animate;
     }
 
 
@@ -490,12 +439,7 @@ public class SearchView extends FrameLayout {
         }
     }
 
-
-    // ---------------------------------------------------------------------------------------------
-    private void initView() {
         //krishkapil filter  listener
-
-    }
 
     private void restoreFiltersState(List<Boolean> states) {
         mSearchFiltersStates = states;
@@ -663,4 +607,4 @@ public class SearchView extends FrameLayout {
         super.onRestoreInstanceState(state);
     }
 
-}
+}*/

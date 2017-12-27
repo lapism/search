@@ -4,6 +4,9 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -14,6 +17,7 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.annotation.Size;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -49,20 +53,17 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
 
     public static final String TAG = SearchView5beta1.class.getName();
 
-    private static int mIconColor = Color.DKGRAY;
-    private static int mTextColor = Color.BLACK;
-    private static int mTextHighlightColor = Color.GRAY;
-    private static int mTextStyle = Typeface.NORMAL;
-    private static Typeface mTextFont = Typeface.DEFAULT;
+    private int mTextStyle = Typeface.NORMAL;
+    private Typeface mTextFont = Typeface.DEFAULT;
 
-    @Version
-    private int mVersion = Version.TOOLBAR;
+    @SearchDefs.Version
+    private int mVersion = SearchDefs.Version.TOOLBAR;
 
-    @VersionMargins
-    private int mVersionMargins = VersionMargins.TOOLBAR_SMALL;
+    @SearchDefs.VersionMargins
+    private int mVersionMargins = SearchDefs.VersionMargins.TOOLBAR_SMALL;
 
-    @Theme
-    private int mTheme = Theme.LIGHT;
+    @SearchDefs.Theme
+    private int mTheme = SearchDefs.Theme.LIGHT;
 
     @FloatRange(from = SearchArrowDrawable.STATE_HAMBURGER, to = SearchArrowDrawable.STATE_ARROW)
     private float mIsSearchArrowState = SearchArrowDrawable.STATE_HAMBURGER;
@@ -71,15 +72,15 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
 
     private long mAnimationDuration;
 
+    private Context mContext;
+
     private OnQueryTextListener mOnQueryTextListener;
     private OnOpenCloseListener mOnOpenCloseListener;
     private OnNavigationClickListener mOnNavigationClickListener;
     private OnMicClickListener mOnMicClickListener;
-    private OnMenuClickListener mOnMenuClickListener;
 
     private ImageView mImageViewNavigation;
     private ImageView mImageViewMic;
-    private ImageView mImageViewMenu;
     private SearchArrowDrawable mSearchArrowDrawable;
     private View mViewShadow;
     private View mViewDivider;
@@ -92,10 +93,6 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
     private List<Boolean> mSearchFiltersStates;
     private List<SearchFilter> mSearchFilters;
 
-    private Context mContext;
-
-    // https://stackoverflow.com/questions/35625247/android-is-it-ok-to-put-intdef-values-inside-interface
-    // https://developer.android.com/reference/android/support/annotation/FloatRange.html
     // ---------------------------------------------------------------------------------------------
     public SearchView5beta1(@NonNull Context context) {
         super(context);
@@ -119,60 +116,7 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
         init(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    // ---------------------------------------------------------------------------------------------
-    @ColorInt
-    @Contract(pure = true)
-    public static int getIconColor() {
-        return mIconColor;
-    }
-
-    @ColorInt
-    @Contract(pure = true)
-    public static int getTextColor() {
-        return mTextColor;
-    }
-
-    @ColorInt
-    @Contract(pure = true)
-    public static int getTextHighlightColor() {
-        return mTextHighlightColor;
-    }
-
-    @Contract(pure = true)
-    public static int getTextStyle() {
-        return mTextStyle;
-    }
-
-    /**
-     * Typeface.NORMAL
-     * Typeface.BOLD
-     * Typeface.ITALIC
-     * Typeface.BOLD_ITALIC
-     */
-    public void setTextStyle(int textStyle) {
-        mTextStyle = textStyle;
-        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
-    }
-
-    @Contract(pure = true)
-    public static Typeface getTextFont() {
-        return mTextFont;
-    }
-
-    /**
-     * Typeface.DEFAULT
-     * Typeface.DEFAULT_BOLD
-     * Typeface.MONOSPACE
-     * Typeface.SANS_SERIF
-     * Typeface.SERIF
-     */
-    public void setTextFont(Typeface font) {
-        mTextFont = font;
-        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
-    }
-
-    // ViewCompat.setBackground
-    // mSearchButton.setImageDrawable(a.getDrawable(R.styleable.SearchView_searchIcon));
+    // init + kotlin 1.2.1 + 4.4 + glide
     // ---------------------------------------------------------------------------------------------
     private void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         mContext = context;
@@ -187,11 +131,12 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
         final LayoutInflater inflater = LayoutInflater.from(mContext);
         inflater.inflate(layoutResId, this, true);
 
+        mCardView = findViewById(R.id.search_cardView);
+
         mViewShadow = findViewById(R.id.search_view_shadow);
         mViewShadow.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_shadow));
         mViewShadow.setOnClickListener(this);
 
-        mCardView = findViewById(R.id.search_cardView);
         mLinearLayout = findViewById(R.id.search_linearLayout);
 
         mImageViewNavigation = findViewById(R.id.search_imageView_navigation);
@@ -200,13 +145,9 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
         mImageViewMic = findViewById(R.id.search_imageView_mic);
         mImageViewMic.setOnClickListener(this);
 
-        mImageViewMenu = findViewById(R.id.search_imageView_menu);
-        mImageViewMenu.setVisibility(View.GONE);
-
         mSearchEditText = findViewById(R.id.search_searchEditText);
-        // mSearchEditText.setSearchView(this);
+        //mSearchEditText.setSearchView(this);
 
-        // init + kotlin 1.2.1 + 4.4 + glide
         mSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -266,7 +207,7 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
-        // null check
+        // null check+ init
         a.recycle();
     }
 
@@ -279,7 +220,6 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
         CharSequence query = "";
         if (!TextUtils.isEmpty(query)) {
             //onSubmitQuery();
-            // kontrola vsech listeneru podle nazvu
         }
     }
 
@@ -311,21 +251,21 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
     }
 
     // ---------------------------------------------------------------------------------------------
-    @Version
+    @SearchDefs.Version
     public int getVersion() {
         return mVersion;
     }
 
-    @VersionMargins
+    @SearchDefs.VersionMargins
     public int getVersionMargins() {
         return mVersionMargins;
     }
 
-    public void setVersionMargins(@VersionMargins int versionMargins) {
+    public void setVersionMargins(@SearchDefs.VersionMargins int versionMargins) {
         mVersionMargins = versionMargins;
 
         switch (mVersionMargins) {
-            case VersionMargins.TOOLBAR_SMALL:
+            case SearchDefs.VersionMargins.TOOLBAR_SMALL:
                 int top_small = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
                 int leftRight_small = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_small_left_right);
                 int bottom_small = 0;
@@ -335,7 +275,7 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
 
                 mCardView.setLayoutParams(params_small);
                 break;
-            case VersionMargins.TOOLBAR_BIG:
+            case SearchDefs.VersionMargins.TOOLBAR_BIG:
                 int top_big = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
                 int leftRight_big = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_big_left_right);
                 int bottom_big = 0;
@@ -345,7 +285,7 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
 
                 mCardView.setLayoutParams(params_big);
                 break;
-            case VersionMargins.MENU_ITEM:
+            case SearchDefs.VersionMargins.MENU_ITEM:
                 int top_menu = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
                 int leftRight_menu = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_left_right);
                 int bottom_menu = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
@@ -358,21 +298,60 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
         }
     }
 
-    @Theme
+    @SearchDefs.Theme
     public int getTheme() {
         return mTheme;
     }
 
+    public void setTheme(@SearchDefs.Theme int theme) {
+        setTheme(theme, true);
+    }
+
+    public void setTheme(@SearchDefs.Theme int theme, boolean tint) {
+        mTheme = theme;
+
+        switch (mTheme) {
+            case SearchDefs.Theme.COLOR:
+                break;
+            case SearchDefs.Theme.LIGHT:
+                setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
+                if (tint) {
+                    setIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
+                    setHintColor(ContextCompat.getColor(mContext, R.color.search_light_hint));
+                    setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
+                    setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_light_text_highlight));
+                }
+                break;
+            case SearchDefs.Theme.DARK:
+                setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
+                if (tint) {
+                    setIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+                    setHintColor(ContextCompat.getColor(mContext, R.color.search_dark_hint));
+                    setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
+                    setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_dark_text_highlight));
+                }
+                break;
+        }
+    }
+
+    @Size
     public int getCustomHeight() {
         ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
         return params.height;
     }
 
-    public void setCustomHeight(int height) {
+    public void setCustomHeight(@Size int height) {
         ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
         params.height = height;
         params.width = LinearLayout.LayoutParams.MATCH_PARENT;
         mLinearLayout.setLayoutParams(params);
+    }
+
+    public void setIconColor(@ColorInt int color) {
+        ColorFilter colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN);
+
+        mImageViewNavigation.setColorFilter(colorFilter);
+        mImageViewMic.setColorFilter(colorFilter);
     }
 
     public void setHintColor(@ColorInt int color) {
@@ -389,6 +368,15 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
 
     public void setText(CharSequence text) {
         mSearchEditText.setText(text);
+    }
+
+    public void setTextColor(@ColorInt int color) {
+        // adatepre
+        mSearchEditText.setTextColor(color);
+    }
+
+    public void setTextHighlightColor(@ColorInt int color) {
+        // adapter
     }
 
     public void setHint(CharSequence hint) {
@@ -415,12 +403,27 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
         mImageViewNavigation.setImageDrawable(drawable);
     }
 
-    public void setMenuIcon(@DrawableRes int resource) {
-        mImageViewMenu.setImageResource(resource);
+    /**
+     * Typeface.NORMAL
+     * Typeface.BOLD
+     * Typeface.ITALIC
+     * Typeface.BOLD_ITALIC
+     */
+    public void setTextStyle(int textStyle) {
+        // ada[ter
+        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
     }
 
-    public void setMenuIcon(@Nullable Drawable drawable) {
-        mImageViewMenu.setImageDrawable(drawable);
+    /**
+     * Typeface.DEFAULT
+     * Typeface.DEFAULT_BOLD
+     * Typeface.MONOSPACE
+     * Typeface.SANS_SERIF
+     * Typeface.SERIF
+     */
+    public void setTextFont(Typeface font) {
+        // adapter
+        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
     }
 
     public void setMicIcon(@DrawableRes int resource) {
@@ -492,16 +495,6 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
         mOnMicClickListener = listener;
     }
 
-    public void setOnMenuClickListener(OnMenuClickListener listener) {
-        if (listener != null) {
-            mImageViewMenu.setImageResource(R.drawable.ic_menu_black_24dp);
-            mImageViewMenu.setOnClickListener(this);
-            mImageViewMenu.setVisibility(View.VISIBLE);
-        }
-
-        mOnMenuClickListener = listener;
-    }
-
     @Override
     public void setElevation(float elevation) {
         mCardView.setMaxCardElevation(elevation);
@@ -513,14 +506,33 @@ public class SearchView5beta1 extends FrameLayout implements View.OnClickListene
         mCardView.setCardBackgroundColor(color);
     }
 
+    public void setRadius(float radius) {
+        mCardView.setRadius(radius);
+    }
+
+    public void setShape(@SearchDefs.Shape int shape) {
+        switch (shape) {
+            case SearchDefs.Shape.CLASSIC:
+                // mCardView.setPreventCornerOverlap(false); todo + anotace
+                mCardView.setBackgroundResource(R.drawable.round_background_top);
+                break;
+            case SearchDefs.Shape.OVAL:
+                mCardView.setBackgroundResource(R.drawable.round_background_top_bottom);
+                break;
+            case SearchDefs.Shape.ROUNDED_TOP:
+                break;
+            case SearchDefs.Shape.ROUNDED:
+                break;
+        }
+    }
+
     public boolean isOpen() {
         return getVisibility() == View.VISIBLE;
     }
 
     /*
-     tried card_view:cardUseCompatPadding="true" but no avail. Didn't work!
-
-Then I discovered from a stackoverflow post this card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardPreventCornerOverlap="false"
     */
 
     @Override
@@ -548,39 +560,9 @@ Then I discovered from a stackoverflow post this card_view:cardPreventCornerOver
             }
         }
 
-        if (v == mImageViewMenu) {
-            if (mOnMenuClickListener != null) {
-                mOnMenuClickListener.onMenuClick();
-            }
-        }
-
         if (v == mViewShadow) {
             //close true
         }
-    }
-
-    // ---------------------------------------------------------------------------------------------
-    @IntDef({Version.TOOLBAR, Version.MENU_ITEM})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Version {
-        int TOOLBAR = 1000;
-        int MENU_ITEM = 1001;
-    }
-
-    @IntDef({VersionMargins.TOOLBAR_SMALL, VersionMargins.TOOLBAR_BIG, VersionMargins.MENU_ITEM})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface VersionMargins {
-        int TOOLBAR_SMALL = 2000;
-        int TOOLBAR_BIG = 2001;
-        int MENU_ITEM = 2002;
-    }
-
-    @IntDef({Theme.LIGHT, Theme.DARK, Theme.PLAY_STORE})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Theme {
-        int LIGHT = 3000;
-        int DARK = 3001;
-        int PLAY_STORE = 3002;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -604,8 +586,17 @@ Then I discovered from a stackoverflow post this card_view:cardPreventCornerOver
         void onMicClick();
     }
 
-    public interface OnMenuClickListener {
-        void onMenuClick();
-    }
-
 }
+
+// ---------------------------------------------------------------------------------------------
+    /*@ColorInt
+    //@Contract(pure = true)
+    public static int getIconColor() {
+        return mIconColor;
+    }*/
+
+// ontrola anotaci
+// https://stackoverflow.com/questions/35625247/android-is-it-ok-to-put-intdef-values-inside-interface
+// https://developer.android.com/reference/android/support/annotation/FloatRange.html
+// ViewCompat.setBackground
+// mSearchButton.setImageDrawable(a.getDrawable(R.styleable.SearchView_searchIcon));

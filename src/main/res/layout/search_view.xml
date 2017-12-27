@@ -60,14 +60,6 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:scaleType="center" />
 
-                <ImageView
-                    android:id="@+id/search_imageView_menu"
-                    android:layout_width="@dimen/search_icon"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/search_app_name"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:scaleType="center" />
-
             </LinearLayout>
 
             <View
