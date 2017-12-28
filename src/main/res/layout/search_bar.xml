@@ -11,7 +11,7 @@
         <LinearLayout
             android:id="@+id/search_linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/search_height_widget"
+            android:layout_height="@dimen/search_height"
             android:orientation="horizontal">
 
             <ImageView
@@ -20,7 +20,7 @@
                 android:layout_height="match_parent"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/search_app_name"
-                android:scaleType="centerInside" />
+                android:scaleType="center" />
 
             <TextView
                 android:id="@+id/search_textView"
@@ -29,14 +29,14 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:ellipsize="end"
-                android:gravity="end"
+                android:gravity="end|center_vertical"
                 android:maxLines="1"
                 android:textSize="@dimen/search_text_16"
                 android:windowSoftInputMode="stateAlwaysHidden" />
 
             <ImageView
                 android:id="@+id/search_imageView_mic"
-                android:layout_width="@dimen/search_icon"
+                android:layout_width="@dimen/search_icon_56"
                 android:layout_height="match_parent"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/search_app_name"
@@ -44,10 +44,10 @@
 
             <ImageView
                 android:id="@+id/search_imageView_menu"
-                android:layout_width="21dp"
+                android:layout_width="@dimen/search_icon_24"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="9dp"
-                android:layout_marginRight="9dp"
+                android:layout_marginEnd="@dimen/search_menu_margin_right"
+                android:layout_marginRight="@dimen/search_menu_margin_right"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/search_app_name"
                 android:scaleType="center" />

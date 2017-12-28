@@ -3,22 +3,35 @@
 
     <!-- todo kontrola -->
     <declare-styleable name="SearchView">
-        <attr name="layout" format="reference" />
+        <attr name="layout_view" format="reference" />
         <attr name="search_custom_height" format="dimension" />
-        <attr name="search_version" format="enum">
-            <enum name="toolbar" value="1000" />
-            <enum name="menu_item" value="1001" />
+
+        <attr name="search_logo" format="enum">
+            <enum name="google" value="1000" />
+            <enum name="g" value="1001" />
+            <enum name="hamburger" value="1002" />
         </attr>
-        <attr name="search_version_margins" format="enum">
-            <enum name="toolbar_small" value="2000" />
-            <enum name="toolbar_big" value="2001" />
-            <enum name="menu_item" value="2002" />
+        <attr name="search_shape" format="enum">
+            <enum name="default" value="2000" />
+            <enum name="rounded_top" value="2001" />
+            <enum name="rounded" value="2002" />
+            <enum name="oval" value="2003" />
         </attr>
         <attr name="search_theme" format="enum">
-            <enum name="light" value="3000" />
-            <enum name="dark" value="3001" />
-            <enum name="play_store" value="3002" />
+            <enum name="color" value="3000" />
+            <enum name="light" value="3001" />
+            <enum name="dark" value="3002" />
         </attr>
+        <attr name="search_version" format="enum">
+            <enum name="toolbar" value="4000" />
+            <enum name="menu_item" value="4001" />
+        </attr>
+        <attr name="search_version_margins" format="enum">
+            <enum name="toolbar_small" value="5000" />
+            <enum name="toolbar_big" value="5001" />
+            <enum name="menu_item" value="5002" />
+        </attr>
+
         <attr name="search_navigation_icon" format="integer" />
         <attr name="search_icon_color" format="color" />
         <attr name="search_background_color" format="color" />
@@ -40,8 +53,25 @@
         <attr name="search_google_icons" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="SearchWidget">
-        <attr name="layout1" format="reference" />
+    <declare-styleable name="SearchBar">
+        <attr name="layout_bar" format="reference" />
+
+        <attr name="search_logo" format="enum">
+            <enum name="google" value="1000" />
+            <enum name="g" value="1001" />
+            <enum name="hamburger" value="1002" />
+        </attr>
+        <attr name="search_shape" format="enum">
+            <enum name="default" value="2000" />
+            <enum name="rounded_top" value="2001" />
+            <enum name="rounded" value="2002" />
+            <enum name="oval" value="2003" />
+        </attr>
+        <attr name="search_theme" format="enum">
+            <enum name="color" value="3000" />
+            <enum name="light" value="3001" />
+            <enum name="dark" value="3002" />
+        </attr>
     </declare-styleable>
 
 

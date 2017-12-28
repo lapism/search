@@ -66,7 +66,7 @@ class SearchAnimator {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    static void revealOpen(final View view, int cx, long duration, Context context, final SearchEditText editText, final SearchView5beta1.OnOpenCloseListener listener) {
+    static void revealOpen(final View view, int cx, long duration, Context context, final SearchEditText editText, final SearchView.OnOpenCloseListener listener) {
 
         if (cx <= 0) {
             int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
@@ -115,7 +115,7 @@ class SearchAnimator {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    static void revealClose(final View view, int cx, long duration, Context context, final SearchEditText editText, final SearchView5beta1 searchView, final SearchView5beta1.OnOpenCloseListener listener) {
+    static void revealClose(final View view, int cx, long duration, Context context, final SearchEditText editText, final SearchView searchView, final SearchView.OnOpenCloseListener listener) {
 
         if (cx <= 0) {
             int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
@@ -163,7 +163,7 @@ class SearchAnimator {
         }
     }
 
-    static void fadeOpen(final View view, long duration, final SearchEditText editText, final SearchView5beta1.OnOpenCloseListener listener) {
+    static void fadeOpen(final View view, long duration, final SearchEditText editText, final SearchView.OnOpenCloseListener listener) {
         Animation anim = new AlphaAnimation(0.0f, 1.0f);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(duration);
@@ -192,7 +192,7 @@ class SearchAnimator {
         view.startAnimation(anim);
     }
 
-    static void fadeClose(final View view, long duration, final SearchEditText editText, final SearchView5beta1 searchView, final SearchView5beta1.OnOpenCloseListener listener) {
+    static void fadeClose(final View view, long duration, final SearchEditText editText, final SearchView searchView, final SearchView.OnOpenCloseListener listener) {
         Animation anim = new AlphaAnimation(1.0f, 0.0f);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(duration);

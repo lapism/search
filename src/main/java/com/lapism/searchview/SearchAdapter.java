@@ -2,15 +2,11 @@ package com.lapism.searchview;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
-import android.support.v4.graphics.ColorUtils;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +23,12 @@ import java.util.Locale;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
     public static final String TAG = SearchAdapter.class.getName();
-
+    protected final SearchHistoryTable mHistoryDatabase;
+    public Integer mDatabaseKey = null;
+    protected CharSequence mKey = "";
+    protected List<SearchItem> mSuggestions = new ArrayList<>();
+    protected List<SearchItem> mResults = new ArrayList<>();
+    protected OnSearchItemClickListener mSearchItemClickListener;
     // do Adapteru todo
     @ColorInt
     private int mIconColor = Color.DKGRAY;
@@ -35,16 +36,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     private int mTextColor = Color.BLACK;
     @ColorInt
     private int mTextHighlightColor = Color.GRAY;
-
     private int mTextStyle = Typeface.NORMAL;
     private Typeface mTextFont = Typeface.DEFAULT;
-
-    protected final SearchHistoryTable mHistoryDatabase;
-    public Integer mDatabaseKey = null;
-    protected CharSequence mKey = "";
-    protected List<SearchItem> mSuggestions = new ArrayList<>();
-    protected List<SearchItem> mResults = new ArrayList<>();
-    protected OnSearchItemClickListener mSearchItemClickListener;
 
     public SearchAdapter(Context context) {
         mHistoryDatabase = new SearchHistoryTable(context);
@@ -72,10 +65,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
         if (item.getIcon_1_resource() != 0) {
             viewHolder.icon_1.setImageResource(item.getIcon_1_resource());
-           // viewHolder.icon_1.setColorFilter(SearchView.getIconColor(), PorterDuff.Mode.SRC_IN);
+            // viewHolder.icon_1.setColorFilter(SearchView.getIconColor(), PorterDuff.Mode.SRC_IN);
         } else if (item.getIcon_1_drawable() != null) {
             viewHolder.icon_1.setImageDrawable(item.getIcon_1_drawable());
-          //  viewHolder.icon_1.setColorFilter(SearchView.getIconColor(), PorterDuff.Mode.SRC_IN);
+            //  viewHolder.icon_1.setColorFilter(SearchView.getIconColor(), PorterDuff.Mode.SRC_IN);
         }
 
         /*else {
@@ -84,10 +77,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
         if (item.getIcon_2_resource() != 0) {
             viewHolder.icon_2.setImageResource(item.getIcon_2_resource());
-          //  viewHolder.icon_2.setColorFilter(ColorUtils.setAlphaComponent(SearchView.getIconColor(), 0x33), PorterDuff.Mode.SRC_IN);
+            //  viewHolder.icon_2.setColorFilter(ColorUtils.setAlphaComponent(SearchView.getIconColor(), 0x33), PorterDuff.Mode.SRC_IN);
         } else if (item.getIcon_2_drawable() != null) {
             viewHolder.icon_2.setImageDrawable(item.getIcon_2_drawable());
-          //  viewHolder.icon_2.setColorFilter(ColorUtils.setAlphaComponent(SearchView.getIconColor(), 0x33), PorterDuff.Mode.SRC_IN);
+            //  viewHolder.icon_2.setColorFilter(ColorUtils.setAlphaComponent(SearchView.getIconColor(), 0x33), PorterDuff.Mode.SRC_IN);
         }
 
         /*else {
@@ -103,7 +96,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         // todo fix nezobrazuje se + spannable string cannto be 0
         if (itemTextLower.contains(mKey) && !TextUtils.isEmpty(mKey) && !itemText.isEmpty()) {
             SpannableString s = new SpannableString(itemText);
-           // s.setSpan(new ForegroundColorSpan(SearchView.getTextHighlightColor()), itemTextLower.indexOf(mKey.toString()), itemTextLower.indexOf(mKey.toString()) + mKey.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            // s.setSpan(new ForegroundColorSpan(SearchView.getTextHighlightColor()), itemTextLower.indexOf(mKey.toString()), itemTextLower.indexOf(mKey.toString()) + mKey.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             viewHolder.title.setText(s, TextView.BufferType.SPANNABLE);
         } else {
             viewHolder.title.setText(item.getTitle());
@@ -111,8 +104,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
         if (!TextUtils.isEmpty(item.getSubtitle())) {
             viewHolder.subtitle.setText(item.getSubtitle());
-          //  viewHolder.subtitle.setTypeface((Typeface.create(SearchView.getTextFont(), SearchView.getTextStyle())));
-          //  viewHolder.subtitle.setTextColor(ColorUtils.setAlphaComponent(SearchView.getTextColor(), 0x33));
+            //  viewHolder.subtitle.setTypeface((Typeface.create(SearchView.getTextFont(), SearchView.getTextStyle())));
+            //  viewHolder.subtitle.setTextColor(ColorUtils.setAlphaComponent(SearchView.getTextColor(), 0x33));
         } else {
             viewHolder.subtitle.setVisibility(View.GONE);
         }

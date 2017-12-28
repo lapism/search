@@ -23,8 +23,8 @@ public class SearchItem implements Parcelable {
             return new SearchItem(in);
         }
 
-        @NonNull
         @Contract(pure = true)
+        @NonNull
         @Override
         public SearchItem[] newArray(int size) {
             return new SearchItem[size];

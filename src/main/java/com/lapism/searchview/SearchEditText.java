@@ -8,7 +8,7 @@ import android.view.KeyEvent;
 
 public class SearchEditText extends AppCompatEditText {
 
-    private SearchView5beta1 mSearchView;
+    private SearchView mSearchView;
 
     public SearchEditText(Context context) {
         super(context);
@@ -22,7 +22,7 @@ public class SearchEditText extends AppCompatEditText {
         super(context, attrs, defStyleAttr);
     }
 
-    public void setSearchView(SearchView5beta1 searchView) {
+    public void setSearchView(SearchView searchView) {
         mSearchView = searchView;
     }
 

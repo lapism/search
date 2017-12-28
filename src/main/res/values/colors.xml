@@ -3,92 +3,106 @@
 
     <color name="search_shadow">#80000000</color>
 
-    <!-- Light Theme -->
-    <color name="search_light_background">#fffafafa</color>
-    <color name="search_light_icon">#8a000000</color>
-    <color name="search_light_text">#de000000</color>
-    <color name="search_light_hint">#80000000</color>
-    <color name="search_light_text_highlight">#62000000</color>
-
-    <!-- Dark Theme -->
-    <color name="search_dark_background">#ff303030</color>
-    <color name="search_dark_icon">#b3ffffff</color>
-    <color name="search_dark_text">#ffffffff</color>
-    <color name="search_dark_hint">#80ffffff</color>
-    <color name="search_dark_text_highlight">#62ffffff</color>
-
-    <!-- Play Store Theme -->
-    <color name="search_play_store_background">#ffffff</color>
-    <color name="search_play_store_icon">#616161</color>
-    <color name="search_play_store_text">#212121</color>
-    <color name="search_play_store_hint">#bdbdbd</color>
-    <color name="search_play_store_text_highlight">#9e9e9e</color>
-
     <!-- Google -->
-    <color name="search_google_green">#9e9e9e</color>
-    <color name="search_google_red">#9e9e9e</color>
-    <color name="search_google_blue">#9e9e9e</color>
-    <color name="search_google_yellow">#9e9e9e</color>
+    <color name="search_google_blue">#4285f4</color>
+    <color name="search_google_green">#34a853</color>
+    <color name="search_google_yellow">#fbbc05</color>
+    <color name="search_google_red">#ea4335</color>
+
+    <!-- SearchView Light AppCompat Theme -->
+    <color name="search_view_light_appcompat_background">#fafafa</color>
+    <color name="search_view_light_appcompat_icon">#8a000000</color>
+    <color name="search_view_light_appcompat_text">#de000000</color>
+    <color name="search_view_light_appcompat_hint">#80000000</color>
+    <color name="search_view_light_appcompat_text_highlight">#62000000</color>
+
+    <!-- SearchView Dark AppCompat Theme -->
+    <color name="search_view_dark_appcompat_background">#303030</color>
+    <color name="search_view_dark_appcompat_icon">#b3ffffff</color>
+    <color name="search_view_dark_appcompat_text">#ffffff</color>
+    <color name="search_view_dark_appcompat_hint">#80ffffff</color>
+    <color name="search_view_dark_appcompat_text_highlight">#62ffffff</color>
+
+    <!-- SearchView Color Theme -->
+    <color name="search_view_color_background">#ffffff</color>
+    <color name="search_view_color_light_text">#de000000</color>
+    <color name="search_view_color_light_hint">#80000000</color>
+    <color name="search_view_color_light_text_highlight">#62000000</color>
+
+    <!-- SearchView Light Theme -->
+    <color name="search_view_light_icon">#5f6368</color>
+    <color name="search_view_light_background">#ffffff</color>
+    <color name="search_view_light_text">#de000000</color>
+    <color name="search_view_light_hint">#80000000</color>
+    <color name="search_view_light_text_highlight">#62000000</color>
+
+    <!-- SearchView Dark Theme -->
+    <color name="search_view_dark_icon">#ffffff</color>
+    <color name="search_view_dark_background">#222222</color>
+    <color name="search_view_dark_text">#ffffff</color>
+    <color name="search_view_dark_hint">#80ffffff</color>
+    <color name="search_view_dark_text_highlight">#62ffffff</color>
+
+    <!-- SearchBar Color Theme -->
+    <color name="search_bar_color_background">#ffffff</color>
+    <color name="search_bar_color_menu">#8d9094</color>
+
+    <!-- SearchBar Light Theme -->
+    <color name="search_bar_light_icon">#5f6368</color>
+    <color name="search_bar_light_background">#ffffff</color>
+    <color name="search_bar_light_menu">#8d9094</color>
+
+    <!-- SearchBar Dark Theme -->
+    <color name="search_bar_dark_icon">#ffffff</color>
+    <color name="search_bar_dark_background">#222222</color>
+    <color name="search_bar_dark_menu">#bdbdbd</color>
 
 
+    <color name="cardview_dark_background2">#424242</color>
+    <color name="cardview_light_background2">#ffffff</color>
+    <color name="cardview_shadow_end_color2">#03000000</color>
+    <color name="cardview_shadow_start_color2">#37000000</color>
 
+    <color name="md_grey_850">#ff303030</color>
+    <color name="md_grey_800">#ff424242</color>
+    <color name="md_grey_600">#ff757575</color>
+
+    <color name="md_grey_50">#fffafafa</color>
+
+    <color name="md_deep_teal_200">#ff80cbc4</color>
+    <color name="md_deep_teal_500">#ff009688</color>
+
+
+    <color name="md_blue_grey_950">#ff21272b</color>
 
 
     <color name="foreground_material_dark">@android:color/white</color>
     <color name="foreground_material_light">@android:color/black</color>
 
-    <color name="background_material_dark">@color/material_grey_850</color>
-    <color name="background_material_light">@color/material_grey_50</color>
-    <color name="background_floating_material_dark">@color/material_grey_800</color>
+    <color name="background_material_dark">@color/md_grey_850</color>
+    <color name="background_material_light">@color/md_grey_50</color>
+    <color name="background_floating_material_dark">@color/md_grey_800</color>
     <color name="background_floating_material_light">@android:color/white</color>
 
-    <color name="primary_material_dark">@color/material_grey_900</color>
-    <color name="primary_material_light">@color/material_grey_100</color>
+    <color name="primary_material_dark">#ff212121</color>
+    <color name="primary_material_light">#fff5f5f5</color>
     <color name="primary_dark_material_dark">@android:color/black</color>
-    <color name="primary_dark_material_light">@color/material_grey_600</color>
+    <color name="primary_dark_material_light">@color/md_grey_600</color>
+
+    <color name="accent_material_light2">@color/md_deep_teal_500</color>
+    <color name="accent_material_dark2">@color/md_deep_teal_200</color>
 
     <!-- 20% white (foreground) -->
-    <color name="ripple_material_dark">#33ffffff</color>
+    <color name="ripple_material_dark2">#33ffffff</color>
     <!-- 12% black (foreground) -->
-    <color name="ripple_material_light">#1f000000</color>
-
-    <color name="accent_material_light">@color/material_deep_teal_500</color>
-    <color name="accent_material_dark">@color/material_deep_teal_200</color>
-
-    <color name="button_material_dark">#ff5a595b</color>
-    <color name="button_material_light">#ffd6d7d7</color>
-
-    <color name="switch_thumb_normal_material_dark">#ffbdbdbd</color>
-    <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
-    <color name="switch_thumb_disabled_material_dark">#ff616161</color>
-    <color name="switch_thumb_disabled_material_light">#ffbdbdbd</color>
+    <color name="ripple_material_light2">#1f000000</color>
 
     <color name="bright_foreground_material_dark">@android:color/white</color>
     <color name="bright_foreground_material_light">@android:color/black</color>
-    <!-- White 50% -->
-    <color name="bright_foreground_disabled_material_dark">#80ffffff</color>
-    <!-- Black 50% -->
-    <color name="bright_foreground_disabled_material_light">#80000000</color>
-    <color name="bright_foreground_inverse_material_dark">@color/bright_foreground_material_light</color>
-    <color name="bright_foreground_inverse_material_light">@color/bright_foreground_material_dark</color>
-
-    <color name="dim_foreground_material_dark">#ffbebebe</color>
-    <color name="dim_foreground_material_light">#ff323232</color>
-    <color name="dim_foreground_disabled_material_dark">#80bebebe</color>
-    <color name="dim_foreground_disabled_material_light">#80323232</color>
 
     <item name="hint_alpha_material_dark" format="float" type="dimen">0.50</item>
     <item name="hint_alpha_material_light" format="float" type="dimen">0.38</item>
 
-    <item name="hint_pressed_alpha_material_dark" format="float" type="dimen">0.70</item>
-    <item name="hint_pressed_alpha_material_light" format="float" type="dimen">0.54</item>
-
-    <!-- TODO: This is 40% alpha on the default accent color. -->
-    <color name="highlighted_text_material_dark">#6680cbc4</color>
-    <!-- TODO: This is 40% alpha on the default accent color. -->
-    <color name="highlighted_text_material_light">#66009688</color>
-
-    <!-- Text & foreground colors -->
     <eat-comment />
 
     <!-- 87% black -->
@@ -101,54 +115,15 @@
     <!-- 70% white -->
     <color name="secondary_text_default_material_dark">#b3ffffff</color>
 
-    <item name="disabled_alpha_material_light" format="float" type="dimen">0.26</item>
-    <item name="disabled_alpha_material_dark" format="float" type="dimen">0.30</item>
 
     <item name="highlight_alpha_material_light" format="float" type="dimen">0.12</item>
     <item name="highlight_alpha_material_dark" format="float" type="dimen">0.20</item>
     <item name="highlight_alpha_material_colored" format="float" type="dimen">0.26</item>
 
-    <!-- 26% of default values -->
-    <color name="primary_text_disabled_material_light">#39000000</color>
-    <color name="secondary_text_disabled_material_light">#24000000</color>
 
-    <!-- 30% of default values -->
-    <color name="primary_text_disabled_material_dark">#4Dffffff</color>
-    <color name="secondary_text_disabled_material_dark">#36ffffff</color>
-
-    <color name="error_color_material">#F4511E</color>
+    <color name="error_color_material">#f4511e</color>
 
     <!-- Primary & accent colors -->
     <eat-comment />
-
-    <color name="material_grey_900">#ff212121</color>
-    <color name="material_grey_850">#ff303030</color>
-    <color name="material_grey_800">#ff424242</color>
-    <color name="material_grey_600">#ff757575</color>
-    <color name="material_grey_300">#ffe0e0e0</color>
-    <color name="material_grey_100">#fff5f5f5</color>
-    <color name="material_grey_50">#fffafafa</color>
-
-    <color name="material_deep_teal_200">#ff80cbc4</color>
-    <color name="material_deep_teal_500">#ff009688</color>
-
-    <color name="material_blue_grey_800">#ff37474f</color>
-    <color name="material_blue_grey_900">#ff263238</color>
-    <color name="material_blue_grey_950">#ff21272b</color>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </resources>

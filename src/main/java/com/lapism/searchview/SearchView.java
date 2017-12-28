@@ -1,30 +1,46 @@
 package com.lapism.searchview;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.FloatRange;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.annotation.Size;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.flexbox.FlexboxLayout;
 
@@ -32,108 +48,647 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-// Kotlinize + NULLABLE
-/*
-todo
-or a onFilterClickListener method is fine
-*/// int id = view.getId();
-// this(context, null);
-/*public class SearchView extends FrameLayout {
 
-    private View mMenuItemView;
-    private int mMenuItemCx = -1;
-    private float mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
-    private CharSequence mQuery = "";
+// @RestrictTo(LIBRARY_GROUP)
+// @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
+public class SearchView extends FrameLayout implements View.OnClickListener {
+
+    public static final String TAG = SearchView.class.getName();
+
+    private int mTextStyle = Typeface.NORMAL;
+    private Typeface mTextFont = Typeface.DEFAULT;
+
+
+    @Search.Logo
+    private int mLogo;
+
+    @Search.Shape
+    private int mShape;
+
+    @Search.Theme
+    private int mTheme;
+
+    @Search.Version
+    private int mVersion;
+
+    @Search.VersionMargins
+    private int mVersionMargins;
+
+
+
+
+
+
+
+    @FloatRange(from = SearchArrowDrawable.STATE_HAMBURGER, to = SearchArrowDrawable.STATE_ARROW)
+    private float mIsSearchArrowState = SearchArrowDrawable.STATE_HAMBURGER;
+
+    private boolean mGoogle = false;
+
+    private long mAnimationDuration;
 
     private Context mContext;
 
-    // todo doplnit hodnoty
-    private void initStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    private OnQueryTextListener mOnQueryTextListener;
+    private OnOpenCloseListener mOnOpenCloseListener;
+    private OnLogoClickListener mOnLogoClickListener;
+    private OnMicClickListener mOnMicClickListener;
+
+    private ImageView mImageViewLogo;
+    private ImageView mImageViewMic;
+    private SearchArrowDrawable mSearchArrowDrawable;
+    private View mViewShadow;
+    private View mViewDivider;
+    private CardView mCardView;
+    private LinearLayout mLinearLayout;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mRecyclerViewAdapter;
+    private FlexboxLayout mFlexboxLayout;
+    private SearchEditText mSearchEditText;
+    private List<Boolean> mSearchFiltersStates;
+    private List<SearchFilter> mSearchFilters;
+
+    // ---------------------------------------------------------------------------------------------
+    public SearchView(@NonNull Context context) {
+        super(context);
+        init(context, null, 0, 0);
+    }
+
+    public SearchView(@NonNull Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        init(context, attrs, 0, 0);
+    }
+
+    public SearchView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(context, attrs, defStyleAttr, 0);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public SearchView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    // init + kotlin 1.2.1 + 4.4.1 + glide 4.4.0
+    // ---------------------------------------------------------------------------------------------
+    private void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        mContext = context;
+
+        mAnimationDuration = mContext.getResources().getInteger(R.integer.search_animation_duration);
+
+        mSearchArrowDrawable = new SearchArrowDrawable(mContext);
+
         final TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.SearchView, defStyleAttr, defStyleRes);
-        if (a != null) {/// todo
-            if (a.hasValue(R.styleable.SearchView_search_custom_height)) {
-                setCustomHeight(a.getDimensionPixelSize(R.styleable.SearchView_search_custom_height, mContext.getResources().getDimensionPixelSize(R.dimen.search_height)));
+        final int layoutResId = a.getResourceId(R.styleable.SearchView_layout_view, R.layout.search_view);
+
+        final LayoutInflater inflater = LayoutInflater.from(mContext);
+        inflater.inflate(layoutResId, this, true);
+
+        mCardView = findViewById(R.id.search_cardView);
+
+        mViewShadow = findViewById(R.id.search_view_shadow);
+        mViewShadow.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_shadow));
+        mViewShadow.setOnClickListener(this);
+
+        mLinearLayout = findViewById(R.id.search_linearLayout);
+
+        mImageViewLogo = findViewById(R.id.search_imageView_logo);
+        mImageViewLogo.setOnClickListener(this);
+
+        mImageViewMic = findViewById(R.id.search_imageView_mic);
+        mImageViewMic.setOnClickListener(this);
+
+        mSearchEditText = findViewById(R.id.search_searchEditText);
+        mSearchEditText.setSearchView(this);
+
+        mSearchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
-            if (a.hasValue(R.styleable.SearchView_search_version)) {
-                setVersion(a.getInt(R.styleable.SearchView_search_version, Version.TOOLBAR));
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                SearchView.this.onTextChanged(s);
             }
-            if (a.hasValue(R.styleable.SearchView_search_version_margins)) {
-                setVersionMargins(a.getInt(R.styleable.SearchView_search_version_margins, VersionMargins.TOOLBAR_SMALL));
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
-            if (a.hasValue(R.styleable.SearchView_search_theme)) {
-                setTheme(a.getInt(R.styleable.SearchView_search_theme, Theme.LIGHT));
+        });
+        mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                onSubmitQuery();
+                return true;
             }
-            if (a.hasValue(R.styleable.SearchView_search_navigation_icon)) {
-                setNavigationIcon(a.getResourceId(R.styleable.SearchView_search_navigation_icon, 0));
+        });
+        mSearchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    addFocus();
+                } else {
+                    removeFocus();
+                }
             }
-            if (a.hasValue(R.styleable.SearchView_search_icon_color)) {
-                setIconColor(a.getColor(R.styleable.SearchView_search_icon_color, Color.BLACK));
+        });
+
+        mViewDivider = findViewById(R.id.search_view_divider);
+        mViewDivider.setVisibility(View.GONE);
+
+        mFlexboxLayout = findViewById(R.id.search_flexboxLayout);
+        mFlexboxLayout.setVisibility(View.GONE);
+
+        mRecyclerView = findViewById(R.id.search_recyclerView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.setVisibility(View.GONE);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    hideKeyboard();
+                }
             }
-            if (a.hasValue(R.styleable.SearchView_search_background_color)) {
-                setBackgroundColor(a.getColor(R.styleable.SearchView_search_background_color, Color.WHITE));
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
             }
-            if (a.hasValue(R.styleable.SearchView_search_text_color)) {
-                setTextColor(a.getColor(R.styleable.SearchView_search_text_color, Color.BLACK));
-            }
-            if (a.hasValue(R.styleable.SearchView_search_text_highlight_color)) {
-                setTextHighlightColor(a.getColor(R.styleable.SearchView_search_text_highlight_color, Color.GRAY));
-            }
-            if (a.hasValue(R.styleable.SearchView_search_text_size)) {
-                setTextSize(a.getDimension(R.styleable.SearchView_search_text_size, mContext.getResources().getDimension(R.dimen.search_text_16)));
-            }
-            if (a.hasValue(R.styleable.SearchView_search_text_style)) {
-                setTextStyle(agetInt(R.styleable.SearchView_search_text_style, Typeface.NORMAL));
-            }
-            if (a.hasValue(R.styleable.SearchView_search_hint)) {
-                setHint(a.getString(R.styleable.SearchView_search_hint));
-            }
-            if (a.hasValue(R.styleable.SearchView_search_hint_color)) {
-                setHintColor(a.getColor(R.styleable.SearchView_search_hint_color, Color.BLACK));
-            }
-            if (a.hasValue(R.styleable.SearchView_search_animation_duration)) {
-                setAnimationDuration(a.getInteger(R.styleable.SearchView_search_animation_duration, mAnimationDuration));
-            }
-            if (a.hasValue(R.styleable.SearchView_search_shadow)) {
-                setShadow(a.getBoolean(R.styleable.SearchView_search_shadow, true));
-            }
-            if (a.hasValue(R.styleable.SearchView_search_shadow_color)) {
-                setShadowColor(a.getColor(R.styleable.SearchView_search_shadow_color, mContext.getResources().getColor(R.color.search_shadow)));
-            }
-            if (a.hasValue(R.styleable.SearchView_search_elevation)) {
-                setElevation(a.getDimensionPixelSize(R.styleable.SearchView_search_elevation, mContext.getResources().getDimensionPixelSize(R.dimen.search_elevation));
-            }
-            if (a.hasValue(R.styleable.SearchView_search_google_icons) {
-                setGoogleIcons(a.getBoolean(R.styleable.SearchView_search_google_icons, true));
-            }
-            a.recycle();
+        });
+        // todo null check+ init
+        a.recycle();
+
+        setLogo(Search.Logo.GOOGLE);
+        setShape(Search.Shape.DEFAULT);
+        setTheme(Search.Theme.COLOR);
+        setVersion(Search.Version.TOOLBAR);
+        setVersionMargins(Search.VersionMargins.TOOLBAR_SMALL);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    @Search.Logo
+    public int getLogo() {
+        return mLogo;
+    }
+
+    public void setLogo(@Search.Logo int logo) {
+        mLogo = logo;
+
+        int left, top, right, bottom;
+
+        switch (mLogo) {
+            case Search.Logo.GOOGLE:
+                left = getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left);
+                top = getContext().getResources().getDimensionPixelSize(R.dimen.search_logo_padding_top);
+                right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_right);
+                bottom = 0;
+
+                mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_google_color));
+                mImageViewLogo.setPadding(left, top, right, bottom);
+                break;
+            case Search.Logo.G:
+                top = 0;
+                leftRightG = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_view);
+                bottom = 0;
+
+                mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_g_color_24dp));
+                mImageViewLogo.setPadding(left, top, right, bottom);
+                break;
+            case Search.Logo.HAMBURGER:
+                left = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_view);
+                top = 0;
+                right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_view);
+                bottom = 0;
+
+                mSearchArrowDrawable = new SearchArrowDrawable(mContext);
+                mImageViewLogo.setImageDrawable(mSearchArrowDrawable);
+                mImageViewLogo.setPadding(left, top, right, bottom);
+                break;
+                break;
         }
     }
+
+    @Search.Shape
+    public int getShape() {
+        return mShape;
+    }
+
+    public void setShape(@Search.Shape int shape) {
+        mShape = shape;
+
+        switch (mShape) {
+            case Search.Shape.DEFAULT:
+                mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_default));
+                break;
+            case Search.Shape.ROUNDED_TOP:
+                mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_rounded));
+                break;
+            case Search.Shape.ROUNDED:
+                mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_rounded));
+                break;
+            case Search.Shape.OVAL:
+                mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_oval));
+                break;
+        }
+    }
+
+    @Search.Theme
+    public int getTheme() {
+        return mTheme;
+    }
+
+    public void setTheme(@Search.Theme int theme) {
+        setTheme(theme, true);
+    }
+
+    public void setTheme(@Search.Theme int theme, boolean tint) {
+        mTheme = theme;
+
+        switch (mTheme) {
+            case Search.Theme.COLOR:
+                break;
+            case Search.Theme.LIGHT:
+                setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_view_light_background));
+                if (tint) {
+                    setIconColor(ContextCompat.getColor(mContext, R.color.search_view_light_icon));
+                    setHintColor(ContextCompat.getColor(mContext, R.color.search_view_light_hint));
+                    setTextColor(ContextCompat.getColor(mContext, R.color.search_view_light_text));
+                    setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_view_light_text_highlight));
+                }
+                break;
+            case Search.Theme.DARK:
+                setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_view_dark_background));
+                if (tint) {
+                    setIconColor(ContextCompat.getColor(mContext, R.color.search_view_dark_icon));
+                    setHintColor(ContextCompat.getColor(mContext, R.color.search_view_dark_hint));
+                    setTextColor(ContextCompat.getColor(mContext, R.color.search_view_dark_text));
+                    setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_view_dark_text_highlight));
+                }
+                break;
+        }
+    }
+
+    @Search.Version
+    public int getVersion() {
+        return mVersion;
+    }
+
+    public void setVersion(@Search.Version int version) {
+        mVersion = version;
+
+        if (mVersion == Search.Version.MENU_ITEM) {
+            setVisibility(View.GONE);
+        }
+    }
+
+    @Search.VersionMargins
+    public int getVersionMargins() {
+        return mVersionMargins;
+    }
+
+    public void setVersionMargins(@Search.VersionMargins int versionMargins) {
+        mVersionMargins = versionMargins;
+
+        LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        int left, top, right, bottom;
+
+        switch (mVersionMargins) {
+            case Search.VersionMargins.TOOLBAR_SMALL:
+                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
+                left = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_small_left_right);
+                right = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_small_left_right);
+                bottom = 0;
+
+                params.setMargins(left, top, right, bottom);
+
+                mCardView.setLayoutParams(params);
+                break;
+            case Search.VersionMargins.TOOLBAR_BIG:
+                int topBig = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
+                int leftRightBig = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_big_left_right);
+                int bottomBig = 0;
+
+                params.setMargins(left, top, right, bottom);
+
+                mCardView.setLayoutParams(params);
+                break;
+            case Search.VersionMargins.MENU_ITEM:
+                int top = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
+                int leftRightMenu = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_left_right);
+                int bottomMenu = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
+
+                params.setMargins(left, top, right, bottom);
+
+                mCardView.setLayoutParams(params);
+                break;
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    /**
+     * new SearchDivider(Context)
+     * new DividerItemDecoration(Context, DividerItemDecoration.VERTICAL)
+     */
+    public void addDivider(RecyclerView.ItemDecoration itemDecoration) {
+        mRecyclerView.addItemDecoration(itemDecoration);
+    }
+
+    /**
+     * new SearchDivider(Context)
+     * new DividerItemDecoration(Context, DividerItemDecoration.VERTICAL)
+     */
+    public void removeDivider(RecyclerView.ItemDecoration itemDecoration) {
+        mRecyclerView.removeItemDecoration(itemDecoration);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    public void showKeyboard() {
+        if (!isInEditMode()) {
+            InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (inputMethodManager != null) {
+                inputMethodManager.showSoftInput(mSearchEditText, 0); // todo this or edittext
+                inputMethodManager.showSoftInput(this, 0);
+            }
+        }
+    }
+
+    public void hideKeyboard() {
+        if (!isInEditMode()) {
+            InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (inputMethodManager != null) {
+                inputMethodManager.hideSoftInputFromWindow(getWindowToken(), 0);
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
     // ---------------------------------------------------------------------------------------------
 
 
 
+    @Size
+    public int getCustomHeight() {
+        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
+        return params.height;
+    }
 
+    public void setCustomHeight(@Size int height) {
+        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
+        params.height = height;
+        params.width = LinearLayout.LayoutParams.MATCH_PARENT;
+        mLinearLayout.setLayoutParams(params);
+    }
 
-            /*for (int i = 0, n = mFlexboxLayout.getChildCount(); i < n; i++) {
-            View child = mFlexboxLayout.getChildAt(i);
-            if (child instanceof AppCompatCheckBox) {
-                ((AppCompatCheckBox) child).setTextColor(mTextColor);
-            }
+    public void setIconColor(@ColorInt int color) {
+        // ColorFilter colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN);
+
+        mImageViewLogo.setColorFilter(color);
+        mImageViewMic.setColorFilter(color);
+    }
+
+    public void setHintColor(@ColorInt int color) {
+        mSearchEditText.setHintTextColor(color);
+    }
+
+    public Editable getText() {
+        return mSearchEditText.getText();
+    }
+
+    public void setText(@StringRes int text) {
+        mSearchEditText.setText(text);
+    }
+
+    public void setText(CharSequence text) {
+        mSearchEditText.setText(text);
+    }
+
+    public void setTextColor(@ColorInt int color) {
+        // todo adapter
+        mSearchEditText.setTextColor(color);
+    }
+
+    public void setTextHighlightColor(@ColorInt int color) {
+        // todo adapter
+    }
+
+    public void setHint(CharSequence hint) {
+        mSearchEditText.setHint(hint);
+    }
+
+    public void setHint(@StringRes int hint) {
+        mSearchEditText.setHint(hint);
+    }
+
+    public void setImeOptions(int imeOptions) {
+        mSearchEditText.setImeOptions(imeOptions);
+    }
+
+    public void setInputType(int inputType) {
+        mSearchEditText.setInputType(inputType);
+    }
+
+    public void setLogoIcon(@DrawableRes int resource) {
+        mImageViewLogo.setImageResource(resource);
+    }
+
+    public void setLogoIcon(@Nullable Drawable drawable) {
+        mImageViewLogo.setImageDrawable(drawable);
+    }
+
+    /**
+     * Typeface.NORMAL
+     * Typeface.BOLD
+     * Typeface.ITALIC
+     * Typeface.BOLD_ITALIC
+     */
+    public void setTextStyle(int textStyle) {
+        // todo adapter
+        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
+    }
+
+    /**
+     * Typeface.DEFAULT
+     * Typeface.DEFAULT_BOLD
+     * Typeface.MONOSPACE
+     * Typeface.SANS_SERIF
+     * Typeface.SERIF
+     */
+    public void setTextFont(Typeface font) {
+        // todo adapter
+        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
+    }
+
+    public void setMicIcon(@DrawableRes int resource) {
+        mImageViewMic.setImageResource(resource);
+    }
+
+    public void setMicIcon(@Nullable Drawable drawable) {
+        mImageViewMic.setImageDrawable(drawable);
+    }
+
+    public void setSearchItemAnimator(RecyclerView.ItemAnimator itemAnimator) {
+        mRecyclerView.setItemAnimator(itemAnimator);
+    }
+
+    public RecyclerView.Adapter getAdapter() {
+        return mRecyclerView.getAdapter();
+    }
+
+    public void setAdapter(RecyclerView.Adapter adapter) {
+        mRecyclerViewAdapter = adapter;
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
+    }
+
+    public void setAnimationDuration(long animationDuration) {
+        mAnimationDuration = animationDuration;
+    }
+
+    public void setShadow(boolean shadow) {
+        if (shadow) {
+            mViewShadow.setVisibility(View.VISIBLE);
+        } else {
+            mViewShadow.setVisibility(View.GONE);
         }
+    }
 
+    public void setShadowColor(@ColorInt int color) {
+        mViewShadow.setBackgroundColor(color);
+    }
 
-    public void setVersion(@Version int version) {
-        mVersion = version;
+    public void setOnQueryTextListener(OnQueryTextListener listener) {
+        mOnQueryTextListener = listener;
+    }
 
-        if (mVersion == Version.MENU_ITEM) {
-            setVisibility(View.GONE);
-        }
+    public void setOnOpenCloseListener(OnOpenCloseListener listener) {
+        mOnOpenCloseListener = listener;
+    }
+
+    public void setOnLogoClickListener(OnLogoClickListener listener) {
+        mOnLogoClickListener = listener;
+    }
+
+    public void setOnMicClickListener(OnMicClickListener listener) {
+        mOnMicClickListener = listener;
+    }
+
+    @Override
+    public void setElevation(float elevation) {
+        mCardView.setMaxCardElevation(elevation);
+        mCardView.setCardElevation(elevation);
+    }
+
+    @Override
+    public void setBackgroundColor(@ColorInt int color) {
+        mCardView.setCardBackgroundColor(color);
+    }
+
+    public void setRadius(float radius) {
+        mCardView.setRadius(radius);
     }
 
 
 
+    public boolean isOpen() {
+        return getVisibility() == View.VISIBLE;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == mImageViewLogo) {
+            if (mSearchArrowDrawable != null && mIsSearchArrowState == SearchArrowDrawable.STATE_ARROW) {
+                // close(true);
+            } else {
+                if (mOnLogoClickListener != null) {
+                    mOnLogoClickListener.onLogoClick(mIsSearchArrowState);
+                }
+            }
+        }
+
+        if (v == mImageViewMic) {
+            if (mOnMicClickListener != null) {
+                mOnMicClickListener.onMicClick();
+                if (mIsSearchArrowState == SearchArrowDrawable.STATE_ARROW) {
+
+                } else {
+                    if (mSearchEditText.length() > 0) {
+                        mSearchEditText.getText().clear();
+                    }
+                }
+            }
+        }
+
+        if (v == mViewShadow) {
+            //close true
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    public interface OnQueryTextListener {
+        boolean onQueryTextChange(String newText);
+
+        boolean onQueryTextSubmit(String query);
+    }
+
+    public interface OnOpenCloseListener {
+        boolean onClose();
+
+        boolean onOpen();
+    }
+
+    public interface OnLogoClickListener {
+        void onLogoClick(@FloatRange(from = SearchArrowDrawable.STATE_HAMBURGER, to = SearchArrowDrawable.STATE_ARROW) float state);
+    }
+
+    public interface OnMicClickListener {
+        void onMicClick();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private View mMenuItemView;
+    private int mMenuItemCx = -1;
+    private float mIsSearchArrowHamburgerState = SearchArrowDrawable.STATE_HAMBURGER;
+    private CharSequence mQuery = "";
 
 
 
@@ -159,7 +714,7 @@ or a onFilterClickListener method is fine
     }
 
     public void open(boolean animate, MenuItem menuItem) {
-        if (mVersion == Version.MENU_ITEM) {
+        if (mVersion == Search.Version.MENU_ITEM) {
             setVisibility(View.VISIBLE);
 
             if (animate) {
@@ -203,7 +758,7 @@ or a onFilterClickListener method is fine
             }
         }
 
-        if (mVersion == Version.TOOLBAR) {
+        if (mVersion == Search.Version.TOOLBAR) {
             if (mSearchEditText.length() > 0) {
                 mSearchEditText.getText().clear();
             }
@@ -221,7 +776,7 @@ or a onFilterClickListener method is fine
 
     public void close(boolean animate, MenuItem menuItem) {
         switch (mVersion) {
-            case Version.MENU_ITEM:
+            case Search.Version.MENU_ITEM:
                 if (animate) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         if (menuItem != null) {
@@ -255,7 +810,7 @@ or a onFilterClickListener method is fine
                     }
                 }
                 break;
-            case Version.TOOLBAR:
+            case Search.Version.TOOLBAR:
                 if (mSearchEditText.length() > 0) {
                     mSearchEditText.getText().clear();
                 }
@@ -320,7 +875,7 @@ or a onFilterClickListener method is fine
             }
         }
 
-        if (mShadow) {
+        if (mViewShadow.getVisibility() == View.VISIBLE) { // TODO: 28.12.17
             SearchAnimator.fadeIn(mViewShadow, mAnimationDuration);
         }
 
@@ -331,7 +886,7 @@ or a onFilterClickListener method is fine
         showKeyboard();
         showSuggestions();
 
-        if (mVersion == Version.TOOLBAR) {
+        if (mVersion == Search.Version.TOOLBAR) {
             postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -366,7 +921,7 @@ or a onFilterClickListener method is fine
         hideKeyboard();
         hideSuggestions();
 
-        if (mVersion == Version.TOOLBAR) {
+        if (mVersion == Search.Version.TOOLBAR) {
             postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -404,23 +959,6 @@ or a onFilterClickListener method is fine
         }
     }
 
-
-    public void setGoogleIcons(boolean google) {
-        mGoogle = google;
-
-        if (mGoogle) {
-            mImageViewNavigation.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_g_color_24dp));
-            mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_color_24dp));
-            // mImageViewMenu.setColorFilter(null);
-        } else {
-            mImageViewNavigation.setImageDrawable(mSearchArrowDrawable);
-            mImageViewMic.setImageResource(R.drawable.ic_mic_black_24dp);
-        }
-    }
-
-
-
-
     public void setTextSize(float size) {
         mSearchEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
     }
@@ -439,7 +977,7 @@ or a onFilterClickListener method is fine
         }
     }
 
-        //krishkapil filter  listener
+    //krishkapil filter  listener
 
     private void restoreFiltersState(List<Boolean> states) {
         mSearchFiltersStates = states;
@@ -476,16 +1014,22 @@ or a onFilterClickListener method is fine
 
     private void isVoiceAvailable() {
         if (isInEditMode()) {
-            return;//break continue
+            return;//break continue + krisnha filter listener
         }
     }
 
-    private void onTextChanged(CharSequence newText) {
-        mQuery = newText;
+    private void onTextChanged(CharSequence s) {
+        mQuery = s;
+
+
+        CharSequence query = "";
+        if (!TextUtils.isEmpty(query)) {
+            //onSubmitQuery();
+        }
 
         if (mRecyclerViewAdapter != null && mRecyclerViewAdapter instanceof Filterable) {
-            final CharSequence mFilterKey = newText.toString().toLowerCase(Locale.getDefault());
-            ((SearchAdapter) mRecyclerViewAdapter).getFilter().filter(newText, new Filter.FilterListener() {
+            final CharSequence mFilterKey = s.toString().toLowerCase(Locale.getDefault());
+            ((SearchAdapter) mRecyclerViewAdapter).getFilter().filter(s, new Filter.FilterListener() {
                 @Override
                 public void onFilterComplete(int i) {
                     if (mFilterKey.equals(((SearchAdapter) mRecyclerViewAdapter).getKey())) {
@@ -507,7 +1051,7 @@ or a onFilterClickListener method is fine
             });
         }
 
-        if (!TextUtils.isEmpty(newText)) {
+        if (!TextUtils.isEmpty(s)) {
             mImageViewMic.setImageResource(R.drawable.ic_clear_black_24dp);
         } else {
             if (mGoogle) {
@@ -520,7 +1064,7 @@ or a onFilterClickListener method is fine
 
         if (mOnQueryTextListener != null) {
             dispatchFilters();
-            mOnQueryTextListener.onQueryTextChange(newText.toString());
+            mOnQueryTextListener.onQueryTextChange(s.toString());
         }
     }
 
@@ -548,7 +1092,9 @@ or a onFilterClickListener method is fine
         }
     }
 
-    // aj
+
+
+
 
     @Override
     protected Parcelable onSaveInstanceState() {
@@ -607,4 +1153,104 @@ or a onFilterClickListener method is fine
         super.onRestoreInstanceState(state);
     }
 
-}*/
+
+          /*  for (int i = 0, n = mFlexboxLayout.getChildCount(); i < n; i++) {
+            View child = mFlexboxLayout.getChildAt(i);
+            if (child instanceof AppCompatCheckBox) {
+                ((AppCompatCheckBox) child).setTextColor(mTextColor);
+            }
+        }*/
+
+    // todo doplnit hodnoty
+    private void initStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        final TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.SearchView, defStyleAttr, defStyleRes);
+        if (a != null) {/// todo
+            if (a.hasValue(R.styleable.SearchView_search_custom_height)) {
+                setCustomHeight(a.getDimensionPixelSize(R.styleable.SearchView_search_custom_height, mContext.getResources().getDimensionPixelSize(R.dimen.search_height)));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_version)) {
+                setVersion(a.getInt(R.styleable.SearchView_search_version, Version.TOOLBAR));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_version_margins)) {
+                setVersionMargins(a.getInt(R.styleable.SearchView_search_version_margins, VersionMargins.TOOLBAR_SMALL));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_theme)) {
+                setTheme(a.getInt(R.styleable.SearchView_search_theme, Theme.LIGHT));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_navigation_icon)) {
+                setNavigationIcon(a.getResourceId(R.styleable.SearchView_search_navigation_icon, 0));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_icon_color)) {
+                setIconColor(a.getColor(R.styleable.SearchView_search_icon_color, Color.BLACK));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_background_color)) {
+                setBackgroundColor(a.getColor(R.styleable.SearchView_search_background_color, Color.WHITE));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_text_color)) {
+                setTextColor(a.getColor(R.styleable.SearchView_search_text_color, Color.BLACK));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_text_highlight_color)) {
+                setTextHighlightColor(a.getColor(R.styleable.SearchView_search_text_highlight_color, Color.GRAY));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_text_size)) {
+                setTextSize(a.getDimension(R.styleable.SearchView_search_text_size, mContext.getResources().getDimension(R.dimen.search_text_16)));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_text_style)) {
+                setTextStyle(agetInt(R.styleable.SearchView_search_text_style, Typeface.NORMAL));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_hint)) {
+                setHint(a.getString(R.styleable.SearchView_search_hint));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_hint_color)) {
+                setHintColor(a.getColor(R.styleable.SearchView_search_hint_color, Color.BLACK));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_animation_duration)) {
+                setAnimationDuration(a.getInteger(R.styleable.SearchView_search_animation_duration, mAnimationDuration));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_shadow)) {
+                setShadow(a.getBoolean(R.styleable.SearchView_search_shadow, true));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_shadow_color)) {
+                setShadowColor(a.getColor(R.styleable.SearchView_search_shadow_color, mContext.getResources().getColor(R.color.search_shadow)));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_elevation)) {
+                setElevation(a.getDimensionPixelSize(R.styleable.SearchView_search_elevation, mContext.getResources().getDimensionPixelSize(R.dimen.search_elevation));
+            }
+            if (a.hasValue(R.styleable.SearchView_search_google_icons) {
+                setGoogleIcons(a.getBoolean(R.styleable.SearchView_search_google_icons, true));
+            }
+            a.recycle();
+        }
+    }
+
+
+
+}
+
+
+// Kotlinize + NULLABLE
+/*
+todo
+or a onFilterClickListener method is fine
+*/// int id = view.getId();
+// this(context, null);
+
+
+
+// aj
+
+
+
+
+// ---------------------------------------------------------------------------------------------
+    /*@ColorInt
+    //@Contract(pure = true)
+    public static int getIconColor() {
+        return mIconColor;
+    }*/
+
+// ontrola anotaci
+// https://stackoverflow.com/questions/35625247/android-is-it-ok-to-put-intdef-values-inside-interface
+// https://developer.android.com/reference/android/support/annotation/FloatRange.html
+// ViewCompat.setBackground
+// mSearchButton.setImageDrawable(a.getDrawable(R.styleable.SearchView_searchIcon));
