@@ -1,13 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="search_shadow">#80000000</color>
+    <!-- Color Theme -->
+    <color name="search_color_menu">#8d9094</color>
+    <color name="search_color_background">#ffffff</color>
+    <color name="search_color_text">#de000000</color>
+    <color name="search_color_hint">#80000000</color>
+    <color name="search_color_text_highlight">#62000000</color>
+
+    <!-- Light Theme -->
+    <color name="search_light_icon">#5f6368</color>
+    <color name="search_light_menu">#8d9094</color>
+    <color name="search_light_background">#ffffff</color>
+    <color name="search_light_text">#de000000</color>
+    <color name="search_light_hint">#80000000</color>
+    <color name="search_light_text_highlight">#62000000</color>
+
+    <!-- Dark Theme -->
+    <color name="search_dark_icon">#ffffff</color>
+    <color name="search_dark_menu">#bdbdbd</color>
+    <color name="search_dark_background">#222222</color>
+    <color name="search_dark_text">#ffffff</color>
+    <color name="search_dark_hint">#80ffffff</color>
+    <color name="search_dark_text_highlight">#62ffffff</color>
 
     <!-- Google -->
     <color name="search_google_blue">#4285f4</color>
     <color name="search_google_green">#34a853</color>
     <color name="search_google_yellow">#fbbc05</color>
     <color name="search_google_red">#ea4335</color>
+
+    <!-- Shadow -->
+    <color name="search_shadow">#80000000</color>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- SearchView Light AppCompat Theme -->
     <color name="search_view_light_appcompat_background">#fafafa</color>
@@ -23,39 +68,10 @@
     <color name="search_view_dark_appcompat_hint">#80ffffff</color>
     <color name="search_view_dark_appcompat_text_highlight">#62ffffff</color>
 
-    <!-- SearchView Color Theme -->
-    <color name="search_view_color_background">#ffffff</color>
-    <color name="search_view_color_light_text">#de000000</color>
-    <color name="search_view_color_light_hint">#80000000</color>
-    <color name="search_view_color_light_text_highlight">#62000000</color>
 
-    <!-- SearchView Light Theme -->
-    <color name="search_view_light_icon">#5f6368</color>
-    <color name="search_view_light_background">#ffffff</color>
-    <color name="search_view_light_text">#de000000</color>
-    <color name="search_view_light_hint">#80000000</color>
-    <color name="search_view_light_text_highlight">#62000000</color>
 
-    <!-- SearchView Dark Theme -->
-    <color name="search_view_dark_icon">#ffffff</color>
-    <color name="search_view_dark_background">#222222</color>
-    <color name="search_view_dark_text">#ffffff</color>
-    <color name="search_view_dark_hint">#80ffffff</color>
-    <color name="search_view_dark_text_highlight">#62ffffff</color>
 
-    <!-- SearchBar Color Theme -->
-    <color name="search_bar_color_background">#ffffff</color>
-    <color name="search_bar_color_menu">#8d9094</color>
 
-    <!-- SearchBar Light Theme -->
-    <color name="search_bar_light_icon">#5f6368</color>
-    <color name="search_bar_light_background">#ffffff</color>
-    <color name="search_bar_light_menu">#8d9094</color>
-
-    <!-- SearchBar Dark Theme -->
-    <color name="search_bar_dark_icon">#ffffff</color>
-    <color name="search_bar_dark_background">#222222</color>
-    <color name="search_bar_dark_menu">#bdbdbd</color>
 
 
     <color name="cardview_dark_background2">#424242</color>
