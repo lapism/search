@@ -31,6 +31,10 @@
                 android:ellipsize="end"
                 android:gravity="end|center_vertical"
                 android:maxLines="1"
+                android:paddingEnd="@dimen/search_key_line_8"
+                android:paddingLeft="@dimen/search_key_line_8"
+                android:paddingRight="@dimen/search_key_line_8"
+                android:paddingStart="@dimen/search_key_line_8"
                 android:textSize="@dimen/search_text_16"
                 android:windowSoftInputMode="stateAlwaysHidden" />
 

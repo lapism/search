@@ -32,7 +32,7 @@ class SearchArrowDrawable extends DrawerArrowDrawable {
         setColor(ContextCompat.getColor(context, android.R.color.black));
     }
 
-    void animate(float state, int duration) {
+    void animate(float state, long duration) {
         ObjectAnimator anim;
         if (state == STATE_ARROW) {
             anim = ObjectAnimator.ofFloat(this, PROGRESS, STATE_HAMBURGER, state);

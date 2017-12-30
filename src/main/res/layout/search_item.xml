@@ -17,8 +17,12 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="end|center_vertical"
-        android:orientation="vertical">
+        android:gravity="start|center_vertical"
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/search_key_line_8"
+        android:paddingLeft="@dimen/search_key_line_8"
+        android:paddingRight="@dimen/search_key_line_8"
+        android:paddingStart="@dimen/search_key_line_8">
 
         <TextView
             android:id="@+id/search_title"
@@ -33,6 +37,7 @@
             android:id="@+id/search_subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:alpha="0.2"
             android:ellipsize="end"
             android:maxLines="1"
             android:textIsSelectable="false"

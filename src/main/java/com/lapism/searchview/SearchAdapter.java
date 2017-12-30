@@ -65,7 +65,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
         if (item.getIcon_1_resource() != 0) {
             viewHolder.icon_1.setImageResource(item.getIcon_1_resource());
-            // viewHolder.icon_1.setColorFilter(SearchView.getIconColor(), PorterDuff.Mode.SRC_IN);
+            // viewHolder.icon_1.setColorFilter(SearchView.getIconColor(), PorterDuff.Mode.SRC_IN); // todo alpha a adaopter metody
         } else if (item.getIcon_1_drawable() != null) {
             viewHolder.icon_1.setImageDrawable(item.getIcon_1_drawable());
             //  viewHolder.icon_1.setColorFilter(SearchView.getIconColor(), PorterDuff.Mode.SRC_IN);

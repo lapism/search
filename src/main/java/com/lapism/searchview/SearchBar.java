@@ -60,7 +60,6 @@ public class SearchBar extends SearchLayout implements View.OnClickListener {
 
     @Override
     public void setTextHighlightColor(@ColorInt int color) {
-
     }
 
     @Override
@@ -73,19 +72,25 @@ public class SearchBar extends SearchLayout implements View.OnClickListener {
         mTextView.setText(text);
     }
 
+    @Search.Layout
+    @Override
+    public int getLayout() {
+        return Search.Layout.BAR;
+    }
+
     // ---------------------------------------------------------------------------------------------
     public void setOnBarClickListener(Search.OnBarClickListener listener) {
         mOnBarClickListener = listener;
     }
 
     // ---------------------------------------------------------------------------------------------
+    // TODO: Attributes + text size
     private void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         mContext = context;
 
         final TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.SearchBar, defStyleAttr, defStyleRes);
-        final int layoutResId = a.getResourceId(R.styleable.SearchBar_layout_bar, R.layout.search_bar);
+        final int layoutResId = a.getResourceId(R.styleable.SearchBar_search_layout, R.layout.search_bar);
         a.recycle();
-        // TODO: Attributes + text size + callsuper
 
         final LayoutInflater inflater = LayoutInflater.from(mContext);
         inflater.inflate(layoutResId, this, true);
@@ -103,19 +108,21 @@ public class SearchBar extends SearchLayout implements View.OnClickListener {
 
         mTextView = findViewById(R.id.search_textView);
 
-        setLogo(Search.Logo.GOOGLE);
-        setShape(Search.Shape.DEFAULT);
+        setOnClickListener(this);
+
+        setLogo(Search.Logo.G);
+        setShape(Search.Shape.CLASSIC);
         setTheme(Search.Theme.COLOR);
     }
 
     // ---------------------------------------------------------------------------------------------
     @Override
-    public void onClick(View view) {
-        if (view == mImageViewMic) {
+    public void onClick(View v) {
+        if (v == mImageViewMic) {
             if (mOnMicClickListener != null) {
                 mOnMicClickListener.onMicClick();
             }
-        } else if (view == mImageViewMenu) {
+        } else if (v == mImageViewMenu) {
             if (mOnMenuClickListener != null) {
                 mOnMenuClickListener.onMenuClick();
             }

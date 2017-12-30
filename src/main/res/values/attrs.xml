@@ -2,17 +2,16 @@
 <resources>
 
     <declare-styleable name="SearchView">
-        <attr name="layout_view" format="reference" />
+        <attr name="search_layout" format="reference" />
         <attr name="search_logo" format="enum">
             <enum name="google" value="1000" />
             <enum name="g" value="1001" />
             <enum name="hamburger" value="1002" />
         </attr>
         <attr name="search_shape" format="enum">
-            <enum name="default" value="2000" />
-            <enum name="rounded_top" value="2001" />
-            <enum name="rounded" value="2002" />
-            <enum name="oval" value="2003" />
+            <enum name="classic" value="2000" />
+            <enum name="rounded" value="2001" />
+            <enum name="oval" value="2002" />
         </attr>
         <attr name="search_theme" format="enum">
             <enum name="color" value="3000" />
@@ -50,42 +49,29 @@
     </declare-styleable>
 
     <declare-styleable name="SearchBar">
-        <attr name="layout_bar" format="reference" />
-        <attr name="search_logo" format="enum">
-            <enum name="google" value="1000" />
-            <enum name="g" value="1001" />
-            <enum name="hamburger" value="1002" />
-        </attr>
-        <attr name="search_shape" format="enum">
-            <enum name="default" value="2000" />
-            <enum name="rounded_top" value="2001" />
-            <enum name="rounded" value="2002" />
-            <enum name="oval" value="2003" />
-        </attr>
-        <attr name="search_theme" format="enum">
-            <enum name="color" value="3000" />
-            <enum name="light" value="3001" />
-            <enum name="dark" value="3002" />
-        </attr>
+        <attr name="search_layout" />
+        <attr name="search_logo" />
+        <attr name="search_shape" />
+        <attr name="search_theme" />
     </declare-styleable>
 
-    <declare-styleable name="SearchView2">
-        <attr name="layout2" format="reference" />
-        <attr name="android:maxWidth" />
-        <attr name="queryHint" format="string" />
-        <attr name="defaultQueryHint" format="string" />
-        <attr name="android:imeOptions" />
-        <attr name="android:inputType" />
-        <attr name="closeIcon" format="reference" />
-        <attr name="goIcon" format="reference" />
-        <attr name="searchIcon" format="reference" />
-        <attr name="searchHintIcon" format="reference" />
-        <attr name="voiceIcon" format="reference" />
-        <attr name="commitIcon" format="reference" />
-        <attr name="suggestionRowLayout" format="reference" />
-        <attr name="queryBackground" format="reference" />
-        <attr name="submitBackground" format="reference" />
-        <attr name="android:focusable" />
-    </declare-styleable>
+    <!--<declare-styleable name="SearchView2">
+    <attr name="layout2" format="reference" />
+    <attr name="android:maxWidth" />
+    <attr name="queryHint" format="string" />
+    <attr name="defaultQueryHint" format="string" />
+    <attr name="android:imeOptions" />
+    <attr name="android:inputType" />
+    <attr name="closeIcon" format="reference" />
+    <attr name="goIcon" format="reference" />
+    <attr name="searchIcon" format="reference" />
+    <attr name="searchHintIcon" format="reference" />
+    <attr name="voiceIcon" format="reference" />
+    <attr name="commitIcon" format="reference" />
+    <attr name="suggestionRowLayout" format="reference" />
+    <attr name="queryBackground" format="reference" />
+    <attr name="submitBackground" format="reference" />
+    <attr name="android:focusable" />
+    </declare-styleable>-->
 
 </resources>

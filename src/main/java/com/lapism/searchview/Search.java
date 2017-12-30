@@ -1,6 +1,5 @@
 package com.lapism.searchview;
 
-import android.support.annotation.FloatRange;
 import android.support.annotation.IntDef;
 
 import java.lang.annotation.Retention;
@@ -17,13 +16,12 @@ public class Search {
         int HAMBURGER = 1002;
     }
 
-    @IntDef({Shape.DEFAULT, Shape.ROUNDED_TOP, Shape.ROUNDED, Shape.OVAL})
+    @IntDef({Shape.CLASSIC, Shape.ROUNDED, Shape.OVAL})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Shape {
-        int DEFAULT = 2000;
-        int ROUNDED_TOP = 2001;
-        int ROUNDED = 2002;
-        int OVAL = 2003;
+        int CLASSIC = 2000;
+        int ROUNDED = 2001;
+        int OVAL = 2002;
     }
 
     @IntDef({Theme.COLOR, Theme.LIGHT, Theme.DARK})
@@ -49,12 +47,20 @@ public class Search {
         int MENU_ITEM = 5002;
     }
 
+
+    @IntDef({Layout.BAR, Layout.VIEW})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Layout {
+        int BAR = 6000;
+        int VIEW = 6001;
+    }
+
     public interface OnBarClickListener {
         void onBarClick();
     }
 
     public interface OnLogoClickListener {
-        void onLogoClick(@FloatRange(from = SearchArrowDrawable.STATE_HAMBURGER, to = SearchArrowDrawable.STATE_ARROW) float state);
+        void onLogoClick(boolean isOpen);// todo or hasFocus
     }
 
     public interface OnMicClickListener {

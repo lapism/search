@@ -38,7 +38,6 @@ public abstract class SearchLayout extends FrameLayout {
     protected Search.OnMicClickListener mOnMicClickListener;
     protected Search.OnMenuClickListener mOnMenuClickListener;
 
-    // todo anotace vseho
     // ---------------------------------------------------------------------------------------------
     public SearchLayout(@NonNull Context context) {
         super(context);
@@ -69,6 +68,9 @@ public abstract class SearchLayout extends FrameLayout {
 
     public abstract void setText(CharSequence text);
 
+    @Search.Layout
+    public abstract int getLayout();
+
     // ---------------------------------------------------------------------------------------------
     @Search.Logo
     public int getLogo() {
@@ -91,18 +93,28 @@ public abstract class SearchLayout extends FrameLayout {
                 mImageViewLogo.setPadding(left, top, right, bottom);
                 break;
             case Search.Logo.G:
-                left = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_bar);
                 top = 0;
-                right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_bar);
+                if (getLayout() == Search.Layout.BAR) {
+                    left = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_bar);
+                    right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_bar);
+                } else {
+                    left = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_view);
+                    right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_view);
+                }
                 bottom = 0;
 
                 mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_g_color_24dp));
                 mImageViewLogo.setPadding(left, top, right, bottom);
                 break;
             case Search.Logo.HAMBURGER:
-                left = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_view);
                 top = 0;
-                right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_view);
+                if (getLayout() == Search.Layout.BAR) {
+                    left = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_bar);
+                    right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_bar);
+                } else {
+                    left = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_view);
+                    right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_view);
+                }
                 bottom = 0;
 
                 mSearchArrowDrawable = new SearchArrowDrawable(mContext);
@@ -121,11 +133,8 @@ public abstract class SearchLayout extends FrameLayout {
         mShape = shape;
 
         switch (mShape) {
-            case Search.Shape.DEFAULT:
-                mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_default));
-                break;
-            case Search.Shape.ROUNDED_TOP:
-                mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_rounded));
+            case Search.Shape.CLASSIC:
+                mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_classic));
                 break;
             case Search.Shape.ROUNDED:
                 mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_rounded));
@@ -152,7 +161,11 @@ public abstract class SearchLayout extends FrameLayout {
                 clearIconColor();
                 setMenuColor(ContextCompat.getColor(mContext, R.color.search_color_menu));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_color_hint));
-                setTextColor(ContextCompat.getColor(mContext, R.color.search_color_text)); // todo fix na menu
+                if (getLayout() == Search.Layout.BAR) {
+                    setTextColor(ContextCompat.getColor(mContext, R.color.search_color_menu));
+                } else {
+                    setTextColor(ContextCompat.getColor(mContext, R.color.search_color_text));
+                }
                 setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_color_text_highlight));
                 break;
             case Search.Theme.LIGHT:

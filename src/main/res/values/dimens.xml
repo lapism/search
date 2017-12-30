@@ -30,7 +30,7 @@
     <dimen name="search_logo_padding_right">4dp</dimen>
     <dimen name="search_logo_padding_top">2dp</dimen>
 
-    <dimen name="search_shape_default">@dimen/cardview_default_radius</dimen>
+    <dimen name="search_shape_classic">@dimen/cardview_default_radius</dimen>
     <dimen name="search_shape_rounded">8dp</dimen>
     <dimen name="search_shape_oval">23dp</dimen>
 
