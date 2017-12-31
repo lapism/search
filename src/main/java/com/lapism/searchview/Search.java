@@ -60,7 +60,7 @@ public class Search {
     }
 
     public interface OnLogoClickListener {
-        void onLogoClick(boolean isOpen);// todo or hasFocus
+        void onLogoClick(boolean hasFocus);
     }
 
     public interface OnMicClickListener {

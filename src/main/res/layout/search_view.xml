@@ -2,7 +2,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <View
         android:id="@+id/search_view_shadow"
@@ -57,13 +57,27 @@
                     android:textSize="@dimen/search_text_16"
                     android:windowSoftInputMode="stateAlwaysHidden" />
 
-                <ImageView
-                    android:id="@+id/search_imageView_mic"
+                <FrameLayout
                     android:layout_width="@dimen/search_icon_56"
-                    android:layout_height="match_parent"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/search_app_name"
-                    android:scaleType="center" />
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/search_imageView_mic"
+                        android:layout_width="@dimen/search_icon_56"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/search_app_name"
+                        android:scaleType="center" />
+
+                    <ImageView
+                        android:id="@+id/search_imageView_clear"
+                        android:layout_width="@dimen/search_icon_56"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/search_app_name"
+                        android:scaleType="center" />
+
+                </FrameLayout>
 
                 <ImageView
                     android:id="@+id/search_imageView_menu"

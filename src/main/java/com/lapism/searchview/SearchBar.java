@@ -84,13 +84,11 @@ public class SearchBar extends SearchLayout implements View.OnClickListener {
     }
 
     // ---------------------------------------------------------------------------------------------
-    // TODO: Attributes + text size
     private void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         mContext = context;
 
         final TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.SearchBar, defStyleAttr, defStyleRes);
         final int layoutResId = a.getResourceId(R.styleable.SearchBar_search_layout, R.layout.search_bar);
-        a.recycle();
 
         final LayoutInflater inflater = LayoutInflater.from(mContext);
         inflater.inflate(layoutResId, this, true);
@@ -101,18 +99,36 @@ public class SearchBar extends SearchLayout implements View.OnClickListener {
 
         mImageViewMic = findViewById(R.id.search_imageView_mic);
         mImageViewMic.setOnClickListener(this);
+        mImageViewMic.setVisibility(View.GONE);
 
         mImageViewMenu = findViewById(R.id.search_imageView_menu);
         mImageViewMenu.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_menu_black_24dp));
         mImageViewMenu.setOnClickListener(this);
+        mImageViewMenu.setVisibility(View.GONE);
 
         mTextView = findViewById(R.id.search_textView);
 
         setOnClickListener(this);
 
-        setLogo(Search.Logo.G);
-        setShape(Search.Shape.CLASSIC);
-        setTheme(Search.Theme.COLOR);
+        if (a.hasValue(R.styleable.SearchView_search_logo)) {
+            setLogo(a.getInt(R.styleable.SearchView_search_logo, Search.Logo.G));
+        } else {
+            setLogo(Search.Logo.G);
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_shape)) {
+            setShape(a.getInt(R.styleable.SearchView_search_shape, Search.Shape.CLASSIC));
+        } else {
+            setShape(Search.Shape.CLASSIC);
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_theme)) {
+            setTheme(a.getInt(R.styleable.SearchView_search_theme, Search.Theme.COLOR));
+        } else {
+            setTheme(Search.Theme.COLOR);
+        }
+
+        a.recycle();
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -122,11 +138,15 @@ public class SearchBar extends SearchLayout implements View.OnClickListener {
             if (mOnMicClickListener != null) {
                 mOnMicClickListener.onMicClick();
             }
-        } else if (v == mImageViewMenu) {
+        }
+
+        if (v == mImageViewMenu) {
             if (mOnMenuClickListener != null) {
                 mOnMenuClickListener.onMenuClick();
             }
-        } else {
+        }
+
+        if (v == this) {
             if (mOnBarClickListener != null) {
                 mOnBarClickListener.onBarClick();
             }

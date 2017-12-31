@@ -13,6 +13,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -194,10 +195,12 @@ public abstract class SearchLayout extends FrameLayout {
     // ---------------------------------------------------------------------------------------------
     public void setOnMicClickListener(Search.OnMicClickListener listener) {
         mOnMicClickListener = listener;
+        mImageViewMic.setVisibility(View.VISIBLE);
     }
 
     public void setOnMenuClickListener(Search.OnMenuClickListener listener) {
         mOnMenuClickListener = listener;
+        mImageViewMenu.setVisibility(View.VISIBLE);
     }
 
     @Override
