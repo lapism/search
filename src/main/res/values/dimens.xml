@@ -21,7 +21,6 @@
 
     <dimen name="search_elevation">@dimen/cardview_default_elevation</dimen>
 
-
     <dimen name="search_menu_margin_right">10dp</dimen>
 
     <dimen name="search_logo_padding_left_right_bar">12dp</dimen>
@@ -33,6 +32,8 @@
     <dimen name="search_shape_classic">@dimen/cardview_default_radius</dimen>
     <dimen name="search_shape_rounded">8dp</dimen>
     <dimen name="search_shape_oval">23dp</dimen>
+
+
 
 
     <dimen name="cardview_compat_inset_shadow2">1dp</dimen>

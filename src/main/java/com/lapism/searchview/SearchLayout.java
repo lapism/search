@@ -136,9 +136,6 @@ public abstract class SearchLayout extends FrameLayout {
 
                 mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_arrow_back_black_24dp));
                 mImageViewLogo.setPadding(left, top, right, bottom);
-                /*if (mSearchArrowDrawable != null) {
-                    mSearchArrowDrawable.setProgress(SearchArrowDrawable.STATE_ARROW);
-                }*/
                 break;
         }
     }
