@@ -33,6 +33,7 @@ public abstract class SearchLayout extends FrameLayout {
     protected CardView mCardView;
     protected ImageView mImageViewLogo;
     protected ImageView mImageViewMic;
+    protected ImageView mImageViewClear;
     protected ImageView mImageViewMenu;
     protected SearchArrowDrawable mSearchArrowDrawable;
 
@@ -122,6 +123,23 @@ public abstract class SearchLayout extends FrameLayout {
                 mImageViewLogo.setImageDrawable(mSearchArrowDrawable);
                 mImageViewLogo.setPadding(left, top, right, bottom);
                 break;
+            case Search.Logo.ARROW:
+                top = 0;
+                if (getLayout() == Search.Layout.BAR) {
+                    left = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_bar);
+                    right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_bar);
+                } else {
+                    left = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_view);
+                    right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_view);
+                }
+                bottom = 0;
+
+                mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_arrow_back_black_24dp));
+                mImageViewLogo.setPadding(left, top, right, bottom);
+                /*if (mSearchArrowDrawable != null) {
+                    mSearchArrowDrawable.setProgress(SearchArrowDrawable.STATE_ARROW);
+                }*/
+                break;
         }
     }
 
@@ -159,8 +177,9 @@ public abstract class SearchLayout extends FrameLayout {
                 mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_color_24dp));
 
                 setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_color_background));
-                clearIconColor();
-                setMenuColor(ContextCompat.getColor(mContext, R.color.search_color_menu));
+                clearIconsColor();
+                setClearIconColor(ContextCompat.getColor(mContext, R.color.search_color_icon));
+                setMenuIconColor(ContextCompat.getColor(mContext, R.color.search_color_menu));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_color_hint));
                 if (getLayout() == Search.Layout.BAR) {
                     setTextColor(ContextCompat.getColor(mContext, R.color.search_color_menu));
@@ -173,8 +192,10 @@ public abstract class SearchLayout extends FrameLayout {
                 mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_black_24dp));
 
                 setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
-                setIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
-                setMenuColor(ContextCompat.getColor(mContext, R.color.search_light_menu));
+                setLogoIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
+                setMicIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
+                setClearIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
+                setMenuIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_light_hint));
                 setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
                 setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_light_text_highlight));
@@ -183,8 +204,10 @@ public abstract class SearchLayout extends FrameLayout {
                 mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_black_24dp));
 
                 setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
-                setIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
-                setMenuColor(ContextCompat.getColor(mContext, R.color.search_dark_menu));
+                setLogoIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+                setMicIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+                setClearIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+                setMenuIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_dark_hint));
                 setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
                 setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_dark_text_highlight));
@@ -208,18 +231,29 @@ public abstract class SearchLayout extends FrameLayout {
         mCardView.setCardBackgroundColor(color);
     }
 
-    public void clearIconColor() {
+    private void clearIconsColor() {
         mImageViewLogo.clearColorFilter();
         mImageViewMic.clearColorFilter();
+        if (mImageViewClear != null) {
+            mImageViewClear.clearColorFilter();
+        }
     }
 
-    public void setIconColor(@ColorInt int color) {
-        // todo ColorFilter colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN);
+    public void setLogoIconColor(@ColorInt int color) {
         mImageViewLogo.setColorFilter(color);
+    }
+
+    public void setMicIconColor(@ColorInt int color) {
         mImageViewMic.setColorFilter(color);
     }
 
-    public void setMenuColor(@ColorInt int color) {
+    public void setClearIconColor(@ColorInt int color) {
+        if (mImageViewClear != null) {
+            mImageViewClear.setColorFilter(color);
+        }
+    }
+
+    public void setMenuIconColor(@ColorInt int color) {
         mImageViewMenu.setColorFilter(color);
     }
 

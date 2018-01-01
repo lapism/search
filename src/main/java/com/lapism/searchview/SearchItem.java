@@ -13,7 +13,6 @@ import android.text.TextUtils;
 import org.jetbrains.annotations.Contract;
 
 
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchItem implements Parcelable {
 
     public static final Creator<SearchItem> CREATOR = new Creator<SearchItem>() {

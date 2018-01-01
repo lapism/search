@@ -10,7 +10,6 @@ import android.speech.RecognizerIntent;
 import java.util.List;
 
 
-@SuppressWarnings("unused")
 public class SearchMic {
 
     private static final int SPEECH_REQUEST_CODE = 100;

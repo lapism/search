@@ -2,24 +2,29 @@
 <resources>
 
     <!-- Color Theme -->
-    <color name="search_color_menu">#8d9094</color>
+    <color name="search_color_icon">#616161</color>
+    <color name="search_color_menu">#9e9e9e</color>
     <color name="search_color_background">#ffffff</color>
-    <color name="search_color_text">#de000000</color>
-    <color name="search_color_hint">#80000000</color>
-    <color name="search_color_text_highlight">#62000000</color>
+    <color name="search_color_text">#212121</color>
+    <color name="search_color_hint">#bdbdbd</color>
+    <color name="search_color_text_highlight">#757575</color>
+    <color name="search_color_icon_item">#bdbdbd</color>
 
     <!-- Light Theme -->
-    <color name="search_light_icon">#5f6368</color>
-    <color name="search_light_menu">#8d9094</color>
+    <color name="search_light_icon">#616161</color>
+    <color name="search_light_menu">#9e9e9e</color>
     <color name="search_light_background">#ffffff</color>
-    <color name="search_light_text">#de000000</color>
-    <color name="search_light_hint">#80000000</color>
-    <color name="search_light_text_highlight">#62000000</color>
+    <color name="search_light_text">#212121</color>
+    <color name="search_light_hint">#bdbdbd</color>
+    <color name="search_light_text_highlight">#757575</color>
+    <color name="search_light_icon_item">#bdbdbd</color>
 
     <!-- Dark Theme -->
     <color name="search_dark_icon">#ffffff</color>
     <color name="search_dark_menu">#bdbdbd</color>
-    <color name="search_dark_background">#222222</color>
+    <color name="search_dark_background">#212121</color>
+
+    <!-- todo kontrola -->
     <color name="search_dark_text">#ffffff</color>
     <color name="search_dark_hint">#80ffffff</color>
     <color name="search_dark_text_highlight">#62ffffff</color>

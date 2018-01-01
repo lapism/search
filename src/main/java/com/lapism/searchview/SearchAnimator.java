@@ -1,7 +1,6 @@
 package com.lapism.searchview;
 
 import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Point;
