@@ -61,7 +61,7 @@ public class Search {
     }
 
     public interface OnLogoClickListener {
-        void onLogoClick(boolean hasFocus);
+        void onLogoClick();
     }
 
     public interface OnMicClickListener {
