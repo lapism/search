@@ -64,8 +64,6 @@ public abstract class SearchLayout extends FrameLayout {
 
     public abstract void setTextColor(@ColorInt int color);
 
-    public abstract void setTextHighlightColor(@ColorInt int color);
-
     public abstract void setText(@StringRes int text);
 
     public abstract void setText(CharSequence text);
@@ -112,8 +110,8 @@ public abstract class SearchLayout extends FrameLayout {
                 mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_rounded));
                 break;
             case Search.Shape.OVAL:
-                if(getLayout() == Search.Layout.BAR) {
-                mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_oval));
+                if (getLayout() == Search.Layout.BAR) {
+                    mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_oval));
                 }
                 break;
         }
@@ -143,7 +141,6 @@ public abstract class SearchLayout extends FrameLayout {
                 } else {
                     setTextColor(ContextCompat.getColor(mContext, R.color.search_color_text));
                 }
-                setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_color_text_highlight));
                 break;
             case Search.Theme.LIGHT:
                 mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_black_24dp));
@@ -157,7 +154,6 @@ public abstract class SearchLayout extends FrameLayout {
                 setMenuIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_light_hint));
                 setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
-                setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_light_text_highlight));
                 break;
             case Search.Theme.DARK:
                 mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_black_24dp));
@@ -171,7 +167,6 @@ public abstract class SearchLayout extends FrameLayout {
                 setMenuIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_dark_hint));
                 setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
-                setTextHighlightColor(ContextCompat.getColor(mContext, R.color.search_dark_text_highlight));
                 break;
         }
     }

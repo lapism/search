@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -23,21 +24,94 @@ import java.util.Locale;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
     public static final String TAG = SearchAdapter.class.getName();
+
     protected final SearchHistoryTable mHistoryDatabase;
     public Integer mDatabaseKey = null;
     protected CharSequence mKey = "";
+
+
+
     protected List<SearchItem> mSuggestions = new ArrayList<>();
     protected List<SearchItem> mResults = new ArrayList<>();
     protected OnSearchItemClickListener mSearchItemClickListener;
-    // do Adapteru todo
+
     @ColorInt
-    private int mIconColor = Color.DKGRAY;
+    private int mIcon1Color; // icon start end i v itemxml
     @ColorInt
-    private int mTextColor = Color.BLACK;
+    private int mIcon2Color;
     @ColorInt
-    private int mTextHighlightColor = Color.GRAY;
+    private int mTitleColor;
+    @ColorInt
+    private int mSubtitleColor;
+    @ColorInt
+    private int mTitleHighlightColor;
+
     private int mTextStyle = Typeface.NORMAL;
     private Typeface mTextFont = Typeface.DEFAULT;
+
+
+
+    private Context mContext;
+
+
+    public void setIcon1Color(@ColorInt int color){
+        mTitleHighlightColor = color;
+    }
+
+    public void setIcon2tColor(@ColorInt int color){
+        mTitleHighlightColor = color;
+    }
+
+    public void setTitleColor(@ColorInt int color) {
+        mTitleHighlightColor = color;
+    }
+
+    public void setSubtitleColor(@ColorInt int color) {
+        mTitleHighlightColor = color;
+    }
+
+    public void setTitleHighlightColor(@ColorInt int color) {
+        mTitleHighlightColor = color;
+    }
+
+    public void setTextStyle(int style) {
+        mTextStyle = style;
+    }
+
+    public void setTextFont(Typeface font) {
+        mTextFont = font;
+    }
+
+    public void setTheme(@Search.Theme int theme) {
+        switch (theme) {
+            case Search.Theme.COLOR:
+                setTitleColor(ContextCompat.getColor(mContext, R.color.search_color_title));
+                setSubtitleColor(ContextCompat.getColor(mContext, R.color.search_color_subtitle));
+                break;
+            case Search.Theme.LIGHT:
+                setTitleColor(ContextCompat.getColor(mContext, R.color.search_light_title));
+                setSubtitleColor(ContextCompat.getColor(mContext, R.color.search_light_subtitle));
+                break;
+            case Search.Theme.DARK:
+                setTitleColor(ContextCompat.getColor(mContext, R.color.search_dark_title));
+                setSubtitleColor(ContextCompat.getColor(mContext, R.color.search_dark_subtitle));
+                break;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public SearchAdapter(Context context) {
         mHistoryDatabase = new SearchHistoryTable(context);
@@ -61,6 +135,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     @Override
     public void onBindViewHolder(ResultViewHolder viewHolder, int position) {
+        // viewHolder.itemView.getContext();
+
         SearchItem item = mResults.get(position);
 
         if (item.getIcon_1_resource() != 0) {
@@ -235,6 +311,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             }
         }
     }
+    // projit todo vse po radkach
+
 
     public void setOnSearchItemClickListener(OnSearchItemClickListener listener) {
         mSearchItemClickListener = listener;

@@ -52,6 +52,9 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
     private int mMenuItemCx = -1; //todo
 
 
+
+
+
     private boolean mShadow;
     private long mAnimationDuration;
 
@@ -107,13 +110,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
 
     @Override
     public void setTextColor(@ColorInt int color) {
-        // todo adapter
         mSearchEditText.setTextColor(color);
-    }
-
-    @Override
-    public void setTextHighlightColor(@ColorInt int color) {
-        // todo adapter
     }
 
     @Override
@@ -245,7 +242,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
      * Typeface.BOLD_ITALIC
      */
     public void setTextStyle(int style) {
-        // todo adapter
         mTextStyle = style;
         mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
     }
@@ -258,7 +254,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
      * Typeface.SERIF
      */
     public void setTextFont(Typeface font) {
-        // todo adapter
         mTextFont = font;
         mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
     }
@@ -743,13 +738,13 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
         return location[0] + view.getWidth() / 2;
     }
 
-    // TODO adapter predelat plus marginy dle searchview
+    // TODO plus marginy dle searchview
     private void onTextChanged(CharSequence s) {
         mQuery = s;
 
         setMicOrClearIcon();
 
-        if (mRecyclerViewAdapter != null && mRecyclerViewAdapter instanceof Filterable) {
+        /*if (mRecyclerViewAdapter != null && mRecyclerViewAdapter instanceof Filterable) {
             final CharSequence mFilterKey = s.toString().toLowerCase(Locale.getDefault());
             ((SearchAdapter) mRecyclerViewAdapter).getFilter().filter(s, new Filter.FilterListener() {
                 @Override
@@ -771,11 +766,11 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
                     }
                 }
             });
-        }
+        }*/
 
         if (mOnQueryTextListener != null) {
             // dispatchFilters();
-            mOnQueryTextListener.onQueryTextChange(s.toString());
+            mOnQueryTextListener.onQueryTextChange(mQuery.toString());
         }
     }
 
@@ -1057,7 +1052,9 @@ or a onFilterClickListener method is fine
 
 // aj
 
-
+        /*if(mRecyclerViewAdapter instanceof SearchAdapter) {
+                ((SearchAdapter) mRecyclerViewAdapter).setTextFont(font);
+                }*/
 /*<declare-styleable name="SearchView2">
 <attr name="layout2" format="reference" />
 <attr name="android:maxWidth" />

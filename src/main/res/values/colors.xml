@@ -5,29 +5,31 @@
     <color name="search_color_icon">#616161</color>
     <color name="search_color_menu">#9e9e9e</color>
     <color name="search_color_background">#ffffff</color>
-    <color name="search_color_text">#212121</color>
+    <color name="search_color_title">#212121</color>
+    <color name="search_color_title_highlight">#757575</color>
+    <color name="search_color_subtitle">#bdbdbd</color>
     <color name="search_color_hint">#bdbdbd</color>
-    <color name="search_color_text_highlight">#757575</color>
     <color name="search_color_icon_item">#bdbdbd</color>
 
     <!-- Light Theme -->
     <color name="search_light_icon">#616161</color>
     <color name="search_light_menu">#9e9e9e</color>
     <color name="search_light_background">#ffffff</color>
-    <color name="search_light_text">#212121</color>
+    <color name="search_light_title">#212121</color>
+    <color name="search_light_title_highlight">#757575</color>
+    <color name="search_light_subtitle">#bdbdbd</color>
     <color name="search_light_hint">#bdbdbd</color>
-    <color name="search_light_text_highlight">#757575</color>
     <color name="search_light_icon_item">#bdbdbd</color>
 
     <!-- Dark Theme -->
     <color name="search_dark_icon">#ffffff</color>
     <color name="search_dark_menu">#bdbdbd</color>
     <color name="search_dark_background">#212121</color>
-
-    <!-- todo kontrola -->
-    <color name="search_dark_text">#ffffff</color>
+    <color name="search_dark_title">#ffffff</color>
+    <color name="search_dark_title_highlight">#62ffffff</color>
+    <color name="search_dark_subtitle">#80ffffff</color>
     <color name="search_dark_hint">#80ffffff</color>
-    <color name="search_dark_text_highlight">#62ffffff</color>
+    <color name="search_dark_icon_item">#80ffffff</color>
 
     <!-- Google -->
     <color name="search_google_blue">#4285f4</color>

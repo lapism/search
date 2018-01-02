@@ -16,8 +16,8 @@ public class SearchFilter implements Parcelable {
             return new SearchFilter(in);
         }
 
-        @NonNull
         @Contract(pure = true)
+        @NonNull
         @Override
         public SearchFilter[] newArray(int size) {
             return new SearchFilter[size];

@@ -20,7 +20,6 @@ public class SearchHistoryTable {
 
     public SearchHistoryTable(Context context) {
         mContext = context;
-        // dbHelper = new SearchHistoryDatabase(mContext);
     }
 
     // FOR onResume AND onPause

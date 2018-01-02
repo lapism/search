@@ -1,6 +1,7 @@
 package com.lapism.searchview;
 
 import android.content.Context;
+import android.support.annotation.RestrictTo;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.KeyEvent;

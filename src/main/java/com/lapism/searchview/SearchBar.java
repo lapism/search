@@ -59,10 +59,6 @@ public class SearchBar extends SearchLayout implements View.OnClickListener {
     }
 
     @Override
-    public void setTextHighlightColor(@ColorInt int color) {
-    }
-
-    @Override
     public void setText(@StringRes int text) {
         mTextView.setText(text);
     }
