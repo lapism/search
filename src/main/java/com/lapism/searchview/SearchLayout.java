@@ -156,7 +156,9 @@ public abstract class SearchLayout extends FrameLayout {
                 mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_rounded));
                 break;
             case Search.Shape.OVAL:
+                if(getLayout() == Search.Layout.BAR) {
                 mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_oval));
+                }
                 break;
         }
     }
