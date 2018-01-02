@@ -469,7 +469,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
-
+        // todo ColorFilter colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN);
         // todo test PARAMETRY + README
         /*if (a.hasValue(R.styleable.SearchView_search_custom_height)) {
             setCustomHeight(a.getDimensionPixelSize(R.styleable.SearchView_search_custom_height, mContext.getResources().getDimensionPixelSize(R.dimen.search_height)));
@@ -713,8 +713,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
         }
     }
 
-    // todo metoda na setprogres a animate
-    // todo ColorFilter colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN);
     private void getMenuItemPosition(int menuItemId) {
         if (mMenuItemView != null) {
             mMenuItemCx = getCenterX(mMenuItemView);

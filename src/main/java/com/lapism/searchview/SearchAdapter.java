@@ -36,7 +36,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     protected OnSearchItemClickListener mSearchItemClickListener;
 
     @ColorInt
-    private int mIcon1Color; // icon start end i v itemxml
+    private int mIcon1Color;
     @ColorInt
     private int mIcon2Color;
     @ColorInt
@@ -58,7 +58,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         mTitleHighlightColor = color;
     }
 
-    public void setIcon2tColor(@ColorInt int color){
+    public void setIcon2Color(@ColorInt int color){
         mTitleHighlightColor = color;
     }
 
@@ -202,7 +202,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public Filter getFilter() {
         return new Filter() {
             CharSequence mFilterKey;
-
+            // todo krihna filter
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
@@ -339,7 +339,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                 @Override
                 public void onClick(View view) {
                     if (mSearchItemClickListener != null) {
-                        mSearchItemClickListener.onSearchItemClick(view, getLayoutPosition(), title.getText().toString(), subtitle.getText().toString());
+                        mSearchItemClickListener.onSearchItemClick(
+                                view,
+                                getLayoutPosition(),
+                                title.getText().toString(),
+                                subtitle.getText().toString());
                     }
                 }
             });
