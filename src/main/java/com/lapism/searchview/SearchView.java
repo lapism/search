@@ -269,7 +269,11 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
     }
 
     public void setLogoIcon(@Nullable Drawable drawable) {
-        mImageViewLogo.setImageDrawable(drawable);
+        if (drawable != null) {
+            mImageViewLogo.setImageDrawable(drawable);
+        } else {
+            mImageViewLogo.setVisibility(GONE);
+        }
     }
 
     public void setMicIcon(@DrawableRes int resource) {
@@ -294,6 +298,10 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
 
     public void setClearIcon(@Nullable Drawable drawable) {
         mImageViewClear.setImageDrawable(drawable);
+    }
+
+    public void setClearIconColor(@ColorInt int color) {
+        mImageViewClear.setColorFilter(color);
     }
 
     /**
@@ -467,7 +475,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
             }
         });
 
-        // todo OTESTOVAT PARAMETRY + README
+        // todo test PARAMETRY + README
         /*if (a.hasValue(R.styleable.SearchView_search_custom_height)) {
             setCustomHeight(a.getDimensionPixelSize(R.styleable.SearchView_search_custom_height, mContext.getResources().getDimensionPixelSize(R.dimen.search_height)));
         }
@@ -695,6 +703,21 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
         }
     }
 
+    // ---------------------------------------------------------------------------------------------
+    private void setMicOrClearIcon() {
+        if (!TextUtils.isEmpty(mQuery)) {
+            if (mOnMicClickListener != null) {
+                mImageViewMic.setVisibility(View.GONE);
+            }
+            mImageViewClear.setVisibility(View.VISIBLE);
+        } else {
+            if (mOnMicClickListener != null) {
+                mImageViewMic.setVisibility(View.VISIBLE);
+            }
+            mImageViewClear.setVisibility(View.GONE);
+        }
+    }
+
     // todo metoda na setprogres a animate
     // todo ColorFilter colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN);
     private void getMenuItemPosition(int menuItemId) {
@@ -756,21 +779,8 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
         }
     }
 
-    private void setMicOrClearIcon() {
-        if (!TextUtils.isEmpty(mQuery)) {
-            if (mOnMicClickListener != null) {
-                mImageViewMic.setVisibility(View.GONE);
-            }
-            mImageViewClear.setVisibility(View.VISIBLE);
-        } else {
-            if (mOnMicClickListener != null) {
-                mImageViewMic.setVisibility(View.VISIBLE);
-            }
-            mImageViewClear.setVisibility(View.GONE);
-        }
-    }
 
-    public void showSuggestions() {
+    private void showSuggestions() {
         if (mFlexboxLayout.getChildCount() > 0 && mFlexboxLayout.getVisibility() == View.GONE) {
             mViewDivider.setVisibility(View.VISIBLE);
             mFlexboxLayout.setVisibility(View.VISIBLE);
@@ -783,7 +793,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
         }
     }
 
-    public void hideSuggestions() {
+    private void hideSuggestions() {
         if (mFlexboxLayout.getVisibility() == View.VISIBLE) {
             mViewDivider.setVisibility(View.GONE);
             mFlexboxLayout.setVisibility(View.GONE);
@@ -837,7 +847,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
     /*
 
 
-
+break >= continue return instanceof
 
         public void setQuery(CharSequence query, boolean submit) {
         mQuery = query;
@@ -901,6 +911,9 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
 
 
 
+        do {
+          setShadow(false);
+        } while (false);
 
 
 
@@ -1045,6 +1058,24 @@ or a onFilterClickListener method is fine
 // aj
 
 
+/*<declare-styleable name="SearchView2">
+<attr name="layout2" format="reference" />
+<attr name="android:maxWidth" />
+<attr name="queryHint" format="string" />
+<attr name="defaultQueryHint" format="string" />
+<attr name="android:imeOptions" />
+<attr name="android:inputType" />
+<attr name="closeIcon" format="reference" />
+<attr name="goIcon" format="reference" />
+<attr name="searchIcon" format="reference" />
+<attr name="searchHintIcon" format="reference" />
+<attr name="voiceIcon" format="reference" />
+<attr name="commitIcon" format="reference" />
+<attr name="suggestionRowLayout" format="reference" />
+<attr name="queryBackground" format="reference" />
+<attr name="submitBackground" format="reference" />
+<attr name="android:focusable" />
+</declare-styleable>*/
 // ---------------------------------------------------------------------------------------------
     /*@ColorInt
     //@Contract(pure = true)

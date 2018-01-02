@@ -82,60 +82,16 @@ public abstract class SearchLayout extends FrameLayout {
     public void setLogo(@Search.Logo int logo) {
         mLogo = logo;
 
-        int left, top, right, bottom;
-
         switch (mLogo) {
-            case Search.Logo.GOOGLE:
-                left = getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left);
-                top = getContext().getResources().getDimensionPixelSize(R.dimen.search_logo_padding_top);
-                right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_right);
-                bottom = 0;
-
-                mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_google_color));
-                mImageViewLogo.setPadding(left, top, right, bottom);
-                break;
             case Search.Logo.G:
-                top = 0;
-                if (getLayout() == Search.Layout.BAR) {
-                    left = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_bar);
-                    right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_bar);
-                } else {
-                    left = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_view);
-                    right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_view);
-                }
-                bottom = 0;
-
                 mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_g_color_24dp));
-                mImageViewLogo.setPadding(left, top, right, bottom);
                 break;
             case Search.Logo.HAMBURGER:
-                top = 0;
-                if (getLayout() == Search.Layout.BAR) {
-                    left = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_bar);
-                    right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_bar);
-                } else {
-                    left = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_view);
-                    right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_view);
-                }
-                bottom = 0;
-
                 mSearchArrowDrawable = new SearchArrowDrawable(mContext);
                 mImageViewLogo.setImageDrawable(mSearchArrowDrawable);
-                mImageViewLogo.setPadding(left, top, right, bottom);
                 break;
             case Search.Logo.ARROW:
-                top = 0;
-                if (getLayout() == Search.Layout.BAR) {
-                    left = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_bar);
-                    right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_bar);
-                } else {
-                    left = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_view);
-                    right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left_right_view);
-                }
-                bottom = 0;
-
                 mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_arrow_back_black_24dp));
-                mImageViewLogo.setPadding(left, top, right, bottom);
                 break;
         }
     }
@@ -175,7 +131,9 @@ public abstract class SearchLayout extends FrameLayout {
 
                 setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_color_background));
                 clearIconsColor();
-                setClearIconColor(ContextCompat.getColor(mContext, R.color.search_color_icon));
+                if (mImageViewClear != null) {
+                    mImageViewClear.setColorFilter(ContextCompat.getColor(mContext, R.color.search_color_icon));
+                }
                 setMenuIconColor(ContextCompat.getColor(mContext, R.color.search_color_menu));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_color_hint));
                 if (getLayout() == Search.Layout.BAR) {
@@ -191,7 +149,9 @@ public abstract class SearchLayout extends FrameLayout {
                 setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
                 setLogoIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
                 setMicIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
-                setClearIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
+                if (mImageViewClear != null) {
+                    mImageViewClear.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
+                }
                 setMenuIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_light_hint));
                 setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
@@ -203,7 +163,9 @@ public abstract class SearchLayout extends FrameLayout {
                 setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
                 setLogoIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
                 setMicIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
-                setClearIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+                if (mImageViewClear != null) {
+                    mImageViewClear.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+                }
                 setMenuIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_dark_hint));
                 setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
@@ -228,14 +190,6 @@ public abstract class SearchLayout extends FrameLayout {
         mCardView.setCardBackgroundColor(color);
     }
 
-    private void clearIconsColor() {
-        mImageViewLogo.clearColorFilter();
-        mImageViewMic.clearColorFilter();
-        if (mImageViewClear != null) {
-            mImageViewClear.clearColorFilter();
-        }
-    }
-
     public void setLogoIconColor(@ColorInt int color) {
         mImageViewLogo.setColorFilter(color);
     }
@@ -244,18 +198,21 @@ public abstract class SearchLayout extends FrameLayout {
         mImageViewMic.setColorFilter(color);
     }
 
-    public void setClearIconColor(@ColorInt int color) {
-        if (mImageViewClear != null) {
-            mImageViewClear.setColorFilter(color);
-        }
-    }
-
     public void setMenuIconColor(@ColorInt int color) {
         mImageViewMenu.setColorFilter(color);
     }
 
     public void setShading(@FloatRange(from = 0.5, to = 1.0) float alpha) {
         setAlpha(alpha);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    private void clearIconsColor() {
+        mImageViewLogo.clearColorFilter();
+        mImageViewMic.clearColorFilter();
+        if (mImageViewClear != null) {
+            mImageViewClear.clearColorFilter();
+        }
     }
 
 }

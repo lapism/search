@@ -9,6 +9,7 @@
 
     <dimen name="search_item_height">56dp</dimen>
     <dimen name="search_icon_24">24dp</dimen>
+    <dimen name="search_icon_48">48dp</dimen>
     <dimen name="search_icon_56">56dp</dimen>
 
     <dimen name="search_text_12">12sp</dimen>
@@ -32,8 +33,6 @@
     <dimen name="search_shape_classic">@dimen/cardview_default_radius</dimen>
     <dimen name="search_shape_rounded">8dp</dimen>
     <dimen name="search_shape_oval">23dp</dimen>
-
-
 
 
     <dimen name="cardview_compat_inset_shadow2">1dp</dimen>

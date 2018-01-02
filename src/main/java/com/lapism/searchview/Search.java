@@ -8,13 +8,12 @@ import java.lang.annotation.RetentionPolicy;
 
 public class Search {
 
-    @IntDef({Logo.GOOGLE, Logo.G, Logo.HAMBURGER, Logo.ARROW})
+    @IntDef({Logo.G, Logo.HAMBURGER, Logo.ARROW})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Logo {
-        int GOOGLE = 1000;
-        int G = 1001;
-        int HAMBURGER = 1002;
-        int ARROW = 1003;
+        int G = 1000;
+        int HAMBURGER = 1001;
+        int ARROW = 1002;
     }
 
     @IntDef({Shape.CLASSIC, Shape.ROUNDED, Shape.OVAL})
