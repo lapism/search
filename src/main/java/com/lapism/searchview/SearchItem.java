@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
 import org.jetbrains.annotations.Contract;
@@ -42,7 +41,7 @@ public class SearchItem implements Parcelable {
         this.context = context;
         this.icon_1_resource = 0;
         this.icon_2_resource = 0;
-        this.icon_1_drawable = ContextCompat.getDrawable(this.context, R.drawable.ic_search_black_24dp);
+        this.icon_1_drawable = null; //ContextCompat.getDrawable(this.context, R.drawable.ic_search_black_24dp);
         this.icon_2_drawable = null;
     }
 

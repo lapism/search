@@ -9,7 +9,7 @@
     <color name="search_color_title_highlight">#757575</color>
     <color name="search_color_subtitle">#bdbdbd</color>
     <color name="search_color_hint">#bdbdbd</color>
-    <color name="search_color_icon_item">#bdbdbd</color>
+    <color name="search_color_icon_1_2">#bdbdbd</color>
 
     <!-- Light Theme -->
     <color name="search_light_icon">#616161</color>
@@ -19,7 +19,7 @@
     <color name="search_light_title_highlight">#757575</color>
     <color name="search_light_subtitle">#bdbdbd</color>
     <color name="search_light_hint">#bdbdbd</color>
-    <color name="search_light_icon_item">#bdbdbd</color>
+    <color name="search_light_icon_1_2">#bdbdbd</color>
 
     <!-- Dark Theme -->
     <color name="search_dark_icon">#ffffff</color>
@@ -29,7 +29,7 @@
     <color name="search_dark_title_highlight">#62ffffff</color>
     <color name="search_dark_subtitle">#80ffffff</color>
     <color name="search_dark_hint">#80ffffff</color>
-    <color name="search_dark_icon_item">#80ffffff</color>
+    <color name="search_dark_icon_1_2">#80ffffff</color>
 
     <!-- Google -->
     <color name="search_google_blue">#4285f4</color>

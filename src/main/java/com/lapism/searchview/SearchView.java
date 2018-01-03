@@ -37,11 +37,10 @@ import android.widget.TextView;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.List;
-import java.util.Locale;
 
 
 // @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
-public class SearchView extends SearchLayout implements View.OnClickListener {
+public class SearchView extends SearchLayout implements View.OnClickListener, Filter.FilterListener {
 
     public static final String TAG = SearchView.class.getName();
     private List<Boolean> mSearchFiltersStates;
@@ -50,9 +49,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
     // init + kotlin 1.2.1 + 4.4.1 + glide 4.4.0 mbuild tools
     private CharSequence mQuery = "";//todo
     private int mMenuItemCx = -1; //todo
-
-
-
 
 
     private boolean mShadow;
@@ -637,7 +633,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
 
         setMicOrClearIcon();
         showKeyboard();
-        //showSuggestions();
+        showSuggestions();
 
         if (mVersion == Search.Version.TOOLBAR) {
             animateLogoHamburgerToLogoArrow(true);
@@ -651,6 +647,8 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
                 }
             }, mAnimationDuration);
         }
+
+
     }
 
     public void removeFocus() {
@@ -658,9 +656,10 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
             SearchAnimator.fadeOut(mViewShadow, mAnimationDuration);
         }
 
+        // todo bug voice zustava kdyz zustava text
         setMicOrClearIcon();
         hideKeyboard();
-        //hideSuggestions();
+        hideSuggestions();
 
         if (mVersion == Search.Version.TOOLBAR) {
             animateLogoHamburgerToLogoArrow(false);
@@ -736,42 +735,22 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
         return location[0] + view.getWidth() / 2;
     }
 
-    // TODO plus marginy dle searchview
+    // TODO plus marginy dle searchview + tyoeface a font do baru + dvoji bliknuti
     private void onTextChanged(CharSequence s) {
         mQuery = s;
 
         setMicOrClearIcon();
 
-        /*if (mRecyclerViewAdapter != null && mRecyclerViewAdapter instanceof Filterable) {
-            final CharSequence mFilterKey = s.toString().toLowerCase(Locale.getDefault());
-            ((SearchAdapter) mRecyclerViewAdapter).getFilter().filter(s, new Filter.FilterListener() {
-                @Override
-                public void onFilterComplete(int i) {
-                    if (mFilterKey.equals(((SearchAdapter) mRecyclerViewAdapter).getKey())) {
-                        if (i > 0) {
-                            if (mRecyclerView.getVisibility() == View.GONE) {
-                                mViewDivider.setVisibility(View.VISIBLE);
-                                mRecyclerView.setVisibility(View.VISIBLE);
-                                SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
-                            }
-                        } else {
-                            if (mRecyclerView.getVisibility() == View.VISIBLE) {
-                                mViewDivider.setVisibility(View.GONE);
-                                mRecyclerView.setVisibility(View.GONE);
-                                SearchAnimator.fadeOut(mRecyclerView, mAnimationDuration);
-                            }
-                        }
-                    }
-                }
-            });
-        }*/
+        if (mRecyclerViewAdapter != null && mRecyclerViewAdapter instanceof Filterable) {
+            ((Filterable) mRecyclerViewAdapter).getFilter().filter(s, this);
+        }
+
 
         if (mOnQueryTextListener != null) {
             // dispatchFilters();
             mOnQueryTextListener.onQueryTextChange(mQuery.toString());
         }
     }
-
 
     private void showSuggestions() {
         if (mFlexboxLayout.getChildCount() > 0 && mFlexboxLayout.getVisibility() == View.GONE) {
@@ -782,7 +761,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
         if (mRecyclerViewAdapter != null && mRecyclerViewAdapter.getItemCount() > 0) {
             mViewDivider.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.VISIBLE);
-            SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
+            //SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
         }
     }
 
@@ -795,7 +774,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
         if (mRecyclerViewAdapter != null) {
             mViewDivider.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.GONE);
-            SearchAnimator.fadeOut(mRecyclerView, mAnimationDuration);
+            //SearchAnimator.fadeOut(mRecyclerView, mAnimationDuration);
         }
     }
 
@@ -832,6 +811,15 @@ public class SearchView extends SearchLayout implements View.OnClickListener {
 
         if (v == mViewShadow) {
             close();
+        }
+    }
+
+    @Override
+    public void onFilterComplete(int count) {
+        if (count > 0) {
+            showSuggestions();
+        } else {
+            hideSuggestions();
         }
     }
 

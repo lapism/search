@@ -139,7 +139,7 @@ public abstract class SearchLayout extends FrameLayout {
                 if (getLayout() == Search.Layout.BAR) {
                     setTextColor(ContextCompat.getColor(mContext, R.color.search_color_menu));
                 } else {
-                    setTextColor(ContextCompat.getColor(mContext, R.color.search_color_text));
+                    setTextColor(ContextCompat.getColor(mContext, R.color.search_color_title));
                 }
                 break;
             case Search.Theme.LIGHT:
@@ -153,7 +153,7 @@ public abstract class SearchLayout extends FrameLayout {
                 }
                 setMenuIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_light_hint));
-                setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
+                setTextColor(ContextCompat.getColor(mContext, R.color.search_light_title));
                 break;
             case Search.Theme.DARK:
                 mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_black_24dp));
@@ -166,7 +166,7 @@ public abstract class SearchLayout extends FrameLayout {
                 }
                 setMenuIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_dark_hint));
-                setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
+                setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_title));
                 break;
         }
     }

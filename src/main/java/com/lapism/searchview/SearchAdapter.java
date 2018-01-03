@@ -1,13 +1,15 @@
 package com.lapism.searchview;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,101 +26,29 @@ import java.util.Locale;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
     public static final String TAG = SearchAdapter.class.getName();
-
     protected final SearchHistoryTable mHistoryDatabase;
     public Integer mDatabaseKey = null;
     protected CharSequence mKey = "";
-
-
-
     protected List<SearchItem> mSuggestions = new ArrayList<>();
     protected List<SearchItem> mResults = new ArrayList<>();
     protected OnSearchItemClickListener mSearchItemClickListener;
-
     @ColorInt
-    private int mIcon1Color;
-    @ColorInt
-    private int mIcon2Color;
-    @ColorInt
-    private int mTitleColor;
-    @ColorInt
-    private int mSubtitleColor;
-    @ColorInt
-    private int mTitleHighlightColor;
-
+    private int mIcon1Color, mIcon2Color, mTitleColor, mSubtitleColor, mTitleHighlightColor;
     private int mTextStyle = Typeface.NORMAL;
     private Typeface mTextFont = Typeface.DEFAULT;
-
-
-
     private Context mContext;
 
-
-    public void setIcon1Color(@ColorInt int color){
-        mTitleHighlightColor = color;
-    }
-
-    public void setIcon2Color(@ColorInt int color){
-        mTitleHighlightColor = color;
-    }
-
-    public void setTitleColor(@ColorInt int color) {
-        mTitleHighlightColor = color;
-    }
-
-    public void setSubtitleColor(@ColorInt int color) {
-        mTitleHighlightColor = color;
-    }
-
-    public void setTitleHighlightColor(@ColorInt int color) {
-        mTitleHighlightColor = color;
-    }
-
-    public void setTextStyle(int style) {
-        mTextStyle = style;
-    }
-
-    public void setTextFont(Typeface font) {
-        mTextFont = font;
-    }
-
-    public void setTheme(@Search.Theme int theme) {
-        switch (theme) {
-            case Search.Theme.COLOR:
-                setTitleColor(ContextCompat.getColor(mContext, R.color.search_color_title));
-                setSubtitleColor(ContextCompat.getColor(mContext, R.color.search_color_subtitle));
-                break;
-            case Search.Theme.LIGHT:
-                setTitleColor(ContextCompat.getColor(mContext, R.color.search_light_title));
-                setSubtitleColor(ContextCompat.getColor(mContext, R.color.search_light_subtitle));
-                break;
-            case Search.Theme.DARK:
-                setTitleColor(ContextCompat.getColor(mContext, R.color.search_dark_title));
-                setSubtitleColor(ContextCompat.getColor(mContext, R.color.search_dark_subtitle));
-                break;
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // ---------------------------------------------------------------------------------------------
     public SearchAdapter(Context context) {
+        mContext = context;
+        setTheme(Search.Theme.LIGHT);
         mHistoryDatabase = new SearchHistoryTable(context);
         getFilter().filter("");
     }
 
     public SearchAdapter(Context context, List<SearchItem> suggestions) {
+        mContext = context;
+        setTheme(Search.Theme.LIGHT);
         mSuggestions = suggestions;
         mResults = suggestions;
         mHistoryDatabase = new SearchHistoryTable(context);
@@ -135,53 +65,59 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     @Override
     public void onBindViewHolder(ResultViewHolder viewHolder, int position) {
-        // viewHolder.itemView.getContext();
+        // Context context = viewHolder.itemView.getContext();
 
         SearchItem item = mResults.get(position);
 
         if (item.getIcon_1_resource() != 0) {
             viewHolder.icon_1.setImageResource(item.getIcon_1_resource());
-            // viewHolder.icon_1.setColorFilter(SearchView.getIconColor(), PorterDuff.Mode.SRC_IN); // todo alpha a adaopter metody
+            viewHolder.icon_1.setColorFilter(mIcon1Color);
         } else if (item.getIcon_1_drawable() != null) {
             viewHolder.icon_1.setImageDrawable(item.getIcon_1_drawable());
-            //  viewHolder.icon_1.setColorFilter(SearchView.getIconColor(), PorterDuff.Mode.SRC_IN);
-        }
-
-        /*else {
+            viewHolder.icon_1.setColorFilter(mIcon1Color, PorterDuff.Mode.SRC_IN);
+        } else {
             viewHolder.icon_1.setVisibility(View.GONE);
-        }*/
+        }
 
         if (item.getIcon_2_resource() != 0) {
             viewHolder.icon_2.setImageResource(item.getIcon_2_resource());
-            //  viewHolder.icon_2.setColorFilter(ColorUtils.setAlphaComponent(SearchView.getIconColor(), 0x33), PorterDuff.Mode.SRC_IN);
+            viewHolder.icon_2.setColorFilter(mIcon1Color, PorterDuff.Mode.SRC_IN);
         } else if (item.getIcon_2_drawable() != null) {
             viewHolder.icon_2.setImageDrawable(item.getIcon_2_drawable());
-            //  viewHolder.icon_2.setColorFilter(ColorUtils.setAlphaComponent(SearchView.getIconColor(), 0x33), PorterDuff.Mode.SRC_IN);
+            viewHolder.icon_2.setColorFilter(mIcon2Color);
+        } else {
+            viewHolder.icon_2.setVisibility(View.GONE);
         }
 
-        /*else {
-            viewHolder.icon_2.setVisibility(View.GONE);
-        }*/
+        if (!TextUtils.isEmpty(item.getTitle())) {
+            viewHolder.title.setTypeface(Typeface.create(mTextFont, mTextStyle));
+            viewHolder.title.setTextColor(mTitleColor);
 
-        //viewHolder.title.setTypeface((Typeface.create(SearchView.getTextFont(), SearchView.getTextStyle())));
-        //viewHolder.title.setTextColor(SearchView.getTextColor());
+            String title = item.getTitle().toString();
+            String titleLower = title.toLowerCase(Locale.getDefault());
 
-        String itemText = item.getTitle().toString();
-        String itemTextLower = itemText.toLowerCase(Locale.getDefault());
+            // todo alpha a adaopter metodyColorUtils.setAlphaComponent(SearchView.getIconColor(), 0x33)android:alpha="0.4"
+            // todo spannable string cannto be 0
+            if (titleLower.contains(mKey) && !TextUtils.isEmpty(mKey)) {
+                SpannableString s = new SpannableString(title);
+                s.setSpan(new ForegroundColorSpan(
+                                mTitleHighlightColor),
+                        titleLower.indexOf(mKey.toString()),
+                        titleLower.indexOf(mKey.toString()) + mKey.length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                viewHolder.title.setText(s, TextView.BufferType.SPANNABLE);
+            } else {
+                viewHolder.title.setText(item.getTitle());
+            }
 
-        // todo fix nezobrazuje se + spannable string cannto be 0
-        if (itemTextLower.contains(mKey) && !TextUtils.isEmpty(mKey) && !itemText.isEmpty()) {
-            SpannableString s = new SpannableString(itemText);
-            // s.setSpan(new ForegroundColorSpan(SearchView.getTextHighlightColor()), itemTextLower.indexOf(mKey.toString()), itemTextLower.indexOf(mKey.toString()) + mKey.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            viewHolder.title.setText(s, TextView.BufferType.SPANNABLE);
         } else {
-            viewHolder.title.setText(item.getTitle());
+            viewHolder.title.setVisibility(View.GONE);
         }
 
         if (!TextUtils.isEmpty(item.getSubtitle())) {
+            viewHolder.subtitle.setTypeface(Typeface.create(mTextFont, mTextStyle));
+            viewHolder.subtitle.setTextColor(mSubtitleColor);
             viewHolder.subtitle.setText(item.getSubtitle());
-            //  viewHolder.subtitle.setTypeface((Typeface.create(SearchView.getTextFont(), SearchView.getTextStyle())));
-            //  viewHolder.subtitle.setTextColor(ColorUtils.setAlphaComponent(SearchView.getTextColor(), 0x33));
         } else {
             viewHolder.subtitle.setVisibility(View.GONE);
         }
@@ -202,7 +138,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public Filter getFilter() {
         return new Filter() {
             CharSequence mFilterKey;
-            // todo krihna filter
+
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
@@ -264,6 +200,60 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     }
 
     // ---------------------------------------------------------------------------------------------
+    public void setIcon1Color(@ColorInt int color) {
+        mIcon1Color = color;
+    }
+
+    public void setIcon2Color(@ColorInt int color) {
+        mIcon2Color = color;
+    }
+
+    public void setTitleColor(@ColorInt int color) {
+        mTitleColor = color;
+    }
+
+    public void setTitleHighlightColor(@ColorInt int color) {
+        mTitleHighlightColor = color;
+    }
+
+    public void setSubtitleColor(@ColorInt int color) {
+        mSubtitleColor = color;
+    }
+
+    public void setTextStyle(int style) {
+        mTextStyle = style;
+    }
+
+    public void setTextFont(Typeface font) {
+        mTextFont = font;
+    }
+
+    public void setTheme(@Search.Theme int theme) {
+        switch (theme) {
+            case Search.Theme.COLOR:
+                setIcon1Color(ContextCompat.getColor(mContext, R.color.search_color_icon_1_2));
+                setIcon2Color(ContextCompat.getColor(mContext, R.color.search_color_icon_1_2));
+                setTitleColor(ContextCompat.getColor(mContext, R.color.search_color_title));
+                setTitleHighlightColor(ContextCompat.getColor(mContext, R.color.search_color_title_highlight));
+                setSubtitleColor(ContextCompat.getColor(mContext, R.color.search_color_subtitle));
+                break;
+            case Search.Theme.LIGHT:
+                setIcon1Color(ContextCompat.getColor(mContext, R.color.search_light_icon_1_2));
+                setIcon2Color(ContextCompat.getColor(mContext, R.color.search_light_icon_1_2));
+                setTitleColor(ContextCompat.getColor(mContext, R.color.search_light_title));
+                setTitleHighlightColor(ContextCompat.getColor(mContext, R.color.search_light_title_highlight));
+                setSubtitleColor(ContextCompat.getColor(mContext, R.color.search_light_subtitle));
+                break;
+            case Search.Theme.DARK:
+                setIcon1Color(ContextCompat.getColor(mContext, R.color.search_dark_icon_1_2));
+                setIcon2Color(ContextCompat.getColor(mContext, R.color.search_dark_icon_1_2));
+                setTitleColor(ContextCompat.getColor(mContext, R.color.search_dark_title));
+                setTitleHighlightColor(ContextCompat.getColor(mContext, R.color.search_dark_title_highlight));
+                setSubtitleColor(ContextCompat.getColor(mContext, R.color.search_dark_subtitle));
+                break;
+        }
+    }
+
     public List<SearchItem> getSuggestionsList() {
         return mSuggestions;
     }
@@ -311,9 +301,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             }
         }
     }
-    // projit todo vse po radkach
 
-
+    // todo projit vse po radkach
     public void setOnSearchItemClickListener(OnSearchItemClickListener listener) {
         mSearchItemClickListener = listener;
     }
@@ -352,3 +341,5 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     }
 
 }
+
+// viewHolder.itemView.getContext();
