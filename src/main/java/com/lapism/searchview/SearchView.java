@@ -54,9 +54,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     private boolean mShadow;
     private long mAnimationDuration;
 
-    private int mTextStyle = Typeface.NORMAL;
-    private Typeface mTextFont = Typeface.DEFAULT;
-
     @Search.Version
     private int mVersion;
     @Search.VersionMargins
@@ -105,13 +102,25 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     }
 
     @Override
+    public void setText(@StringRes int text) {
+        mSearchEditText.setText(text);
+    }
+
+    @Override
     public void setTextColor(@ColorInt int color) {
         mSearchEditText.setTextColor(color);
     }
 
     @Override
-    public void setText(@StringRes int text) {
-        mSearchEditText.setText(text);
+    public void setTextStyle(int style) {
+        mTextStyle = style;
+        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
+    }
+
+    @Override
+    public void setTextFont(Typeface font) {
+        mTextFont = font;
+        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
     }
 
     @Search.Layout
@@ -231,30 +240,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mSearchEditText.setInputType(inputType);
     }
 
-    /**
-     * Typeface.NORMAL
-     * Typeface.BOLD
-     * Typeface.ITALIC
-     * Typeface.BOLD_ITALIC
-     */
-    public void setTextStyle(int style) {
-        mTextStyle = style;
-        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
-    }
-
-    /**
-     * Typeface.DEFAULT
-     * Typeface.DEFAULT_BOLD
-     * Typeface.MONOSPACE
-     * Typeface.SANS_SERIF
-     * Typeface.SERIF
-     */
-    public void setTextFont(Typeface font) {
-        mTextFont = font;
-        mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
-    }
-
-    // Icons
     public void setLogoIcon(@DrawableRes int resource) {
         mImageViewLogo.setImageResource(resource);
     }

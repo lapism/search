@@ -3,6 +3,7 @@ package com.lapism.searchview;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -54,11 +55,6 @@ public class SearchBar extends SearchLayout implements View.OnClickListener {
     }
 
     @Override
-    public void setTextColor(@ColorInt int color) {
-        mTextView.setTextColor(color);
-    }
-
-    @Override
     public void setText(@StringRes int text) {
         mTextView.setText(text);
     }
@@ -66,6 +62,23 @@ public class SearchBar extends SearchLayout implements View.OnClickListener {
     @Override
     public void setText(CharSequence text) {
         mTextView.setText(text);
+    }
+
+    @Override
+    public void setTextColor(@ColorInt int color) {
+        mTextView.setTextColor(color);
+    }
+
+    @Override
+    public void setTextStyle(int style) {
+        mTextStyle = style;
+        mTextView.setTypeface((Typeface.create(mTextFont, mTextStyle)));
+    }
+
+    @Override
+    public void setTextFont(Typeface font) {
+        mTextFont = font;
+        mTextView.setTypeface((Typeface.create(mTextFont, mTextStyle)));
     }
 
     @Search.Layout

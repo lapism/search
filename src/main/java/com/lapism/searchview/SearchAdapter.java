@@ -100,8 +100,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             // todo spannable string cannto be 0
             if (titleLower.contains(mKey) && !TextUtils.isEmpty(mKey)) {
                 SpannableString s = new SpannableString(title);
-                s.setSpan(new ForegroundColorSpan(
-                                mTitleHighlightColor),
+                s.setSpan(new ForegroundColorSpan(mTitleHighlightColor),
                         titleLower.indexOf(mKey.toString()),
                         titleLower.indexOf(mKey.toString()) + mKey.length(),
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

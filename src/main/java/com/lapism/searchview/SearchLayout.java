@@ -2,6 +2,7 @@ package com.lapism.searchview;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
@@ -28,6 +29,9 @@ public abstract class SearchLayout extends FrameLayout {
     protected int mShape;
     @Search.Theme
     protected int mTheme;
+
+    protected int mTextStyle = Typeface.NORMAL;
+    protected Typeface mTextFont = Typeface.DEFAULT;
 
     protected Context mContext;
     protected CardView mCardView;
@@ -62,11 +66,15 @@ public abstract class SearchLayout extends FrameLayout {
     // ---------------------------------------------------------------------------------------------
     public abstract void setHintColor(@ColorInt int color);
 
-    public abstract void setTextColor(@ColorInt int color);
-
     public abstract void setText(@StringRes int text);
 
     public abstract void setText(CharSequence text);
+
+    public abstract void setTextColor(@ColorInt int color);
+
+    public abstract void setTextStyle(int style);
+
+    public abstract void setTextFont(Typeface font);
 
     @Search.Layout
     public abstract int getLayout();

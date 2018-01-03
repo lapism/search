@@ -84,3 +84,24 @@ public class Search {
     }
 
 }
+
+/**
+ * Typeface.NORMAL
+ * Typeface.BOLD
+ * Typeface.ITALIC
+ * Typeface.BOLD_ITALIC
+ * <p>
+ * Typeface.DEFAULT
+ * Typeface.DEFAULT_BOLD
+ * Typeface.MONOSPACE
+ * Typeface.SANS_SERIF
+ * Typeface.SERIF
+ */
+/**
+ * Typeface.DEFAULT
+ * Typeface.DEFAULT_BOLD
+ * Typeface.MONOSPACE
+ * Typeface.SANS_SERIF
+ * Typeface.SERIF
+ */
+// todo rooom
