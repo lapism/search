@@ -62,9 +62,9 @@ dependencies {
 ```java
 SearchHistoryTable mHistoryDatabase = new SearchHistoryTable(this);
 
-SearchView mSearchView = (SearchView) findViewById(R.id.searchView); // to API 25
-SearchView mSearchView = findViewById(R.id.searchView); // from API 26
-if (mSearchView != null) {
+SearchView mSearchView = (SearchView) findViewById(R.id.searchView);  // to API 25
+SearchView mSearchView = findViewById(R.id.searchView);               // from API 26
+
     mSearchView.setVersionMargins(SearchView.VersionMargins.TOOLBAR_SMALL);
     mSearchView.setHint(R.string.search);
     mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -97,8 +97,8 @@ if (mSearchView != null) {
             return true;
         }
     });
-    mSearchView.setVoiceText("Set permission on Android 6.0+ !");
-    searchView.setOnVoiceIconClickListener(new SearchView.OnVoiceIconClickListener() {
+    // "Set permission on Android 6.0+ !"
+    searchView.setOnMicIconClickListener(new SearchView.OnVoiceIconClickListener() {
         @Override
         public void onMicIconClick() {
             // permission
@@ -129,8 +129,8 @@ if (mSearchView != null) {
     filter.add(new SearchFilter("Filter1", true));
     filter.add(new SearchFilter("Filter2", true));
     mSearchView.setFilters(filter);
-    //use mSearchView.getFiltersStates() to consider filter when performing search
-}
+    // use mSearchView.getFiltersStates() to consider filter when performing search
+
 ```
 
 **SearchView.Version.MENU_ITEM:**
