@@ -37,6 +37,7 @@
             <enum name="google" value="1000" />
             <enum name="g" value="1001" />
             <enum name="hamburger" value="1002" />
+            <enum name="arrow" value="1003" />
         </attr>
         <attr name="search_shape" format="enum">
             <enum name="classic" value="2000" />
