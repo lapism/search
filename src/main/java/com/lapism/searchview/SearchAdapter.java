@@ -106,7 +106,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 viewHolder.title.setText(s, TextView.BufferType.SPANNABLE);
             } else {
-                viewHolder.title.setText(item.getTitle());
+                viewHolder.title.setText(item.getTitle()); // todo ?
             }
 
         } else {
@@ -340,5 +340,3 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     }
 
 }
-
-// viewHolder.itemView.getContext();
