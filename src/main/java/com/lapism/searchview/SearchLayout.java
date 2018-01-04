@@ -89,6 +89,15 @@ public abstract class SearchLayout extends FrameLayout {
         mLogo = logo;
 
         switch (mLogo) {
+          case Search.Logo.GOOGLE:
+                int left = getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left);
+                int top = getContext().getResources().getDimensionPixelSize(R.dimen.search_logo_padding_top);
+                int right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_right);
+                int bottom = 0;
+
+                mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_google_color));
+                mImageViewLogo.setPadding(left, top, right, bottom);
+                break;
             case Search.Logo.G:
                 mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_g_color_24dp));
                 break;

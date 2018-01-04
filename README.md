@@ -1,7 +1,6 @@
-# SearchView
+# SearchView & SearchBar
 
-Persistent SearchView Library from Play Store.  
-Features: Material Design, Toolbar/MenuItem version, History, Styling.
+Features: Material Design, Bar/Toolbar/MenuItem version, History, Styling.
 
 Google Material Design Pattern:  
 https://material.io/guidelines/patterns/search.html
@@ -47,24 +46,25 @@ dependencies {
     implementation 'com.lapism:searchview:5.0.0-beta1'
 }
 ```
-![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)
-![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/image_2.png)
-![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)
+**SearchBar**  
+
 ![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/image_2.png)
 ![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)
 ![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/image_2.png)
 
-**Versions:**  
-  
-SearchView identifies its layout style through versions. Currently, there are two values, namely `SearchView.Version.TOOLBAR` for the persistent view, and `SearchView.Version.MENU_ITEM` for the view that appears on a MenuItem press. The version can be defined through `setVersion`.
+**SearchView**  
+
+![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)
+![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/image_2.png)
+![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/image_1.png)
 
 **SearchView.Version.MENU_ITEM and SearchView.Version.TOOLBAR:**
 ```java
 SearchHistoryTable mHistoryDatabase = new SearchHistoryTable(this);
 
-SearchView mSearchView = (SearchView) findViewById(R.id.searchView); // to API 25
-SearchView mSearchView = findViewById(R.id.searchView); // from API 26
-if (mSearchView != null) {
+SearchView mSearchView = (SearchView) findViewById(R.id.searchView);  // to API 25
+SearchView mSearchView = findViewById(R.id.searchView);               // from API 26
+
     mSearchView.setVersionMargins(SearchView.VersionMargins.TOOLBAR_SMALL);
     mSearchView.setHint(R.string.search);
     mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -97,8 +97,8 @@ if (mSearchView != null) {
             return true;
         }
     });
-    mSearchView.setVoiceText("Set permission on Android 6.0+ !");
-    searchView.setOnVoiceIconClickListener(new SearchView.OnVoiceIconClickListener() {
+    // "Set permission on Android 6.0+ !"
+    searchView.setOnMicIconClickListener(new SearchView.OnVoiceIconClickListener() {
         @Override
         public void onMicIconClick() {
             // permission
@@ -129,8 +129,8 @@ if (mSearchView != null) {
     filter.add(new SearchFilter("Filter1", true));
     filter.add(new SearchFilter("Filter2", true));
     mSearchView.setFilters(filter);
-    //use mSearchView.getFiltersStates() to consider filter when performing search
-}
+    // use mSearchView.getFiltersStates() to consider filter when performing search
+
 ```
 
 **SearchView.Version.MENU_ITEM:**
@@ -138,10 +138,9 @@ if (mSearchView != null) {
 @Override
 public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
-        case R.id.action_search: {
-            mSearchView.open(true/false); // enable or disable animation
+        case R.id.action_search:
+            mSearchView.open();
             return true;
-        }
         default:
             return super.onOptionsItemSelected(item);
     }
@@ -150,65 +149,15 @@ public boolean onOptionsItemSelected(MenuItem item) {
 
 **XML:**
 ```xml
-<com.lapism.searchview.SearchView
-    android:id="@+id/searchView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
-    
-    // will be new
+
 ```
 
 **XML with CoordinatorLayout:** 
  ```xml
- <com.lapism.searchview.SearchView
-     android:id="@+id/searchView"
-     android:layout_width="match_parent"
-     android:layout_height="match_parent" 
-     app:layout_behavior="com.lapism.searchview.SearchBehavior" />
-     
-    // will be new
+
  ```
 
 **Styling SearchView:**
 ```xml
-<attr name="search_version" format="enum">
-    <enum name="toolbar" value="1000" />
-    <enum name="menu_item" value="1001" />
-</attr>
-<attr name="search_version_margins" format="enum">
-    <enum name="toolbar_small" value="2000" />
-    <enum name="toolbar_big" value="2001" />
-    <enum name="menu_item" value="2002" />
-</attr>
-<attr name="search_theme" format="enum">
-    <enum name="light" value="3000" />
-    <enum name="dark" value="3001" />
-    <enum name="play_store" value="3002" />
-</attr>
-<attr name="search_height" format="dimension" />
-<attr name="search_navigation_icon" format="integer" />
-<attr name="search_icon_color" format="color" />
-<attr name="search_background_color" format="color" />
-<attr name="search_text_color" format="color" />
-<attr name="search_text_highlight_color" format="color" />
-<attr name="search_text_size" format="dimension" />
-<attr name="search_text_style" format="enum">
-    <enum name="normal" value="0" />
-    <enum name="bold" value="1" />
-    <enum name="italic" value="2" />
-    <enum name="bold_italic" value="3" />
-</attr>
-<attr name="search_hint" format="string" />
-<attr name="search_hint_color" format="color" />
-<attr name="search_voice" format="boolean" />
-<attr name="search_voice_text" format="string" />
-<attr name="search_animation_duration" format="integer" />
-<attr name="search_shadow" format="boolean" />
-<attr name="search_shadow_color" format="boolean" />
-<attr name="search_elevation" format="dimension" />
-<attr name="search_clear_on_open" format="boolean" />
-<attr name="search_clear_on_close" format="boolean" />
-<attr name="search_hide_on_keyboard_close" format="boolean" />
-<attr name="search_show_progress" format="boolean" />
-<attr name="search_cursor_drawable" format="integer" />
+
 ```

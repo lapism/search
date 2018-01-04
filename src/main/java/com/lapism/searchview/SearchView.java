@@ -380,7 +380,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mImageViewMenu.setOnClickListener(this);
         mImageViewMenu.setVisibility(View.GONE);
 
-        mAnimationDuration = mContext.getResources().getInteger(R.integer.search_animation_duration);
+        mAnimationDuration = 300;//todo
 
         mViewShadow = findViewById(R.id.search_view_shadow);
         mViewShadow.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_shadow));
