@@ -29,7 +29,8 @@
 
                 <ImageView
                     android:id="@+id/search_imageView_logo"
-                    android:layout_width="@dimen/search_icon_56"
+                    android:minWidth="@dimen/search_icon_56"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/search_app_name"
