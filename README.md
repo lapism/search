@@ -1,6 +1,5 @@
 # SearchView & SearchBar
 
-Persistent SearchView Library.  
 Features: Material Design, Bar/Toolbar/MenuItem version, History, Styling.
 
 Google Material Design Pattern:  
