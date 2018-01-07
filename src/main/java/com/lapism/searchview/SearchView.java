@@ -68,7 +68,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mRecyclerViewAdapter;
     private FlexboxLayout mFlexboxLayout;
-    private SearchEditText mSearchEditText;
 
     private Search.OnLogoClickListener mOnLogoClickListener;
     private Search.OnQueryTextListener mOnQueryTextListener;
@@ -99,23 +98,18 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
 
     // ---------------------------------------------------------------------------------------------
     @Override
+    public void setHint(CharSequence hint) {
+        mSearchEditText.setHint(hint);
+    }
+
+    @Override
+    public void setHint(@StringRes int hint) {
+        mSearchEditText.setHint(hint);
+    }
+
+    @Override
     public void setHintColor(@ColorInt int color) {
         mSearchEditText.setHintTextColor(color);
-    }
-
-    @Override
-    public void setText(@StringRes int text) {
-        mSearchEditText.setText(text);
-    }
-
-    @Override
-    public void setText(CharSequence text) {
-        mSearchEditText.setText(text);
-    }
-
-    @Override
-    public void setTextColor(@ColorInt int color) {
-        mSearchEditText.setTextColor(color);
     }
 
     @Override
@@ -131,17 +125,10 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     }
 
     @Override
-    public void setElevation(float elevation) {
-        mCardView.setMaxCardElevation(elevation);
-        mCardView.setCardElevation(elevation);
-    }
-
-    @Override
     protected boolean isView() {
         return true;
     }
 
-    // ---------------------------------------------------------------------------------------------
     @Search.Version
     public int getVersion() {
         return mVersion;
@@ -229,6 +216,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mImageViewClear.setImageDrawable(drawable);
     }
 
+    @Override
     public void setClearColor(@ColorInt int color) {
         mImageViewClear.setColorFilter(color);
     }
@@ -249,20 +237,25 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mImageViewImage.setImageDrawable(drawable);
     }
 
-    public void setTextSize(float size) {
-        mSearchEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
-    }
-
     public Editable getText() {
         return mSearchEditText.getText();
     }
 
-    public void setHint(CharSequence hint) {
-        mSearchEditText.setHint(hint);
+    public void setText(@StringRes int text) {
+        mSearchEditText.setText(text);
     }
 
-    public void setHint(@StringRes int hint) {
-        mSearchEditText.setHint(hint);
+    public void setText(CharSequence text) {
+        mSearchEditText.setText(text);
+    }
+
+    @Override
+    public void setTextColor(@ColorInt int color) {
+        mSearchEditText.setTextColor(color);
+    }
+
+    public void setTextSize(float size) {
+        mSearchEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
     }
 
     public void setImeOptions(int imeOptions) {
@@ -283,6 +276,12 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
 
     public void setShadowColor(@ColorInt int color) {
         mViewShadow.setBackgroundColor(color);
+    }
+
+    @Override
+    public void setElevation(float elevation) {
+        mCardView.setMaxCardElevation(elevation);
+        mCardView.setCardElevation(elevation);
     }
 
     public int getCustomHeight() {
@@ -493,7 +492,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     }
 
     // ---------------------------------------------------------------------------------------------
-    // TODO: callsuper + anotace vseho + test
     private void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         mContext = context;
 
@@ -549,7 +547,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                //onSubmitQuery();TODO
+                //onSubmitQuery();TODO + callsuper + anotace vseho + test
                 return true;
             }
         });
@@ -591,45 +589,49 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         });
 
         if (a.hasValue(R.styleable.SearchView_search_logo)) {
-            setLogo(a.getInt(R.styleable.SearchView_search_logo, Search.Logo.G));
+            setLogo(a.getInteger(R.styleable.SearchView_search_logo, Search.Logo.G));
         } else {
             setLogo(Search.Logo.G);
         }
 
         if (a.hasValue(R.styleable.SearchView_search_shape)) {
-            setShape(a.getInt(R.styleable.SearchView_search_shape, Search.Shape.CLASSIC));
+            setShape(a.getInteger(R.styleable.SearchView_search_shape, Search.Shape.CLASSIC));
         } else {
-            setShape(Search.Shape.ROUNDED);
+            setShape(Search.Shape.CLASSIC);
         }
-
+        // todo testovat bez has value
         if (a.hasValue(R.styleable.SearchView_search_theme)) {
-            setTheme(a.getInt(R.styleable.SearchView_search_theme, Search.Theme.COLOR));
+            setTheme(a.getInteger(R.styleable.SearchView_search_theme, Search.Theme.COLOR));
         } else {
             setTheme(Search.Theme.COLOR);
         }
 
         if (a.hasValue(R.styleable.SearchView_search_version)) {
-            setVersion(a.getInt(R.styleable.SearchView_search_version, Search.Version.TOOLBAR));
+            setVersion(a.getInteger(R.styleable.SearchView_search_version, Search.Version.TOOLBAR));
         } else {
-            setVersion(Search.Version.MENU_ITEM);
+            setVersion(Search.Version.TOOLBAR);
         }
 
         if (a.hasValue(R.styleable.SearchView_search_version_margins)) {
-            setVersionMargins(a.getInt(R.styleable.SearchView_search_version_margins, Search.VersionMargins.TOOLBAR_SMALL));
+            setVersionMargins(a.getInteger(R.styleable.SearchView_search_version_margins, Search.VersionMargins.TOOLBAR_SMALL));
         } else {
             setVersionMargins(Search.VersionMargins.TOOLBAR_SMALL);
         }
-
+        //break >= continue return instanceof + << atd
+        // ViewCompat.setBackground(mSearchPlate,
+        // AppCompatResources.getDrawable()
+        // a.getType(R.styleable.SearchView_search_menu_color);
         // todo ColorFilter colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN);
         // todo test PARAMETRY + README + Color.BLACK
 
-        // todo hodnoty
+        // todo hodnoty + dodelat !!!!!!!!!!!!!!!!!!!
         if (a.hasValue(R.styleable.SearchView_search_logo_icon)) {
-            setLogoIcon(a.getResourceId(R.styleable.SearchView_search_logo_icon, R.drawable.ic_g_color_24dp));
+            setLogoIcon(a.getInteger(R.styleable.SearchView_search_logo_icon, R.drawable.ic_g_color_24dp));
         }
 
         if (a.hasValue(R.styleable.SearchView_search_logo_color)) {
-            setLogoColor(a.getColor(R.styleable.SearchView_search_logo_color, 0));//Color.BLACK
+            int uj = a.getResourceId(R.styleable.SearchView_search_logo_color, R.color.search_light_icon);
+            setLogoColor(ContextCompat.getColor(mContext, uj));
         }
 
         if (a.hasValue(R.styleable.SearchView_search_mic_icon)) {
@@ -641,7 +643,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         }
 
         if (a.hasValue(R.styleable.SearchView_search_clear_icon)) {
-            setClearIcon(a.getResourceId(R.styleable.SearchView_search_clear_icon, R.drawable.ic_clear_black_24dp));
+            setClearIcon(a.getDrawable(R.styleable.SearchView_search_clear_icon));
         } else {
             setClearIcon(ContextCompat.getDrawable(mContext, R.drawable.ic_clear_black_24dp));
         }
@@ -677,7 +679,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         }
 
         if (a.hasValue(R.styleable.SearchView_search_text_style)) {
-          //  setTextStyle(agetInt(R.styleable.SearchView_search_text_style, Typeface.NORMAL));
+            setTextStyle(a.getInt(R.styleable.SearchView_search_text_style, Typeface.NORMAL));
         }
 
         if (a.hasValue(R.styleable.SearchView_search_hint)) {
@@ -796,6 +798,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
             // mCardView.startAnimation(SearchAnimator.slideDown(mContext, mAnimationDuration)); TODO
         }
     }
+
     // TODO plus marginy dle searchview + dvoji bliknuti
     private void hideSuggestions() {
         if (mFlexboxLayout.getVisibility() == View.VISIBLE) {
@@ -859,7 +862,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     /*
 
 
-break >= continue return instanceof
+
 
         public void setQuery(CharSequence query, boolean submit) {
         mQuery = query;

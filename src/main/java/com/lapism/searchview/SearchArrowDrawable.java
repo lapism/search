@@ -11,8 +11,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 
 class SearchArrowDrawable extends DrawerArrowDrawable {
 
-    public static final float STATE_HAMBURGER = 0.0f;
-    public static final float STATE_ARROW = 1.0f;
+    static final float STATE_HAMBURGER = 0.0f;
+    static final float STATE_ARROW = 1.0f;
 
     private static final Property<SearchArrowDrawable, Float> PROGRESS = new Property<SearchArrowDrawable, Float>(Float.class, "progress") {
         @Override

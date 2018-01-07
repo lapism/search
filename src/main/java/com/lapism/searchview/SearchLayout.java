@@ -39,6 +39,7 @@ public abstract class SearchLayout extends FrameLayout {
     protected ImageView mImageViewMic;
     protected ImageView mImageViewClear;
     protected ImageView mImageViewMenu;
+    protected SearchEditText mSearchEditText;
     protected SearchArrowDrawable mSearchArrowDrawable;
 
     protected Search.OnMicClickListener mOnMicClickListener;
@@ -64,13 +65,11 @@ public abstract class SearchLayout extends FrameLayout {
     }
 
     // ---------------------------------------------------------------------------------------------
+    public abstract void setHint(CharSequence hint);
+
+    public abstract void setHint(@StringRes int hint);
+
     public abstract void setHintColor(@ColorInt int color);
-
-    public abstract void setText(@StringRes int text);
-
-    public abstract void setText(CharSequence text);
-
-    public abstract void setTextColor(@ColorInt int color);
 
     /**
      * Typeface.NORMAL
@@ -133,14 +132,14 @@ public abstract class SearchLayout extends FrameLayout {
 
         switch (mShape) {
             case Search.Shape.CLASSIC:
-                mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_classic));
+                setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_classic));
                 break;
             case Search.Shape.ROUNDED:
-                mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_rounded));
+                setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_rounded));
                 break;
             case Search.Shape.OVAL:
                 if (!isView()) {
-                    mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_oval));
+                    setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_oval));
                 }
                 break;
         }
@@ -163,11 +162,7 @@ public abstract class SearchLayout extends FrameLayout {
                 setClearColor(ContextCompat.getColor(mContext, R.color.search_color_icon));
                 setMenuColor(ContextCompat.getColor(mContext, R.color.search_color_menu));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_color_hint));
-                if (!isView()) {
-                    setTextColor(ContextCompat.getColor(mContext, R.color.search_color_menu));
-                } else {
-                    setTextColor(ContextCompat.getColor(mContext, R.color.search_color_title));
-                }
+                setTextColor(ContextCompat.getColor(mContext, R.color.search_color_title));
                 break;
             case Search.Theme.LIGHT:
                 mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_black_24dp));
@@ -194,11 +189,6 @@ public abstract class SearchLayout extends FrameLayout {
         }
     }
 
-    @Override
-    public void setBackgroundColor(@ColorInt int color) {
-        mCardView.setCardBackgroundColor(color);
-    }
-
     public void setLogoColor(@ColorInt int color) {
         mImageViewLogo.setColorFilter(color);
     }
@@ -209,6 +199,11 @@ public abstract class SearchLayout extends FrameLayout {
 
     public void setMenuColor(@ColorInt int color) {
         mImageViewMenu.setColorFilter(color);
+    }
+
+    @Override
+    public void setBackgroundColor(@ColorInt int color) {
+        mCardView.setCardBackgroundColor(color);
     }
 
     public void setShading(@FloatRange(from = 0.5, to = 1.0) float alpha) {
@@ -226,10 +221,20 @@ public abstract class SearchLayout extends FrameLayout {
     }
 
     // ---------------------------------------------------------------------------------------------
-    private void setClearColor(@ColorInt int color) {
+    protected void setClearColor(@ColorInt int color) {
         if (mImageViewClear != null) {
             mImageViewClear.setColorFilter(color);
         }
+    }
+
+    protected void setTextColor(@ColorInt int color) {
+        if (mSearchEditText != null) {
+            mSearchEditText.setTextColor(color);
+        }
+    }
+
+    private void setRadius(int radius) {
+        mCardView.setRadius(radius);
     }
 
     private void clearIconsColor() {
