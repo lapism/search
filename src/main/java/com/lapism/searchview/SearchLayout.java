@@ -157,7 +157,7 @@ public abstract class SearchLayout extends FrameLayout {
             case Search.Theme.COLOR:
                 mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_color_24dp));
 
-                setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_color_background));
+                setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.search_color_background));
                 clearIconsColor();
                 setClearColor(ContextCompat.getColor(mContext, R.color.search_color_icon));
                 setMenuColor(ContextCompat.getColor(mContext, R.color.search_color_menu));
@@ -167,7 +167,7 @@ public abstract class SearchLayout extends FrameLayout {
             case Search.Theme.LIGHT:
                 mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_black_24dp));
 
-                setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
+                setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
                 setLogoColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
                 setMicColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
                 setClearColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
@@ -178,7 +178,7 @@ public abstract class SearchLayout extends FrameLayout {
             case Search.Theme.DARK:
                 mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_black_24dp));
 
-                setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
+                setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
                 setLogoColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
                 setMicColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
                 setClearColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
@@ -201,8 +201,7 @@ public abstract class SearchLayout extends FrameLayout {
         mImageViewMenu.setColorFilter(color);
     }
 
-    @Override
-    public void setBackgroundColor(@ColorInt int color) {
+    public void setCardBackgroundColor(@ColorInt int color) {
         mCardView.setCardBackgroundColor(color);
     }
 

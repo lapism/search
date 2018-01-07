@@ -3,6 +3,7 @@ package com.lapism.searchview;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -43,7 +44,7 @@ import java.util.List;
 // @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 public class SearchView extends SearchLayout implements View.OnClickListener, Filter.FilterListener {
 
-    public static final String TAG = SearchView.class.getName();
+
     private List<Boolean> mSearchFiltersStates;
     private List<SearchFilter> mSearchFilters;
     private View mMenuItemView; // todo
@@ -51,6 +52,8 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     private CharSequence mQuery = "";//todo
     private int mMenuItemCx = -1; //todo
 
+
+    public static final String TAG = SearchView.class.getName();
 
     private boolean mShadow;
     private long mAnimationDuration;
@@ -147,7 +150,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         return mVersionMargins;
     }
 
-    // todo rooom + check google search margin
     public void setVersionMargins(@Search.VersionMargins int versionMargins) {
         mVersionMargins = versionMargins;
 
@@ -276,6 +278,31 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
 
     public void setShadowColor(@ColorInt int color) {
         mViewShadow.setBackgroundColor(color);
+    }
+
+    /**
+     * In this library >>
+     * R.drawable.round_background_top
+     */
+    @Override
+    public void setBackgroundResource(int resid) {
+        mCardView.setBackgroundResource(resid);
+    }
+
+    /**
+     * In this library >>
+     * R.drawable.round_background_top
+     */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public void setBackground(Drawable background) {
+        mCardView.setBackground(background);
+    }
+
+    @Override
+    public void setBackgroundColor(int color) {
+        mCardView.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
 
     @Override
@@ -415,60 +442,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         }
     }
 
-    public void addFocus() {
-        if (mShadow) {
-            SearchAnimator.fadeIn(mViewShadow, mAnimationDuration);
-        }
-
-        mImageViewImage.setVisibility(View.GONE);
-        mSearchEditText.setVisibility(View.VISIBLE); // TODO IF IS NULL
-        showKeyboard();
-
-
-        setMicOrClearIcon(true);
-        showSuggestions();
-
-        if (mVersion == Search.Version.TOOLBAR) {
-            animateLogoHamburgerToLogoArrow(true);
-
-            postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (mOnOpenCloseListener != null) {
-                        mOnOpenCloseListener.onOpen();
-                    }
-                }
-            }, mAnimationDuration);
-        }
-    }
-
-    public void removeFocus() {
-        if (mShadow) {
-            SearchAnimator.fadeOut(mViewShadow, mAnimationDuration);
-        }
-
-        mImageViewImage.setVisibility(View.VISIBLE);
-        mSearchEditText.setVisibility(GONE);
-        hideKeyboard();
-
-
-        hideSuggestions();
-        setMicOrClearIcon(false);
-
-        if (mVersion == Search.Version.TOOLBAR) {
-            animateLogoHamburgerToLogoArrow(false);
-
-            postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (mOnOpenCloseListener != null) {
-                        mOnOpenCloseListener.onClose();
-                    }
-                }
-            }, mAnimationDuration);
-        }
-    }
-
     public void animateLogoHamburgerToLogoArrow(boolean animate) {
         if (mSearchArrowDrawable != null) {
             if (animate) {
@@ -519,6 +492,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mImageViewMenu.setVisibility(View.GONE);
 
         mImageViewImage = findViewById(R.id.search_imageView_image);
+        mImageViewImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_google_color));
 
         mViewShadow = findViewById(R.id.search_view_shadow);
         mViewShadow.setOnClickListener(this);
@@ -547,7 +521,10 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                //onSubmitQuery();TODO + callsuper + anotace vseho + test
+                //onSubmitQuery();
+                // todo test VSEHO  + README + Color.BLACK
+                // TODO + callsuper + anotace vseho + test
+                // todo rooom + check google search margin
                 return true;
             }
         });
@@ -594,25 +571,16 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         setVersion(a.getInteger(R.styleable.SearchView_search_version, Search.Version.TOOLBAR));
         setVersionMargins(a.getInteger(R.styleable.SearchView_search_version_margins, Search.VersionMargins.TOOLBAR_SMALL));
 
-        //break >= continue return instanceof + << atd
-        // ViewCompat.setBackground(mSearchPlate,
-        // AppCompatResources.getDrawable()
-        // a.getType(R.styleable.SearchView_search_menu_color);
-        // todo ColorFilter colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN);
-        // todo test PARAMETRY + README + Color.BLACK
-
-        // todo hodnoty + dodelat !!!!!!!!!!!!!!!!!!!
         if (a.hasValue(R.styleable.SearchView_search_logo_icon)) {
-            setLogoIcon(a.getInteger(R.styleable.SearchView_search_logo_icon, R.drawable.ic_g_color_24dp));
+            setLogoIcon(a.getInteger(R.styleable.SearchView_search_logo_icon, 0)); // todo maybe bug + test everything
         }
 
         if (a.hasValue(R.styleable.SearchView_search_logo_color)) {
-            int uj = a.getResourceId(R.styleable.SearchView_search_logo_color, R.color.search_light_icon);
-            setLogoColor(ContextCompat.getColor(mContext, uj));
+            setLogoColor(ContextCompat.getColor(mContext, a.getResourceId(R.styleable.SearchView_search_logo_color, 0)));
         }
 
         if (a.hasValue(R.styleable.SearchView_search_mic_icon)) {
-            setMicIcon(a.getResourceId(R.styleable.SearchView_search_mic_icon, R.drawable.ic_g_color_24dp));
+            setMicIcon(a.getResourceId(R.styleable.SearchView_search_mic_icon, 0));
         }
 
         if (a.hasValue(R.styleable.SearchView_search_mic_color)) {
@@ -630,9 +598,9 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         }
 
         if (a.hasValue(R.styleable.SearchView_search_menu_icon)) {
-            setMenuIcon(a.getResourceId(R.styleable.SearchView_search_menu_icon, R.drawable.ic_menu_black_24dp));
+            setMenuIcon(a.getResourceId(R.styleable.SearchView_search_menu_icon, 0));
         } else {
-            setMenuIcon(ContextCompat.getDrawable(mContext, R.drawable.ic_menu_black_24dp));
+            setMenuIcon(R.drawable.ic_menu_black_24dp);
         }
 
         if (a.hasValue(R.styleable.SearchView_search_menu_color)) {
@@ -652,11 +620,11 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         }
 
         if (a.hasValue(R.styleable.SearchView_search_text_size)) {
-            setTextSize(a.getDimension(R.styleable.SearchView_search_text_size, mContext.getResources().getDimension(R.dimen.search_text_16)));
+            setTextSize(a.getDimension(R.styleable.SearchView_search_text_size, 0));
         }
 
         if (a.hasValue(R.styleable.SearchView_search_text_style)) {
-            setTextStyle(a.getInt(R.styleable.SearchView_search_text_style, Typeface.NORMAL));
+            setTextStyle(a.getInt(R.styleable.SearchView_search_text_style, 0));
         }
 
         if (a.hasValue(R.styleable.SearchView_search_hint)) {
@@ -667,85 +635,72 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
             setHintColor(a.getColor(R.styleable.SearchView_search_hint_color, 0));
         }
 
-        if (a.hasValue(R.styleable.SearchView_search_animation_duration)) {
-            setAnimationDuration(a.getInt(R.styleable.SearchView_search_animation_duration, mContext.getResources().getInteger(R.integer.search_animation_duration)));
-        } else {
-            setAnimationDuration(mContext.getResources().getInteger(R.integer.search_animation_duration));
-        }
-
-        if (a.hasValue(R.styleable.SearchView_search_shadow)) {
-            setShadow(a.getBoolean(R.styleable.SearchView_search_shadow, true));
-        } else {
-            setShadow(true);
-        }
-
-        if (a.hasValue(R.styleable.SearchView_search_shadow_color)) {
-            setShadowColor(a.getColor(R.styleable.SearchView_search_shadow_color, mContext.getResources().getColor(R.color.search_shadow)));
-        } else {
-            setShadowColor(mContext.getResources().getColor(R.color.search_shadow));
-        }
+        setAnimationDuration(a.getInt(R.styleable.SearchView_search_animation_duration, mContext.getResources().getInteger(R.integer.search_animation_duration)));
+        setShadow(a.getBoolean(R.styleable.SearchView_search_shadow, true));
+        setShadowColor(a.getColor(R.styleable.SearchView_search_shadow_color, ContextCompat.getColor(mContext, R.color.search_shadow)));
 
         if (a.hasValue(R.styleable.SearchView_search_elevation)) {
-            setElevation(a.getDimensionPixelSize(R.styleable.SearchView_search_elevation, mContext.getResources().getDimensionPixelSize(R.dimen.search_elevation)));
+            setElevation(a.getDimensionPixelSize(R.styleable.SearchView_search_elevation, 0));
         }
 
         a.recycle();
     }
 
-    private void showKeyboard() {
-        if (!isInEditMode()) {
-            InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (inputMethodManager != null) {
-                inputMethodManager.showSoftInput(mSearchEditText, 0); // todo this or edittext
-                inputMethodManager.showSoftInput(this, 0);
-            }
+    private void addFocus() {
+        if (mShadow) {
+            SearchAnimator.fadeOpen(mViewShadow, mAnimationDuration);
+        }
+
+        mImageViewImage.setVisibility(View.INVISIBLE);
+        /*if(!TextUtils.isEmpty(mQuery)) {
+            mSearchEditText.setText(mQuery);
+        }*/
+        // SearchEditText.setVisibility(View.VISIBLE); todo bug a mizi text
+
+        showKeyboard(); // todo zustava microphone ikonka
+
+        setMicOrClearIcon(true);
+
+        if (mVersion == Search.Version.TOOLBAR) {
+            animateLogoHamburgerToLogoArrow(true);
+
+            postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (mOnOpenCloseListener != null) {
+                        mOnOpenCloseListener.onOpen();
+                    }
+                }
+            }, mAnimationDuration);
         }
     }
 
-    private void hideKeyboard() {
-        if (!isInEditMode()) {
-            InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (inputMethodManager != null) {
-                inputMethodManager.hideSoftInputFromWindow(getWindowToken(), 0);
-            }
+    private void removeFocus() {
+        if (mShadow) {
+            SearchAnimator.fadeClose(mViewShadow, mAnimationDuration);
         }
-    }
 
-    private void setMicOrClearIcon(boolean hasFocus) {// todo mic chyba
-        if (!TextUtils.isEmpty(mQuery) && !hasFocus) {
-            if (mOnMicClickListener != null) {
-                mImageViewMic.setVisibility(View.GONE);
-            }
-            mImageViewClear.setVisibility(View.VISIBLE);
-        } else {
-            if (mOnMicClickListener != null) {
-                mImageViewMic.setVisibility(View.VISIBLE);
-            }
-            mImageViewClear.setVisibility(View.GONE);
-        }
-    }
+        mImageViewImage.setVisibility(View.VISIBLE);
+        /*if (mSearchEditText.length() > 0) {
+            mSearchEditText.getText().clear();
+        }*/
 
-    private void getMenuItemPosition(int menuItemId) {
-        if (mMenuItemView != null) {
-            mMenuItemCx = getCenterX(mMenuItemView);
-        }
-        ViewParent viewParent = getParent();
-        while (viewParent != null && viewParent instanceof View) {
-            View parent = (View) viewParent;
-            View view = parent.findViewById(menuItemId);
-            if (view != null) {
-                mMenuItemView = view;
-                mMenuItemCx = getCenterX(mMenuItemView);
-                break;
-            }
-            viewParent = viewParent.getParent();
-        }
-    }
+        hideKeyboard();
 
-    private int getCenterX(View view) {
-        int[] location = new int[2];
-        view.getLocationOnScreen(location);
-        return location[0] + view.getWidth() / 2;
+        setMicOrClearIcon(false);
+
+        if (mVersion == Search.Version.TOOLBAR) {
+            animateLogoHamburgerToLogoArrow(false);
+
+            postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (mOnOpenCloseListener != null) {
+                        mOnOpenCloseListener.onClose();
+                    }
+                }
+            }, mAnimationDuration);
+        }
     }
 
     private void onTextChanged(CharSequence s) {
@@ -776,7 +731,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         }
     }
 
-    // TODO plus marginy dle searchview + dvoji bliknuti
+    // TODO plus marginy dle searchview + dvoji bliknuti + mic icon
     private void hideSuggestions() {
         if (mFlexboxLayout.getVisibility() == View.VISIBLE) {
             mViewDivider.setVisibility(View.GONE);
@@ -787,6 +742,80 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
             mViewDivider.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.GONE);
         }
+    }
+
+    private void showKeyboard() {
+        if (!isInEditMode()) {
+            InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (inputMethodManager != null) {
+                inputMethodManager.showSoftInput(mSearchEditText, 0); // todo this or edittext
+                inputMethodManager.showSoftInput(this, 0);
+            }
+        }
+    }
+
+    private void hideKeyboard() {
+        if (!isInEditMode()) {
+            InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (inputMethodManager != null) {
+                inputMethodManager.hideSoftInputFromWindow(getWindowToken(), 0);
+            }
+        }
+    }
+
+    private void setMicOrClearIcon(boolean hasFocus) {// todo mic chyba
+        if (!TextUtils.isEmpty(mQuery)) {
+            if (mOnMicClickListener != null) {
+                mImageViewMic.setVisibility(View.GONE);
+            }
+            mImageViewClear.setVisibility(View.VISIBLE);
+        } else {
+            if (mOnMicClickListener != null) {
+                mImageViewMic.setVisibility(View.VISIBLE);
+            }
+            mImageViewClear.setVisibility(View.GONE);
+        }
+    }
+
+    private void aogah(boolean hasFocus){
+        if(hasFocus) {
+            if()
+        }
+        else {
+
+        }]
+
+
+
+            if(!TextUtils.isEmpty(mQuery) && hasFocus){
+                mImageViewClear.setVisibility(View.GONE);
+                mImageViewMic.setVisibility(View.VISIBLE);
+            } else {
+
+            }
+    }
+
+    private void getMenuItemPosition(int menuItemId) {
+        if (mMenuItemView != null) {
+            mMenuItemCx = getCenterX(mMenuItemView);
+        }
+        ViewParent viewParent = getParent();
+        while (viewParent != null && viewParent instanceof View) {
+            View parent = (View) viewParent;
+            View view = parent.findViewById(menuItemId);
+            if (view != null) {
+                mMenuItemView = view;
+                mMenuItemCx = getCenterX(mMenuItemView);
+                break;
+            }
+            viewParent = viewParent.getParent();
+        }
+    }
+
+    private int getCenterX(View view) {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        return location[0] + view.getWidth() / 2;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -911,12 +940,13 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
 
 
 
+        //break >= continue return instanceof + << atd
+        // ViewCompat.setBackground(mSearchPlate,
+        // AppCompatResources.getDrawable()
+        // a.getType(R.styleable.SearchView_search_menu_color);
+        // ColorFilter colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN);
 
 
-
-        if (mRecyclerViewAdapter instanceof SearchAdapter) {
-            ((SearchAdapter) mRecyclerViewAdapter).setSuggestionsList(suggestionsList);
-        }
 
 
     private void restoreFiltersState(List<Boolean> states) {

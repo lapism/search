@@ -4,4 +4,4 @@
     android:fromXScale="1"
     android:fromYScale="0"
     android:toXScale="1"
-    android:toYScale="1"/>
+    android:toYScale="1" />

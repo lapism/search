@@ -19,52 +19,6 @@ import android.view.animation.AnimationUtils;
 
 class SearchAnimator {
 
-    static void fadeIn(final View view, long duration) {
-        Animation anim = new AlphaAnimation(0.0f, 1.0f);
-        anim.setInterpolator(new AccelerateDecelerateInterpolator());
-        anim.setDuration(duration);
-        anim.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                view.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        view.startAnimation(anim);
-    }
-
-    static void fadeOut(final View view, long duration) {
-        Animation anim = new AlphaAnimation(1.0f, 0.0f);
-        anim.setInterpolator(new AccelerateDecelerateInterpolator());
-        anim.setDuration(duration);
-        anim.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                view.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        view.startAnimation(anim);
-    }
-
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     static void revealOpen(
@@ -191,6 +145,31 @@ class SearchAnimator {
     }
 
     static void fadeOpen(
+            final View view,
+            long duration) {
+        Animation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setInterpolator(new AccelerateDecelerateInterpolator());
+        anim.setDuration(duration);
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                view.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        view.startAnimation(anim);
+    }
+
+    static void fadeOpen(
             final CardView cardView,
             long duration,
             final SearchEditText editText,
@@ -255,18 +234,42 @@ class SearchAnimator {
         cardView.startAnimation(anim);
     }
 
-    static Animation slideDown(Context context, long duration) {
+    static void fadeClose(
+            final View view,
+            long duration) {
+        Animation anim = new AlphaAnimation(1.0f, 0.0f);
+        anim.setInterpolator(new AccelerateDecelerateInterpolator());
+        anim.setDuration(duration);
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                view.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        view.startAnimation(anim);
+    }
+
+    static Animation slideDown(
+            Context context,
+            long duration) {
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_down);
         animation.setDuration(duration);
         return animation;
     }
 
-    private static boolean isRtlLayout(Context context) {
+    private static boolean isRtlLayout(
+            Context context) {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && context.getResources().getConfiguration().getLayoutDirection() == ViewCompat.LAYOUT_DIRECTION_RTL;
     }
 
 }
-
-                    /*if (editText.length() > 0) {
-                        editText.getText().clear();
-                    }*/
