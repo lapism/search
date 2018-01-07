@@ -81,10 +81,9 @@ public class SearchBar extends SearchLayout implements View.OnClickListener {
         mTextView.setTypeface((Typeface.create(mTextFont, mTextStyle)));
     }
 
-    @Search.Layout
     @Override
-    public int getLayout() {
-        return Search.Layout.BAR;
+    protected boolean isView() {
+        return false;
     }
 
     // ---------------------------------------------------------------------------------------------

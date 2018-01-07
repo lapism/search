@@ -48,14 +48,6 @@ public class Search {
         int MENU_ITEM = 5002;
     }
 
-
-    @IntDef({Layout.BAR, Layout.VIEW})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Layout {
-        int BAR = 6000;
-        int VIEW = 6001;
-    }
-
     public interface OnBarClickListener {
         void onBarClick();
     }
@@ -85,24 +77,3 @@ public class Search {
     }
 
 }
-
-/**
- * Typeface.NORMAL
- * Typeface.BOLD
- * Typeface.ITALIC
- * Typeface.BOLD_ITALIC
- * <p>
- * Typeface.DEFAULT
- * Typeface.DEFAULT_BOLD
- * Typeface.MONOSPACE
- * Typeface.SANS_SERIF
- * Typeface.SERIF
- */
-/**
- * Typeface.DEFAULT
- * Typeface.DEFAULT_BOLD
- * Typeface.MONOSPACE
- * Typeface.SANS_SERIF
- * Typeface.SERIF
- */
-// todo rooom

@@ -97,7 +97,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
             String titleLower = title.toLowerCase(Locale.getDefault());
 
             // todo alpha a adaopter metodyColorUtils.setAlphaComponent(SearchView.getIconColor(), 0x33)android:alpha="0.4"
-            // todo spannable string cannto be 0
+            // todo spannable string cannto be 0, projit po radcich
             if (titleLower.contains(mKey) && !TextUtils.isEmpty(mKey)) {
                 SpannableString s = new SpannableString(title);
                 s.setSpan(new ForegroundColorSpan(mTitleHighlightColor),
@@ -106,9 +106,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 viewHolder.title.setText(s, TextView.BufferType.SPANNABLE);
             } else {
-                viewHolder.title.setText(item.getTitle()); // todo ?
+                viewHolder.title.setText(item.getTitle());
             }
-
         } else {
             viewHolder.title.setVisibility(View.GONE);
         }

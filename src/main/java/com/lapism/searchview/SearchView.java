@@ -11,7 +11,6 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.annotation.Size;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -21,6 +20,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -31,6 +31,7 @@ import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -46,7 +47,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     private List<Boolean> mSearchFiltersStates;
     private List<SearchFilter> mSearchFilters;
     private View mMenuItemView; // todo
-    // init + kotlin 1.2.1 + 4.4.1 + glide 4.4.0 mbuild tools
+    // init + kotlin 1.2.1 + 4.4.1 + glide 4.4.0 mbuild tools BETA4 427.0.3 / 02
     private CharSequence mQuery = "";//todo
     private int mMenuItemCx = -1; //todo
 
@@ -59,6 +60,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     @Search.VersionMargins
     private int mVersionMargins;
 
+    private ImageView mImageViewImage;
     private MenuItem mMenuItem;
     private View mViewShadow;
     private View mViewDivider;
@@ -107,6 +109,11 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     }
 
     @Override
+    public void setText(CharSequence text) {
+        mSearchEditText.setText(text);
+    }
+
+    @Override
     public void setTextColor(@ColorInt int color) {
         mSearchEditText.setTextColor(color);
     }
@@ -123,10 +130,15 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
     }
 
-    @Search.Layout
     @Override
-    public int getLayout() {
-        return Search.Layout.VIEW;
+    public void setElevation(float elevation) {
+        mCardView.setMaxCardElevation(elevation);
+        mCardView.setCardElevation(elevation);
+    }
+
+    @Override
+    protected boolean isView() {
+        return true;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -148,7 +160,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         return mVersionMargins;
     }
 
-    // todo check google search margin
+    // todo rooom + check google search margin
     public void setVersionMargins(@Search.VersionMargins int versionMargins) {
         mVersionMargins = versionMargins;
 
@@ -189,57 +201,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         }
     }
 
-    // ---------------------------------------------------------------------------------------------
-    public void setOnLogoClickListener(Search.OnLogoClickListener listener) {
-        mOnLogoClickListener = listener;
-    }
-
-    public void setOnQueryTextListener(Search.OnQueryTextListener listener) {
-        mOnQueryTextListener = listener;
-    }
-
-    public void setOnOpenCloseListener(Search.OnOpenCloseListener listener) {
-        mOnOpenCloseListener = listener;
-    }
-
-    @Size
-    public int getCustomHeight() {
-        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
-        return params.height;
-    }
-
-    public void setCustomHeight(@Size int height) {
-        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
-        params.height = height;
-        params.width = LinearLayout.LayoutParams.MATCH_PARENT;
-        mLinearLayout.setLayoutParams(params);
-    }
-
-    public Editable getText() {
-        return mSearchEditText.getText();
-    }
-
-    @Override
-    public void setText(CharSequence text) {
-        mSearchEditText.setText(text);
-    }
-
-    public void setHint(CharSequence hint) {
-        mSearchEditText.setHint(hint);
-    }
-
-    public void setHint(@StringRes int hint) {
-        mSearchEditText.setHint(hint);
-    }
-
-    public void setImeOptions(int imeOptions) {
-        mSearchEditText.setImeOptions(imeOptions);
-    }
-
-    public void setInputType(int inputType) {
-        mSearchEditText.setInputType(inputType);
-    }
-
     public void setLogoIcon(@DrawableRes int resource) {
         mImageViewLogo.setImageResource(resource);
     }
@@ -260,14 +221,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mImageViewMic.setImageDrawable(drawable);
     }
 
-    public void setMenuIcon(@DrawableRes int resource) {
-        mImageViewMenu.setImageResource(resource);
-    }
-
-    public void setMenuIcon(@Nullable Drawable drawable) {
-        mImageViewMenu.setImageDrawable(drawable);
-    }
-
     public void setClearIcon(@DrawableRes int resource) {
         mImageViewClear.setImageResource(resource);
     }
@@ -276,8 +229,85 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mImageViewClear.setImageDrawable(drawable);
     }
 
-    public void setClearIconColor(@ColorInt int color) {
+    public void setClearColor(@ColorInt int color) {
         mImageViewClear.setColorFilter(color);
+    }
+
+    public void setMenuIcon(@DrawableRes int resource) {
+        mImageViewMenu.setImageResource(resource);
+    }
+
+    public void setMenuIcon(@Nullable Drawable drawable) {
+        mImageViewMenu.setImageDrawable(drawable);
+    }
+
+    public void setTextImage(@DrawableRes int resource) {
+        mImageViewImage.setImageResource(resource);
+    }
+
+    public void setTextImage(@Nullable Drawable drawable) {
+        mImageViewImage.setImageDrawable(drawable);
+    }
+
+    public void setTextSize(float size) {
+        mSearchEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
+    }
+
+    public Editable getText() {
+        return mSearchEditText.getText();
+    }
+
+    public void setHint(CharSequence hint) {
+        mSearchEditText.setHint(hint);
+    }
+
+    public void setHint(@StringRes int hint) {
+        mSearchEditText.setHint(hint);
+    }
+
+    public void setImeOptions(int imeOptions) {
+        mSearchEditText.setImeOptions(imeOptions);
+    }
+
+    public void setInputType(int inputType) {
+        mSearchEditText.setInputType(inputType);
+    }
+
+    public void setAnimationDuration(long animationDuration) {
+        mAnimationDuration = animationDuration;
+    }
+
+    public void setShadow(boolean shadow) {
+        mShadow = shadow;
+    }
+
+    public void setShadowColor(@ColorInt int color) {
+        mViewShadow.setBackgroundColor(color);
+    }
+
+    public int getCustomHeight() {
+        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
+        return params.height;
+    }
+
+    public void setCustomHeight(int height) {
+        ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
+        params.height = height;
+        params.width = LinearLayout.LayoutParams.MATCH_PARENT;
+        mLinearLayout.setLayoutParams(params);
+    }
+
+    public RecyclerView.Adapter getAdapter() {
+        return mRecyclerView.getAdapter();
+    }
+
+    public void setAdapter(RecyclerView.Adapter adapter) {
+        mRecyclerViewAdapter = adapter;
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
+    }
+
+    public void setSearchItemAnimator(RecyclerView.ItemAnimator itemAnimator) {
+        mRecyclerView.setItemAnimator(itemAnimator);
     }
 
     /**
@@ -296,247 +326,22 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mRecyclerView.removeItemDecoration(itemDecoration);
     }
 
-    public void setSearchItemAnimator(RecyclerView.ItemAnimator itemAnimator) {
-        mRecyclerView.setItemAnimator(itemAnimator);
+    public void setOnLogoClickListener(Search.OnLogoClickListener listener) {
+        mOnLogoClickListener = listener;
     }
 
-    public RecyclerView.Adapter getAdapter() {
-        return mRecyclerView.getAdapter();
+    public void setOnQueryTextListener(Search.OnQueryTextListener listener) {
+        mOnQueryTextListener = listener;
     }
 
-    public void setAdapter(RecyclerView.Adapter adapter) {
-        mRecyclerViewAdapter = adapter;
-        mRecyclerView.setAdapter(mRecyclerViewAdapter);
-    }
-
-    public void setAnimationDuration(long animationDuration) {
-        mAnimationDuration = animationDuration;
-    }
-
-    public void setShadow(boolean shadow) {
-        mShadow = shadow;
-    }
-
-    public void setShadowColor(@ColorInt int color) {
-        mViewShadow.setBackgroundColor(color);
-    }
-
-    @Override
-    public void setElevation(float elevation) {
-        mCardView.setMaxCardElevation(elevation);
-        mCardView.setCardElevation(elevation);
+    public void setOnOpenCloseListener(Search.OnOpenCloseListener listener) {
+        mOnOpenCloseListener = listener;
     }
 
     public boolean isOpen() {
         return getVisibility() == View.VISIBLE;
     }
 
-    public void showKeyboard() {
-        if (!isInEditMode()) {
-            InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (inputMethodManager != null) {
-                inputMethodManager.showSoftInput(mSearchEditText, 0); // todo this or edittext
-                inputMethodManager.showSoftInput(this, 0);
-            }
-        }
-    }
-
-    public void hideKeyboard() {
-        if (!isInEditMode()) {
-            InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (inputMethodManager != null) {
-                inputMethodManager.hideSoftInputFromWindow(getWindowToken(), 0);
-            }
-        }
-    }
-
-    // ---------------------------------------------------------------------------------------------
-    // TODO: more Attributes + callsuper + anotace vseho
-    private void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        mContext = context;
-
-        final TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.SearchView, defStyleAttr, defStyleRes);
-        final int layoutResId = a.getResourceId(R.styleable.SearchView_search_layout, R.layout.search_view);
-
-        final LayoutInflater inflater = LayoutInflater.from(mContext);
-        inflater.inflate(layoutResId, this, true);
-
-        mCardView = findViewById(R.id.search_cardView);
-
-        mImageViewLogo = findViewById(R.id.search_imageView_logo);
-        mImageViewLogo.setOnClickListener(this);
-
-        mImageViewMic = findViewById(R.id.search_imageView_mic);
-        mImageViewMic.setOnClickListener(this);
-        mImageViewMic.setVisibility(View.GONE);
-
-        mImageViewClear = findViewById(R.id.search_imageView_clear);
-        mImageViewClear.setOnClickListener(this);
-        mImageViewClear.setImageResource(R.drawable.ic_clear_black_24dp);
-        mImageViewClear.setVisibility(View.GONE);
-
-        mImageViewMenu = findViewById(R.id.search_imageView_menu);
-        mImageViewMenu.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_menu_black_24dp));
-        mImageViewMenu.setOnClickListener(this);
-        mImageViewMenu.setVisibility(View.GONE);
-
-        mAnimationDuration = 300;//todo
-
-        mViewShadow = findViewById(R.id.search_view_shadow);
-        mViewShadow.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_shadow));
-        mViewShadow.setOnClickListener(this);
-        mViewShadow.setVisibility(View.GONE);
-
-        mLinearLayout = findViewById(R.id.search_linearLayout);
-
-        mSearchEditText = findViewById(R.id.search_searchEditText);
-        mSearchEditText.setSearchView(this);
-        mSearchEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SearchView.this.onTextChanged(s);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                //onSubmitQuery();
-                return true;
-            }
-        });
-        mSearchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    addFocus();
-                } else {
-                    removeFocus();
-                }
-            }
-        });
-
-        mViewDivider = findViewById(R.id.search_view_divider);
-        mViewDivider.setVisibility(View.GONE);
-
-        mFlexboxLayout = findViewById(R.id.search_flexboxLayout);
-        mFlexboxLayout.setVisibility(View.GONE);
-
-        mRecyclerView = findViewById(R.id.search_recyclerView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        mRecyclerView.setNestedScrollingEnabled(false);
-        mRecyclerView.setVisibility(View.GONE);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    hideKeyboard();
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
-        // todo ColorFilter colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN);
-        // todo test PARAMETRY + README
-        /*if (a.hasValue(R.styleable.SearchView_search_custom_height)) {
-            setCustomHeight(a.getDimensionPixelSize(R.styleable.SearchView_search_custom_height, mContext.getResources().getDimensionPixelSize(R.dimen.search_height)));
-        }
-        if (a.hasValue(R.styleable.SearchView_search_logo_icon)) {
-            setLogoIcon(a.getResourceId(R.styleable.SearchView_search_logo_icon, 0));
-        }
-        if (a.hasValue(R.styleable.SearchView_search_icon_color)) {
-            setIconColor(a.getColor(R.styleable.SearchView_search_icon_color, 0));//Color.BLACK
-        }
-        if (a.hasValue(R.styleable.SearchView_search_background_color)) {
-            setBackgroundColor(a.getColor(R.styleable.SearchView_search_background_color, 0));
-        }
-        if (a.hasValue(R.styleable.SearchView_search_text_color)) {
-            setTextColor(a.getColor(R.styleable.SearchView_search_text_color, 0));
-        }
-        if (a.hasValue(R.styleable.SearchView_search_text_highlight_color)) {
-            setTextHighlightColor(a.getColor(R.styleable.SearchView_search_text_highlight_color, 0));
-        }
-        if (a.hasValue(R.styleable.SearchView_search_text_size)) {
-            setTextSize(a.getDimension(R.styleable.SearchView_search_text_size, mContext.getResources().getDimension(R.dimen.search_text_16)));
-        }
-        if (a.hasValue(R.styleable.SearchView_search_text_style)) {
-            setTextStyle(agetInt(R.styleable.SearchView_search_text_style, Typeface.NORMAL));
-        }
-        if (a.hasValue(R.styleable.SearchView_search_hint)) {
-            setHint(a.getString(R.styleable.SearchView_search_hint));
-        }
-        if (a.hasValue(R.styleable.SearchView_search_hint_color)) {
-            setHintColor(a.getColor(R.styleable.SearchView_search_hint_color, 0));
-        }
-        if (a.hasValue(R.styleable.SearchView_search_animation_duration)) {
-            setAnimationDuration(a.getInt(R.styleable.SearchView_search_animation_duration, 300));
-        }
-        if (a.hasValue(R.styleable.SearchView_search_shadow)) {
-            setShadow(a.getBoolean(R.styleable.SearchView_search_shadow, true));
-        }
-        if (a.hasValue(R.styleable.SearchView_search_shadow_color)) {
-            setShadowColor(a.getColor(R.styleable.SearchView_search_shadow_color, mContext.getResources().getColor(R.color.search_shadow)));
-        }
-
-        if (a.hasValue(R.styleable.SearchView_search_elevation)) {
-            setElevation(a.getDimensionPixelSize(R.styleable.SearchView_search_elevation, mContext.getResources().getDimensionPixelSize(R.dimen.search_elevation)));
-        }*/
-
-
-        if (a.hasValue(R.styleable.SearchView_search_shadow)) {
-            setShadow(a.getBoolean(R.styleable.SearchView_search_shadow, true));
-        } else {
-            setShadow(true);
-        }
-
-        if (a.hasValue(R.styleable.SearchView_search_logo)) {
-            setLogo(a.getInt(R.styleable.SearchView_search_logo, Search.Logo.G));
-        } else {
-            setLogo(Search.Logo.G);
-        }
-
-        if (a.hasValue(R.styleable.SearchView_search_shape)) {
-            setShape(a.getInt(R.styleable.SearchView_search_shape, Search.Shape.CLASSIC));
-        } else {
-            setShape(Search.Shape.CLASSIC);
-        }
-
-        if (a.hasValue(R.styleable.SearchView_search_theme)) {
-            setTheme(a.getInt(R.styleable.SearchView_search_theme, Search.Theme.COLOR));
-        } else {
-            setTheme(Search.Theme.COLOR);
-        }
-
-        if (a.hasValue(R.styleable.SearchView_search_version)) {
-            setVersion(a.getInt(R.styleable.SearchView_search_version, Search.Version.TOOLBAR));
-        } else {
-            setVersion(Search.Version.TOOLBAR);
-        }
-
-        if (a.hasValue(R.styleable.SearchView_search_version_margins)) {
-            setVersionMargins(a.getInt(R.styleable.SearchView_search_version_margins, Search.VersionMargins.TOOLBAR_SMALL));
-        } else {
-            setVersionMargins(Search.VersionMargins.TOOLBAR_SMALL);
-        }
-
-        a.recycle();
-    }
-
-    // ---------------------------------------------------------------------------------------------
     public void open() {
         open(null);
     }
@@ -616,8 +421,12 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
             SearchAnimator.fadeIn(mViewShadow, mAnimationDuration);
         }
 
-        setMicOrClearIcon();
+        mImageViewImage.setVisibility(View.GONE);
+        mSearchEditText.setVisibility(View.VISIBLE); // TODO IF IS NULL
         showKeyboard();
+
+
+        setMicOrClearIcon(true);
         showSuggestions();
 
         if (mVersion == Search.Version.TOOLBAR) {
@@ -632,8 +441,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
                 }
             }, mAnimationDuration);
         }
-
-
     }
 
     public void removeFocus() {
@@ -641,10 +448,13 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
             SearchAnimator.fadeOut(mViewShadow, mAnimationDuration);
         }
 
-        // todo bug voice zustava kdyz zustava text
-        setMicOrClearIcon();
+        mImageViewImage.setVisibility(View.VISIBLE);
+        mSearchEditText.setVisibility(GONE);
         hideKeyboard();
+
+
         hideSuggestions();
+        setMicOrClearIcon(false);
 
         if (mVersion == Search.Version.TOOLBAR) {
             animateLogoHamburgerToLogoArrow(false);
@@ -683,8 +493,247 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     }
 
     // ---------------------------------------------------------------------------------------------
-    private void setMicOrClearIcon() {
-        if (!TextUtils.isEmpty(mQuery)) {
+    // TODO: callsuper + anotace vseho + test
+    private void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        mContext = context;
+
+        final TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.SearchView, defStyleAttr, defStyleRes);
+        final int layoutResId = a.getResourceId(R.styleable.SearchView_search_layout, R.layout.search_view);
+
+        final LayoutInflater inflater = LayoutInflater.from(mContext);
+        inflater.inflate(layoutResId, this, true);
+
+        mCardView = findViewById(R.id.search_cardView);
+
+        mImageViewLogo = findViewById(R.id.search_imageView_logo);
+        mImageViewLogo.setOnClickListener(this);
+
+        mImageViewMic = findViewById(R.id.search_imageView_mic);
+        mImageViewMic.setOnClickListener(this);
+        mImageViewMic.setVisibility(View.GONE);
+
+        mImageViewClear = findViewById(R.id.search_imageView_clear);
+        mImageViewClear.setOnClickListener(this);
+        mImageViewClear.setVisibility(View.GONE);
+
+        mImageViewMenu = findViewById(R.id.search_imageView_menu);
+        mImageViewMenu.setOnClickListener(this);
+        mImageViewMenu.setVisibility(View.GONE);
+
+        mImageViewImage = findViewById(R.id.search_imageView_image);
+
+        mViewShadow = findViewById(R.id.search_view_shadow);
+        mViewShadow.setOnClickListener(this);
+        mViewShadow.setVisibility(View.GONE);
+
+        mLinearLayout = findViewById(R.id.search_linearLayout);
+
+        mSearchEditText = findViewById(R.id.search_searchEditText);
+        mSearchEditText.setSearchView(this);
+        mSearchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                SearchView.this.onTextChanged(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                //onSubmitQuery();TODO
+                return true;
+            }
+        });
+        mSearchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    addFocus();
+                } else {
+                    removeFocus();
+                }
+            }
+        });
+
+        mViewDivider = findViewById(R.id.search_view_divider);
+        mViewDivider.setVisibility(View.GONE);
+
+        mFlexboxLayout = findViewById(R.id.search_flexboxLayout);
+        mFlexboxLayout.setVisibility(View.GONE);
+
+        mRecyclerView = findViewById(R.id.search_recyclerView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.setVisibility(View.GONE);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    hideKeyboard();
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+
+        if (a.hasValue(R.styleable.SearchView_search_logo)) {
+            setLogo(a.getInt(R.styleable.SearchView_search_logo, Search.Logo.G));
+        } else {
+            setLogo(Search.Logo.G);
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_shape)) {
+            setShape(a.getInt(R.styleable.SearchView_search_shape, Search.Shape.CLASSIC));
+        } else {
+            setShape(Search.Shape.ROUNDED);
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_theme)) {
+            setTheme(a.getInt(R.styleable.SearchView_search_theme, Search.Theme.COLOR));
+        } else {
+            setTheme(Search.Theme.COLOR);
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_version)) {
+            setVersion(a.getInt(R.styleable.SearchView_search_version, Search.Version.TOOLBAR));
+        } else {
+            setVersion(Search.Version.MENU_ITEM);
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_version_margins)) {
+            setVersionMargins(a.getInt(R.styleable.SearchView_search_version_margins, Search.VersionMargins.TOOLBAR_SMALL));
+        } else {
+            setVersionMargins(Search.VersionMargins.TOOLBAR_SMALL);
+        }
+
+        // todo ColorFilter colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN);
+        // todo test PARAMETRY + README + Color.BLACK
+
+        // todo hodnoty
+        if (a.hasValue(R.styleable.SearchView_search_logo_icon)) {
+            setLogoIcon(a.getResourceId(R.styleable.SearchView_search_logo_icon, R.drawable.ic_g_color_24dp));
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_logo_color)) {
+            setLogoColor(a.getColor(R.styleable.SearchView_search_logo_color, 0));//Color.BLACK
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_mic_icon)) {
+            setMicIcon(a.getResourceId(R.styleable.SearchView_search_mic_icon, R.drawable.ic_g_color_24dp));
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_mic_color)) {
+            setMicColor(a.getColor(R.styleable.SearchView_search_mic_color, 0));
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_clear_icon)) {
+            setClearIcon(a.getResourceId(R.styleable.SearchView_search_clear_icon, R.drawable.ic_clear_black_24dp));
+        } else {
+            setClearIcon(ContextCompat.getDrawable(mContext, R.drawable.ic_clear_black_24dp));
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_clear_color)) {
+            setClearColor(a.getColor(R.styleable.SearchView_search_clear_color, 0));
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_menu_icon)) {
+            setMenuIcon(a.getResourceId(R.styleable.SearchView_search_menu_icon, R.drawable.ic_menu_black_24dp));
+        } else {
+            setMenuIcon(ContextCompat.getDrawable(mContext, R.drawable.ic_menu_black_24dp));
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_menu_color)) {
+            setMenuColor(a.getColor(R.styleable.SearchView_search_menu_color, 0));
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_background_color)) {
+            setBackgroundColor(a.getColor(R.styleable.SearchView_search_background_color, 0));
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_text_image)) {
+            setTextImage(a.getResourceId(R.styleable.SearchView_search_text_image, 0));
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_text_color)) {
+            setTextColor(a.getColor(R.styleable.SearchView_search_text_color, 0));
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_text_size)) {
+            setTextSize(a.getDimension(R.styleable.SearchView_search_text_size, mContext.getResources().getDimension(R.dimen.search_text_16)));
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_text_style)) {
+          //  setTextStyle(agetInt(R.styleable.SearchView_search_text_style, Typeface.NORMAL));
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_hint)) {
+            setHint(a.getString(R.styleable.SearchView_search_hint));
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_hint_color)) {
+            setHintColor(a.getColor(R.styleable.SearchView_search_hint_color, 0));
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_animation_duration)) {
+            setAnimationDuration(a.getInt(R.styleable.SearchView_search_animation_duration, mContext.getResources().getInteger(R.integer.search_animation_duration)));
+        } else {
+            setAnimationDuration(mContext.getResources().getInteger(R.integer.search_animation_duration));
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_shadow)) {
+            setShadow(a.getBoolean(R.styleable.SearchView_search_shadow, true));
+        } else {
+            setShadow(true);
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_shadow_color)) {
+            setShadowColor(a.getColor(R.styleable.SearchView_search_shadow_color, mContext.getResources().getColor(R.color.search_shadow)));
+        } else {
+            setShadowColor(mContext.getResources().getColor(R.color.search_shadow));
+        }
+
+        if (a.hasValue(R.styleable.SearchView_search_elevation)) {
+            setElevation(a.getDimensionPixelSize(R.styleable.SearchView_search_elevation, mContext.getResources().getDimensionPixelSize(R.dimen.search_elevation)));
+        }
+
+        a.recycle();
+    }
+
+    private void showKeyboard() {
+        if (!isInEditMode()) {
+            InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (inputMethodManager != null) {
+                inputMethodManager.showSoftInput(mSearchEditText, 0); // todo this or edittext
+                inputMethodManager.showSoftInput(this, 0);
+            }
+        }
+    }
+
+    private void hideKeyboard() {
+        if (!isInEditMode()) {
+            InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (inputMethodManager != null) {
+                inputMethodManager.hideSoftInputFromWindow(getWindowToken(), 0);
+            }
+        }
+    }
+
+    private void setMicOrClearIcon(boolean hasFocus) {// todo mic chyba
+        if (!TextUtils.isEmpty(mQuery) && !hasFocus) {
             if (mOnMicClickListener != null) {
                 mImageViewMic.setVisibility(View.GONE);
             }
@@ -720,16 +769,14 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         return location[0] + view.getWidth() / 2;
     }
 
-    // TODO plus marginy dle searchview + tyoeface a font do baru + dvoji bliknuti
     private void onTextChanged(CharSequence s) {
         mQuery = s;
 
-        setMicOrClearIcon();
+        setMicOrClearIcon(true);
 
         if (mRecyclerViewAdapter != null && mRecyclerViewAdapter instanceof Filterable) {
             ((Filterable) mRecyclerViewAdapter).getFilter().filter(s, this);
         }
-
 
         if (mOnQueryTextListener != null) {
             // dispatchFilters();
@@ -746,10 +793,10 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         if (mRecyclerViewAdapter != null && mRecyclerViewAdapter.getItemCount() > 0) {
             mViewDivider.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.VISIBLE);
-            //SearchAnimator.fadeIn(mRecyclerView, mAnimationDuration);
+            // mCardView.startAnimation(SearchAnimator.slideDown(mContext, mAnimationDuration)); TODO
         }
     }
-
+    // TODO plus marginy dle searchview + dvoji bliknuti
     private void hideSuggestions() {
         if (mFlexboxLayout.getVisibility() == View.VISIBLE) {
             mViewDivider.setVisibility(View.GONE);
@@ -759,7 +806,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         if (mRecyclerViewAdapter != null) {
             mViewDivider.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.GONE);
-            //SearchAnimator.fadeOut(mRecyclerView, mAnimationDuration);
         }
     }
 
@@ -883,9 +929,7 @@ break >= continue return instanceof
 
 
 
-    public void setTextSize(float size) {
-        mSearchEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
-    }
+
 
 
 

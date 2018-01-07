@@ -72,12 +72,24 @@ public abstract class SearchLayout extends FrameLayout {
 
     public abstract void setTextColor(@ColorInt int color);
 
+    /**
+     * Typeface.NORMAL
+     * Typeface.BOLD
+     * Typeface.ITALIC
+     * Typeface.BOLD_ITALIC
+     */
     public abstract void setTextStyle(int style);
 
+    /**
+     * Typeface.DEFAULT
+     * Typeface.DEFAULT_BOLD
+     * Typeface.SANS_SERIF
+     * Typeface.SERIF
+     * Typeface.MONOSPACE
+     */
     public abstract void setTextFont(Typeface font);
 
-    @Search.Layout
-    public abstract int getLayout();
+    protected abstract boolean isView();
 
     // ---------------------------------------------------------------------------------------------
     @Search.Logo
@@ -89,7 +101,7 @@ public abstract class SearchLayout extends FrameLayout {
         mLogo = logo;
 
         switch (mLogo) {
-          case Search.Logo.GOOGLE:
+            case Search.Logo.GOOGLE:
                 int left = getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left);
                 int top = getContext().getResources().getDimensionPixelSize(R.dimen.search_logo_padding_top);
                 int right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_right);
@@ -127,7 +139,7 @@ public abstract class SearchLayout extends FrameLayout {
                 mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_rounded));
                 break;
             case Search.Shape.OVAL:
-                if (getLayout() == Search.Layout.BAR) {
+                if (!isView()) {
                     mCardView.setRadius(getResources().getDimensionPixelSize(R.dimen.search_shape_oval));
                 }
                 break;
@@ -148,12 +160,10 @@ public abstract class SearchLayout extends FrameLayout {
 
                 setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_color_background));
                 clearIconsColor();
-                if (mImageViewClear != null) {
-                    mImageViewClear.setColorFilter(ContextCompat.getColor(mContext, R.color.search_color_icon));
-                }
-                setMenuIconColor(ContextCompat.getColor(mContext, R.color.search_color_menu));
+                setClearColor(ContextCompat.getColor(mContext, R.color.search_color_icon));
+                setMenuColor(ContextCompat.getColor(mContext, R.color.search_color_menu));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_color_hint));
-                if (getLayout() == Search.Layout.BAR) {
+                if (!isView()) {
                     setTextColor(ContextCompat.getColor(mContext, R.color.search_color_menu));
                 } else {
                     setTextColor(ContextCompat.getColor(mContext, R.color.search_color_title));
@@ -163,12 +173,10 @@ public abstract class SearchLayout extends FrameLayout {
                 mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_black_24dp));
 
                 setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
-                setLogoIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
-                setMicIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
-                if (mImageViewClear != null) {
-                    mImageViewClear.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
-                }
-                setMenuIconColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
+                setLogoColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
+                setMicColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
+                setClearColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
+                setMenuColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_light_hint));
                 setTextColor(ContextCompat.getColor(mContext, R.color.search_light_title));
                 break;
@@ -176,19 +184,37 @@ public abstract class SearchLayout extends FrameLayout {
                 mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_black_24dp));
 
                 setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
-                setLogoIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
-                setMicIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
-                if (mImageViewClear != null) {
-                    mImageViewClear.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
-                }
-                setMenuIconColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+                setLogoColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+                setMicColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+                setClearColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+                setMenuColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_dark_hint));
                 setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_title));
                 break;
         }
     }
 
-    // ---------------------------------------------------------------------------------------------
+    @Override
+    public void setBackgroundColor(@ColorInt int color) {
+        mCardView.setCardBackgroundColor(color);
+    }
+
+    public void setLogoColor(@ColorInt int color) {
+        mImageViewLogo.setColorFilter(color);
+    }
+
+    public void setMicColor(@ColorInt int color) {
+        mImageViewMic.setColorFilter(color);
+    }
+
+    public void setMenuColor(@ColorInt int color) {
+        mImageViewMenu.setColorFilter(color);
+    }
+
+    public void setShading(@FloatRange(from = 0.5, to = 1.0) float alpha) {
+        setAlpha(alpha);
+    }
+
     public void setOnMicClickListener(Search.OnMicClickListener listener) {
         mOnMicClickListener = listener;
         mImageViewMic.setVisibility(View.VISIBLE);
@@ -199,28 +225,13 @@ public abstract class SearchLayout extends FrameLayout {
         mImageViewMenu.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void setBackgroundColor(@ColorInt int color) {
-        mCardView.setCardBackgroundColor(color);
-    }
-
-    public void setLogoIconColor(@ColorInt int color) {
-        mImageViewLogo.setColorFilter(color);
-    }
-
-    public void setMicIconColor(@ColorInt int color) {
-        mImageViewMic.setColorFilter(color);
-    }
-
-    public void setMenuIconColor(@ColorInt int color) {
-        mImageViewMenu.setColorFilter(color);
-    }
-
-    public void setShading(@FloatRange(from = 0.5, to = 1.0) float alpha) {
-        setAlpha(alpha);
-    }
-
     // ---------------------------------------------------------------------------------------------
+    private void setClearColor(@ColorInt int color) {
+        if (mImageViewClear != null) {
+            mImageViewClear.setColorFilter(color);
+        }
+    }
+
     private void clearIconsColor() {
         mImageViewLogo.clearColorFilter();
         mImageViewMic.clearColorFilter();

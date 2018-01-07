@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 
 class SearchAnimator {
@@ -67,10 +68,10 @@ class SearchAnimator {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     static void revealOpen(
-            Context context,
+            final Context context,
             final CardView cardView,
             int cx,
-            long duration,
+            final long duration,
             final SearchEditText editText,
             final Search.OnOpenCloseListener listener) {
 
@@ -252,6 +253,12 @@ class SearchAnimator {
             }
         });
         cardView.startAnimation(anim);
+    }
+
+    static Animation slideDown(Context context, long duration) {
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_down);
+        animation.setDuration(duration);
+        return animation;
     }
 
     private static boolean isRtlLayout(Context context) {
