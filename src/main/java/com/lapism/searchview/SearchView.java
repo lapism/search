@@ -588,35 +588,12 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
             }
         });
 
-        if (a.hasValue(R.styleable.SearchView_search_logo)) {
-            setLogo(a.getInteger(R.styleable.SearchView_search_logo, Search.Logo.G));
-        } else {
-            setLogo(Search.Logo.G);
-        }
+        setLogo(a.getInteger(R.styleable.SearchView_search_logo, Search.Logo.G));
+        setShape(a.getInteger(R.styleable.SearchView_search_shape, Search.Shape.CLASSIC));
+        setTheme(a.getInteger(R.styleable.SearchView_search_theme, Search.Theme.COLOR));
+        setVersion(a.getInteger(R.styleable.SearchView_search_version, Search.Version.TOOLBAR));
+        setVersionMargins(a.getInteger(R.styleable.SearchView_search_version_margins, Search.VersionMargins.TOOLBAR_SMALL));
 
-        if (a.hasValue(R.styleable.SearchView_search_shape)) {
-            setShape(a.getInteger(R.styleable.SearchView_search_shape, Search.Shape.CLASSIC));
-        } else {
-            setShape(Search.Shape.CLASSIC);
-        }
-        // todo testovat bez has value
-        if (a.hasValue(R.styleable.SearchView_search_theme)) {
-            setTheme(a.getInteger(R.styleable.SearchView_search_theme, Search.Theme.COLOR));
-        } else {
-            setTheme(Search.Theme.COLOR);
-        }
-
-        if (a.hasValue(R.styleable.SearchView_search_version)) {
-            setVersion(a.getInteger(R.styleable.SearchView_search_version, Search.Version.TOOLBAR));
-        } else {
-            setVersion(Search.Version.TOOLBAR);
-        }
-
-        if (a.hasValue(R.styleable.SearchView_search_version_margins)) {
-            setVersionMargins(a.getInteger(R.styleable.SearchView_search_version_margins, Search.VersionMargins.TOOLBAR_SMALL));
-        } else {
-            setVersionMargins(Search.VersionMargins.TOOLBAR_SMALL);
-        }
         //break >= continue return instanceof + << atd
         // ViewCompat.setBackground(mSearchPlate,
         // AppCompatResources.getDrawable()
