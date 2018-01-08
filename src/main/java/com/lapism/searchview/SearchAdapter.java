@@ -18,25 +18,31 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.twitter.sdk.android.core.models.Search;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import cz.seznam.zpravy.R;
 
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
 
     public static final String TAG = SearchAdapter.class.getName();
-    protected final SearchHistoryTable mHistoryDatabase;
-    public Integer mDatabaseKey = null;
+
+    protected SearchHistoryTable mHistoryDatabase;
+    protected Integer mDatabaseKey = null;
     protected CharSequence mKey = "";
     protected List<SearchItem> mSuggestions = new ArrayList<>();
     protected List<SearchItem> mResults = new ArrayList<>();
     protected OnSearchItemClickListener mSearchItemClickListener;
+
     @ColorInt
-    private int mIcon1Color, mIcon2Color, mTitleColor, mSubtitleColor, mTitleHighlightColor;
-    private int mTextStyle = Typeface.NORMAL;
-    private Typeface mTextFont = Typeface.DEFAULT;
-    private Context mContext;
+    protected int mIcon1Color, mIcon2Color, mTitleColor, mSubtitleColor, mTitleHighlightColor;
+    protected int mTextStyle = Typeface.NORMAL;
+    protected Typeface mTextFont = Typeface.DEFAULT;
+    protected Context mContext;
 
     // ---------------------------------------------------------------------------------------------
     public SearchAdapter(Context context) {
@@ -57,7 +63,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     // ---------------------------------------------------------------------------------------------
     @Override
-    public ResultViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+    public ResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.search_item, parent, false);
         return new ResultViewHolder(view);
@@ -95,9 +101,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
             String title = item.getTitle().toString();
             String titleLower = title.toLowerCase(Locale.getDefault());
-
-            // todo alpha a adaopter metodyColorUtils.setAlphaComponent(SearchView.getIconColor(), 0x33)android:alpha="0.4"
-            // todo spannable string cannto be 0, projit po radcich
+            
             if (titleLower.contains(mKey) && !TextUtils.isEmpty(mKey)) {
                 SpannableString s = new SpannableString(title);
                 s.setSpan(new ForegroundColorSpan(mTitleHighlightColor),
@@ -135,14 +139,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     @Override
     public Filter getFilter() {
         return new Filter() {
-            CharSequence mFilterKey;
-
+            // todo prekontrolovat filtrovani
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
 
                 mKey = constraint.toString().toLowerCase(Locale.getDefault());
-                mFilterKey = mKey;
 
                 if (!TextUtils.isEmpty(constraint)) {
                     List<SearchItem> results = new ArrayList<>();
@@ -274,7 +276,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         getFilter().filter("");
     }
 
-    public void setData(List<SearchItem> data) {
+    private void setData(List<SearchItem> data) {
         if (mResults.isEmpty()) {
             mResults = data;
             if (data.size() != 0) {
@@ -300,7 +302,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         }
     }
 
-    // todo projit vse po radkach
     public void setOnSearchItemClickListener(OnSearchItemClickListener listener) {
         mSearchItemClickListener = listener;
     }
@@ -309,12 +310,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         void onSearchItemClick(View view, int position, String title, String subtitle);
     }
 
+    // todo alpha a adaopter metodyColorUtils.setAlphaComponent(SearchView.getIconColor(), 0x33)android:alpha="0.4"
     public class ResultViewHolder extends RecyclerView.ViewHolder {
 
-        protected final ImageView icon_1;
-        protected final ImageView icon_2;
-        protected final TextView title;
-        protected final TextView subtitle;
+        protected ImageView icon_1;
+        protected ImageView icon_2;
+        protected TextView title;
+        protected TextView subtitle;
 
         public ResultViewHolder(View view) {
             super(view);
