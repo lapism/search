@@ -795,8 +795,8 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
 
     private void setMicOrClearIcon2(boolean hasFocus) {
         if (hasFocus && !TextUtils.isEmpty(mQuery)) {
-            mImageViewClear.setVisibility(View.VISIBLE);
             mImageViewMic.setVisibility(View.GONE);
+            mImageViewClear.setVisibility(View.VISIBLE);
         } else {
             mImageViewClear.setVisibility(View.GONE);
             mImageViewMic.setVisibility(View.VISIBLE);
