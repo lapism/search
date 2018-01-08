@@ -48,7 +48,7 @@
                     android:paddingRight="@dimen/search_key_line_8"
                     android:paddingStart="@dimen/search_key_line_8">
 
-                    <com.lapism.searchview.SearchEditText
+                    <com.lapism.searchview.widget.SearchEditText
                         android:id="@+id/search_searchEditText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

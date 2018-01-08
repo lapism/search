@@ -1,4 +1,4 @@
-package com.lapism.searchview;
+package com.lapism.searchview.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -37,6 +37,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.flexbox.FlexboxLayout;
+import com.lapism.searchview.R;
+import com.lapism.searchview.Search;
+import com.lapism.searchview.graphics.SearchAnimator;
+import com.lapism.searchview.graphics.SearchArrowDrawable;
 
 import java.util.List;
 
@@ -655,9 +659,9 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         /*if(!TextUtils.isEmpty(mQuery)) {
             mSearchEditText.setText(mQuery);
         }*/
-        // SearchEditText.setVisibility(View.VISIBLE); todo bug a mizi text
+        // SearchEditText.setVisibility(View.VISIBLE); todo bug a mizi text, hidesuggestion
 
-        showKeyboard(); // todo zustava microphone ikonka
+        showKeyboard();
 
         setMicOrClearIcon(true);
 
@@ -764,42 +768,16 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     }
 
     private void setMicOrClearIcon(boolean hasFocus) {
-        if (!TextUtils.isEmpty(mQuery)) {
-            if (mOnMicClickListener != null) {
-                mImageViewMic.setVisibility(View.GONE);
-            }
-            mImageViewClear.setVisibility(View.VISIBLE);
-        } else {
-            if (mOnMicClickListener != null) {
-                mImageViewMic.setVisibility(View.VISIBLE);
-            }
-            mImageViewClear.setVisibility(View.GONE);
-        }
-    }
-
-    // todo listener
-    private void setMicOrClearIcon1(boolean hasFocus) {
-        if (hasFocus) {
-            if (!TextUtils.isEmpty(mQuery)) {
-                mImageViewClear.setVisibility(View.VISIBLE);
-                mImageViewMic.setVisibility(View.GONE);
-            } else {
-                mImageViewClear.setVisibility(View.GONE);
-                mImageViewMic.setVisibility(View.VISIBLE);
-            }
-        } else {
-            mImageViewClear.setVisibility(View.GONE);
-            mImageViewMic.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private void setMicOrClearIcon2(boolean hasFocus) {
         if (hasFocus && !TextUtils.isEmpty(mQuery)) {
-            mImageViewMic.setVisibility(View.GONE);
+            if (mOnMicClickListener != null) {
+                mImageViewMic.setVisibility(View.GONE);
+            }
             mImageViewClear.setVisibility(View.VISIBLE);
         } else {
             mImageViewClear.setVisibility(View.GONE);
-            mImageViewMic.setVisibility(View.VISIBLE);
+            if (mOnMicClickListener != null) {
+                mImageViewMic.setVisibility(View.VISIBLE);
+            }
         }
     }
 

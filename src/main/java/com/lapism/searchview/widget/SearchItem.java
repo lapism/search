@@ -1,4 +1,4 @@
-package com.lapism.searchview;
+package com.lapism.searchview.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;

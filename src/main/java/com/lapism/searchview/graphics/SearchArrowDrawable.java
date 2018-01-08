@@ -1,4 +1,4 @@
-package com.lapism.searchview;
+package com.lapism.searchview.graphics;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -9,10 +9,10 @@ import android.util.Property;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 
-class SearchArrowDrawable extends DrawerArrowDrawable {
+public class SearchArrowDrawable extends DrawerArrowDrawable {
 
-    static final float STATE_HAMBURGER = 0.0f;
-    static final float STATE_ARROW = 1.0f;
+    public static final float STATE_HAMBURGER = 0.0f;
+    public static final float STATE_ARROW = 1.0f;
 
     private static final Property<SearchArrowDrawable, Float> PROGRESS = new Property<SearchArrowDrawable, Float>(Float.class, "progress") {
         @Override
@@ -27,12 +27,12 @@ class SearchArrowDrawable extends DrawerArrowDrawable {
         }
     };
 
-    SearchArrowDrawable(Context context) {
+    public SearchArrowDrawable(Context context) {
         super(context);
         setColor(ContextCompat.getColor(context, android.R.color.black));
     }
 
-    void animate(float state, long duration) {
+    public void animate(float state, long duration) {
         ObjectAnimator anim;
         if (state == STATE_ARROW) {
             anim = ObjectAnimator.ofFloat(this, PROGRESS, STATE_HAMBURGER, state);

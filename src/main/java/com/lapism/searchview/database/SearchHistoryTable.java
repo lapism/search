@@ -1,10 +1,12 @@
-package com.lapism.searchview;
+package com.lapism.searchview.database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.lapism.searchview.widget.SearchItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,7 @@ public class SearchHistoryTable {
     private static Integer mCurrentDatabaseKey = null;
     private SearchHistoryDatabase dbHelper;
     private SQLiteDatabase db;
-    private Context mContext;
+    private final Context mContext;
 
     public SearchHistoryTable(Context context) {
         mContext = context;

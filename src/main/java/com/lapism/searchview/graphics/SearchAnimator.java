@@ -1,4 +1,4 @@
-package com.lapism.searchview;
+package com.lapism.searchview.graphics;
 
 import android.animation.Animator;
 import android.annotation.TargetApi;
@@ -16,12 +16,17 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.lapism.searchview.R;
+import com.lapism.searchview.Search;
+import com.lapism.searchview.widget.SearchEditText;
+import com.lapism.searchview.widget.SearchView;
 
-class SearchAnimator {
+
+public class SearchAnimator {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    static void revealOpen(
+    public static void revealOpen(
             final Context context,
             final CardView cardView,
             int cx,
@@ -83,7 +88,7 @@ class SearchAnimator {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    static void revealClose(
+    public static void revealClose(
             Context context,
             final CardView cardView,
             int cx,
@@ -144,7 +149,7 @@ class SearchAnimator {
         }
     }
 
-    static void fadeOpen(
+    public static void fadeOpen(
             final View view,
             long duration) {
         Animation anim = new AlphaAnimation(0.0f, 1.0f);
@@ -169,7 +174,7 @@ class SearchAnimator {
         view.startAnimation(anim);
     }
 
-    static void fadeOpen(
+    public static void fadeOpen(
             final CardView cardView,
             long duration,
             final SearchEditText editText,
@@ -201,7 +206,7 @@ class SearchAnimator {
         cardView.startAnimation(anim);
     }
 
-    static void fadeClose(
+    public static void fadeClose(
             final CardView cardView,
             long duration,
             final SearchEditText editText,
@@ -234,7 +239,7 @@ class SearchAnimator {
         cardView.startAnimation(anim);
     }
 
-    static void fadeClose(
+    public static void fadeClose(
             final View view,
             long duration) {
         Animation anim = new AlphaAnimation(1.0f, 0.0f);
@@ -259,7 +264,7 @@ class SearchAnimator {
         view.startAnimation(anim);
     }
 
-    static Animation slideDown(
+    public static Animation slideDown(
             Context context,
             long duration) {
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_down);

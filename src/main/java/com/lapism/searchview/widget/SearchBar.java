@@ -1,4 +1,4 @@
-package com.lapism.searchview;
+package com.lapism.searchview.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -15,6 +15,9 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+
+import com.lapism.searchview.R;
+import com.lapism.searchview.Search;
 
 
 public class SearchBar extends SearchLayout implements View.OnClickListener {

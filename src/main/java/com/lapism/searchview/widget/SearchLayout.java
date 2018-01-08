@@ -1,4 +1,4 @@
-package com.lapism.searchview;
+package com.lapism.searchview.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -17,6 +17,10 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import com.lapism.searchview.R;
+import com.lapism.searchview.Search;
+import com.lapism.searchview.graphics.SearchArrowDrawable;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
