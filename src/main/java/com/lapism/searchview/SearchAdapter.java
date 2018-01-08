@@ -18,13 +18,9 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.twitter.sdk.android.core.models.Search;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import cz.seznam.zpravy.R;
 
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
