@@ -763,7 +763,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         }
     }
 
-    private void setMicOrClearIcon(boolean hasFocus) {// todo mic chyba
+    private void setMicOrClearIcon(boolean hasFocus) {
         if (!TextUtils.isEmpty(mQuery)) {
             if (mOnMicClickListener != null) {
                 mImageViewMic.setVisibility(View.GONE);
@@ -777,22 +777,30 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         }
     }
 
-    private void aogah(boolean hasFocus){
-        if(hasFocus) {
-            if()
-        }
-        else {
-
-        }]
-
-
-
-            if(!TextUtils.isEmpty(mQuery) && hasFocus){
+    // todo listener
+    private void setMicOrClearIcon1(boolean hasFocus) {
+        if (hasFocus) {
+            if (!TextUtils.isEmpty(mQuery)) {
+                mImageViewClear.setVisibility(View.VISIBLE);
+                mImageViewMic.setVisibility(View.GONE);
+            } else {
                 mImageViewClear.setVisibility(View.GONE);
                 mImageViewMic.setVisibility(View.VISIBLE);
-            } else {
-
             }
+        } else {
+            mImageViewClear.setVisibility(View.GONE);
+            mImageViewMic.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setMicOrClearIcon2(boolean hasFocus) {
+        if (hasFocus && !TextUtils.isEmpty(mQuery)) {
+            mImageViewClear.setVisibility(View.VISIBLE);
+            mImageViewMic.setVisibility(View.GONE);
+        } else {
+            mImageViewClear.setVisibility(View.GONE);
+            mImageViewMic.setVisibility(View.VISIBLE);
+        }
     }
 
     private void getMenuItemPosition(int menuItemId) {
