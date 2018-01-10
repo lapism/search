@@ -103,13 +103,13 @@ public class SearchBar extends SearchLayout implements View.OnClickListener {
         mImageViewLogo = findViewById(R.id.search_imageView_logo);
 
         mImageViewMic = findViewById(R.id.search_imageView_mic);
-        mImageViewMic.setOnClickListener(this);
         mImageViewMic.setVisibility(View.GONE);
+        mImageViewMic.setOnClickListener(this);
 
         mImageViewMenu = findViewById(R.id.search_imageView_menu);
+        mImageViewMenu.setVisibility(View.GONE);
         mImageViewMenu.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_menu_black_24dp));
         mImageViewMenu.setOnClickListener(this);
-        mImageViewMenu.setVisibility(View.GONE);
 
         mTextView = findViewById(R.id.search_textView);
 

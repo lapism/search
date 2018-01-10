@@ -30,8 +30,8 @@ public class SearchItem implements Parcelable {
     };
     private Drawable icon_1_drawable;
     private Drawable icon_2_drawable;
-    private int icon_1_resource;
-    private int icon_2_resource;
+    private int icon_1_resource = 0;
+    private int icon_2_resource = 0;
     private CharSequence title;
     private CharSequence subtitle;
     private String tag;
@@ -39,10 +39,6 @@ public class SearchItem implements Parcelable {
 
     public SearchItem(Context context) {
         this.context = context;
-        this.icon_1_resource = 0;
-        this.icon_2_resource = 0;
-        this.icon_1_drawable = null; //ContextCompat.getDrawable(this.context, R.drawable.ic_search_black_24dp);
-        this.icon_2_drawable = null;
     }
 
     protected SearchItem(Parcel in) {

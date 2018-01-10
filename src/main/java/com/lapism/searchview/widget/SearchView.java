@@ -49,18 +49,15 @@ import java.util.List;
 public class SearchView extends SearchLayout implements View.OnClickListener, Filter.FilterListener {
 
 
+    public static final String TAG = SearchView.class.getName();
     private List<Boolean> mSearchFiltersStates;
     private List<SearchFilter> mSearchFilters;
     private View mMenuItemView; // todo
     // init + kotlin 1.2.1 + 4.4.1 + glide 4.4.0 mbuild tools BETA4 427.0.3 / 02
-    private CharSequence mQuery = "";//todo
     private int mMenuItemCx = -1; //todo
-
-
-    public static final String TAG = SearchView.class.getName();
-
     private boolean mShadow;
     private long mAnimationDuration;
+    private CharSequence mQueryText = "";
 
     @Search.Version
     private int mVersion;
@@ -237,10 +234,12 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
 
     public void setTextImage(@DrawableRes int resource) {
         mImageViewImage.setImageResource(resource);
+        mImageViewMenu.setVisibility(View.GONE);
     }
 
     public void setTextImage(@Nullable Drawable drawable) {
         mImageViewImage.setImageDrawable(drawable);
+        mImageViewMenu.setVisibility(View.GONE);
     }
 
     public Editable getText() {
@@ -484,27 +483,29 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mImageViewLogo.setOnClickListener(this);
 
         mImageViewMic = findViewById(R.id.search_imageView_mic);
-        mImageViewMic.setOnClickListener(this);
         mImageViewMic.setVisibility(View.GONE);
+        mImageViewMic.setOnClickListener(this);
+        ;
 
         mImageViewClear = findViewById(R.id.search_imageView_clear);
-        mImageViewClear.setOnClickListener(this);
         mImageViewClear.setVisibility(View.GONE);
+        mImageViewClear.setOnClickListener(this);
 
         mImageViewMenu = findViewById(R.id.search_imageView_menu);
         mImageViewMenu.setOnClickListener(this);
-        mImageViewMenu.setVisibility(View.GONE);
 
         mImageViewImage = findViewById(R.id.search_imageView_image);
-        mImageViewImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_google_color));
+        setTextImage(ContextCompat.getDrawable(mContext, R.drawable.ic_google_grey)); // TODO VELIKOST LOGA
+        mImageViewImage.setOnClickListener(this);
 
         mViewShadow = findViewById(R.id.search_view_shadow);
-        mViewShadow.setOnClickListener(this);
         mViewShadow.setVisibility(View.GONE);
+        mViewShadow.setOnClickListener(this);
 
         mLinearLayout = findViewById(R.id.search_linearLayout);
 
         mSearchEditText = findViewById(R.id.search_searchEditText);
+        mSearchEditText.setVisibility(View.GONE);
         mSearchEditText.setSearchView(this);
         mSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -527,8 +528,8 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 //onSubmitQuery();
                 // todo test VSEHO  + README + Color.BLACK
-                // TODO + callsuper + anotace vseho + test
-                // todo rooom + check google search margin
+                // TODO + callsuper + anotace vseho
+                // todo room + check google search margin
                 return true;
             }
         });
@@ -576,7 +577,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         setVersionMargins(a.getInteger(R.styleable.SearchView_search_version_margins, Search.VersionMargins.TOOLBAR_SMALL));
 
         if (a.hasValue(R.styleable.SearchView_search_logo_icon)) {
-            setLogoIcon(a.getInteger(R.styleable.SearchView_search_logo_icon, 0)); // todo maybe bug + test everything
+            setLogoIcon(a.getInteger(R.styleable.SearchView_search_logo_icon, 0)); // todo maybe bug + test + check everything
         }
 
         if (a.hasValue(R.styleable.SearchView_search_logo_color)) {
@@ -655,14 +656,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
             SearchAnimator.fadeOpen(mViewShadow, mAnimationDuration);
         }
 
-        mImageViewImage.setVisibility(View.INVISIBLE);
-        /*if(!TextUtils.isEmpty(mQuery)) {
-            mSearchEditText.setText(mQuery);
-        }*/
-        // SearchEditText.setVisibility(View.VISIBLE); todo bug a mizi text, hidesuggestion
-
         showKeyboard();
-
         setMicOrClearIcon(true);
 
         if (mVersion == Search.Version.TOOLBAR) {
@@ -672,7 +666,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
                 @Override
                 public void run() {
                     if (mOnOpenCloseListener != null) {
-                        mOnOpenCloseListener.onOpen();
+                        mOnOpenCloseListener.onOpen(); // TODO
                     }
                 }
             }, mAnimationDuration);
@@ -680,17 +674,13 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     }
 
     private void removeFocus() {
+        setImageOrText();
+
         if (mShadow) {
             SearchAnimator.fadeClose(mViewShadow, mAnimationDuration);
         }
 
-        mImageViewImage.setVisibility(View.VISIBLE);
-        /*if (mSearchEditText.length() > 0) {
-            mSearchEditText.getText().clear();
-        }*/
-
         hideKeyboard();
-
         setMicOrClearIcon(false);
 
         if (mVersion == Search.Version.TOOLBAR) {
@@ -708,20 +698,21 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     }
 
     private void onTextChanged(CharSequence s) {
-        mQuery = s;
+        mQueryText = s;
 
         setMicOrClearIcon(true);
 
         if (mRecyclerViewAdapter != null && mRecyclerViewAdapter instanceof Filterable) {
-            ((Filterable) mRecyclerViewAdapter).getFilter().filter(s, this);
+            ((Filterable) mRecyclerViewAdapter).getFilter().filter(mQueryText, this);
         }
 
         if (mOnQueryTextListener != null) {
             // dispatchFilters();
-            mOnQueryTextListener.onQueryTextChange(mQuery.toString());
+            mOnQueryTextListener.onQueryTextChange(mQueryText);
         }
     }
 
+    // todo check
     private void showSuggestions() {
         if (mFlexboxLayout.getChildCount() > 0 && mFlexboxLayout.getVisibility() == View.GONE) {
             mViewDivider.setVisibility(View.VISIBLE);
@@ -735,7 +726,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         }
     }
 
-    // TODO plus marginy dle searchview + dvoji bliknuti + mic icon
+    // TODO plus marginy dle searchview + dvoji bliknuti + check
     private void hideSuggestions() {
         if (mFlexboxLayout.getVisibility() == View.VISIBLE) {
             mViewDivider.setVisibility(View.GONE);
@@ -768,7 +759,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     }
 
     private void setMicOrClearIcon(boolean hasFocus) {
-        if (hasFocus && !TextUtils.isEmpty(mQuery)) {
+        if (hasFocus && !TextUtils.isEmpty(mQueryText)) {
             if (mOnMicClickListener != null) {
                 mImageViewMic.setVisibility(View.GONE);
             }
@@ -779,6 +770,11 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
                 mImageViewMic.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    private void setImageOrText() {
+        mSearchEditText.setVisibility(View.GONE);
+        mImageViewImage.setVisibility(View.VISIBLE);
     }
 
     private void getMenuItemPosition(int menuItemId) {
@@ -815,6 +811,12 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
                     mOnLogoClickListener.onLogoClick();
                 }
             }
+        }
+
+        if (v == mImageViewImage) {
+            mImageViewImage.setVisibility(View.GONE);
+            mSearchEditText.setVisibility(View.VISIBLE);
+            mSearchEditText.requestFocus();
         }
 
         if (v == mImageViewMic) {
@@ -1096,3 +1098,12 @@ or a onFilterClickListener method is fine
 // https://developer.android.com/reference/android/support/annotation/FloatRange.html
 // ViewCompat.setBackground
 // mSearchButton.setImageDrawable(a.getDrawable(R.styleable.SearchView_searchIcon));
+
+/*
+                /*if (mSearchEditText.length() > 0) {
+            mSearchEditText.getText().clear();
+        }*/
+        /*if(!TextUtils.isEmpty(mQuery)) {
+            mSearchEditText.setText(mQuery);
+        }*/
+// SearchEditText.setVisibility(View.VISIBLE); todo bug a mizi text, hidesuggestion

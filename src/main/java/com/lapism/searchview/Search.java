@@ -89,9 +89,9 @@ public class Search {
     }
 
     public interface OnQueryTextListener {
-        boolean onQueryTextChange(String newText);
+        boolean onQueryTextChange(CharSequence newText);
 
-        boolean onQueryTextSubmit(String query);
+        boolean onQueryTextSubmit(CharSequence query);
     }
 
     public interface OnOpenCloseListener {

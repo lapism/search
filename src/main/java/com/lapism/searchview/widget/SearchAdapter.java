@@ -22,6 +22,7 @@ import com.lapism.searchview.R;
 import com.lapism.searchview.Search;
 import com.lapism.searchview.database.SearchHistoryTable;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -32,28 +33,27 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public static final String TAG = SearchAdapter.class.getName();
 
     protected final SearchHistoryTable mHistoryDatabase;
+    protected final WeakReference<Context> mContext;
     protected Integer mDatabaseKey = null;
     protected CharSequence mKey = "";
     protected List<SearchItem> mSuggestions = new ArrayList<>();
     protected List<SearchItem> mResults = new ArrayList<>();
     protected OnSearchItemClickListener mSearchItemClickListener;
-
     @ColorInt
     protected int mIcon1Color, mIcon2Color, mTitleColor, mSubtitleColor, mTitleHighlightColor;
     protected int mTextStyle = Typeface.NORMAL;
     protected Typeface mTextFont = Typeface.DEFAULT;
-    protected final Context mContext;
 
     // ---------------------------------------------------------------------------------------------
     public SearchAdapter(Context context) {
-        mContext = context;
+        mContext = new WeakReference<>(context);
         setTheme(Search.Theme.LIGHT);
         mHistoryDatabase = new SearchHistoryTable(context);
         //getFilter().filter("");
     }
 
     public SearchAdapter(Context context, List<SearchItem> suggestions) {
-        mContext = context;
+        mContext = new WeakReference<>(context);
         setTheme(Search.Theme.LIGHT);
         mSuggestions = suggestions;
         mResults = suggestions;
@@ -71,7 +71,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     @Override
     public void onBindViewHolder(ResultViewHolder viewHolder, int position) {
-        // Context context = viewHolder.itemView.getContext();
+        // Context context = viewHolder.itemView.getContext(); DO NOT DELETE !!!
 
         SearchItem item = mResults.get(position);
 
@@ -139,7 +139,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     @Override
     public Filter getFilter() {
         return new Filter() {
-            // todo prekontrolovat adapter
+            // todo prekontrolovat adapter A FILTROVANI
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
@@ -231,25 +231,25 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     public void setTheme(@Search.Theme int theme) {
         switch (theme) {
             case Search.Theme.COLOR:
-                setIcon1Color(ContextCompat.getColor(mContext, R.color.search_color_icon_1_2));
-                setIcon2Color(ContextCompat.getColor(mContext, R.color.search_color_icon_1_2));
-                setTitleColor(ContextCompat.getColor(mContext, R.color.search_color_title));
-                setTitleHighlightColor(ContextCompat.getColor(mContext, R.color.search_color_title_highlight));
-                setSubtitleColor(ContextCompat.getColor(mContext, R.color.search_color_subtitle));
+                setIcon1Color(ContextCompat.getColor(mContext.get(), R.color.search_color_icon_1_2));
+                setIcon2Color(ContextCompat.getColor(mContext.get(), R.color.search_color_icon_1_2));
+                setTitleColor(ContextCompat.getColor(mContext.get(), R.color.search_color_title));
+                setTitleHighlightColor(ContextCompat.getColor(mContext.get(), R.color.search_color_title_highlight));
+                setSubtitleColor(ContextCompat.getColor(mContext.get(), R.color.search_color_subtitle));
                 break;
             case Search.Theme.LIGHT:
-                setIcon1Color(ContextCompat.getColor(mContext, R.color.search_light_icon_1_2));
-                setIcon2Color(ContextCompat.getColor(mContext, R.color.search_light_icon_1_2));
-                setTitleColor(ContextCompat.getColor(mContext, R.color.search_light_title));
-                setTitleHighlightColor(ContextCompat.getColor(mContext, R.color.search_light_title_highlight));
-                setSubtitleColor(ContextCompat.getColor(mContext, R.color.search_light_subtitle));
+                setIcon1Color(ContextCompat.getColor(mContext.get(), R.color.search_light_icon_1_2));
+                setIcon2Color(ContextCompat.getColor(mContext.get(), R.color.search_light_icon_1_2));
+                setTitleColor(ContextCompat.getColor(mContext.get(), R.color.search_light_title));
+                setTitleHighlightColor(ContextCompat.getColor(mContext.get(), R.color.search_light_title_highlight));
+                setSubtitleColor(ContextCompat.getColor(mContext.get(), R.color.search_light_subtitle));
                 break;
             case Search.Theme.DARK:
-                setIcon1Color(ContextCompat.getColor(mContext, R.color.search_dark_icon_1_2));
-                setIcon2Color(ContextCompat.getColor(mContext, R.color.search_dark_icon_1_2));
-                setTitleColor(ContextCompat.getColor(mContext, R.color.search_dark_title));
-                setTitleHighlightColor(ContextCompat.getColor(mContext, R.color.search_dark_title_highlight));
-                setSubtitleColor(ContextCompat.getColor(mContext, R.color.search_dark_subtitle));
+                setIcon1Color(ContextCompat.getColor(mContext.get(), R.color.search_dark_icon_1_2));
+                setIcon2Color(ContextCompat.getColor(mContext.get(), R.color.search_dark_icon_1_2));
+                setTitleColor(ContextCompat.getColor(mContext.get(), R.color.search_dark_title));
+                setTitleHighlightColor(ContextCompat.getColor(mContext.get(), R.color.search_dark_title_highlight));
+                setSubtitleColor(ContextCompat.getColor(mContext.get(), R.color.search_dark_subtitle));
                 break;
         }
     }
@@ -310,6 +310,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         void onSearchItemClick(View view, int position, String title, String subtitle);
     }
 
+    // todo https://lab.getbase.com/nested-scrolling-with-coordinatorlayout-on-android/
     // todo alpha a adaopter metodyColorUtils.setAlphaComponent(SearchView.getIconColor(), 0x33)android:alpha="0.4", do samostatne classy
     public class ResultViewHolder extends RecyclerView.ViewHolder {
 

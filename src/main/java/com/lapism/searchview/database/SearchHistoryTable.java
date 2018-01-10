@@ -5,9 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.content.ContextCompat;
 
+import com.lapism.searchview.R;
 import com.lapism.searchview.widget.SearchItem;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,15 +21,15 @@ public class SearchHistoryTable {
     private static Integer mCurrentDatabaseKey = null;
     private SearchHistoryDatabase dbHelper;
     private SQLiteDatabase db;
-    private final Context mContext;
+    private WeakReference<Context> mContext;
 
     public SearchHistoryTable(Context context) {
-        mContext = context;
+        mContext = new WeakReference<>(context);
     }
 
     // FOR onResume AND onPause
-    public void open() throws SQLException { // todo
-        dbHelper = new SearchHistoryDatabase(mContext);
+    public void open() throws SQLException {
+        dbHelper = new SearchHistoryDatabase(mContext.get());
         db = dbHelper.getWritableDatabase();
     }
 
@@ -113,8 +116,9 @@ public class SearchHistoryTable {
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                SearchItem item = new SearchItem(mContext);
-                item.setTitle(cursor.getString(0));// todo 1
+                SearchItem item = new SearchItem(mContext.get());
+                item.setIcon_1_drawable(ContextCompat.getDrawable(mContext.get(), R.drawable.ic_search_black_24dp));
+                item.setTitle(cursor.getString(0));
                 list.add(item);
             } while (cursor.moveToNext());
         }

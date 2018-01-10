@@ -43,6 +43,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="start|center_vertical"
                     android:paddingEnd="@dimen/search_key_line_8"
                     android:paddingLeft="@dimen/search_key_line_8"
                     android:paddingRight="@dimen/search_key_line_8"
@@ -54,7 +55,6 @@
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:ellipsize="end"
-                        android:gravity="start|center_vertical"
                         android:imeOptions="actionSearch|flagNoExtractUi"
                         android:inputType="text|textNoSuggestions"
                         android:maxLines="1"
@@ -64,10 +64,12 @@
 
                     <ImageView
                         android:id="@+id/search_imageView_image"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/search_app_name"
-                        android:scaleType="center" />
+                        android:paddingBottom="8dp"
+                        android:paddingTop="14dp"
+                        android:scaleType="fitStart" />
 
                 </FrameLayout>
 
