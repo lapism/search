@@ -814,6 +814,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         }
 
         if (v == mImageViewImage) {
+            // todo subtitle do DB, getDRawable a getVisibility
             mImageViewImage.setVisibility(View.GONE);
             mSearchEditText.setVisibility(View.VISIBLE);
             mSearchEditText.requestFocus();
