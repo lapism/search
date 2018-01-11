@@ -246,11 +246,11 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         return mSearchEditText.getText();
     }
 
-    public void setText(@StringRes int text) {
+    public void setText(CharSequence text) {
         mSearchEditText.setText(text);
     }
 
-    public void setText(CharSequence text) {
+    public void setText(@StringRes int text) {
         mSearchEditText.setText(text);
     }
 

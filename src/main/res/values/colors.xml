@@ -41,17 +41,6 @@
     <color name="search_shadow">#80000000</color>
 
 
-
-
-
-
-
-
-
-
-
-
-
     <!-- SearchView Light AppCompat Theme -->
     <color name="search_view_light_appcompat_background">#fafafa</color>
     <color name="search_view_light_appcompat_icon">#8a000000</color>
