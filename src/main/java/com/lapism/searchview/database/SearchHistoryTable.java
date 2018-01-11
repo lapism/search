@@ -14,10 +14,9 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-
+// TODO ROOM
 public class SearchHistoryTable {
 
-    private static int mHistorySize = 2;
     private static Integer mCurrentDatabaseKey = null;
     private SearchHistoryDatabase dbHelper;
     private SQLiteDatabase db;
@@ -103,6 +102,10 @@ public class SearchHistoryTable {
     }
 
     public List<SearchItem> getAllItems(Integer databaseKey) {
+        return getAllItems(databaseKey, 2);
+    }
+
+    public List<SearchItem> getAllItems(Integer databaseKey, int historySize) {
         mCurrentDatabaseKey = databaseKey;
         List<SearchItem> list = new ArrayList<>();
 
@@ -110,7 +113,7 @@ public class SearchHistoryTable {
         if (databaseKey != null) {
             selectQuery += " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_KEY + " = " + databaseKey;
         }
-        selectQuery += " ORDER BY " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " DESC LIMIT " + mHistorySize;
+        selectQuery += " ORDER BY " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " DESC LIMIT " + historySize;
 
         open();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -119,16 +122,13 @@ public class SearchHistoryTable {
                 SearchItem item = new SearchItem(mContext.get());
                 item.setIcon_1_drawable(ContextCompat.getDrawable(mContext.get(), R.drawable.ic_search_black_24dp));
                 item.setTitle(cursor.getString(0));
+                item.setSubtitle(cursor.getString(1));
                 list.add(item);
             } while (cursor.moveToNext());
         }
         cursor.close();
         close();
         return list;
-    }
-
-    public void setHistorySize(int historySize) {
-        mHistorySize = historySize;
     }
 
     public void clearDatabase() {

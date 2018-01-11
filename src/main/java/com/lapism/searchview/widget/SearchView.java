@@ -234,12 +234,12 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
 
     public void setTextImage(@DrawableRes int resource) {
         mImageViewImage.setImageResource(resource);
-        mImageViewMenu.setVisibility(View.GONE);
+        mSearchEditText.setVisibility(View.GONE);
     }
 
     public void setTextImage(@Nullable Drawable drawable) {
         mImageViewImage.setImageDrawable(drawable);
-        mImageViewMenu.setVisibility(View.GONE);
+        mSearchEditText.setVisibility(View.GONE);
     }
 
     public Editable getText() {
@@ -485,17 +485,17 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mImageViewMic = findViewById(R.id.search_imageView_mic);
         mImageViewMic.setVisibility(View.GONE);
         mImageViewMic.setOnClickListener(this);
-        ;
 
         mImageViewClear = findViewById(R.id.search_imageView_clear);
         mImageViewClear.setVisibility(View.GONE);
         mImageViewClear.setOnClickListener(this);
 
         mImageViewMenu = findViewById(R.id.search_imageView_menu);
+        mImageViewMenu.setVisibility(View.GONE);
         mImageViewMenu.setOnClickListener(this);
 
         mImageViewImage = findViewById(R.id.search_imageView_image);
-        setTextImage(ContextCompat.getDrawable(mContext, R.drawable.ic_google_grey)); // TODO VELIKOST LOGA
+        mImageViewImage.setVisibility(View.GONE);
         mImageViewImage.setOnClickListener(this);
 
         mViewShadow = findViewById(R.id.search_view_shadow);
@@ -505,7 +505,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mLinearLayout = findViewById(R.id.search_linearLayout);
 
         mSearchEditText = findViewById(R.id.search_searchEditText);
-        mSearchEditText.setVisibility(View.GONE);
         mSearchEditText.setSearchView(this);
         mSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -572,7 +571,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
 
         setLogo(a.getInteger(R.styleable.SearchView_search_logo, Search.Logo.G));
         setShape(a.getInteger(R.styleable.SearchView_search_shape, Search.Shape.CLASSIC));
-        setTheme(a.getInteger(R.styleable.SearchView_search_theme, Search.Theme.COLOR));
+        setTheme(a.getInteger(R.styleable.SearchView_search_theme, Search.Theme.LIGHT));
         setVersion(a.getInteger(R.styleable.SearchView_search_version, Search.Version.TOOLBAR));
         setVersionMargins(a.getInteger(R.styleable.SearchView_search_version_margins, Search.VersionMargins.TOOLBAR_SMALL));
 
@@ -649,6 +648,8 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         }
 
         a.recycle();
+
+        setTextImage(ContextCompat.getDrawable(mContext, R.drawable.ic_google_grey));
     }
 
     private void addFocus() {
@@ -814,7 +815,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         }
 
         if (v == mImageViewImage) {
-            // todo subtitle do DB, getDRawable a getVisibility
+            //if(mImageViewImage.getDrawable() != null) TODO CELE TO PROJIT
             mImageViewImage.setVisibility(View.GONE);
             mSearchEditText.setVisibility(View.VISIBLE);
             mSearchEditText.requestFocus();
