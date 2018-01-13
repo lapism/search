@@ -60,7 +60,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
 
     private boolean mShadow;
     private long mAnimationDuration;
-    private CharSequence mQueryText;
+    private CharSequence mQueryText = "";
 
     @Search.Version
     private int mVersion;
@@ -248,11 +248,11 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         return mSearchEditText.getText();
     }
 
-    public void setText(CharSequence text) {
+    public void setText(@StringRes int text) {
         mSearchEditText.setText(text);
     }
 
-    public void setText(@StringRes int text) {
+    public void setText(CharSequence text) {
         mSearchEditText.setText(text);
     }
 
@@ -517,7 +517,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                onSubmitQuery();
+                //onSubmitQuery();
                 // todo test VSEHO  + README + Color.BLACK
                 // TODO + callsuper + anotace vseho
                 // todo room + check google search margin
@@ -647,30 +647,34 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
 
         a.recycle();
 
-        setSaveEnabled(true);
+        setSaveEnabled(true);// TODO
     }
 
+    // TODO PROMYSLET
     private void addFocus() {
+        filter(mQueryText);
+
         if (mShadow) {
             SearchAnimator.fadeOpen(mViewShadow, mAnimationDuration);
         }
 
-        showKeyboard();
         showSuggestions();
         setMicOrClearIcon(true);
 
         if (mVersion == Search.Version.TOOLBAR) {
             animateLogoHamburgerToLogoArrow(true);
 
-            postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (mOnOpenCloseListener != null) {
-                        mOnOpenCloseListener.onOpen();
-                    }
-                }
-            }, mAnimationDuration);
+            if (mOnOpenCloseListener != null) {
+                mOnOpenCloseListener.onOpen();
+            }
         }
+
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showKeyboard();
+            }
+        }, mAnimationDuration);
     }
 
     private void removeFocus() {
@@ -728,14 +732,17 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mQueryText = s;
 
         setMicOrClearIcon(true);
-
-        if (getAdapter() != null && getAdapter() instanceof Filterable) {
-            ((Filterable) getAdapter()).getFilter().filter(mQueryText, this);
-        }
+        filter(s);
 
         if (mOnQueryTextListener != null) {
             // dispatchFilters(); todo
             mOnQueryTextListener.onQueryTextChange(mQueryText);
+        }
+    }
+
+    private void filter(CharSequence s) {
+        if (getAdapter() != null && getAdapter() instanceof Filterable) {
+            ((Filterable) getAdapter()).getFilter().filter(s, this);
         }
     }
 
@@ -763,7 +770,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
             mFlexboxLayout.setVisibility(View.VISIBLE);
         }
 
-        if (getAdapter() != null && getAdapter().getItemCount() > 0 && mRecyclerView.getVisibility() == View.GONE) {
+        if (getAdapter() != null && getAdapter().getItemCount() > 0) {
             mViewDivider.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.VISIBLE);
         }
@@ -775,17 +782,17 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
             mFlexboxLayout.setVisibility(View.GONE);
         }
 
-        if (getAdapter() != null && getAdapter().getItemCount() > 0 && mRecyclerView.getVisibility() == View.VISIBLE) {
+        if (getAdapter() != null && getAdapter().getItemCount() > 0) {
             mViewDivider.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.GONE);
         }
     }
 
 
-    // mCardView.startAnimation(SearchAnimator.slideDown(mContext, mAnimationDuration)); TODO
+    // slideDown TODO
     // TODO plus marginy dle searchview + dvoji bliknuti + check
     // todo
-    private void onSubmitQuery() {
+    /*private void onSubmitQuery() {
         CharSequence query = mSearchEditText.getText();
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
             // dispatchFilters(); todo
@@ -793,7 +800,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
                 mSearchEditText.setText(query);
             }
         }
-    }
+    }*/
 
     // todo
     private void getMenuItemPosition(int menuItemId) {
@@ -873,7 +880,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         SearchViewSavedState ss = new SearchViewSavedState(superState);
-        ss.query = mQueryText != null ? mQueryText.toString() : null;
+        ss.query = mQueryText != null ? mQueryText.toString() : null;// todo ""
         ss.hasFocus = mSearchEditText.hasFocus();
         return ss;
     }

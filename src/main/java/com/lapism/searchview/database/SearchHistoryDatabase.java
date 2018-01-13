@@ -20,7 +20,7 @@ class SearchHistoryDatabase extends SQLiteOpenHelper {
             + SEARCH_HISTORY_COLUMN_TITLE + " TEXT, "
             + SEARCH_HISTORY_COLUMN_SUBTITLE + " TEXT " + ");";
 
-    SearchHistoryDatabase(Context context) {
+    public SearchHistoryDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

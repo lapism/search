@@ -15,7 +15,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO ROOM
+// TODO ROOM library
 public class SearchHistoryTable {
 
     private SearchHistoryDatabase dbHelper;

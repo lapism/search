@@ -33,10 +33,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
 
     protected final SearchHistoryTable mHistoryDatabase;
     protected final WeakReference<Context> mContext;
-    protected Integer mDatabaseKey = null;
-    protected CharSequence mKey = "";
-    protected List<SearchItem> mSuggestions = new ArrayList<>();
-    protected List<SearchItem> mResults = new ArrayList<>();
+    protected CharSequence mConstraint;
+    protected List<SearchItem> mSuggestions;
+    protected List<SearchItem> mResults;
+    protected List<SearchItem> mDatabase;
     protected OnSearchItemClickListener mSearchItemClickListener;
     @ColorInt
     protected int mIcon1Color, mIcon2Color, mTitleColor, mSubtitleColor, mTitleHighlightColor;
@@ -46,18 +46,23 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
     // ---------------------------------------------------------------------------------------------
     public SearchAdapter(Context context) {
         mContext = new WeakReference<>(context);
-        setTheme(Search.Theme.LIGHT);
         mHistoryDatabase = new SearchHistoryTable(context);
-        //getFilter().filter("");
+        mDatabase = mHistoryDatabase.getAllItems();
+        mSuggestions = new ArrayList<>();
+        mResults = mHistoryDatabase.getAllItems();
+
+        setTheme(Search.Theme.LIGHT);
     }
 
     public SearchAdapter(Context context, List<SearchItem> suggestions) {
         mContext = new WeakReference<>(context);
-        setTheme(Search.Theme.LIGHT);
-        mSuggestions = suggestions;
-        mResults = suggestions;
+
         mHistoryDatabase = new SearchHistoryTable(context);
-        //getFilter().filter("");
+        mDatabase = mHistoryDatabase.getAllItems();
+        mSuggestions = suggestions;
+        mResults = mHistoryDatabase.getAllItems();
+
+        setTheme(Search.Theme.LIGHT);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -70,8 +75,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
 
     @Override
     public void onBindViewHolder(SearchViewHolder viewHolder, int position) {
-        // Context context = viewHolder.itemView.getContext(); DO NOT DELETE !!!
-
         SearchItem item = mResults.get(position);
 
         if (item.getIcon_1_resource() != 0) {
@@ -101,11 +104,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
             String title = item.getTitle().toString();
             String titleLower = title.toLowerCase(Locale.getDefault());
 
-            if (titleLower.contains(mKey) && !TextUtils.isEmpty(mKey)) {
+            if (!TextUtils.isEmpty(mConstraint) && titleLower.contains(mConstraint)) {
                 SpannableString s = new SpannableString(title);
                 s.setSpan(new ForegroundColorSpan(mTitleHighlightColor),
-                        titleLower.indexOf(mKey.toString()),
-                        titleLower.indexOf(mKey.toString()) + mKey.length(),
+                        titleLower.indexOf(mConstraint.toString()),
+                        titleLower.indexOf(mConstraint.toString()) + mConstraint.length(),
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 viewHolder.title.setText(s, TextView.BufferType.SPANNABLE);
             } else {
@@ -142,25 +145,23 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
 
-                mKey = constraint.toString().toLowerCase(Locale.getDefault());
+                mConstraint = constraint.toString().toLowerCase(Locale.getDefault());
 
-                if (!TextUtils.isEmpty(mKey)) {
-                    List<SearchItem> results = new ArrayList<>();
+                if (!TextUtils.isEmpty(mConstraint)) {
                     List<SearchItem> history = new ArrayList<>();
-                    List<SearchItem> databaseAllItems = mHistoryDatabase.getAllItems(mDatabaseKey);
+                    List<SearchItem> results = new ArrayList<>();
 
-                    if (!databaseAllItems.isEmpty()) {
-                        history.addAll(databaseAllItems);
+                    if (!mDatabase.isEmpty()) {
+                        history.addAll(mDatabase);
                     }
                     history.addAll(mSuggestions);
 
                     for (SearchItem item : history) {
                         String string = item.getTitle().toString().toLowerCase(Locale.getDefault());
-                        if (string.contains(mKey)) {
+                        if (string.contains(mConstraint)) {
                             results.add(item);
                         }
                     }
-
                     if (results.size() > 0) {
                         filterResults.values = results;
                         filterResults.count = results.size();
@@ -172,23 +173,22 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                List<SearchItem> dataSet = new ArrayList<>();
-
                 if (results.count > 0) {
+                    List<SearchItem> dataSet = new ArrayList<>();
+
                     List<?> result = (ArrayList<?>) results.values;
                     for (Object object : result) {
                         if (object instanceof SearchItem) {
                             dataSet.add((SearchItem) object);
                         }
                     }
+
+                    setData(dataSet);
                 } else {
-                    List<SearchItem> allItems = mHistoryDatabase.getAllItems(mDatabaseKey);
-                    if (!allItems.isEmpty()) {
-                        dataSet = allItems;
+                    if (TextUtils.isEmpty(constraint) && !mDatabase.isEmpty()) {
+                        setData(mDatabase);
                     }
                 }
-
-                setData(dataSet);
             }
         };
     }
@@ -254,20 +254,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
 
     public void setSuggestionsList(List<SearchItem> suggestionsList) {
         mSuggestions = suggestionsList;
-        mResults = suggestionsList;
     }
 
     public List<SearchItem> getResultsList() {
         return mResults;
-    }
-
-    public CharSequence getKey() {
-        return mKey;
-    }
-
-    public void setDatabaseKey(Integer key) {
-        mDatabaseKey = key;
-        //getFilter().filter("");
     }
 
     public void setOnSearchItemClickListener(OnSearchItemClickListener listener) {
@@ -276,7 +266,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
 
     // ---------------------------------------------------------------------------------------------
     private void setData(List<SearchItem> data) {
-        if (mResults.isEmpty()) {
+        mResults = data;
+        notifyDataSetChanged();
+
+        /*if (mResults.isEmpty()) {
             mResults = data;
             if (data.size() != 0) {
                 notifyItemRangeInserted(0, data.size());
@@ -298,7 +291,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
                 notifyItemRangeChanged(0, previousSize);
                 notifyItemRangeInserted(previousSize, nextSize - previousSize);
             }
-        }
+        }*/
     }
 
     public interface OnSearchItemClickListener {
@@ -306,3 +299,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
     }
 
 }
+
+// getFilter().filter("");
+// protected Integer mDatabaseKey = null;
+// Context context = viewHolder.itemView.getContext(); DO NOT DELETE !!!
