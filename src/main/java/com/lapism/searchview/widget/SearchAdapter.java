@@ -182,11 +182,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
                         }
                     }
                 } else {
-                                    if (TextUtils.isEmpty(mKey)) {
                     List<SearchItem> allItems = mHistoryDatabase.getAllItems(mDatabaseKey);
                     if (!allItems.isEmpty()) {
                         dataSet = allItems;
-                    }
                     }
                 }
 

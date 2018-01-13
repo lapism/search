@@ -953,7 +953,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     }
 
 
-
+//callsuper
     public void setFilters(@Nullable List<SearchFilter> filters) {
         mSearchFilters = filters;
         mFlexboxLayout.removeAllViews();

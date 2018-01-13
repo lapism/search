@@ -18,7 +18,6 @@ import java.util.List;
 // TODO ROOM
 public class SearchHistoryTable {
 
-    private static Integer mCurrentDatabaseKey = null;
     private SearchHistoryDatabase dbHelper;
     private SQLiteDatabase db;
     private WeakReference<Context> mContext;
@@ -27,7 +26,6 @@ public class SearchHistoryTable {
         mContext = new WeakReference<>(context);
     }
 
-    // FOR onResume AND onPause
     public void open() throws SQLException {
         dbHelper = new SearchHistoryDatabase(mContext.get());
         db = dbHelper.getWritableDatabase();
@@ -38,24 +36,17 @@ public class SearchHistoryTable {
     }
 
     public void addItem(SearchItem item) {
-        addItem(item, mCurrentDatabaseKey);
-    }
-
-    public void addItem(SearchItem item, Integer databaseKey) {
         ContentValues values = new ContentValues();
         if (!checkText(item.getTitle().toString())) {
             values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TITLE, item.getTitle().toString());
             if (!TextUtils.isEmpty(item.getSubtitle())) {
                 values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_SUBTITLE, item.getSubtitle().toString());
             }
-            if (databaseKey != null) {
-                values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_KEY, databaseKey);
-            }
             open();
             db.insert(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, values);
             close();
         } else {
-            values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID, getLastItemId(databaseKey) + 1);
+            values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID, getLastItemId() + 1);
             open();
             db.update(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, values, SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " = ? ", new String[]{Integer.toString(getItemId(item))});
             close();
@@ -75,11 +66,9 @@ public class SearchHistoryTable {
         return id;
     }
 
-    private int getLastItemId(Integer databaseKey) {
+    private int getLastItemId() {
         open();
         String sql = "SELECT " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE;
-        if (databaseKey != null)
-            sql += " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_KEY + " = " + databaseKey;
         Cursor res = db.rawQuery(sql, null);
         res.moveToLast();
         int count = res.getInt(0);
@@ -105,18 +94,17 @@ public class SearchHistoryTable {
         return hasObject;
     }
 
-    public List<SearchItem> getAllItems(Integer databaseKey) {
-        return getAllItems(databaseKey, 2);
+    public List<SearchItem> getAllItems() {
+        return getAllItems(2);
     }
 
-    public List<SearchItem> getAllItems(Integer databaseKey, int historySize) {
-        mCurrentDatabaseKey = databaseKey;
+    public List<SearchItem> getAllItems(int historySize) {
         List<SearchItem> list = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE;
-        if (databaseKey != null) {
+        /*if (databaseKey != null) {
             selectQuery += " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_KEY + " = " + databaseKey;
-        }
+        }*/
         selectQuery += " ORDER BY " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " DESC LIMIT " + historySize;
 
         open();
@@ -124,9 +112,9 @@ public class SearchHistoryTable {
         if (cursor.moveToFirst()) {
             do {
                 SearchItem item = new SearchItem(mContext.get());
-                item.setIcon_1_drawable(ContextCompat.getDrawable(mContext.get(), R.drawable.ic_search_black_24dp));
+                item.setIcon_1_drawable(ContextCompat.getDrawable(mContext.get(), R.drawable.ic_history_black_24dp));
                 item.setTitle(cursor.getString(1));
-                item.setSubtitle(cursor.getString(2));
+                item.setSubtitle(cursor.getString(2)); // todo
                 list.add(item);
             } while (cursor.moveToNext());
         }
@@ -136,16 +124,8 @@ public class SearchHistoryTable {
     }
 
     public void clearDatabase() {
-        clearDatabase(null);
-    }
-
-    public void clearDatabase(Integer key) {
         open();
-        if (key == null) {
-            db.delete(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, null);
-        } else {
-            db.delete(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_KEY + " = ?", new String[]{String.valueOf(key)});
-        }
+        db.delete(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, null);
         close();
     }
 

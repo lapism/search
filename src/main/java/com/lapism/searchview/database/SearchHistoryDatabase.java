@@ -11,7 +11,6 @@ class SearchHistoryDatabase extends SQLiteOpenHelper {
     static final String SEARCH_HISTORY_COLUMN_ID = "_id";
     static final String SEARCH_HISTORY_COLUMN_TITLE = "_title";
     static final String SEARCH_HISTORY_COLUMN_SUBTITLE = "_subtitle";
-    static final String SEARCH_HISTORY_COLUMN_KEY = "_key";
 
     private static final String DATABASE_NAME = "search_history_database.db";
     private static final int DATABASE_VERSION = 4;
@@ -19,8 +18,7 @@ class SearchHistoryDatabase extends SQLiteOpenHelper {
             + SEARCH_HISTORY_TABLE + " ( "
             + SEARCH_HISTORY_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + SEARCH_HISTORY_COLUMN_TITLE + " TEXT, "
-            + SEARCH_HISTORY_COLUMN_SUBTITLE + " TEXT, "
-            + SEARCH_HISTORY_COLUMN_KEY + " INTEGER " + ");";
+            + SEARCH_HISTORY_COLUMN_SUBTITLE + " TEXT " + ");";
 
     SearchHistoryDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

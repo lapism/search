@@ -41,7 +41,7 @@ public class SearchArrowDrawable extends DrawerArrowDrawable {
         }
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(duration);
-        anim.start();//callsuper
+        anim.start();
     }
 
 }
