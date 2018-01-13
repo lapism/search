@@ -236,7 +236,8 @@ public abstract class SearchLayout extends FrameLayout {
         }
     }
 
-    private void setRadius(int radius) {
+    // ---------------------------------------------------------------------------------------------
+    private void setRadius(float radius) {
         mCardView.setRadius(radius);
     }
 

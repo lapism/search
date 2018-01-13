@@ -84,6 +84,7 @@ public class SearchBar extends SearchLayout implements View.OnClickListener {
         return false;
     }
 
+    // ---------------------------------------------------------------------------------------------
     public void setOnBarClickListener(Search.OnBarClickListener listener) {
         mOnBarClickListener = listener;
     }

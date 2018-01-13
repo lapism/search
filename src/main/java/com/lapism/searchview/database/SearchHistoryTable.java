@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 
 import com.lapism.searchview.R;
 import com.lapism.searchview.widget.SearchItem;
@@ -43,7 +44,10 @@ public class SearchHistoryTable {
     public void addItem(SearchItem item, Integer databaseKey) {
         ContentValues values = new ContentValues();
         if (!checkText(item.getTitle().toString())) {
-            values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TEXT, item.getTitle().toString());
+            values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TITLE, item.getTitle().toString());
+            if (!TextUtils.isEmpty(item.getSubtitle())) {
+                values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_SUBTITLE, item.getSubtitle().toString());
+            }
             if (databaseKey != null) {
                 values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_KEY, databaseKey);
             }
@@ -62,7 +66,7 @@ public class SearchHistoryTable {
         open();
         String query = "SELECT " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID +
                 " FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE +
-                " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TEXT + " = ?";
+                " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TITLE + " = ?";
         Cursor res = db.rawQuery(query, new String[]{item.getTitle().toString()});
         res.moveToFirst();
         int id = res.getInt(0);
@@ -87,7 +91,7 @@ public class SearchHistoryTable {
     private boolean checkText(String text) {
         open();
 
-        String query = "SELECT * FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE + " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TEXT + " =?";
+        String query = "SELECT * FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE + " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TITLE + " =?";
         Cursor cursor = db.rawQuery(query, new String[]{text});
 
         boolean hasObject = false;
@@ -121,8 +125,8 @@ public class SearchHistoryTable {
             do {
                 SearchItem item = new SearchItem(mContext.get());
                 item.setIcon_1_drawable(ContextCompat.getDrawable(mContext.get(), R.drawable.ic_search_black_24dp));
-                item.setTitle(cursor.getString(0));
-                item.setSubtitle(cursor.getString(1));
+                item.setTitle(cursor.getString(1));
+                item.setSubtitle(cursor.getString(2));
                 list.add(item);
             } while (cursor.moveToNext());
         }

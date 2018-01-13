@@ -9,15 +9,17 @@ class SearchHistoryDatabase extends SQLiteOpenHelper {
 
     static final String SEARCH_HISTORY_TABLE = "search_history";
     static final String SEARCH_HISTORY_COLUMN_ID = "_id";
-    static final String SEARCH_HISTORY_COLUMN_TEXT = "_text";
+    static final String SEARCH_HISTORY_COLUMN_TITLE = "_title";
+    static final String SEARCH_HISTORY_COLUMN_SUBTITLE = "_subtitle";
     static final String SEARCH_HISTORY_COLUMN_KEY = "_key";
 
     private static final String DATABASE_NAME = "search_history_database.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static final String CREATE_TABLE_SEARCH_HISTORY = "CREATE TABLE IF NOT EXISTS "
             + SEARCH_HISTORY_TABLE + " ( "
             + SEARCH_HISTORY_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + SEARCH_HISTORY_COLUMN_TEXT + " TEXT, "
+            + SEARCH_HISTORY_COLUMN_TITLE + " TEXT, "
+            + SEARCH_HISTORY_COLUMN_SUBTITLE + " TEXT, "
             + SEARCH_HISTORY_COLUMN_KEY + " INTEGER " + ");";
 
     SearchHistoryDatabase(Context context) {

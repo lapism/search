@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lapism.searchview.R;
@@ -28,7 +27,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultViewHolder> implements Filterable {
+public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implements Filterable {
 
     public static final String TAG = SearchAdapter.class.getName();
 
@@ -63,14 +62,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
     // ---------------------------------------------------------------------------------------------
     @Override
-    public ResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.search_item, parent, false);
-        return new ResultViewHolder(view);
+        return new SearchViewHolder(view, mSearchItemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(ResultViewHolder viewHolder, int position) {
+    public void onBindViewHolder(SearchViewHolder viewHolder, int position) {
         // Context context = viewHolder.itemView.getContext(); DO NOT DELETE !!!
 
         SearchItem item = mResults.get(position);
@@ -139,14 +138,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
     @Override
     public Filter getFilter() {
         return new Filter() {
-            // todo prekontrolovat adapter A FILTROVANI
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
 
                 mKey = constraint.toString().toLowerCase(Locale.getDefault());
 
-                if (!TextUtils.isEmpty(constraint)) {
+                if (!TextUtils.isEmpty(mKey)) {
                     List<SearchItem> results = new ArrayList<>();
                     List<SearchItem> history = new ArrayList<>();
                     List<SearchItem> databaseAllItems = mHistoryDatabase.getAllItems(mDatabaseKey);
@@ -174,27 +172,25 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                if (constraint.equals(mKey)) {
-                    List<SearchItem> dataSet = new ArrayList<>();
+                List<SearchItem> dataSet = new ArrayList<>();
 
-                    if (results.count > 0) {
-                        List<?> result = (ArrayList<?>) results.values;
-                        for (Object object : result) {
-                            if (object instanceof SearchItem) {
-                                dataSet.add((SearchItem) object);
-                            }
-                        }
-                    } else {
-                        if (TextUtils.isEmpty(mKey)) {
-                            List<SearchItem> allItems = mHistoryDatabase.getAllItems(mDatabaseKey);
-                            if (!allItems.isEmpty()) {
-                                dataSet = allItems;
-                            }
+                if (results.count > 0) {
+                    List<?> result = (ArrayList<?>) results.values;
+                    for (Object object : result) {
+                        if (object instanceof SearchItem) {
+                            dataSet.add((SearchItem) object);
                         }
                     }
-
-                    setData(dataSet);
+                } else {
+                                    if (TextUtils.isEmpty(mKey)) {
+                    List<SearchItem> allItems = mHistoryDatabase.getAllItems(mDatabaseKey);
+                    if (!allItems.isEmpty()) {
+                        dataSet = allItems;
+                    }
+                    }
                 }
+
+                setData(dataSet);
             }
         };
     }
@@ -276,6 +272,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         //getFilter().filter("");
     }
 
+    public void setOnSearchItemClickListener(OnSearchItemClickListener listener) {
+        mSearchItemClickListener = listener;
+    }
+
+    // ---------------------------------------------------------------------------------------------
     private void setData(List<SearchItem> data) {
         if (mResults.isEmpty()) {
             mResults = data;
@@ -302,43 +303,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ResultView
         }
     }
 
-    public void setOnSearchItemClickListener(OnSearchItemClickListener listener) {
-        mSearchItemClickListener = listener;
-    }
-
     public interface OnSearchItemClickListener {
-        void onSearchItemClick(View view, int position, String title, String subtitle);
-    }
-
-    // todo https://lab.getbase.com/nested-scrolling-with-coordinatorlayout-on-android/
-    // todo alpha a adaopter metodyColorUtils.setAlphaComponent(SearchView.getIconColor(), 0x33)android:alpha="0.4", do samostatne classy
-    public class ResultViewHolder extends RecyclerView.ViewHolder {
-
-        protected final ImageView icon_1;
-        protected final ImageView icon_2;
-        protected final TextView title;
-        protected final TextView subtitle;
-
-        public ResultViewHolder(View view) {
-            super(view);
-            icon_1 = view.findViewById(R.id.search_icon_1);
-            icon_2 = view.findViewById(R.id.search_icon_2);
-            title = view.findViewById(R.id.search_title);
-            subtitle = view.findViewById(R.id.search_subtitle);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mSearchItemClickListener != null) {
-                        mSearchItemClickListener.onSearchItemClick(
-                                view,
-                                getLayoutPosition(),
-                                title.getText().toString(),
-                                subtitle.getText().toString());
-                    }
-                }
-            });
-        }
-
+        void onSearchItemClick(View view, int position, CharSequence title, CharSequence subtitle);
     }
 
 }

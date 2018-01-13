@@ -95,9 +95,9 @@ public class Search {
     }
 
     public interface OnOpenCloseListener {
-        boolean onClose();
+        void onClose();
 
-        boolean onOpen();
+        void onOpen();
     }
 
 }
