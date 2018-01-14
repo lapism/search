@@ -44,7 +44,6 @@ import com.lapism.searchview.graphics.SearchArrowDrawable;
 
 import java.util.List;
 
-
 // @CoordinatorLayout.DefaultBehavior(SearchBehavior.class)
 public class SearchView extends SearchLayout implements View.OnClickListener, Filter.FilterListener {
 
