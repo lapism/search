@@ -114,7 +114,7 @@ public class SearchBar extends SearchLayout implements View.OnClickListener {
 
         mTextView = findViewById(R.id.search_textView);
 
-        setLogo(a.getInt(R.styleable.SearchBar_search_logo, Search.Logo.G));
+        setLogo(a.getInt(R.styleable.SearchBar_search_logo, Search.Logo.GOOGLE));
         setShape(a.getInt(R.styleable.SearchBar_search_shape, Search.Shape.CLASSIC));
         setTheme(a.getInt(R.styleable.SearchBar_search_theme, Search.Theme.COLOR));
 
