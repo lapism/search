@@ -2,6 +2,7 @@ package com.lapism.searchview.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -51,12 +52,16 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     public static final String TAG = SearchView.class.getName();
     private List<Boolean> mSearchFiltersStates;
     private List<SearchFilter> mSearchFilters;
-    private View mMenuItemView; // todo
+
 
 
     // init + kotlin 1.2.1 + 4.4.1 + glide 4.5.0 mbuild tools BETA4 427.0.3 / 02
 
+    private View mMenuItemView; // todo
     private int mMenuItemCx = -1; // todo
+
+
+
 
     private boolean mShadow;
     private long mAnimationDuration;
@@ -164,6 +169,16 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
                 left = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_small_left_right);
                 top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
                 right = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_small_left_right);
+                bottom = 0;
+
+                params.setMargins(left, top, right, bottom);
+
+                mCardView.setLayoutParams(params);
+                break;
+            case Search.VersionMargins.TOOLBAR_MEDIUM:
+                left = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_medium_left_right);
+                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
+                right = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_medium_left_right);
                 bottom = 0;
 
                 params.setMargins(left, top, right, bottom);
@@ -327,6 +342,48 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         params.width = LinearLayout.LayoutParams.MATCH_PARENT;
         mLinearLayout.setLayoutParams(params);
     }
+
+
+
+
+    // INT VERSION
+    public Editable getQuery() {
+        return mSearchEditText.getText();
+    }
+
+    public void setQuery(CharSequence query, boolean submit) {
+        mSearchEditText.setText(query);
+        if (query != null) {
+            mSearchEditText.setSelection(mSearchEditText.length());
+            mQueryText = query;
+        }
+
+        if (submit && !TextUtils.isEmpty(query)) {
+            onSubmitQuery();
+        }
+    }
+
+    private void setQuery(CharSequence query) {
+        mSearchEditText.setText(query);
+        mSearchEditText.setSelection(TextUtils.isEmpty(query) ? 0 : query.length());
+    }
+
+    public void setQueryHint(@Nullable CharSequence hint) {
+        mSearchEditText.setHint(hint);
+    }
+
+    public void setQueryHint(@StringRes int hint) {
+        mSearchEditText.setHint(hint);
+    }
+
+    @Nullable
+    public CharSequence getQueryHint() {
+        return mSearchEditText.getHint();
+    }
+
+
+
+
 
     public RecyclerView.Adapter getAdapter() {
         return mRecyclerView.getAdapter();
@@ -517,10 +574,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                //onSubmitQuery();
-                // todo test VSEHO  + README + Color.BLACK
-                // TODO + callsuper + anotace vseho
-                // todo room + check google search margin
+                onSubmitQuery();
                 return true;
             }
         });
@@ -557,7 +611,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
             }
         });
 
-        // Views visibility
         mImageViewMic.setVisibility(View.GONE);
         mImageViewClear.setVisibility(View.GONE);
         mImageViewMenu.setVisibility(View.GONE);
@@ -650,6 +703,9 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         setSaveEnabled(true);// TODO
     }
 
+    // todo test VSEHO  + README + Color.BLACK
+    // TODO + callsuper + anotace vseho
+    // todo room + check google search margin
     // TODO PROMYSLET
     private void addFocus() {
         filter(mQueryText);
@@ -788,18 +844,29 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         }
     }
 
-
     // slideDown TODO
-    // TODO plus marginy dle searchview + dvoji bliknuti + check
+    // TODO plus marginy dle searchview + check
     // todo
-    /*private void onSubmitQuery() {
+    private void onSubmitQuery() {
         CharSequence query = mSearchEditText.getText();
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
             // dispatchFilters(); todo
             if (mOnQueryTextListener == null || !mOnQueryTextListener.onQueryTextSubmit(query.toString())) {
                 mSearchEditText.setText(query);
+                // dismissSuggestions();
             }
         }
+    }
+
+    /*void onTextChanged2(CharSequence newText) {
+        CharSequence text = mSearchEditText.getText();
+        mUserQuery = text;
+        boolean hasText = !TextUtils.isEmpty(text);
+
+        if (mOnQueryChangeListener != null && !TextUtils.equals(newText, mOldQueryText)) {
+            mOnQueryChangeListener.onQueryTextChange(newText.toString());
+        }
+        mOldQueryText = newText.toString();
     }*/
 
     // todo
@@ -838,31 +905,21 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
                     mOnLogoClickListener.onLogoClick();
                 }
             }
-        }
-
-        if (v == mImageViewImage) {
+        } else if (v == mImageViewImage) {
             setTextImageVisibility(true);
-        }
-
-        if (v == mImageViewMic) {
+        } else if (v == mImageViewMic) {
             if (mOnMicClickListener != null) {
                 mOnMicClickListener.onMicClick();
             }
-        }
-
-        if (v == mImageViewClear) {
+        } else if (v == mImageViewClear) {
             if (mSearchEditText.length() > 0) {
                 mSearchEditText.getText().clear();
             }
-        }
-
-        if (v == mImageViewMenu) {
+        } else if (v == mImageViewMenu) {
             if (mOnMenuClickListener != null) {
                 mOnMenuClickListener.onMenuClick();
             }
-        }
-
-        if (v == mViewShadow) {
+        } else if (v == mViewShadow) {
             close();
         }
     }
@@ -880,23 +937,35 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         SearchViewSavedState ss = new SearchViewSavedState(superState);
-        ss.query = mQueryText != null ? mQueryText.toString() : null;// todo ""
         ss.hasFocus = mSearchEditText.hasFocus();
+        ss.shadow = mShadow;
+        ss.query = mQueryText != null ? mQueryText.toString() : null;// todo ""
         return ss;
     }
 
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
+        if (!(state instanceof SearchViewSavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
         SearchViewSavedState ss = (SearchViewSavedState) state;
         super.onRestoreInstanceState(ss.getSuperState());
-
+        mShadow = ss.shadow;
+        if(mShadow){
+            mViewShadow.setVisibility(View.VISIBLE);
+        }
+        if (ss.hasFocus) {
+            open();
+        }
         if (ss.query != null) {
             setText(ss.query);
         }
+        requestLayout();
+    }
 
-        if (ss.hasFocus) {
-            addFocus();
-        }
+    public static boolean isLandscapeMode(Context context) {
+        return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
 }

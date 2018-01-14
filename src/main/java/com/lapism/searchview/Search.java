@@ -64,12 +64,13 @@ public class Search {
         int MENU_ITEM = 4001;
     }
 
-    @IntDef({VersionMargins.TOOLBAR_SMALL, VersionMargins.TOOLBAR_BIG, VersionMargins.MENU_ITEM})
+    @IntDef({VersionMargins.TOOLBAR_SMALL, VersionMargins.TOOLBAR_MEDIUM, VersionMargins.TOOLBAR_BIG, VersionMargins.MENU_ITEM})
     @Retention(RetentionPolicy.SOURCE)
     public @interface VersionMargins {
         int TOOLBAR_SMALL = 5000;
-        int TOOLBAR_BIG = 5001;
-        int MENU_ITEM = 5002;
+        int TOOLBAR_MEDIUM = 5001;
+        int TOOLBAR_BIG = 5002;
+        int MENU_ITEM = 5003;
     }
 
     public interface OnBarClickListener {
@@ -89,15 +90,15 @@ public class Search {
     }
 
     public interface OnQueryTextListener {
-        boolean onQueryTextChange(CharSequence newText);
-
         boolean onQueryTextSubmit(CharSequence query);
+
+        boolean onQueryTextChange(CharSequence newText);
     }
 
     public interface OnOpenCloseListener {
-        void onClose();
-
         void onOpen();
+
+        void onClose();
     }
 
 }

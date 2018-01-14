@@ -25,8 +25,9 @@
         </attr>
         <attr name="search_version_margins" format="enum">
             <enum name="toolbar_small" value="5000" />
-            <enum name="toolbar_big" value="5001" />
-            <enum name="menu_item" value="5002" />
+            <enum name="toolbar_medium" value="5001" />
+            <enum name="toolbar_big" value="5002" />
+            <enum name="menu_item" value="5003" />
         </attr>
         <attr name="search_logo_icon" format="integer" />
         <attr name="search_logo_color" format="color" />

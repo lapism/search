@@ -3,7 +3,4 @@
 
     <dimen name="search_toolbar_margin_top">8dp</dimen>
 
-    <dimen name="search_toolbar_margin_small_left_right">8dp</dimen>
-    <dimen name="search_toolbar_margin_big_left_right">8dp</dimen>
-
 </resources>

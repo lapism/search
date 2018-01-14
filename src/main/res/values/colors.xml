@@ -19,7 +19,7 @@
     <color name="search_light_title_highlight">#757575</color>
     <color name="search_light_subtitle">#bdbdbd</color>
     <color name="search_light_hint">#bdbdbd</color>
-    <color name="search_light_icon_1_2">#bdbdbd</color>
+    <color name="search_light_icon_1_2">#616161</color>
 
     <!-- Dark Theme -->
     <color name="search_dark_icon">#ffffff</color>
@@ -29,7 +29,7 @@
     <color name="search_dark_title_highlight">#62ffffff</color>
     <color name="search_dark_subtitle">#80ffffff</color>
     <color name="search_dark_hint">#80ffffff</color>
-    <color name="search_dark_icon_1_2">#80ffffff</color>
+    <color name="search_dark_icon_1_2">#ffffff</color>
 
     <!-- Google -->
     <color name="search_google_blue">#4285f4</color>
@@ -41,19 +41,7 @@
     <color name="search_shadow">#80000000</color>
 
 
-    <!-- SearchView Light AppCompat Theme -->
-    <color name="search_view_light_appcompat_background">#fafafa</color>
-    <color name="search_view_light_appcompat_icon">#8a000000</color>
-    <color name="search_view_light_appcompat_text">#de000000</color>
-    <color name="search_view_light_appcompat_hint">#80000000</color>
-    <color name="search_view_light_appcompat_text_highlight">#62000000</color>
 
-    <!-- SearchView Dark AppCompat Theme -->
-    <color name="search_view_dark_appcompat_background">#303030</color>
-    <color name="search_view_dark_appcompat_icon">#b3ffffff</color>
-    <color name="search_view_dark_appcompat_text">#ffffff</color>
-    <color name="search_view_dark_appcompat_hint">#80ffffff</color>
-    <color name="search_view_dark_appcompat_text_highlight">#62ffffff</color>
 
 
     <color name="cardview_dark_background2">#424242</color>
@@ -61,11 +49,11 @@
     <color name="cardview_shadow_end_color2">#03000000</color>
     <color name="cardview_shadow_start_color2">#37000000</color>
 
-    <color name="md_grey_850">#ff303030</color>
-    <color name="md_grey_800">#ff424242</color>
-    <color name="md_grey_600">#ff757575</color>
+    <color name="md_grey_850">#303030</color>
+    <color name="md_grey_800">#424242</color>
+    <color name="md_grey_600">#757575</color>
 
-    <color name="md_grey_50">#fffafafa</color>
+    <color name="md_grey_50">#fafafa</color>
 
     <color name="md_deep_teal_200">#ff80cbc4</color>
     <color name="md_deep_teal_500">#ff009688</color>
@@ -121,7 +109,6 @@
 
     <color name="error_color_material">#f4511e</color>
 
-    <!-- Primary & accent colors -->
     <eat-comment />
 
 </resources>

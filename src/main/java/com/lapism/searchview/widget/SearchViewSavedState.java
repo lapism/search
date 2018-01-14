@@ -22,6 +22,7 @@ public class SearchViewSavedState extends View.BaseSavedState {
         }
     };
     boolean hasFocus;
+    boolean shadow;
     String query;
 
     public SearchViewSavedState(Parcel source) {

@@ -48,19 +48,18 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
         mContext = new WeakReference<>(context);
         mHistoryDatabase = new SearchHistoryTable(context);
         mDatabase = mHistoryDatabase.getAllItems();
+        mResults = mDatabase;
         mSuggestions = new ArrayList<>();
-        mResults = mHistoryDatabase.getAllItems();
 
         setTheme(Search.Theme.LIGHT);
     }
 
     public SearchAdapter(Context context, List<SearchItem> suggestions) {
         mContext = new WeakReference<>(context);
-
         mHistoryDatabase = new SearchHistoryTable(context);
         mDatabase = mHistoryDatabase.getAllItems();
+        mResults = mDatabase;
         mSuggestions = suggestions;
-        mResults = mHistoryDatabase.getAllItems();
 
         setTheme(Search.Theme.LIGHT);
     }
@@ -166,6 +165,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
                         filterResults.values = results;
                         filterResults.count = results.size();
                     }
+                } else {
+                    if (!mDatabase.isEmpty()) {
+                        filterResults.values = mDatabase;
+                        filterResults.count = mDatabase.size();
+                    }
                 }
 
                 return filterResults;
@@ -184,10 +188,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
                     }
 
                     setData(dataSet);
-                } else {
-                    if (TextUtils.isEmpty(constraint) && !mDatabase.isEmpty()) {
-                        setData(mDatabase);
-                    }
                 }
             }
         };
