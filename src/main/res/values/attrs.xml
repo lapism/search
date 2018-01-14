@@ -2,7 +2,6 @@
 <resources>
 
     <declare-styleable name="SearchView">
-        <attr name="search_layout" format="reference" />
         <attr name="search_logo" format="enum">
             <enum name="google" value="1000" />
             <enum name="g" value="1001" />
@@ -56,10 +55,11 @@
     </declare-styleable>
 
     <declare-styleable name="SearchBar">
-        <attr name="search_layout" />
         <attr name="search_logo" />
         <attr name="search_shape" />
         <attr name="search_theme" />
     </declare-styleable>
+
+    <!-- reference -->
 
 </resources>

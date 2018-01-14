@@ -54,13 +54,10 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     private List<SearchFilter> mSearchFilters;
 
 
-
     // init + kotlin 1.2.1 + 4.4.1 + glide 4.5.0 mbuild tools BETA4 427.0.3 / 02
 
     private View mMenuItemView; // todo
     private int mMenuItemCx = -1; // todo
-
-
 
 
     private boolean mShadow;
@@ -105,6 +102,10 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     public SearchView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    public static boolean isLandscapeMode(Context context) {
+        return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -263,11 +264,11 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         return mSearchEditText.getText();
     }
 
-    public void setText(@StringRes int text) {
+    public void setText(CharSequence text) {
         mSearchEditText.setText(text);
     }
 
-    public void setText(CharSequence text) {
+    public void setText(@StringRes int text) {
         mSearchEditText.setText(text);
     }
 
@@ -343,12 +344,14 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mLinearLayout.setLayoutParams(params);
     }
 
-
-
-
     // INT VERSION
     public Editable getQuery() {
         return mSearchEditText.getText();
+    }
+
+    private void setQuery(CharSequence query) {
+        mSearchEditText.setText(query);
+        mSearchEditText.setSelection(TextUtils.isEmpty(query) ? 0 : query.length());
     }
 
     public void setQuery(CharSequence query, boolean submit) {
@@ -363,16 +366,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         }
     }
 
-    private void setQuery(CharSequence query) {
-        mSearchEditText.setText(query);
-        mSearchEditText.setSelection(TextUtils.isEmpty(query) ? 0 : query.length());
-    }
-
     public void setQueryHint(@Nullable CharSequence hint) {
-        mSearchEditText.setHint(hint);
-    }
-
-    public void setQueryHint(@StringRes int hint) {
         mSearchEditText.setHint(hint);
     }
 
@@ -381,9 +375,9 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         return mSearchEditText.getHint();
     }
 
-
-
-
+    public void setQueryHint(@StringRes int hint) {
+        mSearchEditText.setHint(hint);
+    }
 
     public RecyclerView.Adapter getAdapter() {
         return mRecyclerView.getAdapter();
@@ -526,7 +520,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mContext = context;
 
         final TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.SearchView, defStyleAttr, defStyleRes);
-        final int layoutResId = a.getResourceId(R.styleable.SearchView_search_layout, R.layout.search_view);
+        final int layoutResId = R.layout.search_view;
 
         final LayoutInflater inflater = LayoutInflater.from(mContext);
         inflater.inflate(layoutResId, this, true);
@@ -844,6 +838,17 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         }
     }
 
+    /*void onTextChanged2(CharSequence newText) {
+        CharSequence text = mSearchEditText.getText();
+        mUserQuery = text;
+        boolean hasText = !TextUtils.isEmpty(text);
+
+        if (mOnQueryChangeListener != null && !TextUtils.equals(newText, mOldQueryText)) {
+            mOnQueryChangeListener.onQueryTextChange(newText.toString());
+        }
+        mOldQueryText = newText.toString();
+    }*/
+
     // slideDown TODO
     // TODO plus marginy dle searchview + check
     // todo
@@ -857,17 +862,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
             }
         }
     }
-
-    /*void onTextChanged2(CharSequence newText) {
-        CharSequence text = mSearchEditText.getText();
-        mUserQuery = text;
-        boolean hasText = !TextUtils.isEmpty(text);
-
-        if (mOnQueryChangeListener != null && !TextUtils.equals(newText, mOldQueryText)) {
-            mOnQueryChangeListener.onQueryTextChange(newText.toString());
-        }
-        mOldQueryText = newText.toString();
-    }*/
 
     // todo
     private void getMenuItemPosition(int menuItemId) {
@@ -952,7 +946,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         SearchViewSavedState ss = (SearchViewSavedState) state;
         super.onRestoreInstanceState(ss.getSuperState());
         mShadow = ss.shadow;
-        if(mShadow){
+        if (mShadow) {
             mViewShadow.setVisibility(View.VISIBLE);
         }
         if (ss.hasFocus) {
@@ -962,10 +956,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
             setText(ss.query);
         }
         requestLayout();
-    }
-
-    public static boolean isLandscapeMode(Context context) {
-        return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
 }

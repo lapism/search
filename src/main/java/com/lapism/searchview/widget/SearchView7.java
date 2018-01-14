@@ -1,23 +1,21 @@
+/*private static final String IME_OPTION_NO_MICROPHONE = "nm";
+
+private final View mSearchEditFrame;
+private final View mSearchPlate;
+private final View mSubmitArea;
+final ImageView mSearchButton;
+final ImageView mGoButton;
+final ImageView mCloseButton;
+final ImageView mVoiceButton;
+private final View mDropDownAnchor;
+
+private final ImageView mCollapsedIcon;
 
 
-    /*private static final String IME_OPTION_NO_MICROPHONE = "nm";
+private final Intent mVoiceWebSearchIntent;
+private final Intent mVoiceAppSearchIntent;
 
-    private final View mSearchEditFrame;
-    private final View mSearchPlate;
-    private final View mSubmitArea;
-    final ImageView mSearchButton;
-    final ImageView mGoButton;
-    final ImageView mCloseButton;
-    final ImageView mVoiceButton;
-    private final View mDropDownAnchor;
-
-    private final ImageView mCollapsedIcon;
-
-
-    private final Intent mVoiceWebSearchIntent;
-    private final Intent mVoiceAppSearchIntent;
-
-    OnFocusChangeListener mOnQueryTextFocusChangeListener;*/
+OnFocusChangeListener mOnQueryTextFocusChangeListener;*/
 
 
 
