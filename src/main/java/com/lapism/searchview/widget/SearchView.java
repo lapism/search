@@ -616,7 +616,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
 
         setLogo(a.getInteger(R.styleable.SearchView_search_logo, Search.Logo.G));
         setShape(a.getInteger(R.styleable.SearchView_search_shape, Search.Shape.CLASSIC));
-        setTheme(a.getInteger(R.styleable.SearchView_search_theme, Search.Theme.LIGHT));
+        setTheme(a.getInteger(R.styleable.SearchView_search_theme, Search.Theme.COLOR));
         setVersion(a.getInteger(R.styleable.SearchView_search_version, Search.Version.TOOLBAR));
         setVersionMargins(a.getInteger(R.styleable.SearchView_search_version_margins, Search.VersionMargins.TOOLBAR_SMALL));
 

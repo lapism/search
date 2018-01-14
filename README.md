@@ -31,15 +31,14 @@ Please support me!
 
 ## ?
 
-**[Readme for SearchBar](https://github.com/lapism/SearchView-SearchBar/blob/master/README_SearchBar.md)**  
+**[README for SearchBar](https://github.com/lapism/SearchView-SearchBar/blob/master/README_SearchBar.md)**  
 
 ![Screenshot 1](https://github.com/lapism/SearchView/blob/beta1/images/searchbar.png)
 
-**[Readme for SearchView](https://github.com/lapism/SearchView-SearchBar/blob/master/README_SearchView.md)**  
+**[README for SearchView](https://github.com/lapism/SearchView-SearchBar/blob/master/README_SearchView.md)**  
 
-![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/searchview_1.png)
-![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/searchview_2.png)
-![Screenshot 3](https://github.com/lapism/SearchView/blob/master/images/searchview_1.png)
+![Screenshot 1](https://github.com/lapism/SearchView/blob/beta1/images/searchview_1.png)
+![Screenshot 2](https://github.com/lapism/SearchView/blob/beta1/images/searchview_2.png)
 
 ### Apps with this library
 
@@ -68,4 +67,4 @@ The first three numbers are always the same as the latest official library. The 
 
 ## License
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the Apache License 2.0 - see the [LICENSE](https://github.com/lapism/SearchView-SearchBar/blob/beta1/LICENSE) file for details
