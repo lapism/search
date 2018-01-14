@@ -53,18 +53,18 @@ public class SearchBar extends SearchLayout implements View.OnClickListener {
 
     // ---------------------------------------------------------------------------------------------
     @Override
-    public void setHint(CharSequence hint) {
-        mTextView.setHint(hint);
+    public void setText(CharSequence text) {
+        mTextView.setText(text);
     }
 
     @Override
-    public void setHint(@StringRes int hint) {
-        mTextView.setHint(hint);
+    public void setText(@StringRes int text) {
+        mTextView.setText(text);
     }
 
     @Override
-    public void setHintColor(@ColorInt int color) {
-        mTextView.setHintTextColor(color);
+    public void setTextColor(@ColorInt int color) {
+        mTextView.setTextColor(color);
     }
 
     @Override
@@ -130,15 +130,11 @@ public class SearchBar extends SearchLayout implements View.OnClickListener {
             if (mOnMicClickListener != null) {
                 mOnMicClickListener.onMicClick();
             }
-        }
-
-        if (v == mImageViewMenu) {
+        } else if (v == mImageViewMenu) {
             if (mOnMenuClickListener != null) {
                 mOnMenuClickListener.onMenuClick();
             }
-        }
-
-        if (v == this) {
+        } else if (v == this) {
             if (mOnBarClickListener != null) {
                 mOnBarClickListener.onBarClick();
             }

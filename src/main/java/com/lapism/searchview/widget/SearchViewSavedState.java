@@ -4,18 +4,24 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.view.View;
+
+import org.jetbrains.annotations.Contract;
 
 
 public class SearchViewSavedState extends View.BaseSavedState {
 
     public static final Parcelable.Creator<SearchViewSavedState> CREATOR = new Creator<SearchViewSavedState>() {
+        @NonNull
         @Override
         public SearchViewSavedState createFromParcel(Parcel source) {
             return new SearchViewSavedState(source);
         }
 
+        @NonNull
+        @Contract(pure = true)
         @Override
         public SearchViewSavedState[] newArray(int size) {
             return new SearchViewSavedState[size];
@@ -25,7 +31,7 @@ public class SearchViewSavedState extends View.BaseSavedState {
     boolean shadow;
     String query;
 
-    public SearchViewSavedState(Parcel source) {
+    private SearchViewSavedState(Parcel source) {
         super(source);
         this.query = source.readString();
         this.hasFocus = source.readInt() == 1;
@@ -39,7 +45,7 @@ public class SearchViewSavedState extends View.BaseSavedState {
         this.hasFocus = source.readInt() == 1;
     }
 
-    public SearchViewSavedState(Parcelable superState) {
+    SearchViewSavedState(Parcelable superState) {
         super(superState);
     }
 

@@ -43,7 +43,6 @@ public abstract class SearchLayout extends FrameLayout {
     protected ImageView mImageViewMic;
     protected ImageView mImageViewClear;
     protected ImageView mImageViewMenu;
-    protected SearchEditText mSearchEditText;
     protected SearchArrowDrawable mSearchArrowDrawable;
 
     protected Search.OnMicClickListener mOnMicClickListener;
@@ -69,11 +68,11 @@ public abstract class SearchLayout extends FrameLayout {
     }
 
     // ---------------------------------------------------------------------------------------------
-    public abstract void setHint(CharSequence hint);
+    public abstract void setText(CharSequence text);
 
-    public abstract void setHint(@StringRes int hint);
+    public abstract void setText(@StringRes int text);
 
-    public abstract void setHintColor(@ColorInt int color);
+    public abstract void setTextColor(@ColorInt int color);
 
     /**
      * Typeface.NORMAL
@@ -93,6 +92,13 @@ public abstract class SearchLayout extends FrameLayout {
     public abstract void setTextFont(Typeface font);
 
     protected abstract boolean isView();
+
+    // ---------------------------------------------------------------------------------------------
+    protected void setClearColor(@ColorInt int color) {
+    }
+
+    protected void setQueryHintColor(@ColorInt int color) {
+    }
 
     // ---------------------------------------------------------------------------------------------
     @Search.Logo
@@ -165,7 +171,7 @@ public abstract class SearchLayout extends FrameLayout {
                 clearIconsColor();
                 setClearColor(ContextCompat.getColor(mContext, R.color.search_color_icon));
                 setMenuColor(ContextCompat.getColor(mContext, R.color.search_color_menu));
-                setHintColor(ContextCompat.getColor(mContext, R.color.search_color_hint));
+                setQueryHintColor(ContextCompat.getColor(mContext, R.color.search_color_hint));
                 setTextColor(ContextCompat.getColor(mContext, R.color.search_color_title));
                 break;
             case Search.Theme.LIGHT:
@@ -176,7 +182,7 @@ public abstract class SearchLayout extends FrameLayout {
                 setMicColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
                 setClearColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
                 setMenuColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
-                setHintColor(ContextCompat.getColor(mContext, R.color.search_light_hint));
+                setQueryHintColor(ContextCompat.getColor(mContext, R.color.search_light_hint));
                 setTextColor(ContextCompat.getColor(mContext, R.color.search_light_title));
                 break;
             case Search.Theme.DARK:
@@ -187,7 +193,7 @@ public abstract class SearchLayout extends FrameLayout {
                 setMicColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
                 setClearColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
                 setMenuColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
-                setHintColor(ContextCompat.getColor(mContext, R.color.search_dark_hint));
+                setQueryHintColor(ContextCompat.getColor(mContext, R.color.search_dark_hint));
                 setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_title));
                 break;
         }
@@ -221,19 +227,6 @@ public abstract class SearchLayout extends FrameLayout {
     public void setOnMenuClickListener(Search.OnMenuClickListener listener) {
         mOnMenuClickListener = listener;
         mImageViewMenu.setVisibility(View.VISIBLE);
-    }
-
-    // ---------------------------------------------------------------------------------------------
-    protected void setClearColor(@ColorInt int color) {
-        if (mImageViewClear != null) {
-            mImageViewClear.setColorFilter(color);
-        }
-    }
-
-    protected void setTextColor(@ColorInt int color) {
-        if (mSearchEditText != null) {
-            mSearchEditText.setTextColor(color);
-        }
     }
 
     // ---------------------------------------------------------------------------------------------

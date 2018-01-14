@@ -41,7 +41,7 @@ public class SearchItem implements Parcelable {
         this.context = context;
     }
 
-    protected SearchItem(Parcel in) {
+    private SearchItem(Parcel in) {
         Bitmap bitmap_1 = in.readParcelable(getClass().getClassLoader());
         this.icon_1_drawable = new BitmapDrawable(this.context.getResources(), bitmap_1);
         Bitmap bitmap_2 = in.readParcelable(getClass().getClassLoader());

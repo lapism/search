@@ -69,6 +69,7 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     @Search.VersionMargins
     private int mVersionMargins;
 
+    private SearchEditText mSearchEditText;
     private ImageView mImageViewImage;
     private MenuItem mMenuItem;
     private View mViewShadow;
@@ -110,18 +111,13 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
 
     // ---------------------------------------------------------------------------------------------
     @Override
-    public void setHint(CharSequence hint) {
-        mSearchEditText.setHint(hint);
+    public void setText(CharSequence text) {
+        mSearchEditText.setText(text);
     }
 
     @Override
-    public void setHint(@StringRes int hint) {
-        mSearchEditText.setHint(hint);
-    }
-
-    @Override
-    public void setHintColor(@ColorInt int color) {
-        mSearchEditText.setHintTextColor(color);
+    public void setTextColor(@ColorInt int color) {
+        mSearchEditText.setTextColor(color);
     }
 
     @Override
@@ -141,6 +137,18 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         return true;
     }
 
+    // ---------------------------------------------------------------------------------------------
+    @Override
+    public void setClearColor(@ColorInt int color) {
+        mImageViewClear.setColorFilter(color);
+    }
+
+    @Override
+    public void setQueryHintColor(@ColorInt int color) {
+        mSearchEditText.setHintTextColor(color);
+    }
+
+    // ---------------------------------------------------------------------------------------------
     @Search.Version
     public int getVersion() {
         return mVersion;
@@ -237,11 +245,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mImageViewClear.setImageDrawable(drawable);
     }
 
-    @Override
-    public void setClearColor(@ColorInt int color) {
-        mImageViewClear.setColorFilter(color);
-    }
-
     public void setMenuIcon(@DrawableRes int resource) {
         mImageViewMenu.setImageResource(resource);
     }
@@ -258,23 +261,6 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
     public void setTextImage(@Nullable Drawable drawable) {
         mImageViewImage.setImageDrawable(drawable);
         setTextImageVisibility(false);
-    }
-
-    public Editable getText() {
-        return mSearchEditText.getText();
-    }
-
-    public void setText(CharSequence text) {
-        mSearchEditText.setText(text);
-    }
-
-    public void setText(@StringRes int text) {
-        mSearchEditText.setText(text);
-    }
-
-    @Override
-    public void setTextColor(@ColorInt int color) {
-        mSearchEditText.setTextColor(color);
     }
 
     public void setTextSize(float size) {
@@ -344,14 +330,25 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         mLinearLayout.setLayoutParams(params);
     }
 
-    // INT VERSION
-    public Editable getQuery() {
+    public void setQueryHint(CharSequence hint) {
+        mSearchEditText.setHint(hint);
+    }
+
+    public void setQueryHint(@StringRes int hint) {
+        mSearchEditText.setHint(hint);
+    }
+
+    public Editable getText() {
         return mSearchEditText.getText();
     }
 
-    private void setQuery(CharSequence query) {
-        mSearchEditText.setText(query);
-        mSearchEditText.setSelection(TextUtils.isEmpty(query) ? 0 : query.length());
+    @Override
+    public void setText(@StringRes int text) {
+        mSearchEditText.setText(text);
+    }
+
+    public Editable getQuery() {
+        return mSearchEditText.getText();
     }
 
     public void setQuery(CharSequence query, boolean submit) {
@@ -366,17 +363,16 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         }
     }
 
-    public void setQueryHint(@Nullable CharSequence hint) {
-        mSearchEditText.setHint(hint);
-    }
+    public void setQuery(@StringRes int query, boolean submit) {
+        mSearchEditText.setText(query);
+        if (query != 0) {
+            mSearchEditText.setSelection(mSearchEditText.length());
+            mQueryText = String.valueOf(query);
+        }
 
-    @Nullable
-    public CharSequence getQueryHint() {
-        return mSearchEditText.getHint();
-    }
-
-    public void setQueryHint(@StringRes int hint) {
-        mSearchEditText.setHint(hint);
+        if (submit && !(String.valueOf(query).isEmpty())) {
+            onSubmitQuery();
+        }
     }
 
     public RecyclerView.Adapter getAdapter() {
@@ -677,11 +673,11 @@ public class SearchView extends SearchLayout implements View.OnClickListener, Fi
         }
 
         if (a.hasValue(R.styleable.SearchView_search_hint)) {
-            setHint(a.getString(R.styleable.SearchView_search_hint));
+            setQueryHint(a.getString(R.styleable.SearchView_search_query_hint));
         }
 
         if (a.hasValue(R.styleable.SearchView_search_hint_color)) {
-            setHintColor(a.getColor(R.styleable.SearchView_search_hint_color, 0));
+            setQueryHintColor(a.getColor(R.styleable.SearchView_search_query_hint_color, 0));
         }
 
         setAnimationDuration(a.getInt(R.styleable.SearchView_search_animation_duration, mContext.getResources().getInteger(R.integer.search_animation_duration)));

@@ -5,9 +5,9 @@
     <color name="search_color_icon">#616161</color>
     <color name="search_color_menu">#9e9e9e</color>
     <color name="search_color_background">#ffffff</color>
-    <color name="search_color_title">#212121</color>
+    <color name="search_color_title">#de000000</color>
     <color name="search_color_title_highlight">#757575</color>
-    <color name="search_color_subtitle">#bdbdbd</color>
+    <color name="search_color_subtitle">#8a000000</color>
     <color name="search_color_hint">#bdbdbd</color>
     <color name="search_color_icon_1_2">#bdbdbd</color>
 
@@ -15,9 +15,9 @@
     <color name="search_light_icon">#616161</color>
     <color name="search_light_menu">#9e9e9e</color>
     <color name="search_light_background">#ffffff</color>
-    <color name="search_light_title">#212121</color>
+    <color name="search_light_title">#de000000</color>
     <color name="search_light_title_highlight">#757575</color>
-    <color name="search_light_subtitle">#bdbdbd</color>
+    <color name="search_light_subtitle">#8a000000</color>
     <color name="search_light_hint">#bdbdbd</color>
     <color name="search_light_icon_1_2">#616161</color>
 
@@ -25,9 +25,9 @@
     <color name="search_dark_icon">#ffffff</color>
     <color name="search_dark_menu">#bdbdbd</color>
     <color name="search_dark_background">#212121</color>
-    <color name="search_dark_title">#ffffff</color>
+    <color name="search_dark_title">#ffffffff</color>
     <color name="search_dark_title_highlight">#62ffffff</color>
-    <color name="search_dark_subtitle">#80ffffff</color>
+    <color name="search_dark_subtitle">#b3ffffff</color>
     <color name="search_dark_hint">#80ffffff</color>
     <color name="search_dark_icon_1_2">#ffffff</color>
 
@@ -39,6 +39,11 @@
 
     <!-- Shadow -->
     <color name="search_shadow">#80000000</color>
+
+
+
+    <color name="ripple_material_dark2">#33ffffff</color>
+    <color name="ripple_material_light2">#1f000000</color>
 
 
     <color name="cardview_dark_background2">#424242</color>
@@ -55,9 +60,7 @@
     <color name="md_deep_teal_200">#ff80cbc4</color>
     <color name="md_deep_teal_500">#ff009688</color>
 
-
     <color name="md_blue_grey_950">#ff21272b</color>
-
 
     <color name="foreground_material_dark">@android:color/white</color>
     <color name="foreground_material_light">@android:color/black</color>
@@ -75,11 +78,6 @@
     <color name="accent_material_light2">@color/md_deep_teal_500</color>
     <color name="accent_material_dark2">@color/md_deep_teal_200</color>
 
-    <!-- 20% white (foreground) -->
-    <color name="ripple_material_dark2">#33ffffff</color>
-    <!-- 12% black (foreground) -->
-    <color name="ripple_material_light2">#1f000000</color>
-
     <color name="bright_foreground_material_dark">@android:color/white</color>
     <color name="bright_foreground_material_light">@android:color/black</color>
 
@@ -88,22 +86,7 @@
 
     <eat-comment />
 
-    <!-- 87% black -->
-    <color name="primary_text_default_material_light">#de000000</color>
-    <!-- 54% black -->
-    <color name="secondary_text_default_material_light">#8a000000</color>
-
-    <!-- 100% white -->
-    <color name="primary_text_default_material_dark">#ffffffff</color>
-    <!-- 70% white -->
-    <color name="secondary_text_default_material_dark">#b3ffffff</color>
-
-
-    <item name="highlight_alpha_material_light" format="float" type="dimen">0.12</item>
-    <item name="highlight_alpha_material_dark" format="float" type="dimen">0.20</item>
     <item name="highlight_alpha_material_colored" format="float" type="dimen">0.26</item>
-
-
     <color name="error_color_material">#f4511e</color>
 
     <eat-comment />

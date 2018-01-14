@@ -11,6 +11,10 @@ https://bintray.com/lapism/maven/searchview/view
 Material colors in the project:  
 https://gist.github.com/lapism/3b417142300d9dbde3b4
 
+## Versions
+
+The first three numbers are always the same as the latest official Android Support Libraries. The last two numbers are for own updates.
+
 ## Using
 
 Add the dependency to your gradle file:
@@ -42,7 +46,7 @@ Please support me!
 
 ### Apps with this library
 
-I would like to know if someone of you are using my library in your application. If yes, please send me the name of your app and the link to Play Store and I will promote your app here.
+I would like to know if someone of you are using my library in your application. If yes, please send me the name of your app and link to the Play Store and I will promote your app here.
 
 [Service Notes](https://play.google.com/store/apps/details?id=notes.service.com.servicenotes)  
 [Business Card Reader](https://play.google.com/store/apps/details?id=com.iac.bcreader)  
@@ -57,14 +61,10 @@ I would like to know if someone of you are using my library in your application.
 [Lucidity - Lucid Dream Journal](https://play.google.com/store/apps/details?id=ch.b3nz.lucidity)  
 [Guide COC](https://play.google.com/store/apps/details?id=com.superguide.coc)
 
-## Versions
-
-The first three numbers are always the same as the latest official library. The last two numbers are for own updates.
-
-## Author
+### Author
 
 * **Martin Lapis** - [GitHub](https://github.com/lapism) - and more ...
 
-## License
+### License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](https://github.com/lapism/SearchView-SearchBar/blob/beta1/LICENSE) file for details.
