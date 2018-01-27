@@ -169,6 +169,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
                     if (!mDatabase.isEmpty()) {
                         filterResults.values = mDatabase;
                         filterResults.count = mDatabase.size();
+                    } else if (!mSuggestions.isEmpty()){
+                        filterResults.values = mSuggestions;
+                        filterResults.count = mSuggestions.size();
                     }
                 }
 

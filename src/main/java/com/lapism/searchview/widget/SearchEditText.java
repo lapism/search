@@ -32,7 +32,7 @@ public class SearchEditText extends AppCompatEditText {
     @Override
     public boolean onKeyPreIme(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-            if (mLayout != null && mLayout.isOpen()) { // todo hasfocus
+            if (mLayout != null && mLayout.isOpen() && hasFocus()) {
                 mLayout.close();
                 return true;
             }

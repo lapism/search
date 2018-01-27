@@ -408,10 +408,6 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         return getVisibility() == View.VISIBLE;
     }
 
-    /*public boolean hasFocuds() {
-        return mSearchEditText.hasFocus();
-    }*/
-
     // Overrides
     @Override
     public void setElevation(float elevation) {
@@ -454,9 +450,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         mOnMenuClickListener = listener;
         if (mOnMenuClickListener != null) {
             mImageViewMenu.setVisibility(View.VISIBLE);
-            if (!isView()) {
-                mImageViewMenu.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_menu_black_24dp));
-            }
+            mImageViewMenu.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_menu_black_24dp));
         } else {
             mImageViewMenu.setVisibility(View.GONE);
         }
