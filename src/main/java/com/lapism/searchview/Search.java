@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
 import android.speech.RecognizerIntent;
 import android.support.annotation.IntDef;
 
@@ -16,6 +17,10 @@ import java.util.List;
 public class Search {
 
     private static final int SPEECH_REQUEST_CODE = 100;
+
+    public static boolean isLandscapeMode(Context context) {
+        return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    }
 
     public static void search(Activity activity, String text) {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -73,14 +78,7 @@ public class Search {
         int MENU_ITEM = 5003;
     }
 
-    public interface OnBarClickListener {
-        void onBarClick();
-    }
-
-    public interface OnLogoClickListener {
-        void onLogoClick();
-    }
-
+    // SearchLayout
     public interface OnMicClickListener {
         void onMicClick();
     }
@@ -93,6 +91,16 @@ public class Search {
         boolean onQueryTextSubmit(CharSequence query);
 
         boolean onQueryTextChange(CharSequence newText);
+    }
+
+    // SearchBar
+    public interface OnBarClickListener {
+        void onBarClick();
+    }
+
+    // SearchView
+    public interface OnLogoClickListener {
+        void onLogoClick();
     }
 
     public interface OnOpenCloseListener {

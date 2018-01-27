@@ -27,9 +27,9 @@ public class SearchViewSavedState extends View.BaseSavedState {
             return new SearchViewSavedState[size];
         }
     };
-    boolean hasFocus;
-    boolean shadow;
-    String query;
+    public boolean hasFocus;
+    public boolean shadow;
+    public String query;
 
     private SearchViewSavedState(Parcel source) {
         super(source);
@@ -45,7 +45,7 @@ public class SearchViewSavedState extends View.BaseSavedState {
         this.hasFocus = source.readInt() == 1;
     }
 
-    SearchViewSavedState(Parcelable superState) {
+    public SearchViewSavedState(Parcelable superState) {
         super(superState);
     }
 

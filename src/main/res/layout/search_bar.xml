@@ -12,7 +12,7 @@
         <LinearLayout
             android:id="@+id/search_linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/search_height"
+            android:layout_height="@dimen/search_height_bar"
             android:background="?attr/selectableItemBackground"
             android:orientation="horizontal">
 
@@ -24,25 +24,24 @@
                 android:minWidth="@dimen/search_icon_48"
                 android:scaleType="center" />
 
-            <TextView
-                android:id="@+id/search_textView"
+            <com.lapism.searchview.widget.SearchEditText
+                android:id="@+id/search_searchEditText"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@null"
                 android:ellipsize="end"
-                android:gravity="end|center_vertical"
+                android:gravity="start|center_vertical"
+                android:imeOptions="actionSearch|flagNoExtractUi"
+                android:inputType="text|textNoSuggestions"
                 android:maxLines="1"
-                android:paddingEnd="@dimen/search_key_line_8"
-                android:paddingLeft="@dimen/search_key_line_8"
-                android:paddingRight="@dimen/search_key_line_8"
-                android:paddingStart="@dimen/search_key_line_8"
+                android:privateImeOptions="nm"
                 android:textSize="@dimen/search_text_16"
                 android:windowSoftInputMode="stateAlwaysHidden" />
 
             <ImageView
                 android:id="@+id/search_imageView_mic"
-                android:layout_width="@dimen/search_icon_56"
+                android:layout_width="@dimen/search_icon_48"
                 android:layout_height="match_parent"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/search_app_name"

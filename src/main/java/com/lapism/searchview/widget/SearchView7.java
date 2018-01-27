@@ -226,3 +226,293 @@ OnFocusChangeListener mOnQueryTextFocusChangeListener;*/
         }
     }*/
 
+
+
+    /*void onTextChanged2(CharSequence newText) {
+        CharSequence text = mSearchEditText.getText();
+        mUserQuery = text;
+        boolean hasText = !TextUtils.isEmpty(text);
+
+        if (mOnQueryChangeListener != null && !TextUtils.equals(newText, mOldQueryText)) {
+            mOnQueryChangeListener.onQueryTextChange(newText.toString());
+        }
+        mOldQueryText = newText.toString();
+    }*/
+
+// todo test VSEHO  + README + Color.BLACK
+// TODO + callsuper + anotace vseho
+// todo room + check google search margin
+// TODO PROMYSLET
+// slideDown TODO
+// TODO plus marginy dle searchview + check
+// todo
+
+    /*dispatchFilters();
+    ArrayList<Integer> searchFiltersStatesInt = null;
+        if (mSearchFiltersStates != null) {
+        searchFiltersStatesInt = new ArrayList<>();
+        for (Boolean bool : mSearchFiltersStates) {
+            searchFiltersStatesInt.add((bool) ? 1 : 0);
+        }
+    }
+        bundle.putIntegerArrayList("searchFiltersStates", searchFiltersStatesInt);
+
+    ArrayList<SearchFilter> searchFilters = null;
+        if (mSearchFilters != null) {
+        searchFilters = new ArrayList<>();
+        searchFilters.addAll(mSearchFilters);
+    }
+        bundle.putParcelableArrayList("searchFilters", searchFilters);*/
+
+
+
+
+        /*if (state instanceof Bundle) {
+            Bundle bundle = (Bundle) state;
+
+            mQuery = bundle.getCharSequence("query");
+            if (bundle.getBoolean("isSearchOpen")) {
+                open(true);
+                setQuery(mQuery, false);
+                mSearchEditText.requestFocus();
+            }
+
+            ArrayList<Integer> searchFiltersStatesInt = bundle.getIntegerArrayList("searchFiltersStates");
+            ArrayList<Boolean> searchFiltersStatesBool = null;
+            if (searchFiltersStatesInt != null) {
+                searchFiltersStatesBool = new ArrayList<>();
+                for (Integer value : searchFiltersStatesInt) {
+                    searchFiltersStatesBool.add(value == 1);
+                }
+            }
+            restoreFiltersState(searchFiltersStatesBool);
+
+            mSearchFilters = bundle.getParcelableArrayList("searchFilters");
+
+            state = bundle.getParcelable("superState");
+        }*/
+
+    /*
+        public void setQuery(CharSequence query, boolean submit) {
+        mQuery = query;
+        mSearchEditText.setText(query);
+        mSearchEditText.setSelection(mSearchEditText.length());
+
+
+
+        if (submit) {
+            //onSubmitQuery();
+        }
+    }
+
+
+//callsuper
+    public void setFilters(@Nullable List<SearchFilter> filters) {
+        mSearchFilters = filters;
+        mFlexboxLayout.removeAllViews();
+        if (filters == null) {
+            mSearchFiltersStates = null;
+            mFlexboxLayout.setVisibility(View.GONE);
+        } else {
+            mSearchFiltersStates = new ArrayList<>();
+            for (SearchFilter filter : filters) {
+                AppCompatCheckBox checkBox = new AppCompatCheckBox(mContext);
+                checkBox.setText(filter.getTitle());
+                checkBox.setTextSize(12);
+                checkBox.setTextColor(mTextColor);
+                checkBox.setChecked(filter.isChecked());
+
+                FlexboxLayout.LayoutParams lp = new FlexboxLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                lp.setMargins(getResources().getDimensionPixelSize(R.dimen.search_filter_margin_start), getResources().getDimensionPixelSize(R.dimen.search_filter_margin_top), getResources().getDimensionPixelSize(R.dimen.search_filter_margin_top), getResources().getDimensionPixelSize(R.dimen.search_filter_margin_top));
+
+                checkBox.setLayoutParams(lp);
+                checkBox.setTag(filter.getTagId());
+                mFlexboxLayout.addView(checkBox);
+                mSearchFiltersStates.add(filter.isChecked());
+            }
+        }
+    }
+
+    public List<SearchFilter> getSearchFilters() {
+        if (mSearchFilters == null) {
+            return new ArrayList<>();
+        }
+
+        dispatchFilters();
+
+        List<SearchFilter> searchFilters = new ArrayList<>();
+        for (SearchFilter filter : mSearchFilters) {
+            searchFilters.add(new SearchFilter(filter.getTitle(), filter.isChecked(), filter.getTagId()));
+        }
+
+        return searchFilters;
+    }
+
+    public List<Boolean> getFiltersStates() {
+        return mSearchFiltersStates;
+    }
+
+
+
+
+        do {
+          setShadow(false);
+        } while (false);
+
+
+
+
+
+        //break >= continue return instanceof + << atd
+        // ViewCompat.setBackground(mSearchPlate,
+        // AppCompatResources.getDrawable()
+        // a.getType(R.styleable.SearchView_search_menu_color);
+        // ColorFilter colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN);
+
+
+
+
+    private void restoreFiltersState(List<Boolean> states) {
+        mSearchFiltersStates = states;
+        for (int i = 0, j = 0, n = mFlexboxLayout.getChildCount(); i < n; i++) {
+            View view = mFlexboxLayout.getChildAt(i);
+            if (view instanceof AppCompatCheckBox) {
+                ((AppCompatCheckBox) view).setChecked(mSearchFiltersStates.get(j++));
+            }
+        }
+    }
+
+
+
+
+
+    //krishkapil filter  listener
+
+    private void isVoiceAvailable() {
+        if (isInEditMode()) {
+            return;//break continue + krisnha filter listener
+        }
+    }
+
+
+
+@FloatRange(from = SearchArrowDrawable.STATE_HAMBURGER, to = SearchArrowDrawable.STATE_ARROW)
+
+    private void dispatchFilters() {
+        if (mSearchFiltersStates != null) {
+            for (int i = 0, j = 0, n = mFlexboxLayout.getChildCount(); i < n; i++) {
+                View view = mFlexboxLayout.getChildAt(i);
+                if (view instanceof AppCompatCheckBox) {
+                    boolean isChecked = ((AppCompatCheckBox) view).isChecked();
+                    mSearchFiltersStates.set(j, isChecked);
+                    mSearchFilters.get(j).setChecked(isChecked);
+                    j++;
+                }
+            }
+        }
+    }
+
+
+*/
+// ---------------------------------------------------------------------------------------------
+
+// @FloatRange(from = SearchArrowDrawable.STATE_HAMBURGER, to = SearchArrowDrawable.STATE_ARROW)
+
+
+          /*  for (int i = 0, n = mFlexboxLayout.getChildCount(); i < n; i++) {
+            View child = mFlexboxLayout.getChildAt(i);
+            if (child instanceof AppCompatCheckBox) {
+                ((AppCompatCheckBox) child).setTextColor(mTextColor);
+            }
+        }*/
+
+
+// Kotlinize + NULLABLE
+/*
+todo
+or a onFilterClickListener method is fine
+*/// int id = view.getId();
+// this(context, null);
+
+
+// aj
+    /* Future release
+    // In this library >> R.drawable.round_background_top
+    @Override
+    public void setBackgroundResource(int resid) {
+        mCardView.setBackgroundResource(resid);
+    }
+
+    // In this library >> R.drawable.round_background_top
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public void setBackground(Drawable background) {
+        mCardView.setBackground(background);
+    }
+
+    @Override
+    public void setBackgroundColor(int color) {
+        mCardView.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+    }*/
+        /*if(mRecyclerViewAdapter instanceof SearchAdapter) {
+                ((SearchAdapter) mRecyclerViewAdapter).setTextFont(font);
+                }*/
+/*<declare-styleable name="SearchView2">
+<attr name="layout2" format="reference" />
+<attr name="android:maxWidth" />
+<attr name="queryHint" format="string" />
+<attr name="defaultQueryHint" format="string" />
+<attr name="android:imeOptions" />
+<attr name="android:inputType" />
+<attr name="closeIcon" format="reference" />
+<attr name="goIcon" format="reference" />
+<attr name="searchIcon" format="reference" />
+<attr name="searchHintIcon" format="reference" />
+<attr name="voiceIcon" format="reference" />
+<attr name="commitIcon" format="reference" />
+<attr name="suggestionRowLayout" format="reference" />
+<attr name="queryBackground" format="reference" />
+<attr name="submitBackground" format="reference" />
+<attr name="android:focusable" />
+</declare-styleable>*/
+// ---------------------------------------------------------------------------------------------
+    /*@ColorInt
+    //@Contract(pure = true)
+    public static int getIconColor() {
+        return mIconColor;
+    }*/
+
+// ontrola anotaci
+// https://stackoverflow.com/questions/35625247/android-is-it-ok-to-put-intdef-values-inside-interface
+// https://developer.android.com/reference/android/support/annotation/FloatRange.html
+// ViewCompat.setBackground
+// mSearchButton.setImageDrawable(a.getDrawable(R.styleable.SearchView_searchIcon));
+
+
+// todo https://lab.getbase.com/nested-scrolling-with-coordinatorlayout-on-android/
+// ColorUtils.setAlphaComponent(SearchView.getIconColor(), 0x33)android:alpha="0.4",
+
+/*
+                /*if (mSearchEditText.length() > 0) {
+            mSearchEditText.getText().clear();
+        }*/
+        /*if(!TextUtils.isEmpty(mQuery)) {
+            mSearchEditText.setText(mQuery);
+        }*/
+// SearchEditText.setVisibility(View.VISIBLE); todo bug a mizi text, hidesuggestion
+
+
+//private List<Boolean> mSearchFiltersStates;
+//private List<SearchFilter> mSearchFilters;
+// init + kotlin 1.2.21 + 4.4.1 + glide 4.5.0 mbuild tools BETA4 427.0.3 / 02
+
+/*
+
+
+    <!--     android:foreground="?attr/selectableItemBackground"
+        android:drawSelectorOnTop="true" -->
+                <!--
+                android:background="@android:color/transparent"
+                zkontorlovat vsechny attrutbt todo foreground view 23-->
+*/

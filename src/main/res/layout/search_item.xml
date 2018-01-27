@@ -51,6 +51,3 @@
         android:scaleType="center" />
 
 </LinearLayout>
-
-    <!--     android:foreground="?attr/selectableItemBackground"
-        android:drawSelectorOnTop="true" -->

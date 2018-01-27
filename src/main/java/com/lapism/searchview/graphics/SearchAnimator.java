@@ -43,7 +43,7 @@ public class SearchAnimator {
             }
         }
 
-        int cy = context.getResources().getDimensionPixelSize(R.dimen.search_height) / 2;
+        int cy = context.getResources().getDimensionPixelSize(R.dimen.search_height_view) / 2;
 
         if (cx != 0 && cy != 0) {
             Point displaySize = new Point();
@@ -106,7 +106,7 @@ public class SearchAnimator {
             }
         }
 
-        int cy = context.getResources().getDimensionPixelSize(R.dimen.search_height) / 2;
+        int cy = context.getResources().getDimensionPixelSize(R.dimen.search_height_view) / 2;
 
         if (cx != 0 && cy != 0) {
             Point displaySize = new Point();

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="search_height">46dp</dimen>
+    <dimen name="search_height_bar">42dp</dimen>
+    <dimen name="search_height_view">46dp</dimen>
 
     <dimen name="search_key_line_8">8dp</dimen>
     <dimen name="search_key_line_16">16dp</dimen>

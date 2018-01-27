@@ -3,28 +3,21 @@ package com.lapism.searchview.widget;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Typeface;
 import android.os.Build;
-import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 
 import com.lapism.searchview.R;
 import com.lapism.searchview.Search;
 
 
-public class SearchBar extends SearchLayout implements View.OnClickListener {
+public class SearchBar extends SearchLayout {
 
-    public static final String TAG = SearchBar.class.getName();
-
-    private TextView mTextView;
+    public final static String TAG = SearchBar.class.getName();
 
     private Search.OnBarClickListener mOnBarClickListener;
 
@@ -53,35 +46,71 @@ public class SearchBar extends SearchLayout implements View.OnClickListener {
 
     // ---------------------------------------------------------------------------------------------
     @Override
-    public void setText(CharSequence text) {
-        mTextView.setText(text);
+    protected void onTextChanged(CharSequence s) {
+        if (mOnQueryTextListener != null) {
+            mOnQueryTextListener.onQueryTextChange(s);
+        }
     }
 
     @Override
-    public void setText(@StringRes int text) {
-        mTextView.setText(text);
+    protected void addFocus() {
+        if (mOnMicClickListener == null) {
+            mImageViewMic.setVisibility(View.VISIBLE);
+        }
+        showKeyboard();
     }
 
     @Override
-    public void setTextColor(@ColorInt int color) {
-        mTextView.setTextColor(color);
-    }
-
-    @Override
-    public void setTextStyle(int style) {
-        mTextStyle = style;
-        mTextView.setTypeface((Typeface.create(mTextFont, mTextStyle)));
-    }
-
-    @Override
-    public void setTextFont(Typeface font) {
-        mTextFont = font;
-        mTextView.setTypeface((Typeface.create(mTextFont, mTextStyle)));
+    protected void removeFocus() {
+        if (mOnMicClickListener == null) {
+            mImageViewMic.setVisibility(View.GONE);
+        }
+        hideKeyboard();
     }
 
     @Override
     protected boolean isView() {
         return false;
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.search_bar;
+    }
+
+    @Override
+    public void open() {
+        mSearchEditText.setVisibility(View.VISIBLE);
+        mSearchEditText.requestFocus();
+    }
+
+    @Override
+    public void close() {
+        mSearchEditText.clearFocus();
+        mSearchEditText.setVisibility(View.GONE);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    protected void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SearchBar, defStyleAttr, defStyleRes);
+        final int layoutResId = getLayout();
+
+        final LayoutInflater inflater = LayoutInflater.from(context);
+        inflater.inflate(layoutResId, this, true);
+
+        super.init(context, attrs, defStyleAttr, defStyleRes);
+
+        setLogo(a.getInt(R.styleable.SearchBar_search_logo, Search.Logo.G));
+        setShape(a.getInt(R.styleable.SearchBar_search_shape, Search.Shape.OVAL));
+        setTheme(a.getInt(R.styleable.SearchBar_search_theme, Search.Theme.COLOR));
+
+        if (a.hasValue(R.styleable.SearchBar_search_elevation)) {
+            setElevation(a.getDimensionPixelSize(R.styleable.SearchBar_search_elevation, 0));
+        }
+
+        a.recycle();
+
+        setOnClickListener(this);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -90,43 +119,11 @@ public class SearchBar extends SearchLayout implements View.OnClickListener {
     }
 
     // ---------------------------------------------------------------------------------------------
-    private void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        mContext = context;
-
-        final TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.SearchBar, defStyleAttr, defStyleRes);
-        final int layoutResId = R.layout.search_bar;
-
-        final LayoutInflater inflater = LayoutInflater.from(mContext);
-        inflater.inflate(layoutResId, this, true);
-
-        mCardView = findViewById(R.id.search_cardView);
-
-        mImageViewLogo = findViewById(R.id.search_imageView_logo);
-
-        mImageViewMic = findViewById(R.id.search_imageView_mic);
-        mImageViewMic.setVisibility(View.GONE);
-        mImageViewMic.setOnClickListener(this);
-
-        mImageViewMenu = findViewById(R.id.search_imageView_menu);
-        mImageViewMenu.setVisibility(View.GONE);
-        mImageViewMenu.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_menu_black_24dp));
-        mImageViewMenu.setOnClickListener(this);
-
-        mTextView = findViewById(R.id.search_textView);
-
-        setLogo(a.getInt(R.styleable.SearchBar_search_logo, Search.Logo.G));
-        setShape(a.getInt(R.styleable.SearchBar_search_shape, Search.Shape.CLASSIC));
-        setTheme(a.getInt(R.styleable.SearchBar_search_theme, Search.Theme.COLOR));
-
-        a.recycle();
-
-        setOnClickListener(this);
-    }
-
-    // ---------------------------------------------------------------------------------------------
     @Override
     public void onClick(View v) {
-        if (v == mImageViewMic) {
+        if (v == mImageViewLogo) {
+            close();
+        } else if (v == mImageViewMic) {
             if (mOnMicClickListener != null) {
                 mOnMicClickListener.onMicClick();
             }
@@ -137,6 +134,8 @@ public class SearchBar extends SearchLayout implements View.OnClickListener {
         } else if (v == this) {
             if (mOnBarClickListener != null) {
                 mOnBarClickListener.onBarClick();
+            } else {
+                open();
             }
         }
     }

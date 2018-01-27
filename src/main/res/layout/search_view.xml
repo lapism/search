@@ -22,7 +22,7 @@
             <LinearLayout
                 android:id="@+id/search_linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/search_height"
+                android:layout_height="@dimen/search_height_view"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
@@ -36,9 +36,6 @@
                     android:minWidth="@dimen/search_icon_56"
                     android:scaleType="center" />
 
-                <!--
-                android:background="@android:color/transparent"
-                zkontorlovat vsechny attrutbt todo foreground view 23-->
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
