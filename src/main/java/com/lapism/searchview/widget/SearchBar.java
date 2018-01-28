@@ -94,7 +94,7 @@ public class SearchBar extends SearchLayout {
     @Override
     protected void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SearchBar, defStyleAttr, defStyleRes);
-        final int layoutResId = getLayout(); // ResourceId
+        final int layoutResId = getLayout();
 
         final LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(layoutResId, this, true);
