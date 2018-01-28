@@ -67,7 +67,7 @@ dependencies {
     siteUrl = 'https://github.com/lapism/SearchView'
     gitUrl = 'https://github.com/lapism/SearchView.git'
 
-    libraryVersion = '5.0.0-beta1'
+    libraryVersion = '27.0.2.0-beta1'
 
     developerId = 'lapism'
     developerName = 'Martin Lapiš'
