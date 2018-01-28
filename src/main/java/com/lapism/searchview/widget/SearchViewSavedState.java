@@ -8,8 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 
-import org.jetbrains.annotations.Contract;
-
 
 public class SearchViewSavedState extends View.BaseSavedState {
 
@@ -21,7 +19,6 @@ public class SearchViewSavedState extends View.BaseSavedState {
         }
 
         @NonNull
-        @Contract(pure = true)
         @Override
         public SearchViewSavedState[] newArray(int size) {
             return new SearchViewSavedState[size];

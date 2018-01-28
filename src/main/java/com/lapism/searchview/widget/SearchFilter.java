@@ -4,8 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-import org.jetbrains.annotations.Contract;
-
 
 public class SearchFilter implements Parcelable {
 
@@ -16,7 +14,6 @@ public class SearchFilter implements Parcelable {
             return new SearchFilter(in);
         }
 
-        @Contract(pure = true)
         @NonNull
         @Override
         public SearchFilter[] newArray(int size) {

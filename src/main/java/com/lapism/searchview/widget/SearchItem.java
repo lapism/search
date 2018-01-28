@@ -9,8 +9,6 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import org.jetbrains.annotations.Contract;
-
 
 public class SearchItem implements Parcelable {
 
@@ -21,7 +19,6 @@ public class SearchItem implements Parcelable {
             return new SearchItem(in);
         }
 
-        @Contract(pure = true)
         @NonNull
         @Override
         public SearchItem[] newArray(int size) {
