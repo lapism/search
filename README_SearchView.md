@@ -28,6 +28,60 @@
     app:layout_behavior="com.lapism.searchview.widget.SearchBehavior" />
 ```
 
+# XML attributes
+```xml
+        <attr name="search_logo" format="enum">
+            <enum name="google" value="1000" />
+            <enum name="g" value="1001" />
+            <enum name="hamburger_arrow" value="1002" />
+            <enum name="arrow" value="1003" />
+        </attr>
+        <attr name="search_shape" format="enum">
+            <enum name="classic" value="2000" />
+            <enum name="rounded" value="2001" />
+            <enum name="oval" value="2002" />
+        </attr>
+        <attr name="search_theme" format="enum">
+            <enum name="color" value="3000" />
+            <enum name="light" value="3001" />
+            <enum name="dark" value="3002" />
+        </attr>
+        <attr name="search_version" format="enum">
+            <enum name="toolbar" value="4000" />
+            <enum name="menu_item" value="4001" />
+        </attr>
+        <attr name="search_version_margins" format="enum">
+            <enum name="toolbar_small" value="5000" />
+            <enum name="toolbar_medium" value="5001" />
+            <enum name="toolbar_big" value="5002" />
+            <enum name="menu_item" value="5003" />
+        </attr>
+        <attr name="search_logo_icon" format="integer" />
+        <attr name="search_logo_color" format="color" />
+        <attr name="search_mic_icon" format="integer" />
+        <attr name="search_mic_color" format="color" />
+        <attr name="search_clear_icon" format="integer" />
+        <attr name="search_clear_color" format="color" />
+        <attr name="search_menu_icon" format="integer" />
+        <attr name="search_menu_color" format="color" />
+        <attr name="search_background_color" format="color" />
+        <attr name="search_text_image" format="integer" />
+        <attr name="search_text_color" format="color" />
+        <attr name="search_text_size" format="dimension" />
+        <attr name="search_text_style" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="bold" value="1" />
+            <enum name="italic" value="2" />
+            <enum name="bold_italic" value="3" />
+        </attr>
+        <attr name="search_hint" format="string" />
+        <attr name="search_hint_color" format="color" />
+        <attr name="search_animation_duration" format="integer" />
+        <attr name="search_shadow" format="boolean" />
+        <attr name="search_shadow_color" format="color" />
+        <attr name="search_elevation" format="dimension" />
+```
+
 ### Java or Kotlin
 ```java
 SearchView searchView = findViewById(R.id.searchView);
@@ -90,6 +144,27 @@ public boolean onOptionsItemSelected(MenuItem item) {
 | setOnMicClickListener(Search.OnMicClickListener listener) | ... | ... | ...
 | setOnMenuClickListener(Search.OnMenuClickListener listener) | ... | ... | ...
 | setOnQueryTextListener(Search.OnQueryTextListener listener) | ... | ... | ...
+| getVersion() | ... | ... | ...
+| setVersion(@Search.Version int version) | ... | ... | ...
+| getVersionMargins() | ... | ... | ...
+| setVersionMargins(@Search.VersionMargins int versionMargins) | ... | ... | ...
+| setClearIcon(@DrawableRes int resource) | ... | ... | ...
+| setClearIcon(@Nullable Drawable drawable) | ... | ... | ...
+| setClearColor(@ColorInt int color) | ... | ... | ...
+| setTextImage(@DrawableRes int resource) | ... | ... | ...
+| setTextImage(@Nullable Drawable drawable) | ... | ... | ...
+| setAnimationDuration(long animationDuration) | ... | ... | ...
+| setShadow(boolean shadow) | ... | ... | ...
+| setShadowColor(@ColorInt int color) | ... | ... | ...
+| getAdapter() | ... | ... | ...
+| setAdapter(RecyclerView.Adapter adapter) | ... | ... | ...
+| addDivider(RecyclerView.ItemDecoration itemDecoration) | ... | ... | ...
+| removeDivider(RecyclerView.ItemDecoration itemDecoration) | ... | ... | ...
+| open(MenuItem menuItem) | ... | ... | ...
+| animateLogoHamburgerToLogoArrow(boolean animate) | ... | ... | ...
+| setLogoHamburgerOrLogoArrow(boolean set) | ... | ... | ...
+| setOnLogoClickListener(Search.OnLogoClickListener listener) | ... | ... | ...
+| setOnOpenCloseListener(Search.OnOpenCloseListener listener) | ... | ... | ...
 
 ### Theme
         int COLOR = 3000;
@@ -98,7 +173,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
 ### Logo
         int GOOGLE = 1000;
         int G = 1001;
-        int HAMBURGER = 1002;
+        int HAMBURGER_ARROW = 1002;
         int ARROW = 1003;
 ### Shape
         int CLASSIC = 2000;

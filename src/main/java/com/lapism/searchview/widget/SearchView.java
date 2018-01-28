@@ -36,19 +36,18 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
 
     public static final String TAG = SearchView.class.getName();
 
-    private View mMenuItemView;
-    private int mMenuItemCx = -1;
-
     @Search.Version
     private int mVersion;
     @Search.VersionMargins
     private int mVersionMargins;
 
+    private int mMenuItemCx = -1;
     private boolean mShadow;
     private long mAnimationDuration;
 
     private ImageView mImageViewImage;
     private MenuItem mMenuItem;
+    private View mMenuItemView; // todo
     private View mViewShadow;
     private View mViewDivider;
 
@@ -148,6 +147,16 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
     }
 
     @Override
+    protected boolean isView() {
+        return true;
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.search_view;
+    }
+
+    @Override
     public void open() {
         open(null);
     }
@@ -181,16 +190,6 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
                 }
                 break;
         }
-    }
-
-    @Override
-    protected boolean isView() {
-        return true;
-    }
-
-    @Override
-    protected int getLayout() {
-        return R.layout.search_view;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -248,7 +247,7 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
         setVersionMargins(a.getInteger(R.styleable.SearchView_search_version_margins, Search.VersionMargins.TOOLBAR_SMALL));
 
         if (a.hasValue(R.styleable.SearchView_search_logo_icon)) {
-            setLogoIcon(a.getInteger(R.styleable.SearchView_search_logo_icon, 0)); // todo maybe bug + test + check every attribute
+            setLogoIcon(a.getInteger(R.styleable.SearchView_search_logo_icon, 0)); // todo bug + test + check every attribute
         }
 
         if (a.hasValue(R.styleable.SearchView_search_logo_color)) {
@@ -319,7 +318,7 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
 
         a.recycle();
 
-        setSaveEnabled(true);// TODO
+        setSaveEnabled(true);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -456,15 +455,6 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
         mRecyclerView.removeItemDecoration(itemDecoration);
     }
 
-    // Listeners
-    public void setOnLogoClickListener(Search.OnLogoClickListener listener) {
-        mOnLogoClickListener = listener;
-    }
-
-    public void setOnOpenCloseListener(Search.OnOpenCloseListener listener) {
-        mOnOpenCloseListener = listener;
-    }
-
     // Others
     public void open(MenuItem menuItem) {
         mMenuItem = menuItem;
@@ -518,7 +508,7 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
         }
     }
 
-    public void setLogoHamburgerToLogoArrow(boolean set) {
+    public void setLogoHamburgerOrLogoArrow(boolean set) {
         if (mSearchArrowDrawable != null) {
             if (set) {
                 mSearchArrowDrawable.setProgress(SearchArrowDrawable.STATE_ARROW);
@@ -526,6 +516,15 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
                 mSearchArrowDrawable.setProgress(SearchArrowDrawable.STATE_HAMBURGER);
             }
         }
+    }
+
+    // Listeners
+    public void setOnLogoClickListener(Search.OnLogoClickListener listener) {
+        mOnLogoClickListener = listener;
+    }
+
+    public void setOnOpenCloseListener(Search.OnOpenCloseListener listener) {
+        mOnOpenCloseListener = listener;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -609,6 +608,38 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
 
     // ---------------------------------------------------------------------------------------------
     @Override
+    protected Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        SearchViewSavedState ss = new SearchViewSavedState(superState);
+        ss.hasFocus = mSearchEditText.hasFocus();
+        ss.shadow = mShadow;
+        ss.query = mQueryText != null ? mQueryText.toString() : null; // todo never null ""
+        return ss;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (!(state instanceof SearchViewSavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+        SearchViewSavedState ss = (SearchViewSavedState) state;
+        super.onRestoreInstanceState(ss.getSuperState());
+        mShadow = ss.shadow;
+        if (mShadow) {
+            mViewShadow.setVisibility(View.VISIBLE);
+        }
+        if (ss.hasFocus) {
+            open();
+        }
+        if (ss.query != null) {
+            setText(ss.query);
+        }
+        requestLayout();
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    @Override
     public void onClick(View v) {
         if (v == mImageViewLogo) {
             if (mSearchEditText.hasFocus()) {
@@ -644,37 +675,6 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
         } else {
             hideSuggestions();
         }
-    }
-
-    @Override
-    protected Parcelable onSaveInstanceState() {
-        Parcelable superState = super.onSaveInstanceState();
-        SearchViewSavedState ss = new SearchViewSavedState(superState);
-        ss.hasFocus = mSearchEditText.hasFocus();
-        ss.shadow = mShadow;
-        ss.query = mQueryText != null ? mQueryText.toString() : null;// todo ""
-        return ss;
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Parcelable state) {
-        if (!(state instanceof SearchViewSavedState)) {
-            super.onRestoreInstanceState(state);
-            return;
-        }
-        SearchViewSavedState ss = (SearchViewSavedState) state;
-        super.onRestoreInstanceState(ss.getSuperState());
-        mShadow = ss.shadow;
-        if (mShadow) {
-            mViewShadow.setVisibility(View.VISIBLE);
-        }
-        if (ss.hasFocus) {
-            open();
-        }
-        if (ss.query != null) {
-            setText(ss.query);
-        }
-        requestLayout();
     }
 
 }

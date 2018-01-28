@@ -1,6 +1,6 @@
 # SearchBar & SearchView
 
-Features: Material Design, Bar/Toolbar/Menu Item version, History, Styling.
+Features: Material Design, 3 versions, History, Styling.
 
 Google Material Design Pattern:  
 https://material.io/guidelines/patterns/search.html

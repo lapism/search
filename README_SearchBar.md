@@ -17,6 +17,27 @@
     android:layout_height="wrap_content" />
 ```
 
+# XML attributes
+```xml
+        <attr name="search_logo" format="enum">
+            <enum name="google" value="1000" />
+            <enum name="g" value="1001" />
+            <enum name="hamburger_arrow" value="1002" />
+            <enum name="arrow" value="1003" />
+        </attr>
+        <attr name="search_shape" format="enum">
+            <enum name="classic" value="2000" />
+            <enum name="rounded" value="2001" />
+            <enum name="oval" value="2002" />
+        </attr>
+        <attr name="search_theme" format="enum">
+            <enum name="color" value="3000" />
+            <enum name="light" value="3001" />
+            <enum name="dark" value="3002" />
+        </attr>
+        <attr name="search_elevation" format="dimension" />
+```
+
 ### Java or Kotlin
 ```java
 SearchBar searchBar = findViewById(R.id.searchBar);
@@ -74,7 +95,7 @@ SearchBar searchBar = findViewById(R.id.searchBar);
 ### Logo
         int GOOGLE = 1000;
         int G = 1001;
-        int HAMBURGER = 1002;
+        int HAMBURGER_ARROW = 1002;
         int ARROW = 1003;
 ### Shape
         int CLASSIC = 2000;

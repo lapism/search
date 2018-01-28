@@ -1,15 +1,6 @@
-**5.0.0**
- - vector drawables support
- - bugfixes
+**5.0.0-beta1 >> 27.0.2.0.0-beta1**
 
-Added methods:
- 
- - SearchView.addDivider(RecyclerView.ItemDecoration itemDecoration)
- - SearchView.removeDivider(RecyclerView.ItemDecoration itemDecoration)
- - SearchView.setNavigationIconListener(View.OnClickListener listener)
- 
-**2.0.0**
-- oprava metody `nazev.metody`
+- The first three numbers are always the same as the latest official Android Support Libraries. The last two numbers are for own updates.
 
-**1.0.0**
-- oprava
+**5.0.0-alpha7**
+- `NOTHING`

@@ -177,7 +177,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
             case Search.Logo.G:
                 mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_g_color_24dp));
                 break;
-            case Search.Logo.HAMBURGER:
+            case Search.Logo.HAMBURGER_ARROW:
                 mSearchArrowDrawable = new SearchArrowDrawable(mContext);
                 mImageViewLogo.setImageDrawable(mSearchArrowDrawable);
                 break;

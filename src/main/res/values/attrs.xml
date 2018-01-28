@@ -5,7 +5,7 @@
         <attr name="search_logo" format="enum">
             <enum name="google" value="1000" />
             <enum name="g" value="1001" />
-            <enum name="hamburger" value="1002" />
+            <enum name="hamburger_arrow" value="1002" />
             <enum name="arrow" value="1003" />
         </attr>
         <attr name="search_shape" format="enum">

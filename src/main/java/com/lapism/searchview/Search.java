@@ -37,12 +37,12 @@ public class Search {
         return activities.size() != 0;
     }
 
-    @IntDef({Logo.GOOGLE, Logo.G, Logo.HAMBURGER, Logo.ARROW})
+    @IntDef({Logo.GOOGLE, Logo.G, Logo.HAMBURGER_ARROW, Logo.ARROW})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Logo {
         int GOOGLE = 1000;
         int G = 1001;
-        int HAMBURGER = 1002;
+        int HAMBURGER_ARROW = 1002;
         int ARROW = 1003;
     }
 
