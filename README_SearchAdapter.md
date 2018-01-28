@@ -34,7 +34,7 @@
                         item.setTitle(query);
         
                         mHistoryDatabase.addItem(item);
-                        return false;
+                        return true;
                     }
         
                     @Override
