@@ -31,17 +31,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
 
     public static final String TAG = SearchAdapter.class.getName();
 
-    protected final SearchHistoryTable mHistoryDatabase;
-    protected final WeakReference<Context> mContext;
-    protected CharSequence mConstraint;
-    protected List<SearchItem> mSuggestions;
-    protected List<SearchItem> mResults;
-    protected List<SearchItem> mDatabase;
-    protected OnSearchItemClickListener mSearchItemClickListener;
+    private final SearchHistoryTable mHistoryDatabase;
+    private final WeakReference<Context> mContext;
+    private CharSequence mConstraint;
+    private List<SearchItem> mSuggestions;
+    private List<SearchItem> mResults;
+    private List<SearchItem> mDatabase;
+    private OnSearchItemClickListener mSearchItemClickListener;
     @ColorInt
-    protected int mIcon1Color, mIcon2Color, mTitleColor, mSubtitleColor, mTitleHighlightColor;
-    protected int mTextStyle = Typeface.NORMAL;
-    protected Typeface mTextFont = Typeface.DEFAULT;
+    private int mIcon1Color, mIcon2Color, mTitleColor, mSubtitleColor, mTitleHighlightColor;
+    private int mTextStyle = Typeface.NORMAL;
+    private Typeface mTextFont = Typeface.DEFAULT;
 
     // ---------------------------------------------------------------------------------------------
     public SearchAdapter(Context context) {
@@ -134,66 +134,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
     @Override
     public int getItemViewType(int position) {
         return position;
-    }
-
-    // ---------------------------------------------------------------------------------------------
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                FilterResults filterResults = new FilterResults();
-
-                mConstraint = constraint.toString().toLowerCase(Locale.getDefault());
-
-                if (!TextUtils.isEmpty(mConstraint)) {
-                    List<SearchItem> history = new ArrayList<>();
-                    List<SearchItem> results = new ArrayList<>();
-
-                    if (!mDatabase.isEmpty()) {
-                        history.addAll(mDatabase);
-                    }
-                    history.addAll(mSuggestions);
-
-                    for (SearchItem item : history) {
-                        String string = item.getTitle().toString().toLowerCase(Locale.getDefault());
-                        if (string.contains(mConstraint)) {
-                            results.add(item);
-                        }
-                    }
-                    if (results.size() > 0) {
-                        filterResults.values = results;
-                        filterResults.count = results.size();
-                    }
-                } else {
-                    if (!mDatabase.isEmpty()) {
-                        filterResults.values = mDatabase;
-                        filterResults.count = mDatabase.size();
-                    } else if (!mSuggestions.isEmpty()){
-                        filterResults.values = mSuggestions;
-                        filterResults.count = mSuggestions.size();
-                    }
-                }
-
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                if (results.count > 0) {
-                    List<SearchItem> dataSet = new ArrayList<>();
-
-                    List<?> result = (ArrayList<?>) results.values;
-                    for (Object object : result) {
-                        if (object instanceof SearchItem) {
-                            dataSet.add((SearchItem) object);
-                        }
-                    }
-
-                    setData(dataSet);
-                }
-            }
-        };
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -297,6 +237,67 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
         }*/
     }
 
+    // ---------------------------------------------------------------------------------------------
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults filterResults = new FilterResults();
+
+                mConstraint = constraint.toString().toLowerCase(Locale.getDefault());
+
+                if (!TextUtils.isEmpty(mConstraint)) {
+                    List<SearchItem> history = new ArrayList<>();
+                    List<SearchItem> results = new ArrayList<>();
+
+                    if (!mDatabase.isEmpty()) {
+                        history.addAll(mDatabase);
+                    }
+                    history.addAll(mSuggestions);
+
+                    for (SearchItem item : history) {
+                        String string = item.getTitle().toString().toLowerCase(Locale.getDefault());
+                        if (string.contains(mConstraint)) {
+                            results.add(item);
+                        }
+                    }
+                    if (results.size() > 0) {
+                        filterResults.values = results;
+                        filterResults.count = results.size();
+                    }
+                } else {
+                    if (!mDatabase.isEmpty()) {
+                        filterResults.values = mDatabase;
+                        filterResults.count = mDatabase.size();
+                    } else if (!mSuggestions.isEmpty()) {
+                        filterResults.values = mSuggestions;
+                        filterResults.count = mSuggestions.size();
+                    }
+                }
+
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                if (results.count > 0) {
+                    List<SearchItem> dataSet = new ArrayList<>();
+
+                    List<?> result = (ArrayList<?>) results.values;
+                    for (Object object : result) {
+                        if (object instanceof SearchItem) {
+                            dataSet.add((SearchItem) object);
+                        }
+                    }
+
+                    setData(dataSet);
+                }
+            }
+        };
+    }
+
+    // ---------------------------------------------------------------------------------------------
     public interface OnSearchItemClickListener {
         void onSearchItemClick(View view, int position, CharSequence title, CharSequence subtitle);
     }

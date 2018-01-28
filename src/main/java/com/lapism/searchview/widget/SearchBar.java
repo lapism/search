@@ -91,6 +91,7 @@ public class SearchBar extends SearchLayout {
     }
 
     // ---------------------------------------------------------------------------------------------
+    @Override
     protected void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SearchBar, defStyleAttr, defStyleRes);
         final int layoutResId = getLayout(); // ResourceId
@@ -114,6 +115,7 @@ public class SearchBar extends SearchLayout {
     }
 
     // ---------------------------------------------------------------------------------------------
+    // Listeners
     public void setOnBarClickListener(Search.OnBarClickListener listener) {
         mOnBarClickListener = listener;
     }

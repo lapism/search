@@ -1,43 +1,27 @@
-# lib-název
+# SearchView
 
-Popisek.
- - funkce `funkce`
+## Donations
 
-## Použití
-```groovy
-dependencies {
-     compile 'cz.seznam:lib-nazev:x.x.x'
-}
-```
-## Specifikace
-  - min API 16
- 
-### Závislosti
- - "com.google.android.exoplayer:exoplayer-core"
- 
-## Inicializace, Funkce a volání knihovny, Popis
-Služba ...
+ - `Please support me!`
 
-### Volání pomocí XML
+<a href="https://www.paypal.me/lapism">
+  <img alt="Get it on Google Play"
+       src="https://github.com/lapism/SearchView/blob/master/images/donate.png" />
+</a>
+
+### XML
 ```xml
-    <cz.seznam.widget.customview
-        android:id="@+id/customView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-```
-### Volání pomocí Java kódu
-```java
-Java kód
+<com.lapism.searchview.widget.SearchView
+    android:id="@+id/searchView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    
+    app:layout_behavior="@string/search_behavior" />
 ```
 
-
-
-
-
-**SearchView.Version.MENU_ITEM and SearchView.Version.TOOLBAR:**
+### Java
 ```java
-
-
+SearchView searchView = findViewById(R.id.searchView);
 ```
 
 **SearchView.Version.MENU_ITEM:**
@@ -54,13 +38,75 @@ public boolean onOptionsItemSelected(MenuItem item) {
 }
 ```
 
-**XML:**
-```xml
+### Public methods
+| Name | Format | Default | Description
+| ------ | ------ |  ------ |------ |
+| getLogo() | ... | ... | ...
+| setLogo(@Search.Logo int logo) | ... | ... | ...
+| getShape() | ... | ... | ...
+| setShape(@Search.Shape int shape) | ... | ... | ...
+| getTheme() | ... | ... | ...
+| setTheme(@Search.Theme int theme) | ... | ... | ...
+| setLogoIcon(@DrawableRes int resource) | ... | ... | ...
+| setLogoIcon(@Nullable Drawable drawable) | ... | ... | ...
+| setLogoColor(@ColorInt int color) | ... | ... | ...
+| setMicIcon(@DrawableRes int resource) | ... | ... | ...
+| setMicIcon(@Nullable Drawable drawable) | ... | ... | ...
+| setMicColor(@ColorInt int color) | ... | ... | ...
+| setMenuIcon(@DrawableRes int resource) | ... | ... | ...
+| setMenuIcon(@Nullable Drawable drawable) | ... | ... | ...
+| setMenuColor(@ColorInt int color) | ... | ... | ...
+| setTextImeOptions(int imeOptions) | ... | ... | ...
+| setTextInputType(int inputType) | ... | ... | ...
+| getText() | ... | ... | ...
+| setText(CharSequence text) | ... | ... | ...
+| setText(@StringRes int text) | ... | ... | ...
+| setTextColor(@ColorInt int color) | ... | ... | ...
+| setTextSize(float size) | ... | ... | ...
+| setTextStyle(int style) | ... | ... | ...
+| setTextFont(Typeface font) | ... | ... | ...
+| setTextGravity(int gravity) | ... | ... | ...
+| setHint(CharSequence hint) | ... | ... | ...
+| setHint(@StringRes int hint) | ... | ... | ...
+| setHintColor(@ColorInt int color) | ... | ... | ...
+| getQuery() | ... | ... | ...
+| setQuery(CharSequence query, boolean submit) | ... | ... | ...
+| setQuery(@StringRes int query, boolean submit) | ... | ... | ...
+| getCustomHeight() | ... | ... | ...
+| setCustomHeight(int height) | ... | ... | ...
+| setElevation(float elevation) | ... | ... | ...
+| setBackgroundColor(@ColorInt int color) | ... | ... | ...
+| setAlpha(@FloatRange(from = 0.5, to = 1.0) float alpha) | ... | ... | ...
+| isOpen() | ... | ... | ...
+| setOnMicClickListener(Search.OnMicClickListener listener) | ... | ... | ...
+| setOnMenuClickListener(Search.OnMenuClickListener listener) | ... | ... | ...
+| setOnQueryTextListener(Search.OnQueryTextListener listener) | ... | ... | ...
 
-```
+### Theme
+        int COLOR = 3000;
+        int LIGHT = 3001;
+        int DARK = 3002;
+### Logo
+        int GOOGLE = 1000;
+        int G = 1001;
+        int HAMBURGER = 1002;
+        int ARROW = 1003;
+### Shape
+        int CLASSIC = 2000;
+        int ROUNDED = 2001;
+        int OVAL = 2002;
+### Version
+        int TOOLBAR = 4000;
+        int MENU_ITEM = 4001;
+### VersionMargins
+        int TOOLBAR_SMALL = 5000;
+        int TOOLBAR_MEDIUM = 5001;
+        int TOOLBAR_BIG = 5002;
+        int MENU_ITEM = 5003;
 
-**Styling**
-```xml
 
-```
+
+
+
+
 

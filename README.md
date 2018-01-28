@@ -26,14 +26,14 @@ dependencies {
 
 ## Donations
 
-Please support me!
+ - `Please support me!`
 
 <a href="https://www.paypal.me/lapism">
   <img alt="Get it on Google Play"
        src="https://github.com/lapism/SearchView/blob/master/images/donate.png" />
 </a>
 
-## ?
+## Readme
 
 **[README for SearchBar](https://github.com/lapism/SearchView-SearchBar/blob/master/README_SearchBar.md)**  
 
@@ -43,6 +43,10 @@ Please support me!
 
 ![Screenshot 1](https://github.com/lapism/SearchView/blob/beta1/images/searchview_1.png)
 ![Screenshot 2](https://github.com/lapism/SearchView/blob/beta1/images/searchview_2.png)
+
+**[README for SearchAdapter](https://github.com/lapism/SearchView-SearchBar/blob/master/README_SearchAdapter.md)**  
+
+![Screenshot 1](https://github.com/lapism/SearchView/blob/beta1/images/searchadapter_1.png)
 
 ### Apps with this library
 
@@ -63,7 +67,7 @@ I would like to know if someone of you are using my library in your application.
 
 ### Author
 
-* **Martin Lapis** - [GitHub](https://github.com/lapism) - and more ...
+* **Martin Lapis** - [GitHub](https://github.com/lapism)
 
 ### License
 

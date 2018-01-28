@@ -403,11 +403,6 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         mLinearLayout.setLayoutParams(params);
     }
 
-    // Others
-    public boolean isOpen() {
-        return getVisibility() == View.VISIBLE;
-    }
-
     // Overrides
     @Override
     public void setElevation(float elevation) {
@@ -423,6 +418,11 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
     @Override
     public void setAlpha(@FloatRange(from = 0.5, to = 1.0) float alpha) {
         super.setAlpha(alpha);
+    }
+
+    // Others
+    public boolean isOpen() {
+        return getVisibility() == View.VISIBLE;
     }
 
     // Listeners
@@ -483,6 +483,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         }
     }
 
+    // ---------------------------------------------------------------------------------------------
     private void clearIconsColor() {
         mImageViewLogo.clearColorFilter();
         mImageViewMic.clearColorFilter();
@@ -503,23 +504,3 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
     }
 
 }
-
-    /*
-    @Override
-    public boolean requestFocus(int direction, Rect previouslyFocusedRect) {
-        // Don't accept focus if in the middle of clearing focus
-        if (mClearingFocus) return false;
-        // Check if SearchView is focusable.
-        if (!isFocusable()) return false;
-        return mSearchSrcTextView.requestFocus(direction, previouslyFocusedRect);
-    }
-
-
-    @Override
-    public void clearFocus() {
-        mClearingFocus = true;
-        hideKeyboard(this);
-        super.clearFocus();
-        mSearchSrcTextView.clearFocus();
-        mClearingFocus = false;
-    }*/

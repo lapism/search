@@ -507,6 +507,28 @@ or a onFilterClickListener method is fine
 //private List<SearchFilter> mSearchFilters;
 // init + kotlin 1.2.21 + 4.4.1 + glide 4.5.0 mbuild tools BETA4 427.0.3 / 02
 
+
+
+    /*
+    @Override
+    public boolean requestFocus(int direction, Rect previouslyFocusedRect) {
+        // Don't accept focus if in the middle of clearing focus
+        if (mClearingFocus) return false;
+        // Check if SearchView is focusable.
+        if (!isFocusable()) return false;
+        return mSearchSrcTextView.requestFocus(direction, previouslyFocusedRect);
+    }
+
+
+    @Override
+    public void clearFocus() {
+        mClearingFocus = true;
+        hideKeyboard(this);
+        super.clearFocus();
+        mSearchSrcTextView.clearFocus();
+        mClearingFocus = false;
+    }*/
+
 /*
 
 
