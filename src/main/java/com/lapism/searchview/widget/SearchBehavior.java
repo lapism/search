@@ -1,4 +1,4 @@
-package com.lapism.searchview;
+package com.lapism.searchview.widget;
 
 import android.content.Context;
 import android.support.design.widget.AppBarLayout;
@@ -7,7 +7,7 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
-// https://lab.getbase.com/nested-scrolling-with-coordinatorlayout-on-android/
+
 public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
 
     public SearchBehavior() {
@@ -22,6 +22,7 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
     public boolean layoutDependsOn(CoordinatorLayout parent, SearchView child, View dependency) {
         if (dependency instanceof AppBarLayout) {
             ViewCompat.setElevation(child, ViewCompat.getElevation(dependency));
+            ViewCompat.setZ(child, ViewCompat.getZ(dependency) + 1);
             return true;
         }
         return super.layoutDependsOn(parent, child, dependency);

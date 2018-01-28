@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="search_app_name">SearchView</string>
-    <string name="search_behavior" translatable="false">com.lapism.searchview.SearchBehavior</string>
+    <string name="search_app_name" translatable="false">SearchView</string>
+    <string name="search_behavior" translatable="false">com.lapism.searchview.widget.SearchBehavior</string>
+    <string name="search_widget" translatable="false">Say something ...</string>
 
 </resources>

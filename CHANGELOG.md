@@ -1,26 +1,6 @@
-**5.0.0**
- - vector drawables support
- - bugfixes
+**5.0.0-beta1 >> 27.0.2.0.0-beta1**
 
-Added methods:
- 
- - SearchView.addDivider(RecyclerView.ItemDecoration itemDecoration)
- - SearchView.removeDivider(RecyclerView.ItemDecoration itemDecoration)
- 
- - SearchView.setNavigationIconListener(View.OnClickListener listener)
- 
+- The first three numbers are always the same as the latest official Android Support Libraries. The last two numbers are for own updates.
 
-**4.0.0**  
-News:
- - fixed many issues and bugs.
- - added SearchBehavior for work in CoordinatorLayout.
- - SearchView.setArrowOnly
- - SearchView.setInputType
- - SearchView.getInputType
- - SearchView.setImeOptions
- - SearchView.getImeOptions
- 
-Changes:
- - SearchView.setTextInput has been changed to SearchView.setTextOnly.
- - method SearchView.setOnOpenCloseListener() now returns boolean values.
- - method setNavigationIconArrowHamburger() was deprecated. Do not use it anymore.
+**5.0.0-alpha7**
+- `NOTHING`

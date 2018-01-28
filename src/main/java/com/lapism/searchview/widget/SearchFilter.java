@@ -1,48 +1,50 @@
-package com.lapism.searchview;
+package com.lapism.searchview.widget;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchFilter implements Parcelable {
 
     public static final Creator<SearchFilter> CREATOR = new Creator<SearchFilter>() {
+        @NonNull
         @Override
         public SearchFilter createFromParcel(Parcel in) {
             return new SearchFilter(in);
         }
 
+        @NonNull
         @Override
         public SearchFilter[] newArray(int size) {
             return new SearchFilter[size];
         }
     };
-    private String mTitle;
-    private boolean mIsChecked;
-    private String mTagId;
+    private String title;
+    private boolean isChecked;
+    private String tag;
 
     public SearchFilter(String title, boolean checked) {
         this(title, checked, null);
     }
 
     public SearchFilter(String title, boolean checked, String tagId) {
-        mTitle = title;
-        mIsChecked = checked;
-        mTagId = tagId;
+        this.title = title;
+        this.isChecked = checked;
+        this.tag = tagId;
     }
 
     protected SearchFilter(Parcel in) {
-        mTitle = in.readString();
-        mIsChecked = in.readByte() != 0;
-        mTagId = in.readString();
+        this.title = in.readString();
+        this.isChecked = in.readByte() != 0;
+        this.tag = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mTitle);
-        dest.writeByte((byte) (mIsChecked ? 1 : 0));
-        dest.writeString(mTagId);
+        dest.writeString(this.title);
+        dest.writeByte((byte) (this.isChecked ? 1 : 0));
+        dest.writeString(this.tag);
     }
 
     @Override
@@ -51,27 +53,27 @@ public class SearchFilter implements Parcelable {
     }
 
     public String getTitle() {
-        return mTitle;
+        return this.title;
     }
 
     public void setTitle(String title) {
-        mTitle = title;
+        this.title = title;
     }
 
     public boolean isChecked() {
-        return mIsChecked;
+        return this.isChecked;
     }
 
     public void setChecked(boolean checked) {
-        mIsChecked = checked;
+        this.isChecked = checked;
     }
 
     public String getTagId() {
-        return mTagId;
+        return this.tag;
     }
 
-    public void setTagId(String tagId) {
-        mTagId = tagId;
+    public void setTagId(String tag) {
+        this.tag = tag;
     }
 
 }

@@ -1,20 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="search_height">46dp</dimen>
+    <dimen name="search_height_bar">42dp</dimen>
+    <dimen name="search_height_view">46dp</dimen>
 
     <dimen name="search_key_line_8">8dp</dimen>
     <dimen name="search_key_line_16">16dp</dimen>
     <dimen name="search_divider">1dp</dimen>
 
     <dimen name="search_item_height">56dp</dimen>
-    <dimen name="search_icon">56dp</dimen>
-    <dimen name="search_progress">24dp</dimen>
-    <dimen name="search_text_small">14sp</dimen>
-    <dimen name="search_text_medium">16sp</dimen>
+    <dimen name="search_icon_24">24dp</dimen>
+    <dimen name="search_icon_48">48dp</dimen>
+    <dimen name="search_icon_56">56dp</dimen>
+
+    <dimen name="search_text_12">12sp</dimen>
+    <dimen name="search_text_14">14sp</dimen>
+    <dimen name="search_text_16">16sp</dimen>
     <dimen name="search_reveal">24dp</dimen>
 
     <dimen name="search_filter_margin_top">4dp</dimen>
     <dimen name="search_filter_margin_start">12dp</dimen>
+
+    <dimen name="search_elevation">@dimen/cardview_default_elevation</dimen>
+
+    <dimen name="search_menu_margin_right">10dp</dimen>
+
+    <dimen name="search_logo_padding_left_right_bar">12dp</dimen>
+    <dimen name="search_logo_padding_left_right_view">16dp</dimen>
+    <dimen name="search_logo_padding_left">16dp</dimen>
+    <dimen name="search_logo_padding_right">4dp</dimen>
+    <dimen name="search_logo_padding_top">2dp</dimen>
+
+    <dimen name="search_shape_classic">@dimen/cardview_default_radius</dimen>
+    <dimen name="search_shape_rounded">8dp</dimen>
+    <dimen name="search_shape_oval">23dp</dimen>
+
+
+    <dimen name="cardview_compat_inset_shadow2">1dp</dimen>
+    <dimen name="cardview_default_elevation2">2dp</dimen>
+    <dimen name="cardview_default_radius2">2dp</dimen>
 
 </resources>

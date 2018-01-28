@@ -1,4 +1,4 @@
-package com.lapism.searchview;
+package com.lapism.searchview.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class SearchDivider extends RecyclerView.ItemDecoration {
 
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};

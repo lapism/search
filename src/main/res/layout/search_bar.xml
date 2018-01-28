@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/search_cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/search_key_line_8">
+
+        <LinearLayout
+            android:id="@+id/search_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/search_height_bar"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/search_imageView_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/search_app_name"
+                android:minWidth="@dimen/search_icon_48"
+                android:scaleType="center" />
+
+            <com.lapism.searchview.widget.SearchEditText
+                android:id="@+id/search_searchEditText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:ellipsize="end"
+                android:gravity="start|center_vertical"
+                android:imeOptions="actionSearch|flagNoExtractUi"
+                android:inputType="text|textNoSuggestions"
+                android:maxLines="1"
+                android:privateImeOptions="nm"
+                android:textSize="@dimen/search_text_16"
+                android:windowSoftInputMode="stateAlwaysHidden" />
+
+            <ImageView
+                android:id="@+id/search_imageView_mic"
+                android:layout_width="@dimen/search_icon_48"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/search_app_name"
+                android:scaleType="center" />
+
+            <ImageView
+                android:id="@+id/search_imageView_menu"
+                android:layout_width="@dimen/search_icon_24"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/search_menu_margin_right"
+                android:layout_marginRight="@dimen/search_menu_margin_right"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/search_app_name"
+                android:scaleType="center" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</merge>

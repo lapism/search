@@ -2,32 +2,52 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/search_item_height"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?attr/selectableItemBackgroundBorderless"
-    android:gravity="start|center_vertical"
+    android:background="?attr/selectableItemBackground"
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/search_icon"
-        android:layout_width="@dimen/search_icon"
+        android:id="@+id/search_icon_1"
+        android:layout_width="@dimen/search_icon_56"
         android:layout_height="match_parent"
         android:contentDescription="@string/search_app_name"
         android:scaleType="center" />
 
-    <TextView
-        android:id="@+id/search_text"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:ellipsize="end"
         android:gravity="start|center_vertical"
-        android:maxLines="1"
-        android:paddingEnd="@dimen/search_key_line_16"
-        android:paddingLeft="0dp"
-        android:paddingRight="@dimen/search_key_line_16"
-        android:paddingStart="0dp"
-        android:textIsSelectable="false"
-        android:textSize="@dimen/search_text_small" />
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/search_key_line_8"
+        android:paddingLeft="@dimen/search_key_line_8"
+        android:paddingRight="@dimen/search_key_line_8"
+        android:paddingStart="@dimen/search_key_line_8">
+
+        <TextView
+            android:id="@+id/search_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textIsSelectable="false"
+            android:textSize="@dimen/search_text_14" />
+
+        <TextView
+            android:id="@+id/search_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textIsSelectable="false"
+            android:textSize="@dimen/search_text_12" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/search_icon_2"
+        android:layout_width="@dimen/search_icon_56"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/search_app_name"
+        android:scaleType="center" />
 
 </LinearLayout>
