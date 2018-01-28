@@ -2,7 +2,7 @@
 
 ## Donations
 
- - `Please support me!`
+`Please support me!`
 
 <a href="https://www.paypal.me/lapism">
   <img alt="Get it on Google Play"
@@ -19,7 +19,7 @@
     app:layout_behavior="@string/search_behavior" />
 ```
 
-### Java
+### Java or Kotlin
 ```java
 SearchView searchView = findViewById(R.id.searchView);
 ```

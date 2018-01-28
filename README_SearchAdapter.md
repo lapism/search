@@ -2,14 +2,14 @@
 
 ## Donations
 
-Please support me!
+`Please support me!`
 
 <a href="https://www.paypal.me/lapism">
   <img alt="Get it on Google Play"
        src="https://github.com/lapism/SearchView/blob/master/images/donate.png" />
 </a>
 
-### Java
+### Java or Kotlin
 ```java
         final SearchHistoryTable mHistoryDatabase = new SearchHistoryTable(this);
 

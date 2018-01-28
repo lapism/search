@@ -26,7 +26,7 @@ dependencies {
 
 ## Donations
 
- - `Please support me!`
+`Please support me!`
 
 <a href="https://www.paypal.me/lapism">
   <img alt="Get it on Google Play"

@@ -2,7 +2,7 @@
 
 ## Donations
 
- - `Please support me!`
+`Please support me!`
 
 <a href="https://www.paypal.me/lapism">
   <img alt="Get it on Google Play"
@@ -17,7 +17,7 @@
     android:layout_height="wrap_content" />
 ```
 
-### Java
+### Java or Kotlin
 ```java
 SearchBar searchBar = findViewById(R.id.searchBar);
 ```
