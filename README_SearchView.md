@@ -14,9 +14,18 @@
 <com.lapism.searchview.widget.SearchView
     android:id="@+id/searchView"
     android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+```
+
+### XML for CoordinatorLayout
+```xml
+<com.lapism.searchview.widget.SearchView
+    android:id="@+id/searchView"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    
-    app:layout_behavior="@string/search_behavior" />
+    app:layout_behavior="@string/search_behavior"
+    <!-- or -->
+    app:layout_behavior="com.lapism.searchview.widget.SearchBehavior" />
 ```
 
 ### Java or Kotlin
@@ -24,7 +33,7 @@
 SearchView searchView = findViewById(R.id.searchView);
 ```
 
-**SearchView.Version.MENU_ITEM:**
+**Search.Version.MENU_ITEM:**
 ```java
 @Override
 public boolean onOptionsItemSelected(MenuItem item) {
