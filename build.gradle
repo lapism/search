@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
-//apply plugin: "com.jfrog.bintray"
-//apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: "com.jfrog.bintray"
+apply plugin: 'com.github.dcendents.android-maven'
 
 android {
     compileSdkVersion 27
@@ -12,11 +12,6 @@ android {
                 'src/main/res-public'
         ]
     }
-
-    /*sourceSets {
-    main.res.srcDirs 'res', 'res-public'
-    // main.res.srcDirs += 'src/main/res-public'
-    }*/
 
     defaultConfig {
         minSdkVersion 14
@@ -34,10 +29,17 @@ android {
         }
     }
 
-    /*compileOptions {
+    /*sourceSets {
+    main.res.srcDirs 'res', 'res-public'
+    // main.res.srcDirs += 'src/main/res-public'
+    }*/
+
+    /*
+    compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-    }*/
+    }
+    */
 
     lintOptions {
         abortOnError false
@@ -53,7 +55,7 @@ dependencies {
     implementation 'com.google.android:flexbox:0.3.2'
 }
 
-/*ext {
+ext {
     bintrayRepo = 'maven'
     bintrayName = 'searchview'
 
@@ -75,10 +77,10 @@ dependencies {
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]
-}*/
+}
 
-//apply from: './install.gradle'
-//apply from: './bintray.gradle'
+apply from: './install.gradle'
+apply from: './bintray.gradle'
 
 /*./gradlew install./gradlew bintrayUpload
 gradlew install
@@ -87,5 +89,5 @@ gradlew bintrayUpload
 
 // minifyEnabled true
 // shrinkResources true
-// update tech 20.0 a 1.8 atd
+
 // https://services.gradle.org/distributions/

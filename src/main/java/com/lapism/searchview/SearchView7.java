@@ -437,13 +437,13 @@ or a onFilterClickListener method is fine
 
 // aj
     /* Future release
-    // In this library >> R.drawable.round_background_top
+    // In this library >> R.drawable.search_round_background_top
     @Override
     public void setBackgroundResource(int resid) {
         mCardView.setBackgroundResource(resid);
     }
 
-    // In this library >> R.drawable.round_background_top
+    // In this library >> R.drawable.search_round_background_top
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override

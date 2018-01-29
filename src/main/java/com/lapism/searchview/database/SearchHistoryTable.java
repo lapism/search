@@ -112,7 +112,7 @@ public class SearchHistoryTable {
         if (cursor.moveToFirst()) {
             do {
                 SearchItem item = new SearchItem(mContext.get());
-                item.setIcon_1_drawable(ContextCompat.getDrawable(mContext.get(), R.drawable.ic_history_black_24dp));
+                item.setIcon_1_drawable(ContextCompat.getDrawable(mContext.get(), R.drawable.search_ic_history_black_24dp));
                 item.setTitle(cursor.getString(1));
                 item.setSubtitle(cursor.getString(2)); // todo
                 list.add(item);
