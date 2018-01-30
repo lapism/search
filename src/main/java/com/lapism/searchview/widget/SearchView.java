@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -106,7 +107,7 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
         setMicOrClearIcon(true);
 
         if (mVersion == Search.Version.TOOLBAR) {
-            animateLogoHamburgerToLogoArrow(true);
+            setLogoHamburgerToLogoArrowWithAnimation(true);
 
             if (mOnOpenCloseListener != null) {
                 mOnOpenCloseListener.onOpen();
@@ -133,7 +134,7 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
         setMicOrClearIcon(false);
 
         if (mVersion == Search.Version.TOOLBAR) {
-            animateLogoHamburgerToLogoArrow(false);
+            setLogoHamburgerToLogoArrowWithAnimation(false);
 
             postDelayed(new Runnable() {
                 @Override
@@ -224,7 +225,7 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
         mRecyclerView.setVisibility(View.GONE);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setNestedScrollingEnabled(false);
-        mRecyclerView.setItemAnimator(new SearchItemAnimator());
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -265,7 +266,7 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
         if (a.hasValue(R.styleable.SearchView_search_clear_icon)) {
             setClearIcon(a.getDrawable(R.styleable.SearchView_search_clear_icon));
         } else {
-            setClearIcon(ContextCompat.getDrawable(mContext, R.drawable.ic_clear_black_24dp));
+            setClearIcon(ContextCompat.getDrawable(mContext, R.drawable.search_ic_clear_black_24dp));
         }
 
         if (a.hasValue(R.styleable.SearchView_search_clear_color)) {
@@ -496,7 +497,7 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
         }
     }
 
-    public void animateLogoHamburgerToLogoArrow(boolean animate) {
+    public void setLogoHamburgerToLogoArrowWithAnimation(boolean animate) {
         if (mSearchArrowDrawable != null) {
             if (animate) {
                 mSearchArrowDrawable.setVerticalMirror(false);
@@ -508,9 +509,9 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
         }
     }
 
-    public void setLogoHamburgerOrLogoArrow(boolean set) {
+    public void setLogoHamburgerToLogoArrowWithoutAnimation(boolean animation) {
         if (mSearchArrowDrawable != null) {
-            if (set) {
+            if (animation) {
                 mSearchArrowDrawable.setProgress(SearchArrowDrawable.STATE_ARROW);
             } else {
                 mSearchArrowDrawable.setProgress(SearchArrowDrawable.STATE_HAMBURGER);

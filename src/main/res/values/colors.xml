@@ -39,6 +39,7 @@
 
     <!-- Shadow -->
     <color name="search_shadow">#80000000</color>
+    <color name="search_text_image">#9e9e9e</color>
 
 
     <color name="ripple_material_dark2">#33ffffff</color>

@@ -1,6 +1,6 @@
 # SearchBar & SearchView
 
-Features: Material Design, 3 versions, History, Styling.
+Features: Material Design, 3 Versions, History, Styling.
 
 Google Material Design Pattern:  
 https://material.io/guidelines/patterns/search.html
@@ -20,7 +20,7 @@ The first three numbers are always the same as the latest official Android Suppo
 Add the dependency to your gradle file:
 ```groovy
 dependencies {
-    implementation 'com.lapism:searchview:27.0.2.0.0-beta1'
+    implementation 'com.lapism:searchview:27.0.2.0.0-beta1 (it will be out ASAP)'
 }
 ```
 
@@ -37,16 +37,16 @@ dependencies {
 
 **[README for SearchBar](https://github.com/lapism/SearchView-SearchBar/blob/master/README_SearchBar.md)**  
 
-![Screenshot 1](https://github.com/lapism/SearchView/blob/beta1/images/searchbar.png)
+![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/searchbar.png)
 
 **[README for SearchView](https://github.com/lapism/SearchView-SearchBar/blob/master/README_SearchView.md)**  
 
-![Screenshot 1](https://github.com/lapism/SearchView/blob/beta1/images/searchview_1.png)
-![Screenshot 2](https://github.com/lapism/SearchView/blob/beta1/images/searchview_2.png)
+![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/searchview_1.png)
+![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/searchview_2.png)
 
 **[README for SearchAdapter](https://github.com/lapism/SearchView-SearchBar/blob/master/README_SearchAdapter.md)**  
 
-![Screenshot 1](https://github.com/lapism/SearchView/blob/beta1/images/searchadapter_1.png)
+![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/searchadapter_1.png)
 
 ### Apps with this library
 
@@ -71,4 +71,4 @@ I would like to know if someone of you are using my library in your application.
 
 ### License
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](https://github.com/lapism/SearchView-SearchBar/blob/beta1/LICENSE) file for details.
+This project is licensed under the Apache License 2.0 - see the [LICENSE](https://github.com/lapism/SearchView-SearchBar/blob/master/LICENSE) file for details.

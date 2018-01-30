@@ -171,18 +171,18 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
                 int right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_right);
                 int bottom = 0;
 
-                mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_google_color));
+                mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_google_color));
                 mImageViewLogo.setPadding(left, top, right, bottom);
                 break;
             case Search.Logo.G:
-                mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_g_color_24dp));
+                mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_g_color_24dp));
                 break;
             case Search.Logo.HAMBURGER_ARROW:
                 mSearchArrowDrawable = new SearchArrowDrawable(mContext);
                 mImageViewLogo.setImageDrawable(mSearchArrowDrawable);
                 break;
             case Search.Logo.ARROW:
-                mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_arrow_back_black_24dp));
+                mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_arrow_back_black_24dp));
                 break;
         }
     }
@@ -432,13 +432,13 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
             mImageViewMic.setVisibility(View.VISIBLE);
             switch (mTheme) {
                 case Search.Theme.COLOR:
-                    mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_color_24dp));
+                    mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_mic_color_24dp));
                     break;
                 case Search.Theme.LIGHT:
-                    mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_black_24dp));
+                    mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_mic_black_24dp));
                     break;
                 case Search.Theme.DARK:
-                    mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_mic_black_24dp));
+                    mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_mic_black_24dp));
                     break;
             }
         } else {
@@ -450,7 +450,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         mOnMenuClickListener = listener;
         if (mOnMenuClickListener != null) {
             mImageViewMenu.setVisibility(View.VISIBLE);
-            mImageViewMenu.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_menu_black_24dp));
+            mImageViewMenu.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_menu_black_24dp));
         } else {
             mImageViewMenu.setVisibility(View.GONE);
         }

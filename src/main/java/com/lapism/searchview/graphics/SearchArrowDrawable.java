@@ -44,4 +44,17 @@ public class SearchArrowDrawable extends DrawerArrowDrawable {
         anim.start();
     }
 
+    public void setPosition(float position) {
+        if (position == 1f) {
+            setVerticalMirror(true);
+        } else if (position == 0f) {
+            setVerticalMirror(false);
+        }
+        super.setProgress(position);
+    }
+
+    public float getPosition() {
+        return super.getProgress();
+    }
+
 }
