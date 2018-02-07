@@ -1,15 +1,15 @@
 # SearchBar & SearchView
 
-Features: Material Design, 3 Versions, History, Styling.
+ - Material Design 
+ - 3 versions
+ - History
+ - Styling
 
-Google Material Design Pattern:  
+Material Design pattern:  
 https://material.io/guidelines/patterns/search.html
 
-Version History:  
+Versions history:  
 https://bintray.com/lapism/maven/searchview/view
-
-Material colors in the project:  
-https://gist.github.com/lapism/3b417142300d9dbde3b4
 
 ## Versions
 

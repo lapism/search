@@ -166,10 +166,6 @@ public boolean onOptionsItemSelected(MenuItem item) {
 | setOnLogoClickListener(Search.OnLogoClickListener listener) | ... | ... | ...
 | setOnOpenCloseListener(Search.OnOpenCloseListener listener) | ... | ... | ...
 
-### Theme
-        int COLOR = 3000;
-        int LIGHT = 3001;
-        int DARK = 3002;
 ### Logo
         int GOOGLE = 1000;
         int G = 1001;
@@ -179,6 +175,10 @@ public boolean onOptionsItemSelected(MenuItem item) {
         int CLASSIC = 2000;
         int ROUNDED = 2001;
         int OVAL = 2002;
+### Theme
+        int COLOR = 3000;
+        int LIGHT = 3001;
+        int DARK = 3002;
 ### Version
         int TOOLBAR = 4000;
         int MENU_ITEM = 4001;

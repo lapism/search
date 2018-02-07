@@ -1,35 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- todo kontrola shadow play store -->
+
+    <!-- Google Play Theme -->
+    <color name="search_play_icon">@color/md_grey_700</color>
+    <color name="search_play_menu">@color/md_grey_700</color>
+    <color name="search_play_background">@color/md_white</color>
+    <color name="search_play_title">#de000000</color>
+    <color name="search_play_title_highlight">#1e000000</color>
+    <color name="search_play_subtitle">#8a000000</color>
+    <color name="search_play_hint">#60000000</color>
+    <color name="search_play_icon_1_2">@color/md_grey_600</color>
+    <color name="search_play_text_image">@color/md_grey_500</color>
+
     <!-- Color Theme -->
-    <color name="search_color_icon">#616161</color>
-    <color name="search_color_menu">#9e9e9e</color>
-    <color name="search_color_background">#ffffff</color>
+    <color name="search_color_icon">@color/md_grey_700</color>
+    <color name="search_color_menu">@color/md_grey_500</color>
+    <color name="search_color_background">@color/md_white</color>
     <color name="search_color_title">#de000000</color>
-    <color name="search_color_title_highlight">#757575</color>
+    <color name="search_color_title_highlight">#42000000</color>
     <color name="search_color_subtitle">#8a000000</color>
-    <color name="search_color_hint">#bdbdbd</color>
-    <color name="search_color_icon_1_2">#bdbdbd</color>
+    <color name="search_color_hint">#60000000</color>
+    <color name="search_color_icon_1_2">@color/md_grey_400</color>
+    <color name="search_color_text_image">@color/md_grey_500</color>
 
-    <!-- Light Theme -->
-    <color name="search_light_icon">#616161</color>
-    <color name="search_light_menu">#9e9e9e</color>
-    <color name="search_light_background">#ffffff</color>
+    <!-- AppCompat Light Theme -->
+    <color name="search_light_icon">@color/md_grey_600</color>
+    <color name="search_light_menu">@color/md_grey_600</color>
+    <color name="search_light_background">@color/md_grey_50</color>
     <color name="search_light_title">#de000000</color>
-    <color name="search_light_title_highlight">#757575</color>
+    <color name="search_light_title_highlight">#1e000000</color>
     <color name="search_light_subtitle">#8a000000</color>
-    <color name="search_light_hint">#bdbdbd</color>
-    <color name="search_light_icon_1_2">#616161</color>
+    <color name="search_light_hint">#60000000</color>
+    <color name="search_light_icon_1_2">@color/md_grey_600</color>
+    <color name="search_light_text_image">@color/md_grey_500</color>
 
-    <!-- Dark Theme -->
-    <color name="search_dark_icon">#ffffff</color>
-    <color name="search_dark_menu">#bdbdbd</color>
-    <color name="search_dark_background">#212121</color>
-    <color name="search_dark_title">#ffffffff</color>
-    <color name="search_dark_title_highlight">#62ffffff</color>
+    <!-- AppCompat Dark Theme -->
+    <color name="search_dark_icon">@color/md_grey_400</color>
+    <color name="search_dark_menu">@color/md_grey_400</color>
+    <color name="search_dark_background">@color/md_grey_850</color>
+    <color name="search_dark_title">#ffffff</color>
+    <color name="search_dark_title_highlight">#33ffffff</color>
     <color name="search_dark_subtitle">#b3ffffff</color>
-    <color name="search_dark_hint">#80ffffff</color>
-    <color name="search_dark_icon_1_2">#ffffff</color>
+    <color name="search_dark_hint">#7fffffff</color>
+    <color name="search_dark_icon_1_2">@color/md_grey_400</color>
+    <color name="search_dark_text_image">@color/md_grey_500</color>
 
     <!-- Google -->
     <color name="search_google_blue">#4285f4</color>
@@ -38,57 +54,6 @@
     <color name="search_google_red">#ea4335</color>
 
     <!-- Shadow -->
-    <color name="search_shadow">#80000000</color>
-    <color name="search_text_image">#9e9e9e</color>
-
-
-    <color name="ripple_material_dark2">#33ffffff</color>
-    <color name="ripple_material_light2">#1f000000</color>
-
-
-    <color name="cardview_dark_background2">#424242</color>
-    <color name="cardview_light_background2">#ffffff</color>
-    <color name="cardview_shadow_end_color2">#03000000</color>
-    <color name="cardview_shadow_start_color2">#37000000</color>
-
-    <color name="md_grey_850">#303030</color>
-    <color name="md_grey_800">#424242</color>
-    <color name="md_grey_600">#757575</color>
-
-    <color name="md_grey_50">#fafafa</color>
-
-    <color name="md_deep_teal_200">#ff80cbc4</color>
-    <color name="md_deep_teal_500">#ff009688</color>
-
-    <color name="md_blue_grey_950">#ff21272b</color>
-
-    <color name="foreground_material_dark">@android:color/white</color>
-    <color name="foreground_material_light">@android:color/black</color>
-
-    <color name="background_material_dark">@color/md_grey_850</color>
-    <color name="background_material_light">@color/md_grey_50</color>
-    <color name="background_floating_material_dark">@color/md_grey_800</color>
-    <color name="background_floating_material_light">@android:color/white</color>
-
-    <color name="primary_material_dark">#ff212121</color>
-    <color name="primary_material_light">#fff5f5f5</color>
-    <color name="primary_dark_material_dark">@android:color/black</color>
-    <color name="primary_dark_material_light">@color/md_grey_600</color>
-
-    <color name="accent_material_light2">@color/md_deep_teal_500</color>
-    <color name="accent_material_dark2">@color/md_deep_teal_200</color>
-
-    <color name="bright_foreground_material_dark">@android:color/white</color>
-    <color name="bright_foreground_material_light">@android:color/black</color>
-
-    <item name="hint_alpha_material_dark" format="float" type="dimen">0.50</item>
-    <item name="hint_alpha_material_light" format="float" type="dimen">0.38</item>
-
-    <eat-comment />
-
-    <item name="highlight_alpha_material_colored" format="float" type="dimen">0.26</item>
-    <color name="error_color_material">#f4511e</color>
-
-    <eat-comment />
+    <color name="search_shadow">@color/shadow_80</color>
 
 </resources>
