@@ -11,6 +11,14 @@
 
 ### Java or Kotlin
 ```java
+        SearchItem suggestion = new SearchItem(this);
+        suggestion.setTitle("Title");
+        suggestion.setIcon_1_resource(R.drawable.search_ic_search_black_24dp);
+        suggestion.setSubtitle("Subtitle");
+
+        List<SearchItem> suggestions = new ArrayList<>();
+        suggestions.add(suggestion);
+
         final SearchHistoryTable mHistoryDatabase = new SearchHistoryTable(this);
 
         SearchAdapter searchAdapter = new SearchAdapter(this);

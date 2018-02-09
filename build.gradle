@@ -58,22 +58,16 @@ dependencies {
 ext {
     bintrayRepo = 'maven'
     bintrayName = 'searchview'
-
     publishedGroupId = 'com.lapism'
     libraryName = 'SearchView'
     artifact = 'searchview'
-
     libraryDescription = 'Persistent SearchView Library in Material Design.'
-
     siteUrl = 'https://github.com/lapism/SearchView'
     gitUrl = 'https://github.com/lapism/SearchView.git'
-
     libraryVersion = '27.0.2.0-beta1'
-
     developerId = 'lapism'
     developerName = 'Martin Lapiš'
     developerEmail = 'lapis.martin@gmail.com'
-
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]

@@ -88,10 +88,6 @@ SearchBar searchBar = findViewById(R.id.searchBar);
 | setOnQueryTextListener(Search.OnQueryTextListener listener) | ... | ... | ...
 | setOnBarClickListener(Search.OnBarClickListener listener) | ... | ... | ...
 
-### Theme
-        int COLOR = 3000;
-        int LIGHT = 3001;
-        int DARK = 3002;
 ### Logo
         int GOOGLE = 1000;
         int G = 1001;
@@ -101,6 +97,10 @@ SearchBar searchBar = findViewById(R.id.searchBar);
         int CLASSIC = 2000;
         int ROUNDED = 2001;
         int OVAL = 2002;
+### Theme
+        int COLOR = 3000;
+        int LIGHT = 3001;
+        int DARK = 3002;
 
 
 

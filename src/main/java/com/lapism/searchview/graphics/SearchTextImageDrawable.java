@@ -29,7 +29,7 @@ public class SearchTextImageDrawable extends Drawable {
         float mTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 24f, resources.getDisplayMetrics());//23dp
 
         mPaint = new Paint();
-        mPaint.setColor(ResourcesCompat.getColor(resources, R.color.search_text_image, null));
+        //mPaint.setColor(ResourcesCompat.getColor(resources, R.color.search_text_image, null));
         mPaint.setTextSize(mTextSize);
         mPaint.setAntiAlias(true);
         mPaint.setFakeBoldText(false);

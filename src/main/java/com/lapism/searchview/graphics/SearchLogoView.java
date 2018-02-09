@@ -35,9 +35,9 @@ public class SearchLogoView extends AppCompatTextView{
     }
 
     public void setLogo(Drawable drawable) {
-        this.mLogoDrawable = drawable;
+        mLogoDrawable = drawable;
         mLogoDrawable.setBounds(0,0, mLogoDrawable.getIntrinsicWidth(), mLogoDrawable.getIntrinsicHeight());
-        this.invalidate();
+        invalidate();
     }
 
     @Override
