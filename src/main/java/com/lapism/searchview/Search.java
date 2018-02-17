@@ -54,12 +54,13 @@ public class Search {
         int OVAL = 2002;
     }
 
-    @IntDef({Theme.COLOR, Theme.LIGHT, Theme.DARK})
+    @IntDef({Theme.PLAY, Theme.COLOR, Theme.LIGHT, Theme.DARK})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Theme {
-        int COLOR = 3000;
-        int LIGHT = 3001;
-        int DARK = 3002;
+        int PLAY = 3000;
+        int COLOR = 3001;
+        int LIGHT = 3002;
+        int DARK = 3003;
     }
 
     @IntDef({Version.TOOLBAR, Version.MENU_ITEM})

@@ -1,7 +1,7 @@
 # SearchBar & SearchView
 
  - Material Design 
- - 3 versions
+ - 3 Versions
  - History
  - Styling
 

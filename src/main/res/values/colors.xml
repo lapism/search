@@ -5,7 +5,6 @@
 
     <!-- Google Play Theme -->
     <color name="search_play_icon">@color/md_grey_700</color>
-    <color name="search_play_menu">@color/md_grey_700</color>
     <color name="search_play_background">@color/md_white</color>
     <color name="search_play_title">#de000000</color>
     <color name="search_play_title_highlight">#1e000000</color>
@@ -15,8 +14,9 @@
     <color name="search_play_text_image">@color/md_grey_500</color>
 
     <!-- Color Theme -->
-    <color name="search_color_icon">@color/md_grey_700</color>
     <color name="search_color_menu">@color/md_grey_500</color>
+
+    <color name="search_color_icon">@color/md_grey_700</color>
     <color name="search_color_background">@color/md_white</color>
     <color name="search_color_title">#de000000</color>
     <color name="search_color_title_highlight">#42000000</color>
@@ -27,10 +27,9 @@
 
     <!-- AppCompat Light Theme -->
     <color name="search_light_icon">@color/md_grey_600</color>
-    <color name="search_light_menu">@color/md_grey_600</color>
     <color name="search_light_background">@color/md_grey_50</color>
     <color name="search_light_title">#de000000</color>
-    <color name="search_light_title_highlight">#1e000000</color>
+    <color name="search_light_title_highlight">#33000000</color>
     <color name="search_light_subtitle">#8a000000</color>
     <color name="search_light_hint">#60000000</color>
     <color name="search_light_icon_1_2">@color/md_grey_600</color>
@@ -38,10 +37,9 @@
 
     <!-- AppCompat Dark Theme -->
     <color name="search_dark_icon">@color/md_grey_400</color>
-    <color name="search_dark_menu">@color/md_grey_400</color>
     <color name="search_dark_background">@color/md_grey_850</color>
     <color name="search_dark_title">#ffffff</color>
-    <color name="search_dark_title_highlight">#33ffffff</color>
+    <color name="search_dark_title_highlight">#aeffffff</color>
     <color name="search_dark_subtitle">#b3ffffff</color>
     <color name="search_dark_hint">#7fffffff</color>
     <color name="search_dark_icon_1_2">@color/md_grey_400</color>

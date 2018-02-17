@@ -42,9 +42,10 @@
             <enum name="oval" value="2002" />
         </attr>
         <attr name="search_theme" format="enum">
-            <enum name="color" value="3000" />
-            <enum name="light" value="3001" />
-            <enum name="dark" value="3002" />
+            <enum name="play" value="3000" />
+            <enum name="color" value="3001" />
+            <enum name="light" value="3002" />
+            <enum name="dark" value="3003" />
         </attr>
         <attr name="search_version" format="enum">
             <enum name="toolbar" value="4000" />
@@ -176,9 +177,10 @@ public boolean onOptionsItemSelected(MenuItem item) {
         int ROUNDED = 2001;
         int OVAL = 2002;
 ### Theme
-        int COLOR = 3000;
-        int LIGHT = 3001;
-        int DARK = 3002;
+        int PLAY = 3000;
+        int COLOR = 3001;
+        int LIGHT = 3002;
+        int DARK = 3003;
 ### Version
         int TOOLBAR = 4000;
         int MENU_ITEM = 4001;
