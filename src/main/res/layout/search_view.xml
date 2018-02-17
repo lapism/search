@@ -108,7 +108,7 @@
                 android:id="@+id/search_view_divider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/search_divider"
-                android:background="?android:attr/listDivider" />
+                android:background="@color/md_red_500" />
 
             <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/search_flexboxLayout"

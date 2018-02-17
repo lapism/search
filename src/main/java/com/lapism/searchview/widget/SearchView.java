@@ -205,7 +205,7 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
         super.init(context, attrs, defStyleAttr, defStyleRes);
 
         mImageViewImage = findViewById(R.id.search_imageView_image);
-        mImageViewImage.setOnClickListener(this);
+        mImageViewImage.setOnClickListener(this);// todo colorfilter do theme, divider,
 
         mImageViewClear = findViewById(R.id.search_imageView_clear);
         mImageViewClear.setOnClickListener(this);

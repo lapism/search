@@ -219,6 +219,15 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         mTheme = theme;
 
         switch (mTheme) {
+            case Search.Theme.PLAY:
+                setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_play_background));
+                setLogoColor(ContextCompat.getColor(mContext, R.color.search_play_icon));
+                setMicColor(ContextCompat.getColor(mContext, R.color.search_play_icon));
+                setClearColor(ContextCompat.getColor(mContext, R.color.search_play_icon));
+                setMenuColor(ContextCompat.getColor(mContext, R.color.search_play_icon));
+                setHintColor(ContextCompat.getColor(mContext, R.color.search_play_hint));
+                setTextColor(ContextCompat.getColor(mContext, R.color.search_play_title));
+                break;
             case Search.Theme.COLOR:
                 setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_color_background));
                 clearIconsColor();
@@ -430,16 +439,10 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         mOnMicClickListener = listener;
         if (mOnMicClickListener != null) {
             mImageViewMic.setVisibility(View.VISIBLE);
-            switch (mTheme) {
-                case Search.Theme.COLOR:
-                    mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_mic_color_24dp));
-                    break;
-                case Search.Theme.LIGHT:
-                    mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_mic_black_24dp));
-                    break;
-                case Search.Theme.DARK:
-                    mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_mic_black_24dp));
-                    break;
+            if (mTheme == Search.Theme.COLOR) {
+                mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_mic_color_24dp));
+            } else {
+                mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_mic_black_24dp));
             }
         } else {
             mImageViewMic.setVisibility(View.GONE);

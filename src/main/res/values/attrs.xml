@@ -14,9 +14,10 @@
             <enum name="oval" value="2002" />
         </attr>
         <attr name="search_theme" format="enum">
-            <enum name="color" value="3000" />
-            <enum name="light" value="3001" />
-            <enum name="dark" value="3002" />
+            <enum name="play" value="3000" />
+            <enum name="color" value="3001" />
+            <enum name="light" value="3002" />
+            <enum name="dark" value="3003" />
         </attr>
         <attr name="search_version" format="enum">
             <enum name="toolbar" value="4000" />

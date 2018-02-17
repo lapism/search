@@ -23,6 +23,7 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
         if (dependency instanceof AppBarLayout) {
             ViewCompat.setElevation(child, ViewCompat.getElevation(dependency));
             ViewCompat.setZ(child, ViewCompat.getZ(dependency) + 1);
+            // todo fix click background
             return true;
         }
         return super.layoutDependsOn(parent, child, dependency);
