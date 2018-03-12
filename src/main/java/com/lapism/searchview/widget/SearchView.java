@@ -370,9 +370,9 @@ to kulate oval
         switch (mVersionMargins) {
             case Search.VersionMargins.TOOLBAR_SMALL:
                 left = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_small_left_right);
-                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
+                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top_bottom);
                 right = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_small_left_right);
-                bottom = 0;
+                bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top_bottom);
 
                 params.setMargins(left, top, right, bottom);
 
@@ -380,9 +380,9 @@ to kulate oval
                 break;
             case Search.VersionMargins.TOOLBAR_MEDIUM:
                 left = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_medium_left_right);
-                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
+                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top_bottom);
                 right = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_medium_left_right);
-                bottom = 0;
+                bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top_bottom);
 
                 params.setMargins(left, top, right, bottom);
 
@@ -390,9 +390,9 @@ to kulate oval
                 break;
             case Search.VersionMargins.TOOLBAR_BIG:
                 left = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_big_left_right);
-                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top);
+                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top_bottom);
                 right = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_big_left_right);
-                bottom = 0;
+                bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top_bottom);
 
                 params.setMargins(left, top, right, bottom);
 
@@ -400,9 +400,9 @@ to kulate oval
                 break;
             case Search.VersionMargins.MENU_ITEM:
                 left = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_left_right);
-                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
+                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_top_bottom);
                 right = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_left_right);
-                bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
+                bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_top_bottom);
 
                 params.setMargins(left, top, right, bottom);
 

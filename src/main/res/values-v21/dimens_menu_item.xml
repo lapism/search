@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="search_menu_item_margin">4dp</dimen>
+    <dimen name="search_menu_item_margin_top_bottom">4dp</dimen>
     <dimen name="search_menu_item_margin_left_right">4dp</dimen>
 
 </resources>
