@@ -20,7 +20,7 @@ The first three numbers are always the same as the latest official Android Suppo
 Add the dependency to your gradle file:
 ```groovy
 dependencies {
-    implementation 'com.lapism:searchview:27.0.2.0.0-beta1 (it will be out ASAP)'
+    implementation 'com.lapism:searchview:27.1.0.0.0-beta1 (it will be out ASAP)'
 }
 ```
 

@@ -53,35 +53,35 @@ public class SearchItem implements Parcelable {
         this.tag = in.readString();
     }
 
-    public Drawable getIcon_1_drawable() {
+    public Drawable getIcon1Drawable() {
         return this.icon_1_drawable;
     }
 
-    public void setIcon_1_drawable(Drawable icon_1_drawable) {
+    public void setIcon1Drawable(Drawable icon_1_drawable) {
         this.icon_1_drawable = icon_1_drawable;
     }
 
-    public Drawable getIcon_2_drawable() {
+    public Drawable getIcon2Drawable() {
         return this.icon_2_drawable;
     }
 
-    public void setIcon_2_drawable(Drawable icon_2_drawable) {
+    public void setIcon2Drawable(Drawable icon_2_drawable) {
         this.icon_2_drawable = icon_2_drawable;
     }
 
-    public int getIcon_1_resource() {
+    public int getIcon1Resource() {
         return this.icon_1_resource;
     }
 
-    public void setIcon_1_resource(int icon_1_resource) {
+    public void setIcon1Resource(int icon_1_resource) {
         this.icon_1_resource = icon_1_resource;
     }
 
-    public int getIcon_2_resource() {
+    public int getIcon2Resource() {
         return this.icon_2_resource;
     }
 
-    public void setIcon_2_resource(int icon_2_resource) {
+    public void setIcon2Resource(int icon_2_resource) {
         this.icon_2_resource = icon_2_resource;
     }
 

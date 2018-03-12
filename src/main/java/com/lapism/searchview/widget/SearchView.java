@@ -107,7 +107,11 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
         setMicOrClearIcon(true);
 
         if (mVersion == Search.Version.TOOLBAR) {
-            setLogoHamburgerToLogoArrowWithAnimation(true);
+            if (mIconAnimation) {
+                setLogoHamburgerToLogoArrowWithAnimation(true);
+            } else {
+                setLogoHamburgerToLogoArrowWithoutAnimation(true);
+            }
 
             if (mOnOpenCloseListener != null) {
                 mOnOpenCloseListener.onOpen();
@@ -134,7 +138,11 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
         setMicOrClearIcon(false);
 
         if (mVersion == Search.Version.TOOLBAR) {
-            setLogoHamburgerToLogoArrowWithAnimation(false);
+            if (mIconAnimation) {
+                setLogoHamburgerToLogoArrowWithAnimation(false);
+            } else {
+                setLogoHamburgerToLogoArrowWithoutAnimation(false);
+            }
 
             postDelayed(new Runnable() {
                 @Override
@@ -241,20 +249,30 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
             }
         });
 
-        setLogo(a.getInteger(R.styleable.SearchView_search_logo, Search.Logo.G));
+        setLogo(a.getInteger(R.styleable.SearchView_search_logo, Search.Logo.HAMBURGER_ARROW));
         setShape(a.getInteger(R.styleable.SearchView_search_shape, Search.Shape.CLASSIC));
-        setTheme(a.getInteger(R.styleable.SearchView_search_theme, Search.Theme.COLOR));
+        setTheme(a.getInteger(R.styleable.SearchView_search_theme, Search.Theme.PLAY));
         setVersion(a.getInteger(R.styleable.SearchView_search_version, Search.Version.TOOLBAR));
         setVersionMargins(a.getInteger(R.styleable.SearchView_search_version_margins, Search.VersionMargins.TOOLBAR_SMALL));
 
         if (a.hasValue(R.styleable.SearchView_search_logo_icon)) {
             setLogoIcon(a.getInteger(R.styleable.SearchView_search_logo_icon, 0)); // todo bug + test + check every attribute
         }
-
+        // todo fix when image is not avalilable + checknout marginy + shadow barva...
         if (a.hasValue(R.styleable.SearchView_search_logo_color)) {
             setLogoColor(ContextCompat.getColor(mContext, a.getResourceId(R.styleable.SearchView_search_logo_color, 0)));
         }
 
+        /*
+            <!-- Google Play Theme -->
+
+    <color name="search_play_subtitle">#c1bfc2</color>
+
+
+62 PROCENT SHADOW 9E
+YKONTROLOVAT OVAL PLUS MARGINZ
+to kulate oval
+        */
         if (a.hasValue(R.styleable.SearchView_search_mic_icon)) {
             setMicIcon(a.getResourceId(R.styleable.SearchView_search_mic_icon, 0));
         }
@@ -320,6 +338,8 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
         a.recycle();
 
         setSaveEnabled(true);
+
+        mSearchEditText.setVisibility(View.VISIBLE);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -392,6 +412,12 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
     }
 
     // ---------------------------------------------------------------------------------------------
+    // Divider
+    @Override
+    public void setDividerColor(@ColorInt int color) {
+        mViewDivider.setBackgroundColor(color);
+    }
+
     // Clear
     public void setClearIcon(@DrawableRes int resource) {
         mImageViewClear.setImageResource(resource);

@@ -152,6 +152,7 @@ public class SearchAnimator {
     public static void fadeOpen(
             final View view,
             long duration) {
+
         Animation anim = new AlphaAnimation(0.0f, 1.0f);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(duration);

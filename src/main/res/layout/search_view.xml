@@ -64,8 +64,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/search_app_name"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="15dp"
                         android:scaleType="fitStart" />
 
                 </FrameLayout>
@@ -107,8 +105,8 @@
             <View
                 android:id="@+id/search_view_divider"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/search_divider"
-                android:background="@color/md_red_500" />
+                android:layout_height="@dimen/search_divider" />
+            <!-- ?android:attr/listDivider -->
 
             <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/search_flexboxLayout"
