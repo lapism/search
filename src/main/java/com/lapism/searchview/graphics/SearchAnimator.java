@@ -273,8 +273,7 @@ public class SearchAnimator {
         return animation;
     }
 
-    private static boolean isRtlLayout(
-            Context context) {
+    private static boolean isRtlLayout(Context context) {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && context.getResources().getConfiguration().getLayoutDirection() == ViewCompat.LAYOUT_DIRECTION_RTL;
     }
 

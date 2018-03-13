@@ -47,7 +47,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
 
     protected CharSequence mQueryText = "";
     protected int mTextStyle = Typeface.NORMAL;
-    protected boolean mIconAnimation = false;
+    protected boolean mIconAnimation = true;
     protected Typeface mTextFont = Typeface.DEFAULT;
 
     protected Context mContext;
@@ -319,11 +319,11 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         return mSearchEditText.getText();
     }
 
-    public void setText(@StringRes int text) {
+    public void setText(CharSequence text) {
         mSearchEditText.setText(text);
     }
 
-    public void setText(CharSequence text) {
+    public void setText(@StringRes int text) {
         mSearchEditText.setText(text);
     }
 
