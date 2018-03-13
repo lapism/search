@@ -10,7 +10,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 
 
-public class SearchLogoView extends AppCompatTextView{
+public class SearchLogoView extends AppCompatTextView {
 
     private Drawable mLogoDrawable;
 
@@ -27,7 +27,7 @@ public class SearchLogoView extends AppCompatTextView{
     }
 
     public void setLogo(String logoText) {
-        setLogo(new SearchTextImageDrawable(getResources(), logoText));
+        //setLogo(new SearchTextImageDrawable(getResources(), logoText));
     }
 
     public void setLogo(@DrawableRes int drawableRes) {
@@ -36,16 +36,16 @@ public class SearchLogoView extends AppCompatTextView{
 
     public void setLogo(Drawable drawable) {
         mLogoDrawable = drawable;
-        mLogoDrawable.setBounds(0,0, mLogoDrawable.getIntrinsicWidth(), mLogoDrawable.getIntrinsicHeight());
+        mLogoDrawable.setBounds(0, 0, mLogoDrawable.getIntrinsicWidth(), mLogoDrawable.getIntrinsicHeight());
         invalidate();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if(!TextUtils.isEmpty(getText()))
+        if (!TextUtils.isEmpty(getText()))
             super.onDraw(canvas);
         else {
-            if(mLogoDrawable != null) {
+            if (mLogoDrawable != null) {
                 mLogoDrawable.draw(canvas);
             }
         }

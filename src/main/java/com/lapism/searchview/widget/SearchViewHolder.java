@@ -27,7 +27,7 @@ public class SearchViewHolder extends RecyclerView.ViewHolder {
                 if (listener != null) {
                     listener.onSearchItemClick(
                             view,
-                            getLayoutPosition(),
+                            getLayoutPosition(), // getAdapterPosition()
                             title.getText(),
                             subtitle.getText());
                 }

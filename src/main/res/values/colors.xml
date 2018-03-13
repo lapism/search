@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- todo kontrola shadow play store -->
-
     <!-- Google Play Theme -->
+    <color name="search_play_divider">#1f000000</color>
     <color name="search_play_icon">@color/md_grey_700</color>
     <color name="search_play_background">@color/md_white</color>
     <color name="search_play_title">#de000000</color>
-    <color name="search_play_title_highlight">#1e000000</color>
+    <color name="search_play_title_highlight">#61000000</color>
     <color name="search_play_subtitle">#8a000000</color>
-    <color name="search_play_hint">#60000000</color>
+    <color name="search_play_hint">#42000000</color>
     <color name="search_play_icon_1_2">@color/md_grey_600</color>
     <color name="search_play_text_image">@color/md_grey_500</color>
 
     <!-- Color Theme -->
     <color name="search_color_menu">@color/md_grey_500</color>
 
+    <color name="search_color_divider">#1f000000</color>
     <color name="search_color_icon">@color/md_grey_700</color>
     <color name="search_color_background">@color/md_white</color>
     <color name="search_color_title">#de000000</color>
-    <color name="search_color_title_highlight">#42000000</color>
+    <color name="search_color_title_highlight">#8a000000</color>
     <color name="search_color_subtitle">#8a000000</color>
-    <color name="search_color_hint">#60000000</color>
+    <color name="search_color_hint">#42000000</color>
     <color name="search_color_icon_1_2">@color/md_grey_400</color>
     <color name="search_color_text_image">@color/md_grey_500</color>
 
     <!-- AppCompat Light Theme -->
+    <color name="search_light_divider">#1f000000</color>
     <color name="search_light_icon">@color/md_grey_600</color>
     <color name="search_light_background">@color/md_grey_50</color>
     <color name="search_light_title">#de000000</color>
@@ -36,6 +37,7 @@
     <color name="search_light_text_image">@color/md_grey_500</color>
 
     <!-- AppCompat Dark Theme -->
+    <color name="search_dark_divider">#1fffffff</color>
     <color name="search_dark_icon">@color/md_grey_400</color>
     <color name="search_dark_background">@color/md_grey_850</color>
     <color name="search_dark_title">#ffffff</color>

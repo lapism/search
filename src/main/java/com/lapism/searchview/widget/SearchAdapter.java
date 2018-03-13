@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
@@ -51,7 +52,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
         mResults = mDatabase;
         mSuggestions = new ArrayList<>();
 
-        setTheme(Search.Theme.LIGHT);
+        setTheme(Search.Theme.PLAY);
     }
 
     public SearchAdapter(Context context, List<SearchItem> suggestions) {
@@ -61,36 +62,37 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
         mResults = mDatabase;
         mSuggestions = suggestions;
 
-        setTheme(Search.Theme.LIGHT);
+        setTheme(Search.Theme.PLAY);
     }
 
     // ---------------------------------------------------------------------------------------------
+    @NonNull
     @Override
-    public SearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.search_item, parent, false);
         return new SearchViewHolder(view, mSearchItemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(SearchViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull SearchViewHolder viewHolder, int position) {
         SearchItem item = mResults.get(position);
 
-        if (item.getIcon_1_resource() != 0) {
-            viewHolder.icon_1.setImageResource(item.getIcon_1_resource());
+        if (item.getIcon1Resource() != 0) {
+            viewHolder.icon_1.setImageResource(item.getIcon1Resource());
             viewHolder.icon_1.setColorFilter(mIcon1Color);
-        } else if (item.getIcon_1_drawable() != null) {
-            viewHolder.icon_1.setImageDrawable(item.getIcon_1_drawable());
+        } else if (item.getIcon1Drawable() != null) {
+            viewHolder.icon_1.setImageDrawable(item.getIcon1Drawable());
             viewHolder.icon_1.setColorFilter(mIcon1Color, PorterDuff.Mode.SRC_IN);
         } else {
             viewHolder.icon_1.setVisibility(View.GONE);
         }
 
-        if (item.getIcon_2_resource() != 0) {
-            viewHolder.icon_2.setImageResource(item.getIcon_2_resource());
+        if (item.getIcon2Resource() != 0) {
+            viewHolder.icon_2.setImageResource(item.getIcon2Resource());
             viewHolder.icon_2.setColorFilter(mIcon1Color, PorterDuff.Mode.SRC_IN);
-        } else if (item.getIcon_2_drawable() != null) {
-            viewHolder.icon_2.setImageDrawable(item.getIcon_2_drawable());
+        } else if (item.getIcon2Drawable() != null) {
+            viewHolder.icon_2.setImageDrawable(item.getIcon2Drawable());
             viewHolder.icon_2.setColorFilter(mIcon2Color);
         } else {
             viewHolder.icon_2.setVisibility(View.GONE);
@@ -167,6 +169,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
 
     public void setTheme(@Search.Theme int theme) {
         switch (theme) {
+            case Search.Theme.PLAY:
+                setIcon1Color(ContextCompat.getColor(mContext.get(), R.color.search_play_icon_1_2));
+                setIcon2Color(ContextCompat.getColor(mContext.get(), R.color.search_play_icon_1_2));
+                setTitleColor(ContextCompat.getColor(mContext.get(), R.color.search_play_title));
+                setTitleHighlightColor(ContextCompat.getColor(mContext.get(), R.color.search_play_title_highlight));
+                setSubtitleColor(ContextCompat.getColor(mContext.get(), R.color.search_play_subtitle));
+                break;
             case Search.Theme.COLOR:
                 setIcon1Color(ContextCompat.getColor(mContext.get(), R.color.search_color_icon_1_2));
                 setIcon2Color(ContextCompat.getColor(mContext.get(), R.color.search_color_icon_1_2));
@@ -209,7 +218,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
 
     // ---------------------------------------------------------------------------------------------
     private void setData(List<SearchItem> data) {
-        mResults = data;
+        mResults = data; // todo do OSMI
         notifyDataSetChanged();
 
         /*if (mResults.isEmpty()) {

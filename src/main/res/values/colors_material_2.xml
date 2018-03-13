@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="md2_grey_800">#3c4043</color>
+    <color name="md2_grey_700">#5f6368</color>
+    <color name="md2_grey_400">#bdc1c6</color>
+    <color name="md2_grey_300">#e0e0e0</color>
+    <color name="md2_grey_100">#f1f3f4</color>
+    <color name="md2_grey_50">#f8f9fb</color>
+
+    <color name="md2_red_800">#b31412</color>
+    <color name="md2_red_600">#d93025</color>
+
+    <color name="md2_red_dark_800">#b41b1a</color>
+    <color name="md2_red_dark_600">#d33b30</color>
+
+    <color name="md2_blue_dark">#2481e0</color>
+    <color name="md2_blue_light">#1a73e9</color>
+
+    <color name="md2_white">#ffffff</color>
+
+</resources>

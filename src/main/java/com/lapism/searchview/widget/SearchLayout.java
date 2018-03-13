@@ -47,6 +47,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
 
     protected CharSequence mQueryText = "";
     protected int mTextStyle = Typeface.NORMAL;
+    protected boolean mIconAnimation = true;
     protected Typeface mTextFont = Typeface.DEFAULT;
 
     protected Context mContext;
@@ -221,6 +222,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         switch (mTheme) {
             case Search.Theme.PLAY:
                 setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_play_background));
+                setDividerColor(ContextCompat.getColor(mContext, R.color.search_play_divider));
                 setLogoColor(ContextCompat.getColor(mContext, R.color.search_play_icon));
                 setMicColor(ContextCompat.getColor(mContext, R.color.search_play_icon));
                 setClearColor(ContextCompat.getColor(mContext, R.color.search_play_icon));
@@ -230,6 +232,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
                 break;
             case Search.Theme.COLOR:
                 setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_color_background));
+                setDividerColor(ContextCompat.getColor(mContext, R.color.search_color_divider));
                 clearIconsColor();
                 setClearColor(ContextCompat.getColor(mContext, R.color.search_color_icon));
                 setMenuColor(ContextCompat.getColor(mContext, R.color.search_color_menu));
@@ -238,6 +241,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
                 break;
             case Search.Theme.LIGHT:
                 setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
+                setDividerColor(ContextCompat.getColor(mContext, R.color.search_light_divider));
                 setLogoColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
                 setMicColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
                 setClearColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
@@ -247,6 +251,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
                 break;
             case Search.Theme.DARK:
                 setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
+                setDividerColor(ContextCompat.getColor(mContext, R.color.search_dark_divider));
                 setLogoColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
                 setMicColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
                 setClearColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
@@ -314,11 +319,11 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         return mSearchEditText.getText();
     }
 
-    public void setText(@StringRes int text) {
+    public void setText(CharSequence text) {
         mSearchEditText.setText(text);
     }
 
-    public void setText(CharSequence text) {
+    public void setText(@StringRes int text) {
         mSearchEditText.setText(text);
     }
 
@@ -434,6 +439,16 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         return getVisibility() == View.VISIBLE;
     }
 
+    public void open(boolean iconAnimation) {
+        mIconAnimation = iconAnimation;
+        open();
+    }
+
+    public void close(boolean iconAnimation) {
+        mIconAnimation = iconAnimation;
+        close();
+    }
+
     // Listeners
     public void setOnMicClickListener(Search.OnMicClickListener listener) {
         mOnMicClickListener = listener;
@@ -464,6 +479,10 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
     }
 
     // ---------------------------------------------------------------------------------------------
+    protected void setDividerColor(@ColorInt int color) {
+
+    }
+
     protected void setClearColor(@ColorInt int color) {
 
     }
