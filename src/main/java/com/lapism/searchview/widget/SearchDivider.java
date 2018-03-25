@@ -9,24 +9,40 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.lapism.searchview.R;
 
-public class SearchDivider extends RecyclerView.ItemDecoration {
 
-    private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
+class SearchDivider extends RecyclerView.ItemDecoration {
+
+    private static final int[] ATTRS = {android.R.attr.listDivider};
+    private final Context mContext;
     private Drawable mDivider;
     private int mDividerHeight;
     private int mDividerWidth;
 
     public SearchDivider(Context context) {
-        final TypedArray a = context.obtainStyledAttributes(ATTRS);
+        TypedArray a = context.obtainStyledAttributes(ATTRS);
         setDivider(a.getDrawable(0));
         a.recycle();
+
+        mContext = context;
     }
 
-    public void setDivider(Drawable divider) {
+    private static int getOrientation(RecyclerView parent) {
+        RecyclerView.LayoutManager lm = parent.getLayoutManager();
+        if (lm instanceof LinearLayoutManager) {
+            return ((LinearLayoutManager) lm).getOrientation();
+        } else {
+            throw new IllegalStateException("Use only with a LinearLayoutManager!");
+        }
+    }
+
+    // todo  barva a sirka
+    private void setDivider(Drawable divider) {
         mDivider = divider;
         mDividerHeight = divider == null ? 0 : divider.getIntrinsicHeight();
         mDividerWidth = divider == null ? 0 : divider.getIntrinsicWidth();
+        mDividerWidth -= mContext.getResources().getDimensionPixelSize(R.dimen.search_icon_56);
     }
 
     @Override
@@ -36,22 +52,22 @@ public class SearchDivider extends RecyclerView.ItemDecoration {
             return;
         }
 
-        final int position = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
-        final boolean firstItem = position == 0;
-        final boolean dividerBefore = !firstItem;
+        int position = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
+        boolean firstItem = position == 0;
+        boolean dividerBefore = !firstItem;
 
-        if (getOrientation(parent) == LinearLayoutManager.VERTICAL) {
-            outRect.top = dividerBefore ? mDividerHeight : 0;
+        if (SearchDivider.getOrientation(parent) == LinearLayoutManager.VERTICAL) {
+            outRect.top = dividerBefore ? this.mDividerHeight : 0;
             outRect.bottom = 0;
         } else {
-            outRect.left = dividerBefore ? mDividerWidth : 0;
+            outRect.left = dividerBefore ? this.mDividerWidth : 0;
             outRect.right = 0;
         }
     }
 
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-        if (mDivider == null) {
+        if (this.mDivider == null) {
             super.onDraw(c, parent, state);
             return;
         }
@@ -61,25 +77,25 @@ public class SearchDivider extends RecyclerView.ItemDecoration {
         int top = 0;
         int bottom = 0;
 
-        final int orientation = getOrientation(parent);
-        final int childCount = parent.getChildCount();
+        int orientation = SearchDivider.getOrientation(parent);
+        int childCount = parent.getChildCount();
 
-        final boolean vertical = orientation == LinearLayoutManager.VERTICAL;
-        final int size;
+        boolean vertical = orientation == LinearLayoutManager.VERTICAL;
+        int size;
         if (vertical) {
-            size = mDividerHeight;
+            size = this.mDividerHeight;
             left = parent.getPaddingLeft();
             right = parent.getWidth() - parent.getPaddingRight();
         } else {
-            size = mDividerWidth;
+            size = this.mDividerWidth;
             top = parent.getPaddingTop();
             bottom = parent.getHeight() - parent.getPaddingBottom();
         }
 
         for (int i = 0; i < childCount; i++) {
-            final View child = parent.getChildAt(i);
-            final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
-            final int position = params.getViewLayoutPosition();
+            View child = parent.getChildAt(i);
+            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
+            int position = params.getViewLayoutPosition();
             if (position == 0) {
                 continue;
             }
@@ -92,15 +108,6 @@ public class SearchDivider extends RecyclerView.ItemDecoration {
             }
             mDivider.setBounds(left, top, right, bottom);
             mDivider.draw(c);
-        }
-    }
-
-    private int getOrientation(RecyclerView parent) {
-        final RecyclerView.LayoutManager lm = parent.getLayoutManager();
-        if (lm instanceof LinearLayoutManager) {
-            return ((LinearLayoutManager) lm).getOrientation();
-        } else {
-            throw new IllegalStateException("Use only with a LinearLayoutManager!");
         }
     }
 

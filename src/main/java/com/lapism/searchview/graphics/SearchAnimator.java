@@ -6,7 +6,6 @@ import android.content.Context;
 import android.graphics.Point;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -14,7 +13,6 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
 import com.lapism.searchview.R;
 import com.lapism.searchview.Search;
@@ -27,16 +25,16 @@ public class SearchAnimator {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static void revealOpen(
-            final Context context,
+            Context context,
             final CardView cardView,
             int cx,
-            final long duration,
+            long duration,
             final SearchEditText editText,
             final Search.OnOpenCloseListener listener) {
 
         if (cx <= 0) {
             int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
-            if (isRtlLayout(context)) {
+            if (SearchAnimator.isRtlLayout(context)) {
                 cx = padding;
             } else {
                 cx = cardView.getWidth() - padding;
@@ -56,7 +54,7 @@ public class SearchAnimator {
             Animator anim = ViewAnimationUtils.createCircularReveal(cardView, cx, cy, 0.0f, finalRadius);
             anim.setInterpolator(new AccelerateDecelerateInterpolator());
             anim.setDuration(duration);
-            // can be AnimatorListenerAdapter()
+            // AnimatorListenerAdapter()
             anim.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
@@ -99,7 +97,7 @@ public class SearchAnimator {
 
         if (cx <= 0) {
             int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
-            if (isRtlLayout(context)) {
+            if (SearchAnimator.isRtlLayout(context)) {
                 cx = padding;
             } else {
                 cx = cardView.getWidth() - padding;
@@ -119,7 +117,7 @@ public class SearchAnimator {
             Animator anim = ViewAnimationUtils.createCircularReveal(cardView, cx, cy, initialRadius, 0.0f);
             anim.setInterpolator(new AccelerateDecelerateInterpolator());
             anim.setDuration(duration);
-            // can be AnimatorListenerAdapter()
+            // AnimatorListenerAdapter()
             anim.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
@@ -265,16 +263,8 @@ public class SearchAnimator {
         view.startAnimation(anim);
     }
 
-    public static Animation slideDown(
-            Context context,
-            long duration) {
-        Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_down);
-        animation.setDuration(duration);
-        return animation;
-    }
-
     private static boolean isRtlLayout(Context context) {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && context.getResources().getConfiguration().getLayoutDirection() == ViewCompat.LAYOUT_DIRECTION_RTL;
+        return context.getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
     }
 
 }

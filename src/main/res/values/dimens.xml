@@ -35,8 +35,8 @@
     <dimen name="search_logo_padding_right">4dp</dimen>
     <dimen name="search_logo_padding_top">2dp</dimen>
 
-    <dimen name="cardview_compat_inset_shadow2">1dp</dimen>
-    <dimen name="cardview_default_elevation2">2dp</dimen>
-    <dimen name="cardview_default_radius2">2dp</dimen>
+    <dimen name="card_view_compat_inset_shadow2">1dp</dimen>
+    <dimen name="card_view_default_elevation2">2dp</dimen>
+    <dimen name="card_view_default_radius2">2dp</dimen>
 
 </resources>

@@ -11,7 +11,7 @@ import android.view.View;
 
 public class SearchViewSavedState extends View.BaseSavedState {
 
-    public static final Parcelable.Creator<SearchViewSavedState> CREATOR = new Creator<SearchViewSavedState>() {
+    public static final Parcelable.Creator<SearchViewSavedState> CREATOR = new Parcelable.Creator<SearchViewSavedState>() {
         @NonNull
         @Override
         public SearchViewSavedState createFromParcel(Parcel source) {
@@ -24,13 +24,13 @@ public class SearchViewSavedState extends View.BaseSavedState {
             return new SearchViewSavedState[size];
         }
     };
-    public boolean hasFocus;
-    public boolean shadow;
     public String query;
+    boolean hasFocus;
+    boolean shadow;
 
     private SearchViewSavedState(Parcel source) {
         super(source);
-        this.query = source.readString();
+        query = source.readString();
         this.hasFocus = source.readInt() == 1;
     }
 
@@ -42,7 +42,7 @@ public class SearchViewSavedState extends View.BaseSavedState {
         this.hasFocus = source.readInt() == 1;
     }
 
-    public SearchViewSavedState(Parcelable superState) {
+    SearchViewSavedState(Parcelable superState) {
         super(superState);
     }
 

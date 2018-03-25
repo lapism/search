@@ -51,7 +51,6 @@
                 android:layout_width="@dimen/search_icon_24"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="@dimen/search_menu_margin_right"
-                android:layout_marginRight="@dimen/search_menu_margin_right"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/search_app_name"
                 android:scaleType="center" />

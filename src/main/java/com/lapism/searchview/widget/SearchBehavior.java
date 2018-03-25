@@ -11,7 +11,6 @@ import android.view.View;
 public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
 
     public SearchBehavior() {
-        super();
     }
 
     public SearchBehavior(Context context, AttributeSet attrs) {
@@ -22,8 +21,7 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
     public boolean layoutDependsOn(CoordinatorLayout parent, SearchView child, View dependency) {
         if (dependency instanceof AppBarLayout) {
             ViewCompat.setElevation(child, ViewCompat.getElevation(dependency));
-            ViewCompat.setZ(child, ViewCompat.getZ(dependency) + 1);
-            // todo fix click background
+            ViewCompat.setZ(child, ViewCompat.getZ(dependency) + 1); // todo click
             return true;
         }
         return super.layoutDependsOn(parent, child, dependency);

@@ -53,7 +53,7 @@
     <color name="search_google_yellow">#fbbc05</color>
     <color name="search_google_red">#ea4335</color>
 
-    <!-- Shadow -->
+    <!-- Shadow todo -->
     <color name="search_shadow">@color/shadow_80</color>
 
 </resources>
