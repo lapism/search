@@ -34,10 +34,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
 
     private final SearchHistoryTable mHistoryDatabase;
     private final WeakReference<Context> mContext;
+    private final List<SearchItem> mDatabase;
     private CharSequence mConstraint;
     private List<SearchItem> mSuggestions;
     private List<SearchItem> mResults;
-    private List<SearchItem> mDatabase;
     private OnSearchItemClickListener mSearchItemClickListener;
     @ColorInt
     private int mIcon1Color, mIcon2Color, mTitleColor, mSubtitleColor, mTitleHighlightColor;
@@ -87,6 +87,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
         } else {
             viewHolder.icon_1.setVisibility(View.GONE);
         }
+        //viewHolder.icon_1.setBackgroundColor(); TODO
+
 
         if (item.getIcon2Resource() != 0) {
             viewHolder.icon_2.setImageResource(item.getIcon2Resource());
@@ -176,12 +178,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
                 setTitleHighlightColor(ContextCompat.getColor(mContext.get(), R.color.search_play_title_highlight));
                 setSubtitleColor(ContextCompat.getColor(mContext.get(), R.color.search_play_subtitle));
                 break;
-            case Search.Theme.COLOR:
-                setIcon1Color(ContextCompat.getColor(mContext.get(), R.color.search_color_icon_1_2));
-                setIcon2Color(ContextCompat.getColor(mContext.get(), R.color.search_color_icon_1_2));
-                setTitleColor(ContextCompat.getColor(mContext.get(), R.color.search_color_title));
-                setTitleHighlightColor(ContextCompat.getColor(mContext.get(), R.color.search_color_title_highlight));
-                setSubtitleColor(ContextCompat.getColor(mContext.get(), R.color.search_color_subtitle));
+            case Search.Theme.GOOGLE:
+                setIcon1Color(ContextCompat.getColor(mContext.get(), R.color.search_google_icon_1_2));
+                setIcon2Color(ContextCompat.getColor(mContext.get(), R.color.search_google_icon_1_2));
+                setTitleColor(ContextCompat.getColor(mContext.get(), R.color.search_google_title));
+                setTitleHighlightColor(ContextCompat.getColor(mContext.get(), R.color.search_google_title_highlight));
+                setSubtitleColor(ContextCompat.getColor(mContext.get(), R.color.search_google_subtitle));
                 break;
             case Search.Theme.LIGHT:
                 setIcon1Color(ContextCompat.getColor(mContext.get(), R.color.search_light_icon_1_2));

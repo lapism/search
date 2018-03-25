@@ -37,13 +37,12 @@ public class Search {
         return activities.size() != 0;
     }
 
-    @IntDef({Logo.GOOGLE, Logo.G, Logo.HAMBURGER_ARROW, Logo.ARROW})
+    @IntDef({Logo.GOOGLE, Logo.HAMBURGER_ARROW, Logo.ARROW})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Logo {
         int GOOGLE = 1000;
-        int G = 1001;
-        int HAMBURGER_ARROW = 1002;
-        int ARROW = 1003;
+        int HAMBURGER_ARROW = 1001;
+        int ARROW = 1002;
     }
 
     @IntDef({Shape.CLASSIC, Shape.ROUNDED, Shape.OVAL})
@@ -54,13 +53,21 @@ public class Search {
         int OVAL = 2002;
     }
 
-    @IntDef({Theme.PLAY, Theme.COLOR, Theme.LIGHT, Theme.DARK})
+    @IntDef({Theme.PLAY, Theme.GOOGLE, Theme.LIGHT, Theme.DARK})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Theme {
         int PLAY = 3000;
-        int COLOR = 3001;
+        int GOOGLE = 3001;
         int LIGHT = 3002;
         int DARK = 3003;
+    }
+
+    @IntDef({VersionMargins.BAR, VersionMargins.TOOLBAR, VersionMargins.MENU_ITEM})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface VersionMargins {
+        int BAR = 5000;
+        int TOOLBAR = 5001;
+        int MENU_ITEM = 5002;
     }
 
     @IntDef({Version.TOOLBAR, Version.MENU_ITEM})
@@ -68,15 +75,6 @@ public class Search {
     public @interface Version {
         int TOOLBAR = 4000;
         int MENU_ITEM = 4001;
-    }
-
-    @IntDef({VersionMargins.TOOLBAR_SMALL, VersionMargins.TOOLBAR_MEDIUM, VersionMargins.TOOLBAR_BIG, VersionMargins.MENU_ITEM})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface VersionMargins {
-        int TOOLBAR_SMALL = 5000;
-        int TOOLBAR_MEDIUM = 5001;
-        int TOOLBAR_BIG = 5002;
-        int MENU_ITEM = 5003;
     }
 
     // SearchLayout

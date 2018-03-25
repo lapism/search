@@ -23,8 +23,8 @@ public class SearchTextImageDrawable extends Drawable {
 
     private final String mText;
     private final Paint mPaint;
-    private int mIntrinsicWidth;
-    private int mIntrinsicHeight;
+    private final int mIntrinsicWidth;
+    private final int mIntrinsicHeight;
 
     public SearchTextImageDrawable(Context context, String text) {
         mText = text;
@@ -43,11 +43,11 @@ public class SearchTextImageDrawable extends Drawable {
         android:fontFamily="sans-serif"           // Roboto-Regular.ttf
         android:fontFamily="sans-serif-medium"    // Roboto-Medium.ttf    21+
         */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // typeface = Typeface.createFromAsset(am, String.format(Locale.getDefault(), "fonts/%s", "Roboto-Medium.ttf"));
         } else {
             // typeface = Typeface.createFromAsset(am, String.format(Locale.getDefault(), "fonts/%s", "Roboto-Regular.ttf"));
-        }
+        }*/
 
         mPaint = new Paint();
         mPaint.setTextSize(size);
@@ -70,8 +70,8 @@ public class SearchTextImageDrawable extends Drawable {
             case Search.Theme.PLAY:
                 mPaint.setColor(ResourcesCompat.getColor(resources, R.color.search_play_text_image, null)); // theme
                 break;
-            case Search.Theme.COLOR:
-                mPaint.setColor(ResourcesCompat.getColor(resources, R.color.search_color_text_image, null));
+            case Search.Theme.GOOGLE:
+                mPaint.setColor(ResourcesCompat.getColor(resources, R.color.search_google_text_image, null));
                 break;
             case Search.Theme.LIGHT:
                 mPaint.setColor(ResourcesCompat.getColor(resources, R.color.search_light_text_image, null));

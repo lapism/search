@@ -44,6 +44,8 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
     protected int mShape;
     @Search.Theme
     protected int mTheme;
+    @Search.VersionMargins
+    private int mVersionMargins;
 
     protected CharSequence mQueryText = "";
     protected int mTextStyle = Typeface.NORMAL;
@@ -167,15 +169,6 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
 
         switch (mLogo) {
             case Search.Logo.GOOGLE:
-                int left = getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left);
-                int top = getContext().getResources().getDimensionPixelSize(R.dimen.search_logo_padding_top);
-                int right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_right);
-                int bottom = 0;
-
-                mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_google_color));
-                mImageViewLogo.setPadding(left, top, right, bottom);
-                break;
-            case Search.Logo.G:
                 mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_g_color_24dp));
                 break;
             case Search.Logo.HAMBURGER_ARROW:
@@ -230,14 +223,14 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_play_hint));
                 setTextColor(ContextCompat.getColor(mContext, R.color.search_play_title));
                 break;
-            case Search.Theme.COLOR:
-                setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_color_background));
-                setDividerColor(ContextCompat.getColor(mContext, R.color.search_color_divider));
+            case Search.Theme.GOOGLE:
+                setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_google_background));
+                setDividerColor(ContextCompat.getColor(mContext, R.color.search_google_divider));
                 clearIconsColor();
-                setClearColor(ContextCompat.getColor(mContext, R.color.search_color_icon));
-                setMenuColor(ContextCompat.getColor(mContext, R.color.search_color_menu));
-                setHintColor(ContextCompat.getColor(mContext, R.color.search_color_hint));
-                setTextColor(ContextCompat.getColor(mContext, R.color.search_color_title));
+                setClearColor(ContextCompat.getColor(mContext, R.color.search_google_icon));
+                setMenuColor(ContextCompat.getColor(mContext, R.color.search_google_menu));
+                setHintColor(ContextCompat.getColor(mContext, R.color.search_google_hint));
+                setTextColor(ContextCompat.getColor(mContext, R.color.search_google_title));
                 break;
             case Search.Theme.LIGHT:
                 setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
@@ -258,6 +251,51 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
                 setMenuColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_dark_hint));
                 setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_title));
+                break;
+        }
+    }
+
+    @Search.VersionMargins
+    public int getVersionMargins() {
+        return mVersionMargins;
+    }
+
+    public void setVersionMargins(@Search.VersionMargins int versionMargins) {
+        mVersionMargins = versionMargins;
+
+        LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        int left, top, right, bottom;
+
+        switch (mVersionMargins) {
+            case Search.VersionMargins.BAR:
+                left = mContext.getResources().getDimensionPixelSize(R.dimen.search_bar_margin_left_right);
+                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_bar_margin_top);
+                right = mContext.getResources().getDimensionPixelSize(R.dimen.search_bar_margin_left_right);
+                bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_bar_margin_bottom);
+
+                params.setMargins(left, top, right, bottom);
+
+                mCardView.setLayoutParams(params);
+                break;
+            case Search.VersionMargins.TOOLBAR:
+                left = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_left_right);
+                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top_bottom);
+                right = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_left_right);
+                bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top_bottom);
+
+                params.setMargins(left, top, right, bottom);
+
+                mCardView.setLayoutParams(params);
+                break;
+            case Search.VersionMargins.MENU_ITEM:
+                left = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
+                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
+                right = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
+                bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
+
+                params.setMargins(left, top, right, bottom);
+
+                mCardView.setLayoutParams(params);
                 break;
         }
     }
@@ -319,11 +357,11 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         return mSearchEditText.getText();
     }
 
-    public void setText(CharSequence text) {
+    public void setText(@StringRes int text) {
         mSearchEditText.setText(text);
     }
 
-    public void setText(@StringRes int text) {
+    public void setText(CharSequence text) {
         mSearchEditText.setText(text);
     }
 
@@ -358,6 +396,9 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
     }
 
+    /*
+    * Use Gravity or GravityCompat
+    */
     public void setTextGravity(int gravity) {
         mSearchEditText.setGravity(gravity);
     }
@@ -454,7 +495,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         mOnMicClickListener = listener;
         if (mOnMicClickListener != null) {
             mImageViewMic.setVisibility(View.VISIBLE);
-            if (mTheme == Search.Theme.COLOR) {
+            if (mTheme == Search.Theme.GOOGLE) {
                 mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_mic_color_24dp));
             } else {
                 mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_mic_black_24dp));

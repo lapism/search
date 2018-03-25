@@ -18,9 +18,9 @@ import java.util.List;
 // TODO ROOM library
 public class SearchHistoryTable {
 
+    private final WeakReference<Context> mContext;
     private SearchHistoryDatabase dbHelper;
     private SQLiteDatabase db;
-    private WeakReference<Context> mContext;
 
     public SearchHistoryTable(Context context) {
         mContext = new WeakReference<>(context);

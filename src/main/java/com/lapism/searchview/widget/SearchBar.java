@@ -101,9 +101,10 @@ public class SearchBar extends SearchLayout {
 
         super.init(context, attrs, defStyleAttr, defStyleRes);
 
-        setLogo(a.getInt(R.styleable.SearchBar_search_logo, Search.Logo.G));
+        setLogo(a.getInt(R.styleable.SearchBar_search_logo, Search.Logo.GOOGLE));
         setShape(a.getInt(R.styleable.SearchBar_search_shape, Search.Shape.CLASSIC));
-        setTheme(a.getInt(R.styleable.SearchBar_search_theme, Search.Theme.COLOR));
+        setTheme(a.getInt(R.styleable.SearchBar_search_theme, Search.Theme.GOOGLE));
+        setVersionMargins(a.getInt(R.styleable.SearchBar_search_version_margins, Search.VersionMargins.BAR));
 
         if (a.hasValue(R.styleable.SearchBar_search_elevation)) {
             setElevation(a.getDimensionPixelSize(R.styleable.SearchBar_search_elevation, 0));

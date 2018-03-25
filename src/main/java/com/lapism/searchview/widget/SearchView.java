@@ -39,8 +39,6 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
 
     @Search.Version
     private int mVersion;
-    @Search.VersionMargins
-    private int mVersionMargins;
 
     private int mMenuItemCx = -1;
     private boolean mShadow;
@@ -252,27 +250,17 @@ public class SearchView extends SearchLayout implements Filter.FilterListener {
         setLogo(a.getInteger(R.styleable.SearchView_search_logo, Search.Logo.HAMBURGER_ARROW));
         setShape(a.getInteger(R.styleable.SearchView_search_shape, Search.Shape.CLASSIC));
         setTheme(a.getInteger(R.styleable.SearchView_search_theme, Search.Theme.PLAY));
+        setVersionMargins(a.getInteger(R.styleable.SearchView_search_version_margins, Search.VersionMargins.TOOLBAR));
         setVersion(a.getInteger(R.styleable.SearchView_search_version, Search.Version.TOOLBAR));
-        setVersionMargins(a.getInteger(R.styleable.SearchView_search_version_margins, Search.VersionMargins.TOOLBAR_SMALL));
 
         if (a.hasValue(R.styleable.SearchView_search_logo_icon)) {
             setLogoIcon(a.getInteger(R.styleable.SearchView_search_logo_icon, 0)); // todo bug + test + check every attribute
         }
-        // todo fix when image is not avalilable + checknout marginy + shadow barva...
+
         if (a.hasValue(R.styleable.SearchView_search_logo_color)) {
             setLogoColor(ContextCompat.getColor(mContext, a.getResourceId(R.styleable.SearchView_search_logo_color, 0)));
         }
 
-        /*
-            <!-- Google Play Theme -->
-
-    <color name="search_play_subtitle">#c1bfc2</color>
-
-
-62 PROCENT SHADOW 9E
-YKONTROLOVAT OVAL PLUS MARGINZ
-to kulate oval
-        */
         if (a.hasValue(R.styleable.SearchView_search_mic_icon)) {
             setMicIcon(a.getResourceId(R.styleable.SearchView_search_mic_icon, 0));
         }
@@ -353,61 +341,6 @@ to kulate oval
 
         if (mVersion == Search.Version.MENU_ITEM) {
             setVisibility(View.GONE);
-        }
-    }
-
-    @Search.VersionMargins
-    public int getVersionMargins() {
-        return mVersionMargins;
-    }
-
-    public void setVersionMargins(@Search.VersionMargins int versionMargins) {
-        mVersionMargins = versionMargins;
-
-        LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        int left, top, right, bottom;
-
-        switch (mVersionMargins) {
-            case Search.VersionMargins.TOOLBAR_SMALL:
-                left = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_small_left_right);
-                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top_bottom);
-                right = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_small_left_right);
-                bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top_bottom);
-
-                params.setMargins(left, top, right, bottom);
-
-                mCardView.setLayoutParams(params);
-                break;
-            case Search.VersionMargins.TOOLBAR_MEDIUM:
-                left = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_medium_left_right);
-                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top_bottom);
-                right = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_medium_left_right);
-                bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top_bottom);
-
-                params.setMargins(left, top, right, bottom);
-
-                mCardView.setLayoutParams(params);
-                break;
-            case Search.VersionMargins.TOOLBAR_BIG:
-                left = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_big_left_right);
-                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top_bottom);
-                right = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_big_left_right);
-                bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top_bottom);
-
-                params.setMargins(left, top, right, bottom);
-
-                mCardView.setLayoutParams(params);
-                break;
-            case Search.VersionMargins.MENU_ITEM:
-                left = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_left_right);
-                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_top_bottom);
-                right = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_left_right);
-                bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin_top_bottom);
-
-                params.setMargins(left, top, right, bottom);
-
-                mCardView.setLayoutParams(params);
-                break;
         }
     }
 
@@ -705,3 +638,16 @@ to kulate oval
     }
 
 }
+
+/*
+        // todo fix when image is not avalilable + checknout marginy + shadow barva...
+                /*
+            <!-- Google Play Theme -->
+
+    <color name="search_play_subtitle">#c1bfc2</color>
+
+
+        62 PROCENT SHADOW 9E
+        YKONTROLOVAT OVAL PLUS MARGINZ
+        to kulate oval
+        */
