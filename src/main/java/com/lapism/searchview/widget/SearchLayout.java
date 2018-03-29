@@ -72,7 +72,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         super(context, attrs, defStyleAttr);
     }
 
-    SearchLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public SearchLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
@@ -177,7 +177,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         return mShape;
     }
 
-    void setShape(@Search.Shape int shape) {
+    public void setShape(@Search.Shape int shape) {
         mShape = shape;
 
         switch (mShape) {
@@ -200,7 +200,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         return mTheme;
     }
 
-    void setTheme(@Search.Theme int theme) {
+    public void setTheme(@Search.Theme int theme) {
         mTheme = theme;
 
         switch (mTheme) {
@@ -251,7 +251,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         return mVersionMargins;
     }
 
-    void setVersionMargins(@Search.VersionMargins int versionMargins) {
+    public void setVersionMargins(@Search.VersionMargins int versionMargins) {
         mVersionMargins = versionMargins;
 
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -348,19 +348,19 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         return mSearchEditText.getText();
     }
 
+    public void setText(CharSequence text) {
+        mSearchEditText.setText(text);
+    }
+
     public void setText(@StringRes int text) {
         mSearchEditText.setText(text);
     }
 
-    void setText(CharSequence text) {
-        mSearchEditText.setText(text);
-    }
-
-    void setTextColor(@ColorInt int color) {
+    public void setTextColor(@ColorInt int color) {
         mSearchEditText.setTextColor(color);
     }
 
-    void setTextSize(float size) {
+    public void setTextSize(float size) {
         mSearchEditText.setTextSize(size);
     }
 
@@ -370,7 +370,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
      * Typeface.ITALIC
      * Typeface.BOLD_ITALIC
      */
-    void setTextStyle(int style) {
+    public void setTextStyle(int style) {
         mTextStyle = style;
         mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
     }
@@ -403,7 +403,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         mSearchEditText.setHint(hint);
     }
 
-    void setHintColor(@ColorInt int color) {
+    public void setHintColor(@ColorInt int color) {
         mSearchEditText.setHintTextColor(color);
     }
 
@@ -497,15 +497,15 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
     }
 
     // ---------------------------------------------------------------------------------------------
-    void setDividerColor(@ColorInt int color) {
+    public void setDividerColor(@ColorInt int color) {
 
     }
 
-    void setClearColor(@ColorInt int color) {
+    public void setClearColor(@ColorInt int color) {
 
     }
 
-    void showKeyboard() {
+    public void showKeyboard() {
         if (!isInEditMode()) {
             InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
             if (inputMethodManager != null) {
@@ -514,7 +514,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         }
     }
 
-    void hideKeyboard() {
+    public void hideKeyboard() {
         if (!isInEditMode()) {
             InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
             if (inputMethodManager != null) {

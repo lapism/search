@@ -103,7 +103,8 @@ public class SearchView extends SearchLayout implements Filter.FilterListener, C
         setMicOrClearIcon(true);
 
         if (mVersion == Search.Version.TOOLBAR) {
-            setLogoHamburgerToLogoArrowWithAnimation(true);// todo animovani po prechodu do Search, SavedState, marginy kulate a barva divideru
+            setLogoHamburgerToLogoArrowWithAnimation(true);
+            // todo animovani po prechodu do Search, SavedState, marginy kulate a barva divideru
             // todo readme
             if (mOnOpenCloseListener != null) {
                 mOnOpenCloseListener.onOpen();
@@ -330,17 +331,17 @@ public class SearchView extends SearchLayout implements Filter.FilterListener, C
         mImageViewClear.setImageResource(resource);
     }
 
-    private void setClearIcon(@Nullable Drawable drawable) {
+    public void setClearIcon(@Nullable Drawable drawable) {
         mImageViewClear.setImageDrawable(drawable);
     }
 
     @Override
-    void setClearColor(@ColorInt int color) {
+    public void setClearColor(@ColorInt int color) {
         mImageViewClear.setColorFilter(color);
     }
 
     // Image
-    private void setTextImage(@DrawableRes int resource) {
+    public void setTextImage(@DrawableRes int resource) {
         mImageViewImage.setImageResource(resource);
         setTextImageVisibility(false);
     }
@@ -351,21 +352,21 @@ public class SearchView extends SearchLayout implements Filter.FilterListener, C
     }
 
     // Animation duration
-    private void setAnimationDuration(long animationDuration) {
+    public void setAnimationDuration(long animationDuration) {
         mAnimationDuration = animationDuration;
     }
 
     // Shadow
-    private void setShadow(boolean shadow) {
+    public void setShadow(boolean shadow) {
         mShadow = shadow;
     }
 
-    private void setShadowColor(@ColorInt int color) {
+    public void setShadowColor(@ColorInt int color) {
         mViewShadow.setBackgroundColor(color);
     }
 
     // Adapter
-    private RecyclerView.Adapter getAdapter() {
+    public RecyclerView.Adapter getAdapter() {
         return mRecyclerView.getAdapter();
     }
 
@@ -411,7 +412,7 @@ public class SearchView extends SearchLayout implements Filter.FilterListener, C
         }
     }
 
-    private void setLogoHamburgerToLogoArrowWithAnimation(boolean animate) {
+    public void setLogoHamburgerToLogoArrowWithAnimation(boolean animate) {
         if (mSearchArrowDrawable != null) {
             if (animate) {
                 mSearchArrowDrawable.setVerticalMirror(false);
