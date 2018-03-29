@@ -6,8 +6,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/search_cardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/search_key_line_8">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/search_linearLayout"
@@ -52,7 +51,6 @@
                 android:layout_width="@dimen/search_icon_24"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="@dimen/search_menu_margin_right"
-                android:layout_marginRight="@dimen/search_menu_margin_right"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/search_app_name"
                 android:scaleType="center" />

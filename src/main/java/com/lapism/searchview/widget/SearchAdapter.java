@@ -7,8 +7,8 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
@@ -30,14 +30,13 @@ import java.util.Locale;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implements Filterable {
 
-    public static final String TAG = SearchAdapter.class.getName();
-
-    private final SearchHistoryTable mHistoryDatabase;
+    @NonNull
     private final WeakReference<Context> mContext;
+    @NonNull
+    private final List<SearchItem> mDatabase;
     private CharSequence mConstraint;
     private List<SearchItem> mSuggestions;
     private List<SearchItem> mResults;
-    private List<SearchItem> mDatabase;
     private OnSearchItemClickListener mSearchItemClickListener;
     @ColorInt
     private int mIcon1Color, mIcon2Color, mTitleColor, mSubtitleColor, mTitleHighlightColor;
@@ -47,21 +46,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
     // ---------------------------------------------------------------------------------------------
     public SearchAdapter(Context context) {
         mContext = new WeakReference<>(context);
-        mHistoryDatabase = new SearchHistoryTable(context);
+        SearchHistoryTable mHistoryDatabase = new SearchHistoryTable(context);
         mDatabase = mHistoryDatabase.getAllItems();
         mResults = mDatabase;
         mSuggestions = new ArrayList<>();
-
-        setTheme(Search.Theme.PLAY);
-    }
-
-    public SearchAdapter(Context context, List<SearchItem> suggestions) {
-        mContext = new WeakReference<>(context);
-        mHistoryDatabase = new SearchHistoryTable(context);
-        mDatabase = mHistoryDatabase.getAllItems();
-        mResults = mDatabase;
-        mSuggestions = suggestions;
-
         setTheme(Search.Theme.PLAY);
     }
 
@@ -75,32 +63,32 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
         SearchItem item = mResults.get(position);
 
         if (item.getIcon1Resource() != 0) {
-            viewHolder.icon_1.setImageResource(item.getIcon1Resource());
-            viewHolder.icon_1.setColorFilter(mIcon1Color);
+            holder.icon_1.setImageResource(item.getIcon1Resource());
+            holder.icon_1.setColorFilter(mIcon1Color);
         } else if (item.getIcon1Drawable() != null) {
-            viewHolder.icon_1.setImageDrawable(item.getIcon1Drawable());
-            viewHolder.icon_1.setColorFilter(mIcon1Color, PorterDuff.Mode.SRC_IN);
+            holder.icon_1.setImageDrawable(item.getIcon1Drawable());
+            holder.icon_1.setColorFilter(mIcon1Color, PorterDuff.Mode.SRC_IN);
         } else {
-            viewHolder.icon_1.setVisibility(View.GONE);
+            holder.icon_1.setVisibility(View.GONE);
         }
 
         if (item.getIcon2Resource() != 0) {
-            viewHolder.icon_2.setImageResource(item.getIcon2Resource());
-            viewHolder.icon_2.setColorFilter(mIcon1Color, PorterDuff.Mode.SRC_IN);
+            holder.icon_2.setImageResource(item.getIcon2Resource());
+            holder.icon_2.setColorFilter(mIcon1Color, PorterDuff.Mode.SRC_IN);
         } else if (item.getIcon2Drawable() != null) {
-            viewHolder.icon_2.setImageDrawable(item.getIcon2Drawable());
-            viewHolder.icon_2.setColorFilter(mIcon2Color);
+            holder.icon_2.setImageDrawable(item.getIcon2Drawable());
+            holder.icon_2.setColorFilter(mIcon2Color);
         } else {
-            viewHolder.icon_2.setVisibility(View.GONE);
+            holder.icon_2.setVisibility(View.GONE);
         }
 
         if (!TextUtils.isEmpty(item.getTitle())) {
-            viewHolder.title.setTypeface(Typeface.create(mTextFont, mTextStyle));
-            viewHolder.title.setTextColor(mTitleColor);
+            holder.title.setTypeface(Typeface.create(mTextFont, mTextStyle));
+            holder.title.setTextColor(mTitleColor);
 
             String title = item.getTitle().toString();
             String titleLower = title.toLowerCase(Locale.getDefault());
@@ -110,21 +98,21 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
                 s.setSpan(new ForegroundColorSpan(mTitleHighlightColor),
                         titleLower.indexOf(mConstraint.toString()),
                         titleLower.indexOf(mConstraint.toString()) + mConstraint.length(),
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                viewHolder.title.setText(s, TextView.BufferType.SPANNABLE);
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                holder.title.setText(s, TextView.BufferType.SPANNABLE);
             } else {
-                viewHolder.title.setText(item.getTitle());
+                holder.title.setText(item.getTitle());
             }
         } else {
-            viewHolder.title.setVisibility(View.GONE);
+            holder.title.setVisibility(View.GONE);
         }
 
         if (!TextUtils.isEmpty(item.getSubtitle())) {
-            viewHolder.subtitle.setTypeface(Typeface.create(mTextFont, mTextStyle));
-            viewHolder.subtitle.setTextColor(mSubtitleColor);
-            viewHolder.subtitle.setText(item.getSubtitle());
+            holder.subtitle.setTypeface(Typeface.create(mTextFont, mTextStyle));
+            holder.subtitle.setTextColor(mSubtitleColor);
+            holder.subtitle.setText(item.getSubtitle());
         } else {
-            viewHolder.subtitle.setVisibility(View.GONE);
+            holder.subtitle.setVisibility(View.GONE);
         }
     }
 
@@ -139,23 +127,23 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
     }
 
     // ---------------------------------------------------------------------------------------------
-    public void setIcon1Color(@ColorInt int color) {
+    private void setIcon1Color(@ColorInt int color) {
         mIcon1Color = color;
     }
 
-    public void setIcon2Color(@ColorInt int color) {
+    private void setIcon2Color(@ColorInt int color) {
         mIcon2Color = color;
     }
 
-    public void setTitleColor(@ColorInt int color) {
+    private void setTitleColor(@ColorInt int color) {
         mTitleColor = color;
     }
 
-    public void setTitleHighlightColor(@ColorInt int color) {
+    private void setTitleHighlightColor(@ColorInt int color) {
         mTitleHighlightColor = color;
     }
 
-    public void setSubtitleColor(@ColorInt int color) {
+    private void setSubtitleColor(@ColorInt int color) {
         mSubtitleColor = color;
     }
 
@@ -167,7 +155,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
         mTextFont = font;
     }
 
-    public void setTheme(@Search.Theme int theme) {
+    private void setTheme(@Search.Theme int theme) {
         switch (theme) {
             case Search.Theme.PLAY:
                 setIcon1Color(ContextCompat.getColor(mContext.get(), R.color.search_play_icon_1_2));
@@ -176,12 +164,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
                 setTitleHighlightColor(ContextCompat.getColor(mContext.get(), R.color.search_play_title_highlight));
                 setSubtitleColor(ContextCompat.getColor(mContext.get(), R.color.search_play_subtitle));
                 break;
-            case Search.Theme.COLOR:
-                setIcon1Color(ContextCompat.getColor(mContext.get(), R.color.search_color_icon_1_2));
-                setIcon2Color(ContextCompat.getColor(mContext.get(), R.color.search_color_icon_1_2));
-                setTitleColor(ContextCompat.getColor(mContext.get(), R.color.search_color_title));
-                setTitleHighlightColor(ContextCompat.getColor(mContext.get(), R.color.search_color_title_highlight));
-                setSubtitleColor(ContextCompat.getColor(mContext.get(), R.color.search_color_subtitle));
+            case Search.Theme.GOOGLE:
+                setIcon1Color(ContextCompat.getColor(mContext.get(), R.color.search_google_icon_1_2));
+                setIcon2Color(ContextCompat.getColor(mContext.get(), R.color.search_google_icon_1_2));
+                setTitleColor(ContextCompat.getColor(mContext.get(), R.color.search_google_title));
+                setTitleHighlightColor(ContextCompat.getColor(mContext.get(), R.color.search_google_title_highlight));
+                setSubtitleColor(ContextCompat.getColor(mContext.get(), R.color.search_google_subtitle));
                 break;
             case Search.Theme.LIGHT:
                 setIcon1Color(ContextCompat.getColor(mContext.get(), R.color.search_light_icon_1_2));
@@ -218,40 +206,18 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
 
     // ---------------------------------------------------------------------------------------------
     private void setData(List<SearchItem> data) {
-        mResults = data; // todo do OSMI
-        notifyDataSetChanged();
-
-        /*if (mResults.isEmpty()) {
-            mResults = data;
-            if (data.size() != 0) {
-                notifyItemRangeInserted(0, data.size());
-            }
-        } else {
-            int previousSize = mResults.size();
-            int nextSize = data.size();
-            mResults = data;
-            if (previousSize == nextSize && nextSize != 0) {
-                notifyItemRangeChanged(0, previousSize);
-            } else if (previousSize > nextSize) {
-                if (nextSize == 0) {
-                    notifyItemRangeRemoved(0, previousSize);
-                } else {
-                    notifyItemRangeChanged(0, nextSize);
-                    notifyItemRangeRemoved(nextSize - 1, previousSize);
-                }
-            } else {
-                notifyItemRangeChanged(0, previousSize);
-                notifyItemRangeInserted(previousSize, nextSize - previousSize);
-            }
-        }*/
+        mResults = data;
+        notifyDataSetChanged(); // todo
     }
 
     // ---------------------------------------------------------------------------------------------
+    @NonNull
     @Override
     public Filter getFilter() {
         return new Filter() {
+            @NonNull
             @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
+            protected FilterResults performFiltering(@NonNull CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
 
                 mConstraint = constraint.toString().toLowerCase(Locale.getDefault());
@@ -279,9 +245,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
                     if (!mDatabase.isEmpty()) {
                         filterResults.values = mDatabase;
                         filterResults.count = mDatabase.size();
-                    } else if (!mSuggestions.isEmpty()) {
-                        filterResults.values = mSuggestions;
-                        filterResults.count = mSuggestions.size();
                     }
                 }
 
@@ -289,14 +252,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
             }
 
             @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
+            protected void publishResults(CharSequence constraint, @NonNull FilterResults results) {
                 if (results.count > 0) {
                     List<SearchItem> dataSet = new ArrayList<>();
+                    List<?> resultSet = (List<?>) results.values;
+                    int size = results.count < 8 ? results.count : 8;
 
-                    List<?> result = (ArrayList<?>) results.values;
-                    for (Object object : result) {
-                        if (object instanceof SearchItem) {
-                            dataSet.add((SearchItem) object);
+                    for (int i = 0; i < size; i++) {
+                        if (resultSet.get(i) instanceof SearchItem) {
+                            dataSet.add((SearchItem) resultSet.get(i));
                         }
                     }
 
@@ -308,11 +272,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
 
     // ---------------------------------------------------------------------------------------------
     public interface OnSearchItemClickListener {
-        void onSearchItemClick(View view, int position, CharSequence title, CharSequence subtitle);
+        void onSearchItemClick(int position, CharSequence title, CharSequence subtitle);
     }
 
 }
-
-// getFilter().filter("");
-// protected Integer mDatabaseKey = null;
-// Context context = viewHolder.itemView.getContext(); DO NOT DELETE !!!

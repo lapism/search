@@ -1,12 +1,9 @@
 package com.lapism.searchview.widget;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +11,10 @@ import android.view.View;
 import com.lapism.searchview.R;
 import com.lapism.searchview.Search;
 
+import java.util.Objects;
+
 
 public class SearchBar extends SearchLayout {
-
-    public final static String TAG = SearchBar.class.getName();
 
     private Search.OnBarClickListener mOnBarClickListener;
 
@@ -37,8 +34,6 @@ public class SearchBar extends SearchLayout {
         init(context, attrs, defStyleAttr, 0);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public SearchBar(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs, defStyleAttr, defStyleRes);
@@ -79,7 +74,7 @@ public class SearchBar extends SearchLayout {
     }
 
     @Override
-    public void open() {
+    protected void open() {
         mSearchEditText.setVisibility(View.VISIBLE);
         mSearchEditText.requestFocus();
     }
@@ -92,18 +87,19 @@ public class SearchBar extends SearchLayout {
 
     // ---------------------------------------------------------------------------------------------
     @Override
-    protected void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SearchBar, defStyleAttr, defStyleRes);
-        final int layoutResId = getLayout();
+    void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SearchBar, defStyleAttr, defStyleRes);
+        int layoutResId = getLayout();
 
-        final LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(layoutResId, this, true);
 
         super.init(context, attrs, defStyleAttr, defStyleRes);
 
-        setLogo(a.getInt(R.styleable.SearchBar_search_logo, Search.Logo.G));
-        setShape(a.getInt(R.styleable.SearchBar_search_shape, Search.Shape.CLASSIC));
-        setTheme(a.getInt(R.styleable.SearchBar_search_theme, Search.Theme.COLOR));
+        setLogo(a.getInt(R.styleable.SearchBar_search_logo, Search.Logo.GOOGLE));
+        setShape(a.getInt(R.styleable.SearchBar_search_shape, Search.Shape.OVAL));
+        setTheme(a.getInt(R.styleable.SearchBar_search_theme, Search.Theme.GOOGLE));
+        setVersionMargins(a.getInt(R.styleable.SearchBar_search_version_margins, Search.VersionMargins.BAR));
 
         if (a.hasValue(R.styleable.SearchBar_search_elevation)) {
             setElevation(a.getDimensionPixelSize(R.styleable.SearchBar_search_elevation, 0));
@@ -123,17 +119,17 @@ public class SearchBar extends SearchLayout {
     // ---------------------------------------------------------------------------------------------
     @Override
     public void onClick(View v) {
-        if (v == mImageViewLogo) {
+        if (Objects.equals(v, mImageViewLogo)) {
             close();
-        } else if (v == mImageViewMic) {
+        } else if (Objects.equals(v, mImageViewMic)) {
             if (mOnMicClickListener != null) {
                 mOnMicClickListener.onMicClick();
             }
-        } else if (v == mImageViewMenu) {
+        } else if (Objects.equals(v, mImageViewMenu)) {
             if (mOnMenuClickListener != null) {
                 mOnMenuClickListener.onMenuClick();
             }
-        } else if (v == this) {
+        } else if (Objects.equals(v, this)) {
             if (mOnBarClickListener != null) {
                 mOnBarClickListener.onBarClick();
             } else {

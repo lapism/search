@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Material Design Colors TODO PROJET A ZKONTROLOVAT -->
+    <!-- Material Design Colors -->
 
     <color name="md_red_50">#ffebee</color>
     <color name="md_red_100">#ffcdd2</color>
@@ -296,12 +296,12 @@
     <color name="shadow_0">@android:color/transparent</color>
     <color name="shadow_14">#14000000</color>
     <color name="shadow_44">#44000000</color>
-    <color name="shadow_80">#80000000</color>
+    <color name="shadow_99">#99000000</color>
 
-    <color name="cardview_background_dark">#424242</color>
-    <color name="cardview_background_light">#ffffff</color>
-    <color name="cardview_shadow_end_color2">#03000000</color>
-    <color name="cardview_shadow_start_color2">#37000000</color>
+    <color name="card_view_background_dark">#424242</color>
+    <color name="card_view_background_light">#ffffff</color>
+    <color name="card_view_shadow_end_color2">#03000000</color>
+    <color name="card_view_shadow_start_color2">#37000000</color>
 
     <eat-comment />
 

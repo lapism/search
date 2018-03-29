@@ -15,7 +15,7 @@ public class SearchItem implements Parcelable {
     public static final Creator<SearchItem> CREATOR = new Creator<SearchItem>() {
         @NonNull
         @Override
-        public SearchItem createFromParcel(Parcel in) {
+        public SearchItem createFromParcel(@NonNull Parcel in) {
             return new SearchItem(in);
         }
 
@@ -27,34 +27,31 @@ public class SearchItem implements Parcelable {
     };
     private Drawable icon_1_drawable;
     private Drawable icon_2_drawable;
-    private int icon_1_resource = 0;
-    private int icon_2_resource = 0;
+    private int icon_1_resource;
+    private int icon_2_resource;
     private CharSequence title;
     private CharSequence subtitle;
-    private String tag;
     private Context context;
 
     public SearchItem(Context context) {
         this.context = context;
     }
 
-    private SearchItem(Parcel in) {
+    private SearchItem(@NonNull Parcel in) {
         Bitmap bitmap_1 = in.readParcelable(getClass().getClassLoader());
-        this.icon_1_drawable = new BitmapDrawable(this.context.getResources(), bitmap_1);
+        icon_1_drawable = new BitmapDrawable(context.getResources(), bitmap_1);
         Bitmap bitmap_2 = in.readParcelable(getClass().getClassLoader());
-        this.icon_2_drawable = new BitmapDrawable(this.context.getResources(), bitmap_2);
+        icon_2_drawable = new BitmapDrawable(context.getResources(), bitmap_2);
 
-        this.icon_1_resource = in.readInt();
-        this.icon_2_resource = in.readInt();
+        icon_1_resource = in.readInt();
+        icon_2_resource = in.readInt();
 
-        this.title = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
-        this.subtitle = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
-
-        this.tag = in.readString();
+        title = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
+        subtitle = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
     }
 
     public Drawable getIcon1Drawable() {
-        return this.icon_1_drawable;
+        return icon_1_drawable;
     }
 
     public void setIcon1Drawable(Drawable icon_1_drawable) {
@@ -62,7 +59,7 @@ public class SearchItem implements Parcelable {
     }
 
     public Drawable getIcon2Drawable() {
-        return this.icon_2_drawable;
+        return icon_2_drawable;
     }
 
     public void setIcon2Drawable(Drawable icon_2_drawable) {
@@ -70,7 +67,7 @@ public class SearchItem implements Parcelable {
     }
 
     public int getIcon1Resource() {
-        return this.icon_1_resource;
+        return icon_1_resource;
     }
 
     public void setIcon1Resource(int icon_1_resource) {
@@ -78,7 +75,7 @@ public class SearchItem implements Parcelable {
     }
 
     public int getIcon2Resource() {
-        return this.icon_2_resource;
+        return icon_2_resource;
     }
 
     public void setIcon2Resource(int icon_2_resource) {
@@ -86,7 +83,7 @@ public class SearchItem implements Parcelable {
     }
 
     public CharSequence getTitle() {
-        return this.title;
+        return title;
     }
 
     public void setTitle(CharSequence title) {
@@ -94,35 +91,25 @@ public class SearchItem implements Parcelable {
     }
 
     public CharSequence getSubtitle() {
-        return this.subtitle;
+        return subtitle;
     }
 
     public void setSubtitle(CharSequence subtitle) {
         this.subtitle = subtitle;
     }
 
-    public String getTag() {
-        return this.tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        Bitmap bitmap_1 = ((BitmapDrawable) this.icon_1_drawable).getBitmap();
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        Bitmap bitmap_1 = ((BitmapDrawable) icon_1_drawable).getBitmap();
         dest.writeParcelable(bitmap_1, flags);
-        Bitmap bitmap_2 = ((BitmapDrawable) this.icon_2_drawable).getBitmap();
+        Bitmap bitmap_2 = ((BitmapDrawable) icon_2_drawable).getBitmap();
         dest.writeParcelable(bitmap_2, flags);
 
-        dest.writeInt(this.icon_1_resource);
-        dest.writeInt(this.icon_2_resource);
+        dest.writeInt(icon_1_resource);
+        dest.writeInt(icon_2_resource);
 
-        TextUtils.writeToParcel(this.title, dest, flags);
-        TextUtils.writeToParcel(this.subtitle, dest, flags);
-
-        dest.writeString(this.tag);
+        TextUtils.writeToParcel(title, dest, flags);
+        TextUtils.writeToParcel(subtitle, dest, flags);
     }
 
     @Override
@@ -131,23 +118,3 @@ public class SearchItem implements Parcelable {
     }
 
 }
-
-/*
-if ( drawable != null ) {
-    Bitmap bitmap = (Bitmap) ((BitmapDrawable) drawable).getBitmap();
-    parcel.writeParcelable(bitmap, flags);
-}
-else {
-    parcel.writeParcelable(null, flags);
-}
-
-To read the Drawable from the Parceable:
-
-Bitmap bitmap = (Bitmap) in.readParcelable(getClass().getClassLoader());
-if ( bitmap != null ) {
-    drawable = new BitmapDrawable(bitmap);
-}
-else {
-    drawable = null;
-}
-*/

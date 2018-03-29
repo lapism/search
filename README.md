@@ -16,11 +16,13 @@ https://bintray.com/lapism/maven/searchview/view
 The first three numbers are always the same as the latest official Android Support Libraries. The last two numbers are for own updates.
 
 ## Using
+Work in progress.
+Now it works only for API 21+.
 
 Add the dependency to your gradle file:
 ```groovy
 dependencies {
-    implementation 'com.lapism:searchview:27.1.0.0.0-beta1 (it will be out ASAP)'
+    implementation 'com.lapism:searchview:27.1.0.0.0-beta1'
 }
 ```
 

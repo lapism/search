@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.content.res.Configuration;
 import android.speech.RecognizerIntent;
 import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -16,13 +16,9 @@ import java.util.List;
 
 public class Search {
 
-    private static final int SPEECH_REQUEST_CODE = 100;
+    public static final int SPEECH_REQUEST_CODE = 100;
 
-    public static boolean isLandscapeMode(Context context) {
-        return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-    }
-
-    public static void search(Activity activity, String text) {
+    public static void setVoiceSearch(@NonNull Activity activity, String text) {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, text);
@@ -31,19 +27,18 @@ public class Search {
         activity.startActivityForResult(intent, SPEECH_REQUEST_CODE);
     }
 
-    public static boolean isAvailable(Context context) {
+    public static boolean isVoiceSearchAvailable(@NonNull Context context) {
         PackageManager pm = context.getPackageManager();
         List<ResolveInfo> activities = pm.queryIntentActivities(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
         return activities.size() != 0;
     }
 
-    @IntDef({Logo.GOOGLE, Logo.G, Logo.HAMBURGER_ARROW, Logo.ARROW})
+    @IntDef({Logo.GOOGLE, Logo.HAMBURGER_ARROW, Logo.ARROW})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Logo {
         int GOOGLE = 1000;
-        int G = 1001;
-        int HAMBURGER_ARROW = 1002;
-        int ARROW = 1003;
+        int HAMBURGER_ARROW = 1001;
+        int ARROW = 1002;
     }
 
     @IntDef({Shape.CLASSIC, Shape.ROUNDED, Shape.OVAL})
@@ -54,13 +49,21 @@ public class Search {
         int OVAL = 2002;
     }
 
-    @IntDef({Theme.PLAY, Theme.COLOR, Theme.LIGHT, Theme.DARK})
+    @IntDef({Theme.PLAY, Theme.GOOGLE, Theme.LIGHT, Theme.DARK})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Theme {
         int PLAY = 3000;
-        int COLOR = 3001;
+        int GOOGLE = 3001;
         int LIGHT = 3002;
         int DARK = 3003;
+    }
+
+    @IntDef({VersionMargins.BAR, VersionMargins.TOOLBAR, VersionMargins.MENU_ITEM})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface VersionMargins {
+        int BAR = 5000;
+        int TOOLBAR = 5001;
+        int MENU_ITEM = 5002;
     }
 
     @IntDef({Version.TOOLBAR, Version.MENU_ITEM})
@@ -68,15 +71,6 @@ public class Search {
     public @interface Version {
         int TOOLBAR = 4000;
         int MENU_ITEM = 4001;
-    }
-
-    @IntDef({VersionMargins.TOOLBAR_SMALL, VersionMargins.TOOLBAR_MEDIUM, VersionMargins.TOOLBAR_BIG, VersionMargins.MENU_ITEM})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface VersionMargins {
-        int TOOLBAR_SMALL = 5000;
-        int TOOLBAR_MEDIUM = 5001;
-        int TOOLBAR_BIG = 5002;
-        int MENU_ITEM = 5003;
     }
 
     // SearchLayout
@@ -91,7 +85,7 @@ public class Search {
     public interface OnQueryTextListener {
         boolean onQueryTextSubmit(CharSequence query);
 
-        boolean onQueryTextChange(CharSequence newText);
+        void onQueryTextChange(CharSequence newText);
     }
 
     // SearchBar

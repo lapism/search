@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="search_height_bar">42dp</dimen>
-    <dimen name="search_height_view">46dp</dimen>
+    <dimen name="search_height_bar">44dp</dimen>
+    <dimen name="search_height_view">48dp</dimen>
+
+    <dimen name="search_shape_classic">@dimen/cardview_default_radius</dimen>
+    <dimen name="search_shape_rounded">8dp</dimen>
+    <dimen name="search_shape_oval">24dp</dimen>
 
     <dimen name="search_key_line_8">8dp</dimen>
     <dimen name="search_key_line_16">16dp</dimen>
@@ -31,13 +35,8 @@
     <dimen name="search_logo_padding_right">4dp</dimen>
     <dimen name="search_logo_padding_top">2dp</dimen>
 
-    <dimen name="search_shape_classic">@dimen/cardview_default_radius</dimen>
-    <dimen name="search_shape_rounded">8dp</dimen>
-    <dimen name="search_shape_oval">23dp</dimen>
-
-
-    <dimen name="cardview_compat_inset_shadow2">1dp</dimen>
-    <dimen name="cardview_default_elevation2">2dp</dimen>
-    <dimen name="cardview_default_radius2">2dp</dimen>
+    <dimen name="card_view_compat_inset_shadow2">1dp</dimen>
+    <dimen name="card_view_default_elevation2">2dp</dimen>
+    <dimen name="card_view_default_radius2">2dp</dimen>
 
 </resources>

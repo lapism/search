@@ -12,18 +12,18 @@
     <color name="search_play_icon_1_2">@color/md_grey_600</color>
     <color name="search_play_text_image">@color/md_grey_500</color>
 
-    <!-- Color Theme -->
-    <color name="search_color_menu">@color/md_grey_500</color>
+    <!-- Google Theme -->
+    <color name="search_google_menu">@color/md_grey_500</color>
 
-    <color name="search_color_divider">#1f000000</color>
-    <color name="search_color_icon">@color/md_grey_700</color>
-    <color name="search_color_background">@color/md_white</color>
-    <color name="search_color_title">#de000000</color>
-    <color name="search_color_title_highlight">#8a000000</color>
-    <color name="search_color_subtitle">#8a000000</color>
-    <color name="search_color_hint">#42000000</color>
-    <color name="search_color_icon_1_2">@color/md_grey_400</color>
-    <color name="search_color_text_image">@color/md_grey_500</color>
+    <color name="search_google_divider">#1f000000</color>
+    <color name="search_google_icon">@color/md_grey_700</color>
+    <color name="search_google_background">@color/md_white</color>
+    <color name="search_google_title">#de000000</color>
+    <color name="search_google_title_highlight">#8a000000</color>
+    <color name="search_google_subtitle">#8a000000</color>
+    <color name="search_google_hint">#42000000</color>
+    <color name="search_google_icon_1_2">@color/md_grey_400</color>
+    <color name="search_google_text_image">@color/md_grey_500</color>
 
     <!-- AppCompat Light Theme -->
     <color name="search_light_divider">#1f000000</color>
@@ -54,6 +54,6 @@
     <color name="search_google_red">#ea4335</color>
 
     <!-- Shadow -->
-    <color name="search_shadow">@color/shadow_80</color>
+    <color name="search_shadow">@color/shadow_99</color>
 
 </resources>

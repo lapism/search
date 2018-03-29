@@ -1,17 +1,13 @@
 package com.lapism.searchview.widget;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.annotation.CallSuper;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
@@ -38,31 +34,30 @@ import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 @RestrictTo(LIBRARY_GROUP)
 public abstract class SearchLayout extends FrameLayout implements View.OnClickListener {
 
+    @Nullable
+    CharSequence mQueryText = "";
+    Context mContext;
+    CardView mCardView;
+    ImageView mImageViewLogo;
+    ImageView mImageViewMic;
+    ImageView mImageViewClear;
+    ImageView mImageViewMenu;
+    SearchEditText mSearchEditText;
+    SearchArrowDrawable mSearchArrowDrawable;
+    Search.OnMicClickListener mOnMicClickListener;
+    Search.OnMenuClickListener mOnMenuClickListener;
+    Search.OnQueryTextListener mOnQueryTextListener;
     @Search.Logo
-    protected int mLogo;
+    private int mLogo;
     @Search.Shape
-    protected int mShape;
+    private int mShape;
     @Search.Theme
-    protected int mTheme;
-
-    protected CharSequence mQueryText = "";
-    protected int mTextStyle = Typeface.NORMAL;
-    protected boolean mIconAnimation = true;
-    protected Typeface mTextFont = Typeface.DEFAULT;
-
-    protected Context mContext;
-    protected CardView mCardView;
-    protected ImageView mImageViewLogo;
-    protected ImageView mImageViewMic;
-    protected ImageView mImageViewClear;
-    protected ImageView mImageViewMenu;
-    protected LinearLayout mLinearLayout;
-    protected SearchEditText mSearchEditText;
-    protected SearchArrowDrawable mSearchArrowDrawable;
-
-    protected Search.OnMicClickListener mOnMicClickListener;
-    protected Search.OnMenuClickListener mOnMenuClickListener;
-    protected Search.OnQueryTextListener mOnQueryTextListener;
+    private int mTheme;
+    private int mTextStyle = Typeface.NORMAL;
+    private Typeface mTextFont = Typeface.DEFAULT;
+    private LinearLayout mLinearLayout;
+    @Search.VersionMargins
+    private int mVersionMargins;
 
     // ---------------------------------------------------------------------------------------------
     public SearchLayout(@NonNull Context context) {
@@ -77,8 +72,6 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         super(context, attrs, defStyleAttr);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public SearchLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -94,13 +87,13 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
 
     protected abstract int getLayout();
 
-    public abstract void open();
+    protected abstract void open();
 
     public abstract void close();
 
     // ---------------------------------------------------------------------------------------------
     @CallSuper
-    protected void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         mContext = context;
 
         mCardView = findViewById(R.id.search_cardView);
@@ -144,7 +137,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
                 return true;
             }
         });
-        mSearchEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
+        mSearchEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
@@ -167,15 +160,6 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
 
         switch (mLogo) {
             case Search.Logo.GOOGLE:
-                int left = getResources().getDimensionPixelSize(R.dimen.search_logo_padding_left);
-                int top = getContext().getResources().getDimensionPixelSize(R.dimen.search_logo_padding_top);
-                int right = mContext.getResources().getDimensionPixelSize(R.dimen.search_logo_padding_right);
-                int bottom = 0;
-
-                mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_google_color));
-                mImageViewLogo.setPadding(left, top, right, bottom);
-                break;
-            case Search.Logo.G:
                 mImageViewLogo.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_g_color_24dp));
                 break;
             case Search.Logo.HAMBURGER_ARROW:
@@ -230,14 +214,14 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_play_hint));
                 setTextColor(ContextCompat.getColor(mContext, R.color.search_play_title));
                 break;
-            case Search.Theme.COLOR:
-                setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_color_background));
-                setDividerColor(ContextCompat.getColor(mContext, R.color.search_color_divider));
+            case Search.Theme.GOOGLE:
+                setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_google_background));
+                setDividerColor(ContextCompat.getColor(mContext, R.color.search_google_divider));
                 clearIconsColor();
-                setClearColor(ContextCompat.getColor(mContext, R.color.search_color_icon));
-                setMenuColor(ContextCompat.getColor(mContext, R.color.search_color_menu));
-                setHintColor(ContextCompat.getColor(mContext, R.color.search_color_hint));
-                setTextColor(ContextCompat.getColor(mContext, R.color.search_color_title));
+                setClearColor(ContextCompat.getColor(mContext, R.color.search_google_icon));
+                setMenuColor(ContextCompat.getColor(mContext, R.color.search_google_menu));
+                setHintColor(ContextCompat.getColor(mContext, R.color.search_google_hint));
+                setTextColor(ContextCompat.getColor(mContext, R.color.search_google_title));
                 break;
             case Search.Theme.LIGHT:
                 setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
@@ -262,6 +246,51 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         }
     }
 
+    @Search.VersionMargins
+    public int getVersionMargins() {
+        return mVersionMargins;
+    }
+
+    public void setVersionMargins(@Search.VersionMargins int versionMargins) {
+        mVersionMargins = versionMargins;
+
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        int left, top, right, bottom;
+
+        switch (mVersionMargins) {
+            case Search.VersionMargins.BAR:
+                left = mContext.getResources().getDimensionPixelSize(R.dimen.search_bar_margin_left_right);
+                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_bar_margin_top);
+                right = mContext.getResources().getDimensionPixelSize(R.dimen.search_bar_margin_left_right);
+                bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_bar_margin_bottom);
+
+                params.setMargins(left, top, right, bottom);
+
+                mCardView.setLayoutParams(params);
+                break;
+            case Search.VersionMargins.TOOLBAR:
+                left = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_left_right);
+                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top_bottom);
+                right = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_left_right);
+                bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin_top_bottom);
+
+                params.setMargins(left, top, right, bottom);
+
+                mCardView.setLayoutParams(params);
+                break;
+            case Search.VersionMargins.MENU_ITEM:
+                left = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
+                top = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
+                right = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
+                bottom = mContext.getResources().getDimensionPixelSize(R.dimen.search_menu_item_margin);
+
+                params.setMargins(left, top, right, bottom);
+
+                mCardView.setLayoutParams(params);
+                break;
+        }
+    }
+
     // ---------------------------------------------------------------------------------------------
     // Logo
     public void setLogoIcon(@DrawableRes int resource) {
@@ -272,7 +301,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         if (drawable != null) {
             mImageViewLogo.setImageDrawable(drawable);
         } else {
-            mImageViewLogo.setVisibility(GONE);
+            mImageViewLogo.setVisibility(View.GONE);
         }
     }
 
@@ -294,7 +323,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
     }
 
     // Menu
-    public void setMenuIcon(@DrawableRes int resource) {
+    void setMenuIcon(@DrawableRes int resource) {
         mImageViewMenu.setImageResource(resource);
     }
 
@@ -302,7 +331,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         mImageViewMenu.setImageDrawable(drawable);
     }
 
-    public void setMenuColor(@ColorInt int color) {
+    void setMenuColor(@ColorInt int color) {
         mImageViewMenu.setColorFilter(color);
     }
 
@@ -358,6 +387,9 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         mSearchEditText.setTypeface((Typeface.create(mTextFont, mTextStyle)));
     }
 
+    /*
+     * Use Gravity or GravityCompat
+     */
     public void setTextGravity(int gravity) {
         mSearchEditText.setGravity(gravity);
     }
@@ -380,7 +412,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         return mSearchEditText.getText();
     }
 
-    public void setQuery(CharSequence query, boolean submit) {
+    public void setQuery(@Nullable CharSequence query, boolean submit) {
         mSearchEditText.setText(query);
         if (query != null) {
             mSearchEditText.setSelection(mSearchEditText.length());
@@ -413,7 +445,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
     public void setCustomHeight(int height) {
         ViewGroup.LayoutParams params = mLinearLayout.getLayoutParams();
         params.height = height;
-        params.width = LinearLayout.LayoutParams.MATCH_PARENT;
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
         mLinearLayout.setLayoutParams(params);
     }
 
@@ -429,24 +461,10 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         mCardView.setCardBackgroundColor(color);
     }
 
-    @Override
-    public void setAlpha(@FloatRange(from = 0.5, to = 1.0) float alpha) {
-        super.setAlpha(alpha);
-    }
-
+    //@FloatRange(from = 0.5, to = 1.0)
     // Others
     public boolean isOpen() {
         return getVisibility() == View.VISIBLE;
-    }
-
-    public void open(boolean iconAnimation) {
-        mIconAnimation = iconAnimation;
-        open();
-    }
-
-    public void close(boolean iconAnimation) {
-        mIconAnimation = iconAnimation;
-        close();
     }
 
     // Listeners
@@ -454,7 +472,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         mOnMicClickListener = listener;
         if (mOnMicClickListener != null) {
             mImageViewMic.setVisibility(View.VISIBLE);
-            if (mTheme == Search.Theme.COLOR) {
+            if (mTheme == Search.Theme.GOOGLE) {
                 mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_mic_color_24dp));
             } else {
                 mImageViewMic.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_mic_black_24dp));
@@ -479,15 +497,15 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
     }
 
     // ---------------------------------------------------------------------------------------------
-    protected void setDividerColor(@ColorInt int color) {
+    public void setDividerColor(@ColorInt int color) {
 
     }
 
-    protected void setClearColor(@ColorInt int color) {
+    public void setClearColor(@ColorInt int color) {
 
     }
 
-    protected void showKeyboard() {
+    public void showKeyboard() {
         if (!isInEditMode()) {
             InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
             if (inputMethodManager != null) {
@@ -496,7 +514,7 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         }
     }
 
-    protected void hideKeyboard() {
+    public void hideKeyboard() {
         if (!isInEditMode()) {
             InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
             if (inputMethodManager != null) {
@@ -517,10 +535,8 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
     private void onSubmitQuery() {
         CharSequence query = mSearchEditText.getText();
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
-            // dispatchFilters(); todo
             if (mOnQueryTextListener == null || !mOnQueryTextListener.onQueryTextSubmit(query.toString())) {
                 mSearchEditText.setText(query);
-                // dismissSuggestions();
             }
         }
     }

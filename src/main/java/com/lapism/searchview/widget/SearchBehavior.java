@@ -1,6 +1,7 @@
 package com.lapism.searchview.widget;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewCompat;
@@ -11,7 +12,6 @@ import android.view.View;
 public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
 
     public SearchBehavior() {
-        super();
     }
 
     public SearchBehavior(Context context, AttributeSet attrs) {
@@ -22,15 +22,14 @@ public class SearchBehavior extends CoordinatorLayout.Behavior<SearchView> {
     public boolean layoutDependsOn(CoordinatorLayout parent, SearchView child, View dependency) {
         if (dependency instanceof AppBarLayout) {
             ViewCompat.setElevation(child, ViewCompat.getElevation(dependency));
-            ViewCompat.setZ(child, ViewCompat.getZ(dependency) + 1);
-            // todo fix click background
+            ViewCompat.setZ(child, ViewCompat.getZ(dependency) + 1); // todo no click background
             return true;
         }
         return super.layoutDependsOn(parent, child, dependency);
     }
 
     @Override
-    public boolean onDependentViewChanged(CoordinatorLayout parent, SearchView child, View dependency) {
+    public boolean onDependentViewChanged(CoordinatorLayout parent, @NonNull SearchView child, View dependency) {
         if (dependency instanceof AppBarLayout) {
             child.setTranslationY(dependency.getY());
             return true;

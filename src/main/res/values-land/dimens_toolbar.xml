@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="search_toolbar_margin_top_bottom">5dp</dimen>
-    <dimen name="search_toolbar_margin_small_left_right">16dp</dimen>
-    <dimen name="search_toolbar_margin_medium_left_right">88dp</dimen>
-    <dimen name="search_toolbar_margin_big_left_right">120dp</dimen>
+    <dimen name="search_toolbar_margin_top_bottom">6dp</dimen>
+    <dimen name="search_toolbar_margin_left_right">14dp</dimen>
 
 </resources>

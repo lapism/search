@@ -16,18 +16,18 @@ public class SearchArrowDrawable extends DrawerArrowDrawable {
 
     private static final Property<SearchArrowDrawable, Float> PROGRESS = new Property<SearchArrowDrawable, Float>(Float.class, "progress") {
         @Override
-        public void set(SearchArrowDrawable object, Float value) {
+        public void set(@NonNull SearchArrowDrawable object, Float value) {
             object.setProgress(value);
         }
 
         @NonNull
         @Override
-        public Float get(SearchArrowDrawable object) {
+        public Float get(@NonNull SearchArrowDrawable object) {
             return object.getProgress();
         }
     };
 
-    public SearchArrowDrawable(Context context) {
+    public SearchArrowDrawable(@NonNull Context context) {
         super(context);
         setColor(ContextCompat.getColor(context, android.R.color.black));
     }
@@ -45,7 +45,7 @@ public class SearchArrowDrawable extends DrawerArrowDrawable {
     }
 
     public float getPosition() {
-        return super.getProgress();
+        return getProgress();
     }
 
     public void setPosition(float position) {
@@ -54,7 +54,7 @@ public class SearchArrowDrawable extends DrawerArrowDrawable {
         } else if (position == 0f) {
             setVerticalMirror(false);
         }
-        super.setProgress(position);
+        setProgress(position);
     }
 
 }

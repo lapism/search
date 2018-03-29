@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -95,7 +94,6 @@
                     android:layout_width="@dimen/search_icon_24"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/search_menu_margin_right"
-                    android:layout_marginRight="@dimen/search_menu_margin_right"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/search_app_name"
                     android:scaleType="center" />
@@ -106,19 +104,13 @@
                 android:id="@+id/search_view_divider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/search_divider" />
-            <!-- ?android:attr/listDivider -->
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/search_flexboxLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexWrap="wrap" />
+            <!-- ?android:attr/listDivider never-->
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/search_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never" />
+                android:overScrollMode="always" />
 
         </LinearLayout>
 

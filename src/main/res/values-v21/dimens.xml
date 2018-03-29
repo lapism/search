@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <dimen name="search_height_bar">44dp</dimen>
-    <dimen name="search_height_view">48dp</dimen>
-
-    <dimen name="search_shape_oval">24dp</dimen>
-
-</resources>

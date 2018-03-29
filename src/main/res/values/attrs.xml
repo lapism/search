@@ -4,9 +4,8 @@
     <declare-styleable name="SearchView">
         <attr name="search_logo" format="enum">
             <enum name="google" value="1000" />
-            <enum name="g" value="1001" />
-            <enum name="hamburger_arrow" value="1002" />
-            <enum name="arrow" value="1003" />
+            <enum name="hamburger_arrow" value="1001" />
+            <enum name="arrow" value="1002" />
         </attr>
         <attr name="search_shape" format="enum">
             <enum name="classic" value="2000" />
@@ -15,19 +14,18 @@
         </attr>
         <attr name="search_theme" format="enum">
             <enum name="play" value="3000" />
-            <enum name="color" value="3001" />
+            <enum name="google" value="3001" />
             <enum name="light" value="3002" />
             <enum name="dark" value="3003" />
+        </attr>
+        <attr name="search_version_margins" format="enum">
+            <enum name="bar" value="5000" />
+            <enum name="toolbar" value="5001" />
+            <enum name="menu_item" value="5002" />
         </attr>
         <attr name="search_version" format="enum">
             <enum name="toolbar" value="4000" />
             <enum name="menu_item" value="4001" />
-        </attr>
-        <attr name="search_version_margins" format="enum">
-            <enum name="toolbar_small" value="5000" />
-            <enum name="toolbar_medium" value="5001" />
-            <enum name="toolbar_big" value="5002" />
-            <enum name="menu_item" value="5003" />
         </attr>
         <attr name="search_logo_icon" format="integer" />
         <attr name="search_logo_color" format="color" />
@@ -59,6 +57,7 @@
         <attr name="search_logo" />
         <attr name="search_shape" />
         <attr name="search_theme" />
+        <attr name="search_version_margins" />
         <attr name="search_elevation" />
     </declare-styleable>
 
