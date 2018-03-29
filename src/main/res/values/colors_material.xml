@@ -296,7 +296,7 @@
     <color name="shadow_0">@android:color/transparent</color>
     <color name="shadow_14">#14000000</color>
     <color name="shadow_44">#44000000</color>
-    <color name="shadow_80">#80000000</color>
+    <color name="shadow_99">#99000000</color>
 
     <color name="card_view_background_dark">#424242</color>
     <color name="card_view_background_light">#ffffff</color>

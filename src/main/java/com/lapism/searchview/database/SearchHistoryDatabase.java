@@ -3,6 +3,7 @@ package com.lapism.searchview.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
 
 
 class SearchHistoryDatabase extends SQLiteOpenHelper {
@@ -12,8 +13,8 @@ class SearchHistoryDatabase extends SQLiteOpenHelper {
     static final String SEARCH_HISTORY_COLUMN_TITLE = "_title";
     static final String SEARCH_HISTORY_COLUMN_SUBTITLE = "_subtitle";
 
-    private static final String DATABASE_NAME = "search_history_database.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "searchHistoryDatabase.db";
     private static final String CREATE_TABLE_SEARCH_HISTORY = "CREATE TABLE IF NOT EXISTS "
             + SEARCH_HISTORY_TABLE + " ( "
             + SEARCH_HISTORY_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -25,31 +26,54 @@ class SearchHistoryDatabase extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onOpen(SQLiteDatabase db) {
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(@NonNull SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_SEARCH_HISTORY);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(@NonNull SQLiteDatabase db, int oldVersion, int newVersion) {
         dropAllTables(db);
         onCreate(db);
     }
 
-    @Override
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        onUpgrade(db, oldVersion, newVersion);
-    }
-
-    private void dropAllTables(SQLiteDatabase db) {
+    private void dropAllTables(@NonNull SQLiteDatabase db) {
         dropTableIfExists(db);
     }
 
-    private void dropTableIfExists(SQLiteDatabase db) {
-        db.execSQL("DROP TABLE IF EXISTS " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE);
+    private void dropTableIfExists(@NonNull SQLiteDatabase db) {
+        db.execSQL("DROP TABLE IF EXISTS " + SEARCH_HISTORY_TABLE);
     }
 
 }
+
+
+
+/* kulate rohy a light a zkontrolvat Bar a compat nekde pouzito???
+ * ZKONTROLOVAT VZHLED KODU ...
+ * readme
+ * +  todo
+ * colorpicker
+ * komENTARE A BUGY
+ * */
+
+
+
+/*
+if ( drawable != null ) {
+    Bitmap bitmap = (Bitmap) ((BitmapDrawable) drawable).getBitmap();
+    parcel.writeParcelable(bitmap, flags);
+}
+else {
+    parcel.writeParcelable(null, flags);
+}
+
+To read the Drawable from the Parcelable:
+
+Bitmap bitmap = (Bitmap) in.readParcelable(getClass().getClassLoader());
+if ( bitmap != null ) {
+    drawable = new BitmapDrawable(bitmap);
+}
+else {
+    drawable = null;
+}
+*/

@@ -1,6 +1,7 @@
 package com.lapism.searchview.widget;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
@@ -11,29 +12,29 @@ import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 @RestrictTo(LIBRARY_GROUP)
 public class SearchEditText extends AppCompatEditText {
 
-    private SearchLayout mLayout;
+    private SearchLayout mSearchLayout;
 
-    public SearchEditText(Context context) {
+    public SearchEditText(@NonNull Context context) {
         super(context);
     }
 
-    public SearchEditText(Context context, AttributeSet attrs) {
+    public SearchEditText(@NonNull Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SearchEditText(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SearchEditText(@NonNull Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     public void setLayout(SearchLayout layout) {
-        mLayout = layout;
+        mSearchLayout = layout;
     }
 
     @Override
-    public boolean onKeyPreIme(int keyCode, KeyEvent event) {
+    public boolean onKeyPreIme(int keyCode, @NonNull KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-            if (mLayout != null && mLayout.isOpen() && hasFocus()) {
-                mLayout.close();
+            if (mSearchLayout != null && mSearchLayout.isOpen() && hasFocus()) {
+                mSearchLayout.close();
                 return true;
             }
         }

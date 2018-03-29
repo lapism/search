@@ -12,10 +12,10 @@ import android.text.TextUtils;
 
 public class SearchItem implements Parcelable {
 
-    public static final Parcelable.Creator<SearchItem> CREATOR = new Parcelable.Creator<SearchItem>() {
+    public static final Creator<SearchItem> CREATOR = new Creator<SearchItem>() {
         @NonNull
         @Override
-        public SearchItem createFromParcel(Parcel in) {
+        public SearchItem createFromParcel(@NonNull Parcel in) {
             return new SearchItem(in);
         }
 
@@ -37,10 +37,10 @@ public class SearchItem implements Parcelable {
         this.context = context;
     }
 
-    private SearchItem(Parcel in) {
-        Bitmap bitmap_1 = in.readParcelable(this.getClass().getClassLoader());
+    private SearchItem(@NonNull Parcel in) {
+        Bitmap bitmap_1 = in.readParcelable(getClass().getClassLoader());
         icon_1_drawable = new BitmapDrawable(context.getResources(), bitmap_1);
-        Bitmap bitmap_2 = in.readParcelable(this.getClass().getClassLoader());
+        Bitmap bitmap_2 = in.readParcelable(getClass().getClassLoader());
         icon_2_drawable = new BitmapDrawable(context.getResources(), bitmap_2);
 
         icon_1_resource = in.readInt();
@@ -50,7 +50,7 @@ public class SearchItem implements Parcelable {
         subtitle = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
     }
 
-    Drawable getIcon1Drawable() {
+    public Drawable getIcon1Drawable() {
         return icon_1_drawable;
     }
 
@@ -58,7 +58,7 @@ public class SearchItem implements Parcelable {
         this.icon_1_drawable = icon_1_drawable;
     }
 
-    Drawable getIcon2Drawable() {
+    public Drawable getIcon2Drawable() {
         return icon_2_drawable;
     }
 
@@ -66,7 +66,7 @@ public class SearchItem implements Parcelable {
         this.icon_2_drawable = icon_2_drawable;
     }
 
-    int getIcon1Resource() {
+    public int getIcon1Resource() {
         return icon_1_resource;
     }
 
@@ -74,7 +74,7 @@ public class SearchItem implements Parcelable {
         this.icon_1_resource = icon_1_resource;
     }
 
-    int getIcon2Resource() {
+    public int getIcon2Resource() {
         return icon_2_resource;
     }
 
@@ -99,7 +99,7 @@ public class SearchItem implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
         Bitmap bitmap_1 = ((BitmapDrawable) icon_1_drawable).getBitmap();
         dest.writeParcelable(bitmap_1, flags);
         Bitmap bitmap_2 = ((BitmapDrawable) icon_2_drawable).getBitmap();
@@ -118,23 +118,3 @@ public class SearchItem implements Parcelable {
     }
 
 }
-
-/*
-if ( drawable != null ) {
-    Bitmap bitmap = (Bitmap) ((BitmapDrawable) drawable).getBitmap();
-    parcel.writeParcelable(bitmap, flags);
-}
-else {
-    parcel.writeParcelable(null, flags);
-}
-
-To read the Drawable from the Parcelable:
-
-Bitmap bitmap = (Bitmap) in.readParcelable(getClass().getClassLoader());
-if ( bitmap != null ) {
-    drawable = new BitmapDrawable(bitmap);
-}
-else {
-    drawable = null;
-}
-*/

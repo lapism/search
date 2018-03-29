@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.lapism.searchview.R;
@@ -16,24 +17,25 @@ import java.util.List;
 
 public class SearchHistoryTable {
 
+    @NonNull
     private final WeakReference<Context> mContext;
-    private SearchHistoryDatabase dbHelper;
-    private SQLiteDatabase db;
+    private SearchHistoryDatabase mDbHelper;
+    private SQLiteDatabase mDb;
 
     public SearchHistoryTable(Context context) {
         mContext = new WeakReference<>(context);
     }
 
     private void open() {
-        dbHelper = new SearchHistoryDatabase(mContext.get());
-        db = dbHelper.getWritableDatabase();
+        mDbHelper = new SearchHistoryDatabase(mContext.get());
+        mDb = mDbHelper.getWritableDatabase();
     }
 
     private void close() {
-        dbHelper.close();
+        mDbHelper.close();
     }
 
-    public void addItem(SearchItem item) {
+    public void addItem(@NonNull SearchItem item) {
         ContentValues values = new ContentValues();
         if (!checkText(item.getTitle().toString())) {
             values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TITLE, item.getTitle().toString());
@@ -41,22 +43,22 @@ public class SearchHistoryTable {
                 values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_SUBTITLE, item.getSubtitle().toString());
             }
             open();
-            db.insert(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, values);
+            mDb.insert(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, values);
             close();
         } else {
             values.put(SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID, getLastItemId() + 1);
             open();
-            db.update(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, values, SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " = ? ", new String[]{Integer.toString(getItemId(item))});
+            mDb.update(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, values, SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " = ? ", new String[]{Integer.toString(getItemId(item))});
             close();
         }
     }
 
-    private int getItemId(SearchItem item) {
+    private int getItemId(@NonNull SearchItem item) {
         open();
         String query = "SELECT " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID +
                 " FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE +
                 " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TITLE + " = ?";
-        Cursor res = db.rawQuery(query, new String[]{item.getTitle().toString()});
+        Cursor res = mDb.rawQuery(query, new String[]{item.getTitle().toString()});
         res.moveToFirst();
         int id = res.getInt(0);
         close();
@@ -67,7 +69,7 @@ public class SearchHistoryTable {
     private int getLastItemId() {
         open();
         String sql = "SELECT " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE;
-        Cursor res = db.rawQuery(sql, null);
+        Cursor res = mDb.rawQuery(sql, null);
         res.moveToLast();
         int count = res.getInt(0);
         close();
@@ -79,7 +81,7 @@ public class SearchHistoryTable {
         open();
 
         String query = "SELECT * FROM " + SearchHistoryDatabase.SEARCH_HISTORY_TABLE + " WHERE " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_TITLE + " =?";
-        Cursor cursor = db.rawQuery(query, new String[]{text});
+        Cursor cursor = mDb.rawQuery(query, new String[]{text});
 
         boolean hasObject = false;
 
@@ -92,6 +94,7 @@ public class SearchHistoryTable {
         return hasObject;
     }
 
+    @NonNull
     public List<SearchItem> getAllItems() {
         List<SearchItem> list = new ArrayList<>();
 
@@ -102,7 +105,7 @@ public class SearchHistoryTable {
         selectQuery += " ORDER BY " + SearchHistoryDatabase.SEARCH_HISTORY_COLUMN_ID + " DESC LIMIT " + 2;
 
         open();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
                 SearchItem item = new SearchItem(mContext.get());
@@ -119,7 +122,7 @@ public class SearchHistoryTable {
 
     public void clearDatabase() {
         open();
-        db.delete(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, null);
+        mDb.delete(SearchHistoryDatabase.SEARCH_HISTORY_TABLE, null, null);
         close();
     }
 

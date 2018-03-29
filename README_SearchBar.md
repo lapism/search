@@ -11,7 +11,7 @@
 
 ### XML
 ```xml
-<com.lapism.searchview.widget.SearchBar
+<com.lapism.searchview.old_version.widget.SearchBar
     android:id="@+id/searchBar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />

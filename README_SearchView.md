@@ -11,7 +11,7 @@
 
 ### XML
 ```xml
-<com.lapism.searchview.widget.SearchView
+<com.lapism.searchview.old_version.widget.SearchView
     android:id="@+id/searchView"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
@@ -19,7 +19,7 @@
 
 ### XML for CoordinatorLayout
 ```xml
-<com.lapism.searchview.widget.SearchView
+<com.lapism.searchview.old_version.widget.SearchView
     android:id="@+id/searchView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

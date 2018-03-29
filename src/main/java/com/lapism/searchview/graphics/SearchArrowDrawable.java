@@ -3,6 +3,7 @@ package com.lapism.searchview.graphics;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.util.Property;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -15,26 +16,26 @@ public class SearchArrowDrawable extends DrawerArrowDrawable {
 
     private static final Property<SearchArrowDrawable, Float> PROGRESS = new Property<SearchArrowDrawable, Float>(Float.class, "progress") {
         @Override
-        public void set(SearchArrowDrawable object, Float value) {
+        public void set(@NonNull SearchArrowDrawable object, Float value) {
             object.setProgress(value);
         }
 
         @NonNull
         @Override
-        public Float get(SearchArrowDrawable object) {
+        public Float get(@NonNull SearchArrowDrawable object) {
             return object.getProgress();
         }
     };
 
-    public SearchArrowDrawable(Context context) {
+    public SearchArrowDrawable(@NonNull Context context) {
         super(context);
-        setColor(context.getResources().getColor(android.R.color.black));
+        setColor(ContextCompat.getColor(context, android.R.color.black));
     }
 
     public void animate(float state, long duration) {
         ObjectAnimator anim;
         if (state == STATE_ARROW) {
-            anim = ObjectAnimator.ofFloat(this, PROGRESS, STATE_HAMBURGER, SearchArrowDrawable.STATE_ARROW);
+            anim = ObjectAnimator.ofFloat(this, PROGRESS, STATE_HAMBURGER, state);
         } else {
             anim = ObjectAnimator.ofFloat(this, PROGRESS, STATE_ARROW, state);
         }
@@ -44,7 +45,7 @@ public class SearchArrowDrawable extends DrawerArrowDrawable {
     }
 
     public float getPosition() {
-        return this.getProgress();
+        return getProgress();
     }
 
     public void setPosition(float position) {
@@ -53,7 +54,7 @@ public class SearchArrowDrawable extends DrawerArrowDrawable {
         } else if (position == 0f) {
             setVerticalMirror(false);
         }
-        this.setProgress(position);
+        setProgress(position);
     }
 
 }

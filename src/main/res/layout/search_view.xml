@@ -104,13 +104,13 @@
                 android:id="@+id/search_view_divider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/search_divider" />
-            <!-- ?android:attr/listDivider -->
+            <!-- ?android:attr/listDivider never-->
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/search_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never" />
+                android:overScrollMode="always" />
 
         </LinearLayout>
 
