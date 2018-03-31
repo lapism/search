@@ -31,6 +31,7 @@ public class SearchViewSavedState extends View.BaseSavedState {
     boolean hasFocus;
     boolean shadow;
 
+    // todo + obrazek plus readme
     private SearchViewSavedState(@NonNull Parcel source) {
         super(source);
         query = source.readString();

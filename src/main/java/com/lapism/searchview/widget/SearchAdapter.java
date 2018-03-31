@@ -155,7 +155,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implem
         mTextFont = font;
     }
 
-    private void setTheme(@Search.Theme int theme) {
+    public void setTheme(@Search.Theme int theme) {
         switch (theme) {
             case Search.Theme.PLAY:
                 setIcon1Color(ContextCompat.getColor(mContext.get(), R.color.search_play_icon_1_2));
