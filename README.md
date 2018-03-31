@@ -32,12 +32,12 @@ dependencies {
 
 <a href="https://www.paypal.me/lapism">
   <img alt="Get it on Google Play"
-       src="https://github.com/lapism/SearchView/blob/master/images/donate.png" />
+       src="https://github.com/lapism/SearchView-SearchBar/blob/master/images/donate.png" />
 </a>
 
 ## Readme
 
-![Search](https://github.com/lapism/SearchView/blob/master/images/search.jpg)
+![Search](https://github.com/lapism/SearchView-SearchBar/blob/master/images/search.jpg)
 
 **[README for SearchBar](https://github.com/lapism/SearchView-SearchBar/blob/master/README_SearchBar.md)**  
 
