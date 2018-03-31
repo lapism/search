@@ -37,13 +37,13 @@ dependencies {
 
 ## Readme
 
-![Search](https://github.com/lapism/SearchView-SearchBar/blob/master/images/search.png)
+![Search](https://github.com/lapism/SearchBar-SearchView/blob/version/images/search.png)
 
-**[README for SearchBar](https://github.com/lapism/SearchView-SearchBar/blob/master/README_SearchBar.md)**  
+**[README for SearchBar](https://github.com/lapism/SearchBar-SearchView/blob/master/README_SearchBar.md)**  
 
-**[README for SearchView](https://github.com/lapism/SearchView-SearchBar/blob/master/README_SearchView.md)**  
+**[README for SearchView](https://github.com/lapism/SearchBar-SearchView/blob/master/README_SearchView.md)**  
 
-**[README for SearchAdapter](https://github.com/lapism/SearchView-SearchBar/blob/master/README_SearchAdapter.md)**  
+**[README for SearchAdapter](https://github.com/lapism/SearchBar-SearchView/blob/master/README_SearchAdapter.md)**  
 
 ### Apps with this library
 
