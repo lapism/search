@@ -25,7 +25,7 @@ public class SearchAnimator {
     public static void revealOpen(@NonNull Context context, @NonNull final CardView cardView, int cx, long duration, @NonNull final SearchEditText editText, @Nullable final Search.OnOpenCloseListener listener) {
         if (cx <= 0) {
             int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
-            if (SearchAnimator.isRtlLayout(context)) {
+            if (isRtlLayout(context)) {
                 cx = padding;
             } else {
                 cx = cardView.getWidth() - padding;
@@ -47,13 +47,18 @@ public class SearchAnimator {
             anim.setDuration(duration);
             anim.addListener(new AnimatorListenerAdapter() {
                 @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    editText.requestFocus();
+                }
+
+                @Override
                 public void onAnimationStart(Animator animation) {
                     super.onAnimationStart(animation);
                     cardView.setVisibility(View.VISIBLE);
                     if (listener != null) {
                         listener.onOpen();
                     }
-                    editText.requestFocus();
                 }
             });
             anim.start();
@@ -63,7 +68,7 @@ public class SearchAnimator {
     public static void revealClose(@NonNull Context context, @NonNull final CardView cardView, int cx, long duration, @NonNull final SearchEditText editText, @NonNull final SearchView searchView, @Nullable final Search.OnOpenCloseListener listener) {
         if (cx <= 0) {
             int padding = context.getResources().getDimensionPixelSize(R.dimen.search_reveal);
-            if (SearchAnimator.isRtlLayout(context)) {
+            if (isRtlLayout(context)) {
                 cx = padding;
             } else {
                 cx = cardView.getWidth() - padding;

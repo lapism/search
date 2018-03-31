@@ -6,7 +6,7 @@
 
 <a href="https://www.paypal.me/lapism">
   <img alt="Get it on Google Play"
-       src="https://github.com/lapism/SearchView/blob/master/images/donate.png" />
+       src="https://github.com/lapism/SearchView-SearchBar/blob/master/images/donate.png" />
 </a>
 
 ### Java or Kotlin

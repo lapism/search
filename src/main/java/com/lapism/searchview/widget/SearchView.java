@@ -104,8 +104,7 @@ public class SearchView extends SearchLayout implements Filter.FilterListener, C
 
         if (mVersion == Search.Version.TOOLBAR) {
             setLogoHamburgerToLogoArrowWithAnimation(true);
-            // todo animovani po prechodu do Search, SavedState, marginy kulate a barva divideru
-            // todo readme
+            // todo SavedState, marginy kulate a barva divideru
             if (mOnOpenCloseListener != null) {
                 mOnOpenCloseListener.onOpen();
             }
