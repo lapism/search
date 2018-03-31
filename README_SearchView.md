@@ -11,7 +11,7 @@
 
 ### XML
 ```xml
-<com.lapism.searchview.old_version.widget.SearchView
+<com.lapism.searchview.widget.SearchView
     android:id="@+id/searchView"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
@@ -19,7 +19,7 @@
 
 ### XML for CoordinatorLayout
 ```xml
-<com.lapism.searchview.old_version.widget.SearchView
+<com.lapism.searchview.widget.SearchView
     android:id="@+id/searchView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -32,9 +32,8 @@
 ```xml
         <attr name="search_logo" format="enum">
             <enum name="google" value="1000" />
-            <enum name="g" value="1001" />
-            <enum name="hamburger_arrow" value="1002" />
-            <enum name="arrow" value="1003" />
+            <enum name="hamburger_arrow" value="1001" />
+            <enum name="arrow" value="1002" />
         </attr>
         <attr name="search_shape" format="enum">
             <enum name="classic" value="2000" />
@@ -43,19 +42,18 @@
         </attr>
         <attr name="search_theme" format="enum">
             <enum name="play" value="3000" />
-            <enum name="color" value="3001" />
+            <enum name="google" value="3001" />
             <enum name="light" value="3002" />
             <enum name="dark" value="3003" />
+        </attr>
+        <attr name="search_version_margins" format="enum">
+            <enum name="bar" value="5000" />
+            <enum name="toolbar" value="5001" />
+            <enum name="menu_item" value="5002" />
         </attr>
         <attr name="search_version" format="enum">
             <enum name="toolbar" value="4000" />
             <enum name="menu_item" value="4001" />
-        </attr>
-        <attr name="search_version_margins" format="enum">
-            <enum name="toolbar_small" value="5000" />
-            <enum name="toolbar_medium" value="5001" />
-            <enum name="toolbar_big" value="5002" />
-            <enum name="menu_item" value="5003" />
         </attr>
         <attr name="search_logo_icon" format="integer" />
         <attr name="search_logo_color" format="color" />
@@ -167,33 +165,3 @@ public boolean onOptionsItemSelected(MenuItem item) {
 | setLogoHamburgerOrLogoArrow(boolean set) | ... | ... | ...
 | setOnLogoClickListener(Search.OnLogoClickListener listener) | ... | ... | ...
 | setOnOpenCloseListener(Search.OnOpenCloseListener listener) | ... | ... | ...
-
-### Logo
-        int GOOGLE = 1000;
-        int G = 1001;
-        int HAMBURGER_ARROW = 1002;
-        int ARROW = 1003;
-### Shape
-        int CLASSIC = 2000;
-        int ROUNDED = 2001;
-        int OVAL = 2002;
-### Theme
-        int PLAY = 3000;
-        int COLOR = 3001;
-        int LIGHT = 3002;
-        int DARK = 3003;
-### Version
-        int TOOLBAR = 4000;
-        int MENU_ITEM = 4001;
-### VersionMargins
-        int TOOLBAR_SMALL = 5000;
-        int TOOLBAR_MEDIUM = 5001;
-        int TOOLBAR_BIG = 5002;
-        int MENU_ITEM = 5003;
-
-
-
-
-
-
-

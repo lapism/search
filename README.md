@@ -22,7 +22,7 @@ Now it works only for API 21+.
 Add the dependency to your gradle file:
 ```groovy
 dependencies {
-    implementation 'com.lapism:searchview:27.1.0.0.0-beta1'
+    implementation 'com.lapism:searchview:27.1.0.0.0'
 }
 ```
 
@@ -37,18 +37,13 @@ dependencies {
 
 ## Readme
 
-**[README for SearchBar](https://github.com/lapism/SearchView-SearchBar/blob/master/README_SearchBar.md)**  
+![Search](https://github.com/lapism/SearchView/blob/master/images/search.jpg)
 
-![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/searchbar.png)
+**[README for SearchBar](https://github.com/lapism/SearchView-SearchBar/blob/master/README_SearchBar.md)**  
 
 **[README for SearchView](https://github.com/lapism/SearchView-SearchBar/blob/master/README_SearchView.md)**  
 
-![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/searchview_1.png)
-![Screenshot 2](https://github.com/lapism/SearchView/blob/master/images/searchview_2.png)
-
 **[README for SearchAdapter](https://github.com/lapism/SearchView-SearchBar/blob/master/README_SearchAdapter.md)**  
-
-![Screenshot 1](https://github.com/lapism/SearchView/blob/master/images/searchadapter_1.png)
 
 ### Apps with this library
 

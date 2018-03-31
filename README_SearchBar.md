@@ -11,7 +11,7 @@
 
 ### XML
 ```xml
-<com.lapism.searchview.old_version.widget.SearchBar
+<com.lapism.searchview.widget.SearchBar
     android:id="@+id/searchBar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
@@ -21,9 +21,8 @@
 ```xml
         <attr name="search_logo" format="enum">
             <enum name="google" value="1000" />
-            <enum name="g" value="1001" />
-            <enum name="hamburger_arrow" value="1002" />
-            <enum name="arrow" value="1003" />
+            <enum name="hamburger_arrow" value="1001" />
+            <enum name="arrow" value="1002" />
         </attr>
         <attr name="search_shape" format="enum">
             <enum name="classic" value="2000" />
@@ -32,9 +31,14 @@
         </attr>
         <attr name="search_theme" format="enum">
             <enum name="play" value="3000" />
-            <enum name="color" value="3001" />
+            <enum name="google" value="3001" />
             <enum name="light" value="3002" />
             <enum name="dark" value="3003" />
+        </attr>
+        <attr name="search_version_margins" format="enum">
+            <enum name="bar" value="5000" />
+            <enum name="toolbar" value="5001" />
+            <enum name="menu_item" value="5002" />
         </attr>
         <attr name="search_elevation" format="dimension" />
 ```
@@ -88,22 +92,3 @@ SearchBar searchBar = findViewById(R.id.searchBar);
 | setOnMenuClickListener(Search.OnMenuClickListener listener) | ... | ... | ...
 | setOnQueryTextListener(Search.OnQueryTextListener listener) | ... | ... | ...
 | setOnBarClickListener(Search.OnBarClickListener listener) | ... | ... | ...
-
-### Logo
-        int GOOGLE = 1000;
-        int G = 1001;
-        int HAMBURGER_ARROW = 1002;
-        int ARROW = 1003;
-### Shape
-        int CLASSIC = 2000;
-        int ROUNDED = 2001;
-        int OVAL = 2002;
-### Theme
-        int PLAY = 3000;
-        int COLOR = 3001;
-        int LIGHT = 3002;
-        int DARK = 3003;
-
-
-
-

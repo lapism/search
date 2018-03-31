@@ -51,7 +51,7 @@ class SearchHistoryDatabase extends SQLiteOpenHelper {
 /* kulate rohy a light a zkontrolvat Bar a compat nekde pouzito???
  * ZKONTROLOVAT VZHLED KODU ...
  * readme
- * +  todo
+ * +  todo obraky a dodelat vypis metod
  * THIS A PRIVATE
  * colorpicker
  * komENTARE A BUGY
