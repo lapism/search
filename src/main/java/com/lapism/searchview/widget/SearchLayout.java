@@ -8,7 +8,6 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -29,9 +28,7 @@ import com.lapism.searchview.R;
 import com.lapism.searchview.Search;
 import com.lapism.searchview.graphics.SearchArrowDrawable;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
-@RestrictTo(LIBRARY_GROUP)
 public abstract class SearchLayout extends FrameLayout implements View.OnClickListener {
 
     @Nullable

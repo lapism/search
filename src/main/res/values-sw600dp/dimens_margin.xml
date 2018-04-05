@@ -5,4 +5,9 @@
     <dimen name="search_bar_margin_left_right">24dp</dimen>
     <dimen name="search_bar_margin_bottom">10dp</dimen>
 
+    <dimen name="search_toolbar_margin_top_bottom">16dp</dimen>
+    <dimen name="search_toolbar_margin_left_right">16dp</dimen>
+
+    <dimen name="search_menu_item_margin">8dp</dimen>
+
 </resources>

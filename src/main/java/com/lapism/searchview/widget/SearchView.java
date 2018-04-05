@@ -301,7 +301,7 @@ public class SearchView extends SearchLayout implements Filter.FilterListener, C
 
         setSaveEnabled(true);
 
-        mSearchEditText.setVisibility(View.VISIBLE);
+        mSearchEditText.setVisibility(View.VISIBLE); // todo
     }
 
     // ---------------------------------------------------------------------------------------------

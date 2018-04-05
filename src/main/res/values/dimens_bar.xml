@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <dimen name="search_bar_margin_top">10dp</dimen>
-    <dimen name="search_bar_margin_left_right">22dp</dimen>
-    <dimen name="search_bar_margin_bottom">8dp</dimen>
-
-</resources>

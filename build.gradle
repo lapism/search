@@ -17,7 +17,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 27
-        versionName "27.1.0.0.0"
+        versionName "27.1.0.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -61,7 +61,7 @@ ext {
     libraryDescription = 'Persistent SearchView Library in Material Design.'
     siteUrl = 'https://github.com/lapism/SearchView'
     gitUrl = 'https://github.com/lapism/SearchView.git'
-    libraryVersion = '27.1.0.0.0'
+    libraryVersion = '27.1.0.0.1'
     developerId = 'lapism'
     developerName = 'Martin Lapis'
     developerEmail = 'lapis.martin@gmail.com'
