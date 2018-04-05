@@ -10,7 +10,6 @@
     <color name="search_play_subtitle">#8a000000</color>
     <color name="search_play_hint">#42000000</color>
     <color name="search_play_icon_1_2">@color/md_grey_600</color>
-    <color name="search_play_text_image">@color/md_grey_500</color>
 
     <!-- Google Theme -->
     <color name="search_google_menu">@color/md_grey_500</color>
@@ -23,7 +22,6 @@
     <color name="search_google_subtitle">#8a000000</color>
     <color name="search_google_hint">#42000000</color>
     <color name="search_google_icon_1_2">@color/md_grey_400</color>
-    <color name="search_google_text_image">@color/md_grey_500</color>
 
     <!-- AppCompat Light Theme -->
     <color name="search_light_divider">#1f000000</color>
@@ -34,7 +32,6 @@
     <color name="search_light_subtitle">#8a000000</color>
     <color name="search_light_hint">#60000000</color>
     <color name="search_light_icon_1_2">@color/md_grey_600</color>
-    <color name="search_light_text_image">@color/md_grey_500</color>
 
     <!-- AppCompat Dark Theme -->
     <color name="search_dark_divider">#1fffffff</color>
@@ -45,7 +42,6 @@
     <color name="search_dark_subtitle">#b3ffffff</color>
     <color name="search_dark_hint">#7fffffff</color>
     <color name="search_dark_icon_1_2">@color/md_grey_400</color>
-    <color name="search_dark_text_image">@color/md_grey_500</color>
 
     <!-- Google -->
     <color name="search_google_blue">#4285f4</color>
