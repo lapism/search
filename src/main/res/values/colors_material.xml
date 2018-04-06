@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Material Design Colors -->
-
     <color name="md_grey_50">#fafafa</color>
     <color name="md_grey_400">#bdbdbd</color>
     <color name="md_grey_500">#9e9e9e</color>
@@ -12,13 +10,6 @@
 
     <color name="md_white">#ffffff</color>
 
-    <!-- Ripple -->
-
-    <!-- Error -->
-
-    <!-- Shadow -->
     <color name="shadow_99">#99000000</color>
-
-    <eat-comment />
 
 </resources>
