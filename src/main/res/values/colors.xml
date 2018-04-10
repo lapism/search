@@ -3,45 +3,45 @@
 
     <!-- Google Play Theme -->
     <color name="search_play_divider">#1f000000</color>
-    <color name="search_play_icon">@color/md_grey_700</color>
-    <color name="search_play_background">@color/md_white</color>
+    <color name="search_play_icon">@color/search_md_grey_700</color>
+    <color name="search_play_background">@color/search_md_white</color>
     <color name="search_play_title">#de000000</color>
     <color name="search_play_title_highlight">#61000000</color>
     <color name="search_play_subtitle">#8a000000</color>
     <color name="search_play_hint">#42000000</color>
-    <color name="search_play_icon_1_2">@color/md_grey_600</color>
+    <color name="search_play_icon_1_2">@color/search_md_grey_600</color>
 
     <!-- Google Theme -->
-    <color name="search_google_menu">@color/md_grey_500</color>
+    <color name="search_google_menu">@color/search_md_grey_500</color>
 
     <color name="search_google_divider">#1f000000</color>
-    <color name="search_google_icon">@color/md_grey_700</color>
-    <color name="search_google_background">@color/md_white</color>
+    <color name="search_google_icon">@color/search_md_grey_700</color>
+    <color name="search_google_background">@color/search_md_white</color>
     <color name="search_google_title">#de000000</color>
     <color name="search_google_title_highlight">#8a000000</color>
     <color name="search_google_subtitle">#8a000000</color>
     <color name="search_google_hint">#42000000</color>
-    <color name="search_google_icon_1_2">@color/md_grey_400</color>
+    <color name="search_google_icon_1_2">@color/search_md_grey_400</color>
 
     <!-- AppCompat Light Theme -->
     <color name="search_light_divider">#1f000000</color>
-    <color name="search_light_icon">@color/md_grey_600</color>
-    <color name="search_light_background">@color/md_grey_50</color>
+    <color name="search_light_icon">@color/search_md_grey_600</color>
+    <color name="search_light_background">@color/search_md_grey_50</color>
     <color name="search_light_title">#de000000</color>
     <color name="search_light_title_highlight">#33000000</color>
     <color name="search_light_subtitle">#8a000000</color>
     <color name="search_light_hint">#60000000</color>
-    <color name="search_light_icon_1_2">@color/md_grey_600</color>
+    <color name="search_light_icon_1_2">@color/search_md_grey_600</color>
 
     <!-- AppCompat Dark Theme -->
     <color name="search_dark_divider">#1fffffff</color>
-    <color name="search_dark_icon">@color/md_grey_400</color>
-    <color name="search_dark_background">@color/md_grey_850</color>
+    <color name="search_dark_icon">@color/search_md_grey_400</color>
+    <color name="search_dark_background">@color/search_md_grey_850</color>
     <color name="search_dark_title">#ffffff</color>
     <color name="search_dark_title_highlight">#aeffffff</color>
     <color name="search_dark_subtitle">#b3ffffff</color>
     <color name="search_dark_hint">#7fffffff</color>
-    <color name="search_dark_icon_1_2">@color/md_grey_400</color>
+    <color name="search_dark_icon_1_2">@color/search_md_grey_400</color>
 
     <!-- Google -->
     <color name="search_google_blue">#4285f4</color>
@@ -53,12 +53,12 @@
     <color name="search_shadow">#99000000</color>
 
     <!-- Material -->
-    <color name="md_white">#ffffff</color>
-    <color name="md_grey_50">#fafafa</color>
-    <color name="md_grey_400">#bdbdbd</color>
-    <color name="md_grey_500">#9e9e9e</color>
-    <color name="md_grey_600">#757575</color>
-    <color name="md_grey_700">#616161</color>
-    <color name="md_grey_850">#303030</color>
+    <color name="search_md_white">#ffffff</color>
+    <color name="search_md_grey_50">#fafafa</color>
+    <color name="search_md_grey_400">#bdbdbd</color>
+    <color name="search_md_grey_500">#9e9e9e</color>
+    <color name="search_md_grey_600">#757575</color>
+    <color name="search_md_grey_700">#616161</color>
+    <color name="search_md_grey_850">#303030</color>
 
 </resources>
