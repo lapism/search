@@ -49,9 +49,9 @@ public class SearchArrowDrawable extends DrawerArrowDrawable {
     }
 
     public void setPosition(float position) {
-        if (position == 1f) {
+        if (position == STATE_ARROW) {
             setVerticalMirror(true);
-        } else if (position == 0f) {
+        } else if (position == STATE_HAMBURGER) {
             setVerticalMirror(false);
         }
         setProgress(position);

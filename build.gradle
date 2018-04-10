@@ -4,7 +4,6 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.3'
 
     sourceSets {
         main.res.srcDirs = [
@@ -17,13 +16,13 @@ android {
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 27
-        versionName "27.1.0.0.1"
+        versionName "27.1.1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled true // false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -46,25 +45,29 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:27.1.0'
-    implementation 'com.android.support:design:27.1.0'
-    implementation 'com.android.support:recyclerview-v7:27.1.0'
-    implementation 'com.android.support:cardview-v7:27.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
 }
 
 ext {
     bintrayRepo = 'maven'
     bintrayName = 'searchview'
+
     publishedGroupId = 'com.lapism'
     libraryName = 'SearchView'
     artifact = 'searchview'
+
     libraryDescription = 'Persistent SearchView Library in Material Design.'
+    libraryVersion = '27.1.1.0.0'
     siteUrl = 'https://github.com/lapism/SearchView'
     gitUrl = 'https://github.com/lapism/SearchView.git'
-    libraryVersion = '27.1.0.0.1'
+
     developerId = 'lapism'
     developerName = 'Martin Lapis'
     developerEmail = 'lapis.martin@gmail.com'
+
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]
