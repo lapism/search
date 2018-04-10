@@ -7,9 +7,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
-@RestrictTo(LIBRARY_GROUP)
+@RestrictTo(RestrictTo.Scope.LIBRARY)
 public class SearchEditText extends AppCompatEditText {
 
     private SearchLayout mSearchLayout;

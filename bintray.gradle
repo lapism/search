@@ -50,7 +50,7 @@ bintray {
             desc = libraryDescription
             gpg {
                 // Determines whether to GPG sign the files. The default is false
-                sign = true
+                sign = false
                 passphrase = properties.getProperty("bintray.gpg.password")
                 // Optional. The passphrase for GPG signing'
             }
