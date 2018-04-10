@@ -37,7 +37,7 @@ dependencies {
 
 ## Readme
 
-![Search](https://github.com/lapism/SearchBar-SearchView/blob/version/images/search.png)
+![Search](https://github.com/lapism/SearchBar-SearchView/blob/master/images/search.png)
 
 **[README for SearchBar](https://github.com/lapism/SearchBar-SearchView/blob/master/README_SearchBar.md)**  
 
