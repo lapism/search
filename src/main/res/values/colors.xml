@@ -50,6 +50,15 @@
     <color name="search_google_red">#ea4335</color>
 
     <!-- Shadow -->
-    <color name="search_shadow">@color/shadow_99</color>
+    <color name="search_shadow">#99000000</color>
+
+    <!-- Material -->
+    <color name="md_white">#ffffff</color>
+    <color name="md_grey_50">#fafafa</color>
+    <color name="md_grey_400">#bdbdbd</color>
+    <color name="md_grey_500">#9e9e9e</color>
+    <color name="md_grey_600">#757575</color>
+    <color name="md_grey_700">#616161</color>
+    <color name="md_grey_850">#303030</color>
 
 </resources>
