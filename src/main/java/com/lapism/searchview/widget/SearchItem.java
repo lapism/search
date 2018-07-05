@@ -34,6 +34,7 @@ public class SearchItem implements Parcelable {
     private CharSequence title;
     private CharSequence subtitle;
     private Context context;
+	private LatLng position;
 
     public SearchItem(Context context) {
         this.context = context;
@@ -75,6 +76,14 @@ public class SearchItem implements Parcelable {
     public void setIcon1Resource(int icon_1_resource) {
         this.icon_1_resource = icon_1_resource;
     }
+	
+	public int getPosition() {
+		return this.position;
+	}
+	
+	public void setPosition(LatLng position) {
+		this.position = position;
+	}
 
     public void setIcon1ResourcePlay() {
         this.icon_1_resource = R.drawable.search_ic_search_black_24dp;
