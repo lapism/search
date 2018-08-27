@@ -125,10 +125,6 @@ public class SearchBar extends SearchLayout {
             if (mOnMicClickListener != null) {
                 mOnMicClickListener.onMicClick();
             }
-        } else if (Objects.equals(v, mImageViewMenu)) {
-            if (mOnMenuClickListener != null) {
-                mOnMenuClickListener.onMenuClick();
-            }
         } else if (Objects.equals(v, this)) {
             if (mOnBarClickListener != null) {
                 mOnBarClickListener.onBarClick();

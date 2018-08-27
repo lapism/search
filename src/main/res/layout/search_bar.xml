@@ -46,8 +46,8 @@
                 android:contentDescription="@string/search_app_name"
                 android:scaleType="center" />
 
-            <ImageView
-                android:id="@+id/search_imageView_menu"
+            <android.support.v7.widget.ActionMenuView
+                android:id="@+id/search_menu"
                 android:layout_width="@dimen/search_icon_24"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="@dimen/search_menu_margin_right"

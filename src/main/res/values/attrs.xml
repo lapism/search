@@ -34,6 +34,7 @@
         <attr name="search_clear_icon" format="integer" />
         <attr name="search_clear_color" format="color" />
         <attr name="search_menu_icon" format="integer" />
+        <attr name="search_menu" format="integer" />
         <attr name="search_menu_color" format="color" />
         <attr name="search_background_color" format="color" />
         <attr name="search_text_image" format="integer" />
