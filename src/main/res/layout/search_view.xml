@@ -89,14 +89,13 @@
 
                 </FrameLayout>
 
-                <ImageView
-                    android:id="@+id/search_imageView_menu"
-                    android:layout_width="@dimen/search_icon_24"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/search_menu_margin_right"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/search_app_name"
-                    android:scaleType="center" />
+                <android.support.v7.widget.ActionMenuView
+                  android:id="@+id/search_menu"
+                  android:layout_width="56dp"
+                  android:layout_height="match_parent"
+                  android:background="?attr/selectableItemBackgroundBorderless"
+                  android:contentDescription="@string/search_app_name"
+                  android:scaleType="center" />
 
             </LinearLayout>
 

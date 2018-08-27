@@ -1,6 +1,8 @@
 package com.lapism.searchview.widget;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.CallSuper;
@@ -38,11 +40,9 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
     ImageView mImageViewLogo;
     ImageView mImageViewMic;
     ImageView mImageViewClear;
-    ImageView mImageViewMenu;
     SearchEditText mSearchEditText;
     SearchArrowDrawable mSearchArrowDrawable;
     Search.OnMicClickListener mOnMicClickListener;
-    Search.OnMenuClickListener mOnMenuClickListener;
     Search.OnQueryTextListener mOnQueryTextListener;
     @Search.Logo
     private int mLogo;
@@ -103,10 +103,6 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
         mImageViewMic = findViewById(R.id.search_imageView_mic);
         mImageViewMic.setVisibility(View.GONE);
         mImageViewMic.setOnClickListener(this);
-
-        mImageViewMenu = findViewById(R.id.search_imageView_menu);
-        mImageViewMenu.setVisibility(View.GONE);
-        mImageViewMenu.setOnClickListener(this);
 
         mSearchEditText = findViewById(R.id.search_searchEditText);
         mSearchEditText.setVisibility(View.GONE);
@@ -207,7 +203,6 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
                 setLogoColor(ContextCompat.getColor(mContext, R.color.search_play_icon));
                 setMicColor(ContextCompat.getColor(mContext, R.color.search_play_icon));
                 setClearColor(ContextCompat.getColor(mContext, R.color.search_play_icon));
-                setMenuColor(ContextCompat.getColor(mContext, R.color.search_play_icon));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_play_hint));
                 setTextColor(ContextCompat.getColor(mContext, R.color.search_play_title));
                 break;
@@ -216,7 +211,6 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
                 setDividerColor(ContextCompat.getColor(mContext, R.color.search_google_divider));
                 clearIconsColor();
                 setClearColor(ContextCompat.getColor(mContext, R.color.search_google_icon));
-                setMenuColor(ContextCompat.getColor(mContext, R.color.search_google_menu));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_google_hint));
                 setTextColor(ContextCompat.getColor(mContext, R.color.search_google_title));
                 break;
@@ -226,7 +220,6 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
                 setLogoColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
                 setMicColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
                 setClearColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
-                setMenuColor(ContextCompat.getColor(mContext, R.color.search_light_icon));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_light_hint));
                 setTextColor(ContextCompat.getColor(mContext, R.color.search_light_title));
                 break;
@@ -236,7 +229,6 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
                 setLogoColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
                 setMicColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
                 setClearColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
-                setMenuColor(ContextCompat.getColor(mContext, R.color.search_dark_icon));
                 setHintColor(ContextCompat.getColor(mContext, R.color.search_dark_hint));
                 setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_title));
                 break;
@@ -247,6 +239,19 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
     public int getVersionMargins() {
         return mVersionMargins;
     }
+
+    @NonNull
+    protected Activity getActivity() {
+        Context context = getContext();
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (Activity)context;
+            }
+            context = ((ContextWrapper)context).getBaseContext();
+        }
+        throw new IllegalStateException();
+    }
+
 
     public void setVersionMargins(@Search.VersionMargins int versionMargins) {
         mVersionMargins = versionMargins;
@@ -317,19 +322,6 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
 
     public void setMicColor(@ColorInt int color) {
         mImageViewMic.setColorFilter(color);
-    }
-
-    // Menu
-    void setMenuIcon(@DrawableRes int resource) {
-        mImageViewMenu.setImageResource(resource);
-    }
-
-    public void setMenuIcon(@Nullable Drawable drawable) {
-        mImageViewMenu.setImageDrawable(drawable);
-    }
-
-    void setMenuColor(@ColorInt int color) {
-        mImageViewMenu.setColorFilter(color);
     }
 
     // Text
@@ -476,16 +468,6 @@ public abstract class SearchLayout extends FrameLayout implements View.OnClickLi
             }
         } else {
             mImageViewMic.setVisibility(View.GONE);
-        }
-    }
-
-    public void setOnMenuClickListener(Search.OnMenuClickListener listener) {
-        mOnMenuClickListener = listener;
-        if (mOnMenuClickListener != null) {
-            mImageViewMenu.setVisibility(View.VISIBLE);
-            mImageViewMenu.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.search_ic_menu_black_24dp));
-        } else {
-            mImageViewMenu.setVisibility(View.GONE);
         }
     }
 

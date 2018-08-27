@@ -6,10 +6,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.MenuRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,8 +42,10 @@ public class SearchView extends SearchLayout implements Filter.FilterListener, C
     private int mMenuItemCx = -1;
     private boolean mShadow;
     private long mAnimationDuration;
+    private boolean mIsMenuAvailable = false;
 
     private ImageView mImageViewImage;
+    private ActionMenuView mMenu;
     private MenuItem mMenuItem;
     private View mMenuItemView;
     private View mViewShadow;
@@ -101,6 +105,7 @@ public class SearchView extends SearchLayout implements Filter.FilterListener, C
         }
 
         setMicOrClearIcon(true);
+        removeMenu();
 
         if (mVersion == Search.Version.TOOLBAR) {
             setLogoHamburgerToLogoArrowWithAnimation(true);
@@ -128,6 +133,7 @@ public class SearchView extends SearchLayout implements Filter.FilterListener, C
         hideSuggestions();
         hideKeyboard();
         setMicOrClearIcon(false);
+        showMenu();
 
         if (mVersion == Search.Version.TOOLBAR) {
             setLogoHamburgerToLogoArrowWithAnimation(false);
@@ -194,6 +200,9 @@ public class SearchView extends SearchLayout implements Filter.FilterListener, C
         mImageViewImage = findViewById(R.id.search_imageView_image);
         mImageViewImage.setOnClickListener(this);
 
+        mMenu = findViewById(R.id.search_menu);
+        mMenu.setVisibility(View.GONE);
+
         mImageViewClear = findViewById(R.id.search_imageView_clear);
         mImageViewClear.setOnClickListener(this);
         mImageViewClear.setVisibility(View.GONE);
@@ -227,6 +236,10 @@ public class SearchView extends SearchLayout implements Filter.FilterListener, C
         setVersionMargins(a.getInteger(R.styleable.SearchView_search_version_margins, Search.VersionMargins.TOOLBAR));
         setVersion(a.getInteger(R.styleable.SearchView_search_version, Search.Version.TOOLBAR));
 
+        if(a.hasValue(R.styleable.SearchView_search_menu)) {
+            setMenu(a.getInteger(R.styleable.SearchView_search_menu, 0));
+        }
+
         if (a.hasValue(R.styleable.SearchView_search_logo_icon)) {
             setLogoIcon(a.getInteger(R.styleable.SearchView_search_logo_icon, 0));
         }
@@ -251,14 +264,6 @@ public class SearchView extends SearchLayout implements Filter.FilterListener, C
 
         if (a.hasValue(R.styleable.SearchView_search_clear_color)) {
             setClearColor(a.getColor(R.styleable.SearchView_search_clear_color, 0));
-        }
-
-        if (a.hasValue(R.styleable.SearchView_search_menu_icon)) {
-            setMenuIcon(a.getResourceId(R.styleable.SearchView_search_menu_icon, 0));
-        }
-
-        if (a.hasValue(R.styleable.SearchView_search_menu_color)) {
-            setMenuColor(a.getColor(R.styleable.SearchView_search_menu_color, 0));
         }
 
         if (a.hasValue(R.styleable.SearchView_search_background_color)) {
@@ -381,6 +386,22 @@ public class SearchView extends SearchLayout implements Filter.FilterListener, C
         mRecyclerView.removeItemDecoration(itemDecoration);
     }
 
+    public void setMenu(@MenuRes int res) {
+        if(res == 0) return;
+        mMenu.showOverflowMenu();
+        getActivity().getMenuInflater().inflate(res, mMenu.getMenu());
+        mIsMenuAvailable = true;
+        showMenu();
+    }
+
+    private void removeMenu() {
+        mMenu.setVisibility(View.GONE);
+    }
+
+    private void showMenu() {
+        if(mIsMenuAvailable) mMenu.setVisibility(View.VISIBLE);
+    }
+
     // Others
     public void open(MenuItem menuItem) {
         mMenuItem = menuItem;
@@ -488,6 +509,10 @@ public class SearchView extends SearchLayout implements Filter.FilterListener, C
         }
     }
 
+    public void setOnMenuItemClickListener(ActionMenuView.OnMenuItemClickListener listener) {
+        mMenu.setOnMenuItemClickListener(listener);
+    }
+
     private void getMenuItemPosition(int menuItemId) {
         if (mMenuItemView != null) {
             mMenuItemCx = getCenterX(mMenuItemView);
@@ -557,10 +582,6 @@ public class SearchView extends SearchLayout implements Filter.FilterListener, C
         } else if (Objects.equals(v, mImageViewClear)) {
             if (mSearchEditText.length() > 0) {
                 mSearchEditText.getText().clear();
-            }
-        } else if (Objects.equals(v, mImageViewMenu)) {
-            if (mOnMenuClickListener != null) {
-                mOnMenuClickListener.onMenuClick();
             }
         } else if (Objects.equals(v, mViewShadow)) {
             close();
