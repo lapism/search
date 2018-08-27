@@ -61,6 +61,7 @@
         <attr name="search_mic_color" format="color" />
         <attr name="search_clear_icon" format="integer" />
         <attr name="search_clear_color" format="color" />
+        <attr name="search_menu" format="integer" />
         <attr name="search_menu_icon" format="integer" />
         <attr name="search_menu_color" format="color" />
         <attr name="search_background_color" format="color" />
@@ -100,6 +101,16 @@ public boolean onOptionsItemSelected(MenuItem item) {
 }
 ```
 
+**Adding Menu**
+```java
+searchView.setMenu(R.menu.menu_res);
+```
+
+```xml
+app:search_menu="R.menu.menu_res"
+```
+
+
 ### Public methods
 | Name | Format | Default | Description
 | ------ | ------ |  ------ |------ |
@@ -115,6 +126,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
 | setMicIcon(@DrawableRes int resource) | ... | ... | ...
 | setMicIcon(@Nullable Drawable drawable) | ... | ... | ...
 | setMicColor(@ColorInt int color) | ... | ... | ...
+| setMenu(@MenuRes int resource) | ... | ... | ...
 | setMenuIcon(@DrawableRes int resource) | ... | ... | ...
 | setMenuIcon(@Nullable Drawable drawable) | ... | ... | ...
 | setMenuColor(@ColorInt int color) | ... | ... | ...
