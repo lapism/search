@@ -1,6 +1,5 @@
-package com.lapism.androidx.search.adapter
+package com.lapism.search.adapter
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.Typeface
@@ -16,18 +15,15 @@ import android.widget.Filterable
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.recyclerview.widget.RecyclerView
-import com.lapism.androidx.search.R
-import com.lapism.androidx.search.room.Search
+import com.lapism.search.R
+import com.lapism.search.room.Search
 import java.util.*
 import kotlin.collections.ArrayList
 
-
-open class SearchAdapter(context: Context) : RecyclerView.Adapter<SearchViewHolder>(), Filterable {
+// TODO - ADD ROOM LIBRARY + COROUTINES OR ASYNCTASK SUPPORT FOR ROOM
+open class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>(), Filterable {
 
     // *********************************************************************************************
-    // TODO DODELAT ROOM A ASYNCTASK PRIPRAVU, DATA CLASS, MOZNA TADY NACPAT COUROTINES SROOMEM
-    // LIST, mutablelistof, arraylistof, ARRAYLIST(),val mutableList = mutableListOf<Kolory>()
-    // https://medium.com/@suragch/updating-data-in-an-android-recyclerview-842e56adbfd8
     private var mSearchItemClickListener: OnSearchItemClickListener? = null
     private var mConstraint: CharSequence? = null
 

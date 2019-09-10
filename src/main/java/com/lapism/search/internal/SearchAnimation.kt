@@ -1,4 +1,4 @@
-package com.lapism.androidx.search.internal
+package com.lapism.search.internal
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -10,7 +10,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.LinearLayout
 import androidx.annotation.RestrictTo
 import androidx.cardview.widget.CardView
-import com.lapism.androidx.search.R
+import com.lapism.search.R
 
 import kotlin.math.hypot
 import kotlin.math.max
@@ -39,7 +39,7 @@ internal class SearchAnimation {
             cx = if (isRtlLayout(context)) {
                 padding
             } else {
-                //cardView?.width!! - padding TODO TEST ???
+                //cardView?.width!! - padding TODO Test it
                 cardView?.measuredWidth!! - padding
             }
         }
@@ -50,7 +50,7 @@ internal class SearchAnimation {
             val radius = hypot(max(cx, displaySize.x - cx).toDouble(), cy.toDouble()).toFloat()
 
             val animator: Animator
-            animator = if (!back) {
+            animator = if (back) {
                 ViewAnimationUtils.createCircularReveal(cardView, cx, cy, 0.0f, radius)
             } else {
                 ViewAnimationUtils.createCircularReveal(cardView, cx, cy, radius, 0.0f)

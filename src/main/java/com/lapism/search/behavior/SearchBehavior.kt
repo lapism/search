@@ -1,11 +1,11 @@
-package com.lapism.androidx.search.behavior
+package com.lapism.search.behavior
 
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 
 import com.google.android.material.appbar.AppBarLayout
-import com.lapism.androidx.search.widget.SearchView
+import com.lapism.search.widget.SearchView
 
 
 class SearchBehavior : CoordinatorLayout.Behavior<SearchView>() {

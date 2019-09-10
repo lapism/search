@@ -1,4 +1,4 @@
-package com.lapism.androidx.search.room
+package com.lapism.search.room
 
 import androidx.room.*
 
@@ -7,12 +7,11 @@ import androidx.room.*
 interface SearchDao {
 
     // *********************************************************************************************
-    @Transaction  // get:
+    @Transaction
     @Query("SELECT * FROM search")
-    fun getAll(): List<Search> // LiveData<List<Product>>
+    fun getAll(): List<Search>
 
     @Transaction
-    // SELECT * FROM search WHERE title LIKE  :firstName AND OR subtitle LIKE :lastName
     @Query("SELECT * FROM search WHERE title= :query OR subtitle= :query")
     fun get(query: String): Search
 

@@ -39,7 +39,7 @@
                     android:scaleType="center"
                     android:tint="?attr/colorControlNormal" />
 
-                <com.lapism.androidx.search.internal.SearchEditText
+                <com.lapism.search.internal.SearchEditText
                     android:id="@+id/search_searchEditText"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

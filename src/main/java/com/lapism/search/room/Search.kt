@@ -1,4 +1,4 @@
-package com.lapism.androidx.search.room
+package com.lapism.search.room
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -46,6 +46,7 @@ class Search : Parcelable {
         return 0
     }
 
+    // *********************************************************************************************
     companion object CREATOR : Parcelable.Creator<Search> {
         override fun createFromParcel(parcel: Parcel): Search {
             return Search(parcel)
@@ -54,6 +55,7 @@ class Search : Parcelable {
         override fun newArray(size: Int): Array<Search?> {
             return arrayOfNulls(size)
         }
+        // @JvmField
     }
 
 }

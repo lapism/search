@@ -1,4 +1,4 @@
-package com.lapism.androidx.search.widget
+package com.lapism.search.widget
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,11 +6,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.core.content.ContextCompat
-import com.google.android.material.card.MaterialCardView
-import com.lapism.androidx.search.R
-import com.lapism.androidx.search.SearchUtils
-import com.lapism.androidx.search.internal.SearchAnimation
-import com.lapism.androidx.search.internal.SearchLayout
+import com.lapism.search.R
+import com.lapism.search.SearchUtils
+import com.lapism.search.internal.SearchAnimation
+import com.lapism.search.internal.SearchLayout
 
 
 class SearchMenuItem @JvmOverloads constructor(
@@ -27,23 +26,18 @@ class SearchMenuItem @JvmOverloads constructor(
     init {
         inflate(context, R.layout.search_view, this)
         init()
-        mCardView = findViewById<MaterialCardView>(R.id.search_materialCardView)
 
-        val typedArray = context.obtainStyledAttributes(
+        val a = context.obtainStyledAttributes(
             attrs, R.styleable.SearchMenuItem, defStyleAttr, defStyleRes
         )
         navigationIconSupport =
-            typedArray.getInteger(
+            a.getInteger(
                 R.styleable.SearchMenuItem_search_navigation_icon_support,
                 SearchUtils.NavigationIconSupport.ANIMATION
             )
-        theme = typedArray.getInteger(
-            R.styleable.SearchMenuItem_search_theme,
-            SearchUtils.Theme.LIGHT
-        )
-        typedArray.recycle()
+        a.recycle()
 
-        // TODO MORE ATTRIBUTTES
+        // TODO MORE ATTRIBUTTES in future
         setClearIconImageResource(R.drawable.search_ic_outline_clear_24px)
         mViewShadow?.setBackgroundColor(
             ContextCompat.getColor(
@@ -53,9 +47,6 @@ class SearchMenuItem @JvmOverloads constructor(
         )
 
         setDefault()
-        mViewShadow?.setOnClickListener(this)
-        visibility = View.GONE
-        mCardView?.visibility = View.GONE
     }
 
     // *********************************************************************************************
@@ -68,12 +59,22 @@ class SearchMenuItem @JvmOverloads constructor(
         }
     }
 
+    fun setShadowVisibility(visibility: Int) {
+        mViewShadow?.visibility = visibility
+    }
+
     // *********************************************************************************************
     private fun setDefault() {
-        margins = SearchUtils.Margins.MENU_ITEM
         elevation =
             context.resources.getDimensionPixelSize(R.dimen.search_elevation).toFloat()
-        setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_shape_classic).toFloat())
+        margins = SearchUtils.Margins.MENU_ITEM
+        setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_shape_rounded).toFloat())
+        val paddingLeftRight =
+            context.resources.getDimensionPixelSize(R.dimen.search_key_line_8)
+        mSearchEditText?.setPadding(paddingLeftRight, 0, paddingLeftRight, 0)
+        mViewShadow?.setOnClickListener(this)
+        mCardView?.visibility = View.GONE
+        visibility = View.GONE
     }
 
     private fun getMenuItemPosition(menuItemId: Int) {
@@ -109,6 +110,8 @@ class SearchMenuItem @JvmOverloads constructor(
                     animation.setOnAnimationListener(object :
                         SearchAnimation.OnAnimationListener {
                         override fun onAnimationStart() {
+                            visibility = View.VISIBLE
+                            mCardView?.visibility = View.VISIBLE
                             filter("")
                             SearchUtils.fadeAddFocus(mViewShadow, getAnimationDuration())
                             animateHamburgerToArrow(true)
@@ -140,14 +143,15 @@ class SearchMenuItem @JvmOverloads constructor(
         animation.setOnAnimationListener(object : SearchAnimation.OnAnimationListener {
             override fun onAnimationStart() {
                 mOnFocusChangeListener?.onFocusChange(false)
-                hideAdapter()
-                hideKeyboard()
                 SearchUtils.fadeRemoveFocus(mViewShadow, getAnimationDuration())
                 animateArrowToHamburger(true)
+                hideKeyboard()
+                hideAdapter()
             }
 
             override fun onAnimationEnd() {
-
+                mCardView?.visibility = View.GONE
+                visibility = View.GONE
             }
         })
         animation.start(

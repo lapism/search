@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lapism.androidx.search" >
+    package="com.lapism.search" >
 
     <application android:supportsRtl="true" />
 

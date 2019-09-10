@@ -1,10 +1,10 @@
-package com.lapism.androidx.search.adapter
+package com.lapism.search.adapter
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.lapism.androidx.search.R
+import com.lapism.search.R
 
 
 open class SearchViewHolder(

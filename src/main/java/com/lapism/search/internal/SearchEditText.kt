@@ -1,4 +1,4 @@
-package com.lapism.androidx.search.internal
+package com.lapism.search.internal
 
 import android.content.Context
 import android.util.AttributeSet

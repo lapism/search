@@ -1,4 +1,4 @@
-package com.lapism.androidx.search
+package com.lapism.search
 
 import android.app.Activity
 import android.content.Context
@@ -32,20 +32,6 @@ object SearchUtils {
     }
 
     @IntDef(
-        Theme.LIGHT,
-        Theme.DARK,
-        Theme.DAY_NIGHT
-    )
-    @Retention(AnnotationRetention.SOURCE)
-    annotation class Theme {
-        companion object {
-            const val LIGHT = 200
-            const val DARK = 201
-            const val DAY_NIGHT = 202
-        }
-    }
-
-    @IntDef(
         Margins.NONE_TOOLBAR,
         Margins.NONE_MENU_ITEM,
         Margins.TOOLBAR,
@@ -62,6 +48,7 @@ object SearchUtils {
     }
 
     // *********************************************************************************************
+    @JvmStatic
     fun setVoiceSearch(activity: Activity, text: String) {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         intent.putExtra(
@@ -74,6 +61,7 @@ object SearchUtils {
         activity.startActivityForResult(intent, SPEECH_REQUEST_CODE)
     }
 
+    @JvmStatic
     fun isVoiceSearchAvailable(context: Context): Boolean {
         val pm = context.packageManager
         val activities =
@@ -81,6 +69,7 @@ object SearchUtils {
         return activities.size != 0
     }
 
+    @JvmStatic
     fun fadeAddFocus(view: View?, duration: Long) {
         val anim = AlphaAnimation(0.0f, 1.0f)
         anim.interpolator = AccelerateDecelerateInterpolator()
@@ -101,6 +90,7 @@ object SearchUtils {
         view?.startAnimation(anim)
     }
 
+    @JvmStatic
     fun fadeRemoveFocus(view: View?, duration: Long) {
         val anim = AlphaAnimation(1.0f, 0.0f)
         anim.interpolator = AccelerateDecelerateInterpolator()

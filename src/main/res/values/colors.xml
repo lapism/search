@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="search_theme_light">#FFFFFF</color>
-    <color name="search_theme_dark">#37383B</color>
-    <color name="search_theme_day_night">@color/search_theme_light</color>
-
     <color name="search_shadow">#99000000</color>
 
 </resources>

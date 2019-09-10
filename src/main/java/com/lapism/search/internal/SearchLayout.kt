@@ -1,6 +1,5 @@
-package com.lapism.androidx.search.internal
+package com.lapism.search.internal
 
-import android.animation.LayoutTransition
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.ColorFilter
@@ -24,8 +23,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
-import com.lapism.androidx.search.R
-import com.lapism.androidx.search.SearchUtils
+import com.lapism.search.R
+import com.lapism.search.SearchUtils
 
 /**
  * @hide
@@ -41,10 +40,10 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     // *********************************************************************************************
     protected var mLinearLayout: LinearLayout? = null
+    protected var mCardView: CardView? = null
     protected var mSearchEditText: SearchEditText? = null
     protected var mViewShadow: View? = null
     protected var mOnFocusChangeListener: OnFocusChangeListener? = null
-    protected var mCardView: CardView? = null
 
     private var mAnimationDuration: Long = 0
     private var mViewDivider: View? = null
@@ -84,34 +83,6 @@ abstract class SearchLayout @JvmOverloads constructor(
                     mSearchArrowDrawable = SearchArrowDrawable(context)
                     setNavigationIconImageDrawable(mSearchArrowDrawable)
                 }
-            }
-        }
-
-    @SearchUtils.Theme
-    @get:SearchUtils.Theme
-    var theme: Int = 0
-        set(@SearchUtils.Theme theme) {
-            field = theme
-
-            when (theme) {
-                SearchUtils.Theme.LIGHT -> setBackgroundColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.search_theme_light
-                    )
-                )
-                SearchUtils.Theme.DARK -> setBackgroundColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.search_theme_dark
-                    )
-                )
-                SearchUtils.Theme.DAY_NIGHT -> setBackgroundColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.search_theme_day_night
-                    )
-                )
             }
         }
 
@@ -211,12 +182,6 @@ abstract class SearchLayout @JvmOverloads constructor(
     protected fun init() {
         setAnimationDuration(context.resources.getInteger(R.integer.search_animation_duration).toLong())
 
-        val transition = LayoutTransition()
-        transition.setDuration(getAnimationDuration())
-
-        val linearLayoutMain = findViewById<LinearLayout>(R.id.search_linearLayout_main)
-        linearLayoutMain.layoutTransition = transition
-
         mLinearLayout = findViewById(R.id.search_linearLayout)
 
         mImageViewNavigation = findViewById(R.id.search_imageView_navigation)
@@ -280,6 +245,8 @@ abstract class SearchLayout @JvmOverloads constructor(
 
         mViewShadow = findViewById(R.id.search_view_shadow)
         mViewShadow?.visibility = View.GONE
+
+        mCardView = findViewById<MaterialCardView>(R.id.search_materialCardView)
 
         isFocusable = true              // TODO REMOVE FROM XML
         isFocusableInTouchMode = true   // TODO REMOVE FROM XML

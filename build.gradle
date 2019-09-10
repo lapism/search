@@ -2,6 +2,16 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.novoda.bintray-release'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.9.1'
+    }
+}
 
 android {
     compileSdkVersion 29
@@ -10,7 +20,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1000000
+        versionCode 1000002
         versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -51,3 +61,14 @@ dependencies {
     annotationProcessor 'androidx.room:room-compiler:2.2.0-rc01'
     kapt 'androidx.room:room-compiler:2.2.0-rc01'
 }
+
+publish {
+    userOrg = 'lapism'
+    groupId = 'com.lapism.search'
+    artifactId = 'search'
+    publishVersion = '1.0.0-alpha02'
+    desc = 'Material Design Search component for Android'
+    website = 'https://github.com/lapism/search'
+}
+
+// ./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=false

@@ -1,20 +1,31 @@
-# MaterialSearchView
+# Search
+Material Design Search component for Android
 
- - Material Design 
- - 2 Versions
+ - Last Material Design
+ - Persistent search
+ - Expandable search
  - History
  - Styling
- CHANGELOG
-**1.0.0**
-- API 29
-- AndroidX support
+ - AndroidX support
+ - Kotlin
+ - Java 8
+
 Material Design pattern:  
 https://material.io/design/navigation/search.html  
 
 Versions history:  
-https://bintray.com/lapism/maven/searchview/view
+https://bintray.com/lapism/search/search
 
-## Using
+## Donations
+
+`Please support me!`
+
+<a href="https://www.paypal.me/lapism">
+  <img alt="Paypal"
+       src="https://github.com/lapism/Search/blob/master/images/donate.png" />
+</a>
+
+## Usage
 minSdkVersion 21
 targetSdkVersion 29
 
@@ -25,22 +36,15 @@ dependencies {
 }
 ```
 
-## Donations
+![Search](https://github.com/lapism/Search/blob/master/images/search.png)
 
-`Please support me!`
+**[README for SearchView](https://github.com/lapism/Search/blob/master/README_SearchView.md)**
 
-<a href="https://www.paypal.me/lapism">
-  <img alt="Paypal"
-       src="https://github.com/lapism/MaterialSearchView/blob/searchview/images/donate.png" />
-</a>
+**[README for SearchAdapter](https://github.com/lapism/Search/blob/master/README_SearchAdapter.md)**
 
-## Readme
-
-![Search](https://github.com/lapism/MaterialSearchView/blob/searchview/images/search.png)
-
-**[README for SearchView](https://github.com/lapism/MaterialSearchView/blob/searchview/README_SearchView.md)**  
-
-**[README for SearchAdapter](https://github.com/lapism/MaterialSearchView/blob/searchview/README_SearchAdapter.md)**  
+### Changelog
+**1.0.0-alpha02**
+- First release
 
 ### Author
 
@@ -48,4 +52,4 @@ dependencies {
 
 ### License
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](https://github.com/lapism/MaterialSearchView/blob/searchview/LICENSE) file for details.
+This project is licensed under the Apache License 2.0 - see the [LICENSE](https://github.com/lapism/Search/blob/searchview/LICENSE) file for details.

@@ -17,17 +17,6 @@
     android:layout_height="match_parent" />
 ```
 
-### XML for CoordinatorLayout
-```xml
-<com.lapism.searchview.widget.SearchView
-    android:id="@+id/INFO2"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/search_behavior"
-    <!-- or -->
-    app:layout_behavior="com.lapism.searchview.widget.SearchBehavior" />
-```
-
 # XML attributes
 ```xml
 

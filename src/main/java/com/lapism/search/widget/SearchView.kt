@@ -1,21 +1,22 @@
-package com.lapism.androidx.search.widget
+package com.lapism.search.widget
 
+import android.animation.LayoutTransition
 import android.content.Context
 import android.util.AttributeSet
+import android.widget.LinearLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
-import com.google.android.material.card.MaterialCardView
-import com.lapism.androidx.search.R
-import com.lapism.androidx.search.SearchUtils
-import com.lapism.androidx.search.behavior.SearchBehavior
-import com.lapism.androidx.search.internal.SearchLayout
+import com.lapism.search.R
+import com.lapism.search.SearchUtils
+import com.lapism.search.behavior.SearchBehavior
+import com.lapism.search.internal.SearchLayout
 
 
 class SearchView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0, // TODO
-    defStyleRes: Int = 0   // TODO
+    defStyleAttr: Int = 0,
+    defStyleRes: Int = 0
 ) : SearchLayout(context, attrs, defStyleAttr, defStyleRes), CoordinatorLayout.AttachedBehavior {
 
     // *********************************************************************************************
@@ -25,23 +26,18 @@ class SearchView @JvmOverloads constructor(
     init {
         inflate(context, R.layout.search_view, this)
         init()
-        mCardView = findViewById<MaterialCardView>(R.id.search_materialCardView)
 
-        val typedArray = context.obtainStyledAttributes(
+        val a = context.obtainStyledAttributes(
             attrs, R.styleable.SearchView, defStyleAttr, defStyleRes
         )
         navigationIconSupport =
-            typedArray.getInteger(
+            a.getInteger(
                 R.styleable.SearchView_search_navigation_icon_support,
                 SearchUtils.NavigationIconSupport.ANIMATION
             )
-        theme = typedArray.getInteger(
-            R.styleable.SearchView_search_theme,
-            SearchUtils.Theme.LIGHT
-        )
-        typedArray.recycle()
+        a.recycle()
 
-        // TODO MORE ATTRIBUTTES
+        // TODO MORE ATTRIBUTTES in future
         setClearIconImageResource(R.drawable.search_ic_outline_clear_24px)
         mViewShadow?.setBackgroundColor(
             ContextCompat.getColor(
@@ -51,6 +47,12 @@ class SearchView @JvmOverloads constructor(
         )
 
         setDefault()
+
+        val transition = LayoutTransition()
+        transition.setDuration(getAnimationDuration())
+
+        val linearLayoutMain = findViewById<LinearLayout>(R.id.search_linearLayout_main)
+        linearLayoutMain.layoutTransition = transition
     }
 
     // *********************************************************************************************
@@ -71,14 +73,11 @@ class SearchView @JvmOverloads constructor(
     // *********************************************************************************************
     override fun addFocus() {
         filter("")
-
         mOnFocusChangeListener?.onFocusChange(true)
-
         SearchUtils.fadeAddFocus(mViewShadow, getAnimationDuration())
         animateHamburgerToArrow(false)
         showAdapter()
         showKeyboard()
-
         val paddingLeftRight =
             context.resources.getDimensionPixelSize(R.dimen.search_key_line_8)
         mSearchEditText?.setPadding(paddingLeftRight, 0, paddingLeftRight, 0)
@@ -94,9 +93,7 @@ class SearchView @JvmOverloads constructor(
         animateArrowToHamburger(false)
         hideKeyboard()
         hideAdapter()
-
         setDefault()
-
         mOnFocusChangeListener?.onFocusChange(false)
     }
 
