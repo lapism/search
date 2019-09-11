@@ -3,6 +3,7 @@ package com.lapism.search.widget
 import android.animation.LayoutTransition
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
 import android.widget.LinearLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
@@ -76,8 +77,10 @@ class SearchView @JvmOverloads constructor(
         mOnFocusChangeListener?.onFocusChange(true)
         SearchUtils.fadeAddFocus(mViewShadow, getAnimationDuration())
         animateHamburgerToArrow(false)
+        mViewDivider?.visibility = View.VISIBLE
         showAdapter()
         showKeyboard()
+
         val paddingLeftRight =
             context.resources.getDimensionPixelSize(R.dimen.search_key_line_8)
         mSearchEditText?.setPadding(paddingLeftRight, 0, paddingLeftRight, 0)
@@ -93,6 +96,7 @@ class SearchView @JvmOverloads constructor(
         animateArrowToHamburger(false)
         hideKeyboard()
         hideAdapter()
+        mViewDivider?.visibility = View.GONE
         setDefault()
         mOnFocusChangeListener?.onFocusChange(false)
     }

@@ -4,14 +4,13 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.graphics.Point
-import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.LinearLayout
 import androidx.annotation.RestrictTo
 import androidx.cardview.widget.CardView
 import com.lapism.search.R
-
+import com.lapism.search.SearchUtils
 import kotlin.math.hypot
 import kotlin.math.max
 
@@ -36,7 +35,7 @@ internal class SearchAnimation {
         var cx = x
         if (cx <= 0) {
             val padding = context.resources.getDimensionPixelSize(R.dimen.search_reveal)
-            cx = if (isRtlLayout(context)) {
+            cx = if (SearchUtils.isLayoutRtl(context)) {
                 padding
             } else {
                 //cardView?.width!! - padding TODO Test it
@@ -75,11 +74,6 @@ internal class SearchAnimation {
     // *********************************************************************************************
     fun setOnAnimationListener(listener: OnAnimationListener) {
         mAnimationListener = listener
-    }
-
-    // *********************************************************************************************
-    private fun isRtlLayout(context: Context): Boolean {
-        return context.resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL
     }
 
     // *********************************************************************************************

@@ -3,12 +3,10 @@ package com.lapism.search.internal
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.util.Property
-import android.util.TypedValue
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.annotation.RestrictTo
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.core.content.ContextCompat
-import com.lapism.search.R
 
 /**
  * @hide
@@ -31,7 +29,7 @@ internal class SearchArrowDrawable internal constructor(context: Context) :
 
     // *********************************************************************************************
     init {
-        color = getColorControlNormalAttr(context)
+        color = ContextCompat.getColor(context, android.R.color.black)
     }
 
     // *********************************************************************************************
@@ -54,13 +52,6 @@ internal class SearchArrowDrawable internal constructor(context: Context) :
         anim.interpolator = AccelerateDecelerateInterpolator()
         anim.duration = duration
         anim.start()
-    }
-
-    private fun getColorControlNormalAttr(context: Context): Int {
-        val typedValue = TypedValue()
-        val theme = context.theme
-        theme.resolveAttribute(R.attr.colorControlNormal, typedValue, true)
-        return ContextCompat.getColor(context, typedValue.resourceId)
     }
 
     // *********************************************************************************************

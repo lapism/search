@@ -70,6 +70,11 @@ object SearchUtils {
     }
 
     @JvmStatic
+    fun isLayoutRtl(context: Context): Boolean {
+        return context.resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL
+    }
+
+    @JvmStatic
     fun fadeAddFocus(view: View?, duration: Long) {
         val anim = AlphaAnimation(0.0f, 1.0f)
         anim.interpolator = AccelerateDecelerateInterpolator()

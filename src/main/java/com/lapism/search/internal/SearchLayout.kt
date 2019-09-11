@@ -43,10 +43,10 @@ abstract class SearchLayout @JvmOverloads constructor(
     protected var mCardView: CardView? = null
     protected var mSearchEditText: SearchEditText? = null
     protected var mViewShadow: View? = null
+    protected var mViewDivider: View? = null
     protected var mOnFocusChangeListener: OnFocusChangeListener? = null
 
     private var mAnimationDuration: Long = 0
-    private var mViewDivider: View? = null
     private var mImageViewNavigation: ImageView? = null
     private var mImageViewMic: ImageView? = null
     private var mImageViewClear: ImageView? = null
@@ -188,7 +188,6 @@ abstract class SearchLayout @JvmOverloads constructor(
         mImageViewNavigation?.setOnClickListener(this)
 
         mImageViewMic = findViewById(R.id.search_imageView_mic)
-        mImageViewMic?.visibility = View.GONE
         mImageViewMic?.setOnClickListener(this)
 
         mImageViewClear = findViewById(R.id.search_imageView_clear)
@@ -574,7 +573,6 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     protected fun showAdapter() {
         if (mRecyclerView?.adapter != null) {
-            mViewDivider?.visibility = View.VISIBLE
             mRecyclerView?.visibility = View.VISIBLE
         }
     }
@@ -582,7 +580,6 @@ abstract class SearchLayout @JvmOverloads constructor(
     protected fun hideAdapter() {
         if (mRecyclerView?.adapter != null) {
             mRecyclerView?.visibility = View.GONE
-            mViewDivider?.visibility = View.GONE
         }
     }
 

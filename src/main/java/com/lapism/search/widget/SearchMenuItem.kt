@@ -20,6 +20,7 @@ class SearchMenuItem @JvmOverloads constructor(
 ) : SearchLayout(context, attrs, defStyleAttr, defStyleRes) {
 
     // *********************************************************************************************
+    private var mShadowVisibility: Boolean = true
     private var mMenuItemCx = -1
 
     // *********************************************************************************************
@@ -59,8 +60,13 @@ class SearchMenuItem @JvmOverloads constructor(
         }
     }
 
-    fun setShadowVisibility(visibility: Int) {
-        mViewShadow?.visibility = visibility
+    fun setShadowVisibility(visibility: Boolean) {
+        if (visibility) {
+            mViewShadow?.visibility = View.VISIBLE
+        } else {
+            mViewShadow?.visibility = View.GONE
+        }
+        mShadowVisibility = visibility
     }
 
     // *********************************************************************************************
@@ -72,6 +78,7 @@ class SearchMenuItem @JvmOverloads constructor(
         val paddingLeftRight =
             context.resources.getDimensionPixelSize(R.dimen.search_key_line_8)
         mSearchEditText?.setPadding(paddingLeftRight, 0, paddingLeftRight, 0)
+
         mViewShadow?.setOnClickListener(this)
         mCardView?.visibility = View.GONE
         visibility = View.GONE
@@ -97,6 +104,15 @@ class SearchMenuItem @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
+    override fun onFilterComplete(count: Int) {
+        super.onFilterComplete(count)
+        if (getAdapter()?.itemCount!! > 0) {
+            mViewDivider?.visibility = View.VISIBLE
+        } else {
+            mViewDivider?.visibility = View.GONE
+        }
+    }
+
     override fun addFocus() {
         visibility = View.VISIBLE
         mCardView?.visibility = View.VISIBLE
@@ -110,15 +126,15 @@ class SearchMenuItem @JvmOverloads constructor(
                     animation.setOnAnimationListener(object :
                         SearchAnimation.OnAnimationListener {
                         override fun onAnimationStart() {
-                            visibility = View.VISIBLE
-                            mCardView?.visibility = View.VISIBLE
                             filter("")
-                            SearchUtils.fadeAddFocus(mViewShadow, getAnimationDuration())
+                            mOnFocusChangeListener?.onFocusChange(true)
+                            if (mShadowVisibility) {
+                                SearchUtils.fadeAddFocus(mViewShadow, getAnimationDuration())
+                            }
                             animateHamburgerToArrow(true)
                         }
 
                         override fun onAnimationEnd() {
-                            mOnFocusChangeListener?.onFocusChange(true)
                             showAdapter()
                             showKeyboard()
                         }
@@ -142,11 +158,13 @@ class SearchMenuItem @JvmOverloads constructor(
         val animation = SearchAnimation()
         animation.setOnAnimationListener(object : SearchAnimation.OnAnimationListener {
             override fun onAnimationStart() {
-                mOnFocusChangeListener?.onFocusChange(false)
-                SearchUtils.fadeRemoveFocus(mViewShadow, getAnimationDuration())
+                if (mShadowVisibility) {
+                    SearchUtils.fadeRemoveFocus(mViewShadow, getAnimationDuration())
+                }
                 animateArrowToHamburger(true)
                 hideKeyboard()
                 hideAdapter()
+                mOnFocusChangeListener?.onFocusChange(false)
             }
 
             override fun onAnimationEnd() {
