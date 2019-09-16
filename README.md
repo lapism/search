@@ -14,6 +14,8 @@ https://material.io/design/navigation/search.html
 Versions history:  
 https://bintray.com/lapism/search/search
 
+![Search](https://github.com/lapism/Search/blob/master/images/search.png)
+
 ## Donations
 
 `Please support me!`
