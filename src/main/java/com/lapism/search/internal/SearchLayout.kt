@@ -101,13 +101,13 @@ abstract class SearchLayout @JvmOverloads constructor(
             when (margins) {
                 SearchUtils.Margins.NONE_TOOLBAR -> {
                     left =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_none)
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_toolbar_none)
                     top =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_none)
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_toolbar_none)
                     right =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_none)
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_toolbar_none)
                     bottom =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_none)
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_toolbar_none)
 
                     params =
                         LayoutParams(
@@ -119,13 +119,13 @@ abstract class SearchLayout @JvmOverloads constructor(
                 }
                 SearchUtils.Margins.NONE_MENU_ITEM -> {
                     left =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_none)
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_menu_item_none)
                     top =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_none)
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_menu_item_none)
                     right =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_none)
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_menu_item_none)
                     bottom =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_none)
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_menu_item_none)
 
                     params =
                         LayoutParams(
@@ -137,13 +137,13 @@ abstract class SearchLayout @JvmOverloads constructor(
                 }
                 SearchUtils.Margins.TOOLBAR -> {
                     left =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_left_right)
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_toolbar_left_right)
                     top =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_top_bottom)
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_toolbar_top_bottom)
                     right =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_left_right)
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_toolbar_left_right)
                     bottom =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_top_bottom)
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_toolbar_top_bottom)
 
                     params =
                         LayoutParams(

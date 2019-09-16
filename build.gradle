@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'com.novoda.bintray-release'
 
 buildscript {
@@ -20,7 +19,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1000003
+        versionCode 1000005
         versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -55,18 +54,13 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.2.0-alpha04'
 
     implementation 'com.google.android.material:material:1.1.0-alpha10'
-
-    implementation 'androidx.room:room-runtime:2.2.0-rc01'
-    implementation 'androidx.room:room-ktx:2.2.0-rc01'
-    annotationProcessor 'androidx.room:room-compiler:2.2.0-rc01'
-    kapt 'androidx.room:room-compiler:2.2.0-rc01'
 }
 
 publish {
     userOrg = 'lapism'
     groupId = 'com.lapism.search'
     artifactId = 'search'
-    publishVersion = '1.0.0-alpha03'
+    publishVersion = '1.0.0-alpha05'
     desc = 'Material Design Search component for Android'
     website = 'https://github.com/lapism/search'
 }

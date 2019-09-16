@@ -15,20 +15,20 @@
     <dimen name="search_divider">1dp</dimen>
 
     <dimen name="search_shape_none">0dp</dimen>
-    <dimen name="search_shape_classic">@dimen/cardview_default_radius</dimen>
+    <dimen name="search_shape_classic">2dp</dimen>
     <dimen name="search_shape_rounded">8dp</dimen>
 
-    <dimen name="search_margins_toolbar">8dp</dimen>
-    <dimen name="search_margins_menu_item">4dp</dimen>
-
-    <dimen name="search_layout_height">50dp</dimen>
+    <dimen name="search_layout_height">48dp</dimen>
     <dimen name="search_layout_height_focus">56dp</dimen>
 
-    <dimen name="search_elevation">@dimen/cardview_default_elevation</dimen>
+    <dimen name="search_elevation">2dp</dimen>
     <dimen name="search_elevation_focus">0dp</dimen>
 
-    <dimen name="search_margins_none">0dp</dimen>
-    <dimen name="search_margins_top_bottom">8dp</dimen>
-    <dimen name="search_margins_left_right">16dp</dimen>
+    <dimen name="search_margins_toolbar_none">0dp</dimen>
+    <dimen name="search_margins_toolbar_left_right">16dp</dimen>
+    <dimen name="search_margins_toolbar_top_bottom">8dp</dimen>
+
+    <dimen name="search_margins_menu_item_none">0dp</dimen>
+    <dimen name="search_margins_menu_item">8dp</dimen>
 
 </resources>

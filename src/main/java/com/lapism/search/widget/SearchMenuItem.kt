@@ -75,6 +75,7 @@ class SearchMenuItem @JvmOverloads constructor(
             context.resources.getDimensionPixelSize(R.dimen.search_elevation).toFloat()
         margins = SearchUtils.Margins.MENU_ITEM
         setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_shape_rounded).toFloat())
+        setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height))
         val paddingLeftRight =
             context.resources.getDimensionPixelSize(R.dimen.search_key_line_8)
         mSearchEditText?.setPadding(paddingLeftRight, 0, paddingLeftRight, 0)

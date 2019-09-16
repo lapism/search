@@ -13,18 +13,4 @@
         <attr name="search_navigation_icon_support" />
     </declare-styleable>
 
-    <!--<attr name="expandedTitleGravity">
-    <flag name="start" value="0x00800003"/>
-    <flag name="end" value="0x00800005"/>
-    </attr>-->
-
-    <!--
-        <attr name="search_menu_icon" format="reference" />
-        <attr name="search_menu_icon" format="integer" />
-        <attr name="search_menu_color" format="color" />
-        <attr name="search_text_size" format="dimension" />
-        <attr name="search_hint" format="string" />
-        <attr name="search_hint_color" format="boolean" />
-    -->
-
 </resources>

@@ -59,12 +59,12 @@ dependencies {
 
 ```
 
-### Java or Kotlin
+### SearchView
 ```java
 SearchView INFO2 = findViewById(R.id.INFO2);
 ```
 
-**Search.Version.MENU_ITEM:**
+**SearchMenuItem**
 ```java
 @Override
 public boolean onOptionsItemSelected(MenuItem item) {
@@ -90,7 +90,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
 **[README for SearchAdapter](https://github.com/lapism/Search/blob/master/README_SearchAdapter.md)**
 
 ### Changelog
-**1.0.0-alpha02**
+**1.0.0-alpha05**
 - First release
 
 ### Author
