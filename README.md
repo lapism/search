@@ -30,7 +30,7 @@ targetSdkVersion 29
 Add the dependency to your gradle file:
 ```groovy
 dependencies {
-    implementation 'com.lapism.androidx:searchview:1.0.0-alpha05'
+    implementation 'com.lapism.search:search: ASAP'
 }
 ```
 
