@@ -4,7 +4,6 @@ Material Design Search component for Android
  - Last Material Design
  - Persistent search
  - Expandable search
- - History
  - Styling
  - AndroidX
  - Kotlin
@@ -21,17 +20,17 @@ https://bintray.com/lapism/search/search
 
 <a href="https://www.paypal.me/lapism">
   <img alt="Paypal"
-       src="https://github.com/lapism/Search/blob/master/images/donate.png" />
+       src="https://github.com/lapism/search/blob/master/images/search.png" />
 </a>
 
 ## Usage
-minSdkVersion 21
-targetSdkVersion 29
+minSdkVersion 21  
+targetSdkVersion 29  
 
 Add the dependency to your gradle file:
 ```groovy
 dependencies {
-    implementation 'com.lapism.androidx:searchview:1.0.0'
+    implementation 'com.lapism.androidx:searchview:1.0.0-alpha05'
 }
 ```
 # SearchView
@@ -42,52 +41,43 @@ dependencies {
 
 <a href="https://www.paypal.me/lapism">
   <img alt="Get it on Google Play"
-       src="https://github.com/lapism/SearchView-SearchBar/blob/master/images/donate.png" />
+       src="https://github.com/lapism/search/blob/master/images/paypal.png" />
 </a>
 
 ### XML
 ```xml
-<com.lapism.searchview.widget.SearchView
-    android:id="@+id/INFO2"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+        <com.lapism.search.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+```
+
+### XML
+```xml
+        <com.lapism.search.widget.SearchMenuItem
+            android:id="@+id/searchMenuItem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 ```
 
 # XML attributes
 ```xml
-
-
+        <attr name="search_navigation_icon_support" format="enum">
+            <enum name="hamburger" value="100" />
+            <enum name="arrow" value="101" />
+            <enum name="animation" value="102" />
+        </attr>
 ```
 
-### SearchView
+## SearchView
 ```java
-SearchView INFO2 = findViewById(R.id.INFO2);
+val searchView = findViewById<SearchView>(R.id.searchView)
 ```
 
 **SearchMenuItem**
 ```java
-@Override
-public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-        case R.id.action_search:
-            mSearchView.open();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-    }
-}
+val searchMenuItem = findViewById<SearchMenuItem>(R.id.searchMenuItem)
 ```
-
-### Public methods
-| Name | Format | Default | Description
-| ------ | ------ |  ------ |------ |
-| getLogo() | ... | ... | ...
-
-
-![Search](https://github.com/lapism/Search/blob/master/images/search.png)
-
-
-**[README for SearchAdapter](https://github.com/lapism/Search/blob/master/README_SearchAdapter.md)**
 
 ### Changelog
 **1.0.0-alpha05**
