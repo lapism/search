@@ -20,7 +20,7 @@ https://bintray.com/lapism/search/search
 
 <a href="https://www.paypal.me/lapism">
   <img alt="Paypal"
-       src="https://github.com/lapism/search/blob/master/images/search.png" />
+       src="https://github.com/lapism/search/blob/master/images/paypal.png" />
 </a>
 
 ## Usage
@@ -33,16 +33,11 @@ dependencies {
     implementation 'com.lapism.androidx:searchview:1.0.0-alpha05'
 }
 ```
-# SearchView
 
-## Donations
-
-`Please support me!`
-
-<a href="https://www.paypal.me/lapism">
-  <img alt="Get it on Google Play"
-       src="https://github.com/lapism/search/blob/master/images/paypal.png" />
-</a>
+## SearchView
+```java
+val searchView = findViewById<SearchView>(R.id.searchView)
+```
 
 ### XML
 ```xml
@@ -50,6 +45,20 @@ dependencies {
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+```
+
+# XML attributes
+```xml
+        <attr name="search_navigation_icon_support" format="enum">
+            <enum name="hamburger" value="100" />
+            <enum name="arrow" value="101" />
+            <enum name="animation" value="102" />
+        </attr>
+```
+
+**SearchMenuItem**
+```java
+val searchMenuItem = findViewById<SearchMenuItem>(R.id.searchMenuItem)
 ```
 
 ### XML
@@ -67,16 +76,6 @@ dependencies {
             <enum name="arrow" value="101" />
             <enum name="animation" value="102" />
         </attr>
-```
-
-## SearchView
-```java
-val searchView = findViewById<SearchView>(R.id.searchView)
-```
-
-**SearchMenuItem**
-```java
-val searchMenuItem = findViewById<SearchMenuItem>(R.id.searchMenuItem)
 ```
 
 ### Changelog
