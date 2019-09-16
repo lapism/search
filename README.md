@@ -56,7 +56,7 @@ val searchView = findViewById<SearchView>(R.id.searchView)
         </attr>
 ```
 
-**SearchMenuItem**
+## SearchMenuItem
 ```java
 val searchMenuItem = findViewById<SearchMenuItem>(R.id.searchMenuItem)
 ```

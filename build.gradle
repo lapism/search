@@ -64,5 +64,3 @@ publish {
     desc = 'Material Design Search component for Android'
     website = 'https://github.com/lapism/search'
 }
-
-// ./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=false
