@@ -47,7 +47,7 @@ val searchView = findViewById<SearchView>(R.id.searchView)
             android:layout_height="match_parent" />
 ```
 
-# XML attributes
+### XML attributes
 ```xml
         <attr name="search_navigation_icon_support" format="enum">
             <enum name="hamburger" value="100" />
@@ -69,7 +69,7 @@ val searchMenuItem = findViewById<SearchMenuItem>(R.id.searchMenuItem)
             android:layout_height="match_parent"/>
 ```
 
-# XML attributes
+### XML attributes
 ```xml
         <attr name="search_navigation_icon_support" format="enum">
             <enum name="hamburger" value="100" />
@@ -78,14 +78,14 @@ val searchMenuItem = findViewById<SearchMenuItem>(R.id.searchMenuItem)
         </attr>
 ```
 
-### Changelog
+## Changelog
 **1.0.0-alpha05**
 - First release
 
-### Author
+## Author
 
 * **Martin Lapiš** - [GitHub](https://github.com/lapism)
 
-### License
+## License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](https://github.com/lapism/Search/blob/searchview/LICENSE) file for details.
