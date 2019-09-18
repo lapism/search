@@ -106,8 +106,7 @@ class SearchMenuItem @JvmOverloads constructor(
 
     // *********************************************************************************************
     override fun onFilterComplete(count: Int) {
-        super.onFilterComplete(count)
-        if (getAdapter()?.itemCount!! > 0) {
+        if (count > 0) {
             mViewDivider?.visibility = View.VISIBLE
         } else {
             mViewDivider?.visibility = View.GONE
