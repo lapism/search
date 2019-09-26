@@ -21,7 +21,7 @@
     <dimen name="search_layout_height">48dp</dimen>
     <dimen name="search_layout_height_focus">56dp</dimen>
 
-    <dimen name="search_elevation">2dp</dimen>
+    <dimen name="search_elevation">3dp</dimen><!-- 2dp -->
     <dimen name="search_elevation_focus">0dp</dimen>
 
     <dimen name="search_margins_toolbar_none">0dp</dimen>

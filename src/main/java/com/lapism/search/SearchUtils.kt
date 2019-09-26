@@ -70,6 +70,11 @@ object SearchUtils {
     }
 
     @JvmStatic
+    fun getDefaultAnimationDuration(context: Context): Long {
+        return context.resources.getInteger(R.integer.search_animation_duration).toLong()
+    }
+
+    @JvmStatic
     fun isLayoutRtl(context: Context): Boolean {
         return context.resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL
     }

@@ -11,6 +11,7 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
@@ -246,9 +247,6 @@ abstract class SearchLayout @JvmOverloads constructor(
         mViewShadow?.visibility = View.GONE
 
         mCardView = findViewById<MaterialCardView>(R.id.search_materialCardView)
-
-        isFocusable = true              // TODO REMOVE FROM XML
-        isFocusableInTouchMode = true   // TODO REMOVE FROM XML
     }
 
     // *********************************************************************************************
@@ -360,6 +358,9 @@ abstract class SearchLayout @JvmOverloads constructor(
         mRecyclerView?.setHasFixedSize(hasFixedSize)
     }
 
+    /**
+     * DividerItemDecoration class
+     */
     fun addAdapterItemDecoration(@NonNull decor: RecyclerView.ItemDecoration) {
         mRecyclerView?.addItemDecoration(decor)
     }
@@ -514,6 +515,10 @@ abstract class SearchLayout @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
+    fun setBackgroundColorViewOnly(@ColorInt color: Int) {
+        mLinearLayout?.setBackgroundColor(color)
+    }
+
     fun setDividerColor(@ColorInt color: Int) {
         mViewDivider?.setBackgroundColor(color)
     }

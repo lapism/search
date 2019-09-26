@@ -81,7 +81,7 @@ val searchMenuItem = findViewById<SearchMenuItem>(R.id.searchMenuItem)
 ```
 
 ## Changelog
-**1.0.0-alpha05**
+**1.0.0-alpha06**
 - First release
 
 ## Author

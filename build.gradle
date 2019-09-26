@@ -19,7 +19,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1000005
+        versionCode 1000006
         versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -59,19 +59,19 @@ dependencies {
     userOrg = 'lapism'
     groupId = 'com.lapism.search'
     artifactId = 'search'
-    publishVersion = '1.0.0-alpha05'
+    publishVersion = '1.0.0-alpha06'
     desc = 'Material Design Search component for Android'
     website = 'https://github.com/lapism/search'
 }*/
 
 project.ext {
-    mavDevelopers = ["Martin":"Lapiš"]
+    mavDevelopers = ["Martin": "Lapiš"]
     mavSiteUrl = "https://github.com/lapism/search"
     mavGitUrl = mavSiteUrl + '.git'
     mavProjectName = 'search'
     mavPublishToInternalRepo = true
     mavRepoInternalUrl = "com/lapism/search"
-    mavLibraryLicenses = ["Apache-2.0":'http://www.apache.org/licenses/LICENSE-2.0.txt']
+    mavLibraryLicenses = ["Apache-2.0": 'http://www.apache.org/licenses/LICENSE-2.0.txt']
     mavLibraryDescription = "Material Design Search component for Android "
 }
 

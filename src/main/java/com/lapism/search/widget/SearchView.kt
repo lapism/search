@@ -4,9 +4,12 @@ import android.animation.LayoutTransition
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.lapism.search.R
 import com.lapism.search.SearchUtils
 import com.lapism.search.behavior.SearchBehavior
@@ -51,9 +54,33 @@ class SearchView @JvmOverloads constructor(
 
         val transition = LayoutTransition()
         transition.setDuration(getAnimationDuration())
+        transition.addTransitionListener(object:LayoutTransition.TransitionListener{
+            override fun startTransition(
+                transition: LayoutTransition?,
+                container: ViewGroup?,
+                view: View?,
+                transitionType: Int
+            ) {
 
-        val linearLayoutMain = findViewById<LinearLayout>(R.id.search_linearLayout_main)
-        linearLayoutMain.layoutTransition = transition
+            }
+
+            override fun endTransition(
+                transition: LayoutTransition?,
+                container: ViewGroup?,
+                view: View?,
+                transitionType: Int
+            ) {
+                if(mSearchEditText?.hasFocus()!!){
+                    showKeyboard()
+                }
+                else {
+                    hideKeyboard()
+                }
+            }
+        })
+
+        val frameLayout = findViewById<FrameLayout>(R.id.search_main)
+        frameLayout.layoutTransition = transition
     }
 
     // *********************************************************************************************
@@ -63,9 +90,9 @@ class SearchView @JvmOverloads constructor(
 
     // *********************************************************************************************
     private fun setDefault() {
+        margins = SearchUtils.Margins.TOOLBAR
         elevation =
             context.resources.getDimensionPixelSize(R.dimen.search_elevation).toFloat()
-        margins = SearchUtils.Margins.TOOLBAR
         setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_shape_rounded).toFloat())
         setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height))
         mSearchEditText?.setPadding(0, 0, 0, 0)
@@ -74,30 +101,39 @@ class SearchView @JvmOverloads constructor(
     // *********************************************************************************************
     override fun addFocus() {
         filter("")
-        mOnFocusChangeListener?.onFocusChange(true)
-        SearchUtils.fadeAddFocus(mViewShadow, getAnimationDuration())
-        animateHamburgerToArrow(false)
-        mViewDivider?.visibility = View.VISIBLE
-        showAdapter()
-        showKeyboard()
 
-        val paddingLeftRight =
-            context.resources.getDimensionPixelSize(R.dimen.search_key_line_8)
-        mSearchEditText?.setPadding(paddingLeftRight, 0, paddingLeftRight, 0)
-        setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height_focus))
-        setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_shape_none).toFloat())
+        mViewShadow?.visibility = View.VISIBLE
+        animateHamburgerToArrow(false)
+
+
+
+        //elevation = context.resources.getDimensionPixelSize(R.dimen.search_elevation_focus).toFloat()
+        //mOnFocusChangeListener?.onFocusChange(true)
         margins = SearchUtils.Margins.NONE_TOOLBAR
-        elevation = context.resources.getDimensionPixelSize(R.dimen.search_elevation_focus)
-            .toFloat()
+        //val paddingLeftRight = context.resources.getDimensionPixelSize(R.dimen.search_key_line_8)
+        //SearchEditText?.setPadding(paddingLeftRight, 0, paddingLeftRight, 0)
+        //setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height_focus))
+        //setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_shape_none).toFloat())*/
+
+
+        showAdapter()
+        mViewDivider?.visibility = View.VISIBLE
     }
 
     override fun removeFocus() {
-        SearchUtils.fadeRemoveFocus(mViewShadow, getAnimationDuration())
+        mViewShadow?.visibility = View.GONE
         animateArrowToHamburger(false)
-        hideKeyboard()
+
+
+
         hideAdapter()
         mViewDivider?.visibility = View.GONE
-        setDefault()
+
+        margins = SearchUtils.Margins.TOOLBAR
+        //elevation = context.resources.getDimensionPixelSize(R.dimen.search_elevation).toFloat()
+        //setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_shape_rounded).toFloat())
+        //setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height))
+        //mSearchEditText?.setPadding(0, 0, 0, 0)
         mOnFocusChangeListener?.onFocusChange(false)
     }
 
