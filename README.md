@@ -46,7 +46,7 @@ val searchView = findViewById<SearchView>(R.id.searchView)
         <com.lapism.search.widget.SearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
 ```
 
 ### XML attributes
@@ -68,7 +68,7 @@ val searchMenuItem = findViewById<SearchMenuItem>(R.id.searchMenuItem)
         <com.lapism.search.widget.SearchMenuItem
             android:id="@+id/searchMenuItem"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content" />
 ```
 
 ### XML attributes
@@ -82,6 +82,12 @@ val searchMenuItem = findViewById<SearchMenuItem>(R.id.searchMenuItem)
 
 ## Changelog
 **1.0.0-alpha07**
+- Bugfixes
+
+**1.0.0-alpha06**
+- Bugfixes
+
+**1.0.0-alpha05**
 - First upload to repository
 
 ## Author

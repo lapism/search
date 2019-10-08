@@ -92,10 +92,47 @@ class SearchView @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
+    override fun addFocus() {
+        mOnFocusChangeListener?.onFocusChange(true)
+        filter("")
+
+        mViewShadow?.visibility = View.VISIBLE
+        setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_shape_none).toFloat())
+        margins = SearchUtils.Margins.NONE_TOOLBAR
+        mViewDivider?.visibility = View.VISIBLE
+        animateHamburgerToArrow(false)
+        setElevationCompat(context.resources.getDimensionPixelSize(R.dimen.search_elevation_focus).toFloat())
+        val paddingLeftRight = context.resources.getDimensionPixelSize(R.dimen.search_key_line_16)
+        mSearchEditText?.setPadding(paddingLeftRight, 0, paddingLeftRight, 0)
+        setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height_focus))
+        showAdapter()
+
+        showKeyboard()
+    }
+
+    override fun removeFocus() {
+        hideAdapter()
+
+        mViewShadow?.visibility = View.GONE
+        animateArrowToHamburger(false)
+
+        mViewDivider?.visibility = View.GONE
+        margins = SearchUtils.Margins.TOOLBAR
+        setElevationCompat(context.resources.getDimensionPixelSize(R.dimen.search_elevation).toFloat())
+        setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_shape_rounded).toFloat())
+        setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height))
+        mSearchEditText?.setPadding(0, 0, 0, 0)
+
+        mOnFocusChangeListener?.onFocusChange(false)
+
+        hideKeyboard()
+    }
+
+    // TODO VYLADIT OBE ANIMACE
     fun addFocus2() {
         mOnFocusChangeListener?.onFocusChange(true)
-
         filter("")
+
         mViewShadow?.visibility = View.VISIBLE
         animateHamburgerToArrow(false)
         mViewDivider?.visibility = View.VISIBLE
@@ -126,100 +163,8 @@ class SearchView @JvmOverloads constructor(
         mOnFocusChangeListener?.onFocusChange(false)
     }
 
-    override fun addFocus() {
-        mOnFocusChangeListener?.onFocusChange(true)
-
-        filter("")
-
-        mViewShadow?.visibility = View.VISIBLE
-        setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_shape_none).toFloat())
-        margins = SearchUtils.Margins.NONE_TOOLBAR
-        mViewDivider?.visibility = View.VISIBLE
-        animateHamburgerToArrow(false)
-        setElevationCompat(context.resources.getDimensionPixelSize(R.dimen.search_elevation_focus).toFloat())
-        val paddingLeftRight = context.resources.getDimensionPixelSize(R.dimen.search_key_line_16)
-        mSearchEditText?.setPadding(paddingLeftRight, 0, paddingLeftRight, 0)
-        setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height_focus))
-        showAdapter()
-
-        showKeyboard()
-    }
-
-    override fun removeFocus() {
-        hideAdapter()
-
-        mViewShadow?.visibility = View.GONE
-        animateArrowToHamburger(false)
-
-        mViewDivider?.visibility = View.GONE
-        margins = SearchUtils.Margins.TOOLBAR
-        setElevationCompat(context.resources.getDimensionPixelSize(R.dimen.search_elevation).toFloat())
-        setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_shape_rounded).toFloat())
-        setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height))
-        mSearchEditText?.setPadding(0, 0, 0, 0)
-        mOnFocusChangeListener?.onFocusChange(false)
-
-        //postDelayed()
-        hideKeyboard()
-    }
-
     override fun getBehavior(): CoordinatorLayout.Behavior<*> {
         return mBehavior
     }
 
 }
-
-/*
-ODLADIT ANIMACI searchview
-
-PROKLIK VIEW
-
-INDICATOR
-NAV ITEM
-
-
-intentz
-pridat skype
-
-iosched
-file provider opravit
-menu
-samples
-PREPSAT PK REQUEST MANAGER
-
-dark theme clanek
-play store clanek
-A STUDIO MAVEN PLUGIN
-BILLIJNG LIB
-reklamovat klavevsnici
-vyhledavani v requestexh
-snackbar optimalizze zobrazeni
-adaptery vyhledavnai + dialog
-https://github.com/javiersantos/PiracyChecker
-
-TODO A FIXME
-DOPLNIT TEXTY A DOPLNIT DIALOG A ADAPTERY U VYHLEDAVAVNI
-        // klavesnice se ztraci v landscape
-        // com.google.android.material.circularreveal.CircularReveal
-        about layout
-        adaptery
-
-
-FIREBASE
-BILLING LIBRARY
-PIRECY CHECKER
-MAVEN PLUGIN
-ABOUT SCREEN
-
-SHARE
-IKONKY OUTLINE
-
-
-
-BONUS
-ikonky stiuny
-ARCHITECTURE COMPONENTS
-COROUTINES
-
-
-* */

@@ -754,7 +754,7 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     interface OnQueryTextListener {
 
-        fun onQueryTextChange(newText: CharSequence)
+        fun onQueryTextChange(newText: CharSequence): Boolean
 
         fun onQueryTextSubmit(query: CharSequence): Boolean
     }

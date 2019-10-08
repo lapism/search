@@ -4,9 +4,10 @@ import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import com.google.android.material.appbar.AppBarLayout
+import com.lapism.search.internal.SearchLayout
 
 
-class SearchBehavior<V : View> : CoordinatorLayout.Behavior<V>() {
+class SearchBehavior<S : SearchLayout> : CoordinatorLayout.Behavior<S>() {
 
     // *********************************************************************************************
     var scroll: Boolean = false
@@ -19,7 +20,7 @@ class SearchBehavior<V : View> : CoordinatorLayout.Behavior<V>() {
     // *********************************************************************************************
     override fun layoutDependsOn(
         parent: CoordinatorLayout,
-        child: V,
+        child: S,
         dependency: View
     ): Boolean {
         if (dependency is AppBarLayout && scroll) {
@@ -31,7 +32,7 @@ class SearchBehavior<V : View> : CoordinatorLayout.Behavior<V>() {
 
     override fun onDependentViewChanged(
         parent: CoordinatorLayout,
-        child: V,
+        child: S,
         dependency: View
     ): Boolean {
         if (dependency is AppBarLayout && scroll) {
