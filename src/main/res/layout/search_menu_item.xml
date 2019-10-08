@@ -20,7 +20,7 @@
             android:animateLayoutChanges="true"
             android:orientation="vertical">
 
-            <LinearLayout
+            <com.google.android.material.circularreveal.CircularRevealLinearLayout
                 android:id="@+id/search_linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/search_layout_height"
@@ -88,7 +88,7 @@
                     android:scaleType="center"
                     android:tint="?attr/colorControlNormal" />
 
-            </LinearLayout>
+            </com.google.android.material.circularreveal.CircularRevealLinearLayout>
 
             <View
                 android:id="@+id/search_view_divider"
@@ -107,4 +107,3 @@
     </com.google.android.material.card.MaterialCardView>
 
 </FrameLayout>
-<!-- ?attr/selectableItemBackgroundBorderless -->

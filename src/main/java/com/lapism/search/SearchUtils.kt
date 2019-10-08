@@ -14,7 +14,7 @@ import androidx.annotation.IntDef
 object SearchUtils {
 
     // *********************************************************************************************
-    private const val SPEECH_REQUEST_CODE = 100
+    const val SPEECH_REQUEST_CODE = 300
 
     // *********************************************************************************************
     @IntDef(
@@ -38,12 +38,12 @@ object SearchUtils {
         Margins.MENU_ITEM
     )
     @Retention(AnnotationRetention.SOURCE)
-    annotation class Margins {
+    internal annotation class Margins {
         companion object {
-            const val NONE_TOOLBAR = 300
-            const val NONE_MENU_ITEM = 301
-            const val TOOLBAR = 302
-            const val MENU_ITEM = 303
+            const val NONE_TOOLBAR = 200
+            const val NONE_MENU_ITEM = 201
+            const val TOOLBAR = 202
+            const val MENU_ITEM = 203
         }
     }
 
@@ -67,11 +67,6 @@ object SearchUtils {
         val activities =
             pm.queryIntentActivities(Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0)
         return activities.size != 0
-    }
-
-    @JvmStatic
-    fun getDefaultAnimationDuration(context: Context): Long {
-        return context.resources.getInteger(R.integer.search_animation_duration).toLong()
     }
 
     @JvmStatic

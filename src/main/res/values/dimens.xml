@@ -12,6 +12,7 @@
     <dimen name="search_item_height">56dp</dimen>
     <dimen name="search_reveal">24dp</dimen>
     <dimen name="search_key_line_8">8dp</dimen>
+    <dimen name="search_key_line_16">16dp</dimen>
     <dimen name="search_divider">1dp</dimen>
 
     <dimen name="search_shape_none">0dp</dimen>

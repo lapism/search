@@ -25,7 +25,7 @@ class SearchMenuItem @JvmOverloads constructor(
 
     // *********************************************************************************************
     init {
-        inflate(context, R.layout.search_view, this)
+        inflate(context, R.layout.search_menu_item, this)
         init()
 
         val a = context.obtainStyledAttributes(
@@ -38,7 +38,7 @@ class SearchMenuItem @JvmOverloads constructor(
             )
         a.recycle()
 
-        // TODO MORE ATTRIBUTTES in future
+        // TODO - MORE ATTRIBUTTES IN THE FUTURE RELEASE
         setClearIconImageResource(R.drawable.search_ic_outline_clear_24px)
         mViewShadow?.setBackgroundColor(
             ContextCompat.getColor(
@@ -71,13 +71,11 @@ class SearchMenuItem @JvmOverloads constructor(
 
     // *********************************************************************************************
     private fun setDefault() {
-        elevation =
-            context.resources.getDimensionPixelSize(R.dimen.search_elevation).toFloat()
-        margins = SearchUtils.Margins.MENU_ITEM
-        setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_shape_rounded).toFloat())
-        setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height))
-        val paddingLeftRight =
-            context.resources.getDimensionPixelSize(R.dimen.search_key_line_8)
+        margins = SearchUtils.Margins.NONE_MENU_ITEM
+        setElevationCompat(context.resources.getDimensionPixelSize(R.dimen.search_elevation_focus).toFloat())
+        setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_shape_none).toFloat())
+        setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height_focus))
+        val paddingLeftRight = context.resources.getDimensionPixelSize(R.dimen.search_key_line_16)
         mSearchEditText?.setPadding(paddingLeftRight, 0, paddingLeftRight, 0)
 
         mViewShadow?.setOnClickListener(this)
@@ -117,28 +115,29 @@ class SearchMenuItem @JvmOverloads constructor(
         visibility = View.VISIBLE
         mCardView?.visibility = View.VISIBLE
 
+        val animation = SearchAnimation()
+        animation.setOnAnimationListener(object :
+            SearchAnimation.OnAnimationListener {
+            override fun onAnimationStart() {
+                mOnFocusChangeListener?.onFocusChange(true)
+                filter("")
+                if (mShadowVisibility) {
+                    SearchUtils.fadeAddFocus(mViewShadow, getAnimationDuration())
+                }
+                animateHamburgerToArrow(true)
+            }
+
+            override fun onAnimationEnd() {
+                showAdapter()
+                showKeyboard()
+            }
+        })
+
         val viewTreeObserver = mCardView?.viewTreeObserver
         if (viewTreeObserver?.isAlive!!) {
             viewTreeObserver.addOnGlobalLayoutListener(object :
                 ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
-                    val animation = SearchAnimation()
-                    animation.setOnAnimationListener(object :
-                        SearchAnimation.OnAnimationListener {
-                        override fun onAnimationStart() {
-                            filter("")
-                            mOnFocusChangeListener?.onFocusChange(true)
-                            if (mShadowVisibility) {
-                                SearchUtils.fadeAddFocus(mViewShadow, getAnimationDuration())
-                            }
-                            animateHamburgerToArrow(true)
-                        }
-
-                        override fun onAnimationEnd() {
-                            showAdapter()
-                            showKeyboard()
-                        }
-                    })
                     animation.start(
                         context,
                         mLinearLayout,

@@ -11,7 +11,6 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
@@ -228,7 +227,6 @@ abstract class SearchLayout @JvmOverloads constructor(
         mRecyclerView = findViewById(R.id.search_recyclerView)
         mRecyclerView?.layoutManager = LinearLayoutManager(context)
         mRecyclerView?.visibility = View.GONE
-        mRecyclerView?.setHasFixedSize(true)
         mRecyclerView?.isNestedScrollingEnabled = false
         mRecyclerView?.itemAnimator = DefaultItemAnimator()
         mRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -247,6 +245,11 @@ abstract class SearchLayout @JvmOverloads constructor(
         mViewShadow?.visibility = View.GONE
 
         mCardView = findViewById<MaterialCardView>(R.id.search_materialCardView)
+
+        isFocusable = true
+        isFocusableInTouchMode = true
+        //isClickable = true
+        setOnClickListener(this)
     }
 
     // *********************************************************************************************
@@ -472,15 +475,23 @@ abstract class SearchLayout @JvmOverloads constructor(
         mCardView?.setCardBackgroundColor(color)
     }
 
+    // TODO PUBLIC
     override fun setElevation(elevation: Float) {
+        setElevationCompat(elevation)
+    }
+
+    // TODO PUBLIC
+    protected fun setElevationCompat(elevation: Float) {
         mCardView?.cardElevation = elevation
     }
 
-    fun setMaxElevation(elevation: Float) {
-        mCardView?.maxCardElevation = elevation
+    // TODO PUBLIC
+    protected fun setMaxElevation(maxElevation: Float) {
+        mCardView?.maxCardElevation = maxElevation
     }
 
-    fun setBackgroundRadius(radius: Float) {
+    // TODO PUBLIC
+    protected fun setBackgroundRadius(radius: Float) {
         mCardView?.radius = radius
     }
 
@@ -554,6 +565,29 @@ abstract class SearchLayout @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
+    fun showKeyboard() {
+        if (!isInEditMode) {
+            val inputMethodManager =
+                context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.showSoftInput(
+                mSearchEditText,
+                InputMethodManager.RESULT_UNCHANGED_SHOWN
+            )
+        }
+    }
+
+    fun hideKeyboard() {
+        if (!isInEditMode) {
+            val inputMethodManager =
+                context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(
+                windowToken,
+                InputMethodManager.RESULT_UNCHANGED_SHOWN
+            )
+        }
+    }
+
+    // *********************************************************************************************
     protected fun getAnimationDuration(): Long {
         return mAnimationDuration
     }
@@ -588,28 +622,6 @@ abstract class SearchLayout @JvmOverloads constructor(
         }
     }
 
-    protected fun showKeyboard() {
-        if (!isInEditMode) {
-            val inputMethodManager =
-                context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.showSoftInput(
-                mSearchEditText,
-                InputMethodManager.RESULT_UNCHANGED_SHOWN
-            )
-        }
-    }
-
-    protected fun hideKeyboard() {
-        if (!isInEditMode) {
-            val inputMethodManager =
-                context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(
-                windowToken,
-                InputMethodManager.RESULT_UNCHANGED_SHOWN
-            )
-        }
-    }
-
     protected fun animateHamburgerToArrow(verticalMirror: Boolean) {
         if (verticalMirror) {
             mSearchArrowDrawable?.setVerticalMirror(false)
@@ -631,7 +643,7 @@ abstract class SearchLayout @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
-    // TODO SET AS PUBLIC IN FUTURE
+    // TODO - SET AS PUBLIC IN THE FUTURE RELEASE
     private fun setAnimationDuration(animationDuration: Long) {
         mAnimationDuration = animationDuration
     }
