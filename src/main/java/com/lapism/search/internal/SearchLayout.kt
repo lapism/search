@@ -571,7 +571,8 @@ abstract class SearchLayout @JvmOverloads constructor(
                 context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.showSoftInput(
                 mSearchEditText,
-                InputMethodManager.RESULT_UNCHANGED_SHOWN
+                InputMethodManager.RESULT_SHOWN
+                //InputMethodManager.RESULT_UNCHANGED_SHOWN
             )
         }
     }
