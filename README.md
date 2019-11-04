@@ -32,7 +32,7 @@ targetSdkVersion 29
 Add the dependency to your gradle file:
 ```groovy
 dependencies {
-    implementation 'com.lapism.search:search: NOT RELEASED YET '
+    implementation 'com.lapism.search:search:1.0.0-alpha08'
 }
 ```
 
@@ -81,6 +81,10 @@ val searchMenuItem = findViewById<SearchMenuItem>(R.id.searchMenuItem)
 ```
 
 ## Changelog
+**1.0.0-alpha08**
+- Dependency is released on Bintray
+- Improved animations
+
 **1.0.0-alpha07**
 - Bugfixes
 

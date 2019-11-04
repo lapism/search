@@ -128,7 +128,7 @@ class SearchView @JvmOverloads constructor(
         hideKeyboard()
     }
 
-    // ODLADIT ANIMACI searchview a serchitem klavesnice atd
+    // ODLADIT ANIMACI searchview a serchitem klavesnice atd, ONRESUME KLAVESNICE MIZI, SHADOW CANVAS A VYDAT LIBJKU
     fun addFocus2() {
         mOnFocusChangeListener?.onFocusChange(true)
         filter("")
