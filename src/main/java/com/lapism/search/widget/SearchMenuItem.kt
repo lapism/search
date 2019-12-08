@@ -48,6 +48,7 @@ class SearchMenuItem @JvmOverloads constructor(
         )
 
         setDefault()
+        mViewDivider?.visibility = View.VISIBLE
     }
 
     // *********************************************************************************************
@@ -72,7 +73,8 @@ class SearchMenuItem @JvmOverloads constructor(
     // *********************************************************************************************
     private fun setDefault() {
         margins = SearchUtils.Margins.NONE_MENU_ITEM
-        setElevationCompat(context.resources.getDimensionPixelSize(R.dimen.search_elevation_focus).toFloat())
+        elevation =
+            context.resources.getDimensionPixelSize(R.dimen.search_elevation_focus).toFloat()
         setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_shape_none).toFloat())
         setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height_focus))
         val paddingLeftRight = context.resources.getDimensionPixelSize(R.dimen.search_key_line_16)
@@ -103,14 +105,6 @@ class SearchMenuItem @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
-    override fun onFilterComplete(count: Int) {
-        if (count > 0) {
-            mViewDivider?.visibility = View.VISIBLE
-        } else {
-            mViewDivider?.visibility = View.GONE
-        }
-    }
-
     override fun addFocus() {
         visibility = View.VISIBLE
         mCardView?.visibility = View.VISIBLE

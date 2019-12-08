@@ -51,6 +51,7 @@ class SearchView @JvmOverloads constructor(
         setDefault()
 
         val transition = LayoutTransition()
+        transition.enableTransitionType(LayoutTransition.CHANGING)
         transition.setDuration(getAnimationDuration())
         transition.addTransitionListener(object : LayoutTransition.TransitionListener {
             override fun startTransition(
@@ -101,7 +102,8 @@ class SearchView @JvmOverloads constructor(
         margins = SearchUtils.Margins.NONE_TOOLBAR
         mViewDivider?.visibility = View.VISIBLE
         animateHamburgerToArrow(false)
-        setElevationCompat(context.resources.getDimensionPixelSize(R.dimen.search_elevation_focus).toFloat())
+        elevation =
+            context.resources.getDimensionPixelSize(R.dimen.search_elevation_focus).toFloat()
         val paddingLeftRight = context.resources.getDimensionPixelSize(R.dimen.search_key_line_16)
         mSearchEditText?.setPadding(paddingLeftRight, 0, paddingLeftRight, 0)
         setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height_focus))
@@ -118,7 +120,7 @@ class SearchView @JvmOverloads constructor(
 
         mViewDivider?.visibility = View.GONE
         margins = SearchUtils.Margins.TOOLBAR
-        setElevationCompat(context.resources.getDimensionPixelSize(R.dimen.search_elevation).toFloat())
+        elevation = context.resources.getDimensionPixelSize(R.dimen.search_elevation).toFloat()
         setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_shape_rounded).toFloat())
         setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height))
         mSearchEditText?.setPadding(0, 0, 0, 0)
@@ -128,7 +130,6 @@ class SearchView @JvmOverloads constructor(
         hideKeyboard()
     }
 
-    // ODLADIT ANIMACI searchview a serchitem klavesnice atd, ONRESUME KLAVESNICE MIZI, SHADOW CANVAS A VYDAT LIBJKU
     fun addFocus2() {
         mOnFocusChangeListener?.onFocusChange(true)
         filter("")
@@ -143,7 +144,8 @@ class SearchView @JvmOverloads constructor(
         setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height_focus))
         setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_shape_none).toFloat())
         margins = SearchUtils.Margins.NONE_TOOLBAR
-        setElevationCompat(context.resources.getDimensionPixelSize(R.dimen.search_elevation_focus).toFloat())
+        elevation =
+            context.resources.getDimensionPixelSize(R.dimen.search_elevation_focus).toFloat()
 
         showAdapter()
     }
@@ -155,7 +157,7 @@ class SearchView @JvmOverloads constructor(
         hideAdapter()
         mViewDivider?.visibility = View.GONE
         margins = SearchUtils.Margins.TOOLBAR
-        setElevationCompat(context.resources.getDimensionPixelSize(R.dimen.search_elevation).toFloat())
+        elevation = context.resources.getDimensionPixelSize(R.dimen.search_elevation).toFloat()
         setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_shape_rounded).toFloat())
         setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height))
         mSearchEditText?.setPadding(0, 0, 0, 0)

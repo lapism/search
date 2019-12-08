@@ -19,8 +19,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1000008
-        versionName "1.0.0-alpha08"
+        versionCode 1000009
+        versionName "1.0.0-alpha09"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
@@ -41,25 +41,25 @@ android {
         jvmTarget = "1.8"
     }
 
-    lintOptions {
+    /*lintOptions {
         abortOnError false
-    }
+    }*/
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0-rc01'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
-    implementation 'com.google.android.material:material:1.2.0-alpha01'
+    implementation 'com.google.android.material:material:1.2.0-alpha02'
 }
 
 /*publish {
     userOrg = 'lapism'
     groupId = 'com.lapism.search'
     artifactId = 'search'
-    publishVersion = '1.0.0-alpha08'
+    publishVersion = '1.0.0-alpha09'
     desc = 'Material Design Search component for Android'
     website = 'https://github.com/lapism/search'
 }*/
@@ -76,3 +76,5 @@ project.ext {
 }
 
 apply from: "https://raw.githubusercontent.com/sky-uk/gradle-maven-plugin/1.0.4/gradle-mavenizer.gradle"
+//https://docs.gradle.org/current/userguide/publishing_maven.html
+//https://developer.android.com/studio/preview/features?utm_source=android-studio-3-6&utm_medium=studio-assistant-preview#maven-publish

@@ -3,6 +3,7 @@ package com.lapism.search.internal
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.ColorFilter
+import android.graphics.PorterDuff
 import android.graphics.Rect
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
@@ -15,7 +16,9 @@ import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.annotation.*
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
@@ -29,14 +32,14 @@ import com.lapism.search.SearchUtils
 /**
  * @hide
  */
+@Suppress("MemberVisibilityCanBePrivate", "unused")
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 abstract class SearchLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr, defStyleRes), View.OnClickListener,
-    Filter.FilterListener {
+) : FrameLayout(context, attrs, defStyleAttr, defStyleRes), View.OnClickListener {
 
     // *********************************************************************************************
     protected var mLinearLayout: LinearLayout? = null
@@ -265,6 +268,10 @@ abstract class SearchLayout @JvmOverloads constructor(
         mImageViewNavigation?.setColorFilter(color)
     }
 
+    fun setNavigationIconColorFilter(color: Int, mode: PorterDuff.Mode) {
+        mImageViewNavigation?.setColorFilter(color, mode)
+    }
+
     fun setNavigationIconColorFilter(cf: ColorFilter?) {
         mImageViewNavigation?.colorFilter = cf
     }
@@ -288,6 +295,10 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     fun setMicIconColorFilter(color: Int) {
         mImageViewMic?.setColorFilter(color)
+    }
+
+    fun setMicIconColorFilter(color: Int, mode: PorterDuff.Mode) {
+        mImageViewMic?.setColorFilter(color, mode)
     }
 
     fun setMicIconColorFilter(cf: ColorFilter?) {
@@ -315,6 +326,10 @@ abstract class SearchLayout @JvmOverloads constructor(
         mImageViewClear?.setColorFilter(color)
     }
 
+    fun setClearIconColorFilter(color: Int, mode: PorterDuff.Mode) {
+        mImageViewClear?.setColorFilter(color, mode)
+    }
+
     fun setClearIconColorFilter(cf: ColorFilter?) {
         mImageViewClear?.colorFilter = cf
     }
@@ -338,6 +353,10 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     fun setMenuIconColorFilter(color: Int) {
         mImageViewMenu?.setColorFilter(color)
+    }
+
+    fun setMenuIconColorFilter(color: Int, mode: PorterDuff.Mode) {
+        mImageViewMenu?.setColorFilter(color, mode)
     }
 
     fun setMenuIconColorFilter(cf: ColorFilter?) {
@@ -477,11 +496,6 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     // TODO PUBLIC
     override fun setElevation(elevation: Float) {
-        setElevationCompat(elevation)
-    }
-
-    // TODO PUBLIC
-    protected fun setElevationCompat(elevation: Float) {
         mCardView?.cardElevation = elevation
     }
 
@@ -572,7 +586,7 @@ abstract class SearchLayout @JvmOverloads constructor(
             inputMethodManager.showSoftInput(
                 mSearchEditText,
                 InputMethodManager.RESULT_SHOWN
-                //InputMethodManager.RESULT_UNCHANGED_SHOWN
+                //InputMethodManager.RESULT_UNCHANGED_SHOWN todo
             )
         }
     }
@@ -593,9 +607,9 @@ abstract class SearchLayout @JvmOverloads constructor(
         return mAnimationDuration
     }
 
-    protected fun filter(constraint: CharSequence?) {
-        if (mRecyclerView?.adapter != null && mRecyclerView?.adapter is Filterable) {
-            (mRecyclerView?.adapter as Filterable).filter.filter(constraint, this)
+    fun filter(constraint: CharSequence) {
+        if (mOnQueryTextListener != null) {
+            mOnQueryTextListener?.onQueryTextChange(constraint)
         }
     }
 
@@ -652,10 +666,6 @@ abstract class SearchLayout @JvmOverloads constructor(
     private fun onTextChanged(newText: CharSequence) {
         filter(newText)
         setMicOrClearIcon(newText)
-
-        if (mOnQueryTextListener != null) {
-            mOnQueryTextListener?.onQueryTextChange(newText)
-        }
     }
 
     private fun setMicOrClearIcon(s: CharSequence) {
@@ -741,10 +751,6 @@ abstract class SearchLayout @JvmOverloads constructor(
         } else if (view === mViewShadow) {
             mSearchEditText?.clearFocus()
         }
-    }
-
-    override fun onFilterComplete(count: Int) {
-
     }
 
     // *********************************************************************************************

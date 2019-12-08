@@ -35,7 +35,8 @@
                     android:contentDescription="@string/search_name"
                     android:minWidth="@dimen/search_icon_56"
                     android:scaleType="center"
-                    android:tint="?attr/colorControlNormal" />
+                    android:tint="?attr/colorControlNormal"
+                    android:tintMode="src_in" />
 
                 <com.lapism.search.internal.SearchEditText
                     android:id="@+id/search_searchEditText"
@@ -66,7 +67,8 @@
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/search_name"
                         android:scaleType="center"
-                        android:tint="?attr/colorControlNormal" />
+                        android:tint="?attr/colorControlNormal"
+                        android:tintMode="src_in" />
 
                     <ImageView
                         android:id="@+id/search_imageView_clear"
@@ -75,7 +77,8 @@
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/search_name"
                         android:scaleType="center"
-                        android:tint="?attr/colorControlNormal" />
+                        android:tint="?attr/colorControlNormal"
+                        android:tintMode="src_in" />
 
                 </FrameLayout>
 
@@ -86,7 +89,8 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/search_name"
                     android:scaleType="center"
-                    android:tint="?attr/colorControlNormal" />
+                    android:tint="?attr/colorControlNormal"
+                    android:tintMode="src_in" />
 
             </LinearLayout>
 
