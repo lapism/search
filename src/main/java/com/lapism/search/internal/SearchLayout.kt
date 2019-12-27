@@ -251,7 +251,7 @@ abstract class SearchLayout @JvmOverloads constructor(
 
         isFocusable = true
         isFocusableInTouchMode = true
-        //isClickable = true
+        //isClickable = true TODO
         setOnClickListener(this)
     }
 

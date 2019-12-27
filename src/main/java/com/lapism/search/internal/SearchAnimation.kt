@@ -38,7 +38,7 @@ internal class SearchAnimation {
             cx = if (SearchUtils.isLayoutRtl(context)) {
                 padding
             } else {
-                //cardView?.width!! - padding TODO Test it
+                // cardView?.width!! - padding TODO Test
                 cardView?.measuredWidth!! - padding
             }
         }
