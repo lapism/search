@@ -12,7 +12,7 @@ Material Design pattern:
 https://material.io/design/navigation/search.html  
 
 Versions history:  
-https://bintray.com/lapism/search/search
+https://bintray.com/lapism/maven/search
 
 ![Search](https://github.com/lapism/Search/blob/master/images/search.png)
 

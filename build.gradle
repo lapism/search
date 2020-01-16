@@ -64,4 +64,4 @@ publish {
     website = 'https://github.com/lapism/search'
 }
 
-// $ ./gradlew clean build bintrayUpload -PbintrayUser=lapism -PbintrayKey=e276aab7193c8bcbe3d6b119a814db01b87b1ddd -PdryRun=false
+// $ ./gradlew clean build bintrayUpload -PbintrayUser=lapism -PbintrayKey= -PdryRun=false

@@ -130,7 +130,7 @@ class SearchView @JvmOverloads constructor(
         hideKeyboard()
     }
 
-    fun addFocus2() {
+    private fun addFocus2() {
         mOnFocusChangeListener?.onFocusChange(true)
         filter("")
 
@@ -150,7 +150,7 @@ class SearchView @JvmOverloads constructor(
         showAdapter()
     }
 
-    fun removeFocus2() {
+    private fun removeFocus2() {
         mViewShadow?.visibility = View.GONE
         animateArrowToHamburger(false)
         hideKeyboard()
