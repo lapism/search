@@ -19,8 +19,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1000010
-        versionName "1.0.0-alpha10"
+        versionCode 1000011
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
@@ -59,7 +59,7 @@ publish {
     userOrg = 'lapism'
     groupId = 'com.lapism'
     artifactId = 'search'
-    publishVersion = '1.0.0-alpha10'
+    publishVersion = '1.0.0'
     desc = 'Material Design Search component for Android'
     website = 'https://github.com/lapism/search'
 }
