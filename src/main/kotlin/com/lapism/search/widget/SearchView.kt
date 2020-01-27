@@ -120,13 +120,14 @@ class SearchView @JvmOverloads constructor(
 
         mViewDivider?.visibility = View.GONE
         margins = SearchUtils.Margins.TOOLBAR
-        elevation = context.resources.getDimensionPixelSize(R.dimen.search_elevation).toFloat()
+
         setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_shape_rounded).toFloat())
         setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height))
         mSearchEditText?.setPadding(0, 0, 0, 0)
 
         mOnFocusChangeListener?.onFocusChange(false)
 
+        elevation = context.resources.getDimensionPixelSize(R.dimen.search_elevation).toFloat()
         hideKeyboard()
     }
 
