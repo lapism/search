@@ -1,3 +1,5 @@
+[ ![Download](https://api.bintray.com/packages/lapism/maven/search/images/download.svg?version=1.0.0) ](https://bintray.com/lapism/maven/search/1.0.0/link)
+
 # Search
 Material Design Search component for Android
 
