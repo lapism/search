@@ -29,11 +29,8 @@ import com.google.android.material.card.MaterialCardView
 import com.lapism.search.R
 import com.lapism.search.SearchUtils
 
-/**
- * @hide
- */
+
 @Suppress("MemberVisibilityCanBePrivate", "unused")
-@RestrictTo(RestrictTo.Scope.LIBRARY)
 abstract class SearchLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
