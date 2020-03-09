@@ -1,16 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.novoda.bintray-release'
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.novoda:bintray-release:0.9.2'
-    }
-}
 
 android {
     compileSdkVersion 29
@@ -59,13 +49,13 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.0-alpha05'
 }
 
-publish {
+/*publish {
     userOrg = 'lapism'
     groupId = 'com.lapism'
     artifactId = 'search'
     publishVersion = '1.0.1'
     desc = 'Material Design Search component for Android'
     website = 'https://github.com/lapism/search'
-}
+}*/
 
 // $ ./gradlew clean build bintrayUpload -PbintrayUser=lapism -PbintrayKey= -PdryRun=false
