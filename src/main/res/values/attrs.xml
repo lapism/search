@@ -9,8 +9,8 @@
         </attr>
     </declare-styleable>
 
-    <declare-styleable name="SearchMenuItem">
+    <!--<declare-styleable name="SearchMenuItem">
         <attr name="search_navigation_icon_support" />
-    </declare-styleable>
+    </declare-styleable>-->
 
 </resources>

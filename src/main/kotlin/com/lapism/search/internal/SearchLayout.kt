@@ -20,14 +20,12 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.annotation.*
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.lapism.search.R
-import com.lapism.search.SearchUtils
 
 
 @Suppress("MemberVisibilityCanBePrivate", "unused")
@@ -39,8 +37,39 @@ abstract class SearchLayout @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr, defStyleRes), View.OnClickListener {
 
     // *********************************************************************************************
+    @IntDef(
+        NavigationIconSupport.NONE,
+        NavigationIconSupport.MENU,
+        NavigationIconSupport.ARROW,
+        NavigationIconSupport.SEARCH
+    )
+    @Retention(AnnotationRetention.SOURCE)
+    annotation class NavigationIconSupport {
+        companion object {
+            const val NONE = 1000
+            const val MENU = 1001
+            const val ARROW = 1002
+            const val SEARCH = 1003
+        }
+    }
+
+    @IntDef(
+        Margins.NO_FOCUS,
+        Margins.FOCUS
+    )
+    @Retention(AnnotationRetention.SOURCE)
+    internal annotation class Margins {
+        companion object {
+            const val NO_FOCUS = 2000
+            const val FOCUS = 2001
+        }
+    }
+
+    // *********************************************************************************************
+    protected var mImageViewMenu: ImageView? = null
+    protected var mRecyclerView: RecyclerView? = null
     protected var mLinearLayout: LinearLayout? = null
-    protected var mCardView: CardView? = null
+    protected var mMaterialCardView: MaterialCardView? = null
     protected var mSearchEditText: SearchEditText? = null
     protected var mViewShadow: View? = null
     protected var mViewDivider: View? = null
@@ -50,9 +79,6 @@ abstract class SearchLayout @JvmOverloads constructor(
     private var mImageViewNavigation: ImageView? = null
     private var mImageViewMic: ImageView? = null
     private var mImageViewClear: ImageView? = null
-    private var mImageViewMenu: ImageView? = null
-    private var mRecyclerView: RecyclerView? = null
-    private var mSearchArrowDrawable: SearchArrowDrawable? = null
     private var mOnQueryTextListener: OnQueryTextListener? = null
     private var mOnNavigationClickListener: OnNavigationClickListener? = null
     private var mOnMicClickListener: OnMicClickListener? = null
@@ -60,36 +86,48 @@ abstract class SearchLayout @JvmOverloads constructor(
     private var mOnMenuClickListener: OnMenuClickListener? = null
 
     // *********************************************************************************************
-    @SearchUtils.NavigationIconSupport
-    @get:SearchUtils.NavigationIconSupport
+    @NavigationIconSupport
+    @get:NavigationIconSupport
     var navigationIconSupport: Int = 0
-        set(@SearchUtils.NavigationIconSupport navigationIconSupport) {
+        set(@NavigationIconSupport navigationIconSupport) {
             field = navigationIconSupport
 
             when (navigationIconSupport) {
-                SearchUtils.NavigationIconSupport.HAMBURGER -> setNavigationIconImageDrawable(
-                    ContextCompat.getDrawable(
-                        context,
-                        R.drawable.search_ic_outline_menu_24px
+                NavigationIconSupport.NONE
+                -> {
+                    setNavigationIconImageDrawable(null)
+                }
+                NavigationIconSupport.MENU -> {
+                    setNavigationIconImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.search_ic_outline_menu_24px
+                        )
                     )
-                )
-                SearchUtils.NavigationIconSupport.ARROW -> setNavigationIconImageDrawable(
-                    ContextCompat.getDrawable(
-                        context,
-                        R.drawable.search_ic_outline_arrow_back_24px
+                }
+                NavigationIconSupport.ARROW -> {
+                    setNavigationIconImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.search_ic_outline_arrow_back_24px
+                        )
                     )
-                )
-                SearchUtils.NavigationIconSupport.ANIMATION -> {
-                    mSearchArrowDrawable = SearchArrowDrawable(context)
-                    setNavigationIconImageDrawable(mSearchArrowDrawable)
+                }
+                NavigationIconSupport.SEARCH -> {
+                    setNavigationIconImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            R.drawable.search_ic_outline_search_24px
+                        )
+                    )
                 }
             }
         }
 
-    @SearchUtils.Margins
-    @get:SearchUtils.Margins
+    @Margins
+    @get:Margins
     protected var margins: Int = 0
-        set(@SearchUtils.Margins margins) {
+        set(@Margins margins) {
             field = margins
 
             val left: Int
@@ -99,15 +137,33 @@ abstract class SearchLayout @JvmOverloads constructor(
             val params: LayoutParams
 
             when (margins) {
-                SearchUtils.Margins.NONE_TOOLBAR -> {
+                Margins.NO_FOCUS -> {
                     left =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_toolbar_none)
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_left_right)
                     top =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_toolbar_none)
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_top_bottom)
                     right =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_toolbar_none)
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_left_right)
                     bottom =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_toolbar_none)
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_top_bottom)
+
+                    params =
+                        LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        )
+                    params.setMargins(left, top, right, bottom)
+                    mMaterialCardView?.layoutParams = params
+                }
+                Margins.FOCUS -> {
+                    left =
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_focus)
+                    top =
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_focus)
+                    right =
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_focus)
+                    bottom =
+                        context.resources.getDimensionPixelSize(R.dimen.search_margins_focus)
 
                     params =
                         LayoutParams(
@@ -115,60 +171,7 @@ abstract class SearchLayout @JvmOverloads constructor(
                             ViewGroup.LayoutParams.MATCH_PARENT
                         )
                     params.setMargins(left, top, right, bottom)
-                    mCardView?.layoutParams = params
-                }
-                SearchUtils.Margins.NONE_MENU_ITEM -> {
-                    left =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_menu_item_none)
-                    top =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_menu_item_none)
-                    right =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_menu_item_none)
-                    bottom =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_menu_item_none)
-
-                    params =
-                        LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                        )
-                    params.setMargins(left, top, right, bottom)
-                    mCardView?.layoutParams = params
-                }
-                SearchUtils.Margins.TOOLBAR -> {
-                    left =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_toolbar_left_right)
-                    top =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_toolbar_top_bottom)
-                    right =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_toolbar_left_right)
-                    bottom =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_toolbar_top_bottom)
-
-                    params =
-                        LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                        )
-                    params.setMargins(left, top, right, bottom)
-                    mCardView?.layoutParams = params
-                }
-                SearchUtils.Margins.MENU_ITEM -> {
-                    left =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_menu_item)
-                    top =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_menu_item)
-                    right =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_menu_item)
-                    bottom =
-                        context.resources.getDimensionPixelSize(R.dimen.search_margins_menu_item)
-
-                    params = LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    )
-                    params.setMargins(left, top, right, bottom)
-                    mCardView?.layoutParams = params
+                    mMaterialCardView?.layoutParams = params
                 }
             }
         }
@@ -180,7 +183,9 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     // *********************************************************************************************
     protected fun init() {
-        setAnimationDuration(context.resources.getInteger(R.integer.search_animation_duration).toLong())
+        setAnimationDuration(
+            context.resources.getInteger(R.integer.search_animation_duration).toLong()
+        )
 
         mLinearLayout = findViewById(R.id.search_linearLayout)
 
@@ -226,7 +231,7 @@ abstract class SearchLayout @JvmOverloads constructor(
 
         mRecyclerView = findViewById(R.id.search_recyclerView)
         mRecyclerView?.layoutManager = LinearLayoutManager(context)
-        mRecyclerView?.visibility = View.GONE
+
         mRecyclerView?.isNestedScrollingEnabled = false
         mRecyclerView?.itemAnimator = DefaultItemAnimator()
         mRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -239,12 +244,8 @@ abstract class SearchLayout @JvmOverloads constructor(
         })
 
         mViewDivider = findViewById(R.id.search_view_divider)
-        mViewDivider?.visibility = View.GONE
-
         mViewShadow = findViewById(R.id.search_view_shadow)
-        mViewShadow?.visibility = View.GONE
-
-        mCardView = findViewById<MaterialCardView>(R.id.search_materialCardView)
+        mMaterialCardView = findViewById(R.id.search_materialCardView)
 
         isFocusable = true
         isFocusableInTouchMode = true
@@ -253,9 +254,15 @@ abstract class SearchLayout @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
+    fun setNavigationIconVisibility(visibility: Int) {
+        mImageViewNavigation?.visibility = visibility
+    }
+
     fun setNavigationIconImageResource(@DrawableRes resId: Int) {
         mImageViewNavigation?.setImageResource(resId)
     }
+
+    // set todo background
 
     fun setNavigationIconImageDrawable(@Nullable drawable: Drawable?) {
         mImageViewNavigation?.setImageDrawable(drawable)
@@ -340,6 +347,10 @@ abstract class SearchLayout @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
+    fun setMenuIconVisibility(visibility: Int) {
+        mImageViewMenu?.visibility = visibility
+    }
+
     fun setMenuIconImageResource(@DrawableRes resId: Int) {
         mImageViewMenu?.setImageResource(resId)
     }
@@ -484,56 +495,52 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     // *********************************************************************************************
     override fun setBackgroundColor(@ColorInt color: Int) {
-        mCardView?.setCardBackgroundColor(color)
+        mMaterialCardView?.setCardBackgroundColor(color)
     }
 
     fun setBackgroundColor(@Nullable color: ColorStateList?) {
-        mCardView?.setCardBackgroundColor(color)
+        mMaterialCardView?.setCardBackgroundColor(color)
     }
 
-    // TODO PUBLIC
     override fun setElevation(elevation: Float) {
-        mCardView?.cardElevation = elevation
+        mMaterialCardView?.cardElevation = elevation
+        mMaterialCardView?.maxCardElevation = elevation
     }
 
-    // TODO PUBLIC
-    protected fun setMaxElevation(maxElevation: Float) {
-        mCardView?.maxCardElevation = maxElevation
+    override fun getElevation(): Float {
+        return mMaterialCardView?.elevation!!
     }
 
-    // TODO PUBLIC
-    protected fun setBackgroundRadius(radius: Float) {
-        mCardView?.radius = radius
+    fun setBackgroundRadius(radius: Float) {
+        mMaterialCardView?.radius = radius
+    }
+
+    fun getBackgroundRadius(): Float {
+        return mMaterialCardView?.radius!!
     }
 
     fun setBackgroundRippleColor(@ColorRes rippleColorResourceId: Int) {
-        if (mCardView is MaterialCardView) {
-            (mCardView as MaterialCardView).setRippleColorResource(rippleColorResourceId)
-        }
+        mMaterialCardView?.setRippleColorResource(rippleColorResourceId)
     }
 
     fun setBackgroundRippleColorResource(@Nullable rippleColor: ColorStateList?) {
-        if (mCardView is MaterialCardView) {
-            (mCardView as MaterialCardView).rippleColor = rippleColor
-        }
+        mMaterialCardView?.rippleColor = rippleColor
     }
 
     fun setBackgroundStrokeColor(@ColorInt strokeColor: Int) {
-        if (mCardView is MaterialCardView) {
-            (mCardView as MaterialCardView).strokeColor = strokeColor
-        }
+        mMaterialCardView?.strokeColor = strokeColor
     }
 
     fun setBackgroundStrokeColor(strokeColor: ColorStateList) {
-        if (mCardView is MaterialCardView) {
-            (mCardView as MaterialCardView).setStrokeColor(strokeColor)
-        }
+        mMaterialCardView?.setStrokeColor(strokeColor)
     }
 
     fun setBackgroundStrokeWidth(@Dimension strokeWidth: Int) {
-        if (mCardView is MaterialCardView) {
-            (mCardView as MaterialCardView).strokeWidth = strokeWidth
-        }
+        mMaterialCardView?.strokeWidth = strokeWidth
+    }
+
+    fun getBackgroundStrokeWidth(): Int {
+        return mMaterialCardView?.strokeWidth!!
     }
 
     // *********************************************************************************************
@@ -620,38 +627,6 @@ abstract class SearchLayout @JvmOverloads constructor(
         params?.height = height
         params?.width = ViewGroup.LayoutParams.MATCH_PARENT
         mLinearLayout?.layoutParams = params
-    }
-
-    protected fun showAdapter() {
-        if (mRecyclerView?.adapter != null) {
-            mRecyclerView?.visibility = View.VISIBLE
-        }
-    }
-
-    protected fun hideAdapter() {
-        if (mRecyclerView?.adapter != null) {
-            mRecyclerView?.visibility = View.GONE
-        }
-    }
-
-    protected fun animateHamburgerToArrow(verticalMirror: Boolean) {
-        if (verticalMirror) {
-            mSearchArrowDrawable?.setVerticalMirror(false)
-        }
-        mSearchArrowDrawable?.animate(
-            SearchArrowDrawable.STATE_ARROW,
-            getAnimationDuration()
-        )
-    }
-
-    protected fun animateArrowToHamburger(verticalMirror: Boolean) {
-        if (verticalMirror) {
-            mSearchArrowDrawable?.setVerticalMirror(true)
-        }
-        mSearchArrowDrawable?.animate(
-            SearchArrowDrawable.STATE_HAMBURGER,
-            getAnimationDuration()
-        )
     }
 
     // *********************************************************************************************

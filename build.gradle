@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1001000
-        versionName "1.0.1"
+        versionCode 2000000
+        versionName "2.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
@@ -31,9 +31,9 @@ android {
         jvmTarget = "1.8"
     }
 
-    /*lintOptions {
-        abortOnError false
-    }*/
+    buildFeatures {
+        viewBinding = true
+    }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -45,17 +45,7 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-
     implementation 'com.google.android.material:material:1.2.0-alpha05'
+
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
 }
-
-/*publish {
-    userOrg = 'lapism'
-    groupId = 'com.lapism'
-    artifactId = 'search'
-    publishVersion = '1.0.1'
-    desc = 'Material Design Search component for Android'
-    website = 'https://github.com/lapism/search'
-}*/
-
-// $ ./gradlew clean build bintrayUpload -PbintrayUser=lapism -PbintrayKey= -PdryRun=false

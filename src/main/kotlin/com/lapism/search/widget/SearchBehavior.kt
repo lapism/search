@@ -1,4 +1,4 @@
-package com.lapism.search.behavior
+package com.lapism.search.widget
 
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
