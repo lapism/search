@@ -5,9 +5,7 @@ Material Design Search component for Android
 
  - Last Material Design
  - Persistent search
- - Expandable search
  - Styling
- - AndroidX
  - Kotlin
 
 Material Design pattern:  
@@ -34,7 +32,7 @@ targetSdkVersion 29
 Add the dependency to your gradle file:
 ```groovy
 dependencies {
-    implementation 'com.lapism:search:1.0.0'
+    implementation 'com.lapism:search:2.0.0'
 }
 ```
 
@@ -54,35 +52,23 @@ val searchView = findViewById<SearchView>(R.id.searchView)
 ### XML attributes
 ```xml
         <attr name="search_navigation_icon_support" format="enum">
-            <enum name="hamburger" value="100" />
-            <enum name="arrow" value="101" />
-            <enum name="animation" value="102" />
-        </attr>
-```
-
-## SearchMenuItem
-```java
-val searchMenuItem = findViewById<SearchMenuItem>(R.id.searchMenuItem)
-```
-
-### XML
-```xml
-        <com.lapism.search.widget.SearchMenuItem
-            android:id="@+id/searchMenuItem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-```
-
-### XML attributes
-```xml
-        <attr name="search_navigation_icon_support" format="enum">
-            <enum name="hamburger" value="100" />
-            <enum name="arrow" value="101" />
-            <enum name="animation" value="102" />
+            <enum name="none" value="1000" />
+            <enum name="menu" value="1001" />
+            <enum name="arrow" value="1002" />
+            <enum name="search" value="1003" />
         </attr>
 ```
 
 ## Changelog
+**2.0.0**
+- NOT FULLY COMPATIBLE WITH 1.0 !!!
+- removed SearchItem
+- changed NavigationIconSupport properties
+- NavigationIconSupport properties moved to SearchLayout
+- fixed bugs
+- improved animations
+- new public methods
+
 **1.0.0**
 - first release
 
