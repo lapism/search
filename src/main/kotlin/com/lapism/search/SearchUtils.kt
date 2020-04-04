@@ -4,18 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.speech.RecognizerIntent
-import androidx.annotation.IntDef
 
 
 object SearchUtils {
 
-    // *********************************************************************************************
     const val SPEECH_REQUEST_CODE = 300
 
-    // *********************************************************************************************
-
-
-    // *********************************************************************************************
     @JvmStatic
     fun setVoiceSearch(activity: Activity, text: String) {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)

@@ -12,23 +12,21 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.annotation.*
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.card.MaterialCardView
 import com.lapism.search.R
+import com.lapism.search.databinding.SearchViewBinding
 
 
-@Suppress("MemberVisibilityCanBePrivate", "unused")
 abstract class SearchLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -66,19 +64,11 @@ abstract class SearchLayout @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
-    protected var mImageViewMenu: ImageView? = null
-    protected var mRecyclerView: RecyclerView? = null
-    protected var mLinearLayout: LinearLayout? = null
-    protected var mMaterialCardView: MaterialCardView? = null
-    protected var mSearchEditText: SearchEditText? = null
-    protected var mViewShadow: View? = null
-    protected var mViewDivider: View? = null
+    protected val binding: SearchViewBinding =
+        SearchViewBinding.inflate(LayoutInflater.from(context))
     protected var mOnFocusChangeListener: OnFocusChangeListener? = null
 
     private var mAnimationDuration: Long = 0
-    private var mImageViewNavigation: ImageView? = null
-    private var mImageViewMic: ImageView? = null
-    private var mImageViewClear: ImageView? = null
     private var mOnQueryTextListener: OnQueryTextListener? = null
     private var mOnNavigationClickListener: OnNavigationClickListener? = null
     private var mOnMicClickListener: OnMicClickListener? = null
@@ -153,7 +143,7 @@ abstract class SearchLayout @JvmOverloads constructor(
                             ViewGroup.LayoutParams.WRAP_CONTENT
                         )
                     params.setMargins(left, top, right, bottom)
-                    mMaterialCardView?.layoutParams = params
+                    binding.searchMaterialCardView.layoutParams = params
                 }
                 Margins.FOCUS -> {
                     left =
@@ -171,7 +161,7 @@ abstract class SearchLayout @JvmOverloads constructor(
                             ViewGroup.LayoutParams.MATCH_PARENT
                         )
                     params.setMargins(left, top, right, bottom)
-                    mMaterialCardView?.layoutParams = params
+                    binding.searchMaterialCardView.layoutParams = params
                 }
             }
         }
@@ -187,24 +177,16 @@ abstract class SearchLayout @JvmOverloads constructor(
             context.resources.getInteger(R.integer.search_animation_duration).toLong()
         )
 
-        mLinearLayout = findViewById(R.id.search_linearLayout)
+        binding.searchImageViewNavigation.setOnClickListener(this)
+        binding.searchImageViewMic.setOnClickListener(this)
 
-        mImageViewNavigation = findViewById(R.id.search_imageView_navigation)
-        mImageViewNavigation?.setOnClickListener(this)
+        binding.searchImageViewClear.visibility = View.GONE
+        binding.searchImageViewClear.setOnClickListener(this)
 
-        mImageViewMic = findViewById(R.id.search_imageView_mic)
-        mImageViewMic?.setOnClickListener(this)
+        binding.searchImageViewMenu.visibility = View.GONE
+        binding.searchImageViewMenu.setOnClickListener(this)
 
-        mImageViewClear = findViewById(R.id.search_imageView_clear)
-        mImageViewClear?.visibility = View.GONE
-        mImageViewClear?.setOnClickListener(this)
-
-        mImageViewMenu = findViewById(R.id.search_imageView_menu)
-        mImageViewMenu?.visibility = View.GONE
-        mImageViewMenu?.setOnClickListener(this)
-
-        mSearchEditText = findViewById(R.id.search_searchEditText)
-        mSearchEditText?.addTextChangedListener(object : TextWatcher {
+        binding.searchSearchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
 
             }
@@ -217,11 +199,11 @@ abstract class SearchLayout @JvmOverloads constructor(
 
             }
         })
-        mSearchEditText?.setOnEditorActionListener { _, _, _ ->
+        binding.searchSearchEditText.setOnEditorActionListener { _, _, _ ->
             onSubmitQuery()
             return@setOnEditorActionListener true // true
         }
-        mSearchEditText?.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+        binding.searchSearchEditText.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 addFocus()
             } else {
@@ -229,12 +211,10 @@ abstract class SearchLayout @JvmOverloads constructor(
             }
         }
 
-        mRecyclerView = findViewById(R.id.search_recyclerView)
-        mRecyclerView?.layoutManager = LinearLayoutManager(context)
-
-        mRecyclerView?.isNestedScrollingEnabled = false
-        mRecyclerView?.itemAnimator = DefaultItemAnimator()
-        mRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.searchRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.searchRecyclerView.isNestedScrollingEnabled = false
+        binding.searchRecyclerView.itemAnimator = DefaultItemAnimator()
+        binding.searchRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
@@ -243,169 +223,162 @@ abstract class SearchLayout @JvmOverloads constructor(
             }
         })
 
-        mViewDivider = findViewById(R.id.search_view_divider)
-        mViewShadow = findViewById(R.id.search_view_shadow)
-        mMaterialCardView = findViewById(R.id.search_materialCardView)
-
         isFocusable = true
         isFocusableInTouchMode = true
         //isClickable = true TODO
-        setOnClickListener(this)
+        //setOnClickListener(this)
     }
 
     // *********************************************************************************************
+    // set todo background
+
     fun setNavigationIconVisibility(visibility: Int) {
-        mImageViewNavigation?.visibility = visibility
+        binding.searchImageViewNavigation.visibility = visibility
     }
 
     fun setNavigationIconImageResource(@DrawableRes resId: Int) {
-        mImageViewNavigation?.setImageResource(resId)
+        binding.searchImageViewNavigation.setImageResource(resId)
     }
 
-    // set todo background
-
     fun setNavigationIconImageDrawable(@Nullable drawable: Drawable?) {
-        mImageViewNavigation?.setImageDrawable(drawable)
+        binding.searchImageViewNavigation.setImageDrawable(drawable)
     }
 
     fun setNavigationIconColorFilter(color: Int) {
-        mImageViewNavigation?.setColorFilter(color)
+        binding.searchImageViewNavigation.setColorFilter(color)
     }
 
     fun setNavigationIconColorFilter(color: Int, mode: PorterDuff.Mode) {
-        mImageViewNavigation?.setColorFilter(color, mode)
+        binding.searchImageViewNavigation.setColorFilter(color, mode)
     }
 
     fun setNavigationIconColorFilter(cf: ColorFilter?) {
-        mImageViewNavigation?.colorFilter = cf
+        binding.searchImageViewNavigation.colorFilter = cf
     }
 
     fun clearNavigationIconColorFilter() {
-        mImageViewNavigation?.clearColorFilter()
+        binding.searchImageViewNavigation.clearColorFilter()
     }
 
     fun setNavigationIconContentDescription(contentDescription: CharSequence) {
-        mImageViewNavigation?.contentDescription = contentDescription
+        binding.searchImageViewNavigation.contentDescription = contentDescription
     }
 
     // *********************************************************************************************
     fun setMicIconImageResource(@DrawableRes resId: Int) {
-        mImageViewMic?.setImageResource(resId)
+        binding.searchImageViewMic.setImageResource(resId)
     }
 
     fun setMicIconImageDrawable(@Nullable drawable: Drawable?) {
-        mImageViewMic?.setImageDrawable(drawable)
+        binding.searchImageViewMic.setImageDrawable(drawable)
     }
 
     fun setMicIconColorFilter(color: Int) {
-        mImageViewMic?.setColorFilter(color)
+        binding.searchImageViewMic.setColorFilter(color)
     }
 
     fun setMicIconColorFilter(color: Int, mode: PorterDuff.Mode) {
-        mImageViewMic?.setColorFilter(color, mode)
+        binding.searchImageViewMic.setColorFilter(color, mode)
     }
 
     fun setMicIconColorFilter(cf: ColorFilter?) {
-        mImageViewMic?.colorFilter = cf
+        binding.searchImageViewMic.colorFilter = cf
     }
 
     fun clearMicIconColorFilter() {
-        mImageViewMic?.clearColorFilter()
+        binding.searchImageViewMic.clearColorFilter()
     }
 
     fun setMicIconContentDescription(contentDescription: CharSequence) {
-        mImageViewMic?.contentDescription = contentDescription
+        binding.searchImageViewMic.contentDescription = contentDescription
     }
 
     // *********************************************************************************************
     fun setClearIconImageResource(@DrawableRes resId: Int) {
-        mImageViewClear?.setImageResource(resId)
+        binding.searchImageViewClear.setImageResource(resId)
     }
 
     fun setClearIconImageDrawable(@Nullable drawable: Drawable?) {
-        mImageViewClear?.setImageDrawable(drawable)
+        binding.searchImageViewClear.setImageDrawable(drawable)
     }
 
     fun setClearIconColorFilter(color: Int) {
-        mImageViewClear?.setColorFilter(color)
+        binding.searchImageViewClear.setColorFilter(color)
     }
 
     fun setClearIconColorFilter(color: Int, mode: PorterDuff.Mode) {
-        mImageViewClear?.setColorFilter(color, mode)
+        binding.searchImageViewClear.setColorFilter(color, mode)
     }
 
     fun setClearIconColorFilter(cf: ColorFilter?) {
-        mImageViewClear?.colorFilter = cf
+        binding.searchImageViewClear.colorFilter = cf
     }
 
     fun clearClearIconColorFilter() {
-        mImageViewClear?.clearColorFilter()
+        binding.searchImageViewClear.clearColorFilter()
     }
 
     fun setClearIconContentDescription(contentDescription: CharSequence) {
-        mImageViewClear?.contentDescription = contentDescription
+        binding.searchImageViewClear.contentDescription = contentDescription
     }
 
     // *********************************************************************************************
     fun setMenuIconVisibility(visibility: Int) {
-        mImageViewMenu?.visibility = visibility
+        binding.searchImageViewMenu.visibility = visibility
     }
 
     fun setMenuIconImageResource(@DrawableRes resId: Int) {
-        mImageViewMenu?.setImageResource(resId)
+        binding.searchImageViewMenu.setImageResource(resId)
     }
 
     fun setMenuIconImageDrawable(@Nullable drawable: Drawable?) {
-        mImageViewMenu?.setImageDrawable(drawable)
+        binding.searchImageViewMenu.setImageDrawable(drawable)
     }
 
     fun setMenuIconColorFilter(color: Int) {
-        mImageViewMenu?.setColorFilter(color)
+        binding.searchImageViewMenu.setColorFilter(color)
     }
 
     fun setMenuIconColorFilter(color: Int, mode: PorterDuff.Mode) {
-        mImageViewMenu?.setColorFilter(color, mode)
+        binding.searchImageViewMenu.setColorFilter(color, mode)
     }
 
     fun setMenuIconColorFilter(cf: ColorFilter?) {
-        mImageViewMenu?.colorFilter = cf
+        binding.searchImageViewMenu.colorFilter = cf
     }
 
     fun clearMenuIconColorFilter() {
-        mImageViewMenu?.clearColorFilter()
+        binding.searchImageViewMenu.clearColorFilter()
     }
 
     fun setMenuIconContentDescription(contentDescription: CharSequence) {
-        mImageViewMenu?.contentDescription = contentDescription
+        binding.searchImageViewMenu.contentDescription = contentDescription
     }
 
     // *********************************************************************************************
     fun setAdapterLayoutManager(@Nullable layout: RecyclerView.LayoutManager?) {
-        mRecyclerView?.layoutManager = layout
+        binding.searchRecyclerView.layoutManager = layout
     }
 
     fun setAdapterHasFixedSize(hasFixedSize: Boolean) {
-        mRecyclerView?.setHasFixedSize(hasFixedSize)
+        binding.searchRecyclerView.setHasFixedSize(hasFixedSize)
     }
 
-    /**
-     * DividerItemDecoration class
-     */
     fun addAdapterItemDecoration(@NonNull decor: RecyclerView.ItemDecoration) {
-        mRecyclerView?.addItemDecoration(decor)
+        binding.searchRecyclerView.addItemDecoration(decor)
     }
 
     fun removeAdapterItemDecoration(@NonNull decor: RecyclerView.ItemDecoration) {
-        mRecyclerView?.removeItemDecoration(decor)
+        binding.searchRecyclerView.removeItemDecoration(decor)
     }
 
     fun setAdapter(@Nullable adapter: RecyclerView.Adapter<*>?) {
-        mRecyclerView?.adapter = adapter
+        binding.searchRecyclerView.adapter = adapter
     }
 
     @Nullable
     fun getAdapter(): RecyclerView.Adapter<*>? {
-        return mRecyclerView?.adapter
+        return binding.searchRecyclerView.adapter
     }
 
     // *********************************************************************************************
@@ -426,34 +399,34 @@ abstract class SearchLayout @JvmOverloads constructor(
      * TODO PARAMETERS NAME
      */
     fun setTextTypeface(@Nullable typeface: Typeface?) {
-        mSearchEditText?.typeface = typeface
+        binding.searchSearchEditText.typeface = typeface
     }
 
     @Nullable
     fun getTextTypeface(): Typeface? {
-        return mSearchEditText?.typeface
+        return binding.searchSearchEditText.typeface
     }
 
     fun setTextInputType(inputType: Int) {
-        mSearchEditText?.inputType = inputType
+        binding.searchSearchEditText.inputType = inputType
     }
 
     fun getTextInputType(): Int? {
-        return mSearchEditText?.inputType
+        return binding.searchSearchEditText.inputType
     }
 
     fun setTextImeOptions(imeOptions: Int) {
-        mSearchEditText?.imeOptions = imeOptions
+        binding.searchSearchEditText.imeOptions = imeOptions
     }
 
     fun getTextImeOptions(): Int? {
-        return mSearchEditText?.imeOptions
+        return binding.searchSearchEditText.imeOptions
     }
 
     fun setTextQuery(@Nullable query: CharSequence?, submit: Boolean) {
-        mSearchEditText?.setText(query)
+        binding.searchSearchEditText.setText(query)
         if (query != null) {
-            mSearchEditText?.setSelection(mSearchEditText?.length()!!)
+            binding.searchSearchEditText.setSelection(binding.searchSearchEditText.length())
         }
         if (submit && !TextUtils.isEmpty(query)) {
             onSubmitQuery()
@@ -462,98 +435,98 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     @Nullable
     fun getTextQuery(): CharSequence? {
-        return mSearchEditText?.text
+        return binding.searchSearchEditText.text
     }
 
     fun setTextHint(hint: CharSequence?) {
-        mSearchEditText?.hint = hint
+        binding.searchSearchEditText.hint = hint
     }
 
     fun getTextHint(): CharSequence? {
-        return mSearchEditText?.hint
+        return binding.searchSearchEditText.hint
     }
 
     fun setTextColor(@ColorInt color: Int) {
-        mSearchEditText?.setTextColor(color)
+        binding.searchSearchEditText.setTextColor(color)
     }
 
     fun setTextSize(size: Float) {
-        mSearchEditText?.textSize = size
+        binding.searchSearchEditText.textSize = size
     }
 
     fun setTextGravity(gravity: Int) {
-        mSearchEditText?.gravity = gravity
+        binding.searchSearchEditText.gravity = gravity
     }
 
     fun setTextHint(@StringRes hint: Int) {
-        mSearchEditText?.setHint(hint)
+        binding.searchSearchEditText.setHint(hint)
     }
 
     fun setTextHintColor(@ColorInt color: Int) {
-        mSearchEditText?.setHintTextColor(color)
+        binding.searchSearchEditText.setHintTextColor(color)
     }
 
     // *********************************************************************************************
     override fun setBackgroundColor(@ColorInt color: Int) {
-        mMaterialCardView?.setCardBackgroundColor(color)
+        binding.searchMaterialCardView.setCardBackgroundColor(color)
     }
 
     fun setBackgroundColor(@Nullable color: ColorStateList?) {
-        mMaterialCardView?.setCardBackgroundColor(color)
+        binding.searchMaterialCardView.setCardBackgroundColor(color)
     }
 
     override fun setElevation(elevation: Float) {
-        mMaterialCardView?.cardElevation = elevation
-        mMaterialCardView?.maxCardElevation = elevation
+        binding.searchMaterialCardView.cardElevation = elevation
+        binding.searchMaterialCardView.maxCardElevation = elevation
     }
 
     override fun getElevation(): Float {
-        return mMaterialCardView?.elevation!!
+        return binding.searchMaterialCardView.elevation
     }
 
     fun setBackgroundRadius(radius: Float) {
-        mMaterialCardView?.radius = radius
+        binding.searchMaterialCardView.radius = radius
     }
 
     fun getBackgroundRadius(): Float {
-        return mMaterialCardView?.radius!!
+        return binding.searchMaterialCardView.radius
     }
 
     fun setBackgroundRippleColor(@ColorRes rippleColorResourceId: Int) {
-        mMaterialCardView?.setRippleColorResource(rippleColorResourceId)
+        binding.searchMaterialCardView.setRippleColorResource(rippleColorResourceId)
     }
 
     fun setBackgroundRippleColorResource(@Nullable rippleColor: ColorStateList?) {
-        mMaterialCardView?.rippleColor = rippleColor
+        binding.searchMaterialCardView.rippleColor = rippleColor
     }
 
     fun setBackgroundStrokeColor(@ColorInt strokeColor: Int) {
-        mMaterialCardView?.strokeColor = strokeColor
+        binding.searchMaterialCardView.strokeColor = strokeColor
     }
 
     fun setBackgroundStrokeColor(strokeColor: ColorStateList) {
-        mMaterialCardView?.setStrokeColor(strokeColor)
+        binding.searchMaterialCardView.setStrokeColor(strokeColor)
     }
 
     fun setBackgroundStrokeWidth(@Dimension strokeWidth: Int) {
-        mMaterialCardView?.strokeWidth = strokeWidth
+        binding.searchMaterialCardView.strokeWidth = strokeWidth
     }
 
     fun getBackgroundStrokeWidth(): Int {
-        return mMaterialCardView?.strokeWidth!!
+        return binding.searchMaterialCardView.strokeWidth
     }
 
     // *********************************************************************************************
     fun setBackgroundColorViewOnly(@ColorInt color: Int) {
-        mLinearLayout?.setBackgroundColor(color)
+        binding.searchLinearLayout.setBackgroundColor(color)
     }
 
     fun setDividerColor(@ColorInt color: Int) {
-        mViewDivider?.setBackgroundColor(color)
+        binding.searchViewDivider.setBackgroundColor(color)
     }
 
     fun setShadowColor(@ColorInt color: Int) {
-        mViewShadow?.setBackgroundColor(color)
+        binding.searchViewShadow.setBackgroundColor(color)
     }
 
     // *********************************************************************************************
@@ -579,7 +552,7 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     fun setOnMenuClickListener(listener: OnMenuClickListener) {
         mOnMenuClickListener = listener
-        mImageViewMenu?.visibility = View.VISIBLE
+        binding.searchImageViewMenu.visibility = View.VISIBLE
     }
 
     // *********************************************************************************************
@@ -588,7 +561,7 @@ abstract class SearchLayout @JvmOverloads constructor(
             val inputMethodManager =
                 context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.showSoftInput(
-                mSearchEditText,
+                binding.searchSearchEditText,
                 InputMethodManager.RESULT_SHOWN
                 //InputMethodManager.RESULT_UNCHANGED_SHOWN todo
             )
@@ -618,15 +591,15 @@ abstract class SearchLayout @JvmOverloads constructor(
     }
 
     protected fun getLayoutHeight(): Int {
-        val params = mLinearLayout?.layoutParams
+        val params = binding.searchLinearLayout.layoutParams
         return params?.height!!
     }
 
     protected fun setLayoutHeight(height: Int) {
-        val params = mLinearLayout?.layoutParams
+        val params = binding.searchLinearLayout.layoutParams
         params?.height = height
         params?.width = ViewGroup.LayoutParams.MATCH_PARENT
-        mLinearLayout?.layoutParams = params
+        binding.searchLinearLayout.layoutParams = params
     }
 
     // *********************************************************************************************
@@ -642,19 +615,19 @@ abstract class SearchLayout @JvmOverloads constructor(
 
     private fun setMicOrClearIcon(s: CharSequence) {
         if (!TextUtils.isEmpty(s)) {
-            mImageViewMic?.visibility = View.GONE
-            mImageViewClear?.visibility = View.VISIBLE
+            binding.searchImageViewMic.visibility = View.GONE
+            binding.searchImageViewClear.visibility = View.VISIBLE
         } else {
-            mImageViewClear?.visibility = View.GONE
-            mImageViewMic?.visibility = View.VISIBLE
+            binding.searchImageViewClear.visibility = View.GONE
+            binding.searchImageViewMic.visibility = View.VISIBLE
         }
     }
 
     private fun onSubmitQuery() {
-        val query = mSearchEditText?.text
+        val query = binding.searchSearchEditText.text
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
             if (mOnQueryTextListener == null || !mOnQueryTextListener!!.onQueryTextSubmit(query.toString())) {
-                mSearchEditText?.text = query
+                binding.searchSearchEditText.text = query
             }
         }
     }
@@ -663,8 +636,8 @@ abstract class SearchLayout @JvmOverloads constructor(
     override fun onSaveInstanceState(): Parcelable? {
         val superState = super.onSaveInstanceState()
         val ss = SearchViewSavedState(superState!!)
-        ss.query = mSearchEditText?.text
-        ss.hasFocus = mSearchEditText?.hasFocus()!!
+        ss.query = binding.searchSearchEditText.text
+        ss.hasFocus = binding.searchSearchEditText.hasFocus()
         return ss
     }
 
@@ -675,7 +648,7 @@ abstract class SearchLayout @JvmOverloads constructor(
         }
         super.onRestoreInstanceState(state.superState)
         if (state.hasFocus) {
-            mSearchEditText?.requestFocus()
+            binding.searchSearchEditText.requestFocus()
         }
         if (state.query != null) {
             setTextQuery(state.query, false)
@@ -687,41 +660,39 @@ abstract class SearchLayout @JvmOverloads constructor(
         return if (!isFocusable) {
             false
         } else {
-            mSearchEditText?.requestFocus(direction, previouslyFocusedRect)!!
+            binding.searchSearchEditText.requestFocus(direction, previouslyFocusedRect)
         }
     }
 
     override fun clearFocus() {
         super.clearFocus()
-        mSearchEditText?.clearFocus()
+        binding.searchSearchEditText.clearFocus()
     }
 
     override fun onClick(view: View?) {
-        if (view === mImageViewNavigation) {
-            if (mSearchEditText?.hasFocus()!!) {
-                mSearchEditText?.clearFocus()
+        if (view === binding.searchImageViewNavigation) {
+            if (binding.searchSearchEditText.hasFocus()) {
+                binding.searchSearchEditText.clearFocus()
             } else {
                 if (mOnNavigationClickListener != null) {
                     mOnNavigationClickListener?.onNavigationClick()
                 }
             }
-        } else if (view === mImageViewMic) {
+        } else if (view === binding.searchImageViewMic) {
             if (mOnMicClickListener != null) {
                 mOnMicClickListener?.onMicClick()
             }
-        } else if (view === mImageViewClear) {
-            if (mSearchEditText?.text!!.isNotEmpty()) {
-                mSearchEditText?.text!!.clear()
+        } else if (view === binding.searchImageViewClear) {
+            if (binding.searchSearchEditText.text!!.isNotEmpty()) {
+                binding.searchSearchEditText.text!!.clear()
             }
             if (mOnClearClickListener != null) {
                 mOnClearClickListener?.onClearClick()
             }
-        } else if (view === mImageViewMenu) {
+        } else if (view === binding.searchImageViewMenu) {
             if (mOnMenuClickListener != null) {
                 mOnMenuClickListener?.onMenuClick()
             }
-        } else if (view === mViewShadow) {
-            mSearchEditText?.clearFocus()
         }
     }
 

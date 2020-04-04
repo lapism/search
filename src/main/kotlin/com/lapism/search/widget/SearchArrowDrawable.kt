@@ -1,19 +1,14 @@
-package com.lapism.search.internal
+package com.lapism.search.widget
 
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.util.Property
 import android.view.animation.AccelerateDecelerateInterpolator
-import androidx.annotation.RestrictTo
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.core.content.ContextCompat
 
-/**
- * @hide
- */
-@RestrictTo(RestrictTo.Scope.LIBRARY)
-internal class SearchArrowDrawable internal constructor(context: Context) :
-    DrawerArrowDrawable(context) {
+
+class SearchArrowDrawable constructor(context: Context) : DrawerArrowDrawable(context) {
 
     // *********************************************************************************************
     var position: Float
