@@ -3,14 +3,11 @@
 
     <declare-styleable name="SearchView">
         <attr name="search_navigation_icon_support" format="enum">
-            <enum name="hamburger" value="100" />
-            <enum name="arrow" value="101" />
-            <enum name="animation" value="102" />
+            <enum name="none" value="1000" />
+            <enum name="menu" value="1001" />
+            <enum name="arrow" value="1002" />
+            <enum name="search" value="1003" />
         </attr>
     </declare-styleable>
-
-    <!--<declare-styleable name="SearchMenuItem">
-        <attr name="search_navigation_icon_support" />
-    </declare-styleable>-->
 
 </resources>

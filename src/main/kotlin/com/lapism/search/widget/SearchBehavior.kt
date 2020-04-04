@@ -9,7 +9,6 @@ import com.lapism.search.internal.SearchLayout
 
 class SearchBehavior<S : SearchLayout> : CoordinatorLayout.Behavior<S>() {
 
-    // *********************************************************************************************
     override fun layoutDependsOn(
         parent: CoordinatorLayout,
         child: S,

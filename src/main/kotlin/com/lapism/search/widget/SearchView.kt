@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import com.lapism.search.R
@@ -27,6 +28,7 @@ class SearchView @JvmOverloads constructor(
 
     // *********************************************************************************************
     init {
+        inflate(context, R.layout.search_view, this)
         init()
 
         val a = context.obtainStyledAttributes(
@@ -41,21 +43,15 @@ class SearchView @JvmOverloads constructor(
 
         // TODO - MORE ATTRIBUTTES IN THE FUTURE RELEASE. Any
         setClearIconImageResource(R.drawable.search_ic_outline_clear_24px)
-        binding.searchViewShadow.setBackgroundColor(
+        mViewShadow?.setBackgroundColor(
             ContextCompat.getColor(
                 context,
                 R.color.search_shadow
             )
         )
-
         setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_radius).toFloat())
         elevation = context.resources.getDimensionPixelSize(R.dimen.search_elevation).toFloat()
-
-        binding.searchViewDivider.visibility = View.GONE
-        binding.searchViewShadow.visibility = View.GONE
-        binding.searchRecyclerView.visibility = View.GONE
-
-        margins = Margins.NO_FOCUS
+        // --
 
         val transition = LayoutTransition()
         transition.enableTransitionType(LayoutTransition.CHANGING)
@@ -87,7 +83,8 @@ class SearchView @JvmOverloads constructor(
             }
         })
 
-        binding.searchRoot.layoutTransition = transition
+        val root = findViewById<LinearLayout>(R.id.search_root)
+        root.layoutTransition = transition
     }
 
     // *********************************************************************************************
@@ -96,36 +93,34 @@ class SearchView @JvmOverloads constructor(
         mElevation = elevation
         radius = getBackgroundRadius()
 
+        mViewShadow?.visibility = View.VISIBLE
         val paddingLeftRight = context.resources.getDimensionPixelSize(R.dimen.search_dp_16)
-        binding.searchSearchEditText.setPadding(paddingLeftRight, 0, paddingLeftRight, 0)
-
-        mOnFocusChangeListener?.onFocusChange(true)
-
+        mSearchEditText?.setPadding(paddingLeftRight, 0, paddingLeftRight, 0)
         elevation =
             context.resources.getDimensionPixelSize(R.dimen.search_elevation_focus).toFloat()
         setBackgroundStrokeWidth(context.resources.getDimensionPixelSize(R.dimen.search_stroke_width_focus))
+        mOnFocusChangeListener?.onFocusChange(true)
+
+        mViewDivider?.visibility = View.VISIBLE
+        mRecyclerView?.visibility = View.VISIBLE
 
         margins = Margins.FOCUS
         setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height_focus))
-
-        binding.searchViewShadow.visibility = View.VISIBLE
-        binding.searchViewDivider.visibility = View.VISIBLE
-        binding.searchRecyclerView.visibility = View.VISIBLE
     }
 
     override fun removeFocus() {
-        binding.searchSearchEditText.setPadding(0, 0, 0, 0)
+        mViewShadow?.visibility = View.GONE
+        mSearchEditText?.setPadding(0, 0, 0, 0)
+        elevation = mElevation
+        setBackgroundRadius(radius)
+        setBackgroundStrokeWidth(mStrokeWidth)
 
-        binding.searchViewDivider.visibility = View.GONE
-        binding.searchViewShadow.visibility = View.GONE
-        binding.searchRecyclerView.visibility = View.GONE
+        mRecyclerView?.visibility = View.GONE
 
         margins = Margins.NO_FOCUS
         setLayoutHeight(context.resources.getDimensionPixelSize(R.dimen.search_layout_height))
 
-        setBackgroundRadius(radius)
-        elevation = mElevation
-        setBackgroundStrokeWidth(mStrokeWidth)
+        mViewDivider?.visibility = View.GONE
 
         hideKeyboard()
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <integer name="search_animation_duration">3000</integer>
+    <integer name="search_animation_duration">@android:integer/config_mediumAnimTime</integer>
 
 </resources>
