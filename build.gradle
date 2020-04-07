@@ -34,6 +34,10 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+
+    /*lintOptions {
+        abortOnError false
+    }*/
 }
 
 dependencies {
@@ -43,3 +47,5 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.google.android.material:material:1.2.0-alpha05'
 }
+
+apply from: 'publish.gradle'

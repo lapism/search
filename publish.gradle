@@ -1,0 +1,42 @@
+apply plugin: 'com.jfrog.bintray'
+
+group 'com.lapism.search'
+version '2.0.0'
+
+project.ext {
+    mavGitUrl = 'https://github.com/lapism/search.git'
+    mavProjectName = 'search'
+    mavLibraryLicenses = ["Apache-2.0":'http://www.apache.org/licenses/LICENSE-2.0.txt']
+    mavLibraryDescription = "Material Design Search component for Android"
+    mavPublishToMavenLocal = true
+    mavSiteUrl = 'https://github.com/lapism/search'
+}
+
+def properties = new Properties()
+properties.load(new FileInputStream("local.properties"))
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    publications = ['Production']
+    configurations = ['archives']
+    override = true
+
+    pkg {
+        repo = 'maven'
+        name = 'search'
+        description = "Material Design Search component for Android"
+        publicDownloadNumbers = true
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/lapism/search'
+        version {
+            name = this.version
+            desc = "Version ${this.version}"
+            released = new Date()
+            vcsTag = this.version
+        }
+    }
+}
+
+apply from: 'https://raw.githubusercontent.com/sky-uk/gradle-maven-plugin/master/gradle-mavenizer.gradle'
+// ./gradlew clean publish bintrayUpload --info
