@@ -12,7 +12,7 @@ import com.lapism.search.R
 import com.lapism.search.internal.SearchLayout
 
 
-class SearchView @JvmOverloads constructor(
+class MaterialSearchView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
@@ -20,7 +20,7 @@ class SearchView @JvmOverloads constructor(
 ) : SearchLayout(context, attrs, defStyleAttr, defStyleRes), CoordinatorLayout.AttachedBehavior {
 
     // *********************************************************************************************
-    private var mBehavior: CoordinatorLayout.Behavior<*> = SearchBehavior<SearchView>()
+    private var mBehavior: CoordinatorLayout.Behavior<*> = SearchBehavior<MaterialSearchView>()
     private var mStrokeWidth: Int = 0
     private var mElevation: Float = 0f
     private var radius: Float = 0f

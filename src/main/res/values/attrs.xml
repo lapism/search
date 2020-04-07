@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="SearchView">
+    <declare-styleable name="MaterialSearchView">
         <attr name="search_navigation_icon_support" format="enum">
             <enum name="none" value="1000" />
             <enum name="menu" value="1001" />

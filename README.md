@@ -1,4 +1,4 @@
-[ ![Download](https://api.bintray.com/packages/lapism/maven/search/images/download.svg?version=1.0.0) ](https://bintray.com/lapism/maven/search/1.0.0/link)
+[ ![Download](https://api.bintray.com/packages/lapism/maven/search/images/download.svg?version=2.0.0) ](https://bintray.com/lapism/maven/search/2.0.0/link)
 
 # Search
 Material Design Search component for Android
@@ -38,12 +38,12 @@ dependencies {
 
 ## SearchView
 ```java
-val searchView = findViewById<SearchView>(R.id.searchView)
+val materialSearchView = findViewById<MaterialSearchView>(R.id.materialSearchView)
 ```
 
 ### XML
 ```xml
-        <com.lapism.search.widget.SearchView
+        <com.lapism.search.widget.MaterialSearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -61,12 +61,13 @@ val searchView = findViewById<SearchView>(R.id.searchView)
 
 ## Changelog
 **2.0.0**
-- NOT FULLY COMPATIBLE WITH 1.0 !!!
-- removed SearchItem
+- NOT COMPATIBLE WITH 1.0 !!!
+- SearchMenu item removed
+- SearchView renamed to MaterialSearchView
 - changed NavigationIconSupport properties
 - NavigationIconSupport properties moved to SearchLayout
 - fixed bugs
-- improved animations
+- improved open and hide animation
 - new public methods
 
 **1.0.0**
