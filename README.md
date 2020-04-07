@@ -32,7 +32,7 @@ targetSdkVersion 29
 Add the dependency to your gradle file:
 ```groovy
 dependencies {
-    implementation 'com.lapism:search:2.0.0'
+    implementation 'com.lapism.search:search:2.0.0'
 }
 ```
 
