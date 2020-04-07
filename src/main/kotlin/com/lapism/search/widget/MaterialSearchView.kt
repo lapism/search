@@ -32,11 +32,11 @@ class MaterialSearchView @JvmOverloads constructor(
         init()
 
         val a = context.obtainStyledAttributes(
-            attrs, R.styleable.SearchView, defStyleAttr, defStyleRes
+            attrs, R.styleable.MaterialSearchView, defStyleAttr, defStyleRes
         )
         navigationIconSupport =
             a.getInteger(
-                R.styleable.SearchView_search_navigation_icon_support,
+                R.styleable.MaterialSearchView_search_navigation_icon_support,
                 NavigationIconSupport.NONE
             )
         a.recycle()
