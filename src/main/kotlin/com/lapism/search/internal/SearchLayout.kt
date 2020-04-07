@@ -251,14 +251,13 @@ abstract class SearchLayout @JvmOverloads constructor(
         mMaterialCardView = findViewById(R.id.search_materialCardView)
         margins = Margins.NO_FOCUS
 
+        isClickable = true
         isFocusable = true
         isFocusableInTouchMode = true
-        isClickable = true
-        //setOnClickListener(this)
     }
 
     // *********************************************************************************************
-    // set todo background
+    // todo background methods
 
     fun setNavigationIconVisibility(visibility: Int) {
         mImageViewNavigation?.visibility = visibility
@@ -588,8 +587,10 @@ abstract class SearchLayout @JvmOverloads constructor(
         if (!isInEditMode) {
             val inputMethodManager =
                 context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.showSoftInput(mSearchEditText, InputMethodManager.RESULT_SHOWN)
-            //InputMethodManager.RESULT_UNCHANGED_SHOWN todo
+            inputMethodManager.showSoftInput(
+                mSearchEditText,
+                InputMethodManager.RESULT_UNCHANGED_SHOWN
+            )
         }
     }
 

@@ -49,8 +49,8 @@ class MaterialSearchView @JvmOverloads constructor(
                 R.color.search_shadow
             )
         )
-        setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_radius).toFloat())
         elevation = context.resources.getDimensionPixelSize(R.dimen.search_elevation).toFloat()
+        setBackgroundRadius(resources.getDimensionPixelSize(R.dimen.search_radius).toFloat())
         // --
 
         val transition = LayoutTransition()
