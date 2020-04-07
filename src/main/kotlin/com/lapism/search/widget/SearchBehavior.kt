@@ -15,7 +15,7 @@ class SearchBehavior<S : SearchLayout> : CoordinatorLayout.Behavior<S>() {
         dependency: View
     ): Boolean {
         if (dependency is AppBarLayout) {
-            // ViewCompat.setZ(child, ViewCompat.getZ(dependency) + 2)
+            // ViewCompat.setZ(child, ViewCompat.getZ(dependency) + 1)
             return true
         }
         return super.layoutDependsOn(parent, child, dependency)
