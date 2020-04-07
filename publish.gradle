@@ -6,7 +6,7 @@ version '2.0.0'
 project.ext {
     mavGitUrl = 'https://github.com/lapism/search.git'
     mavProjectName = 'search'
-    mavLibraryLicenses = ["Apache-2.0":'http://www.apache.org/licenses/LICENSE-2.0.txt']
+    mavLibraryLicenses = ["Apache-2.0": 'http://www.apache.org/licenses/LICENSE-2.0.txt']
     mavLibraryDescription = "Material Design Search component for Android"
     mavPublishToMavenLocal = true
     mavSiteUrl = 'https://github.com/lapism/search'
