@@ -7,7 +7,7 @@
  - Styling
  - Kotlin
 
-![Search](https://github.com/lapism/Search/blob/master_v1/images/search.png)
+![Search](https://github.com/lapism/Search/blob/master/images/search.png)
 
 ## Apps with this library
 
