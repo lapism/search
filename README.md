@@ -94,7 +94,6 @@ ASAP
 ```
 
 ### Layout
-Also add android:stateListAnimator="@null" to the AppBarLayout.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
