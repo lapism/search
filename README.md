@@ -25,12 +25,12 @@ ASAP
 ```
 
 ## Usage
-    private fun clearFocus() {
+    private fun clearFocusOnSearch() {
         binding.materialSearchView.clearFocus()
         binding.materialSearchView.visibility = View.GONE
     }
 
-    private fun requestFocus() {
+    private fun requestFocusOnSearch() {
         binding.materialSearchView.visibility = View.VISIBLE
         binding.materialSearchView.requestFocus()
     }
@@ -46,10 +46,10 @@ ASAP
         binding.materialSearchBar.apply {
             setHint(getString(R.string.search))
             setOnClickListener {
-                requestFocus()
+                requestFocusOnSearch()
             }
             setNavigationOnClickListener {
-                requestFocus()
+                requestFocusOnSearch()
             }
         }
 ```
@@ -66,7 +66,7 @@ ASAP
                 )
             )
             setNavigationOnClickListener {
-                clearFocus()
+                clearFocusOnSearch()
             }
             setHint(getString(R.string.search))
             setBackgroundColor(
