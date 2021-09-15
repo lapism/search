@@ -15,7 +15,7 @@
 
 ## Api
  - minSdkVersion = 26
- - targetSdkVersion = 30
+ - targetSdkVersion = 31
  - Java = 1.8
  - Kotlin = 1.8
 
