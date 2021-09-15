@@ -110,6 +110,7 @@ Also add android:stateListAnimator="@null" to the AppBarLayout.
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- Simple MaterialToolbar extension -->
         <com.lapism.search.widget.MaterialSearchBar
             android:id="@+id/material_search_bar"
             android:layout_width="match_parent"
@@ -125,7 +126,9 @@ Also add android:stateListAnimator="@null" to the AppBarLayout.
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
+
         app:layout_behavior="@string/material_search_bar_scrolling_view_behavior"
+
         app:navGraph="@navigation/mobile_navigation" />
 
     <com.lapism.search.widget.MaterialSearchView
