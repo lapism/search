@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="search_dp_0">0dp</dimen>
+    <dimen name="search_dp_8">8dp</dimen>
+    <dimen name="search_dp_16">16dp</dimen>
+    <dimen name="search_dp_24">24dp</dimen>
+    <dimen name="search_dp_48">48dp</dimen>
+
+    <dimen name="search_sp_16">16sp</dimen>
+
+    <dimen name="search_margins_left_right">16dp</dimen>
+    <dimen name="search_margins_top_bottom">8dp</dimen>
+
+    <dimen name="search_bar_elevation">0dp</dimen>
+    <dimen name="search_bar_height">48dp</dimen>
+    <dimen name="search_bar_radius">24dp</dimen>
+    <dimen name="search_bar_margins_start_end">16dp</dimen>
+    <dimen name="search_bar_margins_top_bottom">8dp</dimen>
+
+    <dimen name="search_view_divider_height">1dp</dimen>
+
+
+    <dimen name="google_opensearchbar_padding_start">4dp</dimen>
+    <dimen name="google_opensearchbar_text_margin_start_no_navigation_icon">16dp</dimen>
+
+</resources>
