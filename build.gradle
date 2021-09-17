@@ -60,12 +60,9 @@ ext {
     PUBLISH_DEVELOPER_ID = 'lapism'
     PUBLISH_DEVELOPER_NAME = 'Martin Lapiš'
     PUBLISH_DEVELOPER_EMAIL = 'lapis.martin@gmail.com'
-    PUBLISH_SCM_CONNECTION =
-            'scm:git:github.com/lapism/search.git'
-    PUBLISH_SCM_DEVELOPER_CONNECTION =
-            'scm:git:ssh://github.com/lapism/search.git'
-    PUBLISH_SCM_URL =
-            'github.com/lapism/search/tree/master'
+    PUBLISH_SCM_CONNECTION = 'scm:git:github.com/lapism/search.git'
+    PUBLISH_SCM_DEVELOPER_CONNECTION = 'scm:git:ssh://github.com/lapism/search.git'
+    PUBLISH_SCM_URL = 'https://github.com/lapism/search/tree/master'
 }
 
 apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
