@@ -1,6 +1,6 @@
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)
 [![Kotlin Version](https://img.shields.io/badge/Kotlin-1.5.30-blue.svg)](https://kotlinlang.org)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # Search
  - Search component for Android
@@ -22,9 +22,14 @@
 
 Add the dependency to your gradle file:
 ```groovy
-dependencies {
-    implementation 'io.github.lapism:search:1.0.0'
-}
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation 'io.github.lapism:search:1.0.0'
+    }
 ```
 
 ## Usage
@@ -188,6 +193,9 @@ dependencies {
 ## Changelog
 **1.0.0**
 - Initial release
+
+## TODO
+- animation like Google, needs help :)
 
 ## Author
 
