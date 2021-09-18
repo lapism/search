@@ -28,7 +28,7 @@ Add the dependency to your gradle file:
     }
 
     dependencies {
-        implementation 'io.github.lapism:search:1.0.0'
+        implementation 'io.github.lapism:search:1.1.0'
     }
 ```
 
@@ -102,6 +102,7 @@ Add the dependency to your gradle file:
 ```
 
 ### Layout
+You have to use app theme Theme.Material3.* or Theme.MaterialComponents.*
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>

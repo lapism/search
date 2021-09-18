@@ -17,4 +17,11 @@ annotation class NavigationIconCompat {
     }
 }
 
-// TODO ANOTACE, NOVE IKONKY, PORADEK V KNIHOVNE, NEDRZI SI FOCUS
+/* TODO
+    ANOTACE,
+    NOVE IKONKY,
+    PORADEK V KNIHOVNE
+
+    function: () -> Unit
+        function: Function<Unit>
+    */

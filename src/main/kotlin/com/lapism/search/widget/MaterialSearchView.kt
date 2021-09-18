@@ -294,36 +294,33 @@ class MaterialSearchView @JvmOverloads constructor(
         editText?.clearFocus()
     }
 
-    override fun onRestoreInstanceState(state: Parcelable?) {
-        if (state !is SavedState?) {
-            super.onRestoreInstanceState(state)
-            return
-        }
-        super.onRestoreInstanceState(state?.superState)
-        setTextQuery(state?.text, false)
-        if (state?.hasFocus!!) {
-            editText?.requestFocus()
+    override fun onSaveInstanceState(): Parcelable? {
+        val superState: Parcelable? = super.onSaveInstanceState()
+        superState?.let {
+            val state = SavedState(it)
+            state.text = getTextQuery().toString()
+            state.hasFocus = editText?.hasFocus()!!
+            return state
+        } ?: run {
+            return superState
         }
     }
 
-    override fun onSaveInstanceState(): Parcelable? {
-        val savedState = super.onSaveInstanceState()?.let { SavedState(it) }
-        savedState?.text = getTextQuery().toString()
-        savedState?.hasFocus = editText?.hasFocus()!!
-        return savedState
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        if (state is SavedState) {
+            super.onRestoreInstanceState(state.superState)
+            setTextQuery(state.text, false)
+            if (state.hasFocus) {
+                editText?.requestFocus()
+            }
+        } else {
+            super.onRestoreInstanceState(state)
+        }
     }
 
     override fun getBehavior(): CoordinatorLayout.Behavior<*> {
         return Behavior()
     }
-
-/*    fun setNavigationOnClickListener(function: () -> Unit) {
-        TODO("Not yet implemented")
-    }*/
-/*
-    fun setNavigationOnClickListener(function: Function<Unit>) {
-        TODO("Not yet implemented")
-    }*/
 
     interface OnFocusChangeListener {
 
@@ -343,7 +340,6 @@ class MaterialSearchView @JvmOverloads constructor(
     }
 
     // NOT INNER CLASS = STATIC,
-    // USING View.BaseSavedState ?
     @Suppress("unused")
     class SavedState : AbsSavedState {
 
@@ -377,7 +373,7 @@ class MaterialSearchView @JvmOverloads constructor(
         companion object {
 
             @JvmField
-            val CREATOR: Parcelable.Creator<SavedState> = object :
+            val CREATOR: Parcelable.ClassLoaderCreator<SavedState> = object :
                 Parcelable.ClassLoaderCreator<SavedState> {
 
                 override fun createFromParcel(source: Parcel, loader: ClassLoader): SavedState {
@@ -385,11 +381,11 @@ class MaterialSearchView @JvmOverloads constructor(
                 }
 
                 override fun createFromParcel(source: Parcel): SavedState {
-                    return SavedState(source)
+                    return SavedState(source, null)
                 }
 
                 override fun newArray(size: Int): Array<SavedState?> {
-                    return arrayOfNulls(size)
+                    return newArray(size)
                 }
             }
         }
