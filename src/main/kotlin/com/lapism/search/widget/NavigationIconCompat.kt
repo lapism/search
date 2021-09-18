@@ -16,3 +16,5 @@ annotation class NavigationIconCompat {
         const val SEARCH = 2
     }
 }
+
+// TODO ANOTACE, NOVE IKONKY, PORADEK V KNIHOVNE, NEDRZI SI FOCUS

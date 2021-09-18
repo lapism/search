@@ -1,4 +1,4 @@
-![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)
+![API](https://img.shields.io/badge/API-26%2B-brightgreen.svg?style=flat)
 [![Kotlin Version](https://img.shields.io/badge/Kotlin-1.5.30-blue.svg)](https://kotlinlang.org)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -190,11 +190,8 @@ Add the dependency to your gradle file:
     </declare-styleable>
 ```
 
-## Changelog
-**1.0.0**
-- Initial release
-
-## TODO
+## Todo
+**Animation**
 - animation like Google, needs help :)
 
 ## Author
