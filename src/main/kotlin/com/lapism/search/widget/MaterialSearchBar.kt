@@ -28,7 +28,7 @@ class MaterialSearchBar @JvmOverloads constructor(
     init {
         View.inflate(context, R.layout.material_search_bar, this)
 
-        /* TODO BINDING ?
+        /* TODO BINDING ? pruhlednost, edittext ztraci focus
         private lateinit var binding: ViewSearchBinding
         val inflater = LayoutInflater.from(context)
         val binding = MaterialSearchBarBinding.inflate(inflater, this)*/

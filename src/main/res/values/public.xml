@@ -10,6 +10,5 @@
     <public name="search_scrimColor" type="attr" />
 
     <public name="material_search_bar_scrolling_view_behavior" type="string" />
-    <public name="material_search_view_behavior" type="string" />
 
 </resources>

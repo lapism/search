@@ -3,7 +3,6 @@ package com.lapism.search.widget
 import android.content.Context
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
 import android.text.Editable
@@ -16,11 +15,9 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.annotation.*
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.customview.view.AbsSavedState
 import androidx.transition.*
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.lapism.search.R
 import com.lapism.search.internal.FocusEditText
@@ -32,8 +29,7 @@ class MaterialSearchView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0
-) : MaterialSearchLayout(context, attrs, defStyleAttr, defStyleRes),
-    CoordinatorLayout.AttachedBehavior {
+) : MaterialSearchLayout(context, attrs, defStyleAttr, defStyleRes) {
 
     private var scrim: View? = null
     private var background: LinearLayout? = null
@@ -234,6 +230,14 @@ class MaterialSearchView @JvmOverloads constructor(
         queryListener = listener
     }
 
+    private fun showAnimation() {
+        // TODO
+    }
+
+    private fun hideAnimation() {
+        // TODO
+    }
+
     fun showKeyboard() {
         if (!isInEditMode) {
             val inputMethodManager =
@@ -243,14 +247,6 @@ class MaterialSearchView @JvmOverloads constructor(
                 InputMethodManager.RESULT_UNCHANGED_SHOWN
             )
         }
-    }
-
-    private fun showAnimation() {
-        // TODO
-    }
-
-    private fun hideAnimation() {
-        // TODO
     }
 
     fun hideKeyboard() {
@@ -299,7 +295,6 @@ class MaterialSearchView @JvmOverloads constructor(
         superState?.let {
             val state = SavedState(it)
             state.text = getTextQuery().toString()
-            state.hasFocus = editText?.hasFocus()!!
             return state
         } ?: run {
             return superState
@@ -310,16 +305,9 @@ class MaterialSearchView @JvmOverloads constructor(
         if (state is SavedState) {
             super.onRestoreInstanceState(state.superState)
             setTextQuery(state.text, false)
-            if (state.hasFocus) {
-                editText?.requestFocus()
-            }
         } else {
             super.onRestoreInstanceState(state)
         }
-    }
-
-    override fun getBehavior(): CoordinatorLayout.Behavior<*> {
-        return Behavior()
     }
 
     interface OnFocusChangeListener {
@@ -339,35 +327,20 @@ class MaterialSearchView @JvmOverloads constructor(
         fun onClearClick()
     }
 
-    // NOT INNER CLASS = STATIC,
     @Suppress("unused")
     class SavedState : AbsSavedState {
 
         var text: String? = null
-        var textChar: CharSequence? = null // TODO unused
-        var hasFocus = false
 
         constructor(superState: Parcelable) : super(superState)
 
         constructor(source: Parcel, loader: ClassLoader? = null) : super(source, loader) {
             text = source.readString()
-            textChar = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(source)
-            hasFocus = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                source.readBoolean()
-            } else {
-                source.readInt() == 1
-            }
         }
 
         override fun writeToParcel(dest: Parcel, flags: Int) {
             super.writeToParcel(dest, flags)
             dest.writeString(text)
-            TextUtils.writeToParcel(textChar, dest, flags)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                dest.writeBoolean(hasFocus)
-            } else {
-                dest.writeInt(if (hasFocus) 1 else 0)
-            }
         }
 
         companion object {
@@ -388,33 +361,6 @@ class MaterialSearchView @JvmOverloads constructor(
                     return newArray(size)
                 }
             }
-        }
-
-    }
-
-    class Behavior : CoordinatorLayout.Behavior<MaterialSearchView>() {
-
-        override fun layoutDependsOn(
-            parent: CoordinatorLayout,
-            child: MaterialSearchView,
-            dependency: View
-        ): Boolean {
-            return if (dependency is AppBarLayout) {
-                true
-            } else {
-                super.layoutDependsOn(parent, child, dependency)
-            }
-        }
-
-        override fun onDependentViewChanged(
-            parent: CoordinatorLayout,
-            child: MaterialSearchView,
-            dependency: View
-        ): Boolean {
-            if (dependency is AppBarLayout) {
-                return true
-            }
-            return super.onDependentViewChanged(parent, child, dependency)
         }
 
     }
