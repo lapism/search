@@ -8,6 +8,7 @@
             <enum name="search" value="2" />
         </attr>
         <attr name="search_navigationIcon" format="reference" />
+        <attr name="search_navigationContentDescription" format="reference" />
         <attr name="search_backgroundColor" format="reference" />
         <attr name="search_radius" format="integer" />
 
@@ -22,6 +23,7 @@
     <declare-styleable name="MaterialSearchView">
         <attr name="search_navigationIconCompat" />
         <attr name="search_navigationIcon" />
+        <attr name="search_navigationContentDescription" />
         <attr name="search_backgroundColor" />
         <attr name="search_clearIcon" format="reference" />
         <attr name="search_dividerColor" format="reference" />

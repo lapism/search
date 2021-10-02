@@ -1,29 +1,30 @@
 package com.lapism.search.widget
 
+import android.animation.LayoutTransition
 import android.content.Context
 import android.graphics.Rect
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.FrameLayout
-import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.annotation.*
 import androidx.core.content.ContextCompat
 import androidx.customview.view.AbsSavedState
 import androidx.transition.*
-import com.google.android.material.appbar.MaterialToolbar
 import com.lapism.search.R
-import com.lapism.search.internal.FocusEditText
+import com.lapism.search.databinding.MaterialSearchViewBinding
 
 
-@Suppress("MemberVisibilityCanBePrivate")
 class MaterialSearchView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -31,29 +32,16 @@ class MaterialSearchView @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : MaterialSearchLayout(context, attrs, defStyleAttr, defStyleRes) {
 
-    private var scrim: View? = null
-    private var background: LinearLayout? = null
-    private var toolbar: MaterialToolbar? = null
-    private var editText: FocusEditText? = null
-    private var clear: ImageButton? = null
-    private var divider: View? = null
-    private var container: FrameLayout? = null
-
+    private var binding: MaterialSearchViewBinding
     private var focusListener: OnFocusChangeListener? = null
     private var queryListener: OnQueryTextListener? = null
     private var clearClickListener: OnClearClickListener? = null
 
     init {
-        View.inflate(context, R.layout.material_search_view, this)
+        val inflater = LayoutInflater.from(getContext())
+        binding = MaterialSearchViewBinding.inflate(inflater, this)
 
-        scrim = findViewById(R.id.search_view_scrim)
-
-        background = findViewById(R.id.search_view_background)
-
-        toolbar = findViewById(R.id.search_view_toolbar)
-
-        editText = findViewById(R.id.search_view_edit_text)
-        editText?.addTextChangedListener(object : TextWatcher {
+        binding.searchViewEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
 
             }
@@ -66,38 +54,37 @@ class MaterialSearchView @JvmOverloads constructor(
 
             }
         })
-        editText?.setOnEditorActionListener { _, _, _ ->
+        binding.searchViewEditText.setOnEditorActionListener { _, _, _ ->
             onSubmitQuery()
             return@setOnEditorActionListener true // true
         }
-        editText?.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
+        binding.searchViewEditText.setOnFocusChangeListener { _, hasFocus ->
+            visibility = if (hasFocus) {
                 showAnimation()
                 showKeyboard()
+                View.VISIBLE
             } else {
                 hideKeyboard()
                 hideAnimation()
+                View.GONE
             }
 
             focusListener?.onFocusChange(hasFocus)
         }
 
         val left = context.resources.getDimensionPixelSize(R.dimen.search_dp_8)
-        val params = editText?.layoutParams as? LinearLayout.LayoutParams
+        val params = binding.searchViewEditText.layoutParams as? MarginLayoutParams
         params?.setMargins(left, 0, 0, 0)
-        editText?.layoutParams = params
-        editText?.isFocusable = true
-        editText?.isFocusableInTouchMode = true
+        binding.searchViewEditText.layoutParams = params
 
-        clear = findViewById(R.id.search_view_clear_button)
-        clear?.visibility = View.GONE
-        clear?.setOnClickListener {
+        binding.searchViewEditText.isFocusable = true
+        binding.searchViewEditText.isFocusableInTouchMode = true
+
+        binding.searchViewClearButton.visibility = View.GONE
+        binding.searchViewClearButton.setOnClickListener {
             clearClickListener?.onClearClick()
-            editText?.text?.clear()
+            binding.searchViewEditText.text?.clear()
         }
-
-        divider = findViewById(R.id.search_view_divider)
-        container = findViewById(R.id.search_view_content_container)
 
         val a = context.obtainStyledAttributes(
             attrs, R.styleable.MaterialSearchView, defStyleAttr, defStyleRes
@@ -113,6 +100,12 @@ class MaterialSearchView @JvmOverloads constructor(
             a.hasValue(R.styleable.MaterialSearchView_search_navigationIcon) -> {
                 setNavigationIcon(a.getDrawable(R.styleable.MaterialSearchView_search_navigationIcon))
             }
+        }
+
+        if (a.hasValue(R.styleable.MaterialSearchView_search_navigationContentDescription)) {
+            val description =
+                a.getText(R.styleable.MaterialSearchView_search_navigationContentDescription)
+            setNavigationContentDescription(description)
         }
 
         if (a.hasValue(R.styleable.MaterialSearchView_search_backgroundColor)) {
@@ -160,66 +153,97 @@ class MaterialSearchView @JvmOverloads constructor(
         }
 
         a.recycle()
+
+        setTransition()
+
+        visibility = View.GONE
+    }
+
+    private fun setTransition() {
+        val mTransition = LayoutTransition()
+        mTransition.enableTransitionType(LayoutTransition.CHANGING)
+        mTransition.setDuration(300L)
+
+        binding.searchViewBackground.layoutTransition = mTransition
     }
 
     // TODO ANOTACE A NAZVY PROMENNCYH + @Nullable
     override fun addView(child: View?) {
-        container?.addView(child)
+        binding.searchViewContentContainer.addView(child)
     }
 
-    fun setTextQuery(query: CharSequence?, submit: Boolean) {
-        editText?.setText(query)
+    fun setTextQuery(@Nullable query: CharSequence?, submit: Boolean) {
+        binding.searchViewEditText.setText(query)
+
         if (query != null) {
-            editText?.setSelection(editText?.length()!!)
+            binding.searchViewEditText.setSelection(binding.searchViewEditText.length())
         }
+
         if (submit && !TextUtils.isEmpty(query)) {
             onSubmitQuery()
         }
     }
 
     private fun onSubmitQuery() {
-        val query = editText?.text
+        val query = binding.searchViewEditText.text
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
             if (queryListener == null || !queryListener!!.onQueryTextSubmit(query.toString())) {
-                editText?.text = query
+                hideKeyboard()
             }
         }
     }
 
+    override fun setNavigationContentDescription(resId: Int) {
+        binding.searchViewToolbar.setNavigationContentDescription(resId)
+    }
+
+    override fun setNavigationContentDescription(description: CharSequence?) {
+        binding.searchViewToolbar.navigationContentDescription = description
+    }
+
     override fun setNavigationOnClickListener(listener: OnClickListener) {
-        toolbar?.setNavigationOnClickListener(listener)
+        binding.searchViewToolbar.setNavigationOnClickListener(listener)
     }
 
     override fun setNavigationIcon(drawable: Drawable?) {
-        toolbar?.navigationIcon = drawable
+        binding.searchViewToolbar.navigationIcon = drawable
     }
 
     override fun setNavigationIcon(resId: Int) {
-        toolbar?.setNavigationIcon(resId)
+        binding.searchViewToolbar.setNavigationIcon(resId)
     }
 
     fun setClearIcon(drawable: Drawable?) {
-        clear?.setImageDrawable(drawable)
+        binding.searchViewClearButton.setImageDrawable(drawable)
     }
 
     fun setImeOptions(imeOptions: Int) {
-        editText?.imeOptions = imeOptions
+        binding.searchViewEditText.imeOptions = imeOptions
     }
 
     fun setInputType(type: Int) {
-        editText?.inputType = type
+        binding.searchViewEditText.inputType = type
     }
 
     fun setTextClearOnBackPressed(clear: Boolean) {
-        editText?.setTextClearOnBackPressed(clear)
+        binding.searchViewEditText.setTextClearOnBackPressed(clear)
     }
 
     fun getTextQuery(): Editable? {
-        return editText?.text
+        return binding.searchViewEditText.text
+    }
+
+    fun setTextTypeface(@Nullable typeface: Typeface?) {
+        binding.searchViewEditText.typeface = typeface
+    }
+
+    @Nullable
+    fun getTextTypeface(): Typeface? {
+        return binding.searchViewEditText.typeface
     }
 
     fun setHint(hint: CharSequence?) {
-        editText?.hint = hint
+        binding.searchViewEditText.hint = hint
     }
 
     fun setOnFocusChangeListener(listener: OnFocusChangeListener) {
@@ -231,11 +255,19 @@ class MaterialSearchView @JvmOverloads constructor(
     }
 
     private fun showAnimation() {
-        // TODO
+        val params = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+        binding.searchViewContentContainer.layoutParams = params
     }
 
     private fun hideAnimation() {
-        // TODO
+        val params = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        binding.searchViewContentContainer.layoutParams = params
     }
 
     fun showKeyboard() {
@@ -243,7 +275,7 @@ class MaterialSearchView @JvmOverloads constructor(
             val inputMethodManager =
                 context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.showSoftInput(
-                editText,
+                binding.searchViewEditText,
                 InputMethodManager.RESULT_UNCHANGED_SHOWN
             )
         }
@@ -254,7 +286,8 @@ class MaterialSearchView @JvmOverloads constructor(
             val inputMethodManager =
                 context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(
-                editText?.windowToken,
+                //TODO binding.searchViewEditText.windowToken,
+                windowToken,
                 InputMethodManager.RESULT_UNCHANGED_SHOWN
             )
         }
@@ -262,32 +295,40 @@ class MaterialSearchView @JvmOverloads constructor(
 
     private fun onTextChanged(s: CharSequence) {
         if (s.isNotEmpty()) {
-            clear?.visibility = View.VISIBLE
+            binding.searchViewClearButton.visibility = View.VISIBLE
         } else {
-            clear?.visibility = View.GONE
+            binding.searchViewClearButton.visibility = View.GONE
         }
 
         queryListener?.onQueryTextChange(s)
     }
 
     override fun setBackgroundColor(@ColorInt color: Int) {
-        background?.setBackgroundColor(color)
+        binding.searchViewBackground.setBackgroundColor(color)
     }
 
     fun setDividerColor(@ColorInt color: Int) {
-        divider?.setBackgroundColor(color)
+        binding.searchViewDivider.setBackgroundColor(color)
     }
 
     fun setScrimColor(@ColorInt color: Int) {
-        scrim?.setBackgroundColor(color)
+        binding.searchViewScrim.setBackgroundColor(color)
     }
 
     override fun requestFocus(direction: Int, previouslyFocusedRect: Rect?): Boolean {
-        return editText?.requestFocus(direction, previouslyFocusedRect)!!
+        return binding.searchViewEditText.requestFocus(direction, previouslyFocusedRect)
     }
 
     override fun clearFocus() {
-        editText?.clearFocus()
+        binding.searchViewEditText.clearFocus()
+    }
+
+    fun setTextHintColor(color: Int) {
+        binding.searchViewEditText.setHintTextColor(color)
+    }
+
+    fun setTextColor(color: Int) {
+        binding.searchViewEditText.setTextColor(color)
     }
 
     override fun onSaveInstanceState(): Parcelable? {
@@ -295,6 +336,7 @@ class MaterialSearchView @JvmOverloads constructor(
         superState?.let {
             val state = SavedState(it)
             state.text = getTextQuery().toString()
+            state.focus = binding.searchViewEditText.hasFocus()
             return state
         } ?: run {
             return superState
@@ -305,6 +347,9 @@ class MaterialSearchView @JvmOverloads constructor(
         if (state is SavedState) {
             super.onRestoreInstanceState(state.superState)
             setTextQuery(state.text, false)
+            if (state.focus) {
+                binding.searchViewEditText.requestFocus()
+            }
         } else {
             super.onRestoreInstanceState(state)
         }
@@ -331,16 +376,27 @@ class MaterialSearchView @JvmOverloads constructor(
     class SavedState : AbsSavedState {
 
         var text: String? = null
+        var focus: Boolean = false
 
         constructor(superState: Parcelable) : super(superState)
 
         constructor(source: Parcel, loader: ClassLoader? = null) : super(source, loader) {
             text = source.readString()
+            focus = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                source.readBoolean()
+            } else {
+                source.readInt() == 1
+            }
         }
 
         override fun writeToParcel(dest: Parcel, flags: Int) {
             super.writeToParcel(dest, flags)
             dest.writeString(text)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                dest.writeBoolean(focus)
+            } else {
+                dest.writeInt(if (focus) 1 else 0)
+            }
         }
 
         companion object {

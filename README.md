@@ -1,6 +1,6 @@
 ![API](https://img.shields.io/badge/API-26%2B-brightgreen.svg?style=flat)
 [![Kotlin Version](https://img.shields.io/badge/Kotlin-1.5.31-blue.svg)](https://kotlinlang.org)
-[![Download](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Fio%2Fgithub%2Flapism%2Fsearch%2Fmaven-metadata.xml) ](https://repo1.maven.org/maven2/io/github/lapism/search/1.0.0/)
+[![Download](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Fio%2Fgithub%2Flapism%2Fsearch%2Fmaven-metadata.xml) ](https://repo1.maven.org/maven2/io/github/lapism/search/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # Search
@@ -29,133 +29,31 @@ Add the dependency to your gradle file:
     }
 
     dependencies {
-        implementation 'io.github.lapism:search:1.0.0'
+        implementation 'io.github.lapism:search:1.1.0'
     }
 ```
 
 ## Usage
-    private fun clearFocusOnSearch() {
-        binding.materialSearchView.clearFocus()
-        binding.materialSearchView.visibility = View.GONE
-    }
-
-    private fun requestFocusOnSearch() {
-        binding.materialSearchView.visibility = View.VISIBLE
-        binding.materialSearchView.requestFocus()
-    }
+```java
+   binding.materialSearchView.requestFocus()
+   binding.materialSearchView.clearFocus()
+```
 
 ### MaterialSearchBar
 ```java
-        val toolbar = binding.materialSearchBar.getToolbar()
-        setSupportActionBar(toolbar)
 
-        val actionBar = supportActionBar
-        actionBar?.setIcon(R.drawable.new_ic_outline_search_24)
-
-        binding.materialSearchBar.apply {
-            setHint(getString(R.string.search))
-            setOnClickListener {
-                requestFocusOnSearch()
-            }
-            setNavigationOnClickListener {
-                requestFocusOnSearch()
-            }
-        }
 ```
 
 ### MaterialSearchView
 ```java
-        binding.materialSearchView.apply {
-            visibility = View.GONE
-            addView(recyclerView)
-            setNavigationIcon(
-                ContextCompat.getDrawable(
-                    this@MainActivity,
-                    R.drawable.search_ic_outline_arrow_back_24
-                )
-            )
-            setNavigationOnClickListener {
-                clearFocusOnSearch()
-            }
-            setHint(getString(R.string.search))
-            setBackgroundColor(
-                ContextCompat.getColor(
-                    this@MainActivity,
-                    R.color.color_surface
-                )
-            )
-            setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
-                override fun onQueryTextChange(newText: CharSequence): Boolean {
-                    adapter.filter(newText)
-                    return true
-                }
 
-                override fun onQueryTextSubmit(query: CharSequence): Boolean {
-                    return true
-                }
-            })
-            setOnFocusChangeListener(object : MaterialSearchView.OnFocusChangeListener {
-                override fun onFocusChange(hasFocus: Boolean) {
-
-                }
-            })
-        }
 ```
 
-### Layout
+### Layout<!-- Simple MaterialToolbar extension -->
 You have to use app theme Theme.Material3.* or Theme.MaterialComponents.*.
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="false"
-    tools:context=".activity.MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <!-- Simple MaterialToolbar extension -->
-        <com.lapism.search.widget.MaterialSearchBar
-            android:id="@+id/material_search_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_0"
-            app:layout_scrollFlags="scroll|enterAlways|snap" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:defaultNavHost="true"
-
-        app:layout_behavior="@string/material_search_bar_scrolling_view_behavior"
-
-        app:navGraph="@navigation/mobile_navigation" />
-
-    <com.lapism.search.widget.MaterialSearchView
-        android:id="@+id/material_search_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_anchor="@id/material_search_bar" />
-
-    <BottomNavigationView
-        android:id="@+id/bottom_navigation_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical"
-        app:layout_insetEdge="bottom"
-        app:menu="@menu/menu_bottom_nav" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
 ```
 
 ### XML attributes
@@ -167,6 +65,7 @@ You have to use app theme Theme.Material3.* or Theme.MaterialComponents.*.
             <enum name="search" value="2" />
         </attr>
         <attr name="search_navigationIcon" format="reference" />
+        <attr name="search_navigationContentDescription" format="reference" />
         <attr name="search_backgroundColor" format="reference" />
         <attr name="search_radius" format="integer" />
 
@@ -181,6 +80,7 @@ You have to use app theme Theme.Material3.* or Theme.MaterialComponents.*.
     <declare-styleable name="MaterialSearchView">
         <attr name="search_navigationIconCompat" />
         <attr name="search_navigationIcon" />
+        <attr name="search_navigationContentDescription" />
         <attr name="search_backgroundColor" />
         <attr name="search_clearIcon" format="reference" />
         <attr name="search_dividerColor" format="reference" />

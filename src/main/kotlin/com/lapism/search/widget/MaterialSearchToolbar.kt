@@ -1,34 +1,33 @@
 package com.lapism.search.widget
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.util.AttributeSet
-import android.view.View
+import android.view.LayoutInflater
 import android.view.accessibility.AccessibilityNodeInfo
-import androidx.annotation.AttrRes
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textview.MaterialTextView
-import com.lapism.search.R
+import com.lapism.search.databinding.MaterialSearchToolbarBinding
 
 
 class MaterialSearchToolbar : MaterialToolbar {
 
-    private var textView: MaterialTextView? = null
+    private var binding: MaterialSearchToolbarBinding
 
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
 
-    constructor(context: Context, attrs: AttributeSet?, @AttrRes defStyleAttr: Int) : super(
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attrs,
         defStyleAttr
     )
 
     init {
-        View.inflate(context, R.layout.material_search_toolbar, this)
-
-        textView = findViewById(R.id.search_toolbar_text_view)
+        val inflater = LayoutInflater.from(context)
+        binding = MaterialSearchToolbarBinding.inflate(inflater, this, true)
     }
 
     override fun setTitle(title: CharSequence?) {
@@ -51,6 +50,12 @@ class MaterialSearchToolbar : MaterialToolbar {
 
     }
 
+    override fun setNavigationIcon(drawable: Drawable?) {
+        if (drawable != null) {
+            super.setNavigationIcon(drawable)
+        }
+    }
+
     override fun onInitializeAccessibilityNodeInfo(info: AccessibilityNodeInfo?) {
         super.onInitializeAccessibilityNodeInfo(info)
         info?.className = MaterialTextView::class.java.canonicalName
@@ -65,19 +70,19 @@ class MaterialSearchToolbar : MaterialToolbar {
     }
 
     fun setText(text: CharSequence?) {
-        textView?.text = text
+        binding.searchToolbarTextView.text = text
     }
 
     private fun getText(): CharSequence? {
-        return textView?.text
+        return binding.searchToolbarTextView.text
     }
 
     private fun getHint(): CharSequence? {
-        return textView?.hint
+        return binding.searchToolbarTextView.hint
     }
 
     fun setHint(hint: CharSequence?) {
-        textView?.hint = hint
+        binding.searchToolbarTextView.hint = hint
     }
 
 }

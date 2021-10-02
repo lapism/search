@@ -24,7 +24,7 @@ abstract class MaterialSearchLayout @JvmOverloads constructor(
 
             when (navigationIconCompat) {
                 NavigationIconCompat.NONE -> {
-                    setNavigationIcon(null)
+                    setNavigationIcon(0)
                 }
                 NavigationIconCompat.ARROW -> {
                     setNavigationIcon(
@@ -45,9 +45,13 @@ abstract class MaterialSearchLayout @JvmOverloads constructor(
             }
         }
 
+    abstract fun setNavigationIcon(resId: Int)
+
     abstract fun setNavigationIcon(@Nullable drawable: Drawable?)
 
-    abstract fun setNavigationIcon(resId: Int)
+    abstract fun setNavigationContentDescription(resId: Int)
+
+    abstract fun setNavigationContentDescription(description: CharSequence?)
 
     abstract fun setNavigationOnClickListener(listener: OnClickListener)
 

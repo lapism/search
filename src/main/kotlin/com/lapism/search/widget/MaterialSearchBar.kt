@@ -9,6 +9,7 @@ import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.Nullable
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.ViewCompat
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.card.MaterialCardView
 import com.lapism.search.R
@@ -28,11 +29,6 @@ class MaterialSearchBar @JvmOverloads constructor(
     init {
         View.inflate(context, R.layout.material_search_bar, this)
 
-        /* TODO BINDING ? pruhlednost, edittext ztraci focus
-        private lateinit var binding: ViewSearchBinding
-        val inflater = LayoutInflater.from(context)
-        val binding = MaterialSearchBarBinding.inflate(inflater, this)*/
-
         card = findViewById(R.id.search_bar_card)
         toolbar = findViewById(R.id.search_bar_toolbar)
 
@@ -41,19 +37,25 @@ class MaterialSearchBar @JvmOverloads constructor(
         )
 
         when {
-            a?.hasValue(R.styleable.MaterialSearchView_search_navigationIconCompat)!! -> {
+            a?.hasValue(R.styleable.MaterialSearchBar_search_navigationIconCompat)!! -> {
                 navigationIconCompat = a?.getInt(
-                    R.styleable.MaterialSearchView_search_navigationIconCompat,
+                    R.styleable.MaterialSearchBar_search_navigationIconCompat,
                     NavigationIconCompat.NONE
                 )!!
             }
-            a?.hasValue(R.styleable.MaterialSearchView_search_navigationIcon)!! -> {
-                setNavigationIcon(a?.getDrawable(R.styleable.MaterialSearchView_search_navigationIcon))
+            a?.hasValue(R.styleable.MaterialSearchBar_search_navigationIcon)!! -> {
+                setNavigationIcon(a?.getDrawable(R.styleable.MaterialSearchBar_search_navigationIcon))
             }
         }
 
-        if (a?.hasValue(R.styleable.MaterialSearchView_search_backgroundColor)!!) {
-            val color = a?.getInt(R.styleable.MaterialSearchView_search_backgroundColor, 0)
+        if (a?.hasValue(R.styleable.MaterialSearchBar_search_navigationContentDescription)!!) {
+            val description =
+                a?.getText(R.styleable.MaterialSearchBar_search_navigationContentDescription)
+            setNavigationContentDescription(description)
+        }
+
+        if (a?.hasValue(R.styleable.MaterialSearchBar_search_backgroundColor)!!) {
+            val color = a?.getInt(R.styleable.MaterialSearchBar_search_backgroundColor, 0)
             setBackgroundColor(color!!)
         }
 
@@ -96,6 +98,14 @@ class MaterialSearchBar @JvmOverloads constructor(
         toolbar?.setNavigationIcon(resId)
     }
 
+    override fun setNavigationContentDescription(resId: Int) {
+        toolbar?.setNavigationContentDescription(resId)
+    }
+
+    override fun setNavigationContentDescription(description: CharSequence?) {
+        toolbar?.navigationContentDescription = description
+    }
+
     override fun setOnClickListener(@Nullable l: OnClickListener?) {
         toolbar?.setOnClickListener(l)
     }
@@ -107,6 +117,24 @@ class MaterialSearchBar @JvmOverloads constructor(
     override fun getElevation(): Float {
         return card?.elevation!!
     }
+
+/*
+    fun setForegroundColor(){
+
+    }
+
+    fun setBackgroundColor(){
+
+    }
+
+    fun setStrokeWidth(){
+
+    }
+
+    fun setStrokeColor{
+        card?.setStrokeColor()
+    }
+*/
 
     override fun setBackgroundColor(@ColorInt color: Int) {
         card?.setCardBackgroundColor(color)
@@ -161,19 +189,19 @@ class MaterialSearchBar @JvmOverloads constructor(
 
         constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
 
-        override fun layoutDependsOn(
+        override fun onDependentViewChanged(
             parent: CoordinatorLayout,
             child: View,
             dependency: View
         ): Boolean {
-            return if (dependency is AppBarLayout) {
+            super.onDependentViewChanged(parent, child, dependency)
+            if (dependency is AppBarLayout) {
                 dependency.setBackgroundColor(Color.TRANSPARENT)
-                dependency.elevation = 0.0f
-                dependency.stateListAnimator = null
-                true
-            } else {
-                false
+                // dependency.elevation = 0.0f
+                // dependency.stateListAnimator = null
+                ViewCompat.setElevation(dependency, 0.0f)
             }
+            return false
         }
 
     }
