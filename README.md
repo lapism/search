@@ -41,19 +41,107 @@ Add the dependency to your gradle file:
 
 ### MaterialSearchBar
 ```java
+        val toolbar = binding.materialSearchBar.getToolbar()
+        setSupportActionBar(toolbar)
 
+        binding.materialSearchBar.apply {
+            navigationIconCompat = NavigationIconCompat.SEARCH
+            setHint(getString(R.string.search))
+            setOnClickListener {
+                binding.materialSearchView.requestFocus()
+            }
+            setNavigationOnClickListener {
+                binding.materialSearchView.requestFocus()
+            }
+        }
 ```
 
 ### MaterialSearchView
 ```java
+        binding.materialSearchView.apply {
+            addView(recyclerView)
+            navigationIconCompat = NavigationIconCompat.ARROW
+            setNavigationOnClickListener {
+                binding.materialSearchView.clearFocus()
+            }
+            setHint(getString(R.string.search))
+            setBackgroundColor(
+                ContextCompat.getColor(
+                    this@MainActivity,
+                    R.color.color_surface
+                )
+            )
+            setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
+                override fun onQueryTextChange(newText: CharSequence): Boolean {
+                    adapter.filter(newText)
+                    return true
+                }
 
+                override fun onQueryTextSubmit(query: CharSequence): Boolean {
+                    return true
+                }
+            })
+            setOnFocusChangeListener(object : MaterialSearchView.OnFocusChangeListener {
+                override fun onFocusChange(hasFocus: Boolean) {
+
+                }
+            })
+        }
 ```
 
 ### Layout<!-- Simple MaterialToolbar extension -->
 You have to use app theme Theme.Material3.* or Theme.MaterialComponents.*.
 
 ```xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    tools:context=".activity.MainActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Simple MaterialToolbar extension -->
+        <com.lapism.search.widget.MaterialSearchBar
+            android:id="@+id/material_search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways|snap" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+
+        app:layout_behavior="@string/material_search_bar_scrolling_view_behavior"
+
+        app:navGraph="@navigation/mobile_navigation" />
+
+    <com.lapism.search.widget.MaterialSearchView
+        android:id="@+id/material_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_anchor="@id/material_search_bar" />
+
+    <BottomNavigationView
+        android:id="@+id/bottom_navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        app:layout_insetEdge="bottom"
+        app:menu="@menu/menu_bottom_nav" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 ```
 
 ### XML attributes
@@ -68,7 +156,6 @@ You have to use app theme Theme.Material3.* or Theme.MaterialComponents.*.
         <attr name="search_navigationContentDescription" format="reference" />
         <attr name="search_backgroundColor" format="reference" />
         <attr name="search_radius" format="integer" />
-
         <attr name="android:elevation" />
         <attr name="android:hint" />
         <attr name="android:layout_marginStart" />
@@ -85,7 +172,6 @@ You have to use app theme Theme.Material3.* or Theme.MaterialComponents.*.
         <attr name="search_clearIcon" format="reference" />
         <attr name="search_dividerColor" format="reference" />
         <attr name="search_scrimColor" format="reference" />
-
         <attr name="android:hint" />
         <attr name="android:imeOptions" />
         <attr name="android:inputType" />

@@ -1,6 +1,5 @@
 package com.lapism.search.widget
 
-import android.animation.LayoutTransition
 import android.content.Context
 import android.graphics.Rect
 import android.graphics.Typeface
@@ -14,9 +13,7 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.LinearLayout
 import androidx.annotation.*
 import androidx.core.content.ContextCompat
 import androidx.customview.view.AbsSavedState
@@ -60,12 +57,10 @@ class MaterialSearchView @JvmOverloads constructor(
         }
         binding.searchViewEditText.setOnFocusChangeListener { _, hasFocus ->
             visibility = if (hasFocus) {
-                showAnimation()
                 showKeyboard()
                 View.VISIBLE
             } else {
                 hideKeyboard()
-                hideAnimation()
                 View.GONE
             }
 
@@ -154,17 +149,7 @@ class MaterialSearchView @JvmOverloads constructor(
 
         a.recycle()
 
-        setTransition()
-
         visibility = View.GONE
-    }
-
-    private fun setTransition() {
-        val mTransition = LayoutTransition()
-        mTransition.enableTransitionType(LayoutTransition.CHANGING)
-        mTransition.setDuration(300L)
-
-        binding.searchViewBackground.layoutTransition = mTransition
     }
 
     // TODO ANOTACE A NAZVY PROMENNCYH + @Nullable
@@ -252,22 +237,6 @@ class MaterialSearchView @JvmOverloads constructor(
 
     fun setOnQueryTextListener(listener: OnQueryTextListener) {
         queryListener = listener
-    }
-
-    private fun showAnimation() {
-        val params = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT
-        )
-        binding.searchViewContentContainer.layoutParams = params
-    }
-
-    private fun hideAnimation() {
-        val params = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        binding.searchViewContentContainer.layoutParams = params
     }
 
     fun showKeyboard() {
