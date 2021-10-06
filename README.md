@@ -35,8 +35,8 @@ Add the dependency to your gradle file:
 
 ## Usage
 ```java
-   binding.materialSearchView.requestFocus()
-   binding.materialSearchView.clearFocus()
+        binding.materialSearchView.requestFocus()
+        binding.materialSearchView.clearFocus()
 ```
 
 ### MaterialSearchBar
