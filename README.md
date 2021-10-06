@@ -23,14 +23,14 @@
 
 Add the dependency to your gradle file:
 ```groovy
-    repositories {
-        google()
-        mavenCentral()
-    }
+        repositories {
+            google()
+            mavenCentral()
+        }
 
-    dependencies {
-        implementation 'io.github.lapism:search:1.1.0'
-    }
+        dependencies {
+            implementation 'io.github.lapism:search:1.1.0'
+        }
 ```
 
 ## Usage
