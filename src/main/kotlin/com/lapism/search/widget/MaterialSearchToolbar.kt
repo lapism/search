@@ -6,8 +6,8 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.accessibility.AccessibilityNodeInfo
+import android.widget.TextView
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.textview.MaterialTextView
 import com.lapism.search.databinding.MaterialSearchToolbarBinding
 
 
@@ -30,19 +30,19 @@ class MaterialSearchToolbar : MaterialToolbar {
         binding = MaterialSearchToolbarBinding.inflate(inflater, this, true)
     }
 
-    override fun setTitle(title: CharSequence?) {
-
-    }
-
     override fun setTitle(resId: Int) {
 
     }
 
-    override fun setSubtitle(subtitle: CharSequence?) {
+    override fun setTitle(title: CharSequence?) {
 
     }
 
     override fun setSubtitle(resId: Int) {
+
+    }
+
+    override fun setSubtitle(subtitle: CharSequence?) {
 
     }
 
@@ -58,7 +58,7 @@ class MaterialSearchToolbar : MaterialToolbar {
 
     override fun onInitializeAccessibilityNodeInfo(info: AccessibilityNodeInfo?) {
         super.onInitializeAccessibilityNodeInfo(info)
-        info?.className = MaterialTextView::class.java.canonicalName
+        info?.className = TextView::class.java.canonicalName
         var text: CharSequence? = getText()
         val isEmpty = TextUtils.isEmpty(text)
         info?.hintText = getHint()
@@ -69,6 +69,9 @@ class MaterialSearchToolbar : MaterialToolbar {
         info?.text = text
     }
 
+
+
+    // todo DODELAT ****************************************************************************************
     fun setText(text: CharSequence?) {
         binding.searchToolbarTextView.text = text
     }

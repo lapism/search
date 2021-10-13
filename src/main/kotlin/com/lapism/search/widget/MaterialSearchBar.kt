@@ -108,7 +108,6 @@ class MaterialSearchBar @JvmOverloads constructor(
         binding.searchBarToolbar.setOnClickListener(l)
     }
 
-
     /*
         fun setForegroundColor(){
 
@@ -126,12 +125,13 @@ class MaterialSearchBar @JvmOverloads constructor(
             card?.setStrokeColor()
         }
     */
+
     override fun setElevation(elevation: Float) {
         binding.searchBarCard.cardElevation = elevation
     }
 
     override fun getElevation(): Float {
-        return binding.searchBarCard.elevation!!
+        return binding.searchBarCard.elevation
     }
 
     override fun setBackgroundColor(@ColorInt color: Int) {

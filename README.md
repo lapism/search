@@ -89,7 +89,7 @@ Add the dependency to your gradle file:
         }
 ```
 
-### Layout<!-- Simple MaterialToolbar extension -->
+### Layout
 You have to use app theme Theme.Material3.* or Theme.MaterialComponents.*.
 
 ```xml

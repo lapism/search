@@ -152,9 +152,115 @@ class MaterialSearchView @JvmOverloads constructor(
         visibility = View.GONE
     }
 
-    // TODO ANOTACE A NAZVY PROMENNCYH + @Nullable
+    // *********************************************************************************************
+    override fun setNavigationIcon(@DrawableRes resId: Int) {
+        binding.searchViewToolbar.setNavigationIcon(resId)
+    }
+
+    override fun setNavigationIcon(@Nullable drawable: Drawable?) {
+        binding.searchViewToolbar.navigationIcon = drawable
+    }
+
+    override fun setNavigationContentDescription(@StringRes resId: Int) {
+        binding.searchViewToolbar.setNavigationContentDescription(resId)
+    }
+
+    override fun setNavigationContentDescription(@Nullable description: CharSequence?) {
+        binding.searchViewToolbar.navigationContentDescription = description
+    }
+
+    override fun setNavigationOnClickListener(listener: OnClickListener) {
+        binding.searchViewToolbar.setNavigationOnClickListener(listener)
+    }
+
+    // *********************************************************************************************
     override fun addView(child: View?) {
         binding.searchViewContentContainer.addView(child)
+    }
+
+    override fun setBackgroundColor(color: Int) {
+        binding.searchViewBackground.setBackgroundColor(color)
+    }
+
+    override fun requestFocus(direction: Int, previouslyFocusedRect: Rect?): Boolean {
+        return binding.searchViewEditText.requestFocus(direction, previouslyFocusedRect)
+    }
+
+    override fun clearFocus() {
+        binding.searchViewEditText.clearFocus()
+    }
+
+
+
+
+
+
+
+
+    // TODO ANOTACE A NAZVY PROMENNCYH + @Nullable
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    override fun onSaveInstanceState(): Parcelable? {
+        val superState: Parcelable? = super.onSaveInstanceState()
+        superState?.let {
+            val state = SavedState(it)
+            state.text = getTextQuery().toString()
+            state.focus = binding.searchViewEditText.hasFocus()
+            return state
+        } ?: run {
+            return superState
+        }
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        if (state is SavedState) {
+            super.onRestoreInstanceState(state.superState)
+            setTextQuery(state.text, false)
+            if (state.focus) {
+                binding.searchViewEditText.requestFocus()
+            }
+        } else {
+            super.onRestoreInstanceState(state)
+        }
+    }
+
+
+
+
+
+
+
+    // *********************************************************************************************
+    fun setClearIcon(drawable: Drawable?) {
+        binding.searchViewClearButton.setImageDrawable(drawable)
+    }
+
+    fun setImeOptions(imeOptions: Int) {
+        binding.searchViewEditText.imeOptions = imeOptions
+    }
+
+    fun setInputType(type: Int) {
+        binding.searchViewEditText.inputType = type
+    }
+
+    fun setTextClearOnBackPressed(clear: Boolean) {
+        binding.searchViewEditText.setTextClearOnBackPressed(clear)
+    }
+
+    fun getTextQuery(): Editable? {
+        return binding.searchViewEditText.text
     }
 
     fun setTextQuery(@Nullable query: CharSequence?, submit: Boolean) {
@@ -176,46 +282,6 @@ class MaterialSearchView @JvmOverloads constructor(
                 hideKeyboard()
             }
         }
-    }
-
-    override fun setNavigationContentDescription(resId: Int) {
-        binding.searchViewToolbar.setNavigationContentDescription(resId)
-    }
-
-    override fun setNavigationContentDescription(description: CharSequence?) {
-        binding.searchViewToolbar.navigationContentDescription = description
-    }
-
-    override fun setNavigationOnClickListener(listener: OnClickListener) {
-        binding.searchViewToolbar.setNavigationOnClickListener(listener)
-    }
-
-    override fun setNavigationIcon(drawable: Drawable?) {
-        binding.searchViewToolbar.navigationIcon = drawable
-    }
-
-    override fun setNavigationIcon(resId: Int) {
-        binding.searchViewToolbar.setNavigationIcon(resId)
-    }
-
-    fun setClearIcon(drawable: Drawable?) {
-        binding.searchViewClearButton.setImageDrawable(drawable)
-    }
-
-    fun setImeOptions(imeOptions: Int) {
-        binding.searchViewEditText.imeOptions = imeOptions
-    }
-
-    fun setInputType(type: Int) {
-        binding.searchViewEditText.inputType = type
-    }
-
-    fun setTextClearOnBackPressed(clear: Boolean) {
-        binding.searchViewEditText.setTextClearOnBackPressed(clear)
-    }
-
-    fun getTextQuery(): Editable? {
-        return binding.searchViewEditText.text
     }
 
     fun setTextTypeface(@Nullable typeface: Typeface?) {
@@ -255,7 +321,7 @@ class MaterialSearchView @JvmOverloads constructor(
             val inputMethodManager =
                 context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(
-                //TODO binding.searchViewEditText.windowToken,
+                // TODO binding.searchViewEditText.windowToken ?
                 windowToken,
                 InputMethodManager.RESULT_UNCHANGED_SHOWN
             )
@@ -272,10 +338,6 @@ class MaterialSearchView @JvmOverloads constructor(
         queryListener?.onQueryTextChange(s)
     }
 
-    override fun setBackgroundColor(@ColorInt color: Int) {
-        binding.searchViewBackground.setBackgroundColor(color)
-    }
-
     fun setDividerColor(@ColorInt color: Int) {
         binding.searchViewDivider.setBackgroundColor(color)
     }
@@ -284,13 +346,6 @@ class MaterialSearchView @JvmOverloads constructor(
         binding.searchViewScrim.setBackgroundColor(color)
     }
 
-    override fun requestFocus(direction: Int, previouslyFocusedRect: Rect?): Boolean {
-        return binding.searchViewEditText.requestFocus(direction, previouslyFocusedRect)
-    }
-
-    override fun clearFocus() {
-        binding.searchViewEditText.clearFocus()
-    }
 
     fun setTextHintColor(color: Int) {
         binding.searchViewEditText.setHintTextColor(color)
@@ -300,30 +355,7 @@ class MaterialSearchView @JvmOverloads constructor(
         binding.searchViewEditText.setTextColor(color)
     }
 
-    override fun onSaveInstanceState(): Parcelable? {
-        val superState: Parcelable? = super.onSaveInstanceState()
-        superState?.let {
-            val state = SavedState(it)
-            state.text = getTextQuery().toString()
-            state.focus = binding.searchViewEditText.hasFocus()
-            return state
-        } ?: run {
-            return superState
-        }
-    }
-
-    override fun onRestoreInstanceState(state: Parcelable?) {
-        if (state is SavedState) {
-            super.onRestoreInstanceState(state.superState)
-            setTextQuery(state.text, false)
-            if (state.focus) {
-                binding.searchViewEditText.requestFocus()
-            }
-        } else {
-            super.onRestoreInstanceState(state)
-        }
-    }
-
+    // *********************************************************************************************
     interface OnFocusChangeListener {
 
         fun onFocusChange(hasFocus: Boolean)
@@ -341,6 +373,7 @@ class MaterialSearchView @JvmOverloads constructor(
         fun onClearClick()
     }
 
+    // *********************************************************************************************
     @Suppress("unused")
     class SavedState : AbsSavedState {
 
