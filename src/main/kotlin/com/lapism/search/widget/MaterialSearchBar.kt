@@ -8,7 +8,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
 import androidx.annotation.Nullable
+import androidx.annotation.StringRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import com.google.android.material.appbar.AppBarLayout
@@ -23,9 +25,11 @@ class MaterialSearchBar @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : MaterialSearchLayout(context, attrs, defStyleAttr, defStyleRes) {
 
+    // *********************************************************************************************
     private var binding: MaterialSearchBarBinding
     private var a: TypedArray? = null
 
+    // *********************************************************************************************
     init {
         val inflater = LayoutInflater.from(getContext())
         binding = MaterialSearchBarBinding.inflate(inflater, this)
@@ -72,59 +76,35 @@ class MaterialSearchBar @JvmOverloads constructor(
         }
     }
 
-    fun getToolbar(): MaterialSearchToolbar {
-        return binding.searchBarToolbar
-    }
-
-    fun setText(text: CharSequence?) {
-        binding.searchBarToolbar.setText(text)
-    }
-
-    fun setHint(hint: CharSequence?) {
-        binding.searchBarToolbar.setHint(hint)
-    }
-
-    override fun setNavigationOnClickListener(listener: OnClickListener) {
-        binding.searchBarToolbar.setNavigationOnClickListener(listener)
+    // *********************************************************************************************
+    override fun setNavigationIcon(@DrawableRes resId: Int) {
+        binding.searchBarToolbar.setNavigationIcon(resId)
     }
 
     override fun setNavigationIcon(@Nullable drawable: Drawable?) {
         binding.searchBarToolbar.navigationIcon = drawable
     }
 
-    override fun setNavigationIcon(resId: Int) {
-        binding.searchBarToolbar.setNavigationIcon(resId)
-    }
-
-    override fun setNavigationContentDescription(resId: Int) {
+    override fun setNavigationContentDescription(@StringRes resId: Int) {
         binding.searchBarToolbar.setNavigationContentDescription(resId)
     }
 
-    override fun setNavigationContentDescription(description: CharSequence?) {
+    override fun setNavigationContentDescription(@Nullable description: CharSequence?) {
         binding.searchBarToolbar.navigationContentDescription = description
+    }
+
+    override fun setNavigationOnClickListener(listener: OnClickListener) {
+        binding.searchBarToolbar.setNavigationOnClickListener(listener)
+    }
+
+    // *********************************************************************************************
+    override fun setBackgroundColor(@ColorInt color: Int) {
+        binding.searchBarCard.setCardBackgroundColor(color)
     }
 
     override fun setOnClickListener(@Nullable l: OnClickListener?) {
         binding.searchBarToolbar.setOnClickListener(l)
     }
-
-    /*
-        fun setForegroundColor(){
-
-        }
-
-        fun setBackgroundColor(){
-
-        }
-
-        fun setStrokeWidth(){
-
-        }
-
-        fun setStrokeColor{
-            card?.setStrokeColor()
-        }
-    */
 
     override fun setElevation(elevation: Float) {
         binding.searchBarCard.cardElevation = elevation
@@ -132,22 +112,6 @@ class MaterialSearchBar @JvmOverloads constructor(
 
     override fun getElevation(): Float {
         return binding.searchBarCard.elevation
-    }
-
-    override fun setBackgroundColor(@ColorInt color: Int) {
-        binding.searchBarCard.setCardBackgroundColor(color)
-    }
-
-    private fun setMargins(left: Int, top: Int, right: Int, bottom: Int) {
-        if (binding.searchBarCard.layoutParams is MarginLayoutParams) {
-            val params = binding.searchBarCard.layoutParams as? MarginLayoutParams
-            params?.setMargins(left, top, right, bottom)
-            binding.searchBarCard.layoutParams = params
-        }
-    }
-
-    private fun setRadius(radius: Float) {
-        binding.searchBarCard.radius = radius
     }
 
     override fun onAttachedToWindow() {
@@ -180,6 +144,54 @@ class MaterialSearchBar @JvmOverloads constructor(
         a?.recycle()
     }
 
+    // *********************************************************************************************
+
+
+
+
+    fun getToolbar(): MaterialSearchToolbar {
+        return binding.searchBarToolbar
+    }
+
+    fun setText(text: CharSequence?) {
+        binding.searchBarToolbar.setText(text)
+    }
+
+    fun setHint(hint: CharSequence?) {
+        binding.searchBarToolbar.setHint(hint)
+    }
+
+    /*
+        fun setForegroundColor(){
+
+        }
+
+        fun setBackgroundColor(){
+
+        }
+
+        fun setStrokeWidth(){
+
+        }
+
+        fun setStrokeColor{
+            card?.setStrokeColor()
+        }
+    */
+
+    private fun setMargins(left: Int, top: Int, right: Int, bottom: Int) {
+        if (binding.searchBarCard.layoutParams is MarginLayoutParams) {
+            val params = binding.searchBarCard.layoutParams as? MarginLayoutParams
+            params?.setMargins(left, top, right, bottom)
+            binding.searchBarCard.layoutParams = params
+        }
+    }
+
+    private fun setRadius(radius: Float) {
+        binding.searchBarCard.radius = radius
+    }
+
+    // *********************************************************************************************
     @Suppress("unused")
     class ScrollingViewBehavior : AppBarLayout.ScrollingViewBehavior {
 

@@ -22,6 +22,7 @@ import com.lapism.search.R
 import com.lapism.search.databinding.MaterialSearchViewBinding
 
 
+//@Suppress("MemberVisibilityCanBePrivate", "unused")
 class MaterialSearchView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -29,11 +30,13 @@ class MaterialSearchView @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : MaterialSearchLayout(context, attrs, defStyleAttr, defStyleRes) {
 
+    // *********************************************************************************************
     private var binding: MaterialSearchViewBinding
     private var focusListener: OnFocusChangeListener? = null
     private var queryListener: OnQueryTextListener? = null
     private var clearClickListener: OnClearClickListener? = null
 
+    // *********************************************************************************************
     init {
         val inflater = LayoutInflater.from(getContext())
         binding = MaterialSearchViewBinding.inflate(inflater, this)
@@ -53,7 +56,7 @@ class MaterialSearchView @JvmOverloads constructor(
         })
         binding.searchViewEditText.setOnEditorActionListener { _, _, _ ->
             onSubmitQuery()
-            return@setOnEditorActionListener true // true
+            return@setOnEditorActionListener true // same as ,,true" :-)
         }
         binding.searchViewEditText.setOnFocusChangeListener { _, hasFocus ->
             visibility = if (hasFocus) {
@@ -174,12 +177,12 @@ class MaterialSearchView @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
-    override fun addView(child: View?) {
-        binding.searchViewContentContainer.addView(child)
+    override fun setBackgroundColor(@ColorInt color: Int) {
+        binding.searchViewBackground.setBackgroundColor(color)
     }
 
-    override fun setBackgroundColor(color: Int) {
-        binding.searchViewBackground.setBackgroundColor(color)
+    override fun addView(child: View?) {
+        binding.searchViewContentContainer.addView(child)
     }
 
     override fun requestFocus(direction: Int, previouslyFocusedRect: Rect?): Boolean {
@@ -189,28 +192,6 @@ class MaterialSearchView @JvmOverloads constructor(
     override fun clearFocus() {
         binding.searchViewEditText.clearFocus()
     }
-
-
-
-
-
-
-
-
-    // TODO ANOTACE A NAZVY PROMENNCYH + @Nullable
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     override fun onSaveInstanceState(): Parcelable? {
         val superState: Parcelable? = super.onSaveInstanceState()
@@ -236,14 +217,9 @@ class MaterialSearchView @JvmOverloads constructor(
         }
     }
 
-
-
-
-
-
-
     // *********************************************************************************************
-    fun setClearIcon(drawable: Drawable?) {
+    // TODO ANOTACE, NAZVY PROMENNCYH, @Nullable
+    fun setClearIcon(@Nullable drawable: Drawable?) {
         binding.searchViewClearButton.setImageDrawable(drawable)
     }
 
@@ -259,6 +235,7 @@ class MaterialSearchView @JvmOverloads constructor(
         binding.searchViewEditText.setTextClearOnBackPressed(clear)
     }
 
+    @Nullable
     fun getTextQuery(): Editable? {
         return binding.searchViewEditText.text
     }
@@ -293,15 +270,15 @@ class MaterialSearchView @JvmOverloads constructor(
         return binding.searchViewEditText.typeface
     }
 
-    fun setHint(hint: CharSequence?) {
+    fun setHint(@Nullable hint: CharSequence?) {
         binding.searchViewEditText.hint = hint
     }
 
-    fun setOnFocusChangeListener(listener: OnFocusChangeListener) {
+    fun setOnFocusChangeListener(@Nullable listener: OnFocusChangeListener?) {
         focusListener = listener
     }
 
-    fun setOnQueryTextListener(listener: OnQueryTextListener) {
+    fun setOnQueryTextListener(@Nullable listener: OnQueryTextListener?) {
         queryListener = listener
     }
 
@@ -321,8 +298,7 @@ class MaterialSearchView @JvmOverloads constructor(
             val inputMethodManager =
                 context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(
-                // TODO binding.searchViewEditText.windowToken ?
-                windowToken,
+                binding.searchViewEditText.windowToken,
                 InputMethodManager.RESULT_UNCHANGED_SHOWN
             )
         }
@@ -347,11 +323,11 @@ class MaterialSearchView @JvmOverloads constructor(
     }
 
 
-    fun setTextHintColor(color: Int) {
+    fun setTextHintColor(@ColorInt color: Int) {
         binding.searchViewEditText.setHintTextColor(color)
     }
 
-    fun setTextColor(color: Int) {
+    fun setTextColor(@ColorInt color: Int) {
         binding.searchViewEditText.setTextColor(color)
     }
 

@@ -14,7 +14,7 @@ class ClippableRoundedCornerLayout @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr, defStyleRes) {
 
-    private var path: Path? = null
+    var path: Path? = null
 
     override fun dispatchDraw(canvas: Canvas?) {
         if (path == null) {
