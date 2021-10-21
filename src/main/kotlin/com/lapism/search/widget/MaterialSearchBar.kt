@@ -145,19 +145,15 @@ class MaterialSearchBar @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
-
-
-
-
     fun getToolbar(): MaterialSearchToolbar {
         return binding.searchBarToolbar
     }
 
-    fun setText(text: CharSequence?) {
+    fun setText(@Nullable text: CharSequence?) {
         binding.searchBarToolbar.setText(text)
     }
 
-    fun setHint(hint: CharSequence?) {
+    fun setHint(@Nullable hint: CharSequence?) {
         binding.searchBarToolbar.setHint(hint)
     }
 
@@ -179,15 +175,16 @@ class MaterialSearchBar @JvmOverloads constructor(
         }
     */
 
-    private fun setMargins(left: Int, top: Int, right: Int, bottom: Int) {
+    fun setMargins(left: Int, top: Int, right: Int, bottom: Int) {
         if (binding.searchBarCard.layoutParams is MarginLayoutParams) {
             val params = binding.searchBarCard.layoutParams as? MarginLayoutParams
             params?.setMargins(left, top, right, bottom)
             binding.searchBarCard.layoutParams = params
+            // requestLayout() TODO
         }
     }
 
-    private fun setRadius(radius: Float) {
+    fun setRadius(radius: Float) {
         binding.searchBarCard.radius = radius
     }
 

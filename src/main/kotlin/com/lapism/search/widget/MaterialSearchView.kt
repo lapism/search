@@ -22,7 +22,6 @@ import com.lapism.search.R
 import com.lapism.search.databinding.MaterialSearchViewBinding
 
 
-//@Suppress("MemberVisibilityCanBePrivate", "unused")
 class MaterialSearchView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -56,7 +55,7 @@ class MaterialSearchView @JvmOverloads constructor(
         })
         binding.searchViewEditText.setOnEditorActionListener { _, _, _ ->
             onSubmitQuery()
-            return@setOnEditorActionListener true // same as ,,true" :-)
+            return@setOnEditorActionListener true // same as ,,true" :)
         }
         binding.searchViewEditText.setOnFocusChangeListener { _, hasFocus ->
             visibility = if (hasFocus) {
@@ -152,6 +151,8 @@ class MaterialSearchView @JvmOverloads constructor(
 
         a.recycle()
 
+        // TODO ANIMATE binding.seachViewClip.path
+
         visibility = View.GONE
     }
 
@@ -218,7 +219,7 @@ class MaterialSearchView @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
-    // TODO ANOTACE, NAZVY PROMENNCYH, @Nullable
+    // TODO ANOTACE, NAZVY PROMENNCYH
     fun setClearIcon(@Nullable drawable: Drawable?) {
         binding.searchViewClearButton.setImageDrawable(drawable)
     }
@@ -265,13 +266,24 @@ class MaterialSearchView @JvmOverloads constructor(
         binding.searchViewEditText.typeface = typeface
     }
 
-    @Nullable
-    fun getTextTypeface(): Typeface? {
-        return binding.searchViewEditText.typeface
-    }
-
     fun setHint(@Nullable hint: CharSequence?) {
         binding.searchViewEditText.hint = hint
+    }
+
+    fun setDividerColor(@ColorInt color: Int) {
+        binding.searchViewDivider.setBackgroundColor(color)
+    }
+
+    fun setScrimColor(@ColorInt color: Int) {
+        binding.searchViewScrim.setBackgroundColor(color)
+    }
+
+    fun setTextHintColor(@ColorInt color: Int) {
+        binding.searchViewEditText.setHintTextColor(color)
+    }
+
+    fun setTextColor(@ColorInt color: Int) {
+        binding.searchViewEditText.setTextColor(color)
     }
 
     fun setOnFocusChangeListener(@Nullable listener: OnFocusChangeListener?) {
@@ -304,6 +316,7 @@ class MaterialSearchView @JvmOverloads constructor(
         }
     }
 
+    // *********************************************************************************************
     private fun onTextChanged(s: CharSequence) {
         if (s.isNotEmpty()) {
             binding.searchViewClearButton.visibility = View.VISIBLE
@@ -312,23 +325,6 @@ class MaterialSearchView @JvmOverloads constructor(
         }
 
         queryListener?.onQueryTextChange(s)
-    }
-
-    fun setDividerColor(@ColorInt color: Int) {
-        binding.searchViewDivider.setBackgroundColor(color)
-    }
-
-    fun setScrimColor(@ColorInt color: Int) {
-        binding.searchViewScrim.setBackgroundColor(color)
-    }
-
-
-    fun setTextHintColor(@ColorInt color: Int) {
-        binding.searchViewEditText.setHintTextColor(color)
-    }
-
-    fun setTextColor(@ColorInt color: Int) {
-        binding.searchViewEditText.setTextColor(color)
     }
 
     // *********************************************************************************************

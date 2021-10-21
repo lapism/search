@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.TextView
+import androidx.annotation.Nullable
 import com.google.android.material.appbar.MaterialToolbar
 import com.lapism.search.databinding.MaterialSearchToolbarBinding
 
@@ -51,6 +52,7 @@ class MaterialSearchToolbar : MaterialToolbar {
     }
 
     override fun setNavigationIcon(drawable: Drawable?) {
+        // Fix for Navigation Library
         if (drawable != null) {
             super.setNavigationIcon(drawable)
         }
@@ -69,23 +71,23 @@ class MaterialSearchToolbar : MaterialToolbar {
         info?.text = text
     }
 
-
-
-    // todo DODELAT ****************************************************************************************
-    fun setText(text: CharSequence?) {
+    // *********************************************************************************************
+    fun setText(@Nullable text: CharSequence?) {
         binding.searchToolbarTextView.text = text
     }
 
+    @Nullable
     private fun getText(): CharSequence? {
         return binding.searchToolbarTextView.text
     }
 
-    private fun getHint(): CharSequence? {
-        return binding.searchToolbarTextView.hint
+    fun setHint(@Nullable hint: CharSequence?) {
+        binding.searchToolbarTextView.hint = hint
     }
 
-    fun setHint(hint: CharSequence?) {
-        binding.searchToolbarTextView.hint = hint
+    @Nullable
+    private fun getHint(): CharSequence? {
+        return binding.searchToolbarTextView.hint
     }
 
 }
