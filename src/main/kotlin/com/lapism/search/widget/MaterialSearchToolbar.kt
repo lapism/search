@@ -14,8 +14,10 @@ import com.lapism.search.databinding.MaterialSearchToolbarBinding
 
 class MaterialSearchToolbar : MaterialToolbar {
 
+    // *********************************************************************************************
     private var binding: MaterialSearchToolbarBinding
 
+    // *********************************************************************************************
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
@@ -26,11 +28,13 @@ class MaterialSearchToolbar : MaterialToolbar {
         defStyleAttr
     )
 
+    // *********************************************************************************************
     init {
         val inflater = LayoutInflater.from(context)
         binding = MaterialSearchToolbarBinding.inflate(inflater, this, true)
     }
 
+    // *********************************************************************************************
     override fun setTitle(resId: Int) {
 
     }
@@ -58,17 +62,17 @@ class MaterialSearchToolbar : MaterialToolbar {
         }
     }
 
-    override fun onInitializeAccessibilityNodeInfo(info: AccessibilityNodeInfo?) {
+    override fun onInitializeAccessibilityNodeInfo(info: AccessibilityNodeInfo) {
         super.onInitializeAccessibilityNodeInfo(info)
-        info?.className = TextView::class.java.canonicalName
+        info.className = TextView::class.java.canonicalName
         var text: CharSequence? = getText()
         val isEmpty = TextUtils.isEmpty(text)
-        info?.hintText = getHint()
-        info?.isShowingHintText = isEmpty
+        info.hintText = getHint()
+        info.isShowingHintText = isEmpty
         if (isEmpty) {
             text = getHint()
         }
-        info?.text = text
+        info.text = text
     }
 
     // *********************************************************************************************

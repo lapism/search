@@ -1,16 +1,14 @@
 package com.lapism.search.widget
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.content.res.TypedArray
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import androidx.annotation.ColorInt
-import androidx.annotation.DrawableRes
-import androidx.annotation.Nullable
-import androidx.annotation.StringRes
+import androidx.annotation.*
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import com.google.android.material.appbar.AppBarLayout
@@ -18,6 +16,7 @@ import com.lapism.search.R
 import com.lapism.search.databinding.MaterialSearchBarBinding
 
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class MaterialSearchBar @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -157,35 +156,30 @@ class MaterialSearchBar @JvmOverloads constructor(
         binding.searchBarToolbar.setHint(hint)
     }
 
-    /*
-        fun setForegroundColor(){
+    fun setForegroundColor(@Nullable foregroundColor: ColorStateList?) {
+        binding.searchBarCard.setCardForegroundColor(foregroundColor)
+    }
 
-        }
+    fun setStrokeWidth(@Dimension strokeWidth: Int) {
+        binding.searchBarCard.strokeWidth = strokeWidth
+    }
 
-        fun setBackgroundColor(){
-
-        }
-
-        fun setStrokeWidth(){
-
-        }
-
-        fun setStrokeColor{
-            card?.setStrokeColor()
-        }
-    */
-
-    fun setMargins(left: Int, top: Int, right: Int, bottom: Int) {
-        if (binding.searchBarCard.layoutParams is MarginLayoutParams) {
-            val params = binding.searchBarCard.layoutParams as? MarginLayoutParams
-            params?.setMargins(left, top, right, bottom)
-            binding.searchBarCard.layoutParams = params
-            // requestLayout() TODO
-        }
+    fun setStrokeColor(strokeColor: ColorStateList) {
+        binding.searchBarCard.setStrokeColor(strokeColor)
     }
 
     fun setRadius(radius: Float) {
         binding.searchBarCard.radius = radius
+    }
+
+    // *********************************************************************************************
+    // TODO PUBLIC ? and requestLayout()
+    private fun setMargins(left: Int, top: Int, right: Int, bottom: Int) {
+        if (binding.searchBarCard.layoutParams is MarginLayoutParams) {
+            val params = binding.searchBarCard.layoutParams as? MarginLayoutParams
+            params?.setMargins(left, top, right, bottom)
+            binding.searchBarCard.layoutParams = params
+        }
     }
 
     // *********************************************************************************************

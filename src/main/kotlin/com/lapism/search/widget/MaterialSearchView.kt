@@ -22,6 +22,7 @@ import com.lapism.search.R
 import com.lapism.search.databinding.MaterialSearchViewBinding
 
 
+@Suppress("MemberVisibilityCanBePrivate", "unused")
 class MaterialSearchView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -33,7 +34,6 @@ class MaterialSearchView @JvmOverloads constructor(
     private var binding: MaterialSearchViewBinding
     private var focusListener: OnFocusChangeListener? = null
     private var queryListener: OnQueryTextListener? = null
-    private var clearClickListener: OnClearClickListener? = null
 
     // *********************************************************************************************
     init {
@@ -79,7 +79,6 @@ class MaterialSearchView @JvmOverloads constructor(
 
         binding.searchViewClearButton.visibility = View.GONE
         binding.searchViewClearButton.setOnClickListener {
-            clearClickListener?.onClearClick()
             binding.searchViewEditText.text?.clear()
         }
 
@@ -151,10 +150,17 @@ class MaterialSearchView @JvmOverloads constructor(
 
         a.recycle()
 
-        // TODO ANIMATE binding.seachViewClip.path
-
         visibility = View.GONE
     }
+
+    /* TODO styles + codes, ANIMATE binding.searchViewClip.path, SCALE, path
+    private fun setTransition() {
+        val mTransition = LayoutTransition()
+        mTransition.enableTransitionType(LayoutTransition.CHANGING)
+        mTransition.setDuration(3000L)
+
+        binding.searchViewBackground.layoutTransition = mTransition
+    }*/
 
     // *********************************************************************************************
     override fun setNavigationIcon(@DrawableRes resId: Int) {
@@ -182,7 +188,7 @@ class MaterialSearchView @JvmOverloads constructor(
         binding.searchViewBackground.setBackgroundColor(color)
     }
 
-    override fun addView(child: View?) {
+    override fun addView(child: View) {
         binding.searchViewContentContainer.addView(child)
     }
 
@@ -219,7 +225,6 @@ class MaterialSearchView @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
-    // TODO ANOTACE, NAZVY PROMENNCYH
     fun setClearIcon(@Nullable drawable: Drawable?) {
         binding.searchViewClearButton.setImageDrawable(drawable)
     }
@@ -340,14 +345,9 @@ class MaterialSearchView @JvmOverloads constructor(
         fun onQueryTextSubmit(query: CharSequence): Boolean
     }
 
-    interface OnClearClickListener {
-
-        fun onClearClick()
-    }
-
     // *********************************************************************************************
     @Suppress("unused")
-    class SavedState : AbsSavedState {
+    private class SavedState : AbsSavedState {
 
         var text: String? = null
         var focus: Boolean = false

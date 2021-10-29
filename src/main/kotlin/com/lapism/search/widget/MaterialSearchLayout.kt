@@ -18,6 +18,7 @@ abstract class MaterialSearchLayout @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr, defStyleRes) {
 
+    // *********************************************************************************************
     @NavigationIconCompat
     @get:NavigationIconCompat
     var navigationIconCompat: Int = 0
@@ -47,6 +48,7 @@ abstract class MaterialSearchLayout @JvmOverloads constructor(
             }
         }
 
+    // *********************************************************************************************
     abstract fun setNavigationIcon(@DrawableRes resId: Int)
 
     abstract fun setNavigationIcon(@Nullable drawable: Drawable?)
