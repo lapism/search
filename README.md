@@ -1,6 +1,6 @@
 ![API](https://img.shields.io/badge/API-26%2B-brightgreen.svg?style=flat)
 [![Kotlin Version](https://img.shields.io/badge/Kotlin-1.5.31-blue.svg)](https://kotlinlang.org)
-[![Download](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Fio%2Fgithub%2Flapism%2Fsearch%2Fmaven-metadata.xml) ](https://repo1.maven.org/maven2/io/github/lapism/search/1.0.0/)
+[![Download](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Fio%2Fgithub%2Flapism%2Fsearch%2Fmaven-metadata.xml) ](https://repo1.maven.org/maven2/io/github/lapism/search/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # Search
@@ -23,42 +23,35 @@
 
 Add the dependency to your gradle file:
 ```groovy
-    repositories {
-        google()
-        mavenCentral()
-    }
+        repositories {
+            google()
+            mavenCentral()
+        }
 
-    dependencies {
-        implementation 'io.github.lapism:search:1.0.0'
-    }
+        dependencies {
+            implementation 'io.github.lapism:search:1.1.0'
+        }
 ```
 
 ## Usage
-    private fun clearFocusOnSearch() {
-        binding.materialSearchView.clearFocus()
-        binding.materialSearchView.visibility = View.GONE
-    }
-
-    private fun requestFocusOnSearch() {
-        binding.materialSearchView.visibility = View.VISIBLE
+```java
         binding.materialSearchView.requestFocus()
-    }
+        binding.materialSearchView.clearFocus()
+```
 
 ### MaterialSearchBar
 ```java
         val toolbar = binding.materialSearchBar.getToolbar()
         setSupportActionBar(toolbar)
 
-        val actionBar = supportActionBar
-        actionBar?.setIcon(R.drawable.new_ic_outline_search_24)
-
         binding.materialSearchBar.apply {
+            navigationIconCompat = NavigationIconCompat.SEARCH
             setHint(getString(R.string.search))
             setOnClickListener {
-                requestFocusOnSearch()
+                binding.materialSearchView.requestFocus()
             }
             setNavigationOnClickListener {
-                requestFocusOnSearch()
+                binding.materialSearchView.requestFocus()
             }
         }
 ```
@@ -66,16 +59,10 @@ Add the dependency to your gradle file:
 ### MaterialSearchView
 ```java
         binding.materialSearchView.apply {
-            visibility = View.GONE
             addView(recyclerView)
-            setNavigationIcon(
-                ContextCompat.getDrawable(
-                    this@MainActivity,
-                    R.drawable.search_ic_outline_arrow_back_24
-                )
-            )
+            navigationIconCompat = NavigationIconCompat.ARROW
             setNavigationOnClickListener {
-                clearFocusOnSearch()
+                binding.materialSearchView.clearFocus()
             }
             setHint(getString(R.string.search))
             setBackgroundColor(
@@ -124,7 +111,6 @@ You have to use app theme Theme.Material3.* or Theme.MaterialComponents.*.
             android:id="@+id/material_search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_0"
             app:layout_scrollFlags="scroll|enterAlways|snap" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -167,9 +153,9 @@ You have to use app theme Theme.Material3.* or Theme.MaterialComponents.*.
             <enum name="search" value="2" />
         </attr>
         <attr name="search_navigationIcon" format="reference" />
+        <attr name="search_navigationContentDescription" format="reference" />
         <attr name="search_backgroundColor" format="reference" />
         <attr name="search_radius" format="integer" />
-
         <attr name="android:elevation" />
         <attr name="android:hint" />
         <attr name="android:layout_marginStart" />
@@ -181,11 +167,11 @@ You have to use app theme Theme.Material3.* or Theme.MaterialComponents.*.
     <declare-styleable name="MaterialSearchView">
         <attr name="search_navigationIconCompat" />
         <attr name="search_navigationIcon" />
+        <attr name="search_navigationContentDescription" />
         <attr name="search_backgroundColor" />
         <attr name="search_clearIcon" format="reference" />
         <attr name="search_dividerColor" format="reference" />
         <attr name="search_scrimColor" format="reference" />
-
         <attr name="android:hint" />
         <attr name="android:imeOptions" />
         <attr name="android:inputType" />

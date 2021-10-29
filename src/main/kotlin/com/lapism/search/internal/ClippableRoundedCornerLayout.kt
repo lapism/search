@@ -7,15 +7,18 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 
 
-class ClippableFrameLayout @JvmOverloads constructor(
+class ClippableRoundedCornerLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr, defStyleRes) {
 
-    private var path: Path? = null
+    // *********************************************************************************************
+    // TODO CLIP ANIMATION
+    var path: Path? = null
 
+    // *********************************************************************************************
     override fun dispatchDraw(canvas: Canvas?) {
         if (path == null) {
             super.dispatchDraw(canvas)

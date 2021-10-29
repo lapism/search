@@ -3,6 +3,7 @@
 
     <public name="search_navigationIconCompat" type="attr" />
     <public name="search_navigationIcon" type="attr" />
+    <public name="search_navigationContentDescription" type="attr" />
     <public name="search_backgroundColor" type="attr" />
     <public name="search_radius" type="attr" />
     <public name="search_clearIcon" type="attr" />

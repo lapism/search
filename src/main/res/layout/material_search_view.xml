@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <View
         android:id="@+id/search_view_scrim"
@@ -8,8 +9,8 @@
         android:alpha="0.0"
         android:background="?scrimBackground" />
 
-    <com.lapism.search.internal.ClippableFrameLayout
-        android:id="@+id/search_view_root"
+    <com.lapism.search.internal.ClippableRoundedCornerLayout
+        android:id="@+id/seach_view_clip"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"
@@ -25,12 +26,11 @@
                 android:id="@+id/search_view_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clipChildren="false"
-                android:elevation="@dimen/search_dp_0">
+                android:clipChildren="false">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/search_dp_48"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -41,14 +41,15 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:gravity="start|center_vertical"
-                        android:hint="@null"
                         android:imeOptions="actionSearch|flagNoExtractUi"
+                        android:importantForAutofill="no"
                         android:inputType="textNoSuggestions"
                         android:privateImeOptions="nm"
                         android:textColor="?android:attr/textColorPrimary"
                         android:textColorHint="?android:attr/textColorSecondary"
                         android:textDirection="firstStrong"
-                        android:textSize="@dimen/search_sp_16" />
+                        android:textSize="@dimen/search_sp_16"
+                        tools:ignore="LabelFor" />
 
                     <ImageButton
                         android:id="@+id/search_view_clear_button"
@@ -65,7 +66,7 @@
             <View
                 android:id="@+id/search_view_divider"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/search_view_divider_height"
+                android:layout_height="@dimen/search_dp_1"
                 android:background="?android:attr/listDivider" />
 
             <FrameLayout
@@ -75,6 +76,6 @@
 
         </LinearLayout>
 
-    </com.lapism.search.internal.ClippableFrameLayout>
+    </com.lapism.search.internal.ClippableRoundedCornerLayout>
 
 </merge>

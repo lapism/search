@@ -12,8 +12,10 @@ class FocusEditText @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : AppCompatEditText(context, attrs, defStyleAttr) {
 
+    // *********************************************************************************************
     private var textClear: Boolean = false
 
+    // *********************************************************************************************
     override fun onKeyPreIme(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK && event?.action == KeyEvent.ACTION_UP && textClear) {
             if (hasFocus()) {
@@ -29,6 +31,7 @@ class FocusEditText @JvmOverloads constructor(
         text?.clear()
     }
 
+    // *********************************************************************************************
     fun setTextClearOnBackPressed(clear: Boolean) {
         textClear = clear
     }

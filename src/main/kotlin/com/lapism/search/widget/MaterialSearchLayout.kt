@@ -4,7 +4,9 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.FrameLayout
+import androidx.annotation.DrawableRes
 import androidx.annotation.Nullable
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.lapism.search.R
 
@@ -16,6 +18,7 @@ abstract class MaterialSearchLayout @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr, defStyleRes) {
 
+    // *********************************************************************************************
     @NavigationIconCompat
     @get:NavigationIconCompat
     var navigationIconCompat: Int = 0
@@ -24,7 +27,7 @@ abstract class MaterialSearchLayout @JvmOverloads constructor(
 
             when (navigationIconCompat) {
                 NavigationIconCompat.NONE -> {
-                    setNavigationIcon(null)
+                    setNavigationIcon(0)
                 }
                 NavigationIconCompat.ARROW -> {
                     setNavigationIcon(
@@ -45,9 +48,14 @@ abstract class MaterialSearchLayout @JvmOverloads constructor(
             }
         }
 
+    // *********************************************************************************************
+    abstract fun setNavigationIcon(@DrawableRes resId: Int)
+
     abstract fun setNavigationIcon(@Nullable drawable: Drawable?)
 
-    abstract fun setNavigationIcon(resId: Int)
+    abstract fun setNavigationContentDescription(@StringRes resId: Int)
+
+    abstract fun setNavigationContentDescription(@Nullable description: CharSequence?)
 
     abstract fun setNavigationOnClickListener(listener: OnClickListener)
 

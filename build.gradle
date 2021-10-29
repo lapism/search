@@ -10,8 +10,6 @@ android {
     defaultConfig {
         minSdk 26
         targetSdk 31
-        versionCode 1010000
-        versionName "1.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
@@ -44,14 +42,14 @@ android {
 dependencies {
 
     // Core
-    implementation 'androidx.core:core-ktx:1.7.0-alpha02'
-    implementation 'androidx.appcompat:appcompat:1.4.0-alpha03'
-    implementation 'com.google.android.material:material:1.5.0-alpha03'
+    implementation 'androidx.core:core-ktx:1.7.0-rc01'
+    implementation 'androidx.appcompat:appcompat:1.4.0-beta01'
+    implementation 'com.google.android.material:material:1.5.0-alpha04'
 }
 
 ext {
     PUBLISH_GROUP_ID = 'io.github.lapism'
-    PUBLISH_VERSION = '1.0.0'
+    PUBLISH_VERSION = '1.1.0'
     PUBLISH_ARTIFACT_ID = 'search'
     PUBLISH_DESCRIPTION = 'Material You Search component for Android, SearchView'
     PUBLISH_URL = 'https://github.com/lapism/search'
@@ -66,5 +64,3 @@ ext {
 }
 
 apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
-
-// ./gradlew search:publishReleasePublicationToSonatypeRepository
