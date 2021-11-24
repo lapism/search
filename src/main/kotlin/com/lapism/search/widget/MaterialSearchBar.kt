@@ -64,10 +64,10 @@ class MaterialSearchBar @JvmOverloads constructor(
         val customRadius = a?.getInt(R.styleable.MaterialSearchBar_search_radius, defaultRadius)
         setRadius(customRadius?.toFloat()!!)
 
-        val defaultElevation = context.resources.getDimensionPixelSize(R.dimen.search_dp_0)
-        val customElevation =
-            a?.getInt(R.styleable.MaterialSearchBar_android_elevation, defaultElevation)
-        elevation = customElevation?.toFloat()!!
+        if (a?.hasValue(R.styleable.MaterialSearchBar_android_elevation)!!) {
+            val customElevation = a?.getInt(R.styleable.MaterialSearchBar_android_elevation, 0)
+            elevation = customElevation?.toFloat()!!
+        }
 
         if (a?.hasValue(R.styleable.MaterialSearchBar_android_hint)!!) {
             val hint = a?.getString(R.styleable.MaterialSearchBar_android_hint)
