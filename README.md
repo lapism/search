@@ -1,5 +1,5 @@
 ![API](https://img.shields.io/badge/API-26%2B-brightgreen.svg?style=flat)
-[![Kotlin Version](https://img.shields.io/badge/Kotlin-1.6.0-blue.svg)](https://kotlinlang.org)
+[![Kotlin Version](https://img.shields.io/badge/Kotlin-blue.svg)](https://kotlinlang.org)
 [![Download](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Fio%2Fgithub%2Flapism%2Fsearch%2Fmaven-metadata.xml) ](https://repo1.maven.org/maven2/io/github/lapism/search/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -29,7 +29,7 @@ Add the dependency to your gradle file:
         }
 
         dependencies {
-            implementation 'io.github.lapism:search:1.1.0'
+            implementation 'io.github.lapism:search:1.2.0'
         }
 ```
 

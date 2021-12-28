@@ -60,12 +60,13 @@ class MaterialSearchBar @JvmOverloads constructor(
             setBackgroundColor(color!!)
         }
 
-        val defaultRadius = context.resources.getDimensionPixelSize(R.dimen.search_dp_24)
-        val customRadius = a?.getInt(R.styleable.MaterialSearchBar_search_radius, defaultRadius)
-        setRadius(customRadius?.toFloat()!!)
+        if (a?.hasValue(R.styleable.MaterialSearchBar_search_radius)!!) {
+            val customRadius = a?.getInt(R.styleable.MaterialSearchBar_search_radius, 0)
+            setRadius(customRadius?.toFloat()!!)
+        }
 
-        if (a?.hasValue(R.styleable.MaterialSearchBar_android_elevation)!!) {
-            val customElevation = a?.getInt(R.styleable.MaterialSearchBar_android_elevation, 0)
+        if (a?.hasValue(R.styleable.MaterialSearchBar_search_elevation)!!) {
+            val customElevation = a?.getInt(R.styleable.MaterialSearchBar_search_elevation, 0)
             elevation = customElevation?.toFloat()!!
         }
 
@@ -101,16 +102,16 @@ class MaterialSearchBar @JvmOverloads constructor(
         binding.searchBarCard.setCardBackgroundColor(color)
     }
 
-    override fun setOnClickListener(@Nullable l: OnClickListener?) {
-        binding.searchBarToolbar.setOnClickListener(l)
-    }
-
     override fun setElevation(elevation: Float) {
         binding.searchBarCard.cardElevation = elevation
     }
 
     override fun getElevation(): Float {
         return binding.searchBarCard.elevation
+    }
+
+    override fun setOnClickListener(@Nullable l: OnClickListener?) {
+        binding.searchBarToolbar.setOnClickListener(l)
     }
 
     override fun onAttachedToWindow() {
@@ -173,7 +174,7 @@ class MaterialSearchBar @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
-    // TODO PUBLIC ? and requestLayout()
+    // TODO set public and requestLayout(), invalidate()
     private fun setMargins(left: Int, top: Int, right: Int, bottom: Int) {
         if (binding.searchBarCard.layoutParams is MarginLayoutParams) {
             val params = binding.searchBarCard.layoutParams as? MarginLayoutParams
@@ -200,6 +201,7 @@ class MaterialSearchBar @JvmOverloads constructor(
                 dependency.setBackgroundColor(Color.TRANSPARENT)
                 dependency.stateListAnimator = null
                 ViewCompat.setElevation(dependency, 0.0f)
+                return true
             }
             return false
         }

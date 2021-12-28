@@ -10,8 +10,9 @@
         <attr name="search_navigationIcon" format="reference" />
         <attr name="search_navigationContentDescription" format="reference" />
         <attr name="search_backgroundColor" format="reference" />
-        <attr name="search_radius" format="integer" />
-        <attr name="android:elevation" />
+        <attr name="search_radius" format="dimension" />
+        <attr name="search_elevation" format="dimension" />
+
         <attr name="android:hint" />
         <attr name="android:layout_marginStart" />
         <attr name="android:layout_marginEnd" />
@@ -27,6 +28,8 @@
         <attr name="search_clearIcon" format="reference" />
         <attr name="search_dividerColor" format="reference" />
         <attr name="search_scrimColor" format="reference" />
+
+        <attr name="android:elevation" />
         <attr name="android:hint" />
         <attr name="android:imeOptions" />
         <attr name="android:inputType" />

@@ -55,7 +55,7 @@ class MaterialSearchView @JvmOverloads constructor(
         })
         binding.searchViewEditText.setOnEditorActionListener { _, _, _ ->
             onSubmitQuery()
-            return@setOnEditorActionListener true // same as ,,true" :)
+            true
         }
         binding.searchViewEditText.setOnFocusChangeListener { _, hasFocus ->
             visibility = if (hasFocus) {
@@ -109,6 +109,8 @@ class MaterialSearchView @JvmOverloads constructor(
             setBackgroundColor(color)
         }
 
+        // TODO TOOLBAR COLOR
+
         if (a.hasValue(R.styleable.MaterialSearchView_search_clearIcon)) {
             setClearIcon(a.getDrawable(R.styleable.MaterialSearchView_search_clearIcon))
         } else {
@@ -133,6 +135,10 @@ class MaterialSearchView @JvmOverloads constructor(
             )
         }
 
+        if (a.hasValue(R.styleable.MaterialSearchView_android_elevation)) {
+            val customElevation = a.getDimensionPixelSize(R.styleable.MaterialSearchView_android_elevation, 0)
+        }
+
         if (a.hasValue(R.styleable.MaterialSearchView_android_hint)) {
             val hint = a.getString(R.styleable.MaterialSearchView_android_hint)
             setHint(hint)
@@ -152,15 +158,6 @@ class MaterialSearchView @JvmOverloads constructor(
 
         visibility = View.GONE
     }
-
-    /* TODO styles + codes, ANIMATE binding.searchViewClip.path, SCALE, path
-    private fun setTransition() {
-        val mTransition = LayoutTransition()
-        mTransition.enableTransitionType(LayoutTransition.CHANGING)
-        mTransition.setDuration(3000L)
-
-        binding.searchViewBackground.layoutTransition = mTransition
-    }*/
 
     // *********************************************************************************************
     override fun setNavigationIcon(@DrawableRes resId: Int) {
@@ -225,6 +222,10 @@ class MaterialSearchView @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
+    fun setNavigationBackgroundColor(@ColorInt color: Int) {
+        binding.searchViewToolbar.setBackgroundColor(color)
+    }
+
     fun setClearIcon(@Nullable drawable: Drawable?) {
         binding.searchViewClearButton.setImageDrawable(drawable)
     }
@@ -261,9 +262,7 @@ class MaterialSearchView @JvmOverloads constructor(
     private fun onSubmitQuery() {
         val query = binding.searchViewEditText.text
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
-            if (queryListener == null || !queryListener!!.onQueryTextSubmit(query.toString())) {
-                hideKeyboard()
-            }
+            queryListener?.onQueryTextSubmit(query.toString())
         }
     }
 
@@ -277,6 +276,10 @@ class MaterialSearchView @JvmOverloads constructor(
 
     fun setDividerColor(@ColorInt color: Int) {
         binding.searchViewDivider.setBackgroundColor(color)
+    }
+
+    fun setDividerResource(@DrawableRes resid: Int) {
+        binding.searchViewDivider.setBackgroundResource(resid)
     }
 
     fun setScrimColor(@ColorInt color: Int) {
@@ -340,9 +343,9 @@ class MaterialSearchView @JvmOverloads constructor(
 
     interface OnQueryTextListener {
 
-        fun onQueryTextChange(newText: CharSequence): Boolean
+        fun onQueryTextChange(newText: CharSequence)
 
-        fun onQueryTextSubmit(query: CharSequence): Boolean
+        fun onQueryTextSubmit(query: CharSequence)
     }
 
     // *********************************************************************************************
