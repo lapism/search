@@ -196,14 +196,12 @@ class MaterialSearchBar @JvmOverloads constructor(
             child: View,
             dependency: View
         ): Boolean {
-            super.onDependentViewChanged(parent, child, dependency)
             if (dependency is AppBarLayout) {
                 dependency.setBackgroundColor(Color.TRANSPARENT)
                 dependency.stateListAnimator = null
                 ViewCompat.setElevation(dependency, 0.0f)
-                return true
             }
-            return false
+            return super.onDependentViewChanged(parent, child, dependency)
         }
 
     }
