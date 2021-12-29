@@ -8,11 +8,10 @@ import android.view.LayoutInflater
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.TextView
 import androidx.annotation.Nullable
-import com.google.android.material.appbar.MaterialToolbar
 import com.lapism.search.databinding.MaterialSearchToolbarBinding
 
 
-class MaterialSearchToolbar : MaterialToolbar {
+class MaterialSearchToolbar : MaterialTransparentToolbar {
 
     // *********************************************************************************************
     private var binding: MaterialSearchToolbarBinding

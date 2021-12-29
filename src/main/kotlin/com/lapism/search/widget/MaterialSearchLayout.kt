@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.FrameLayout
+import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.Nullable
 import androidx.annotation.StringRes
@@ -58,5 +59,9 @@ abstract class MaterialSearchLayout @JvmOverloads constructor(
     abstract fun setNavigationContentDescription(@Nullable description: CharSequence?)
 
     abstract fun setNavigationOnClickListener(listener: OnClickListener)
+
+    abstract fun setNavigationElevation(elevation: Float)
+
+    abstract fun setNavigationBackgroundColor(@ColorInt color: Int)
 
 }

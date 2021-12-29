@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MaterialSearchTextAppearance">
+        <item name="android:textSize">@dimen/search_sp_16</item>
+        <item name="android:textColor">?colorOnSurface</item>
+        <item name="android:textColorHint">?colorOnSurfaceVariant</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0.0</item>
+    </style>
+
+</resources>

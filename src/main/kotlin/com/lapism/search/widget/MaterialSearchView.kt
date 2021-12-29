@@ -55,7 +55,7 @@ class MaterialSearchView @JvmOverloads constructor(
         })
         binding.searchViewEditText.setOnEditorActionListener { _, _, _ ->
             onSubmitQuery()
-            return@setOnEditorActionListener true // same as ,,true" :)
+            true
         }
         binding.searchViewEditText.setOnFocusChangeListener { _, hasFocus ->
             visibility = if (hasFocus) {
@@ -104,9 +104,18 @@ class MaterialSearchView @JvmOverloads constructor(
             setNavigationContentDescription(description)
         }
 
-        if (a.hasValue(R.styleable.MaterialSearchView_search_backgroundColor)) {
-            val color = a.getInt(R.styleable.MaterialSearchView_search_backgroundColor, 0)
-            setBackgroundColor(color)
+        if (a.hasValue(R.styleable.MaterialSearchBar_search_navigationBackgroundColor)) {
+            val color = a.getInt(R.styleable.MaterialSearchBar_search_navigationBackgroundColor, 0)
+            setNavigationBackgroundColor(color)
+        }
+
+        if (a.hasValue(R.styleable.MaterialSearchView_search_navigationElevation)) {
+            val navigationElevation =
+                a.getDimensionPixelSize(
+                    R.styleable.MaterialSearchView_search_navigationElevation,
+                    0
+                )
+            setNavigationElevation(navigationElevation.toFloat())
         }
 
         if (a.hasValue(R.styleable.MaterialSearchView_search_clearIcon)) {
@@ -153,15 +162,6 @@ class MaterialSearchView @JvmOverloads constructor(
         visibility = View.GONE
     }
 
-    /* TODO styles + codes, ANIMATE binding.searchViewClip.path, SCALE, path
-    private fun setTransition() {
-        val mTransition = LayoutTransition()
-        mTransition.enableTransitionType(LayoutTransition.CHANGING)
-        mTransition.setDuration(3000L)
-
-        binding.searchViewBackground.layoutTransition = mTransition
-    }*/
-
     // *********************************************************************************************
     override fun setNavigationIcon(@DrawableRes resId: Int) {
         binding.searchViewToolbar.setNavigationIcon(resId)
@@ -183,9 +183,17 @@ class MaterialSearchView @JvmOverloads constructor(
         binding.searchViewToolbar.setNavigationOnClickListener(listener)
     }
 
+    override fun setNavigationElevation(elevation: Float) {
+        binding.searchViewToolbar.elevation = elevation
+    }
+
+    override fun setNavigationBackgroundColor(@ColorInt color: Int) {
+        binding.searchViewToolbar.setBackgroundColor(color)
+    }
+
     // *********************************************************************************************
     override fun setBackgroundColor(@ColorInt color: Int) {
-        binding.searchViewBackground.setBackgroundColor(color)
+        binding.searchViewContentContainer.setBackgroundColor(color)
     }
 
     override fun addView(child: View) {
@@ -261,9 +269,7 @@ class MaterialSearchView @JvmOverloads constructor(
     private fun onSubmitQuery() {
         val query = binding.searchViewEditText.text
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
-            if (queryListener == null || !queryListener!!.onQueryTextSubmit(query.toString())) {
-                hideKeyboard()
-            }
+            queryListener?.onQueryTextSubmit(query.toString())
         }
     }
 
@@ -277,6 +283,10 @@ class MaterialSearchView @JvmOverloads constructor(
 
     fun setDividerColor(@ColorInt color: Int) {
         binding.searchViewDivider.setBackgroundColor(color)
+    }
+
+    fun setDividerResource(@DrawableRes resid: Int) {
+        binding.searchViewDivider.setBackgroundResource(resid)
     }
 
     fun setScrimColor(@ColorInt color: Int) {
@@ -340,9 +350,9 @@ class MaterialSearchView @JvmOverloads constructor(
 
     interface OnQueryTextListener {
 
-        fun onQueryTextChange(newText: CharSequence): Boolean
+        fun onQueryTextChange(newText: CharSequence)
 
-        fun onQueryTextSubmit(query: CharSequence): Boolean
+        fun onQueryTextSubmit(query: CharSequence)
     }
 
     // *********************************************************************************************
