@@ -154,9 +154,9 @@ You have to use app theme Theme.Material3.* or Theme.MaterialComponents.*.
         </attr>
         <attr name="search_navigationIcon" format="reference" />
         <attr name="search_navigationContentDescription" format="reference" />
-        <attr name="search_backgroundColor" format="reference" />
-        <attr name="search_radius" format="integer" />
-        <attr name="android:elevation" />
+        <attr name="search_navigationBackgroundColor" format="reference" />
+        <attr name="search_navigationElevation" format="dimension" />
+        <attr name="search_radius" format="dimension" />
         <attr name="android:hint" />
         <attr name="android:layout_marginStart" />
         <attr name="android:layout_marginEnd" />
@@ -168,7 +168,8 @@ You have to use app theme Theme.Material3.* or Theme.MaterialComponents.*.
         <attr name="search_navigationIconCompat" />
         <attr name="search_navigationIcon" />
         <attr name="search_navigationContentDescription" />
-        <attr name="search_backgroundColor" />
+        <attr name="search_navigationBackgroundColor" />
+        <attr name="search_navigationElevation" />
         <attr name="search_clearIcon" format="reference" />
         <attr name="search_dividerColor" format="reference" />
         <attr name="search_scrimColor" format="reference" />

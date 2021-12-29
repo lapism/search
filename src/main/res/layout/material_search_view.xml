@@ -21,11 +21,10 @@
             android:layout_height="match_parent"
             android:background="?attr/colorSurface">
 
-            <com.google.android.material.appbar.MaterialToolbar
+            <com.lapism.search.widget.MaterialTransparentToolbar
                 android:id="@+id/search_view_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorSurface"
                 android:clipChildren="false">
 
                 <LinearLayout
@@ -59,7 +58,7 @@
 
                 </LinearLayout>
 
-            </com.google.android.material.appbar.MaterialToolbar>
+            </com.lapism.search.widget.MaterialTransparentToolbar>
 
             <View
                 android:id="@+id/search_view_divider"
@@ -70,7 +69,8 @@
             <FrameLayout
                 android:id="@+id/search_view_content_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="?attr/colorSurface" />
 
         </com.google.android.material.appbar.AppBarLayout>
 

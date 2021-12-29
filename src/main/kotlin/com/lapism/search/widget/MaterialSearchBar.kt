@@ -55,9 +55,9 @@ class MaterialSearchBar @JvmOverloads constructor(
             setNavigationContentDescription(description)
         }
 
-        if (a?.hasValue(R.styleable.MaterialSearchBar_search_backgroundColor)!!) {
-            val color = a?.getInt(R.styleable.MaterialSearchBar_search_backgroundColor, 0)
-            setBackgroundColor(color!!)
+        if (a?.hasValue(R.styleable.MaterialSearchBar_search_navigationBackgroundColor)!!) {
+            val color = a?.getInt(R.styleable.MaterialSearchBar_search_navigationBackgroundColor, 0)
+            setNavigationBackgroundColor(color!!)
         }
 
         if (a?.hasValue(R.styleable.MaterialSearchBar_search_radius)!!) {
@@ -65,9 +65,13 @@ class MaterialSearchBar @JvmOverloads constructor(
             setRadius(customRadius?.toFloat()!!)
         }
 
-        if (a?.hasValue(R.styleable.MaterialSearchBar_search_elevation)!!) {
-            val customElevation = a?.getInt(R.styleable.MaterialSearchBar_search_elevation, 0)
-            elevation = customElevation?.toFloat()!!
+        if (a?.hasValue(R.styleable.MaterialSearchBar_search_navigationElevation)!!) {
+            val navigationElevation =
+                a?.getDimensionPixelSize(
+                    R.styleable.MaterialSearchBar_search_navigationElevation,
+                    0
+                )
+            setNavigationElevation(navigationElevation?.toFloat()!!)
         }
 
         if (a?.hasValue(R.styleable.MaterialSearchBar_android_hint)!!) {
@@ -97,19 +101,15 @@ class MaterialSearchBar @JvmOverloads constructor(
         binding.searchBarToolbar.setNavigationOnClickListener(listener)
     }
 
-    // *********************************************************************************************
-    override fun setBackgroundColor(@ColorInt color: Int) {
-        binding.searchBarCard.setCardBackgroundColor(color)
-    }
-
-    override fun setElevation(elevation: Float) {
+    override fun setNavigationElevation(elevation: Float) {
         binding.searchBarCard.cardElevation = elevation
     }
 
-    override fun getElevation(): Float {
-        return binding.searchBarCard.elevation
+    override fun setNavigationBackgroundColor(@ColorInt color: Int) {
+        binding.searchBarCard.setCardBackgroundColor(color)
     }
 
+    // *********************************************************************************************
     override fun setOnClickListener(@Nullable l: OnClickListener?) {
         binding.searchBarToolbar.setOnClickListener(l)
     }

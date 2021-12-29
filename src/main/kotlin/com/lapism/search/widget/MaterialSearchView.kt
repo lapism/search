@@ -104,12 +104,10 @@ class MaterialSearchView @JvmOverloads constructor(
             setNavigationContentDescription(description)
         }
 
-        if (a.hasValue(R.styleable.MaterialSearchView_search_backgroundColor)) {
-            val color = a.getInt(R.styleable.MaterialSearchView_search_backgroundColor, 0)
-            setBackgroundColor(color)
+        if (a.hasValue(R.styleable.MaterialSearchBar_search_navigationBackgroundColor)) {
+            val color = a.getInt(R.styleable.MaterialSearchBar_search_navigationBackgroundColor, 0)
+            setNavigationBackgroundColor(color)
         }
-
-        // TODO TOOLBAR COLOR
 
         if (a.hasValue(R.styleable.MaterialSearchView_search_clearIcon)) {
             setClearIcon(a.getDrawable(R.styleable.MaterialSearchView_search_clearIcon))
@@ -135,8 +133,13 @@ class MaterialSearchView @JvmOverloads constructor(
             )
         }
 
-        if (a.hasValue(R.styleable.MaterialSearchView_android_elevation)) {
-            val customElevation = a.getDimensionPixelSize(R.styleable.MaterialSearchView_android_elevation, 0)
+        if (a.hasValue(R.styleable.MaterialSearchView_search_navigationElevation)) {
+            val navigationElevation =
+                a.getDimensionPixelSize(
+                    R.styleable.MaterialSearchView_search_navigationElevation,
+                    0
+                )
+            setNavigationElevation(navigationElevation.toFloat())
         }
 
         if (a.hasValue(R.styleable.MaterialSearchView_android_hint)) {
@@ -180,9 +183,17 @@ class MaterialSearchView @JvmOverloads constructor(
         binding.searchViewToolbar.setNavigationOnClickListener(listener)
     }
 
+    override fun setNavigationElevation(elevation: Float) {
+        binding.searchViewToolbar.elevation = elevation
+    }
+
+    override fun setNavigationBackgroundColor(@ColorInt color: Int) {
+        binding.searchViewToolbar.setBackgroundColor(color)
+    }
+
     // *********************************************************************************************
     override fun setBackgroundColor(@ColorInt color: Int) {
-        binding.searchViewBackground.setBackgroundColor(color)
+        binding.searchViewContentContainer.setBackgroundColor(color)
     }
 
     override fun addView(child: View) {
@@ -222,10 +233,6 @@ class MaterialSearchView @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
-    fun setNavigationBackgroundColor(@ColorInt color: Int) {
-        binding.searchViewToolbar.setBackgroundColor(color)
-    }
-
     fun setClearIcon(@Nullable drawable: Drawable?) {
         binding.searchViewClearButton.setImageDrawable(drawable)
     }
