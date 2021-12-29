@@ -60,11 +60,6 @@ class MaterialSearchBar @JvmOverloads constructor(
             setNavigationBackgroundColor(color!!)
         }
 
-        if (a?.hasValue(R.styleable.MaterialSearchBar_search_radius)!!) {
-            val customRadius = a?.getInt(R.styleable.MaterialSearchBar_search_radius, 0)
-            setRadius(customRadius?.toFloat()!!)
-        }
-
         if (a?.hasValue(R.styleable.MaterialSearchBar_search_navigationElevation)!!) {
             val navigationElevation =
                 a?.getDimensionPixelSize(
@@ -72,6 +67,11 @@ class MaterialSearchBar @JvmOverloads constructor(
                     0
                 )
             setNavigationElevation(navigationElevation?.toFloat()!!)
+        }
+
+        if (a?.hasValue(R.styleable.MaterialSearchBar_search_radius)!!) {
+            val customRadius = a?.getInt(R.styleable.MaterialSearchBar_search_radius, 0)
+            setRadius(customRadius?.toFloat()!!)
         }
 
         if (a?.hasValue(R.styleable.MaterialSearchBar_android_hint)!!) {

@@ -109,6 +109,15 @@ class MaterialSearchView @JvmOverloads constructor(
             setNavigationBackgroundColor(color)
         }
 
+        if (a.hasValue(R.styleable.MaterialSearchView_search_navigationElevation)) {
+            val navigationElevation =
+                a.getDimensionPixelSize(
+                    R.styleable.MaterialSearchView_search_navigationElevation,
+                    0
+                )
+            setNavigationElevation(navigationElevation.toFloat())
+        }
+
         if (a.hasValue(R.styleable.MaterialSearchView_search_clearIcon)) {
             setClearIcon(a.getDrawable(R.styleable.MaterialSearchView_search_clearIcon))
         } else {
@@ -131,15 +140,6 @@ class MaterialSearchView @JvmOverloads constructor(
                     0
                 )
             )
-        }
-
-        if (a.hasValue(R.styleable.MaterialSearchView_search_navigationElevation)) {
-            val navigationElevation =
-                a.getDimensionPixelSize(
-                    R.styleable.MaterialSearchView_search_navigationElevation,
-                    0
-                )
-            setNavigationElevation(navigationElevation.toFloat())
         }
 
         if (a.hasValue(R.styleable.MaterialSearchView_android_hint)) {
