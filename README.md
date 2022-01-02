@@ -29,7 +29,7 @@ Add the dependency to your gradle file:
         }
 
         dependencies {
-            implementation 'io.github.lapism:search:1.2.0'
+            implementation 'io.github.lapism:search:1.2.1'
         }
 ```
 

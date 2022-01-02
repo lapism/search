@@ -49,7 +49,7 @@ dependencies {
 
 ext {
     PUBLISH_GROUP_ID = 'io.github.lapism'
-    PUBLISH_VERSION = '1.2.0'
+    PUBLISH_VERSION = '1.2.1'
     PUBLISH_ARTIFACT_ID = 'search'
     PUBLISH_DESCRIPTION = 'Material You Search component for Android, SearchView'
     PUBLISH_URL = 'https://github.com/lapism/search'
