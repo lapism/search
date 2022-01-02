@@ -28,7 +28,7 @@ class FocusEditText @JvmOverloads constructor(
 
     override fun clearFocus() {
         super.clearFocus()
-        text?.clear()
+        text?.clear() // TODO FIX
     }
 
     // *********************************************************************************************

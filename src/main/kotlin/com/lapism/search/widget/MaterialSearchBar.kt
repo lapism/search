@@ -70,7 +70,8 @@ class MaterialSearchBar @JvmOverloads constructor(
         }
 
         if (a?.hasValue(R.styleable.MaterialSearchBar_search_radius)!!) {
-            val customRadius = a?.getInt(R.styleable.MaterialSearchBar_search_radius, 0)
+            val customRadius =
+                a?.getDimensionPixelSize(R.styleable.MaterialSearchBar_search_radius, 0)
             setRadius(customRadius?.toFloat()!!)
         }
 
