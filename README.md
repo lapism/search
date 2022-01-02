@@ -29,7 +29,7 @@ Add the dependency to your gradle file:
         }
 
         dependencies {
-            implementation 'io.github.lapism:search:1.2.0'
+            implementation 'io.github.lapism:search:1.2.1'
         }
 ```
 
@@ -65,20 +65,13 @@ Add the dependency to your gradle file:
                 binding.materialSearchView.clearFocus()
             }
             setHint(getString(R.string.search))
-            setBackgroundColor(
-                ContextCompat.getColor(
-                    this@MainActivity,
-                    R.color.color_surface
-                )
-            )
             setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
-                override fun onQueryTextChange(newText: CharSequence): Boolean {
+                override fun onQueryTextChange(newText: CharSequence) {
                     adapter.filter(newText)
-                    return true
                 }
 
-                override fun onQueryTextSubmit(query: CharSequence): Boolean {
-                    return true
+                override fun onQueryTextSubmit(query: CharSequence) {
+
                 }
             })
             setOnFocusChangeListener(object : MaterialSearchView.OnFocusChangeListener {
