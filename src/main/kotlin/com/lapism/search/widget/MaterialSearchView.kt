@@ -14,10 +14,11 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.annotation.*
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.customview.view.AbsSavedState
-import androidx.transition.*
 import com.lapism.search.R
 import com.lapism.search.databinding.MaterialSearchViewBinding
 
@@ -167,7 +168,7 @@ class MaterialSearchView @JvmOverloads constructor(
         binding.searchViewToolbar.setNavigationIcon(resId)
     }
 
-    override fun setNavigationIcon(@Nullable drawable: Drawable?) {
+    override fun setNavigationIcon(drawable: Drawable?) {
         binding.searchViewToolbar.navigationIcon = drawable
     }
 
@@ -175,7 +176,7 @@ class MaterialSearchView @JvmOverloads constructor(
         binding.searchViewToolbar.setNavigationContentDescription(resId)
     }
 
-    override fun setNavigationContentDescription(@Nullable description: CharSequence?) {
+    override fun setNavigationContentDescription(description: CharSequence?) {
         binding.searchViewToolbar.navigationContentDescription = description
     }
 
@@ -208,6 +209,7 @@ class MaterialSearchView @JvmOverloads constructor(
         binding.searchViewEditText.clearFocus()
     }
 
+    // TODO ?
     override fun onSaveInstanceState(): Parcelable? {
         val superState: Parcelable? = super.onSaveInstanceState()
         superState?.let {
@@ -216,7 +218,7 @@ class MaterialSearchView @JvmOverloads constructor(
             state.focus = binding.searchViewEditText.hasFocus()
             return state
         } ?: run {
-            return superState
+            return super.onSaveInstanceState()
         }
     }
 
@@ -233,7 +235,7 @@ class MaterialSearchView @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
-    fun setClearIcon(@Nullable drawable: Drawable?) {
+    fun setClearIcon(drawable: Drawable?) {
         binding.searchViewClearButton.setImageDrawable(drawable)
     }
 
@@ -249,12 +251,15 @@ class MaterialSearchView @JvmOverloads constructor(
         binding.searchViewEditText.setTextClearOnBackPressed(clear)
     }
 
-    @Nullable
+    fun setTextClearOnClearFocus(clearFocus: Boolean) {
+        binding.searchViewEditText.setTextClearOnClearFocus(clearFocus)
+    }
+
     fun getTextQuery(): Editable? {
         return binding.searchViewEditText.text
     }
 
-    fun setTextQuery(@Nullable query: CharSequence?, submit: Boolean) {
+    fun setTextQuery(query: CharSequence?, submit: Boolean) {
         binding.searchViewEditText.setText(query)
 
         if (query != null) {
@@ -273,11 +278,11 @@ class MaterialSearchView @JvmOverloads constructor(
         }
     }
 
-    fun setTextTypeface(@Nullable typeface: Typeface?) {
+    fun setTextTypeface(typeface: Typeface?) {
         binding.searchViewEditText.typeface = typeface
     }
 
-    fun setHint(@Nullable hint: CharSequence?) {
+    fun setHint(hint: CharSequence?) {
         binding.searchViewEditText.hint = hint
     }
 
@@ -301,11 +306,11 @@ class MaterialSearchView @JvmOverloads constructor(
         binding.searchViewEditText.setTextColor(color)
     }
 
-    fun setOnFocusChangeListener(@Nullable listener: OnFocusChangeListener?) {
+    fun setOnFocusChangeListener(listener: OnFocusChangeListener?) {
         focusListener = listener
     }
 
-    fun setOnQueryTextListener(@Nullable listener: OnQueryTextListener?) {
+    fun setOnQueryTextListener(listener: OnQueryTextListener?) {
         queryListener = listener
     }
 
@@ -356,7 +361,6 @@ class MaterialSearchView @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
-    @Suppress("unused")
     private class SavedState : AbsSavedState {
 
         var text: String? = null

@@ -16,7 +16,7 @@
 * [LapIcons](https://play.google.com/store/apps/details?id=com.lapism.lapicons)
 
 ## Api
- - minSdkVersion = 26
+ - minSdkVersion = 21
  - targetSdkVersion = 31
  - Java = 1.8
  - Kotlin = 1.8
@@ -29,7 +29,7 @@ Add the dependency to your gradle file:
         }
 
         dependencies {
-            implementation 'io.github.lapism:search:1.2.1'
+            implementation 'io.github.lapism:search:2.0.0'
         }
 ```
 

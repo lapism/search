@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.TextView
 import androidx.annotation.Nullable
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import com.lapism.search.databinding.MaterialSearchToolbarBinding
 
 
@@ -66,8 +67,9 @@ class MaterialSearchToolbar : MaterialTransparentToolbar {
         info.className = TextView::class.java.canonicalName
         var text: CharSequence? = getText()
         val isEmpty = TextUtils.isEmpty(text)
-        info.hintText = getHint()
-        info.isShowingHintText = isEmpty
+        val helper = AccessibilityNodeInfoCompat.wrap(info)
+        helper.hintText = getHint()
+        helper.isShowingHintText = isEmpty
         if (isEmpty) {
             text = getHint()
         }
@@ -75,7 +77,7 @@ class MaterialSearchToolbar : MaterialTransparentToolbar {
     }
 
     // *********************************************************************************************
-    fun setText(@Nullable text: CharSequence?) {
+    fun setText(text: CharSequence?) {
         binding.searchToolbarTextView.text = text
     }
 
@@ -84,7 +86,7 @@ class MaterialSearchToolbar : MaterialTransparentToolbar {
         return binding.searchToolbarTextView.text
     }
 
-    fun setHint(@Nullable hint: CharSequence?) {
+    fun setHint(hint: CharSequence?) {
         binding.searchToolbarTextView.hint = hint
     }
 

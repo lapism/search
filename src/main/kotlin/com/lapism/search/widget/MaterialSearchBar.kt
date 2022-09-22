@@ -8,7 +8,10 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import androidx.annotation.*
+import androidx.annotation.ColorInt
+import androidx.annotation.Dimension
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import com.google.android.material.appbar.AppBarLayout
@@ -86,7 +89,7 @@ class MaterialSearchBar @JvmOverloads constructor(
         binding.searchBarToolbar.setNavigationIcon(resId)
     }
 
-    override fun setNavigationIcon(@Nullable drawable: Drawable?) {
+    override fun setNavigationIcon(drawable: Drawable?) {
         binding.searchBarToolbar.navigationIcon = drawable
     }
 
@@ -94,7 +97,7 @@ class MaterialSearchBar @JvmOverloads constructor(
         binding.searchBarToolbar.setNavigationContentDescription(resId)
     }
 
-    override fun setNavigationContentDescription(@Nullable description: CharSequence?) {
+    override fun setNavigationContentDescription(description: CharSequence?) {
         binding.searchBarToolbar.navigationContentDescription = description
     }
 
@@ -111,7 +114,7 @@ class MaterialSearchBar @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
-    override fun setOnClickListener(@Nullable l: OnClickListener?) {
+    override fun setOnClickListener(l: OnClickListener?) {
         binding.searchBarToolbar.setOnClickListener(l)
     }
 
@@ -150,15 +153,15 @@ class MaterialSearchBar @JvmOverloads constructor(
         return binding.searchBarToolbar
     }
 
-    fun setText(@Nullable text: CharSequence?) {
+    fun setText(text: CharSequence?) {
         binding.searchBarToolbar.setText(text)
     }
 
-    fun setHint(@Nullable hint: CharSequence?) {
+    fun setHint(hint: CharSequence?) {
         binding.searchBarToolbar.setHint(hint)
     }
 
-    fun setForegroundColor(@Nullable foregroundColor: ColorStateList?) {
+    fun setForegroundColor(foregroundColor: ColorStateList?) {
         binding.searchBarCard.setCardForegroundColor(foregroundColor)
     }
 

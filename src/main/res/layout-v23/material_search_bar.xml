@@ -11,6 +11,7 @@
             android:id="@+id/search_bar_toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/search_dp_48"
+            android:foreground="?attr/selectableItemBackground"
             android:minHeight="@dimen/search_dp_48"
             android:paddingStart="@dimen/search_dp_4"
             android:paddingEnd="@dimen/search_dp_0"

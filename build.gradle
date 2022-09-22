@@ -4,14 +4,11 @@ plugins {
 }
 
 android {
-    compileSdk 31
-    buildToolsVersion "31.0.0"
+    compileSdk 33
 
     defaultConfig {
-        minSdk 26
-        targetSdk 31
-        versionCode 1020100
-        versionName "1.2.1"
+        minSdk 21
+        targetSdk 33
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
@@ -39,17 +36,19 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    namespace 'com.lapism.search'
 }
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.4.0'
-    implementation 'com.google.android.material:material:1.6.0-alpha01'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.8.0-alpha01'
 }
 
 ext {
     PUBLISH_GROUP_ID = 'io.github.lapism'
-    PUBLISH_VERSION = '1.2.1'
+    PUBLISH_VERSION = '2.0.0'
     PUBLISH_ARTIFACT_ID = 'search'
     PUBLISH_DESCRIPTION = 'Material You Search component for Android, SearchView'
     PUBLISH_URL = 'https://github.com/lapism/search'
