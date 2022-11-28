@@ -31,6 +31,8 @@ class MaterialSearchView @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : MaterialSearchLayout(context, attrs, defStyleAttr, defStyleRes) {
 
+    private var radius: Float = 0.0f
+
     // *********************************************************************************************
     private var binding: MaterialSearchViewBinding
     private var focusListener: OnFocusChangeListener? = null
@@ -59,6 +61,9 @@ class MaterialSearchView @JvmOverloads constructor(
             true
         }
         binding.searchViewEditText.setOnFocusChangeListener { _, hasFocus ->
+
+            binding.searchViewClip.clipToOutline = !binding.searchViewClip.clipToOutline
+
             visibility = if (hasFocus) {
                 showKeyboard()
                 View.VISIBLE
@@ -164,6 +169,11 @@ class MaterialSearchView @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
+    fun setRadius(radius: Float) {
+        binding.searchViewClip.setRadius(radius)
+    }
+
+    // *********************************************************************************************
     override fun setNavigationIcon(@DrawableRes resId: Int) {
         binding.searchViewToolbar.setNavigationIcon(resId)
     }
@@ -209,7 +219,7 @@ class MaterialSearchView @JvmOverloads constructor(
         binding.searchViewEditText.clearFocus()
     }
 
-    // TODO ?
+    // TODO Z BUILDU Z APPEK
     override fun onSaveInstanceState(): Parcelable? {
         val superState: Parcelable? = super.onSaveInstanceState()
         superState?.let {

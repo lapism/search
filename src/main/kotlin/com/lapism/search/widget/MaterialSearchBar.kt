@@ -149,6 +149,16 @@ class MaterialSearchBar @JvmOverloads constructor(
     }
 
     // *********************************************************************************************
+    // TODO set public and requestLayout(), invalidate()
+    private fun setMargins(left: Int, top: Int, right: Int, bottom: Int) {
+        if (binding.searchBarCard.layoutParams is MarginLayoutParams) {
+            val params = binding.searchBarCard.layoutParams as? MarginLayoutParams
+            params?.setMargins(left, top, right, bottom)
+            binding.searchBarCard.layoutParams = params
+        }
+    }
+
+    // *********************************************************************************************
     fun getToolbar(): MaterialSearchToolbar {
         return binding.searchBarToolbar
     }
@@ -177,14 +187,8 @@ class MaterialSearchBar @JvmOverloads constructor(
         binding.searchBarCard.radius = radius
     }
 
-    // *********************************************************************************************
-    // TODO set public and requestLayout(), invalidate()
-    private fun setMargins(left: Int, top: Int, right: Int, bottom: Int) {
-        if (binding.searchBarCard.layoutParams is MarginLayoutParams) {
-            val params = binding.searchBarCard.layoutParams as? MarginLayoutParams
-            params?.setMargins(left, top, right, bottom)
-            binding.searchBarCard.layoutParams = params
-        }
+    fun getRadius(): Float {
+        return binding.searchBarCard.radius
     }
 
     // *********************************************************************************************
@@ -206,6 +210,15 @@ class MaterialSearchBar @JvmOverloads constructor(
                 ViewCompat.setElevation(dependency, 0.0f)
             }
             return super.onDependentViewChanged(parent, child, dependency)
+        }
+
+        override fun onLayoutChild(
+            parent: CoordinatorLayout,
+            child: View,
+            layoutDirection: Int
+        ): Boolean {
+            super.onLayoutChild(parent, child, layoutDirection)
+            return true
         }
 
     }

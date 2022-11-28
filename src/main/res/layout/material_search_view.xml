@@ -9,7 +9,7 @@
         android:background="?scrimBackground" />
 
     <com.lapism.search.internal.ClippableRoundedCornerLayout
-        android:id="@+id/seach_view_clip"
+        android:id="@+id/search_view_clip"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"
