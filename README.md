@@ -1,6 +1,6 @@
-![API](https://img.shields.io/badge/API-26%2B-brightgreen.svg?style=flat)
+![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)
 [![Kotlin Version](https://img.shields.io/badge/Kotlin-blue.svg)](https://kotlinlang.org)
-[![Download](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Fio%2Fgithub%2Flapism%2Fsearch%2Fmaven-metadata.xml) ](https://s01.oss.sonatype.org/content/repositories/releases/io/github/lapism/search/)
+![Maven Central](https://img.shields.io/maven-central/v/io.github.lapism/search)](https://s01.oss.sonatype.org/content/repositories/releases/io/github/lapism/search/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # Search
