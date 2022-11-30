@@ -1,6 +1,6 @@
 ![API](https://img.shields.io/badge/API-26%2B-brightgreen.svg?style=flat)
 [![Kotlin Version](https://img.shields.io/badge/Kotlin-blue.svg)](https://kotlinlang.org)
-[![Download](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Fio%2Fgithub%2Flapism%2Fsearch%2Fmaven-metadata.xml) ](https://repo1.maven.org/maven2/io/github/lapism/search/)
+[![Download](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Frepo1.maven.org%2Fmaven2%2Fio%2Fgithub%2Flapism%2Fsearch%2Fmaven-metadata.xml) ](https://s01.oss.sonatype.org/content/repositories/releases/io/github/lapism/search/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # Search
@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.github.lapism:search:2.0.0'
+    implementation 'io.github.lapism:search:2.0.2'
 }
 ```
 
@@ -163,17 +163,17 @@ You have to use app theme Theme.Material3.* or Theme.MaterialComponents.*.
 </declare-styleable>
 
 <declare-styleable name="MaterialSearchView">
-<attr name="search_navigationIconCompat" />
-<attr name="search_navigationIcon" />
-<attr name="search_navigationContentDescription" />
-<attr name="search_navigationBackgroundColor" />
-<attr name="search_navigationElevation" />
-<attr name="search_clearIcon" format="reference" />
-<attr name="search_dividerColor" format="reference" />
-<attr name="search_scrimColor" format="reference" />
-<attr name="android:hint" />
-<attr name="android:imeOptions" />
-<attr name="android:inputType" />
+    <attr name="search_navigationIconCompat" />
+    <attr name="search_navigationIcon" />
+    <attr name="search_navigationContentDescription" />
+    <attr name="search_navigationBackgroundColor" />
+    <attr name="search_navigationElevation" />
+    <attr name="search_clearIcon" format="reference" />
+    <attr name="search_dividerColor" format="reference" />
+    <attr name="search_scrimColor" format="reference" />
+    <attr name="android:hint" />
+    <attr name="android:imeOptions" />
+    <attr name="android:inputType" />
 </declare-styleable>
 ```
 

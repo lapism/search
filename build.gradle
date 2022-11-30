@@ -11,8 +11,8 @@ android {
     defaultConfig {
         minSdk 21
         targetSdk 33
-        versionCode 2000000
-        versionName "2.0.0"
+        versionCode 2002000
+        versionName "2.0.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
@@ -56,7 +56,7 @@ dependencies {
 
 ext {
     PUBLISH_GROUP_ID = 'io.github.lapism'
-    PUBLISH_VERSION = '2.0.0'
+    PUBLISH_VERSION = '2.0.2'
     PUBLISH_ARTIFACT_ID = 'search'
     PUBLISH_DESCRIPTION = 'Material You Search component for Android, SearchView'
     PUBLISH_URL = 'https://github.com/lapism/search'
