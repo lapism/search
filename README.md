@@ -5,19 +5,19 @@
 
 # Search
 
-- Search component for Android
-- Material You Design
-- Styling
-- Kotlin
+ - Search component for Android
+ - Material You Design
+ - Styling
+ - Kotlin
 
 ![Search](https://github.com/lapism/Search/blob/master/images/search.png)
 
 ## Api
 
-- minSdkVersion = 21
-- targetSdkVersion = 31
-- Java = 1.8
-- Kotlin = 1.8
+ - minSdkVersion = 21
+ - targetSdkVersion = 31
+ - Java = 1.8
+ - Kotlin = 1.8
 
 Add the dependency to your gradle file:
 
@@ -42,45 +42,45 @@ dependencies {
 ### MaterialSearchBar
 
 ```java
-        val toolbar=binding.materialSearchBar.getToolbar()
+        val toolbar = binding.materialSearchBar.getToolbar()
         setSupportActionBar(toolbar)
 
-        binding.materialSearchBar.apply{
-        navigationIconCompat=NavigationIconCompat.SEARCH
-        setHint(getString(R.string.search))
-        setOnClickListener{
-        binding.materialSearchView.requestFocus()
-        }
-        setNavigationOnClickListener{
-        binding.materialSearchView.requestFocus()
-        }
+        binding.materialSearchBar.apply {
+            navigationIconCompat = NavigationIconCompat.SEARCH
+            setHint(getString(R.string.search))
+            setOnClickListener {
+                binding.materialSearchView.requestFocus()
+            }
+            setNavigationOnClickListener {
+                binding.materialSearchView.requestFocus()
+            }
         }
 ```
 
 ### MaterialSearchView
 
 ```java
-        binding.materialSearchView.apply{
-        addView(recyclerView)
-        navigationIconCompat=NavigationIconCompat.ARROW
-        setNavigationOnClickListener{
-        binding.materialSearchView.clearFocus()
-        }
-        setHint(getString(R.string.search))
-        setOnQueryTextListener(object:MaterialSearchView.OnQueryTextListener{
-        override fun onQueryTextChange(newText:CharSequence){
-        adapter.filter(newText)
-        }
+        binding.materialSearchView.apply {
+            addView(recyclerView)
+            navigationIconCompat = NavigationIconCompat.ARROW
+            setNavigationOnClickListener {
+                binding.materialSearchView.clearFocus()
+            }
+            setHint(getString(R.string.search))
+            setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
+                override fun onQueryTextChange(newText: CharSequence) {
+                    adapter.filter(newText)
+                }
 
-        override fun onQueryTextSubmit(query:CharSequence){
+                override fun onQueryTextSubmit(query: CharSequence) {
 
-        }
-        })
-        setOnFocusChangeListener(object:MaterialSearchView.OnFocusChangeListener{
-        override fun onFocusChange(hasFocus:Boolean){
+                }
+            })
+            setOnFocusChangeListener(object : MaterialSearchView.OnFocusChangeListener {
+                override fun onFocusChange(hasFocus: Boolean) {
 
-        }
-        })
+                }
+            })
         }
 ```
 
@@ -90,39 +90,51 @@ You have to use app theme Theme.Material3.* or Theme.MaterialComponents.*.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:fitsSystemWindows="false"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
     tools:context=".activity.MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout android:layout_width="match_parent"
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <!-- Simple MaterialToolbar extension -->
-        <com.lapism.search.widget.MaterialSearchBar android:id="@+id/material_search_bar"
-            android:layout_width="match_parent" android:layout_height="wrap_content"
+        <com.lapism.search.widget.MaterialSearchBar
+            android:id="@+id/material_search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways|snap" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.fragment.app.FragmentContainerView android:id="@+id/nav_host_fragment"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:defaultNavHost="true"
 
         app:layout_behavior="@string/material_search_bar_scrolling_view_behavior"
 
         app:navGraph="@navigation/mobile_navigation" />
 
-    <com.lapism.search.widget.MaterialSearchView android:id="@+id/material_search_view"
-        android:layout_width="match_parent" android:layout_height="match_parent"
+    <com.lapism.search.widget.MaterialSearchView
+        android:id="@+id/material_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_anchor="@id/material_search_bar" />
 
-    <BottomNavigationView android:id="@+id/bottom_navigation_view"
-        android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:layout_gravity="bottom" android:orientation="vertical" app:layout_insetEdge="bottom"
+    <BottomNavigationView
+        android:id="@+id/bottom_navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        app:layout_insetEdge="bottom"
         app:menu="@menu/menu_bottom_nav" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
@@ -177,5 +189,4 @@ You have to use app theme Theme.Material3.* or Theme.MaterialComponents.*.
 
 ## License
 
-This project is licensed under the Apache License 2.0 - see
-the [LICENSE](https://github.com/lapism/Search/blob/searchview/LICENSE) file for details.
+This project is licensed under the Apache License 2.0 - see the [LICENSE](https://github.com/lapism/Search/blob/searchview/LICENSE) file for details.
