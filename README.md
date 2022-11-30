@@ -4,6 +4,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # Search
+
  - Search component for Android
  - Material You Design
  - Styling
@@ -11,35 +12,35 @@
 
 ![Search](https://github.com/lapism/Search/blob/master/images/search.png)
 
-## Apps with this library
-
-* [LapIcons](https://play.google.com/store/apps/details?id=com.lapism.lapicons)
-
 ## Api
- - minSdkVersion = 26
+
+ - minSdkVersion = 21
  - targetSdkVersion = 31
  - Java = 1.8
  - Kotlin = 1.8
 
 Add the dependency to your gradle file:
-```groovy
-        repositories {
-            google()
-            mavenCentral()
-        }
 
-        dependencies {
-            implementation 'io.github.lapism:search:1.2.1'
-        }
+```groovy
+repositories {
+    google()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.github.lapism:search:2.0.0'
+}
 ```
 
 ## Usage
+
 ```java
         binding.materialSearchView.requestFocus()
         binding.materialSearchView.clearFocus()
 ```
 
 ### MaterialSearchBar
+
 ```java
         val toolbar = binding.materialSearchBar.getToolbar()
         setSupportActionBar(toolbar)
@@ -57,6 +58,7 @@ Add the dependency to your gradle file:
 ```
 
 ### MaterialSearchView
+
 ```java
         binding.materialSearchView.apply {
             addView(recyclerView)
@@ -83,6 +85,7 @@ Add the dependency to your gradle file:
 ```
 
 ### Layout
+
 You have to use app theme Theme.Material3.* or Theme.MaterialComponents.*.
 
 ```xml
@@ -138,42 +141,46 @@ You have to use app theme Theme.Material3.* or Theme.MaterialComponents.*.
 ```
 
 ### XML attributes
-```xml
-    <declare-styleable name="MaterialSearchBar">
-        <attr name="search_navigationIconCompat" format="enum">
-            <enum name="none" value="0" />
-            <enum name="arrow" value="1" />
-            <enum name="search" value="2" />
-        </attr>
-        <attr name="search_navigationIcon" format="reference" />
-        <attr name="search_navigationContentDescription" format="reference" />
-        <attr name="search_navigationBackgroundColor" format="reference" />
-        <attr name="search_navigationElevation" format="dimension" />
-        <attr name="search_radius" format="dimension" />
-        <attr name="android:hint" />
-        <attr name="android:layout_marginStart" />
-        <attr name="android:layout_marginEnd" />
-        <attr name="android:layout_marginTop" />
-        <attr name="android:layout_marginBottom" />
-    </declare-styleable>
 
-    <declare-styleable name="MaterialSearchView">
-        <attr name="search_navigationIconCompat" />
-        <attr name="search_navigationIcon" />
-        <attr name="search_navigationContentDescription" />
-        <attr name="search_navigationBackgroundColor" />
-        <attr name="search_navigationElevation" />
-        <attr name="search_clearIcon" format="reference" />
-        <attr name="search_dividerColor" format="reference" />
-        <attr name="search_scrimColor" format="reference" />
-        <attr name="android:hint" />
-        <attr name="android:imeOptions" />
-        <attr name="android:inputType" />
-    </declare-styleable>
+```xml
+
+<declare-styleable name="MaterialSearchBar">
+    <attr name="search_navigationIconCompat" format="enum">
+        <enum name="none" value="0" />
+        <enum name="arrow" value="1" />
+        <enum name="search" value="2" />
+    </attr>
+    <attr name="search_navigationIcon" format="reference" />
+    <attr name="search_navigationContentDescription" format="reference" />
+    <attr name="search_navigationBackgroundColor" format="reference" />
+    <attr name="search_navigationElevation" format="dimension" />
+    <attr name="search_radius" format="dimension" />
+    <attr name="android:hint" />
+    <attr name="android:layout_marginStart" />
+    <attr name="android:layout_marginEnd" />
+    <attr name="android:layout_marginTop" />
+    <attr name="android:layout_marginBottom" />
+</declare-styleable>
+
+<declare-styleable name="MaterialSearchView">
+<attr name="search_navigationIconCompat" />
+<attr name="search_navigationIcon" />
+<attr name="search_navigationContentDescription" />
+<attr name="search_navigationBackgroundColor" />
+<attr name="search_navigationElevation" />
+<attr name="search_clearIcon" format="reference" />
+<attr name="search_dividerColor" format="reference" />
+<attr name="search_scrimColor" format="reference" />
+<attr name="android:hint" />
+<attr name="android:imeOptions" />
+<attr name="android:inputType" />
+</declare-styleable>
 ```
 
 ## Todo
+
 **Animation**
+
 - animation like Google, needs help :)
 
 ## Author

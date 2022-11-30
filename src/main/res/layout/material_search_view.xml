@@ -8,8 +8,7 @@
         android:alpha="0.0"
         android:background="?scrimBackground" />
 
-    <com.lapism.search.internal.ClippableRoundedCornerLayout
-        android:id="@+id/seach_view_clip"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"
@@ -74,6 +73,6 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-    </com.lapism.search.internal.ClippableRoundedCornerLayout>
+    </FrameLayout>
 
 </merge>

@@ -1,17 +1,18 @@
 plugins {
     id 'com.android.library'
-    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    compileSdk 31
-    buildToolsVersion "31.0.0"
+    namespace 'com.lapism.search'
+    compileSdk 33
+    buildToolsVersion "33.0.0"
 
     defaultConfig {
-        minSdk 26
-        targetSdk 31
-        versionCode 1020100
-        versionName "1.2.1"
+        minSdk 21
+        targetSdk 33
+        versionCode 2000000
+        versionName "2.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
@@ -32,24 +33,30 @@ android {
         jvmTarget = '1.8'
     }
 
+    buildFeatures {
+        viewBinding true
+    }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-    buildFeatures {
-        viewBinding true
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+        }
     }
 }
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.4.0'
-    implementation 'com.google.android.material:material:1.6.0-alpha01'
+    implementation 'androidx.appcompat:appcompat:1.7.0-alpha01'
+    implementation 'com.google.android.material:material:1.8.0-alpha03'
 }
 
 ext {
     PUBLISH_GROUP_ID = 'io.github.lapism'
-    PUBLISH_VERSION = '1.2.1'
+    PUBLISH_VERSION = '2.0.0'
     PUBLISH_ARTIFACT_ID = 'search'
     PUBLISH_DESCRIPTION = 'Material You Search component for Android, SearchView'
     PUBLISH_URL = 'https://github.com/lapism/search'

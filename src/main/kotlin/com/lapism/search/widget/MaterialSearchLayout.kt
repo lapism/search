@@ -6,7 +6,6 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
-import androidx.annotation.Nullable
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.lapism.search.R
@@ -52,11 +51,11 @@ abstract class MaterialSearchLayout @JvmOverloads constructor(
     // *********************************************************************************************
     abstract fun setNavigationIcon(@DrawableRes resId: Int)
 
-    abstract fun setNavigationIcon(@Nullable drawable: Drawable?)
+    abstract fun setNavigationIcon(drawable: Drawable?)
 
     abstract fun setNavigationContentDescription(@StringRes resId: Int)
 
-    abstract fun setNavigationContentDescription(@Nullable description: CharSequence?)
+    abstract fun setNavigationContentDescription(description: CharSequence?)
 
     abstract fun setNavigationOnClickListener(listener: OnClickListener)
 

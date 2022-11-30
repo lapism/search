@@ -3,6 +3,7 @@ package com.lapism.search.internal
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Path
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.widget.FrameLayout
 
@@ -15,19 +16,30 @@ class ClippableRoundedCornerLayout @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr, defStyleRes) {
 
     // *********************************************************************************************
-    // TODO CLIP ANIMATION
-    var path: Path? = null
+    private var radius: Float = 0.0f
+
+    // *********************************************************************************************
+    init {
+        setWillNotDraw(false)
+    }
 
     // *********************************************************************************************
     override fun dispatchDraw(canvas: Canvas?) {
-        if (path == null) {
+        canvas?.let {
+            val rect = RectF(0F, 0F, canvas.width.toFloat(), canvas.height.toFloat())
+            val path = Path()
+            path.addRoundRect(rect, radius, radius, Path.Direction.CW)
+
+            val save = canvas.save()
+            canvas.clipPath(path)
             super.dispatchDraw(canvas)
-            return
+            canvas.restoreToCount(save)
         }
-        val save = canvas?.save()
-        canvas?.clipPath(path!!)
-        super.dispatchDraw(canvas)
-        canvas?.restoreToCount(save!!)
+    }
+
+    fun setRadius(radius: Float) {
+        this.radius = radius
+        invalidate()
     }
 
 }
