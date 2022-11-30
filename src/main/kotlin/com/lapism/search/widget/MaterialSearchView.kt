@@ -31,8 +31,6 @@ class MaterialSearchView @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : MaterialSearchLayout(context, attrs, defStyleAttr, defStyleRes) {
 
-    private var radius: Float = 0.0f
-
     // *********************************************************************************************
     private var binding: MaterialSearchViewBinding
     private var focusListener: OnFocusChangeListener? = null
