@@ -61,9 +61,6 @@ class MaterialSearchView @JvmOverloads constructor(
             true
         }
         binding.searchViewEditText.setOnFocusChangeListener { _, hasFocus ->
-
-            binding.searchViewClip.clipToOutline = !binding.searchViewClip.clipToOutline
-
             visibility = if (hasFocus) {
                 showKeyboard()
                 View.VISIBLE
@@ -166,11 +163,6 @@ class MaterialSearchView @JvmOverloads constructor(
         a.recycle()
 
         visibility = View.GONE
-    }
-
-    // *********************************************************************************************
-    fun setRadius(radius: Float) {
-        binding.searchViewClip.setRadius(radius)
     }
 
     // *********************************************************************************************
