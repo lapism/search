@@ -26,7 +26,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.github.lapism:search:2.0.2'
+    implementation 'io.github.lapism:search:2.0.1'
 }
 ```
 
