@@ -4,6 +4,12 @@
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.lapism/search)](https://s01.oss.sonatype.org/content/repositories/releases/io/github/lapism/search)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+DEPRECATED.
+Use >> 
+com.google.android.material.search.SearchBar
+com.google.android.material.search.SearchView
+
+
 # Search
 
  - Search component for Android
