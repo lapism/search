@@ -5,9 +5,9 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 DEPRECATED.
-Use >> 
-com.google.android.material.search.SearchBar
-com.google.android.material.search.SearchView
+Use
+ - com.google.android.material.search.SearchBar
+ - com.google.android.material.search.SearchView
 
 
 # Search
